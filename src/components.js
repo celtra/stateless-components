@@ -1,4 +1,5 @@
 import Selectbox from '@/stateless/selectbox.vue'
+import Input from '@/stateless/input.vue'
 
 export default {
     selectbox: {
@@ -22,6 +23,14 @@ export default {
             theme: 'light',
             size: 'condensed',
             label: 'Something',
+        },
+    },
+    input: {
+        component: Input,
+        width: 300,
+        defaultProps: {
+            label: 'Something',
+            theme: 'light',
         },
     },
 }
