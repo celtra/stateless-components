@@ -4,8 +4,7 @@ export default {
     selectbox: {
         component: Selectbox,
         width: 300,
-        needsModel: true,
-        props: {
+        defaultProps: {
             options: [
                 { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
                 { id: '2', label: "Lorem" },
