@@ -1,0 +1,172 @@
+@import (reference) './variables';
+@import (reference) './breakpoints';
+
+.new-dialog__column-object-container {
+    width: 100%;
+}
+
+.new-dialog__column-object-wrapper {
+    width: fit-content;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+
+    &:hover, &.new-dialog__column-object-wrapper--focused {
+        .new-dialog__column-object {
+            > * {
+                opacity: 0.4;
+            }
+
+            &:hover, &:focus {
+                > * {
+                    opacity: 1;
+                }
+
+                .new-dialog__column-name {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
+
+.new-dialog__column-object:focus {
+    outline: none;
+}
+
+@keyframes open-columns-animation {
+    0% {
+        transform: scale3d(0.6, 0.6, 1);
+        opacity: 0;
+        visibility: visible;
+    }
+    90% {
+        transform: scale3d(1.05, 1.05, 1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale3d(1, 1, 1);
+        visibility: visible;
+    }
+}
+
+.new-dialog__column-object--close-animation {
+    animation: close-columns-animation @open-close-animation-time-column ease-in;
+    animation-fill-mode: both;
+}
+
+@keyframes close-columns-animation {
+    0% {
+        transform: scale3d(1, 1, 1);
+        visibility: visible;
+    }
+    10% {
+        transform: scale3d(1.05, 1.05, 1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale3d(0.6, 0.6, 1);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.new-dialog__column-object {
+    // min-width to prevent over-expansion of flex child due to long text (word-wrap alone does not help)
+    min-width: 5%;
+    flex: 1 0 0;
+    padding: 0 1.25vw;
+    opacity: 1;
+    visibility: hidden;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: opacity @icon-hover-transition-time linear;
+    transform-origin: top center;
+    user-select: none;
+
+    &--opening {
+        animation: open-columns-animation @open-close-animation-time-column ease-out;
+        animation-fill-mode: forwards;
+    }
+
+    &--closing {
+        visibility: visible;
+    }
+
+    &:first-child { padding-left: 0; }
+    &:last-child { padding-right: 0; }
+}
+
+.new-dialog__column-object--sparse {
+    padding: 0 65px;
+
+    &:first-child { padding-left: 0; }
+    &:last-child { padding-right: 0; }
+}
+
+.new-dialog__column-image-wrapper {
+    position: relative;
+    height: 0;
+    padding-top: 100%;
+    display: flex;
+    transition: transform @icon-hover-transition-time linear,
+                opacity @icon-hover-transition-time linear;
+}
+
+.new-dialog__column-image {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 100%;
+}
+
+.new-dialog__column-image-status-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.new-dialog__column-name-wrapper {
+    max-width: 200px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .breakpoint-lte-1680({ margin: 15px auto 10px auto; });
+}
+
+.new-dialog__column-name {
+    color: @very-light-gray;
+    font-size: 18px;
+    font-family: @regular-text-font;
+    text-align: center;
+    transition: color @icon-hover-transition-time linear;
+
+    .breakpoint-1920-1600({ font-size: 18px; });
+    .breakpoint-1600-1440({ font-size: 18px; });
+    .breakpoint-1440-1280({ font-size: 18px; });
+    .breakpoint-1280-1024({ font-size: 16px; });
+    .breakpoint-1024(     { font-size: 14px; });
+}
+
+.new-dialog__column-description-wrapper {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.new-dialog__column-description {
+    color: @gray;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    font-family: @regular-text-font;
+    line-height: 15px;
+    text-align: center;
+    word-wrap: break-word;
+
+    .breakpoint-1440-1280({ font-size: 11px; });
+    .breakpoint-1280-1024({ font-size: 10px; });
+    .breakpoint-1024(     { font-size: 10px; });
+}

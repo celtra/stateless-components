@@ -1,0 +1,49 @@
+{
+  "extends": [
+      "plugin:vue/recommended"
+  ],
+  "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true,
+          "experimentalObjectRestSpread": true
+      }
+  },
+  "rules": {
+      "semi": ["error", "never"],
+      "no-multiple-empty-lines": ["error", { "max": 1 } ],
+      "eol-last": ["error", "always"],
+      "no-trailing-spaces": ["error"],
+      "space-before-function-paren": ["error", "always"],
+      "indent": ["error", 4],
+      "object-curly-spacing": ["error", "always"],
+      "keyword-spacing": "error",
+      "max-len": 0,
+      "comma-dangle": ["error", "always-multiline"],
+      "vue/html-indent": [
+          "error", 4,
+          {
+              "attribute": 1,
+              "closeBracket": 0,
+              "alignAttributesVertically": true,
+              "ignores": []
+          }
+      ],
+      "vue/max-attributes-per-line": 0,
+      "vue/html-self-closing": [
+          "error",
+          {
+              "html": {
+                  "void": "any",
+                  "normal": "any",
+                  "component": "any"
+              },
+              "svg": "any",
+              "math": "any"
+          }
+      ],
+      "vue/name-property-casing": ["error", "kebab-case"],
+      "vue/require-default-prop": ["off"]
+  }
+}

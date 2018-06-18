@@ -1,0 +1,61 @@
+<template>
+    <div class="date-range-input">
+        <date-input
+            :theme="theme"
+            :size="size"
+            :value="value && value.from"
+            :min-date="minDate"
+            :max-date="maxDate"
+            label="Start date"
+            @input="onFromInput">
+        </date-input>
+
+        <div class="date-range-input__dash">―</div>
+
+        <date-input
+            :theme="theme"
+            :size="size"
+            :value="value && value.to"
+            :min-date="minDate"
+            :max-date="maxDate"
+            label="End date"
+            @input="onToInput">
+        </date-input>
+    </div>
+</template>
+
+<script>
+import DateInput from './DateInput.vue'
+
+export default {
+    components: {
+        DateInput,
+    },
+    props: {
+        theme: { type: String, default: 'normal' },
+        size: { type: String, default: 'normal' },
+        value: { type: Object },
+        minDate: { type: Date },
+        maxDate: { type: Date },
+    },
+    methods: {
+        onFromInput (value) {
+            this.$emit('input', { from: value, to: this.value && this.value.to })
+        },
+        onToInput (value) {
+            this.$emit('input', { from: this.value && this.value.from, to: value })
+        },
+    },
+}
+</script>
+
+<style lang="less" scoped>
+.date-range-input {
+    display: flex;
+    min-width: 475px;
+
+    &__dash {
+        margin: 17px 20px 0px 20px;
+    }
+}
+</style>
