@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../../shared/components/variables';
+@import (reference) './variables';
 
 .dialog-button {
     position: relative;

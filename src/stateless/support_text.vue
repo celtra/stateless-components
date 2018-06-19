@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import (reference) '../../shared/components/variables';
+    @import (reference) './variables';
 
     .support-text {
         font-size: 0;

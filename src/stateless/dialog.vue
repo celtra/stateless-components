@@ -332,7 +332,7 @@ export default {
 </style>
 
 <style lang="less">
-@import (reference) '../../shared/components/variables';
+@import (reference) './variables';
 
 .step-next-leave-active     { animation: step-next-leave-animation @step-animation-time ease-in; }
 .step-next-enter-active     { animation: step-next-enter-animation @step-animation-time ease-out; }

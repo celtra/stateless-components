@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) '../../shared/components/variables';
+@import (reference) './variables';
 
 .file-upload-requirements {
     color: @dolphin;

@@ -116,7 +116,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@import (reference) '../../shared/components/variables';
+@import (reference) './variables';
 
 .date-picker {
     width: 100%;
