@@ -188,8 +188,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) '../../shared/components/breakpoints';
-@import (reference) '../../shared/components/variables';
+@import (reference) './breakpoints';
+@import (reference) './variables';
 
 .new-dialog {
     -webkit-font-smoothing: antialiased;
@@ -397,7 +397,7 @@ export default {
 </style>
 
 <style lang="less">
-@import (reference) '../../shared/components/breakpoints';
+@import (reference) './breakpoints';
 
 .new-dialog__step-wrapper {
     width: 100%;

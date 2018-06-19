@@ -121,8 +121,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) "../../shared/components/variables";
-@import (reference) '../../shared/components/breakpoints';
+@import (reference) "./variables";
+@import (reference) './breakpoints';
 
 .dialog-header {
     position: absolute;
