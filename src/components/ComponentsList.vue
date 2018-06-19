@@ -1,6 +1,11 @@
 <template>
     <div class="components-list">
-        <div v-for="(componentData, index) in components" :key="index" class="component-container">
+        <div class="sidebar">
+            <div v-for="componentData in components" :key="componentData.id" class="sidebar-item" @click="componentId = componentData.id">
+                {{ componentData.id.toUpperCase() }}
+            </div>
+        </div>
+        <div class="component-container">
             <div class="props">
                 <table>
                     <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
@@ -48,7 +53,9 @@ let getComponents = () => {
 export default {
     name: 'components-list',
     data () {
-        let vars = {}
+        let vars = {
+            componentId: Object.keys(components)[0],
+        }
         for (let component of getComponents()) {
             let componentData = {}
             for (let prop of component.props) {
@@ -80,6 +87,9 @@ export default {
                 }
             })
         },
+        componentData () {
+            return this.components.find(c => c.id === this.componentId)
+        },
     },
     methods: {
         updateProp (componentId, name, value) {
@@ -91,13 +101,29 @@ export default {
 
 <style lang="less" scoped>
 .components-list {
-    margin: 50px 100px;
+    display: flex;
+}
+
+.sidebar {
+    margin-top: 30px;
+    margin-right: 50px;
+}
+
+.sidebar-item {
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 20px;
+    color: #333;
+    font-size: 13px;
+    cursor: pointer;
+    width: 250px;
 }
 
 .component-container {
     display: flex;
     width: fit-content;
     margin-bottom: 40px;
+    margin-top: 60px;
 }
 
 .props {
