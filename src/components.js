@@ -10,6 +10,8 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
+import Toast from '@/stateless/Toast.vue'
+import PieChart from '@/stateless/PieChart.vue'
 
 export default {
     Checkbox: {
@@ -72,5 +74,11 @@ export default {
     },
     SupportText: {
         component: SupportText,
+    },
+    Toast: {
+        component: Toast,
+    },
+    PieChart: {
+        component: PieChart,
     },
 }
