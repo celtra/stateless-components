@@ -21382,6 +21382,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Selectbox", function() { return Selectbox; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportText", function() { return SupportText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Icon", function() { return Icon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InlineDialog", function() { return InlineDialog; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateless_checkbox_vue__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateless_dialog_button_vue__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateless_dialog_vue__ = __webpack_require__(92);
@@ -21395,6 +21396,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__stateless_selectbox_vue__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__stateless_support_text_vue__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__stateless_icon_vue__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__stateless_InlineDialog_vue__ = __webpack_require__(177);
+
 
 
 
@@ -21422,6 +21425,7 @@ var RadioButton = __WEBPACK_IMPORTED_MODULE_9__stateless_radiobutton_vue__["a" /
 var Selectbox = __WEBPACK_IMPORTED_MODULE_10__stateless_selectbox_vue__["a" /* default */];
 var SupportText = __WEBPACK_IMPORTED_MODULE_11__stateless_support_text_vue__["a" /* default */];
 var Icon = __WEBPACK_IMPORTED_MODULE_12__stateless_icon_vue__["a" /* default */];
+var InlineDialog = __WEBPACK_IMPORTED_MODULE_13__stateless_InlineDialog_vue__["a" /* default */];
 
 /***/ }),
 /* 69 */
@@ -23664,6 +23668,77 @@ exports.push([module.i, "\n.icon-wrapper[data-v-4530f575] {\n  font-size: 0px;\n
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-wrapper",on:{"click":function($event){_vm.$emit('click')}}},[(_vm.name === 'back')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"8px","height":"16px","viewBox":"0 0 8 17","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('g',{attrs:{"transform":"translate(-492.000000, -85.000000)"}},[_c('g',{attrs:{"transform":"translate(474.000000, 70.000000)"}},[_c('g',{attrs:{"transform":"translate(18.000000, 15.000000)"}},[_c('path',{staticClass:"path",attrs:{"d":"M6.55518236,17 L0.228992658,9.15742227 C-0.0763308861,8.77944236 -0.0763308861,8.22055764 0.228992658,7.84257773 L6.55518236,0 L8,1.31585518 L2.20360848,8.50050532 L7.99904884,15.6841448 L6.55518236,17 Z"}})])])])]):_vm._e(),_vm._v(" "),(_vm.name === 'save')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16px","height":"16px","viewBox":"0 0 12 14","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('g',{attrs:{"transform":"translate(-1255.000000, -23.000000)"}},[_c('g',{attrs:{"transform":"translate(1240.000000, 0.000000)"}},[_c('g',{attrs:{"transform":"translate(14.000000, 22.000000)"}},[_c('rect',{staticClass:"path",attrs:{"opacity":"0","x":"0","y":"0","width":"16","height":"16"}}),_vm._v(" "),_c('path',{staticClass:"path",attrs:{"id":"Shape","d":"M11.2375,1.2625 C11.0625,1.0875 10.8875,1 10.625,1 L9.75,1 L9.75,3.625 C9.75,4.15 9.4,4.5 8.875,4.5 L4.5,4.5 C3.975,4.5 3.625,4.15 3.625,3.625 L3.625,1 L1.875,1 C1.35,1 1,1.35 1,1.875 L1,14.125 C1,14.65 1.35,15 1.875,15 L14.125,15 C14.65,15 15,14.65 15,14.125 L15,5.375 C15,5.1125 14.9125,4.9375 14.7375,4.7625 L11.2375,1.2625 Z M13,14 L4,14 L4,11 C4,10.4 4.36,10 4.9,10 L12.1,10 C12.64,10 13,10.4 13,11 L13,14 Z","fill":"#D6D8DD"}}),_vm._v(" "),_c('rect',{staticClass:"path",attrs:{"x":"7","y":"1","width":"2","height":"3"}})])])])]):_vm._e(),_vm._v(" "),(_vm.name === 'arrow-down-strong')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16px","height":"16px","viewBox":"0 0 12 16","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('g',{staticClass:"path"},[_c('polygon',{attrs:{"points":"7 16 14 8 10 8 10 4 4 4 4 8 0 8"}}),_vm._v(" "),_c('rect',{attrs:{"x":"4","width":"6","height":"2"}})])]):_vm._e(),_vm._v(" "),(_vm.name === 'loading')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16px","height":"16px","viewBox":"0 0 30 30","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('path',{staticClass:"path",attrs:{"d":"M15 30C6.7 30 0 23.3 0 15c0-4.7 2.3-9.2 6-12l2.4 3.2C5.6 8.2 4 11.5 4 15c0 6 4.9 11 11 11s11-4.9 11-11c0-5.7-4.4-10.5-10-11l.3-4C24 .7 30 7.2 30 15c0 8.3-6.7 15-15 15z"}})]):_vm._e(),_vm._v(" "),(_vm.name === 'funnel')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16px","height":"16px","viewBox":"0 0 16 16","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('path',{staticClass:"path",attrs:{"d":"M15,0H1C0.4,0,0,0.4,0,1v2c0,0.3,0.1,0.6,0.4,0.8L6,8.5V15c0,0.4,0.2,0.8,0.6,0.9C6.7,16,6.9,16,7,16 c0.3,0,0.5-0.1,0.7-0.3l2-2C9.9,13.5,10,13.3,10,13V8.5l5.6-4.7C15.9,3.6,16,3.3,16,3V1C16,0.4,15.6,0,15,0z"}})]):_vm._e(),_vm._v(" "),(_vm.name === 'remove')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16px","height":"16px","viewBox":"0 0 16 16","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{staticClass:"path",attrs:{"d":"M2 6v8c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6H2zM12 3V1c0-.6-.4-1-1-1H5c-.6 0-1 .4-1 1v2H0v2h16V3h-4zm-2 0H6V2h4v1z"}})]):_vm._e(),_vm._v(" "),(_vm.name === 'plus')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"16","height":"16","viewBox":"0 0 16 16","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{staticClass:"path",attrs:{"d":"M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm4 9H9v3H7V9H4V7h3V4h2v3h3v2z","fill-rule":"nonzero"}})]):_vm._e(),_vm._v(" "),(_vm.name === 'left-arrow')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"22","height":"17","viewBox":"0 0 22 17","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{staticClass:"path",attrs:{"d":"M.293 7.707L8 0l1.414 1.414-6 6H21a1 1 0 1 1 0 2H3.414l6 6L8 16.828.293 9.121a.999.999 0 0 1 0-1.414z","fill-rule":"nonzero"}})]):_vm._e(),_vm._v(" "),(_vm.name === 'right-arrow')?_c('svg',{style:(_vm.styleOverride),attrs:{"width":"22","height":"17","viewBox":"0 0 22 17","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{staticClass:"path",attrs:{"d":"M21.707 7.707L14 0l-1.414 1.414 6 6H1a1 1 0 1 0 0 2h17.586l-6 6L14 16.828l7.707-7.707a.999.999 0 0 0 0-1.414z","fill-rule":"nonzero"}})]):_vm._e()])}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_027fec89_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__ = __webpack_require__(180);
+function injectStyle (ssrContext) {
+  __webpack_require__(178)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-027fec89"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_027fec89_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(179);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("3b061544", content, true, {});
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.inline-dialog[data-v-027fec89] {\n  position: absolute;\n  width: 340px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-027fec89] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n.inline-dialog__content[data-v-027fec89] {\n  padding: 20px 15px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/InlineDialog.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,aAAa;EACb,0BAA0B;EAC1B,sDAAsD;UAC9C,8CAA8C;EACtD,gBAAgB;EAChB,WAAW;CACZ;AACD;EACE,mBAAmB;EACnB,iCAAiC;CAClC;AACD;EACE,mBAAmB;CACpB","file":"InlineDialog.vue","sourcesContent":["\n.inline-dialog[data-v-027fec89] {\n  position: absolute;\n  width: 340px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-027fec89] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n.inline-dialog__content[data-v-027fec89] {\n  padding: 20px 15px;\n}\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"inline-dialog"},[(_vm.$slots.header)?_c('div',{staticClass:"inline-dialog__header"},[_vm._t("header")],2):_vm._e(),_vm._v(" "),_c('div',{staticClass:"inline-dialog__content"},[_vm._t("default")],2)])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
