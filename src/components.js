@@ -10,6 +10,10 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
+import Calendar from '@/stateless/Calendar.vue'
+import DateInput from '@/stateless/DateInput.vue'
+import DateRangeInput from '@/stateless/DateRangeInput.vue'
+import DatePicker from '@/stateless/DatePicker.vue'
 
 export default {
     Checkbox: {
@@ -72,5 +76,17 @@ export default {
     },
     SupportText: {
         component: SupportText,
+    },
+    Calendar: {
+        component: Calendar,
+    },
+    DateInput: {
+        component: DateInput,
+    },
+    DateRangeInput: {
+        component: DateRangeInput,
+    },
+    DatePicker: {
+        component: DatePicker,
     },
 }
