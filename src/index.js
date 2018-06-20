@@ -11,6 +11,8 @@ import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
 import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
+import ToastComponent from '@/stateless/Toast.vue'
+import PieChartComponent from '@/stateless/PieChart.vue'
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
@@ -25,3 +27,5 @@ export const RadioButton = RadioButtonComponent
 export const Selectbox = SelectboxComponent
 export const SupportText = SupportTextComponent
 export const Icon = IconComponent
+export const Toast = ToastComponent
+export const PieChart = PieChartComponent
