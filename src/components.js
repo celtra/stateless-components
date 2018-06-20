@@ -12,28 +12,28 @@ import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 
 export default {
-    checkbox: {
+    Checkbox: {
         component: Checkbox,
     },
-    dialog_button: {
+    DialogButton: {
         component: DialogButton,
     },
-    dialog: {
+    Dialog: {
         component: Dialog,
     },
-    drop_area: {
+    DropArea: {
         component: DropArea,
     },
-    file_upload_requirements: {
+    FileUploadRequirements: {
         component: FileUploadRequirements,
     },
-    file_upload: {
+    FileUpload: {
         component: FileUpload,
     },
-    image_list: {
+    ImageList: {
         component: ImageList,
     },
-    input: {
+    Input: {
         component: Input,
         width: 300,
         defaultProps: {
@@ -41,13 +41,13 @@ export default {
             theme: 'light',
         },
     },
-    multiselect: {
+    Multiselect: {
         component: Multiselect,
     },
-    radio_button: {
+    RadioButton: {
         component: RadioButton,
     },
-    selectbox: {
+    Selectbox: {
         component: Selectbox,
         width: 300,
         defaultProps: {
@@ -70,7 +70,7 @@ export default {
             label: 'Something',
         },
     },
-    support_text: {
+    SupportText: {
         component: SupportText,
     },
 }
