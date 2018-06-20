@@ -10,6 +10,7 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
+import InlineDialog from '@/stateless/InlineDialog.vue'
 
 export default {
     Checkbox: {
@@ -72,5 +73,8 @@ export default {
     },
     SupportText: {
         component: SupportText,
+    },
+    InlineDialog: {
+        component: InlineDialog,
     },
 }
