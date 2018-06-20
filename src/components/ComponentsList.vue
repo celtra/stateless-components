@@ -33,17 +33,26 @@ let getComponents = () => {
         let modelName = componentData.component.model ? componentData.component.value : 'value'
         let modelEvent = componentData.component.model ? componentData.component.event : 'input'
 
-        let propsConfig = componentData.component.props
+        let componentProps = componentData.component.props
+        let defaultProps = componentData.defaultProps || {}
+
+        let allProps = {}
+        for (let key in componentProps)
+            allProps[key] = true
+        for (let key in defaultProps)
+            allProps[key] = true
+        allProps = Object.keys(allProps)
+
         return {
             ...componentData,
             id: componentId,
             modelName: modelName,
             modelEvent: modelEvent,
-            props: Object.keys(propsConfig).map(propName => {
+            props: allProps.map(propName => {
                 return {
                     name: propName,
-                    type: propsConfig[propName].type,
-                    default: propsConfig[propName].default,
+                    type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
+                    default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
                 }
             }),
         }
@@ -55,11 +64,13 @@ export default {
     data () {
         let vars = {
             componentId: Object.keys(components)[0],
+            theme: 'light',
+            size: 'normal',
         }
         for (let component of getComponents()) {
             let componentData = {}
             for (let prop of component.props) {
-                componentData[prop.name] = componentData.defaultProps && componentData.defaultProps[prop.name] || prop.default || null
+                componentData[prop.name] = prop.default
             }
             vars[component.id] = componentData
         }
@@ -72,7 +83,11 @@ export default {
             return getComponents().map(componentData => {
                 return {
                     ...componentData,
-                    data: this[componentData.id],
+                    data: {
+                        ...this[componentData.id],
+                        theme: this.theme,
+                        size: this.size,
+                    },
                     props: componentData.props.map(prop => {
                         return {
                             ...prop,
