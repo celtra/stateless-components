@@ -1,6 +1,6 @@
 <template>
-    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="titleText" :data-id="labelText | slugify" class="checkbox-element" tabindex="0" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
-        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="titleText" class="checkbox-element__check-row" @click="toggle">
+    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
+        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row" @click="toggle">
             <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
                 <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
                 <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check"></div>
@@ -10,7 +10,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="titleText" class="checkbox-element__toggle" @click="toggle">
+        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle" @click="toggle">
             <div :class="states | prefix('checkbox-element__toggle-wrapper--')" class="checkbox-element__toggle-wrapper">
                 <div :class="states | prefix('checkbox-element__toggle-circle--')" class="checkbox-element__toggle-circle"></div>
             </div>
@@ -28,11 +28,12 @@
 <script>
 export default {
     props: {
-        value: { type: Boolean, required: true },
+        value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
         helperText: { type: String, required: false, default: '' },
+        titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
@@ -44,19 +45,20 @@ export default {
         }
     },
     computed: {
-        labelText () {
-            let getText = (vnode) => {
-                if (vnode.text) {
-                    return vnode.text
-                }
-                for (let child of vnode.children) {
-                    return getText(child)
-                }
+        actualTitleText () {
+            if (this.titleText.length > 0) {
+                return this.titleText
             }
-            return this.$slots.default && getText(this.$slots.default[0]).replace(/^\s+|\s+$/g, '') || ''
-        },
-        titleText () {
-            return this.disabled && this.disabledText.length > 0 ? this.disabledText : this.labelText
+
+            if (this.disabled && this.disabledText.length > 0) {
+                return this.disabledText
+            }
+
+            if (this.$slots.default && this.$slots.default.length === 1 && this.$slots.default[0].text) {
+                return this.$slots.default[0].text.replace(/^\s+|\s+$/g, '')
+            }
+
+            return ''
         },
         infoText () {
             if (this.errorText) {
@@ -71,7 +73,8 @@ export default {
             return {
                 error: !!this.errorText,
                 warning: !!this.warningText && !this.errorText,
-                checked: this.value,
+                some: this.value === null,
+                checked: this.value === true,
                 disabled: this.disabled,
                 focused: this.focused,
             }
@@ -184,18 +187,31 @@ export default {
         transform: scale3d(0, 0, 1);
 
         &--checked {
+            &:after {
+                content: '';
+                width: 5px;
+                height: 11px;
+                display: block;
+                border: solid @royal-blue;
+                border-width: 0 3.5px 3.5px 0;
+                transform: rotate(45deg);
+            }
+
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
 
-        &:after {
-            content: '';
-            width: 5px;
-            height: 11px;
-            display: block;
-            border: solid @royal-blue;
-            border-width: 0 3.5px 3.5px 0;
-            transform: rotate(45deg);
+        &--some {
+            &:after {
+                content: '';
+                width: 10px;
+                height: 11px;
+                display: block;
+                border-bottom: 2px solid @royal-blue;
+            }
+
+            transform: scale3d(1, 1, 1);
+            opacity: 1;
         }
 
         &--disabled:after {
