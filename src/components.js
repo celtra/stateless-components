@@ -10,10 +10,19 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
+import Icon from '@/stateless/icon.vue'
+import DefaultList from '@/stateless/DefaultList.vue'
+import DefaultListItem from '@/stateless/DefaultListItem.vue'
+import ScrollableList from '@/stateless/ScrollableList.vue'
+import Typeahead from '@/stateless/Typeahead.vue'
+import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 
 export default {
     Checkbox: {
         component: Checkbox,
+        defaultProps: {
+            value: false,
+        },
     },
     DialogButton: {
         component: DialogButton,
@@ -72,5 +81,32 @@ export default {
     },
     SupportText: {
         component: SupportText,
+    },
+    Icon: {
+        component: Icon,
+    },
+    DefaultList: {
+        component: DefaultList,
+    },
+    DefaultListItem: {
+        component: DefaultListItem,
+    },
+    ScrollableList: {
+        component: ScrollableList,
+    },
+    Typeahead: {
+        component: Typeahead,
+        defaultProps: {
+            label: 'Something',
+            value: 'Lorem',
+            getSuggestions: () => [
+                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                { id: '2', label: "Lorem" },
+                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
+            ],
+        },
+    },
+    TypeaheadMultiselect: {
+        component: TypeaheadMultiselect,
     },
 }

@@ -9,22 +9,24 @@ Vue.filter('uppercase', (value) => {
 })
 
 Vue.filter('prefix', (value, prefix) => {
+    let prefixValue = (x) => {
+        if (Array.isArray(x)) {
+            return x.map(prefixValue)
+        } else if (typeof (x) === 'object') {
+            let prefixed = {}
+            for (let key in x) {
+                prefixed[prefix + key] = x[key]
+            }
+            return prefixed
+        } else {
+            return prefix + x
+        }
+    }
+
     if (value == null) {
         return null
     }
-
-    if (Array.isArray(value)) {
-        return value.map((item) => prefix + item)
-    } else if (typeof (value) === 'object') {
-        let prefixed = {}
-        for (let key in value) {
-            prefixed[prefix + key] = value[key]
-        }
-
-        return prefixed
-    } else {
-        return prefix + value
-    }
+    return prefixValue(value)
 })
 
 Vue.filter('slugify', (value) => {
