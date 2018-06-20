@@ -516,8 +516,8 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(40)('wks');
-var uid = __webpack_require__(41);
+var store = __webpack_require__(44)('wks');
+var uid = __webpack_require__(45);
 var Symbol = __webpack_require__(3).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -613,7 +613,7 @@ module.exports = $export;
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(11);
-var createDesc = __webpack_require__(24);
+var createDesc = __webpack_require__(23);
 module.exports = __webpack_require__(13) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -660,8 +660,8 @@ module.exports = function (fn, that, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(6);
-var IE8_DOM_DEFINE = __webpack_require__(76);
-var toPrimitive = __webpack_require__(77);
+var IE8_DOM_DEFINE = __webpack_require__(90);
+var toPrimitive = __webpack_require__(91);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(13) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -691,7 +691,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(22)(function () {
+module.exports = !__webpack_require__(21)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -760,22 +760,16 @@ exports.default = _assign2.default || function (target) {
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(72), __esModule: true };
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(37);
-var defined = __webpack_require__(20);
+var IObject = __webpack_require__(41);
+var defined = __webpack_require__(19);
 module.exports = function (it) {
   return IObject(defined(it));
 };
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -786,14 +780,14 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -806,7 +800,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(12);
@@ -819,7 +813,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -833,11 +827,11 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(26);
+var toInteger = __webpack_require__(25);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -845,7 +839,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -857,18 +851,18 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(40)('keys');
-var uid = __webpack_require__(41);
+var shared = __webpack_require__(44)('keys');
+var uid = __webpack_require__(45);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(11).f;
@@ -881,26 +875,26 @@ module.exports = function (it, tag, stat) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(20);
+var defined = __webpack_require__(19);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(86)(true);
+var $at = __webpack_require__(100)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(38)(String, 'String', function (iterated) {
+__webpack_require__(42)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -916,10 +910,10 @@ __webpack_require__(38)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(44);
+var classof = __webpack_require__(48);
 var ITERATOR = __webpack_require__(5)('iterator');
 var Iterators = __webpack_require__(9);
 module.exports = __webpack_require__(4).getIteratorMethod = function (it) {
@@ -930,7 +924,7 @@ module.exports = __webpack_require__(4).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -955,7 +949,7 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18068,13 +18062,13 @@ module.exports.f = function (C) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(145), __webpack_require__(146)(module)))
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_checkbox_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_checkbox_vue__ = __webpack_require__(34);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0dcbe779_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_checkbox_vue__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3e5f1080_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_checkbox_vue__ = __webpack_require__(72);
 function injectStyle (ssrContext) {
   __webpack_require__(69)
 }
@@ -18089,12 +18083,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-0dcbe779"
+var __vue_scopeId__ = "data-v-3e5f1080"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_checkbox_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0dcbe779_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_checkbox_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3e5f1080_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_checkbox_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -18105,13 +18099,10 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-
 //
 //
 //
@@ -18142,11 +18133,12 @@ var Component = normalizeComponent(
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
-        value: { type: Boolean, required: true },
+        value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
         helperText: { type: String, required: false, default: '' },
+        titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
@@ -18159,40 +18151,20 @@ var Component = normalizeComponent(
     },
 
     computed: {
-        labelText: function labelText() {
-            var getText = function getText(vnode) {
-                if (vnode.text) {
-                    return vnode.text;
-                }
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
+        actualTitleText: function actualTitleText() {
+            if (this.titleText.length > 0) {
+                return this.titleText;
+            }
 
-                try {
-                    for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(vnode.children), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var child = _step.value;
+            if (this.disabled && this.disabledText.length > 0) {
+                return this.disabledText;
+            }
 
-                        return getText(child);
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            };
-            return this.$slots.default && getText(this.$slots.default[0]).replace(/^\s+|\s+$/g, '') || '';
-        },
-        titleText: function titleText() {
-            return this.disabled && this.disabledText.length > 0 ? this.disabledText : this.labelText;
+            if (this.$slots.default && this.$slots.default.length === 1 && this.$slots.default[0].text) {
+                return this.$slots.default[0].text.replace(/^\s+|\s+$/g, '');
+            }
+
+            return '';
         },
         infoText: function infoText() {
             if (this.errorText) {
@@ -18207,7 +18179,8 @@ var Component = normalizeComponent(
             return {
                 error: !!this.errorText,
                 warning: !!this.warningText && !this.errorText,
-                checked: this.value,
+                some: this.value === null,
+                checked: this.value === true,
                 disabled: this.disabled,
                 focused: this.focused
             };
@@ -18234,217 +18207,15 @@ var Component = normalizeComponent(
 });
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(73);
-var global = __webpack_require__(3);
-var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(9);
-var TO_STRING_TAG = __webpack_require__(5)('toStringTag');
-
-var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
-  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
-  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
-  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
-  'TextTrackList,TouchList').split(',');
-
-for (var i = 0; i < DOMIterables.length; i++) {
-  var NAME = DOMIterables[i];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-  Iterators[NAME] = Iterators.Array;
-}
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(14);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var LIBRARY = __webpack_require__(21);
-var $export = __webpack_require__(7);
-var redefine = __webpack_require__(78);
-var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(9);
-var $iterCreate = __webpack_require__(79);
-var setToStringTag = __webpack_require__(28);
-var getPrototypeOf = __webpack_require__(85);
-var ITERATOR = __webpack_require__(5)('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(82);
-var enumBugKeys = __webpack_require__(42);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var core = __webpack_require__(4);
-var global = __webpack_require__(3);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: __webpack_require__(21) ? 'pure' : 'global',
-  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
-});
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var document = __webpack_require__(3).document;
-module.exports = document && document.documentElement;
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(14);
-var TAG = __webpack_require__(5)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-/* 45 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_button_vue__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_button_vue__ = __webpack_require__(36);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3b2cb27c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dialog_button_vue__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3b2cb27c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dialog_button_vue__ = __webpack_require__(75);
 function injectStyle (ssrContext) {
-  __webpack_require__(89)
+  __webpack_require__(73)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -18473,11 +18244,11 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 46 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_button_vue__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_button_vue__ = __webpack_require__(35);
 //
 //
 //
@@ -18517,11 +18288,11 @@ var Component = normalizeComponent(
 });
 
 /***/ }),
-/* 47 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_header_vue__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_header_vue__ = __webpack_require__(83);
 //
 //
 //
@@ -18717,11 +18488,11 @@ var Component = normalizeComponent(
 });
 
 /***/ }),
-/* 48 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
 
 //
@@ -18885,6 +18656,214 @@ var Component = normalizeComponent(
         }
     }
 });
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(86), __esModule: true };
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(87);
+var global = __webpack_require__(3);
+var hide = __webpack_require__(8);
+var Iterators = __webpack_require__(9);
+var TO_STRING_TAG = __webpack_require__(5)('toStringTag');
+
+var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
+  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
+  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
+  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
+  'TextTrackList,TouchList').split(',');
+
+for (var i = 0; i < DOMIterables.length; i++) {
+  var NAME = DOMIterables[i];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(14);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(20);
+var $export = __webpack_require__(7);
+var redefine = __webpack_require__(92);
+var hide = __webpack_require__(8);
+var Iterators = __webpack_require__(9);
+var $iterCreate = __webpack_require__(93);
+var setToStringTag = __webpack_require__(27);
+var getPrototypeOf = __webpack_require__(99);
+var ITERATOR = __webpack_require__(5)('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(96);
+var enumBugKeys = __webpack_require__(46);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var core = __webpack_require__(4);
+var global = __webpack_require__(3);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: __webpack_require__(20) ? 'pure' : 'global',
+  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
+});
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var document = __webpack_require__(3).document;
+module.exports = document && document.documentElement;
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(14);
+var TAG = __webpack_require__(5)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
 
 /***/ }),
 /* 49 */
@@ -19405,8 +19384,8 @@ module.exports = function (O, D) {
 
 var ctx = __webpack_require__(10);
 var invoke = __webpack_require__(126);
-var html = __webpack_require__(43);
-var cel = __webpack_require__(23);
+var html = __webpack_require__(47);
+var cel = __webpack_require__(22);
 var global = __webpack_require__(3);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -19508,7 +19487,7 @@ module.exports = function (exec) {
 
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(12);
-var newPromiseCapability = __webpack_require__(32);
+var newPromiseCapability = __webpack_require__(31);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -19983,7 +19962,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__form_element_constants__ = __webpack_require__(147);
 
@@ -20366,8 +20345,8 @@ var Component = normalizeComponent(
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input_vue__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__checkbox_vue__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__checkbox_vue__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
 
 
@@ -20706,11 +20685,11 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
 
 
@@ -21382,9 +21361,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Selectbox", function() { return Selectbox; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportText", function() { return SupportText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Icon", function() { return Icon; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateless_checkbox_vue__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateless_dialog_button_vue__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateless_dialog_vue__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stateless_checkbox_vue__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stateless_dialog_button_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stateless_dialog_vue__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stateless_drop_area_vue__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__stateless_file_upload_requirements_vue__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stateless_file_upload_vue__ = __webpack_require__(112);
@@ -21434,7 +21413,7 @@ var content = __webpack_require__(70);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("166e866d", content, true, {});
+var update = __webpack_require__(1)("76ab438c", content, true, {});
 
 /***/ }),
 /* 70 */
@@ -21445,7 +21424,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n*[data-v-0dcbe779] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.checkbox-element[data-v-0dcbe779] {\n  height: 38px;\n  margin-top: 7px;\n  font-family: \"SF UI Text Regular\";\n}\n.checkbox-element .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n.checkbox-element .checkbox-element__check-row .checkbox-element__check[data-v-0dcbe779] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n  border-color: #d6d8dd;\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.375, 1.375, 1);\n          transform: scale3d(1.375, 1.375, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__check-row--disabled[data-v-0dcbe779] {\n  cursor: auto;\n}\n.checkbox-element .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  position: relative;\n  width: 26px;\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.checkbox-element .checkbox-element__square[data-v-0dcbe779] {\n  width: 16px;\n  height: 16px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  border-color: #939399;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__square--checked[data-v-0dcbe779] {\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n  opacity: 0;\n}\n.checkbox-element .checkbox-element__square--disabled[data-v-0dcbe779] {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__check[data-v-0dcbe779] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-top: 3px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  opacity: 0;\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n}\n.checkbox-element .checkbox-element__check--checked[data-v-0dcbe779] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check[data-v-0dcbe779]:after {\n  content: '';\n  width: 5px;\n  height: 11px;\n  display: block;\n  border: solid #3366ff;\n  border-width: 0 3.5px 3.5px 0;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.checkbox-element .checkbox-element__check--disabled[data-v-0dcbe779]:after {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__label-text[data-v-0dcbe779] {\n  width: 100%;\n  color: #d6d8dd;\n  padding: 0 15px 0 11px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 18px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: color 0.15s ease-out;\n  transition: color 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__label-text--disabled[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__label-text--error[data-v-0dcbe779] {\n  color: #f32440;\n}\n.checkbox-element .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 12px;\n  padding-left: 35px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  color: #777780;\n}\n.checkbox-element .checkbox-element__helper-text--warning[data-v-0dcbe779] {\n  color: #fcfda1;\n}\n.checkbox-element .checkbox-element__helper-text--disabled[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__helper-text--error[data-v-0dcbe779] {\n  color: #f32440;\n}\n.checkbox-element[data-v-0dcbe779]:focus {\n  outline: none;\n}\n.checkbox-element .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n  opacity: 0.8;\n}\n.checkbox-element .checkbox-element__toggle--focused[data-v-0dcbe779],\n.checkbox-element .checkbox-element__toggle[data-v-0dcbe779]:hover {\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__toggle-circle[data-v-0dcbe779],\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  background-color: white;\n}\n.checkbox-element .checkbox-element__toggle--disabled[data-v-0dcbe779] {\n  cursor: auto;\n  opacity: 0.4;\n}\n.checkbox-element .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  height: 15px;\n  width: 25px;\n  min-width: 25px;\n  border-radius: 8px;\n  background-color: #444450;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-wrapper--checked[data-v-0dcbe779] {\n  background-color: #5df086;\n}\n.checkbox-element .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  background-color: #aaaab0;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 10px;\n  background-color: white;\n}\n.checkbox-element--phat[data-v-0dcbe779] {\n  height: 51px;\n  margin-top: 9px;\n}\n.checkbox-element--phat .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--phat .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.2, 1.2, 1);\n          transform: scale3d(1.2, 1.2, 1);\n}\n.checkbox-element--phat .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  width: 30px;\n  height: 30px;\n}\n.checkbox-element--phat .checkbox-element__square[data-v-0dcbe779] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__check[data-v-0dcbe779]:after {\n  width: 6px;\n  height: 14px;\n  border-width: 0 4.5px 5px 0;\n}\n.checkbox-element--phat .checkbox-element__label-text[data-v-0dcbe779] {\n  padding: 0 15px 0 9px;\n  font-size: 22px;\n}\n.checkbox-element--phat .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 17px;\n  padding-left: 39px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 12px;\n}\n.checkbox-element--phat .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  width: 30px;\n  min-width: 30px;\n  height: 18px;\n  border-radius: 9px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 12px;\n}\n.checkbox-element--condensed[data-v-0dcbe779] {\n  height: 20px;\n  margin-top: 10px;\n}\n.checkbox-element--condensed .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.286, 1.286, 1);\n          transform: scale3d(1.286, 1.286, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  width: 24px;\n  height: 24px;\n}\n.checkbox-element--condensed .checkbox-element__square[data-v-0dcbe779] {\n  width: 14px;\n  height: 14px;\n}\n.checkbox-element--condensed .checkbox-element__check[data-v-0dcbe779] {\n  padding-top: 0;\n}\n.checkbox-element--condensed .checkbox-element__label-text[data-v-0dcbe779] {\n  padding: 0 10px 0 7px;\n  font-size: 14px;\n}\n.checkbox-element--condensed .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 15px;\n  padding-left: 27px;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n}\n.checkbox-element--condensed .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  width: 20px;\n  min-width: 20px;\n  height: 12px;\n  border-radius: 6px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 12px;\n  height: 12px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 8px;\n}\n.checkbox-element--light .checkbox-element__label-text[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  border-color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #444450;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/checkbox.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,aAAa;EACb,gBAAgB;EAChB,kCAAkC;CACnC;AACD;EACE,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;CACjB;AACD;EACE,oCAAoC;UAC5B,4BAA4B;CACrC;AACD;;EAEE,0CAA0C;UAClC,kCAAkC;EAC1C,sBAAsB;CACvB;AACD;;EAEE,4CAA4C;UACpC,oCAAoC;CAC7C;AACD;;EAEE,eAAe;CAChB;AACD;EACE,aAAa;CACd;AACD;EACE,mBAAmB;EACnB,YAAY;EACZ,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;CACjC;AACD;EACE,YAAY;EACZ,aAAa;EACb,kBAAkB;EAClB,oBAAoB;EACpB,mBAAmB;EACnB,sBAAsB;EACtB,uCAAuC;EACvC,+BAA+B;EAC/B,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,sBAAsB;CACvB;AACD;EACE,mBAAmB;EACnB,QAAQ;EACR,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,uCAAuC;EACvC,+BAA+B;EAC/B,WAAW;EACX,oCAAoC;UAC5B,4BAA4B;CACrC;AACD;EACE,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,YAAY;EACZ,WAAW;EACX,aAAa;EACb,eAAe;EACf,sBAAsB;EACtB,8BAA8B;EAC9B,iCAAiC;UACzB,yBAAyB;CAClC;AACD;EACE,sBAAsB;CACvB;AACD;EACE,YAAY;EACZ,eAAe;EACf,uBAAuB;EACvB,oBAAoB;EACpB,iBAAiB;EACjB,wBAAwB;EACxB,gBAAgB;EAChB,kCAAkC;EAClC,yCAAyC;EACzC,iCAAiC;CAClC;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,gBAAgB;EAChB,sBAAsB;EACtB,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,cAAc;CACf;AACD;EACE,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,aAAa;CACd;AACD;;EAEE,WAAW;CACZ;AACD;;EAEE,eAAe;CAChB;AACD;;EAEE,wBAAwB;CACzB;AACD;EACE,aAAa;EACb,aAAa;CACd;AACD;EACE,aAAa;EACb,YAAY;EACZ,gBAAgB;EAChB,mBAAmB;EACnB,0BAA0B;EAC1B,uCAAuC;EACvC,+BAA+B;CAChC;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,0BAA0B;EAC1B,uCAAuC;EACvC,+BAA+B;CAChC;AACD;EACE,kBAAkB;EAClB,wBAAwB;CACzB;AACD;EACE,aAAa;EACb,gBAAgB;CACjB;AACD;EACE,aAAa;CACd;AACD;;EAEE,wCAAwC;UAChC,gCAAgC;CACzC;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,WAAW;EACX,aAAa;EACb,4BAA4B;CAC7B;AACD;EACE,sBAAsB;EACtB,gBAAgB;CACjB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;CACjB;AACD;EACE,aAAa;CACd;AACD;EACE,YAAY;EACZ,gBAAgB;EAChB,aAAa;EACb,mBAAmB;CACpB;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,kBAAkB;CACnB;AACD;EACE,aAAa;EACb,iBAAiB;CAClB;AACD;EACE,aAAa;CACd;AACD;;EAEE,4CAA4C;UACpC,oCAAoC;CAC7C;AACD;;EAEE,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,sBAAsB;EACtB,gBAAgB;CACjB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;MACnB,oBAAoB;UAChB,sBAAsB;EAC9B,gBAAgB;EAChB,sBAAsB;CACvB;AACD;EACE,aAAa;CACd;AACD;EACE,YAAY;EACZ,gBAAgB;EAChB,aAAa;EACb,mBAAmB;CACpB;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,iBAAiB;CAClB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,sBAAsB;CACvB;AACD;;EAEE,eAAe;CAChB","file":"checkbox.vue","sourcesContent":["\n*[data-v-0dcbe779] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.checkbox-element[data-v-0dcbe779] {\n  height: 38px;\n  margin-top: 7px;\n  font-family: \"SF UI Text Regular\";\n}\n.checkbox-element .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n.checkbox-element .checkbox-element__check-row .checkbox-element__check[data-v-0dcbe779] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n  border-color: #d6d8dd;\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.375, 1.375, 1);\n          transform: scale3d(1.375, 1.375, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__check-row--disabled[data-v-0dcbe779] {\n  cursor: auto;\n}\n.checkbox-element .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  position: relative;\n  width: 26px;\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.checkbox-element .checkbox-element__square[data-v-0dcbe779] {\n  width: 16px;\n  height: 16px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  border-color: #939399;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__square--checked[data-v-0dcbe779] {\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n  opacity: 0;\n}\n.checkbox-element .checkbox-element__square--disabled[data-v-0dcbe779] {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__check[data-v-0dcbe779] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-top: 3px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  opacity: 0;\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n}\n.checkbox-element .checkbox-element__check--checked[data-v-0dcbe779] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check[data-v-0dcbe779]:after {\n  content: '';\n  width: 5px;\n  height: 11px;\n  display: block;\n  border: solid #3366ff;\n  border-width: 0 3.5px 3.5px 0;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.checkbox-element .checkbox-element__check--disabled[data-v-0dcbe779]:after {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__label-text[data-v-0dcbe779] {\n  width: 100%;\n  color: #d6d8dd;\n  padding: 0 15px 0 11px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 18px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: color 0.15s ease-out;\n  transition: color 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__label-text--disabled[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__label-text--error[data-v-0dcbe779] {\n  color: #f32440;\n}\n.checkbox-element .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 12px;\n  padding-left: 35px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  color: #777780;\n}\n.checkbox-element .checkbox-element__helper-text--warning[data-v-0dcbe779] {\n  color: #fcfda1;\n}\n.checkbox-element .checkbox-element__helper-text--disabled[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__helper-text--error[data-v-0dcbe779] {\n  color: #f32440;\n}\n.checkbox-element[data-v-0dcbe779]:focus {\n  outline: none;\n}\n.checkbox-element .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n  opacity: 0.8;\n}\n.checkbox-element .checkbox-element__toggle--focused[data-v-0dcbe779],\n.checkbox-element .checkbox-element__toggle[data-v-0dcbe779]:hover {\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__toggle-circle[data-v-0dcbe779],\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  background-color: white;\n}\n.checkbox-element .checkbox-element__toggle--disabled[data-v-0dcbe779] {\n  cursor: auto;\n  opacity: 0.4;\n}\n.checkbox-element .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  height: 15px;\n  width: 25px;\n  min-width: 25px;\n  border-radius: 8px;\n  background-color: #444450;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-wrapper--checked[data-v-0dcbe779] {\n  background-color: #5df086;\n}\n.checkbox-element .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  background-color: #aaaab0;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 10px;\n  background-color: white;\n}\n.checkbox-element--phat[data-v-0dcbe779] {\n  height: 51px;\n  margin-top: 9px;\n}\n.checkbox-element--phat .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--phat .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.2, 1.2, 1);\n          transform: scale3d(1.2, 1.2, 1);\n}\n.checkbox-element--phat .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  width: 30px;\n  height: 30px;\n}\n.checkbox-element--phat .checkbox-element__square[data-v-0dcbe779] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__check[data-v-0dcbe779]:after {\n  width: 6px;\n  height: 14px;\n  border-width: 0 4.5px 5px 0;\n}\n.checkbox-element--phat .checkbox-element__label-text[data-v-0dcbe779] {\n  padding: 0 15px 0 9px;\n  font-size: 22px;\n}\n.checkbox-element--phat .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 17px;\n  padding-left: 39px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 12px;\n}\n.checkbox-element--phat .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  width: 30px;\n  min-width: 30px;\n  height: 18px;\n  border-radius: 9px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 12px;\n}\n.checkbox-element--condensed[data-v-0dcbe779] {\n  height: 20px;\n  margin-top: 10px;\n}\n.checkbox-element--condensed .checkbox-element__check-row[data-v-0dcbe779] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.286, 1.286, 1);\n          transform: scale3d(1.286, 1.286, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__check[data-v-0dcbe779]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-wrapper[data-v-0dcbe779] {\n  width: 24px;\n  height: 24px;\n}\n.checkbox-element--condensed .checkbox-element__square[data-v-0dcbe779] {\n  width: 14px;\n  height: 14px;\n}\n.checkbox-element--condensed .checkbox-element__check[data-v-0dcbe779] {\n  padding-top: 0;\n}\n.checkbox-element--condensed .checkbox-element__label-text[data-v-0dcbe779] {\n  padding: 0 10px 0 7px;\n  font-size: 14px;\n}\n.checkbox-element--condensed .checkbox-element__helper-text[data-v-0dcbe779] {\n  height: 15px;\n  padding-left: 27px;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n}\n.checkbox-element--condensed .checkbox-element__toggle[data-v-0dcbe779] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-wrapper[data-v-0dcbe779] {\n  width: 20px;\n  min-width: 20px;\n  height: 12px;\n  border-radius: 6px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle[data-v-0dcbe779] {\n  width: 12px;\n  height: 12px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle--checked[data-v-0dcbe779] {\n  margin-left: 8px;\n}\n.checkbox-element--light .checkbox-element__label-text[data-v-0dcbe779] {\n  color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__square[data-v-0dcbe779]:not(.checkbox-element__square--disabled) {\n  border-color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-0dcbe779]:not(.checkbox-element__label-text--disabled) {\n  color: #444450;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n*[data-v-3e5f1080] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.checkbox-element[data-v-3e5f1080] {\n  height: 38px;\n  margin-top: 7px;\n  font-family: \"SF UI Text Regular\";\n}\n.checkbox-element .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n.checkbox-element .checkbox-element__check-row .checkbox-element__check[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n  border-color: #d6d8dd;\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.375, 1.375, 1);\n          transform: scale3d(1.375, 1.375, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__check-row--disabled[data-v-3e5f1080] {\n  cursor: auto;\n}\n.checkbox-element .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  position: relative;\n  width: 26px;\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.checkbox-element .checkbox-element__square[data-v-3e5f1080] {\n  width: 16px;\n  height: 16px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  border-color: #939399;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__square--checked[data-v-3e5f1080] {\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n  opacity: 0;\n}\n.checkbox-element .checkbox-element__square--disabled[data-v-3e5f1080] {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__check[data-v-3e5f1080] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-top: 3px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  opacity: 0;\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n}\n.checkbox-element .checkbox-element__check--checked[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check--checked[data-v-3e5f1080]:after {\n  content: '';\n  width: 5px;\n  height: 11px;\n  display: block;\n  border: solid #3366ff;\n  border-width: 0 3.5px 3.5px 0;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.checkbox-element .checkbox-element__check--some[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check--some[data-v-3e5f1080]:after {\n  content: '';\n  width: 10px;\n  height: 11px;\n  display: block;\n  border-bottom: 2px solid #3366ff;\n}\n.checkbox-element .checkbox-element__check--disabled[data-v-3e5f1080]:after {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__label-text[data-v-3e5f1080] {\n  width: 100%;\n  color: #d6d8dd;\n  padding: 0 15px 0 11px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 18px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: color 0.15s ease-out;\n  transition: color 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__label-text--disabled[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__label-text--error[data-v-3e5f1080] {\n  color: #f32440;\n}\n.checkbox-element .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 12px;\n  padding-left: 35px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  color: #777780;\n}\n.checkbox-element .checkbox-element__helper-text--warning[data-v-3e5f1080] {\n  color: #fcfda1;\n}\n.checkbox-element .checkbox-element__helper-text--disabled[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__helper-text--error[data-v-3e5f1080] {\n  color: #f32440;\n}\n.checkbox-element[data-v-3e5f1080]:focus {\n  outline: none;\n}\n.checkbox-element .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n  opacity: 0.8;\n}\n.checkbox-element .checkbox-element__toggle--focused[data-v-3e5f1080],\n.checkbox-element .checkbox-element__toggle[data-v-3e5f1080]:hover {\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__toggle-circle[data-v-3e5f1080],\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  background-color: white;\n}\n.checkbox-element .checkbox-element__toggle--disabled[data-v-3e5f1080] {\n  cursor: auto;\n  opacity: 0.4;\n}\n.checkbox-element .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  height: 15px;\n  width: 25px;\n  min-width: 25px;\n  border-radius: 8px;\n  background-color: #444450;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-wrapper--checked[data-v-3e5f1080] {\n  background-color: #5df086;\n}\n.checkbox-element .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  background-color: #aaaab0;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 10px;\n  background-color: white;\n}\n.checkbox-element--phat[data-v-3e5f1080] {\n  height: 51px;\n  margin-top: 9px;\n}\n.checkbox-element--phat .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--phat .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.2, 1.2, 1);\n          transform: scale3d(1.2, 1.2, 1);\n}\n.checkbox-element--phat .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  width: 30px;\n  height: 30px;\n}\n.checkbox-element--phat .checkbox-element__square[data-v-3e5f1080] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__check[data-v-3e5f1080]:after {\n  width: 6px;\n  height: 14px;\n  border-width: 0 4.5px 5px 0;\n}\n.checkbox-element--phat .checkbox-element__label-text[data-v-3e5f1080] {\n  padding: 0 15px 0 9px;\n  font-size: 22px;\n}\n.checkbox-element--phat .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 17px;\n  padding-left: 39px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 12px;\n}\n.checkbox-element--phat .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  width: 30px;\n  min-width: 30px;\n  height: 18px;\n  border-radius: 9px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 12px;\n}\n.checkbox-element--condensed[data-v-3e5f1080] {\n  height: 20px;\n  margin-top: 10px;\n}\n.checkbox-element--condensed .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.286, 1.286, 1);\n          transform: scale3d(1.286, 1.286, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  width: 24px;\n  height: 24px;\n}\n.checkbox-element--condensed .checkbox-element__square[data-v-3e5f1080] {\n  width: 14px;\n  height: 14px;\n}\n.checkbox-element--condensed .checkbox-element__check[data-v-3e5f1080] {\n  padding-top: 0;\n}\n.checkbox-element--condensed .checkbox-element__label-text[data-v-3e5f1080] {\n  padding: 0 10px 0 7px;\n  font-size: 14px;\n}\n.checkbox-element--condensed .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 15px;\n  padding-left: 27px;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n}\n.checkbox-element--condensed .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  width: 20px;\n  min-width: 20px;\n  height: 12px;\n  border-radius: 6px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 12px;\n  height: 12px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 8px;\n}\n.checkbox-element--light .checkbox-element__label-text[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  border-color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #444450;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/checkbox.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,aAAa;EACb,gBAAgB;EAChB,kCAAkC;CACnC;AACD;EACE,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;CACjB;AACD;EACE,oCAAoC;UAC5B,4BAA4B;CACrC;AACD;;EAEE,0CAA0C;UAClC,kCAAkC;EAC1C,sBAAsB;CACvB;AACD;;EAEE,4CAA4C;UACpC,oCAAoC;CAC7C;AACD;;EAEE,eAAe;CAChB;AACD;EACE,aAAa;CACd;AACD;EACE,mBAAmB;EACnB,YAAY;EACZ,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;CACjC;AACD;EACE,YAAY;EACZ,aAAa;EACb,kBAAkB;EAClB,oBAAoB;EACpB,mBAAmB;EACnB,sBAAsB;EACtB,uCAAuC;EACvC,+BAA+B;EAC/B,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,sBAAsB;CACvB;AACD;EACE,mBAAmB;EACnB,QAAQ;EACR,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,uCAAuC;EACvC,+BAA+B;EAC/B,WAAW;EACX,oCAAoC;UAC5B,4BAA4B;CACrC;AACD;EACE,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,YAAY;EACZ,WAAW;EACX,aAAa;EACb,eAAe;EACf,sBAAsB;EACtB,8BAA8B;EAC9B,iCAAiC;UACzB,yBAAyB;CAClC;AACD;EACE,oCAAoC;UAC5B,4BAA4B;EACpC,WAAW;CACZ;AACD;EACE,YAAY;EACZ,YAAY;EACZ,aAAa;EACb,eAAe;EACf,iCAAiC;CAClC;AACD;EACE,sBAAsB;CACvB;AACD;EACE,YAAY;EACZ,eAAe;EACf,uBAAuB;EACvB,oBAAoB;EACpB,iBAAiB;EACjB,wBAAwB;EACxB,gBAAgB;EAChB,kCAAkC;EAClC,yCAAyC;EACzC,iCAAiC;CAClC;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,gBAAgB;EAChB,sBAAsB;EACtB,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;EACE,cAAc;CACf;AACD;EACE,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,aAAa;CACd;AACD;;EAEE,WAAW;CACZ;AACD;;EAEE,eAAe;CAChB;AACD;;EAEE,wBAAwB;CACzB;AACD;EACE,aAAa;EACb,aAAa;CACd;AACD;EACE,aAAa;EACb,YAAY;EACZ,gBAAgB;EAChB,mBAAmB;EACnB,0BAA0B;EAC1B,uCAAuC;EACvC,+BAA+B;CAChC;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,0BAA0B;EAC1B,uCAAuC;EACvC,+BAA+B;CAChC;AACD;EACE,kBAAkB;EAClB,wBAAwB;CACzB;AACD;EACE,aAAa;EACb,gBAAgB;CACjB;AACD;EACE,aAAa;CACd;AACD;;EAEE,wCAAwC;UAChC,gCAAgC;CACzC;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,WAAW;EACX,aAAa;EACb,4BAA4B;CAC7B;AACD;EACE,sBAAsB;EACtB,gBAAgB;CACjB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;CACjB;AACD;EACE,aAAa;CACd;AACD;EACE,YAAY;EACZ,gBAAgB;EAChB,aAAa;EACb,mBAAmB;CACpB;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,kBAAkB;CACnB;AACD;EACE,aAAa;EACb,iBAAiB;CAClB;AACD;EACE,aAAa;CACd;AACD;;EAEE,4CAA4C;UACpC,oCAAoC;CAC7C;AACD;;EAEE,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,sBAAsB;EACtB,gBAAgB;CACjB;AACD;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;MACnB,oBAAoB;UAChB,sBAAsB;EAC9B,gBAAgB;EAChB,sBAAsB;CACvB;AACD;EACE,aAAa;CACd;AACD;EACE,YAAY;EACZ,gBAAgB;EAChB,aAAa;EACb,mBAAmB;CACpB;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,iBAAiB;CAClB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,sBAAsB;CACvB;AACD;;EAEE,eAAe;CAChB","file":"checkbox.vue","sourcesContent":["\n*[data-v-3e5f1080] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.checkbox-element[data-v-3e5f1080] {\n  height: 38px;\n  margin-top: 7px;\n  font-family: \"SF UI Text Regular\";\n}\n.checkbox-element .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n.checkbox-element .checkbox-element__check-row .checkbox-element__check[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n  border-color: #d6d8dd;\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.375, 1.375, 1);\n          transform: scale3d(1.375, 1.375, 1);\n}\n.checkbox-element .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__check-row--disabled[data-v-3e5f1080] {\n  cursor: auto;\n}\n.checkbox-element .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  position: relative;\n  width: 26px;\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.checkbox-element .checkbox-element__square[data-v-3e5f1080] {\n  width: 16px;\n  height: 16px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  border-color: #939399;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__square--checked[data-v-3e5f1080] {\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n  opacity: 0;\n}\n.checkbox-element .checkbox-element__square--disabled[data-v-3e5f1080] {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__check[data-v-3e5f1080] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-top: 3px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n  opacity: 0;\n  -webkit-transform: scale3d(0, 0, 1);\n          transform: scale3d(0, 0, 1);\n}\n.checkbox-element .checkbox-element__check--checked[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check--checked[data-v-3e5f1080]:after {\n  content: '';\n  width: 5px;\n  height: 11px;\n  display: block;\n  border: solid #3366ff;\n  border-width: 0 3.5px 3.5px 0;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.checkbox-element .checkbox-element__check--some[data-v-3e5f1080] {\n  -webkit-transform: scale3d(1, 1, 1);\n          transform: scale3d(1, 1, 1);\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__check--some[data-v-3e5f1080]:after {\n  content: '';\n  width: 10px;\n  height: 11px;\n  display: block;\n  border-bottom: 2px solid #3366ff;\n}\n.checkbox-element .checkbox-element__check--disabled[data-v-3e5f1080]:after {\n  border-color: #444450;\n}\n.checkbox-element .checkbox-element__label-text[data-v-3e5f1080] {\n  width: 100%;\n  color: #d6d8dd;\n  padding: 0 15px 0 11px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 18px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: color 0.15s ease-out;\n  transition: color 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__label-text--disabled[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__label-text--error[data-v-3e5f1080] {\n  color: #f32440;\n}\n.checkbox-element .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 12px;\n  padding-left: 35px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  color: #777780;\n}\n.checkbox-element .checkbox-element__helper-text--warning[data-v-3e5f1080] {\n  color: #fcfda1;\n}\n.checkbox-element .checkbox-element__helper-text--disabled[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element .checkbox-element__helper-text--error[data-v-3e5f1080] {\n  color: #f32440;\n}\n.checkbox-element[data-v-3e5f1080]:focus {\n  outline: none;\n}\n.checkbox-element .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 26px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n  opacity: 0.8;\n}\n.checkbox-element .checkbox-element__toggle--focused[data-v-3e5f1080],\n.checkbox-element .checkbox-element__toggle[data-v-3e5f1080]:hover {\n  opacity: 1;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #ffffff;\n}\n.checkbox-element .checkbox-element__toggle--focused .checkbox-element__toggle-circle[data-v-3e5f1080],\n.checkbox-element .checkbox-element__toggle:hover .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  background-color: white;\n}\n.checkbox-element .checkbox-element__toggle--disabled[data-v-3e5f1080] {\n  cursor: auto;\n  opacity: 0.4;\n}\n.checkbox-element .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  height: 15px;\n  width: 25px;\n  min-width: 25px;\n  border-radius: 8px;\n  background-color: #444450;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-wrapper--checked[data-v-3e5f1080] {\n  background-color: #5df086;\n}\n.checkbox-element .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  background-color: #aaaab0;\n  -webkit-transition: all 0.15s ease-out;\n  transition: all 0.15s ease-out;\n}\n.checkbox-element .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 10px;\n  background-color: white;\n}\n.checkbox-element--phat[data-v-3e5f1080] {\n  height: 51px;\n  margin-top: 9px;\n}\n.checkbox-element--phat .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--phat .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.2, 1.2, 1);\n          transform: scale3d(1.2, 1.2, 1);\n}\n.checkbox-element--phat .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  width: 30px;\n  height: 30px;\n}\n.checkbox-element--phat .checkbox-element__square[data-v-3e5f1080] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__check[data-v-3e5f1080]:after {\n  width: 6px;\n  height: 14px;\n  border-width: 0 4.5px 5px 0;\n}\n.checkbox-element--phat .checkbox-element__label-text[data-v-3e5f1080] {\n  padding: 0 15px 0 9px;\n  font-size: 22px;\n}\n.checkbox-element--phat .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 17px;\n  padding-left: 39px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 12px;\n}\n.checkbox-element--phat .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 34px;\n}\n.checkbox-element--phat .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  width: 30px;\n  min-width: 30px;\n  height: 18px;\n  border-radius: 9px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 18px;\n  height: 18px;\n}\n.checkbox-element--phat .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 12px;\n}\n.checkbox-element--condensed[data-v-3e5f1080] {\n  height: 20px;\n  margin-top: 10px;\n}\n.checkbox-element--condensed .checkbox-element__check-row[data-v-3e5f1080] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  -webkit-transform: scale3d(1.286, 1.286, 1);\n          transform: scale3d(1.286, 1.286, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-row--focused .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled),\n.checkbox-element--condensed .checkbox-element__check-row:hover .checkbox-element__check[data-v-3e5f1080]:not(.checkbox-element__check--disabled) {\n  -webkit-transform: scale3d(1.25, 1.25, 1);\n          transform: scale3d(1.25, 1.25, 1);\n}\n.checkbox-element--condensed .checkbox-element__check-wrapper[data-v-3e5f1080] {\n  width: 24px;\n  height: 24px;\n}\n.checkbox-element--condensed .checkbox-element__square[data-v-3e5f1080] {\n  width: 14px;\n  height: 14px;\n}\n.checkbox-element--condensed .checkbox-element__check[data-v-3e5f1080] {\n  padding-top: 0;\n}\n.checkbox-element--condensed .checkbox-element__label-text[data-v-3e5f1080] {\n  padding: 0 10px 0 7px;\n  font-size: 14px;\n}\n.checkbox-element--condensed .checkbox-element__helper-text[data-v-3e5f1080] {\n  height: 15px;\n  padding-left: 27px;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n  font-size: 10px;\n  letter-spacing: 0.5px;\n}\n.checkbox-element--condensed .checkbox-element__toggle[data-v-3e5f1080] {\n  height: 20px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-wrapper[data-v-3e5f1080] {\n  width: 20px;\n  min-width: 20px;\n  height: 12px;\n  border-radius: 6px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle[data-v-3e5f1080] {\n  width: 12px;\n  height: 12px;\n}\n.checkbox-element--condensed .checkbox-element__toggle-circle--checked[data-v-3e5f1080] {\n  margin-left: 8px;\n}\n.checkbox-element--light .checkbox-element__label-text[data-v-3e5f1080] {\n  color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__square[data-v-3e5f1080]:not(.checkbox-element__square--disabled) {\n  border-color: #444450;\n}\n.checkbox-element--light .checkbox-element__check-row--focused .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled),\n.checkbox-element--light .checkbox-element__check-row:hover .checkbox-element__label-text[data-v-3e5f1080]:not(.checkbox-element__label-text--disabled) {\n  color: #444450;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -21485,335 +21464,29 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 /* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(36);
-__webpack_require__(30);
-module.exports = __webpack_require__(87);
-
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var addToUnscopables = __webpack_require__(74);
-var step = __webpack_require__(75);
-var Iterators = __webpack_require__(9);
-var toIObject = __webpack_require__(19);
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(38)(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports) {
-
-module.exports = function () { /* empty */ };
-
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports) {
-
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = !__webpack_require__(13) && !__webpack_require__(22)(function () {
-  return Object.defineProperty(__webpack_require__(23)('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(12);
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(8);
-
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var create = __webpack_require__(80);
-var descriptor = __webpack_require__(24);
-var setToStringTag = __webpack_require__(28);
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(8)(IteratorPrototype, __webpack_require__(5)('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(6);
-var dPs = __webpack_require__(81);
-var enumBugKeys = __webpack_require__(42);
-var IE_PROTO = __webpack_require__(27)('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(23)('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  __webpack_require__(43).appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__(11);
-var anObject = __webpack_require__(6);
-var getKeys = __webpack_require__(39);
-
-module.exports = __webpack_require__(13) ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var has = __webpack_require__(16);
-var toIObject = __webpack_require__(19);
-var arrayIndexOf = __webpack_require__(83)(false);
-var IE_PROTO = __webpack_require__(27)('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__(19);
-var toLength = __webpack_require__(25);
-var toAbsoluteIndex = __webpack_require__(84);
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(26);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(16);
-var toObject = __webpack_require__(29);
-var IE_PROTO = __webpack_require__(27)('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(26);
-var defined = __webpack_require__(20);
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(6);
-var get = __webpack_require__(31);
-module.exports = __webpack_require__(4).getIterator = function (it) {
-  var iterFn = get(it);
-  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-  return anObject(iterFn.call(it));
-};
-
-
-/***/ }),
-/* 88 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"checkbox-element",class:['checkbox-element--' + _vm.size, 'checkbox-element--' + _vm.theme],attrs:{"title":_vm.titleText,"data-id":_vm._f("slugify")(_vm.labelText),"tabindex":"0"},on:{"keyup":[function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.stopPropagation();return _vm.toggle($event)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"space",32,$event.key," ")){ return null; }$event.preventDefault();$event.stopPropagation();return _vm.toggle($event)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"esc",27,$event.key,"Escape")){ return null; }$event.stopPropagation();return _vm.blur($event)}],"focus":function($event){_vm.setFocus(true)},"blur":function($event){_vm.setFocus(false)}}},[(!_vm.isToggle)?_c('div',{staticClass:"checkbox-element__check-row",class:_vm._f("prefix")(_vm.states,'checkbox-element__check-row--'),attrs:{"title":_vm.titleText},on:{"click":_vm.toggle}},[_c('div',{staticClass:"checkbox-element__check-wrapper",class:_vm._f("prefix")(_vm.states,'checkbox-element__check-wrapper--')},[_c('div',{staticClass:"checkbox-element__square",class:_vm._f("prefix")(_vm.states,'checkbox-element__square--')}),_vm._v(" "),_c('div',{staticClass:"checkbox-element__check",class:_vm._f("prefix")(_vm.states,'checkbox-element__check--')})]),_vm._v(" "),_c('div',{staticClass:"checkbox-element__label-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__label-text--')},[_vm._t("default")],2)]):_c('div',{staticClass:"checkbox-element__toggle",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle--'),attrs:{"title":_vm.titleText},on:{"click":_vm.toggle}},[_c('div',{staticClass:"checkbox-element__toggle-wrapper",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle-wrapper--')},[_c('div',{staticClass:"checkbox-element__toggle-circle",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle-circle--')})]),_vm._v(" "),_c('div',{staticClass:"checkbox-element__label-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__label-text--')},[_vm._t("default")],2)]),_vm._v(" "),(_vm.infoText.length > 0)?_c('div',{staticClass:"checkbox-element__helper-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__helper-text--')},[_vm._v("\n        "+_vm._s(_vm.infoText)+"\n    ")]):_vm._e()])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"checkbox-element",class:['checkbox-element--' + _vm.size, 'checkbox-element--' + _vm.theme],attrs:{"title":_vm.actualTitleText,"data-id":_vm._f("slugify")(_vm.actualTitleText),"tabindex":"0"},on:{"keyup":[function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.stopPropagation();return _vm.toggle($event)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"space",32,$event.key," ")){ return null; }$event.preventDefault();$event.stopPropagation();return _vm.toggle($event)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"esc",27,$event.key,"Escape")){ return null; }$event.stopPropagation();return _vm.blur($event)}],"focus":function($event){_vm.setFocus(true)},"blur":function($event){_vm.setFocus(false)}}},[(!_vm.isToggle)?_c('div',{staticClass:"checkbox-element__check-row",class:_vm._f("prefix")(_vm.states,'checkbox-element__check-row--'),attrs:{"title":_vm.actualTitleText},on:{"click":_vm.toggle}},[_c('div',{staticClass:"checkbox-element__check-wrapper",class:_vm._f("prefix")(_vm.states,'checkbox-element__check-wrapper--')},[_c('div',{staticClass:"checkbox-element__square",class:_vm._f("prefix")(_vm.states,'checkbox-element__square--')}),_vm._v(" "),_c('div',{staticClass:"checkbox-element__check",class:_vm._f("prefix")(_vm.states,'checkbox-element__check--')})]),_vm._v(" "),_c('div',{staticClass:"checkbox-element__label-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__label-text--')},[_vm._t("default")],2)]):_c('div',{staticClass:"checkbox-element__toggle",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle--'),attrs:{"title":_vm.actualTitleText},on:{"click":_vm.toggle}},[_c('div',{staticClass:"checkbox-element__toggle-wrapper",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle-wrapper--')},[_c('div',{staticClass:"checkbox-element__toggle-circle",class:_vm._f("prefix")(_vm.states,'checkbox-element__toggle-circle--')})]),_vm._v(" "),_c('div',{staticClass:"checkbox-element__label-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__label-text--')},[_vm._t("default")],2)]),_vm._v(" "),(_vm.infoText.length > 0)?_c('div',{staticClass:"checkbox-element__helper-text",class:_vm._f("prefix")(_vm.states,'checkbox-element__helper-text--')},[_vm._v("\n        "+_vm._s(_vm.infoText)+"\n    ")]):_vm._e()])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 89 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(90);
+var content = __webpack_require__(74);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var update = __webpack_require__(1)("1fb5ed16", content, true, {});
 
 /***/ }),
-/* 90 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(true);
@@ -21827,7 +21500,7 @@ exports.push([module.i, "\n.dialog-button[data-v-3b2cb27c] {\n  position: relati
 
 
 /***/ }),
-/* 91 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21837,17 +21510,17 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 92 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_vue__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_vue__ = __webpack_require__(37);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_622edd81_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dialog_vue__ = __webpack_require__(103);
 function injectStyle (ssrContext) {
-  __webpack_require__(93)
-  __webpack_require__(95)
-  __webpack_require__(97)
+  __webpack_require__(77)
+  __webpack_require__(79)
+  __webpack_require__(81)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -21876,20 +21549,20 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 93 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(94);
+var content = __webpack_require__(78);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var update = __webpack_require__(1)("3cf04d2c", content, true, {});
 
 /***/ }),
-/* 94 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(true);
@@ -21903,20 +21576,20 @@ exports.push([module.i, "\n.new-dialog[data-v-622edd81] {\n  -webkit-font-smooth
 
 
 /***/ }),
-/* 95 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(96);
+var content = __webpack_require__(80);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var update = __webpack_require__(1)("6e623bfc", content, true, {});
 
 /***/ }),
-/* 96 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(true);
@@ -21930,20 +21603,20 @@ exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\
 
 
 /***/ }),
-/* 97 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(98);
+var content = __webpack_require__(82);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var update = __webpack_require__(1)("636fa483", content, true, {});
 
 /***/ }),
-/* 98 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(true);
@@ -21957,15 +21630,15 @@ exports.push([module.i, "\n.new-dialog__step-wrapper {\n  width: 100%;\n  positi
 
 
 /***/ }),
-/* 99 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_header_vue__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dialog_header_vue__ = __webpack_require__(38);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1c193f4b_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dialog_header_vue__ = __webpack_require__(102);
 function injectStyle (ssrContext) {
-  __webpack_require__(100)
+  __webpack_require__(84)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -21994,20 +21667,20 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 100 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(101);
+var content = __webpack_require__(85);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var update = __webpack_require__(1)("f624ff66", content, true, {});
 
 /***/ }),
-/* 101 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(true);
@@ -22018,6 +21691,312 @@ exports = module.exports = __webpack_require__(0)(true);
 exports.push([module.i, "\n.dialog-header[data-v-1c193f4b] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  opacity: 0;\n  font-family: \"SF UI Text Regular\";\n}\n.dialog-header--opening[data-v-1c193f4b],\n.dialog-header--open[data-v-1c193f4b] {\n  -webkit-animation: open-header-animation-data-v-1c193f4b 0.21s ease-out 0.1s;\n          animation: open-header-animation-data-v-1c193f4b 0.21s ease-out 0.1s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes open-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes open-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n.dialog-header--close-animation[data-v-1c193f4b] {\n  -webkit-animation: close-animation-header-animation-data-v-1c193f4b 0.21s ease-in 0.06s;\n          animation: close-animation-header-animation-data-v-1c193f4b 0.21s ease-in 0.06s;\n  -webkit-animation-fill-mode: backwards;\n          animation-fill-mode: backwards;\n}\n@-webkit-keyframes close-animation-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\n}\n@keyframes close-animation-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\n}\n.dialog-header--closing[data-v-1c193f4b] {\n  -webkit-animation: closing-header-animation-data-v-1c193f4b 0.15s ease-in;\n          animation: closing-header-animation-data-v-1c193f4b 0.15s ease-in;\n  -webkit-animation-fill-mode: backwards;\n          animation-fill-mode: backwards;\n}\n@-webkit-keyframes closing-header-animation-data-v-1c193f4b {\nfrom {\n    opacity: 1;\n}\nto {\n    opacity: 0;\n}\n}\n@keyframes closing-header-animation-data-v-1c193f4b {\nfrom {\n    opacity: 1;\n}\nto {\n    opacity: 0;\n}\n}\n.dialog-header--green .dialog-header__element[data-v-1c193f4b],\n.dialog-header--green .dialog-header__element--active[data-v-1c193f4b] {\n  color: #5df086;\n}\n.dialog-header__content[data-v-1c193f4b] {\n  position: absolute;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: all 0.2s ease-out;\n  transition: all 0.2s ease-out;\n  top: 55px;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__content[data-v-1c193f4b] {\n    top: 35px;\n}\n}\n.dialog-header__element[data-v-1c193f4b] {\n  float: left;\n  margin-right: 30px;\n  color: #777780;\n  letter-spacing: 0.5px;\n  font-size: 11px;\n  line-height: 11px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  cursor: default;\n  -webkit-transition: all 0.2s ease-out;\n  transition: all 0.2s ease-out;\n}\n.dialog-header__element--calculation[data-v-1c193f4b] {\n  -webkit-transition: none;\n  transition: none;\n  visibility: hidden;\n}\n.dialog-header__element--active[data-v-1c193f4b] {\n  color: #ffffff;\n  font-size: 18px;\n  line-height: 8px;\n}\n.dialog-header__back[data-v-1c193f4b] {\n  position: absolute;\n  left: 50px;\n  top: 45px;\n  width: 30px;\n  height: 30px;\n  cursor: pointer;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__back[data-v-1c193f4b] {\n    top: 25px;\n}\n}\n.dialog-header__back[data-v-1c193f4b]:hover,\n.dialog-header__back[data-v-1c193f4b]:focus {\n  -webkit-filter: brightness(150%);\n          filter: brightness(150%);\n}\n.dialog-header__back[data-v-1c193f4b]:focus {\n  outline: none;\n}\n.dialog-header__back-svg[data-v-1c193f4b] {\n  width: 30px;\n  height: 22px;\n}\n.dialog-header__close[data-v-1c193f4b] {\n  position: absolute;\n  right: 30px;\n  top: 30px;\n  width: 60px;\n  height: 60px;\n  padding: 18px;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  cursor: pointer;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__close[data-v-1c193f4b] {\n    top: 10px;\n}\n}\n.dialog-header__close[data-v-1c193f4b]:hover:not(.dialog-header__close--light),\n.dialog-header__close[data-v-1c193f4b]:focus:not(.dialog-header__close--light) {\n  -webkit-filter: brightness(150%);\n          filter: brightness(150%);\n}\n.dialog-header__close[data-v-1c193f4b]:focus {\n  outline: none;\n}\n.dialog-header__close-svg[data-v-1c193f4b] {\n  width: 24px;\n  height: 24px;\n  fill: #d6d8dd;\n}\n.dialog-header--light .dialog-header__element[data-v-1c193f4b] {\n  color: #939399;\n}\n.dialog-header--light .dialog-header__close-svg[data-v-1c193f4b] {\n  fill: #444450;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/dialog_header.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,QAAQ;EACR,YAAY;EACZ,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,WAAW;EACX,kCAAkC;CACnC;AACD;;EAEE,6EAA6E;UACrE,qEAAqE;EAC7E,sCAAsC;UAC9B,8BAA8B;CACvC;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;EACE,wFAAwF;UAChF,gFAAgF;EACxF,uCAAuC;UAC/B,+BAA+B;CACxC;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;EACE,0EAA0E;UAClE,kEAAkE;EAC1E,uCAAuC;UAC/B,+BAA+B;CACxC;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA;AACD;;EAEE,eAAe;CAChB;AACD;EACE,mBAAmB;EACnB,kCAAkC;EAClC,sCAAsC;EACtC,8BAA8B;EAC9B,UAAU;CACX;AACD;AACA;IACI,UAAU;CACb;CACA;AACD;EACE,YAAY;EACZ,mBAAmB;EACnB,eAAe;EACf,sBAAsB;EACtB,gBAAgB;EAChB,kBAAkB;EAClB,kCAAkC;EAClC,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,gBAAgB;EAChB,sCAAsC;EACtC,8BAA8B;CAC/B;AACD;EACE,yBAAyB;EACzB,iBAAiB;EACjB,mBAAmB;CACpB;AACD;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,mBAAmB;EACnB,WAAW;EACX,UAAU;EACV,YAAY;EACZ,aAAa;EACb,gBAAgB;CACjB;AACD;AACA;IACI,UAAU;CACb;CACA;AACD;;EAEE,iCAAiC;UACzB,yBAAyB;CAClC;AACD;EACE,cAAc;CACf;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,mBAAmB;EACnB,YAAY;EACZ,UAAU;EACV,YAAY;EACZ,aAAa;EACb,cAAc;EACd,+BAA+B;UACvB,uBAAuB;EAC/B,gBAAgB;CACjB;AACD;AACA;IACI,UAAU;CACb;CACA;AACD;;EAEE,iCAAiC;UACzB,yBAAyB;CAClC;AACD;EACE,cAAc;CACf;AACD;EACE,YAAY;EACZ,aAAa;EACb,cAAc;CACf;AACD;EACE,eAAe;CAChB;AACD;EACE,cAAc;CACf","file":"dialog_header.vue","sourcesContent":["\n.dialog-header[data-v-1c193f4b] {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  opacity: 0;\n  font-family: \"SF UI Text Regular\";\n}\n.dialog-header--opening[data-v-1c193f4b],\n.dialog-header--open[data-v-1c193f4b] {\n  -webkit-animation: open-header-animation-data-v-1c193f4b 0.21s ease-out 0.1s;\n          animation: open-header-animation-data-v-1c193f4b 0.21s ease-out 0.1s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes open-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes open-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n.dialog-header--close-animation[data-v-1c193f4b] {\n  -webkit-animation: close-animation-header-animation-data-v-1c193f4b 0.21s ease-in 0.06s;\n          animation: close-animation-header-animation-data-v-1c193f4b 0.21s ease-in 0.06s;\n  -webkit-animation-fill-mode: backwards;\n          animation-fill-mode: backwards;\n}\n@-webkit-keyframes close-animation-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\n}\n@keyframes close-animation-header-animation-data-v-1c193f4b {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(0, -60px, 0);\n            transform: translate3d(0, -60px, 0);\n    opacity: 0;\n}\n}\n.dialog-header--closing[data-v-1c193f4b] {\n  -webkit-animation: closing-header-animation-data-v-1c193f4b 0.15s ease-in;\n          animation: closing-header-animation-data-v-1c193f4b 0.15s ease-in;\n  -webkit-animation-fill-mode: backwards;\n          animation-fill-mode: backwards;\n}\n@-webkit-keyframes closing-header-animation-data-v-1c193f4b {\nfrom {\n    opacity: 1;\n}\nto {\n    opacity: 0;\n}\n}\n@keyframes closing-header-animation-data-v-1c193f4b {\nfrom {\n    opacity: 1;\n}\nto {\n    opacity: 0;\n}\n}\n.dialog-header--green .dialog-header__element[data-v-1c193f4b],\n.dialog-header--green .dialog-header__element--active[data-v-1c193f4b] {\n  color: #5df086;\n}\n.dialog-header__content[data-v-1c193f4b] {\n  position: absolute;\n  font-family: \"SF UI Text Regular\";\n  -webkit-transition: all 0.2s ease-out;\n  transition: all 0.2s ease-out;\n  top: 55px;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__content[data-v-1c193f4b] {\n    top: 35px;\n}\n}\n.dialog-header__element[data-v-1c193f4b] {\n  float: left;\n  margin-right: 30px;\n  color: #777780;\n  letter-spacing: 0.5px;\n  font-size: 11px;\n  line-height: 11px;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  cursor: default;\n  -webkit-transition: all 0.2s ease-out;\n  transition: all 0.2s ease-out;\n}\n.dialog-header__element--calculation[data-v-1c193f4b] {\n  -webkit-transition: none;\n  transition: none;\n  visibility: hidden;\n}\n.dialog-header__element--active[data-v-1c193f4b] {\n  color: #ffffff;\n  font-size: 18px;\n  line-height: 8px;\n}\n.dialog-header__back[data-v-1c193f4b] {\n  position: absolute;\n  left: 50px;\n  top: 45px;\n  width: 30px;\n  height: 30px;\n  cursor: pointer;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__back[data-v-1c193f4b] {\n    top: 25px;\n}\n}\n.dialog-header__back[data-v-1c193f4b]:hover,\n.dialog-header__back[data-v-1c193f4b]:focus {\n  -webkit-filter: brightness(150%);\n          filter: brightness(150%);\n}\n.dialog-header__back[data-v-1c193f4b]:focus {\n  outline: none;\n}\n.dialog-header__back-svg[data-v-1c193f4b] {\n  width: 30px;\n  height: 22px;\n}\n.dialog-header__close[data-v-1c193f4b] {\n  position: absolute;\n  right: 30px;\n  top: 30px;\n  width: 60px;\n  height: 60px;\n  padding: 18px;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  cursor: pointer;\n}\n@media only screen and (max-height: 870px) {\n.dialog-header__close[data-v-1c193f4b] {\n    top: 10px;\n}\n}\n.dialog-header__close[data-v-1c193f4b]:hover:not(.dialog-header__close--light),\n.dialog-header__close[data-v-1c193f4b]:focus:not(.dialog-header__close--light) {\n  -webkit-filter: brightness(150%);\n          filter: brightness(150%);\n}\n.dialog-header__close[data-v-1c193f4b]:focus {\n  outline: none;\n}\n.dialog-header__close-svg[data-v-1c193f4b] {\n  width: 24px;\n  height: 24px;\n  fill: #d6d8dd;\n}\n.dialog-header--light .dialog-header__element[data-v-1c193f4b] {\n  color: #939399;\n}\n.dialog-header--light .dialog-header__close-svg[data-v-1c193f4b] {\n  fill: #444450;\n}\n"],"sourceRoot":""}]);
 
 // exports
+
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(40);
+__webpack_require__(29);
+module.exports = __webpack_require__(101);
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var addToUnscopables = __webpack_require__(88);
+var step = __webpack_require__(89);
+var Iterators = __webpack_require__(9);
+var toIObject = __webpack_require__(18);
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = __webpack_require__(42)(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+module.exports = function () { /* empty */ };
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(13) && !__webpack_require__(21)(function () {
+  return Object.defineProperty(__webpack_require__(22)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(12);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(8);
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create = __webpack_require__(94);
+var descriptor = __webpack_require__(23);
+var setToStringTag = __webpack_require__(27);
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__(8)(IteratorPrototype, __webpack_require__(5)('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__(6);
+var dPs = __webpack_require__(95);
+var enumBugKeys = __webpack_require__(46);
+var IE_PROTO = __webpack_require__(26)('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(22)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(47).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(11);
+var anObject = __webpack_require__(6);
+var getKeys = __webpack_require__(43);
+
+module.exports = __webpack_require__(13) ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(16);
+var toIObject = __webpack_require__(18);
+var arrayIndexOf = __webpack_require__(97)(false);
+var IE_PROTO = __webpack_require__(26)('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(18);
+var toLength = __webpack_require__(24);
+var toAbsoluteIndex = __webpack_require__(98);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(25);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = __webpack_require__(16);
+var toObject = __webpack_require__(28);
+var IE_PROTO = __webpack_require__(26)('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(25);
+var defined = __webpack_require__(19);
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(6);
+var get = __webpack_require__(30);
+module.exports = __webpack_require__(4).getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
 
 
 /***/ }),
@@ -22277,15 +22256,15 @@ $export($export.S + $export.F, 'Object', { assign: __webpack_require__(117) });
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(39);
+var getKeys = __webpack_require__(43);
 var gOPS = __webpack_require__(118);
 var pIE = __webpack_require__(119);
-var toObject = __webpack_require__(29);
-var IObject = __webpack_require__(37);
+var toObject = __webpack_require__(28);
+var IObject = __webpack_require__(41);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(22)(function () {
+module.exports = !$assign || __webpack_require__(21)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -22336,8 +22315,8 @@ module.exports = { "default": __webpack_require__(121), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(122);
-__webpack_require__(30);
-__webpack_require__(36);
+__webpack_require__(29);
+__webpack_require__(40);
 __webpack_require__(123);
 __webpack_require__(131);
 __webpack_require__(132);
@@ -22356,10 +22335,10 @@ module.exports = __webpack_require__(4).Promise;
 
 "use strict";
 
-var LIBRARY = __webpack_require__(21);
+var LIBRARY = __webpack_require__(20);
 var global = __webpack_require__(3);
 var ctx = __webpack_require__(10);
-var classof = __webpack_require__(44);
+var classof = __webpack_require__(48);
 var $export = __webpack_require__(7);
 var isObject = __webpack_require__(12);
 var aFunction = __webpack_require__(15);
@@ -22368,7 +22347,7 @@ var forOf = __webpack_require__(125);
 var speciesConstructor = __webpack_require__(55);
 var task = __webpack_require__(56).set;
 var microtask = __webpack_require__(127)();
-var newPromiseCapabilityModule = __webpack_require__(32);
+var newPromiseCapabilityModule = __webpack_require__(31);
 var perform = __webpack_require__(57);
 var userAgent = __webpack_require__(128);
 var promiseResolve = __webpack_require__(58);
@@ -22577,7 +22556,7 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(28)($Promise, PROMISE);
+__webpack_require__(27)($Promise, PROMISE);
 __webpack_require__(130)(PROMISE);
 Wrapper = __webpack_require__(4)[PROMISE];
 
@@ -22662,8 +22641,8 @@ var ctx = __webpack_require__(10);
 var call = __webpack_require__(53);
 var isArrayIter = __webpack_require__(54);
 var anObject = __webpack_require__(6);
-var toLength = __webpack_require__(25);
-var getIterFn = __webpack_require__(31);
+var toLength = __webpack_require__(24);
+var getIterFn = __webpack_require__(30);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -22861,7 +22840,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(7);
-var newPromiseCapability = __webpack_require__(32);
+var newPromiseCapability = __webpack_require__(31);
 var perform = __webpack_require__(57);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
@@ -23268,7 +23247,7 @@ module.exports = { "default": __webpack_require__(155), __esModule: true };
 /* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(30);
+__webpack_require__(29);
 __webpack_require__(156);
 module.exports = __webpack_require__(4).Array.from;
 
@@ -23281,12 +23260,12 @@ module.exports = __webpack_require__(4).Array.from;
 
 var ctx = __webpack_require__(10);
 var $export = __webpack_require__(7);
-var toObject = __webpack_require__(29);
+var toObject = __webpack_require__(28);
 var call = __webpack_require__(53);
 var isArrayIter = __webpack_require__(54);
-var toLength = __webpack_require__(25);
+var toLength = __webpack_require__(24);
 var createProperty = __webpack_require__(157);
-var getIterFn = __webpack_require__(31);
+var getIterFn = __webpack_require__(30);
 
 $export($export.S + $export.F * !__webpack_require__(59)(function (iter) { Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
@@ -23324,7 +23303,7 @@ $export($export.S + $export.F * !__webpack_require__(59)(function (iter) { Array
 "use strict";
 
 var $defineProperty = __webpack_require__(11);
-var createDesc = __webpack_require__(24);
+var createDesc = __webpack_require__(23);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));
