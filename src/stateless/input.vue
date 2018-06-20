@@ -13,8 +13,8 @@
             </div>
 
             <div :class="cssStates | prefix('input-row--')" class="input-row">
-                <div v-if="$slots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
-                    <slot name="left"></slot>
+                <div v-if="hasLeftUnit" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
+                    {{ unit.label }}
                 </div>
 
                 <div class="input-row__input-flex">
@@ -40,10 +40,12 @@
                            @keyup.left.stop @keyup.right.stop @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
-                <div v-if="$slots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
-                    <slot name="right"></slot>
+                <div v-if="hasRightUnit" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
+                    {{ unit.label }}
                 </div>
-                <div v-else-if="type==='password'" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right" @click="togglePasswordVisibility">
+
+                <div v-if="type==='password'" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right"
+                     @click="togglePasswordVisibility">
                     <svg v-show="passwordVisible" xmlns="http://www.w3.org/2000/svg" class="input-row__unit__password-icon">
                         <symbol viewBox="0 0 16 16">
                             <g fill-rule="nonzero" ><path d="M14.6 5.6l-8.2 8.2c.5.1 1.1.2 1.6.2 3.6 0 6.4-3.1 7.6-4.9.5-.7.5-1.6 0-2.3-.2-.3-.6-.7-1-1.2zM14.3.3L11.6 3C10.5 2.4 9.3 2 8 2 4.4 2 1.6 5.1.4 6.9c-.5.7-.5 1.6 0 2.2.5.8 1.4 1.8 2.4 2.7L.3 14.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3l14-14c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0zm-9 9C5.1 8.9 5 8.5 5 8c0-1.7 1.3-3 3-3 .5 0 .9.1 1.3.3l-4 4z"/></g>
@@ -97,6 +99,7 @@ export default {
         error: { type: String, required: false },
         placeholder: { type: String, required: false, default: '' },
         icon: { type: String, required: false, default: '' },
+        unit: { type: Object, required: false },
         helperText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         type: { type: String, required: false, default: 'text' },
@@ -112,6 +115,7 @@ export default {
             warningMessage: null,
             errorMessage: null,
             focused: false,
+            text: '',
             passwordVisible: false,
             textareaOverflow: false,
             overlay: {
@@ -168,6 +172,12 @@ export default {
         mappedDisabledText () {
             return this.states.disabled ? this.disabledText : ''
         },
+        hasLeftUnit () {
+            return !!this.unit && this.unit.position === 'left'
+        },
+        hasRightUnit () {
+            return !!this.unit && this.unit.position === 'right'
+        },
         maxLengthNumber () {
             return this.recommendedMaxLength || this.maxLength ? parseInt(this.recommendedMaxLength || this.maxLength, 10) : null
         },
@@ -175,23 +185,20 @@ export default {
             return this.maxLength ? parseInt(this.maxLength, 10) : null
         },
         currentLength () {
-            if (!this.value) {
+            if (!this.text) {
                 return 0
             }
-            return this.getCount ? this.getCount(this.value) : this.value.length
+            return this.getCount ? this.getCount(this.text) : this.text.length
         },
         textareaClasses (){
             // Apparently you can't use a filter within array class binding in template
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
         },
-        text () {
-            return this.value && this.value.toString() || ''
-        },
     },
     watch: {
-        value () {
-            if (this.$refs.input && this.$refs.input.value !== this.text) {
-                this.$refs.input.value = this.text
+        value (v) {
+            if (this.disabled) {
+                this.text = this.value && this.value.toString() || ''
             }
         },
         disabled (v) {
@@ -202,6 +209,9 @@ export default {
         error (v) {
             this.errorMessage = v === null ? true : v
         },
+    },
+    created () {
+        this.text = this.value && this.value.toString() || ''
     },
     mounted () {
         this.$nextTick(() => {
@@ -261,6 +271,8 @@ export default {
                 let isNumeric = _.every(value.split('').map((c) => c >= '0' && c <= '9'))
 
                 if (isNumeric) {
+                    this.text = value
+
                     let numberValue = parseInt(value)
                     if (!isNaN(numberValue)) {
                         this.runValidations(numberValue)
@@ -271,9 +283,15 @@ export default {
                     }
                 }
             } else {
+                this.text = value
+
                 this.runValidations(value)
 
                 this.$emit('input', value || null)
+            }
+
+            if (this.$refs.input && this.$refs.input.value !== this.text) {
+                this.$refs.input.value = this.text
             }
 
             this.$nextTick(() => {
@@ -290,7 +308,7 @@ export default {
             }
         },
         positionOverlay () {
-            if (this.$slots.left) {
+            if (this.hasLeftUnit) {
                 this.$refs.labelOverlay.style['margin-left'] = `${this.$refs.input.getBoundingClientRect().left - this.$refs.inputWrap.getBoundingClientRect().left}px`
             }
         },
@@ -322,7 +340,6 @@ export default {
         },
         removeFocus () {
             this.focused = false
-            this.$emit('blur')
 
             if (this.text === '') {
                 this.$refs.labelOverlay.style.transform = ''

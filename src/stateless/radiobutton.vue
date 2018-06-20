@@ -1,19 +1,19 @@
 <template>
-    <div class="radio-element" :class="['radio-element--' + size, 'radio-element--' + theme]" :data-id="value | slugify" :title="labelText" tabindex="0" @keyup.enter.stop="click" @keyup.space.prevent.stop="click" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
-        <div class="radio-element__radio-row" :class="states | prefix('radio-element__radio-row--')" :title="labelText" @click="click">
-            <div class="radio-element__oval-wrapper" :class="states | prefix('radio-element__oval-wrapper--')">
+    <div :class="['radio-element--' + size, 'radio-element--' + theme]" :data-id="value | slugify" :title="labelText" class="radio-element" tabindex="0" @keyup.enter.stop="click" @keyup.space.prevent.stop="click" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
+        <div :class="states | prefix('radio-element__radio-row--')" :title="labelText" class="radio-element__radio-row" @click="click">
+            <div :class="states | prefix('radio-element__oval-wrapper--')" class="radio-element__oval-wrapper">
                 <slot name="icon">
-                    <div class="radio-element__oval" :class="states | prefix('radio-element__oval--')"></div>
-                    <div class="radio-element__inner-oval" :class="states | prefix('radio-element__inner-oval--')"></div>
+                    <div :class="states | prefix('radio-element__oval--')" class="radio-element__oval"></div>
+                    <div :class="states | prefix('radio-element__inner-oval--')" class="radio-element__inner-oval"></div>
                 </slot>
             </div>
 
-            <div class="radio-element__label-text" :class="states | prefix('radio-element__label-text--')">
+            <div :class="states | prefix('radio-element__label-text--')" class="radio-element__label-text">
                 {{ labelText }}
             </div>
         </div>
 
-        <div class="radio-element__helper-text" :class="states | prefix('radio-element__helper-text--')" v-if="infoText.length > 0">
+        <div v-if="infoText.length > 0" :class="states | prefix('radio-element__helper-text--')" class="radio-element__helper-text">
             {{ infoText }}
         </div>
     </div>

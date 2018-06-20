@@ -1,13 +1,13 @@
 <template>
-    <div class="file-upload" :class="'file-upload--' + theme" tabindex="0" @keyup.esc.stop="blur" @keyup.enter.stop="openUploadDialog">
-        <div class="file-upload__square-prepend" :class="fileInputSquareModifiers | prefix('file-upload__square-prepend--')" @click="openUploadDialog">
+    <div :class="'file-upload--' + theme" class="file-upload" tabindex="0" @keyup.esc.stop="blur" @keyup.enter.stop="openUploadDialog">
+        <div :class="fileInputSquareModifiers | prefix('file-upload__square-prepend--')" class="file-upload__square-prepend" @click="openUploadDialog">
             <div
                 v-if="states.uploaded && file.thumbnailUrl"
                 class="file-upload__square-prepend__thumbnail-wrap"
                 @mouseover="$emit('thumbnail-mouseover', $event)"
                 @mouseleave="$emit('thumbnail-mouseleave', $event)">
 
-                <div class="file-upload__square-prepend__thumbnail" :style="{ backgroundImage: `url(${file.thumbnailUrl})`, opacity: file.thumbnailOpacity || 1 }"></div>
+                <div :style="{ backgroundImage: `url(${file.thumbnailUrl})`, opacity: file.thumbnailOpacity || 1 }" class="file-upload__square-prepend__thumbnail"></div>
                 <div class="file-upload__square-prepend__buttons">
                     <slot name="buttons"></slot>
                 </div>
@@ -24,26 +24,26 @@
                       fill-rule="nonzero" fill="d8d8d8"/>
             </svg>
 
-            <div class="file-upload__square-prepend__progress-percent" v-if="states.uploading">{{ progress }}%</div>
-            <svg height="80" width="80" v-if="states.uploading">
+            <div v-if="states.uploading" class="file-upload__square-prepend__progress-percent">{{ progress }}%</div>
+            <svg v-if="states.uploading" height="80" width="80">
                 <circle cx="40" cy="40" r="38" class="file-upload__square-prepend__background-circle"></circle>
-                <circle cx="40" cy="40" r="38" transform="rotate(-90 40 40)"
-                        class="file-upload__square-prepend__progress-circle"
-                        :style="{strokeDashoffset: progressDashoffset}"></circle>
+                <circle :style="{strokeDashoffset: progressDashoffset}" cx="40" cy="40" r="38"
+                        transform="rotate(-90 40 40)"
+                        class="file-upload__square-prepend__progress-circle"></circle>
             </svg>
 
         </div>
         <div class="file-upload__form-wrapper">
-            <input ref="fileInput" type="file" :accept="accepts ? accepts.join(',') : null" :name="inputName" style="display: none;"/>
-            <svg :viewBox="`0 0 ${width - 90} 90`" preserveAspectRatio="none" vector-effect="non-scaling-stroke"
-                 v-if="!states.uploaded"
-                 class="file-upload__form-wrapper__border-svg"
-                 :class="{ 'file-upload__form-wrapper__border-svg--error':states.error }">
+            <input ref="fileInput" :accept="accepts ? accepts.join(',') : null" :name="inputName" type="file" style="display: none;"/>
+            <svg v-if="!states.uploaded" :viewBox="`0 0 ${width - 90} 90`" :class="{ 'file-upload__form-wrapper__border-svg--error':states.error }"
+                 preserveAspectRatio="none"
+                 vector-effect="non-scaling-stroke"
+                 class="file-upload__form-wrapper__border-svg">
                 <path :d="`M0,0 ${width - 90},0 ${width - 90},90`" />
                 <path :d="`M0,90 ${width - 90},90`"/>
             </svg>
 
-            <div class="file-upload__form-wrapper__uploaded-text" v-if="states.uploaded">
+            <div v-if="states.uploaded" class="file-upload__form-wrapper__uploaded-text">
                 <div class="file-upload__with-icon__text">{{ file.name | middleEllipsis(maxFilenameLength) }}</div>
                 <div v-if="!disabled" class="file-upload__with-icon__icon" @click="userRemoveFile">
                     <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -54,18 +54,18 @@
                 </div>
             </div>
 
-            <div class="file-upload__form-wrapper__error" v-if="states.error">
+            <div v-if="states.error" class="file-upload__form-wrapper__error">
                 <div class="file-upload__text">
                     {{ errorMessage }}
                     <span class="file-upload__trigger" @click="cleanupAndOpenUploadDialog">Re-upload.</span>
                 </div>
             </div>
-            <div class="file-upload__form-wrapper__text file-upload__form-wrapper__text--white" v-else-if="states.uploading">
+            <div v-else-if="states.uploading" class="file-upload__form-wrapper__text file-upload__form-wrapper__text--white">
                 Uploading file. <br>
                 Please wait.
             </div>
 
-            <div class="file-upload__form-wrapper__text" v-if="states.normal && !states.error">
+            <div v-if="states.normal && !states.error" class="file-upload__form-wrapper__text">
                 Drag a file here or <span class="file-upload__trigger" @click="openUploadDialog">browse</span>
                 for it to upload.
             </div>

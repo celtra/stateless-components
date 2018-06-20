@@ -1,7 +1,7 @@
 <template>
-    <div class="drop-area__overlay" :class="['drop-area__overlay--' + theme, 'drop-area__overlay--' + size]" v-if="dragActive" @dragleave.stop="dragEnd" @drop.prevent.stop="drop">
+    <div v-if="dragActive" :class="['drop-area__overlay--' + theme, 'drop-area__overlay--' + size]" class="drop-area__overlay" @dragleave.stop="dragEnd" @drop.prevent.stop="drop">
         <svg v-if="size != 'small'" :viewBox="`0 0 ${width} ${height}`" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path vector-effect="non-scaling-stroke" :d="outlinePath"></path>
+            <path :d="outlinePath" vector-effect="non-scaling-stroke"></path>
         </svg>
     </div>
 </template>

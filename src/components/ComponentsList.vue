@@ -59,7 +59,7 @@ export default {
         for (let component of getComponents()) {
             let componentData = {}
             for (let prop of component.props) {
-                componentData[prop.name] = component.defaultProps[prop.name] || prop.default || null
+                componentData[prop.name] = componentData.defaultProps && componentData.defaultProps[prop.name] || prop.default || null
             }
             vars[component.id] = componentData
         }

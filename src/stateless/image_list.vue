@@ -1,8 +1,8 @@
 <template>
     <svg
-        xmlns="http://www.w3.org/2000/svg" version="1.1"
+        :viewBox="`0 0 ${maxWidth} ${fullHeight}`" xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
         class="image-list"
-        :viewBox="`0 0 ${maxWidth} ${fullHeight}`"
         @mouseleave="pointerX = null"
         @mousemove="setPointerPosition">
         <clipPath :id="`images-mask-${_uid}`">
@@ -14,64 +14,64 @@
         <g :clip-path="`url(#images-mask-${_uid})`" class="image-list__items">
             <g
                 v-for="(image, index) in computedImages" :key="index"
-                class="image-list__item"
                 :transform="`translate(${image.offsetX}, 0) scale(${image.size / maxSize})`"
-                :style="{ transformOrigin: `0px ${maxSize / 2}px` }">
+                :style="{ transformOrigin: `0px ${maxSize / 2}px` }"
+                class="image-list__item">
 
-                <rect fill="#000" x="0" y="0" :width="maxSize" :height="maxSize" opacity=".1" />
+                <rect :width="maxSize" :height="maxSize" fill="#000" x="0" y="0" opacity=".1" />
 
                 <!-- Warning -->
                 <path
                     v-if="image.loadingProgress === null && image.hasWarning"
-                    class="image-list__item-content"
                     :d="paths.warning.d"
                     :style="{ transformOrigin: `${maxSize / 2}px ${maxSize / 2}px`, transform: `translate(${(maxSize - paths.warning.width) / 2}px, ${(maxSize - paths.warning.height) / 2}px)` }"
+                    class="image-list__item-content"
                     fill="#FCFDA1"/>
                 <!-- Loading -->
                 <g
                     v-if="image.loadingProgress !== null"
-                    class="image-list__item-content"
                     :opacity="image.opacity"
-                    :style="{ transform: `translate(${(maxSize - paths.loading.width) / 2 - 1}px, ${(maxSize - paths.loading.height) / 2 - 1}px) scale(${0.4 * maxSize / paths.loading.width})` }">
-                    <path class="image-list__loading" :d="paths.loading.d" fill="#444450" :style="{ transformOrigin: `${paths.loading.width / 2}px ${paths.loading.height / 2}px` }"/>
+                    :style="{ transform: `translate(${(maxSize - paths.loading.width) / 2 - 1}px, ${(maxSize - paths.loading.height) / 2 - 1}px) scale(${0.4 * maxSize / paths.loading.width})` }"
+                    class="image-list__item-content">
+                    <path :d="paths.loading.d" :style="{ transformOrigin: `${paths.loading.width / 2}px ${paths.loading.height / 2}px` }" class="image-list__loading" fill="#444450"/>
                 </g>
                 <!-- Image -->
                 <image
                     v-else-if="image.url"
-                    class="image-list__item-content"
                     :opacity="image.opacity"
                     v-bind="{'xlink:href': image.url}"
                     :width="maxSize"
                     :height="maxSize"
+                    class="image-list__item-content"
                     preserveAspectRatio="xMidYMid slice">
                 </image>
                 <!-- Blank -->
                 <path
                     v-else-if="!image.hasWarning"
-                    class="image-list__item-content"
                     :opacity="image.opacity"
                     :fill="image.isHovered ? '#777780' : '#3c3d48'"
                     :d="paths.blank.d"
-                    :style="{ transformOrigin: `${maxSize / 2}px ${maxSize / 2}px`, transform: `scale(${0.3 * maxSize / paths.blank.width}) translate(${(maxSize - paths.blank.width) / 2}px, ${(maxSize - paths.blank.height) / 2}px)` }"/>
+                    :style="{ transformOrigin: `${maxSize / 2}px ${maxSize / 2}px`, transform: `scale(${0.3 * maxSize / paths.blank.width}) translate(${(maxSize - paths.blank.width) / 2}px, ${(maxSize - paths.blank.height) / 2}px)` }"
+                    class="image-list__item-content"/>
 
                 <rect v-if="image.isCurrent" :y="maxSize + image.borderSpacing" :width="maxSize" height="2" class="image-list__item-underline"></rect>
             </g>
         </g>
 
-        <g class="image-list__arrow" :opacity="hasArrows.left ? 1 : 0" :style="{ transform: `translate(${(20 - paths.arrow.width) / 2}px, ${(maxSize - paths.arrow.height) / 2}px)` }">
-            <path transform="rotate(180)" transform-origin="center" fill="#F5F5F5" :d="paths.arrow.d"/>
+        <g :opacity="hasArrows.left ? 1 : 0" :style="{ transform: `translate(${(20 - paths.arrow.width) / 2}px, ${(maxSize - paths.arrow.height) / 2}px)` }" class="image-list__arrow">
+            <path :d="paths.arrow.d" transform="rotate(180)" transform-origin="center" fill="#F5F5F5"/>
         </g>
-        <g class="image-list__arrow" :opacity="hasArrows.right ? 1 : 0" :style="{ transform: `translate(${imagesWidth - (20 + paths.arrow.width) / 2}px, ${(maxSize - paths.arrow.height) / 2}px)` }">
-            <path fill="#F5F5F5" :d="paths.arrow.d"/>
+        <g :opacity="hasArrows.right ? 1 : 0" :style="{ transform: `translate(${imagesWidth - (20 + paths.arrow.width) / 2}px, ${(maxSize - paths.arrow.height) / 2}px)` }" class="image-list__arrow">
+            <path :d="paths.arrow.d" fill="#F5F5F5"/>
         </g>
 
         <g
             v-for="(button, index) in buttons" :key="index"
+            :style="{ opacity: enableAdd ? 1 : 0.4, transformOrigin: `0px ${maxSize / 2}px`, transform: `translate(${imagesWidth + spacing}px, 0px) scale(${button.size / maxSize})` }"
             class="image-list__button"
-            @click="addImage"
-            :style="{ opacity: enableAdd ? 1 : 0.4, transformOrigin: `0px ${maxSize / 2}px`, transform: `translate(${imagesWidth + spacing}px, 0px) scale(${button.size / maxSize})` }">
+            @click="addImage">
 
-            <rect fill="#444450" x="0" y="0" :width="maxSize" :height="maxSize" />
+            <rect :width="maxSize" :height="maxSize" fill="#444450" x="0" y="0" />
             <path :style="{ transformOrigin: `${maxSize / 2}px ${maxSize / 2}px`, transform: `scale(${20/19.2}) translate(${(maxSize - paths.plus.width) / 2}px, ${(maxSize - paths.plus.height) / 2}px)` }" :d="paths.plus.d"/>
         </g>
     </svg>

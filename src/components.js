@@ -1,7 +1,52 @@
-import Selectbox from '@/stateless/selectbox.vue'
+import Checkbox from '@/stateless/checkbox.vue'
+import DialogButton from '@/stateless/dialog_button.vue'
+import Dialog from '@/stateless/dialog.vue'
+import DropArea from '@/stateless/drop_area.vue'
+import FileUploadRequirements from '@/stateless/file_upload_requirements.vue'
+import FileUpload from '@/stateless/file_upload.vue'
+import ImageList from '@/stateless/image_list.vue'
 import Input from '@/stateless/input.vue'
+import Multiselect from '@/stateless/multiselect.vue'
+import RadioButton from '@/stateless/radiobutton.vue'
+import Selectbox from '@/stateless/selectbox.vue'
+import SupportText from '@/stateless/support_text.vue'
 
 export default {
+    checkbox: {
+        component: Checkbox,
+    },
+    dialog_button: {
+        component: DialogButton,
+    },
+    dialog: {
+        component: Dialog,
+    },
+    drop_area: {
+        component: DropArea,
+    },
+    file_upload_requirements: {
+        component: FileUploadRequirements,
+    },
+    file_upload: {
+        component: FileUpload,
+    },
+    image_list: {
+        component: ImageList,
+    },
+    input: {
+        component: Input,
+        width: 300,
+        defaultProps: {
+            label: 'Something',
+            theme: 'light',
+        },
+    },
+    multiselect: {
+        component: Multiselect,
+    },
+    radio_button: {
+        component: RadioButton,
+    },
     selectbox: {
         component: Selectbox,
         width: 300,
@@ -25,12 +70,7 @@ export default {
             label: 'Something',
         },
     },
-    input: {
-        component: Input,
-        width: 300,
-        defaultProps: {
-            label: 'Something',
-            theme: 'light',
-        },
+    support_text: {
+        component: SupportText,
     },
 }

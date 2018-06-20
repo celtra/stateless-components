@@ -1,18 +1,18 @@
 <template>
-    <div class="support-text" :class="{right: isRight, left: isLeft} | prefix('support-text--')">
+    <div :class="{right: isRight, left: isLeft} | prefix('support-text--')" class="support-text">
         <a v-if="url" :href="url" target="_blank" tabindex="-1" @click="click">
             <support-text :theme="theme" :text="text" :is-right="isRight"></support-text>
         </a>
         <template v-else>
-            <div class="support-text__hidden support-text__hidden--right" v-if="isRight && showText">
-                <p class="support-text__content support-text__content--right"
+            <div v-if="isRight && showText" class="support-text__hidden support-text__hidden--right">
+                <p ref="content"
                    :class="{'support-text__content--multiline': isMultiline,
                             'support-text__content--light': theme==='light'}"
-                   ref="content" v-html="text"></p>
+                   class="support-text__content support-text__content--right" v-html="text"></p>
             </div>
 
-            <div class="support-text__icon" :class="{'support-text__icon--open': showText}">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" ref="icon">
+            <div :class="{'support-text__icon--open': showText}" class="support-text__icon">
+                <svg ref="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
                     <g fill="none" fill-rule="evenodd">
                         <circle cx="8.5" cy="8.5" r="8.5" fill="#D8D8D8"/>
                         <path fill="#1F1F2C"
@@ -21,10 +21,10 @@
                 </svg>
             </div>
 
-            <div class="support-text__hidden support-text__hidden--left" v-if="!isRight && showText">
-                <p class="support-text__content support-text__content--left" ref="content"
-                   :class="{'support-text__content--multiline': isMultiline,
-                            'support-text__content--light': theme==='light'}"
+            <div v-if="!isRight && showText" class="support-text__hidden support-text__hidden--left">
+                <p ref="content" :class="{'support-text__content--multiline': isMultiline,
+                                          'support-text__content--light': theme==='light'}"
+                   class="support-text__content support-text__content--left"
                    v-html="text"></p>
             </div>
         </template>

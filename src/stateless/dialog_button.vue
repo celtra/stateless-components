@@ -1,15 +1,15 @@
 <template>
     <div>
-        <a v-if="href" class="dialog-button__link" :href="href" @click="click">
+        <a v-if="href" :href="href" class="dialog-button__link" @click="click">
             <dialog-button :disabled="disabled" :loading="loading" :error="error">
                 <slot></slot>
             </dialog-button>
         </a>
-        <div v-else class="dialog-button" :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button--')" @click="click" @keyup.enter.prevent.stop="click" :tabindex="disabled ? -1 : 0">
-            <svg viewBox="0 0 30 30" v-if="loading">
+        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button--')" :tabindex="disabled ? -1 : 0" class="dialog-button" @click="click" @keyup.enter.prevent.stop="click">
+            <svg v-if="loading" viewBox="0 0 30 30">
                 <path d="M15,30C6.7,30,0,23.3,0,15c0-4.7,2.3-9.2,6-12l2.4,3.2C5.6,8.2,4,11.5,4,15C4,21,8.9,26,15,26c6.1,0,11-4.9,11-11c0-5.7-4.4-10.5-10-11l0.3-4C24,0.7,30,7.2,30,15C30,23.3,23.3,30,15,30z"/>
             </svg>
-            <div class="dialog-button__text" :style="loading ? { visibility: 'hidden' } : {}">
+            <div :style="loading ? { visibility: 'hidden' } : {}" class="dialog-button__text">
                 <slot></slot>
             </div>
         </div>

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="new-dialog" :class="['new-dialog--' + theme, 'new-dialog--' + dialogViewState]">
-            <div ref="overlay" class="new-dialog__overlay" :class="'new-dialog__overlay--' + dialogViewState"></div>
-            <div class="new-dialog__content-wrapper" :class="'new-dialog__content-wrapper--' + dialogViewState">
-                <div class="new-dialog__header-wrapper" v-if="steps && steps.length > 0 || title">
+        <div :class="['new-dialog--' + theme, 'new-dialog--' + dialogViewState]" class="new-dialog">
+            <div ref="overlay" :class="'new-dialog__overlay--' + dialogViewState" class="new-dialog__overlay"></div>
+            <div :class="'new-dialog__content-wrapper--' + dialogViewState" class="new-dialog__content-wrapper">
+                <div v-if="steps && steps.length > 0 || title" class="new-dialog__header-wrapper">
                     <dialog-header
                         ref="header"
                         :theme="theme"
@@ -18,7 +18,7 @@
                     </dialog-header>
                 </div>
 
-                <div ref="content" class="new-dialog__content" :class="'new-dialog__content--' + dialogViewState" tabindex="-1">
+                <div ref="content" :class="'new-dialog__content--' + dialogViewState" class="new-dialog__content" tabindex="-1">
                     <slot></slot>
                 </div>
 
@@ -333,6 +333,31 @@ export default {
 
 <style lang="less">
 @import (reference) './variables';
+
+@font-face {
+    font-family: "SF UI Display Regular";
+    src: url("/fonts/SF-UI-Display-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SF UI Display Medium";
+    src: url("/fonts/SF-UI-Display-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SF UI Text Regular";
+    src: url("/fonts/SF-UI-Text-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SF UI Text Medium";
+    src: url("/fonts/SF-UI-Text-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SF UI Text Semibold";
+    src: url("/fonts/SF-UI-Text-Semibold.woff") format("woff");
+}
 
 .step-next-leave-active     { animation: step-next-leave-animation @step-animation-time ease-in; }
 .step-next-enter-active     { animation: step-next-enter-animation @step-animation-time ease-out; }
