@@ -21474,28 +21474,28 @@ module.exports = function (it, S) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    checkbox: {
+    Checkbox: {
         component: __WEBPACK_IMPORTED_MODULE_0__stateless_checkbox_vue__["a" /* default */]
     },
-    dialog_button: {
+    DialogButton: {
         component: __WEBPACK_IMPORTED_MODULE_1__stateless_dialog_button_vue__["a" /* default */]
     },
-    dialog: {
+    Dialog: {
         component: __WEBPACK_IMPORTED_MODULE_2__stateless_dialog_vue__["a" /* default */]
     },
-    drop_area: {
+    DropArea: {
         component: __WEBPACK_IMPORTED_MODULE_3__stateless_drop_area_vue__["a" /* default */]
     },
-    file_upload_requirements: {
+    FileUploadRequirements: {
         component: __WEBPACK_IMPORTED_MODULE_4__stateless_file_upload_requirements_vue__["a" /* default */]
     },
-    file_upload: {
+    FileUpload: {
         component: __WEBPACK_IMPORTED_MODULE_5__stateless_file_upload_vue__["a" /* default */]
     },
-    image_list: {
+    ImageList: {
         component: __WEBPACK_IMPORTED_MODULE_6__stateless_image_list_vue__["a" /* default */]
     },
-    input: {
+    Input: {
         component: __WEBPACK_IMPORTED_MODULE_7__stateless_input_vue__["a" /* default */],
         width: 300,
         defaultProps: {
@@ -21503,13 +21503,13 @@ module.exports = function (it, S) {
             theme: 'light'
         }
     },
-    multiselect: {
+    Multiselect: {
         component: __WEBPACK_IMPORTED_MODULE_8__stateless_multiselect_vue__["a" /* default */]
     },
-    radio_button: {
+    RadioButton: {
         component: __WEBPACK_IMPORTED_MODULE_9__stateless_radiobutton_vue__["a" /* default */]
     },
-    selectbox: {
+    Selectbox: {
         component: __WEBPACK_IMPORTED_MODULE_10__stateless_selectbox_vue__["a" /* default */],
         width: 300,
         defaultProps: {
@@ -21521,7 +21521,7 @@ module.exports = function (it, S) {
             label: 'Something'
         }
     },
-    support_text: {
+    SupportText: {
         component: __WEBPACK_IMPORTED_MODULE_11__stateless_support_text_vue__["a" /* default */]
     }
 });
