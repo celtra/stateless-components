@@ -9,7 +9,7 @@
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
-                        <div class="default-list__group">{{ item.label }}</div>
+                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
                 </template>
             </div>
@@ -23,7 +23,7 @@
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
-                        <div class="default-list__group">{{ item.label }}</div>
+                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
                 </template>
             </div>

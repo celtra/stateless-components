@@ -16,6 +16,7 @@ import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
 import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
+import ColumnFilterComponent from '@/stateless/ColumnFilter.vue'
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
@@ -35,3 +36,4 @@ export const DefaultListItem = DefaultListItemComponent
 export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
+export const ColumnFilter = ColumnFilterComponent

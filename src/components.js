@@ -16,6 +16,7 @@ import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
+import ColumnFilter from '@/stateless/ColumnFilter.vue'
 
 export default {
     Checkbox: {
@@ -44,7 +45,9 @@ export default {
     },
     Input: {
         component: Input,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             label: 'Something',
             theme: 'light',
@@ -58,7 +61,9 @@ export default {
     },
     Selectbox: {
         component: Selectbox,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             options: [
                 { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -108,5 +113,50 @@ export default {
     },
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
+    },
+    ColumnFilter: {
+        component: ColumnFilter,
+        rootCss: {
+            width: '400px',
+            boxShadow: '1px 2px 5px 0 rgba(0,0,0,0.25)',
+            height: 'fit-content',
+        },
+        defaultProps: {
+            columns: [
+                {
+                    items: [
+                        { id: 'creativeName', label: 'Creative name', type: 'String' },
+                        { id: 'unit', label: 'Unit', type: 'String' },
+                        { id: 'pageViews', label: 'Page views', type: 'Number' },
+                    ],
+                },
+                {
+                    label: 'Campaign level filtering',
+                    items: [
+                        { id: 'creative', label: 'Creative', type: 'String' },
+                        { id: 'placement', label: 'Placement', type: 'String' },
+                        {
+                            id: 'supplier',
+                            label: 'Supplier',
+                            type: 'Multiselect',
+                            props: {
+                                options: [
+                                    { id: 'banner', label: 'Banner' },
+                                    { id: 'expandableBanner', label: 'ExpandableBanner' },
+                                ],
+                                getOptions (v) {
+                                    return new Promise((resolve, reject) => {
+                                        resolve([
+                                            { id: 'interstitial', label: 'Interstitial' },
+                                        ])
+                                    })
+                                },
+                                autoReorder: false,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
     },
 }
