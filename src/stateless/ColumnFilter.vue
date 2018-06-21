@@ -21,7 +21,13 @@
 
             <div class="column-filter__set-filter">
                 <template v-if="currentColumn.type === 'Multiselect'">
-                    <multiselect v-model="value" v-bind="currentColumn.props" :is-searchable="!!currentColumn.props.getOptions"></multiselect>
+                    <multiselect v-model="value" v-bind="currentColumn.props" :is-searchable="!!currentColumn.props.getOptions">
+                        <multiline-list-item slot-scope="{ item }" :label="item.label" :metadata="item.metadata" theme="light">
+                            <div v-if="item.ratio" slot="right">
+                                <pie-chart :ratio="item.ratio" />
+                            </div>
+                        </multiline-list-item>
+                    </multiselect>
                 </template>
                 <template v-if="currentColumn.type === 'Number'">
                     <div class="column-filter__number">
@@ -46,8 +52,10 @@ import Icon from './icon.vue'
 import Input from './input.vue'
 import DefaultList from './DefaultList.vue'
 import Multiselect from './multiselect.vue'
+import MultilineListItem from './MultilineListItem.vue'
 import Selectbox from './selectbox.vue'
 import DialogButton from './dialog_button.vue'
+import PieChart from './PieChart.vue'
 import * as itemsUtils from './items_utils'
 
 export default {
@@ -55,9 +63,11 @@ export default {
         Icon,
         inputElement: Input,
         DefaultList,
+        MultilineListItem,
         Multiselect,
         Selectbox,
         DialogButton,
+        PieChart,
     },
     props: {
         columns: { type: Array, required: true },
@@ -216,5 +226,9 @@ export default {
     padding-right: 0;
     width: 100%;
     text-align: center;
+}
+
+.checkbox-element__check-row.checkbox-element__check-row.checkbox-element__check-row.checkbox-element__check-row {
+    align-items: flex-start;
 }
 </style>

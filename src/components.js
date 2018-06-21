@@ -143,8 +143,8 @@ export default {
                             type: 'Multiselect',
                             props: {
                                 options: [
-                                    { id: 'banner', label: 'Banner' },
-                                    { id: 'expandableBanner', label: 'ExpandableBanner' },
+                                    { id: 'banner', label: 'Banner', metadata: 'Something', ratio: 0.9 },
+                                    { id: 'expandableBanner', label: 'ExpandableBanner', metadata: 'Something', ratio: 0.2 },
                                 ],
                                 getOptions (v) {
                                     return new Promise((resolve, reject) => {
