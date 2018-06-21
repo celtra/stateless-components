@@ -18,6 +18,7 @@ import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 import FilterChipComponent from '@/stateless/FilterChip.vue'
+import FilterChipWithMultiselectComponent from '@/stateless/FilterChipWithMultiselect.vue'
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
@@ -39,3 +40,4 @@ export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
 export const InlineDialog = InlineDialogComponent
 export const FilterChip = FilterChipComponent
+export const FilterChipWithMultiselect = FilterChipWithMultiselectComponent

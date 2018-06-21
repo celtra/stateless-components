@@ -17,7 +17,7 @@ import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
-import FilterChip from '@/stateless/FilterChip.vue'
+import FilterChipWithMultiselect from '@/stateless/FilterChipWithMultiSelect.vue'
 
 export default {
     Checkbox: {
@@ -56,16 +56,16 @@ export default {
         component: Multiselect,
         defaultProps: {
             options: [
-                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: "Lorem" },
-                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
-                { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
-                { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
-                { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
-                { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
-                { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
-                { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
-                { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
+                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                { id: '2', label: 'Lorem' },
+                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
+                { id: '4', label: 'A', metadata: 'someone@lorem.ipsum' },
+                { id: '5', label: 'B', metadata: 'someone@lorem.ipsum' },
+                { id: '6', label: 'C', metadata: 'someone@lorem.ipsum' },
+                { id: '7', label: 'D', metadata: 'someone@lorem.ipsum' },
+                { id: '8', label: 'E', metadata: 'someone@lorem.ipsum' },
+                { id: '9', label: 'F', metadata: 'someone@lorem.ipsum' },
+                { id: '10', label: 'G', metadata: 'someone@lorem.ipsum' },
             ],
             value: [],
             autoReorder: false,
@@ -79,16 +79,16 @@ export default {
         width: 300,
         defaultProps: {
             options: [
-                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: "Lorem" },
-                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
-                { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
-                { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
-                { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
-                { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
-                { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
-                { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
-                { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
+                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                { id: '2', label: 'Lorem' },
+                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
+                { id: '4', label: 'A', metadata: 'someone@lorem.ipsum' },
+                { id: '5', label: 'B', metadata: 'someone@lorem.ipsum' },
+                { id: '6', label: 'C', metadata: 'someone@lorem.ipsum' },
+                { id: '7', label: 'D', metadata: 'someone@lorem.ipsum' },
+                { id: '8', label: 'E', metadata: 'someone@lorem.ipsum' },
+                { id: '9', label: 'F', metadata: 'someone@lorem.ipsum' },
+                { id: '10', label: 'G', metadata: 'someone@lorem.ipsum' },
             ],
             isSearchable: true,
             isUnselectable: true,
@@ -118,9 +118,9 @@ export default {
             label: 'Something',
             value: 'Lorem',
             getSuggestions: () => [
-                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: "Lorem" },
-                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
+                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                { id: '2', label: 'Lorem' },
+                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
             ],
         },
     },
@@ -130,16 +130,23 @@ export default {
     InlineDialog: {
         component: InlineDialog,
     },
-    FilterChip: {
-        component: FilterChip,
+    FilterChipWithMultiSelect: {
+        component: FilterChipWithMultiselect,
         defaultProps: {
-            click: () => {
-                console.log('click on filter chip')
-            },
-            selectionCounter: {
-                selected: 0, all: 4,
-            },
-            label: 'Label',
+            options: [
+                { id: '1', label: '1', metadata: '1' },
+                { id: '2', label: '2', metadata: '2' },
+                { id: '3', label: '3', metadata: '3' },
+                { id: '4', label: '4', metadata: '4' },
+                { id: '5', label: '5', metadata: '5' },
+                { id: '6', label: '6', metadata: '6' },
+                { id: '7', label: '7', metadata: '7' },
+                { id: '8', label: '8', metadata: '8' },
+                { id: '9', label: '9', metadata: '9' },
+            ],
+            value: [ '1', '2' ],
+            searchableWhenOptionsLengthIsMoreThan: 6,
+            label: 'Test Label',
         },
     },
 }

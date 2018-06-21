@@ -13,10 +13,10 @@
 export default {
     props: {
         click: { type: Function, required: true },
-        label: { type: String, required: false, default: '' },
-        selectionCounter: { type: Object, required: false, default: () => { return { selected: 0, all: 0 } } },
-        active: { type: Boolean, required: false, default: false },
-        isOpen: { type: Boolean, required: false, default: false },
+        label: { type: String, default: '' },
+        selectionCounter: { type: Object, default: () => { return { selected: 0, all: 0 } } },
+        active: { type: Boolean, default: false },
+        isOpen: { type: Boolean, default: false },
     },
 }
 </script>
