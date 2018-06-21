@@ -35,7 +35,9 @@ export default {
     },
     Input: {
         component: Input,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             label: 'Something',
             theme: 'light',
@@ -49,7 +51,9 @@ export default {
     },
     Selectbox: {
         component: Selectbox,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             options: [
                 { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
