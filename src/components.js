@@ -12,6 +12,7 @@ import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Toast from '@/stateless/Toast.vue'
 import PieChart from '@/stateless/PieChart.vue'
+import InlineDialog from '@/stateless/InlineDialog.vue'
 
 export default {
     Checkbox: {
@@ -80,5 +81,8 @@ export default {
     },
     PieChart: {
         component: PieChart,
+    },
+    InlineDialog: {
+        component: InlineDialog,
     },
 }

@@ -13,6 +13,7 @@ import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
+import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
@@ -29,3 +30,4 @@ export const SupportText = SupportTextComponent
 export const Icon = IconComponent
 export const Toast = ToastComponent
 export const PieChart = PieChartComponent
+export const InlineDialog = InlineDialogComponent
