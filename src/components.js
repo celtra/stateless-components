@@ -17,6 +17,7 @@ import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
+import FilterChip from '@/stateless/FilterChip.vue'
 import FilterChipWithMultiselect from '@/stateless/FilterChipWithMultiSelect.vue'
 
 export default {
@@ -129,6 +130,18 @@ export default {
     },
     InlineDialog: {
         component: InlineDialog,
+    },
+    FilterChip: {
+        component: FilterChip,
+        defaultProps: {
+            click: () => {
+                console.log('click on filter chip')
+            },
+            selectionCounter: {
+                selected: 0, all: 4,
+            },
+            label: 'Label',
+        },
     },
     FilterChipWithMultiSelect: {
         component: FilterChipWithMultiselect,
