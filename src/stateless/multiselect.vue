@@ -253,6 +253,7 @@ export default {
         padding-left: 5px;
         padding-right: 5px;
         clip-path: inset(0px 0px 0px 0px);
+        overscroll-behavior: contain;
     }
 
     &__change-multiple {
