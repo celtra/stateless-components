@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import Input from './input.vue'
 import Checkbox from './checkbox.vue'
 import DefaultList from './DefaultList.vue'
