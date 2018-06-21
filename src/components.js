@@ -101,6 +101,9 @@ export default {
     ScrollableList: {
         component: ScrollableList,
     },
+    Toast: {
+        component: Toast,
+    },
     Typeahead: {
         component: Typeahead,
         defaultProps: {
