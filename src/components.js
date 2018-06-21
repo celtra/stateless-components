@@ -17,6 +17,7 @@ import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilter from '@/stateless/ColumnFilter.vue'
+import Toast from '@/stateless/Toast.vue'
 
 export default {
     Checkbox: {
@@ -98,6 +99,9 @@ export default {
     },
     ScrollableList: {
         component: ScrollableList,
+    },
+    Toast: {
+        component: Toast,
     },
     Typeahead: {
         component: Typeahead,
