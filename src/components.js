@@ -17,6 +17,7 @@ import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
+import FilterChip from '@/stateless/FilterChip.vue'
 
 export default {
     Checkbox: {
@@ -128,5 +129,17 @@ export default {
     },
     InlineDialog: {
         component: InlineDialog,
+    },
+    FilterChip: {
+        component: FilterChip,
+        defaultProps: {
+            click: () => {
+                console.log('click on filter chip')
+            },
+            selectionCounter: {
+                selected: 0, all: 4,
+            },
+            label: 'Label',
+        },
     },
 }
