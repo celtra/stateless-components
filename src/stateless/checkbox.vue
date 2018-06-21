@@ -463,4 +463,27 @@ export default {
         }
     }
 }
+
+.checkbox-element--white {
+    .checkbox-element__check:after {
+        border: solid white;
+        border-width: 0 3.5px 3.5px 0;
+    }
+
+    .checkbox-element__label-text {
+        color: @gunpowder;
+    }
+
+    .checkbox-element__check-row {
+        &--focused, &:hover {
+            .checkbox-element__square:not(.checkbox-element__square--disabled) {
+              border-color: @gunpowder;
+            }
+
+            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+              color: @gunpowder;
+            }
+        }
+    }
+}
 </style>
