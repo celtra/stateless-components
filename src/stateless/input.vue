@@ -1,10 +1,10 @@
 <template>
     <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
-        <div v-if="icon" class="input__icon-prepend">
-            <img :src="icon" class="input__icon"/>
+        <div v-if="$slots.before" class="input__icon-prepend">
+            <slot name="before"></slot>
         </div>
 
-        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!icon }" :title="mappedDisabledText" class="input-field">
+        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!$slots.before }" :title="mappedDisabledText" class="input-field">
             <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
                 {{ label }}
             </div>
@@ -96,7 +96,6 @@ export default {
         getCount: { type: Function, required: false },
         error: { type: String, required: false },
         placeholder: { type: String, required: false, default: '' },
-        icon: { type: String, required: false, default: '' },
         helperText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         type: { type: String, required: false, default: 'text' },
@@ -357,11 +356,6 @@ export default {
         margin-top: 18px;
         width: 16px;
         text-align: right;
-    }
-
-    &__icon {
-        height: 16px;
-        width: 16px;
     }
 }
 
