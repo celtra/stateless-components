@@ -16,6 +16,7 @@ import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
+import InlineDialog from '@/stateless/InlineDialog.vue'
 
 export default {
     Checkbox: {
@@ -108,5 +109,8 @@ export default {
     },
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
+    },
+    InlineDialog: {
+        component: InlineDialog,
     },
 }
