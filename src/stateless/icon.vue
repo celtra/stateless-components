@@ -1,6 +1,37 @@
 <template>
     <div class="icon-wrapper" @click="$emit('click')">
 
+        <!-- 'mail': envelope icon -->
+        <svg v-if="name === 'mail'" width="16px" height="14px" :style="styleOverride" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(-1107.000000, -22.000000)">
+                <g transform="translate(1107.000000, 21.000000)">
+                    <g transform="translate(0.000000, 1.000000)">
+                        <path class="path" d="M15,0 L1,0 C0.4,0 0,0.4 0,1 L0,2.4 L8,6.9 L16,2.5 L16,1 C16,0.4 15.6,0 15,0 Z"></path>
+                        <path class="path" d="M7.5,8.9 L0,4.7 L0,13 C0,13.6 0.4,14 1,14 L15,14 C15.6,14 16,13.6 16,13 L16,4.7 L8.5,8.9 C8.22,9.04 7.78,9.04 7.5,8.9 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <!-- 'screen-donwload': dekstop screen with a down arrow in the right side -->
+        <svg v-if="name === 'screen-download'" width="16px" height="15px" :style="styleOverride" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(-1225.000000, -23.000000)">
+                <g transform="translate(1107.000000, 21.000000)">
+                    <g transform="translate(118.000000, 1.000000)">
+                        <g transform="translate(0.000000, 1.000000)">
+                            <path class="path" d="M13,5 L15,5 L15,2 C15,0.935 14.065,0 13,0 L3,0 C1.935,0 1,0.935 1,2 L1,7 L3,7 L3,2 L13,2 L13,5 Z"></path>
+                            <path class="path" d="M7,9 L0,9 L0,10 C0,11.105 0.895,12 2,12 L7,12 L7,9 Z"></path>
+                            <path class="path" d="M14,10.586 L13,11.586 L13,7 L11,7 L11,11.586 L10,10.586 L8.586,12 L11.293,14.707 C11.488,14.902 11.744,15 12,15 C12.256,15 12.512,14.902 12.707,14.707 L15.414,12 L14,10.586 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <div v-if="name === 'caret'" :style="styleOverride">
+            <div class="icon-caret"></div>
+        </div>
+
         <svg v-if="name === 'pencil-edit'" :style="styleOverride" width="23px" height="26px" viewBox="0 0 23 26"
              xmlns="http://www.w3.org/2000/svg">
             <g fill-rule="nonzero" transform="translate(3 1)">
@@ -33,6 +64,26 @@
             <polygon class="path"
                      points="9 5.8125 8.05970149 4.9375 5.17164179 7.625 5.17164179 0 3.82835821 0 3.82835821 7.625 0.940298507 4.9375 7.78543896e-14 5.8125 4.5 10"
                      fill-rule="nonzero"/>
+        </svg>
+
+        <!-- 'sort': sort arrow icon -->
+        <svg v-if="name === 'sort'" width="7px" height="9px" :style="styleOverride" viewBox="0 0 7 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-169.000000, -132.000000)">
+                    <g transform="translate(169.000000, 132.000000)">
+                        <rect class="path" fill="#000000" x="3" y="0" width="1" height="8"></rect>
+                        <g transform="translate(0.000000, 5.000000)" fill="#222235">
+                            <rect class="path" x="3" y="3" width="1" height="1"></rect>
+                            <rect class="path" x="2" y="2" width="1" height="1"></rect>
+                            <rect class="path" x="1" y="1" width="1" height="1"></rect>
+                            <rect class="path" x="0" y="0" width="1" height="1"></rect>
+                            <rect class="path" x="4" y="2" width="1" height="1"></rect>
+                            <rect class="path" x="5" y="1" width="1" height="1"></rect>
+                            <rect class="path" x="6" y="0" width="1" height="1"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
         </svg>
 
         <svg v-if="name === 'calendar'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 16"
@@ -140,5 +191,13 @@ export default {
 @keyframes SPIN {
     0%   { transform: rotate(0); }
     100% { transform: rotate(720deg); }
+}
+
+/* Styles for specific icons */
+
+.icon-caret {
+    border-width: 3px 3.5px 0 3.5px;
+    border-style: solid;
+    border-color: currentColor transparent transparent transparent;
 }
 </style>
