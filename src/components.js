@@ -15,9 +15,25 @@ import DateInput from '@/stateless/DateInput.vue'
 import DateRangeInput from '@/stateless/DateRangeInput.vue'
 import DatePicker from '@/stateless/DatePicker.vue'
 
+const defaultItems = [
+    { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+    { id: '2', label: "Lorem" },
+    { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
+    { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
+    { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
+    { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
+    { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
+    { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
+    { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
+    { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
+]
+
 export default {
     Checkbox: {
         component: Checkbox,
+        defaultProps: {
+            value: false,
+        },
     },
     DialogButton: {
         component: DialogButton,
@@ -30,16 +46,34 @@ export default {
     },
     FileUploadRequirements: {
         component: FileUploadRequirements,
+        defaultProps: {
+            requirements: [
+                { name: 'Format', value: 'PNG, JPG' },
+                { name: 'Size', value: 'max. 3MB' },
+            ],
+        },
     },
     FileUpload: {
         component: FileUpload,
+        defaultProps: {
+            file: {},
+            uploadUrl: '',
+        },
     },
     ImageList: {
         component: ImageList,
+        defaultProps: {
+            images: [
+                {},
+                {},
+            ],
+        },
     },
     Input: {
         component: Input,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             label: 'Something',
             theme: 'light',
@@ -47,26 +81,25 @@ export default {
     },
     Multiselect: {
         component: Multiselect,
+        defaultProps: {
+            options: defaultItems,
+            value: [],
+        },
     },
     RadioButton: {
         component: RadioButton,
+        defaultProps: {
+            value: 'something',
+            selectedValue: 'something',
+        },
     },
     Selectbox: {
         component: Selectbox,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
-            options: [
-                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: "Lorem" },
-                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
-                { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
-                { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
-                { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
-                { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
-                { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
-                { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
-                { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
-            ],
+            groups: [{ options: defaultItems }],
             isSearchable: true,
             isUnselectable: true,
             theme: 'light',
@@ -76,6 +109,9 @@ export default {
     },
     SupportText: {
         component: SupportText,
+        defaultProps: {
+            text: 'Lorem Ipsum',
+        },
     },
     Calendar: {
         component: Calendar,

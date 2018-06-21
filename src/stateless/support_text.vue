@@ -1,5 +1,5 @@
 <template>
-    <div :class="{right: isRight, left: isLeft} | prefix('support-text--')" class="support-text">
+    <div :class="{right: isRight, left: !isRight} | prefix('support-text--')" class="support-text">
         <a v-if="url" :href="url" target="_blank" tabindex="-1" @click="click">
             <support-text :theme="theme" :text="text" :is-right="isRight"></support-text>
         </a>
