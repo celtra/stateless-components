@@ -334,31 +334,6 @@ export default {
 <style lang="less">
 @import (reference) './variables';
 
-@font-face {
-    font-family: "SF UI Display Regular";
-    src: url("/fonts/SF-UI-Display-Regular.woff") format("woff");
-}
-
-@font-face {
-    font-family: "SF UI Display Medium";
-    src: url("/fonts/SF-UI-Display-Medium.woff") format("woff");
-}
-
-@font-face {
-    font-family: "SF UI Text Regular";
-    src: url("/fonts/SF-UI-Text-Regular.woff") format("woff");
-}
-
-@font-face {
-    font-family: "SF UI Text Medium";
-    src: url("/fonts/SF-UI-Text-Medium.woff") format("woff");
-}
-
-@font-face {
-    font-family: "SF UI Text Semibold";
-    src: url("/fonts/SF-UI-Text-Semibold.woff") format("woff");
-}
-
 .step-next-leave-active     { animation: step-next-leave-animation @step-animation-time ease-in; }
 .step-next-enter-active     { animation: step-next-enter-animation @step-animation-time ease-out; }
 .step-previous-leave-active { animation: step-previous-leave-animation @step-animation-time ease-in; }
