@@ -1,216 +1,234 @@
 <template>
     <div class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element
-                v-model="searchQuery"
-                :label="label"
-                icon="/img/icons/search.svg"
-                size="phat">
+            <input-element v-model="searchQuery" :label="label" size="phat" theme="light">
+                <icon slot="before" name="search" />
             </input-element>
         </div>
 
-        <div class="multiselect__change-multiple">
-            <checkbox-element v-if="clearAllLength === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
-                <span class="multiselect__select-all-label">SELECT ALL</span>
-            </checkbox-element>
-            <div v-else class="multiselect__clear-all" @click="clearAll">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                    <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                </svg>
-                <span class="multiselect__clear-all-text">CLEAR ALL ({{ clearAllLength }})</span>
-            </div>
-        </div>
+        <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
-        <div ref="multiselectOptions" class="multiselect__options">
-            <transition-group name="multiselect__item" tag="div">
-                <div v-for="option in displayOptions" :key="option.id" :title="option.disabledText" class="multiselect__option">
-                    <checkbox-element
-                        :disabled="option.disabled"
-                        :disabled-text="option.disabledText"
-                        :value="isChecked(option.id)"
-                        :size="size"
-                        :style="{ width: `${option.checkboxWidth}px` }"
-                        class="multiselect__checkbox"
-                        @input="setChecked(option.id, $event)">
-                        {{ option.label }}
-                    </checkbox-element>
-
-                    <p v-if="option.metadata" :style="{ width: `${option.metadataWidth}px` }" class="multiselect__metadata">{{ option.metadata | middleEllipsis(option.metadataLength) }}</p>
-                </div>
-            </transition-group>
-        </div>
-
-        <div class="multiselect__options" style="visibility: hidden; position: absolute;">
-            <div v-for="option in displayOptions" ref="options" :key="option.id" class="multiselect__option">
-                <checkbox-element
-                    :value="false"
-                    :size="size"
-                    class="multiselect__checkbox">
-                    {{ option.label }}
+        <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
+            <div class="multiselect__change-multiple">
+                <checkbox-element v-if="value.length === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
+                    <span class="multiselect__select-all-label">SELECT ALL</span>
                 </checkbox-element>
+                <div v-else class="multiselect__clear-all" @click="clearAll">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
+                        <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
+                    </svg>
+                    <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
+                </div>
+            </div>
 
-                <p v-if="option.metadata" class="multiselect__metadata">{{ option.metadata }}</p>
+            <div>
+                <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list">
+                    <div slot-scope="{ item }" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
+                        <checkbox-element
+                            :disabled="item.disabled"
+                            :title-text="item.label"
+                            :disabled-text="item.disabledText"
+                            :value="isChecked(item)"
+                            :size="size"
+                            theme="light"
+                            class="multiselect__checkbox"
+                            @input="setChecked(item, $event)">
+
+                            <slot :item="item">
+                                <default-list-item :label="item.label" :metadata="item.metadata" :size="size" theme="light" class="multiselect__default-list-item" />
+                            </slot>
+                        </checkbox-element>
+
+                        <div v-if="hoveringOptionId === item.id && item.tooltip" class="multiselect__tooltip">
+                            {{ item.tooltip }}
+                        </div>
+                    </div>
+                </default-list>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Icon from './icon.vue'
 import Input from './input.vue'
 import Checkbox from './checkbox.vue'
-import _ from 'lodash'
+import DefaultList from './DefaultList.vue'
+import DefaultListItem from './DefaultListItem.vue'
+import * as itemsUtils from './items_utils.js'
 
 export default {
     components: {
+        Icon,
         inputElement: Input,
         checkboxElement: Checkbox,
+        DefaultList,
+        DefaultListItem,
     },
     props: {
         value: { type: Array, required: true },
         options: { type: Array, required: true },
+        autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        areGroupsSelectable: { type: Boolean, default: false },
+        getOptions: { type: Function },
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
     },
     data () {
         return {
             searchQuery: null,
-            checked: this.value,
-            checkedForSorting: [],
-            checkboxWidthByIndex: {},
-            totalWidth: 500,
+            queryOptions: [],
+            currentScrollTop: 0,
+            hoveringOptionId: null,
         }
     },
     computed: {
-        filteredOptions () {
-            let query = (this.searchQuery || '').trim(' ').toLowerCase()
-            let options = this.options.filter(option => {
-                return query.length === 0 ||
-                    this.checked.includes(option.id) ||
-                    option.label.toLowerCase().indexOf(query) >= 0 ||
-                    (option.metadata && option.metadata.toLowerCase().indexOf(query) >= 0)
-            })
-            options.sort((x, y) => {
-                let checkedDiff = (this.checkedForSorting.includes(y.id) && ! y.disabled) - (this.checkedForSorting.includes(x.id) && ! x.disabled)
-                if (checkedDiff === 0) {
-                    if (x.label === y.label) {
-                        return x.id > y.id ? 1 : -1
-                    }
-                    return x.label > y.label ? 1 : -1
-                }
-                return checkedDiff
-            })
-            return options
+        allOptions () {
+            return this.options.concat(this.queryOptions)
         },
-        displayOptions () {
-            return this.filteredOptions.map((option, index) => {
-                let checkboxWidth = this.checkboxWidthByIndex[index]
-                let metadataWidth = this.totalWidth - checkboxWidth
-                return {
-                    ...option,
-                    checkboxWidth: checkboxWidth,
-                    metadataWidth: metadataWidth,
-                    metadataLength: Math.floor(metadataWidth / 7),
-                }
-            })
+        allIds () {
+            return itemsUtils.getLeafIds(this.allOptions)
         },
-        clearAllLength () {
-            return this.options.filter(o => this.checked.includes(o.id) && !o.disabled).length
+        canScrollTop () {
+            return this.currentScrollTop > 0
+        },
+        listItems () {
+            let result = this.allOptions
+
+            if (!this.areGroupsSelectable && this.autoReorder) {
+                let removedOptions = []
+                const removeSelected = (options) => {
+                    return options.map(option => {
+                        if (option.options) {
+                            let newOptions = removeSelected(option.options)
+                            if (newOptions.length === 0) {
+                                return null
+                            }
+                            return {
+                                ...option,
+                                options: newOptions,
+                            }
+                        } else {
+                            if (this.value.includes(option.id)) {
+                                removedOptions.push(option)
+                                return null
+                            }
+                            return option
+                        }
+                    }).filter(x => x)
+                }
+
+                let unselectedOptions = removeSelected(this.allOptions)
+                result = removedOptions.concat(unselectedOptions)
+            }
+
+            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
+            if (cleanQuery.length > 0) {
+                result = itemsUtils.filter(result, (option) => {
+                    return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
+                        (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0)
+                })
+            }
+
+            result = itemsUtils.sort(result, (x, y) => {
+                if (!this.areGroupsSelectable && (x.options || y.options)) {
+                    return 0
+                }
+
+                let isCheckedX = this.isChecked(x)
+                let isCheckedY = this.isChecked(y)
+
+                if (!this.autoReorder || isCheckedX === isCheckedY) {
+                    return 0
+                } else if (isCheckedX === true) {
+                    return -1
+                } else if (isCheckedY === true) {
+                    return 1
+                } else if (isCheckedX === null) {
+                    return -1
+                } else if (isCheckedY === null) {
+                    return 1
+                }
+                return 0
+            })
+
+            return result
         },
     },
     watch: {
-        filteredOptions () {
-            this.$nextTick(this.updateWidths)
+        searchQuery (v) {
+            this.loadAsyncOptions()
         },
-        checked () {
-            this.$emit('input', this.checked)
-        },
-    },
-    created () {
-        this.updateOptionsOrder()
     },
     mounted () {
-        window.addEventListener('resize', () => this.updateWidths())
-        this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
-
-        this.$nextTick(this.updateWidths)
-    },
-    beforeDestroy () {
-        window.removeEventListener('resize', () => this.resize())
+        this.loadAsyncOptions()
+        //this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
     },
     methods: {
-        updateWidths () {
-            const THRESHOLD = 0.1
-            let totalWidth = this.$el.getElementsByClassName('multiselect__options')[0].clientWidth
-
-            let widthsByIndex = {}
-            this.$refs.options.forEach((el, index) => {
-                let children = Array.from(el.childNodes).filter(node => node.nodeType == Node.ELEMENT_NODE)
-                if (children.length === 2) {
-                    let checkboxWidth = children[0].clientWidth
-                    let metadataWidth = children[1].clientWidth
-
-                    if (checkboxWidth + metadataWidth > totalWidth) {
-                        let finalCheckboxWidth
-                        if (checkboxWidth > metadataWidth) {
-                            if (checkboxWidth <= (0.5 + THRESHOLD) * totalWidth) {
-                                finalCheckboxWidth = checkboxWidth
-                            } else {
-                                finalCheckboxWidth = Math.floor(0.5 * totalWidth)
-                            }
-                        } else {
-                            if (metadataWidth <= (0.5 + THRESHOLD) * totalWidth) {
-                                finalCheckboxWidth = totalWidth - metadataWidth
-                            } else {
-                                finalCheckboxWidth = Math.floor(0.5 * totalWidth)
-                            }
-                        }
-
-                        widthsByIndex[index] = finalCheckboxWidth
+        selectAll () {
+            this.$emit('input', this.allIds)
+        },
+        clearAll () {
+            this.$emit('input', [])
+        },
+        onScroll (e) {
+            this.currentScrollTop = e.target.scrollTop
+        },
+        scrollTop () {
+            this.$refs.multiselectOptions.scrollTop = 0
+        },
+        loadAsyncOptions () {
+            if (this.getOptions) {
+                this.getOptions(this.searchQuery).then(result => {
+                    this.queryOptions = result
+                })
+            }
+        },
+        setChecked (option, isChecked) {
+            if (!option.disabled) {
+                if (option.isLeaf) {
+                    let valueWithout = this.value.filter(id => id !== option.id)
+                    if (isChecked) {
+                        this.$emit('input', valueWithout.concat([option.id]))
+                    } else {
+                        this.$emit('input', valueWithout)
                     }
-                }
-            })
-
-            this.totalWidth = totalWidth
-            this.checkboxWidthByIndex = widthsByIndex
-        },
-        isChecked (optionId) {
-            return this.checked.includes(optionId)
-        },
-        setChecked (optionId, isChecked) {
-            if (!this.options.find(o => o.id === optionId).disabled) {
-                if (isChecked) {
-                    this.checked.push(optionId)
                 } else {
-                    let index = this.checked.indexOf(optionId)
-                    if (index >= 0){
-                        this.checked.splice(index, 1)
+                    let valueWithout = this.value.filter(id => !option.leafIds.includes(id))
+                    if (isChecked) {
+                        this.$emit('input', valueWithout.concat(option.leafIds))
+                    } else {
+                        this.$emit('input', valueWithout)
                     }
                 }
             }
-            this.updateOptionsOrder()
         },
-        selectAll () {
-            this.filteredOptions.forEach(option => {
-                this.setChecked(option.id, true)
-            })
+        isChecked (option) {
+            if (!option.options) {
+                return this.value.includes(option.id)
+            } else {
+                let allChecked = true
+                let someChecked = false
+                for (let id of itemsUtils.getLeafIds(option)) {
+                    if (!this.value.includes(id)) {
+                        allChecked = false
+                    } else {
+                        someChecked = true
+                    }
+                }
+                return allChecked ? true : (!someChecked ? false : null)
+            }
         },
-        clearAll () {
-            this.options.forEach(option => {
-                this.setChecked(option.id, false)
-            })
-        },
-        updateOptionsOrder: _.debounce(function () {
-            this.checkedForSorting = this.checked.slice().filter(optionId => !this.options.find(o => o.id === optionId).disabled)
-        }, 350),
     },
 }
 </script>
 
 <style lang="less" scoped>
 @import (reference) './variables';
+
 .multiselect {
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 
@@ -219,25 +237,29 @@ export default {
         display: flex;
     }
 
-    &__search-icon {
-        margin-right: 12px;
+    &__scroll-top {
+        display: inline;
+        margin: 0 0 0 auto;
+        font-size: 11px;
+        color: @bluish-gray;
+        cursor: pointer;
     }
 
     &__options {
         padding-bottom: 10px;
-        flex:auto;
+        flex: auto;
         max-height: 370px;
         overflow-y: auto;
+        overflow-x: hidden;
         margin-top: 5px;
+        padding-left: 5px;
         padding-right: 5px;
+        clip-path: inset(0px 0px 0px 0px);
     }
 
     &__change-multiple {
         flex: none;
-    }
-
-    &__select-all {
-        margin-left: 5px;
+        margin-left: 3px;
     }
 
     &__select-all-label {
@@ -250,7 +272,6 @@ export default {
         font-size: 11px;
         margin-top: 10px;
         height: 20px;
-        padding-left: 7px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -268,36 +289,28 @@ export default {
         fill: @bluish-gray;
     }
 
-    &__option {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
+    &__checkbox {
         width: 100%;
     }
 
-    &__metadata {
-        white-space: nowrap;
+    &__tooltip {
+        position: absolute;
+        top: 12px;
+        left: -4px;
+        color: white;
+        background-color: @gunpowder;
+        border-radius: 3px;
         font-size: 11px;
-        margin: 0;
-        text-align: right;
-        overflow: hidden;
+        text-align: center;
+        padding: 6px 20px;
+        z-index: @z-index-new-dialog + 25;
+        max-width: 200px;
     }
 }
 
 .multiselect__option > .multiselect__checkbox {
     margin-top: 0px;
-}
-
-.multiselect__item-move {
-    transition : all 0.3s ease-in;
-}
-
-.multiselect__item-enter, .multiselect__item-leave-to {
-    opacity : 0;
-}
-.multiselect__item-leave-active {
-    position : absolute;
+    margin-left: -5px;
 }
 
 ::-webkit-scrollbar {
@@ -329,5 +342,15 @@ export default {
     width: 7px;
     height: 7px;
     margin-top: 3px;
+}
+
+.multiselect__default-list {
+    .default-list__item.default-list__item.default-list__item {
+        padding: 0;
+
+        &:hover {
+            background-color: inherit;
+        }
+    }
 }
 </style>
