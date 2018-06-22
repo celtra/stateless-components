@@ -7,7 +7,7 @@
             <div v-if="isRight && showText" class="support-text__hidden support-text__hidden--right">
                 <p ref="content"
                    :class="{'support-text__content--multiline': isMultiline,
-                            'support-text__content--light': theme==='alight'}"
+                            'support-text__content--light': theme==='light'}"
                    class="support-text__content support-text__content--right" v-html="text"></p>
             </div>
 
