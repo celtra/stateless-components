@@ -1,6 +1,47 @@
 <template>
     <div class="icon-wrapper" @click="$emit('click')">
 
+        <svg v-if="name === 'pencil-edit'" :style="styleOverride" width="23px" height="26px" viewBox="0 0 23 26"
+             xmlns="http://www.w3.org/2000/svg">
+            <g fill-rule="nonzero" transform="translate(3 1)">
+                <path class="path"
+                      d="M14.26956 6.63489l1.45422-1.45422c.36355-.36356.36355-.9089 0-1.27245l-3.272-3.272c-.36356-.36355-.9089-.36355-1.27245 0L9.72511 2.09044l4.54445 4.54445z"/>
+                <path class="path"
+                      d="M8.45267 3.36289L1.18156 10.634c-.18178.18178-.27267.36356-.27267.63622v3.272c0 .54534.36355.9089.90889.9089h3.272c.27266 0 .45444-.0909.63622-.27267l7.27111-7.27112L8.45267 3.3629z"/>
+            </g>
+        </svg>
+
+        <svg v-if="name === 'delete-icon'" :style="styleOverride" width="16px" height="16px"
+             viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#444450" fill-rule="nonzero">
+                <path class="path" d="M2 6v8c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6H2z"/>
+                <path class="path" d="M12 3V1c0-.6-.4-1-1-1H5c-.6 0-1 .4-1 1v2H0v2h16V3h-4zm-2 0H6V2h4v1z"/>
+            </g>
+        </svg>
+
+        <svg v-if="name === 'duplicate-icon'" :style="styleOverride" width="16px" height="16px"
+             viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <g fill-rule="nonzero">
+                <path class="path"
+                      d="M11 12H1c-.553 0-1-.447-1-1V1c0-.552.447-1 1-1h10c.553 0 1 .448 1 1v10c0 .553-.447 1-1 1z"/>
+                <path class="path" d="M15 16H4v-2h10V4h2v11c0 .553-.447 1-1 1z"/>
+            </g>
+        </svg>
+
+        <svg v-if="name === 'sort-arrow'" :style="styleOverride" width="9px" height="10px" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 9 10">
+            <polygon class="path"
+                     points="9 5.8125 8.05970149 4.9375 5.17164179 7.625 5.17164179 0 3.82835821 0 3.82835821 7.625 0.940298507 4.9375 7.78543896e-14 5.8125 4.5 10"
+                     fill-rule="nonzero"/>
+        </svg>
+
+        <svg v-if="name === 'calendar'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 16"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15 2h-2V1c0-.6-.4-1-1-1h-1c-.6 0-1 .4-1 1v1H6V1c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1v1H1c-.6 0-1 .4-1 1v12c0 .6.4 1 1 1h14c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1zm-1 12H2V7h12v7z"
+                fill-rule="nonzero"/>
+        </svg>
+
         <!-- 'back': left angle icon -->
         <svg v-if="name === 'back'" :style="styleOverride" width="8px" height="16px" viewBox="0 0 8 17" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g transform="translate(-492.000000, -85.000000)">
@@ -57,6 +98,18 @@
 
         <svg v-if="name === 'right-arrow'" :style="styleOverride" width="22" height="17" viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M21.707 7.707L14 0l-1.414 1.414 6 6H1a1 1 0 1 0 0 2h17.586l-6 6L14 16.828l7.707-7.707a.999.999 0 0 0 0-1.414z" fill-rule="nonzero"/>
+        </svg>
+
+        <svg v-if="name === 'search'" :style="styleOverride" width="16" height="16" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z" fill-rule="nonzero"/>
+        </svg>
+
+        <svg v-if="name === 'clear'" :style="styleOverride" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm3.5 10.1l-1.4 1.4L8 9.4l-2.1 2.1-1.4-1.4L6.6 8 4.5 5.9l1.4-1.4L8 6.6l2.1-2.1 1.4 1.4L9.4 8l2.1 2.1z" fill-rule="nonzero"/>
+        </svg>
+
+        <svg v-if="name === 'close'" :style="styleOverride" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero"/>
         </svg>
     </div>
 </template>
