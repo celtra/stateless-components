@@ -2,7 +2,7 @@
     <div class="components-list">
         <div class="sidebar">
             <div v-for="componentData in components" :key="componentData.id" class="sidebar-item" @click="componentId = componentData.id">
-                {{ componentData.id.toUpperCase() }}
+                {{ componentData.id }}
             </div>
         </div>
         <div class="component-container">
@@ -26,7 +26,7 @@
                 </table>
             </div>
 
-            <component :is="componentData.component" v-bind="componentData.data" :style="{ width: `${componentData.width}px` }" class="instance" v-on="componentData.listeners"></component>
+            <component :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
         </div>
     </div>
 </template>

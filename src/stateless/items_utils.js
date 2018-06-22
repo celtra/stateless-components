@@ -65,7 +65,7 @@ export function sort (items, fn) {
 }
 
 export function getLeafIds (item) {
-    let children = item.items || item.options
+    let children = Array.isArray(item) ? item : item.items || item.options
 
     let ids = []
     if (children) {

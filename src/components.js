@@ -16,9 +16,25 @@ import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
+import ColumnFilter from '@/stateless/ColumnFilter.vue'
+import Toast from '@/stateless/Toast.vue'
+import PieChart from '@/stateless/PieChart.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
 import FilterChip from '@/stateless/FilterChip.vue'
 import FilterChipWithMultiselect from '@/stateless/FilterChipWithMultiSelect.vue'
+
+const defaultItems = [
+    { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+    { id: '2', label: "Lorem" },
+    { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
+    { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
+    { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
+    { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
+    { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
+    { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
+    { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
+    { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
+]
 
 export default {
     Checkbox: {
@@ -38,16 +54,34 @@ export default {
     },
     FileUploadRequirements: {
         component: FileUploadRequirements,
+        defaultProps: {
+            requirements: [
+                { name: 'Format', value: 'PNG, JPG' },
+                { name: 'Size', value: 'max. 3MB' },
+            ],
+        },
     },
     FileUpload: {
         component: FileUpload,
+        defaultProps: {
+            file: {},
+            uploadUrl: '',
+        },
     },
     ImageList: {
         component: ImageList,
+        defaultProps: {
+            images: [
+                {},
+                {},
+            ],
+        },
     },
     Input: {
         component: Input,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
             label: 'Something',
             theme: 'light',
@@ -56,41 +90,24 @@ export default {
     Multiselect: {
         component: Multiselect,
         defaultProps: {
-            options: [
-                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: 'Lorem' },
-                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
-                { id: '4', label: 'A', metadata: 'someone@lorem.ipsum' },
-                { id: '5', label: 'B', metadata: 'someone@lorem.ipsum' },
-                { id: '6', label: 'C', metadata: 'someone@lorem.ipsum' },
-                { id: '7', label: 'D', metadata: 'someone@lorem.ipsum' },
-                { id: '8', label: 'E', metadata: 'someone@lorem.ipsum' },
-                { id: '9', label: 'F', metadata: 'someone@lorem.ipsum' },
-                { id: '10', label: 'G', metadata: 'someone@lorem.ipsum' },
-            ],
+            options: defaultItems,
             value: [],
-            autoReorder: false,
         },
     },
     RadioButton: {
         component: RadioButton,
+        defaultProps: {
+            value: 'something',
+            selectedValue: 'something',
+        },
     },
     Selectbox: {
         component: Selectbox,
-        width: 300,
+        rootCss: {
+            width: '300px',
+        },
         defaultProps: {
-            options: [
-                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: 'Lorem' },
-                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
-                { id: '4', label: 'A', metadata: 'someone@lorem.ipsum' },
-                { id: '5', label: 'B', metadata: 'someone@lorem.ipsum' },
-                { id: '6', label: 'C', metadata: 'someone@lorem.ipsum' },
-                { id: '7', label: 'D', metadata: 'someone@lorem.ipsum' },
-                { id: '8', label: 'E', metadata: 'someone@lorem.ipsum' },
-                { id: '9', label: 'F', metadata: 'someone@lorem.ipsum' },
-                { id: '10', label: 'G', metadata: 'someone@lorem.ipsum' },
-            ],
+            groups: [{ options: defaultItems }],
             isSearchable: true,
             isUnselectable: true,
             theme: 'light',
@@ -100,6 +117,9 @@ export default {
     },
     SupportText: {
         component: SupportText,
+        defaultProps: {
+            text: 'Lorem Ipsum',
+        },
     },
     Icon: {
         component: Icon,
@@ -119,14 +139,65 @@ export default {
             label: 'Something',
             value: 'Lorem',
             getSuggestions: () => [
-                { id: '1', label: 'Something', metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
-                { id: '2', label: 'Lorem' },
-                { id: '3', label: 'Ipsum', metadata: 'someone@lorem.ipsum' },
+                { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                { id: '2', label: "Lorem" },
+                { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
             ],
         },
     },
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
+    },
+    ColumnFilter: {
+        component: ColumnFilter,
+        rootCss: {
+            width: '400px',
+            boxShadow: '1px 2px 5px 0 rgba(0,0,0,0.25)',
+            height: 'fit-content',
+        },
+        defaultProps: {
+            columns: [
+                {
+                    items: [
+                        { id: 'creativeName', label: 'Creative name', type: 'String' },
+                        { id: 'unit', label: 'Unit', type: 'String' },
+                        { id: 'pageViews', label: 'Page views', type: 'Number' },
+                    ],
+                },
+                {
+                    label: 'Campaign level filtering',
+                    items: [
+                        { id: 'creative', label: 'Creative', type: 'String' },
+                        { id: 'placement', label: 'Placement', type: 'String' },
+                        {
+                            id: 'supplier',
+                            label: 'Supplier',
+                            type: 'Multiselect',
+                            props: {
+                                options: [
+                                    { id: 'banner', label: 'Banner', metadata: 'Something', ratio: 0.9 },
+                                    { id: 'expandableBanner', label: 'ExpandableBanner', metadata: 'Something', ratio: 0.2 },
+                                ],
+                                getOptions (v) {
+                                    return new Promise((resolve, reject) => {
+                                        resolve([
+                                            { id: 'interstitial', label: 'Interstitial' },
+                                        ])
+                                    })
+                                },
+                                autoReorder: false,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    Toast: {
+        component: Toast,
+    },
+    PieChart: {
+        component: PieChart,
     },
     InlineDialog: {
         component: InlineDialog,

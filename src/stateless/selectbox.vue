@@ -22,10 +22,9 @@
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
                     <div v-if="isSearchable" class="selectbox__search-wrapper">
-                        <input-element ref="search" v-model="searchText" :size="size" label="Search" theme="light" icon="/img/icons/search.svg" @input="setSearch">
-                            <div slot="right">
-                                <img class="selectbox__search-clear-icon" src="/img/icons/clear.svg" @click="clearSearch"/>
-                            </div>
+                        <input-element ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch">
+                            <icon slot="before" name="search" />
+                            <icon slot="right" name="clear" class="selectbox__search-clear-icon" @click="clearSearch" />
                         </input-element>
                     </div>
 
@@ -39,7 +38,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import { debounce } from 'lodash'
+import Icon from './icon.vue'
 import Input from './input.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
@@ -47,6 +47,7 @@ import * as itemsUtils from './items_utils.js'
 
 export default {
     components: {
+        Icon,
         inputElement: Input,
         ScrollableList,
         DefaultListItem,
@@ -394,8 +395,6 @@ export default {
     }
 
     &__search-clear-icon {
-        width: 16px;
-        height: 16px;
         cursor: pointer;
     }
 

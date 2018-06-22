@@ -10,11 +10,16 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js",
-    "heroku-postbuild": "npm run build",
-    "start": "node server.js"
+    "build": "node build/build-library.js",
+    "heroku-postbuild": "node build/build.js",
+    "start": "node server.js",
+    "git-add": "git add index.js index.js.map"
   },
-  "devDependencies": {
+  "pre-commit": [
+    "build",
+    "git-add"
+  ],
+  "dependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -56,6 +61,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "pre-commit": "^1.2.2",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",

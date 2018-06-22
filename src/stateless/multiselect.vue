@@ -1,12 +1,8 @@
 <template>
     <div class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element
-                v-model="searchQuery"
-                :label="label"
-                icon="/img/icons/search.svg"
-                size="phat"
-                theme="light">
+            <input-element v-model="searchQuery" :label="label" size="phat" theme="light">
+                <icon slot="before" name="search" />
             </input-element>
         </div>
 
@@ -54,6 +50,7 @@
 </template>
 
 <script>
+import Icon from './icon.vue'
 import Input from './input.vue'
 import Checkbox from './checkbox.vue'
 import DefaultList from './DefaultList.vue'
@@ -62,6 +59,7 @@ import * as itemsUtils from './items_utils.js'
 
 export default {
     components: {
+        Icon,
         inputElement: Input,
         checkboxElement: Checkbox,
         DefaultList,
@@ -90,7 +88,7 @@ export default {
             return this.options.concat(this.queryOptions)
         },
         allIds () {
-            return []
+            return itemsUtils.getLeafIds(this.allOptions)
         },
         canScrollTop () {
             return this.currentScrollTop > 0
@@ -98,7 +96,7 @@ export default {
         listItems () {
             let result = this.allOptions
 
-            if (!this.areGroupsSelectable) {
+            if (!this.areGroupsSelectable && this.autoReorder) {
                 let removedOptions = []
                 const removeSelected = (options) => {
                     return options.map(option => {
@@ -160,15 +158,12 @@ export default {
     },
     watch: {
         searchQuery (v) {
-            if (this.getOptions) {
-                this.getOptions(v).then(result => {
-                    this.queryOptions = result
-                })
-            }
+            this.loadAsyncOptions()
         },
     },
     mounted () {
-        this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
+        this.loadAsyncOptions()
+        //this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
     },
     methods: {
         selectAll () {
@@ -182,6 +177,13 @@ export default {
         },
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
+        },
+        loadAsyncOptions () {
+            if (this.getOptions) {
+                this.getOptions(this.searchQuery).then(result => {
+                    this.queryOptions = result
+                })
+            }
         },
         setChecked (option, isChecked) {
             if (!option.disabled) {
@@ -226,7 +228,7 @@ export default {
 @import (reference) './variables';
 
 .multiselect {
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 
@@ -258,6 +260,7 @@ export default {
 
     &__change-multiple {
         flex: none;
+        margin-left: 3px;
     }
 
     &__select-all-label {
@@ -344,6 +347,8 @@ export default {
 
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
+        padding: 0;
+
         &:hover {
             background-color: inherit;
         }
