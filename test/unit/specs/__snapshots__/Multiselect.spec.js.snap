@@ -1,0 +1,918 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Multiselect should match the snapshot 1`] = `
+<div
+  class="multiselect"
+>
+  <!---->
+   
+  <div
+    class="multiselect__change-multiple"
+  >
+    <div
+      class="checkbox-element multiselect__select-all checkbox-element--condensed checkbox-element--dark"
+      data-id="select-all"
+      tabindex="0"
+      title="SELECT ALL"
+    >
+      <div
+        class="checkbox-element__check-row"
+        title="SELECT ALL"
+      >
+        <div
+          class="checkbox-element__check-wrapper"
+        >
+          <div
+            class="checkbox-element__square"
+          />
+           
+          <div
+            class="checkbox-element__check"
+          />
+        </div>
+         
+        <div
+          class="checkbox-element__label-text"
+        >
+          <span
+            class="multiselect__select-all-label"
+          >
+            SELECT ALL
+          </span>
+        </div>
+      </div>
+       
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="multiselect__options"
+    style="height: 0px;"
+  >
+    <div
+      name="multiselect__item"
+      tag="div"
+    >
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="a"
+          tabindex="0"
+          title="A"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="A"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    A
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="b"
+          tabindex="0"
+          title="B"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="B"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    B
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="c"
+          tabindex="0"
+          title="C"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="C"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    C
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="d"
+          tabindex="0"
+          title="D"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="D"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    D
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="e"
+          tabindex="0"
+          title="E"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="E"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    E
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="f"
+          tabindex="0"
+          title="F"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="F"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    F
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="g"
+          tabindex="0"
+          title="G"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="G"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    G
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="ipsum"
+          tabindex="0"
+          title="Ipsum"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="Ipsum"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    Ipsum
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          someone@lorem.ipsum
+        </p>
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="lorem"
+          tabindex="0"
+          title="Lorem"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="Lorem"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    Lorem
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="something"
+          tabindex="0"
+          title="Something"
+        >
+          <div
+            class="checkbox-element__check-row"
+            title="Something"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    Something
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <p
+          class="multiselect__metadata"
+        >
+          zan.kusterle@gmail.com
+        </p>
+      </div>
+    </div>
+  </div>
+   
+  <div
+    class="multiselect__options"
+    style="visibility: hidden; position: absolute;"
+  >
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="a"
+        tabindex="0"
+        title="A"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="A"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                A
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="b"
+        tabindex="0"
+        title="B"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="B"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                B
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="c"
+        tabindex="0"
+        title="C"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="C"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                C
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="d"
+        tabindex="0"
+        title="D"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="D"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                D
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="e"
+        tabindex="0"
+        title="E"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="E"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                E
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="f"
+        tabindex="0"
+        title="F"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="F"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                F
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="g"
+        tabindex="0"
+        title="G"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="G"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                G
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="ipsum"
+        tabindex="0"
+        title="Ipsum"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="Ipsum"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                Ipsum
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        someone@lorem.ipsum
+      </p>
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="lorem"
+        tabindex="0"
+        title="Lorem"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="Lorem"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                Lorem
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="something"
+        tabindex="0"
+        title="Something"
+      >
+        <div
+          class="checkbox-element__check-row"
+          title="Something"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                Something
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <p
+        class="multiselect__metadata"
+      >
+        zan.kusterle@gmail.com
+      </p>
+    </div>
+  </div>
+</div>
+`;

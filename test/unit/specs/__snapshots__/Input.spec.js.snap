@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input should match the snapshot 1`] = `
+<div
+  class="input input--normal input--light"
+  id="something"
+>
+  <!---->
+   
+  <div
+    class="input-field"
+    title=""
+  >
+    <div
+      class="input-field__overlay"
+    >
+      
+            Something
+        
+    </div>
+     
+    <div
+      class="input-field__label-text"
+    >
+      
+            
+        
+    </div>
+     
+    <div
+      class="input-row"
+    >
+      <!---->
+       
+      <div
+        class="input-row__input-flex"
+      >
+        <!---->
+         
+        <!---->
+         
+        <input
+          class="input-row__placeholder-text"
+          placeholder="Something"
+          type="text"
+        />
+      </div>
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="input-field__border-overlay"
+    />
+     
+    <div
+      class="input-field__message-wrap"
+    >
+      <div
+        class="input-field__helper-text"
+      >
+        
+                    
+                
+      </div>
+       
+      <!---->
+    </div>
+  </div>
+</div>
+`;

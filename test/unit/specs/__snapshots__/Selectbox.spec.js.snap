@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selectbox should match the snapshot 1`] = `
+<div
+  class="selectbox selectbox--condensed selectbox--light"
+  id="something"
+  tabindex="0"
+  title=""
+>
+  <div
+    class="selectbox__label-text selectbox__label-text--selected selectbox__label-text--with-search"
+  >
+    
+        Something
+    
+  </div>
+   
+  <div
+    class="selectbox__select-row selectbox__select-row--selected selectbox__select-row--with-search"
+  >
+    <div
+      class="selectbox__selected-text"
+    >
+      <div
+        class="selectbox__label selectbox__label--selected selectbox__label--with-search"
+        style="width: 100%;"
+        title="Please select"
+      >
+        
+                Please select
+            
+      </div>
+       
+      <!---->
+    </div>
+     
+    <div
+      class="selectbox__arrow-wrapper"
+    >
+      <div
+        class="selectbox__arrow-down selectbox__arrow-down--selected selectbox__arrow-down--with-search"
+      />
+    </div>
+  </div>
+   
+  <div
+    class="selectbox__helper-text selectbox__helper-text--selected selectbox__helper-text--with-search"
+  >
+    
+        
+    
+  </div>
+   
+  <!---->
+</div>
+`;
