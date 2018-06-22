@@ -2,7 +2,7 @@
     <div class="icon-wrapper" @click="$emit('click')">
 
         <!-- 'mail': envelope icon -->
-        <svg v-if="name === 'mail'" width="16px" height="14px" :style="styleOverride" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg v-if="name === 'mail'" :style="styleOverride" width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g transform="translate(-1107.000000, -22.000000)">
                 <g transform="translate(1107.000000, 21.000000)">
                     <g transform="translate(0.000000, 1.000000)">
@@ -14,7 +14,7 @@
         </svg>
 
         <!-- 'screen-donwload': dekstop screen with a down arrow in the right side -->
-        <svg v-if="name === 'screen-download'" width="16px" height="15px" :style="styleOverride" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg v-if="name === 'screen-download'" :style="styleOverride" width="16px" height="15px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g transform="translate(-1225.000000, -23.000000)">
                 <g transform="translate(1107.000000, 21.000000)">
                     <g transform="translate(118.000000, 1.000000)">
@@ -67,7 +67,7 @@
         </svg>
 
         <!-- 'sort': sort arrow icon -->
-        <svg v-if="name === 'sort'" width="7px" height="9px" :style="styleOverride" viewBox="0 0 7 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg v-if="name === 'sort'" :style="styleOverride" width="7px" height="9px" viewBox="0 0 7 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g transform="translate(-169.000000, -132.000000)">
                     <g transform="translate(169.000000, 132.000000)">
@@ -161,6 +161,40 @@
 
         <svg v-if="name === 'close'" :style="styleOverride" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero"/>
+        </svg>
+
+        <!-- 'card-edit': credit card with pencil overlay -->
+        <svg v-if="name === 'card-edit'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(-23.000000, -136.000000)">
+                <g transform="translate(0.000000, 120.000000)">
+                    <g transform="translate(23.000000, 16.000000)">
+                        <polygon class="path" points="12 14 9 15 10 12 14 8 16 10"></polygon>
+                        <path class="path" d="M2,6 L16,6 L16,1 C16,0.448 15.553,0 15,0 L1,0 C0.447,0 0,0.448 0,1 L0,11 C0,11.552 0.447,12 1,12 L7,12 L7,10 L2,10 L2,6 Z M2,2 L14,2 L14,4 L2,4 L2,2 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <!-- 'chain-link': single link in the chain -->
+        <svg v-if="name === 'chain-link'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(-1009.000000, -21.000000)">
+                <g transform="translate(1009.000000, 21.000000)">
+                    <path class="path" d="M5.5,16 C4.3,16 3.2,15.5 2.3,14.7 C0.5,12.9 0.5,10.1 2.3,8.3 L3,7.6 L4.4,9 L3.7,9.7 C2.7,10.7 2.7,12.3 3.7,13.3 C4.7,14.3 6.3,14.3 7.3,13.3 L10.3,10.3 C11.3,9.3 11.3,7.7 10.3,6.7 L9.6,6 L11,4.6 L11.7,5.3 C13.5,7.1 13.5,9.9 11.7,11.7 L8.7,14.7 C7.9,15.5 6.7,16 5.5,16 Z"></path>
+                    <path class="path" d="M7,11.4 L6.3,10.7 C4.5,8.9 4.5,6.1 6.3,4.3 L9.3,1.3 C10.2,0.4 11.3,8.8817842e-16 12.5,8.8817842e-16 C13.7,8.8817842e-16 14.8,0.5 15.7,1.3 C17.5,3.1 17.5,5.9 15.7,7.7 L15,8.4 L13.6,7 L14.3,6.3 C15.3,5.3 15.3,3.7 14.3,2.7 C13.3,1.7 11.7,1.7 10.7,2.7 L7.7,5.7 C6.7,6.7 6.7,8.3 7.7,9.3 L8.4,10 L7,11.4 Z"></path>
+                </g>
+            </g>
+        </svg>
+
+        <!-- 'clock': default clock - 3 o'clock -->
+        <svg v-if="name === 'clock'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(-1107.000000, -21.000000)">
+                <g transform="translate(1009.000000, 21.000000)">
+                    <g transform="translate(98.000000, 0.000000)">
+                        <path class="path" d="M8,0 C3.6,0 0,3.6 0,8 C0,12.4 3.6,16 8,16 C12.4,16 16,12.4 16,8 C16,3.6 12.4,0 8,0 Z M8,14 C4.7,14 2,11.3 2,8 C2,4.7 4.7,2 8,2 C11.3,2 14,4.7 14,8 C14,11.3 11.3,14 8,14 Z"></path>
+                        <polygon class="path" points="9 4 7 4 7 9 12 9 12 7 9 7"></polygon>
+                    </g>
+                </g>
+            </g>
         </svg>
     </div>
 </template>
