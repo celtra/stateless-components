@@ -107,7 +107,7 @@ export default {
             width: '300px',
         },
         defaultProps: {
-            groups: [{ options: defaultItems }],
+            options: defaultItems,
             isSearchable: true,
             isUnselectable: true,
             theme: 'light',
