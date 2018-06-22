@@ -228,7 +228,6 @@ export default {
 }
 
 /* Styles for specific icons */
-
 .icon-caret {
     border-width: 3px 3.5px 0 3.5px;
     border-style: solid;

@@ -23739,7 +23739,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__ = __webpack_require__(67);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_678b6f22_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cca8a4e6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(176);
 function injectStyle (ssrContext) {
   __webpack_require__(174)
 }
@@ -23754,12 +23754,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-678b6f22"
+var __vue_scopeId__ = "data-v-cca8a4e6"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_678b6f22_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cca8a4e6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -23780,7 +23780,7 @@ var content = __webpack_require__(175);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("25b3788e", content, true, {});
+var update = __webpack_require__(1)("67e8fece", content, true, {});
 
 /***/ }),
 /* 175 */
@@ -23791,7 +23791,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.icon-wrapper[data-v-678b6f22] {\n  font-size: 0px;\n  display: inline-block;\n}\n.path[data-v-678b6f22] {\n  fill: currentColor;\n}\n.spin[data-v-678b6f22] {\n  -webkit-animation: SPIN-data-v-678b6f22 1s ease-out infinite;\n          animation: SPIN-data-v-678b6f22 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-678b6f22 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-678b6f22 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n/* Styles for specific icons */\n.icon-caret[data-v-678b6f22] {\n  border-width: 3px 3.5px 0 3.5px;\n  border-style: solid;\n  border-color: currentColor transparent transparent transparent;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/icon.vue"],"names":[],"mappings":";AACA;EACE,eAAe;EACf,sBAAsB;CACvB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,6DAA6D;UACrD,qDAAqD;CAC9D;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD,+BAA+B;AAC/B;EACE,gCAAgC;EAChC,oBAAoB;EACpB,+DAA+D;CAChE","file":"icon.vue","sourcesContent":["\n.icon-wrapper[data-v-678b6f22] {\n  font-size: 0px;\n  display: inline-block;\n}\n.path[data-v-678b6f22] {\n  fill: currentColor;\n}\n.spin[data-v-678b6f22] {\n  -webkit-animation: SPIN-data-v-678b6f22 1s ease-out infinite;\n          animation: SPIN-data-v-678b6f22 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-678b6f22 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-678b6f22 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n/* Styles for specific icons */\n.icon-caret[data-v-678b6f22] {\n  border-width: 3px 3.5px 0 3.5px;\n  border-style: solid;\n  border-color: currentColor transparent transparent transparent;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.icon-wrapper[data-v-cca8a4e6] {\n  font-size: 0px;\n  display: inline-block;\n}\n.path[data-v-cca8a4e6] {\n  fill: currentColor;\n}\n.spin[data-v-cca8a4e6] {\n  -webkit-animation: SPIN-data-v-cca8a4e6 1s ease-out infinite;\n          animation: SPIN-data-v-cca8a4e6 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-cca8a4e6 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-cca8a4e6 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n/* Styles for specific icons */\n.icon-caret[data-v-cca8a4e6] {\n  border-width: 3px 3.5px 0 3.5px;\n  border-style: solid;\n  border-color: currentColor transparent transparent transparent;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/icon.vue"],"names":[],"mappings":";AACA;EACE,eAAe;EACf,sBAAsB;CACvB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,6DAA6D;UACrD,qDAAqD;CAC9D;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD,+BAA+B;AAC/B;EACE,gCAAgC;EAChC,oBAAoB;EACpB,+DAA+D;CAChE","file":"icon.vue","sourcesContent":["\n.icon-wrapper[data-v-cca8a4e6] {\n  font-size: 0px;\n  display: inline-block;\n}\n.path[data-v-cca8a4e6] {\n  fill: currentColor;\n}\n.spin[data-v-cca8a4e6] {\n  -webkit-animation: SPIN-data-v-cca8a4e6 1s ease-out infinite;\n          animation: SPIN-data-v-cca8a4e6 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-cca8a4e6 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-cca8a4e6 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n/* Styles for specific icons */\n.icon-caret[data-v-cca8a4e6] {\n  border-width: 3px 3.5px 0 3.5px;\n  border-style: solid;\n  border-color: currentColor transparent transparent transparent;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
