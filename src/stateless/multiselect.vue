@@ -96,31 +96,56 @@ export default {
         listItems () {
             let result = this.allOptions
 
-            if (!this.areGroupsSelectable && this.autoReorder) {
-                let removedOptions = []
-                const removeSelected = (options) => {
-                    return options.map(option => {
-                        if (option.options) {
-                            let newOptions = removeSelected(option.options)
-                            if (newOptions.length === 0) {
-                                return null
-                            }
-                            return {
-                                ...option,
-                                options: newOptions,
-                            }
-                        } else {
-                            if (this.value.includes(option.id)) {
-                                removedOptions.push(option)
-                                return null
-                            }
-                            return option
-                        }
-                    }).filter(x => x)
-                }
+            if (this.autoReorder) {
+                result = itemsUtils.sort(result, (x, y) => {
+                    if (!this.areGroupsSelectable && (x.options || y.options)) {
+                        return 0
+                    }
 
-                let unselectedOptions = removeSelected(this.allOptions)
-                result = removedOptions.concat(unselectedOptions)
+                    let isCheckedX = this.isChecked(x)
+                    let isCheckedY = this.isChecked(y)
+
+                    if (isCheckedX === isCheckedY) {
+                        return 0
+                    } else if (isCheckedX === true) {
+                        return -1
+                    } else if (isCheckedY === true) {
+                        return 1
+                    } else if (isCheckedX === null) {
+                        return -1
+                    } else if (isCheckedY === null) {
+                        return 1
+                    }
+                    return 0
+                })
+
+                if (!this.areGroupsSelectable) {
+                    let removedOptions = []
+                    const removeSelected = (options) => {
+                        return options.map(option => {
+                            if (option.options) {
+                                let newOptions = removeSelected(option.options)
+                                if (newOptions.length === 0) {
+                                    return null
+                                }
+                                return {
+                                    ...option,
+                                    options: newOptions,
+                                }
+                            } else {
+                                if (this.value.includes(option.id)) {
+                                    removedOptions.push(option)
+                                    return null
+                                }
+                                return option
+                            }
+                        }).filter(x => x)
+                    }
+
+                    let unselectedOptions = removeSelected(this.allOptions)
+
+                    result = removedOptions.concat(unselectedOptions)
+                }
             }
 
             let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
@@ -130,28 +155,6 @@ export default {
                         (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0)
                 })
             }
-
-            result = itemsUtils.sort(result, (x, y) => {
-                if (!this.areGroupsSelectable && (x.options || y.options)) {
-                    return 0
-                }
-
-                let isCheckedX = this.isChecked(x)
-                let isCheckedY = this.isChecked(y)
-
-                if (!this.autoReorder || isCheckedX === isCheckedY) {
-                    return 0
-                } else if (isCheckedX === true) {
-                    return -1
-                } else if (isCheckedY === true) {
-                    return 1
-                } else if (isCheckedX === null) {
-                    return -1
-                } else if (isCheckedY === null) {
-                    return 1
-                }
-                return 0
-            })
 
             return result
         },
