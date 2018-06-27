@@ -12,6 +12,7 @@
                 :value="value"
                 :auto-reorder="false"
                 :is-searchable="options.length > searchableWhenOptionsLengthIsMoreThan"
+                :show-select-clear-all="options.length > searchableWhenOptionsLengthIsMoreThan"
                 :options="options"
                 @input="selectionChange">
             </multiselect>
