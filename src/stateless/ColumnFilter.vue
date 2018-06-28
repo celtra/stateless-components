@@ -16,7 +16,7 @@
                     <p class="column-filter__column-header-label">{{ currentColumn.label }}</p>
                 </div>
 
-                <icon name="close" class="column-filter__close" />
+                <icon name="close" class="column-filter__close" @click="$emit('close')" />
             </div>
 
             <div class="column-filter__set-filter">
