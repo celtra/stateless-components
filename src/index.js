@@ -11,15 +11,15 @@ import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
 import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
+import ToastComponent from '@/stateless/Toast.vue'
+import PieChartComponent from '@/stateless/PieChart.vue'
+import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 import DefaultListComponent from '@/stateless/DefaultList.vue'
 import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
 import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilterComponent from '@/stateless/ColumnFilter.vue'
-import ToastComponent from '@/stateless/Toast.vue'
-import PieChartComponent from '@/stateless/PieChart.vue'
-import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 import FilterChipComponent from '@/stateless/FilterChip.vue'
 import FilterChipWithMultiselectComponent from '@/stateless/FilterChipWithMultiselect.vue'
 
@@ -36,14 +36,14 @@ export const RadioButton = RadioButtonComponent
 export const Selectbox = SelectboxComponent
 export const SupportText = SupportTextComponent
 export const Icon = IconComponent
+export const Toast = ToastComponent
+export const PieChart = PieChartComponent
+export const InlineDialog = InlineDialogComponent
 export const DefaultList = DefaultListComponent
 export const DefaultListItem = DefaultListItemComponent
 export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
 export const ColumnFilter = ColumnFilterComponent
-export const Toast = ToastComponent
-export const PieChart = PieChartComponent
-export const InlineDialog = InlineDialogComponent
 export const FilterChip = FilterChipComponent
 export const FilterChipWithMultiselect = FilterChipWithMultiselectComponent
