@@ -9,7 +9,7 @@
         <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
         <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
-            <div class="multiselect__change-multiple">
+            <div v-if="showSelectClearAll" class="multiselect__change-multiple">
                 <checkbox-element v-if="value.length === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
                     <span class="multiselect__select-all-label">SELECT ALL</span>
                 </checkbox-element>
@@ -70,6 +70,7 @@ export default {
         options: { type: Array, required: true },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        showSelectClearAll: { type: Boolean, default: true },
         areGroupsSelectable: { type: Boolean, default: false },
         getOptions: { type: Function },
         label: { type: String, default: 'Search' },
@@ -258,6 +259,7 @@ export default {
         padding-left: 5px;
         padding-right: 5px;
         clip-path: inset(0px 0px 0px 0px);
+        overscroll-behavior: contain;
     }
 
     &__change-multiple {
