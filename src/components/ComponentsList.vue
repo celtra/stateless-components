@@ -11,16 +11,7 @@
                     <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
                         <td class="prop-name">{{ prop.name }}</td>
                         <td class="prop-value">
-                            <div v-if="typeof(prop.default) == typeof(true)">
-                                <input :value="prop.value"
-                                       type="checkbox"
-                                       @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
-                            </div>
-                            <div v-else>
-                                <input :value="prop.value"
-                                       type="text"
-                                       @input="updateProp(componentData.id, prop.name, $event.target.value)" />
-                            </div>
+                            <input :value="prop.value" @input="updateProp(componentData.id, prop.name, $event.target.value)" />
                         </td>
                     </tr>
                 </table>
