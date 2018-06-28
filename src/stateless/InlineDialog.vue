@@ -3,10 +3,7 @@
         <div v-if="$slots.header" class="inline-dialog__header">
             <slot name="header"></slot>
         </div>
-
-        <div class="inline-dialog__content">
-            <slot></slot>
-        </div>
+        <slot></slot>
     </div>
 </template>
 
@@ -22,10 +19,6 @@
     &__header {
         padding: 10px 15px;
         border-bottom: 1px solid #f5f5f5;
-    }
-
-    &__content {
-        padding: 20px 15px;
     }
 }
 </style>
