@@ -8,17 +8,18 @@
 </template>
 
 <style lang="less" scoped>
+@import (reference) './variables';
 .inline-dialog {
     position: absolute;
     width: 340px;
-    background-color: #FFFFFF;
-    box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.25);
+    background-color: @white;
+    box-shadow: 1px 2px 5px 0 @shadow-default;
     font-size: 14px;
     z-index: 1;
 
     &__header {
         padding: 10px 15px;
-        border-bottom: 1px solid #f5f5f5;
+        border-bottom: 1px solid @white-smoke;
     }
 }
 </style>

@@ -23975,7 +23975,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e410696e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a6fb4fa4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__ = __webpack_require__(190);
 function injectStyle (ssrContext) {
   __webpack_require__(188)
 }
@@ -23989,12 +23989,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-e410696e"
+var __vue_scopeId__ = "data-v-a6fb4fa4"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __vue_script__,
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e410696e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a6fb4fa4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InlineDialog_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -24015,7 +24015,7 @@ var content = __webpack_require__(189);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("1498d6b4", content, true, {});
+var update = __webpack_require__(1)("873a4cc4", content, true, {});
 
 /***/ }),
 /* 189 */
@@ -24026,7 +24026,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.inline-dialog[data-v-e410696e] {\n  position: absolute;\n  width: 340px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-e410696e] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/InlineDialog.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,aAAa;EACb,0BAA0B;EAC1B,sDAAsD;UAC9C,8CAA8C;EACtD,gBAAgB;EAChB,WAAW;CACZ;AACD;EACE,mBAAmB;EACnB,iCAAiC;CAClC","file":"InlineDialog.vue","sourcesContent":["\n.inline-dialog[data-v-e410696e] {\n  position: absolute;\n  width: 340px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-e410696e] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.inline-dialog[data-v-a6fb4fa4] {\n  position: absolute;\n  width: 340px;\n  background-color: #ffffff;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-a6fb4fa4] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/InlineDialog.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,aAAa;EACb,0BAA0B;EAC1B,sDAAsD;UAC9C,8CAA8C;EACtD,gBAAgB;EAChB,WAAW;CACZ;AACD;EACE,mBAAmB;EACnB,iCAAiC;CAClC","file":"InlineDialog.vue","sourcesContent":["\n.inline-dialog[data-v-a6fb4fa4] {\n  position: absolute;\n  width: 340px;\n  background-color: #ffffff;\n  -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);\n  font-size: 14px;\n  z-index: 1;\n}\n.inline-dialog__header[data-v-a6fb4fa4] {\n  padding: 10px 15px;\n  border-bottom: 1px solid #f5f5f5;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
