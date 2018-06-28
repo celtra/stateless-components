@@ -1,13 +1,14 @@
 <template>
     <div v-click-outside="close">
         <filter-chip
-            :click="chipClick"
-            :is-open="open"
-            :active="value.length > 0"
-            :selection-counter="{ selected: value.length, all: options.length }"
-            :label="label">
+            :is-open="isOpen"
+            :is-active="value.length > 0"
+            :selected-count="value.length"
+            :total-count="options.length"
+            :label="label"
+            @click="chipClick">
         </filter-chip>
-        <inline-dialog v-if="open">
+        <inline-dialog v-if="isOpen">
             <multiselect
                 :value="value"
                 :auto-reorder="false"
@@ -39,15 +40,15 @@ export default {
     },
     data () {
         return {
-            open: false,
+            isOpen: false,
         }
     },
     methods: {
         chipClick () {
-            this.open = !this.open
+            this.isOpen = !this.isOpen
         },
         close () {
-            this.open = false
+            this.isOpen = false
         },
         selectionChange (selected) {
             this.$emit('input', selected)

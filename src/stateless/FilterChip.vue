@@ -1,10 +1,10 @@
 <template>
-    <div :class="{ 'filter-chip__active': active, 'filter-chip__open': isOpen }" class="filter-chip" @click="click()">
+    <div :class="{ active: isActive, open: isOpen } | prefix('filter-chip--')" class="filter-chip" @click="$emit('click')">
         <div class="label">
             <slot>{{ label }}</slot>
         </div>
-        <div v-if="selectionCounter.all > 0" class="selection-counter">
-            {{ selectionCounter.selected }}/{{ selectionCounter.all }}
+        <div v-if="totalCount > 0" class="selection-counter">
+            {{ selectedCount }}/{{ totalCount }}
         </div>
     </div>
 </template>
@@ -12,10 +12,10 @@
 <script>
 export default {
     props: {
-        click: { type: Function, required: true },
         label: { type: String, default: '' },
-        selectionCounter: { type: Object, default: () => { return { selected: 0, all: 0 } } },
-        active: { type: Boolean, default: false },
+        selectedCount: { type: Number, default: 0 },
+        totalCount: { type: Number, default: 0 },
+        isActive: { type: Boolean, default: false },
         isOpen: { type: Boolean, default: false },
     },
 }
@@ -47,8 +47,7 @@ export default {
         }
     }
 
-    // active === pressed
-    &:active, &.filter-chip__open {
+    &:active, &.filter-chip--open {
         background-color: @bluish-gray;
         color: @white;
 
@@ -57,7 +56,7 @@ export default {
         }
     }
 
-    &.filter-chip__active {
+    &.filter-chip--active {
         background-color: fade(@royal-blue, 80);
 
         &:hover {

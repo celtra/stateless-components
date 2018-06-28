@@ -218,12 +218,8 @@ export default {
     FilterChip: {
         component: FilterChip,
         defaultProps: {
-            click: () => {
-                console.log('click on filter chip')
-            },
-            selectionCounter: {
-                selected: 0, all: 4,
-            },
+            selectedCount: 0,
+            totalCount: 4,
             label: 'Label',
         },
     },
