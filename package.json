@@ -19,7 +19,7 @@
     "build",
     "git-add"
   ],
-  "dependencies": {
+  "devDependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -58,9 +58,6 @@
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
-    "postcss-import": "^11.0.0",
-    "postcss-loader": "^2.0.8",
-    "postcss-url": "^7.2.1",
     "pre-commit": "^1.2.2",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.0.1",
