@@ -121,31 +121,12 @@ export default {
                 })
 
                 if (!this.areGroupsSelectable) {
-                    let removedOptions = []
-                    const removeSelected = (options) => {
-                        return options.map(option => {
-                            if (option.options) {
-                                let newOptions = removeSelected(option.options)
-                                if (newOptions.length === 0) {
-                                    return null
-                                }
-                                return {
-                                    ...option,
-                                    options: newOptions,
-                                }
-                            } else {
-                                if (this.value.includes(option.id)) {
-                                    removedOptions.push(option)
-                                    return null
-                                }
-                                return option
-                            }
-                        }).filter(x => x)
-                    }
+                    let selectedItems = this.value.map(itemId => itemsUtils.find(result, x => !(x.options || x.items) && x.id === itemId))
+                    let unselectedItems = itemsUtils.filter(result, item => {
+                        return !(item.options || item.items) && !this.value.includes(item.id)
+                    })
 
-                    let unselectedOptions = removeSelected(this.allOptions)
-
-                    result = removedOptions.concat(unselectedOptions)
+                    result = selectedItems.concat(unselectedItems)
                 }
             }
 

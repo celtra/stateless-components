@@ -100,7 +100,7 @@ export default {
     Multiselect: {
         component: Multiselect,
         defaultProps: {
-            options: largeItems,
+            options: defaultNestedItems,
             value: [],
             isSearchable: true,
         },
