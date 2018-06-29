@@ -11,7 +11,21 @@
                     <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
                         <td class="prop-name">{{ prop.name }}</td>
                         <td class="prop-value">
-                            <input :value="prop.value" @input="updateProp(componentData.id, prop.name, $event.target.value)" />
+                            <div v-if="prop.availableValues">
+                                <select @change="updateProp(componentData.id, prop.name, $event.target.value)">
+                                    <option v-for="value in prop.availableValues" :key="value">{{ value }}</option>
+                                </select>
+                            </div>
+                            <div v-else-if="typeof(prop.default) == typeof(true)">
+                                <input :value="prop.value"
+                                       type="checkbox"
+                                       @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
+                            </div>
+                            <div v-else>
+                                <input :value="prop.value"
+                                       type="text"
+                                       @input="updateProp(componentData.id, prop.name, $event.target.value)" />
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -53,6 +67,7 @@ let getComponents = () => {
                     name: propName,
                     type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
                     default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
+                    availableValues: componentData.availableProps && componentData.availableProps[propName] || null,
                 }
             }),
         }
