@@ -110,6 +110,10 @@ export default {
     }
 }
 
+.dialog-button--error.dialog-button--loading {
+    background-color: @light-pink-red;
+}
+
 @keyframes BUTTON_LOADER {
     0%   { transform: rotate(0); }
     100% { transform: rotate(720deg); }
