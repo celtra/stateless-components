@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-if="href" :href="href" class="dialog-button__link" @click="click">
+        <a v-if="href" :href="href" :target="target" class="dialog-button__link" @click="click">
             <dialog-button :disabled="disabled" :loading="loading" :error="error">
                 <slot></slot>
             </dialog-button>
@@ -27,6 +27,7 @@ export default {
         loading: { type: Boolean, default: false },
         error: { type: Boolean, default: false },
         href: { type: String },
+        target: { type: String, default: '_self' },
     },
     methods: {
         click () {
