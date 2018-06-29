@@ -1,33 +1,5 @@
 <template>
     <div class="icon-wrapper" @click="$emit('click')">
-
-        <!-- 'mail': envelope icon -->
-        <svg v-if="name === 'mail'" :style="styleOverride" width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-1107.000000, -22.000000)">
-                <g transform="translate(1107.000000, 21.000000)">
-                    <g transform="translate(0.000000, 1.000000)">
-                        <path class="path" d="M15,0 L1,0 C0.4,0 0,0.4 0,1 L0,2.4 L8,6.9 L16,2.5 L16,1 C16,0.4 15.6,0 15,0 Z"></path>
-                        <path class="path" d="M7.5,8.9 L0,4.7 L0,13 C0,13.6 0.4,14 1,14 L15,14 C15.6,14 16,13.6 16,13 L16,4.7 L8.5,8.9 C8.22,9.04 7.78,9.04 7.5,8.9 Z"></path>
-                    </g>
-                </g>
-            </g>
-        </svg>
-
-        <!-- 'screen-donwload': dekstop screen with a down arrow in the right side -->
-        <svg v-if="name === 'screen-download'" :style="styleOverride" width="16px" height="15px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-1225.000000, -23.000000)">
-                <g transform="translate(1107.000000, 21.000000)">
-                    <g transform="translate(118.000000, 1.000000)">
-                        <g transform="translate(0.000000, 1.000000)">
-                            <path class="path" d="M13,5 L15,5 L15,2 C15,0.935 14.065,0 13,0 L3,0 C1.935,0 1,0.935 1,2 L1,7 L3,7 L3,2 L13,2 L13,5 Z"></path>
-                            <path class="path" d="M7,9 L0,9 L0,10 C0,11.105 0.895,12 2,12 L7,12 L7,9 Z"></path>
-                            <path class="path" d="M14,10.586 L13,11.586 L13,7 L11,7 L11,11.586 L10,10.586 L8.586,12 L11.293,14.707 C11.488,14.902 11.744,15 12,15 C12.256,15 12.512,14.902 12.707,14.707 L15.414,12 L14,10.586 Z"></path>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </svg>
-
         <div v-if="name === 'caret'" :style="styleOverride">
             <div class="icon-caret"></div>
         </div>
@@ -66,26 +38,6 @@
                      fill-rule="nonzero"/>
         </svg>
 
-        <!-- 'sort': sort arrow icon -->
-        <svg v-if="name === 'sort'" :style="styleOverride" width="7px" height="9px" viewBox="0 0 7 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g transform="translate(-169.000000, -132.000000)">
-                    <g transform="translate(169.000000, 132.000000)">
-                        <rect class="path" fill="#000000" x="3" y="0" width="1" height="8"></rect>
-                        <g transform="translate(0.000000, 5.000000)" fill="#222235">
-                            <rect class="path" x="3" y="3" width="1" height="1"></rect>
-                            <rect class="path" x="2" y="2" width="1" height="1"></rect>
-                            <rect class="path" x="1" y="1" width="1" height="1"></rect>
-                            <rect class="path" x="0" y="0" width="1" height="1"></rect>
-                            <rect class="path" x="4" y="2" width="1" height="1"></rect>
-                            <rect class="path" x="5" y="1" width="1" height="1"></rect>
-                            <rect class="path" x="6" y="0" width="1" height="1"></rect>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </svg>
-
         <svg v-if="name === 'calendar'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 16"
              xmlns="http://www.w3.org/2000/svg">
             <path
@@ -94,27 +46,14 @@
         </svg>
 
         <!-- 'back': left angle icon -->
-        <svg v-if="name === 'back'" :style="styleOverride" width="8px" height="16px" viewBox="0 0 8 17" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-492.000000, -85.000000)">
-                <g transform="translate(474.000000, 70.000000)">
-                    <g transform="translate(18.000000, 15.000000)">
-                        <path class="path" d="M6.55518236,17 L0.228992658,9.15742227 C-0.0763308861,8.77944236 -0.0763308861,8.22055764 0.228992658,7.84257773 L6.55518236,0 L8,1.31585518 L2.20360848,8.50050532 L7.99904884,15.6841448 L6.55518236,17 Z"></path>
-                    </g>
-                </g>
-            </g>
+        <svg v-if="name === 'back'" :style="styleOverride" width="8" height="16" viewBox="0 0 8 17" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M6.555 17L.23 9.157a1.058 1.058 0 0 1 0-1.314L6.555 0 8 1.316 2.204 8.5l5.795 7.183L6.555 17z"/>
         </svg>
 
         <!-- 'save': floppy icon  -->
-        <svg v-if="name === 'save'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-1255.000000, -23.000000)">
-                <g transform="translate(1240.000000, 0.000000)">
-                    <g transform="translate(14.000000, 22.000000)">
-                        <rect class="path" opacity="0" x="0" y="0" width="16" height="16"></rect>
-                        <path id="Shape" class="path" d="M11.2375,1.2625 C11.0625,1.0875 10.8875,1 10.625,1 L9.75,1 L9.75,3.625 C9.75,4.15 9.4,4.5 8.875,4.5 L4.5,4.5 C3.975,4.5 3.625,4.15 3.625,3.625 L3.625,1 L1.875,1 C1.35,1 1,1.35 1,1.875 L1,14.125 C1,14.65 1.35,15 1.875,15 L14.125,15 C14.65,15 15,14.65 15,14.125 L15,5.375 C15,5.1125 14.9125,4.9375 14.7375,4.7625 L11.2375,1.2625 Z M13,14 L4,14 L4,11 C4,10.4 4.36,10 4.9,10 L12.1,10 C12.64,10 13,10.4 13,11 L13,14 Z" fill="#D6D8DD"></path>
-                        <rect class="path" x="7" y="1" width="2" height="3"></rect>
-                    </g>
-                </g>
-            </g>
+        <svg v-if="name === 'save'" :style="styleOverride" width="16" height="16" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M10.238.262A.794.794 0 0 0 9.625 0H8.75v2.625c0 .525-.35.875-.875.875H3.5c-.525 0-.875-.35-.875-.875V0H.875C.35 0 0 .35 0 .875v12.25c0 .525.35.875.875.875h12.25c.525 0 .875-.35.875-.875v-8.75a.794.794 0 0 0-.262-.612l-3.5-3.5zM12 13H3v-3c0-.6.36-1 .9-1h7.2c.54 0 .9.4.9 1v3z" fill="#D6D8DD"/>
+            <path class="path" d="M6 0h2v3H6z"/>
         </svg>
 
         <!-- 'arrow-down-strong': arrow down with additional line icon -->
@@ -163,36 +102,39 @@
             <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero"/>
         </svg>
 
+        <!-- 'mail': envelope icon -->
+        <svg v-if="name === 'mail'" :style="styleOverride" width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M15 0H1C.4 0 0 .4 0 1v1.4l8 4.5 8-4.4V1c0-.6-.4-1-1-1z"/>
+            <path class="path" d="M7.5 8.9L0 4.7V13c0 .6.4 1 1 1h14c.6 0 1-.4 1-1V4.7L8.5 8.9c-.28.14-.72.14-1 0z"/>
+        </svg>
+
+        <!-- 'screen-donwload': dekstop screen with a down arrow in the right side -->
+        <svg v-if="name === 'screen-download'" :style="styleOverride" width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M13 5h2V2c0-1.065-.935-2-2-2H3C1.935 0 1 .935 1 2v5h2V2h10v3zM7 9H0v1a2 2 0 0 0 2 2h5V9zM14 10.586l-1 1V7h-2v4.586l-1-1L8.586 12l2.707 2.707a.997.997 0 0 0 1.414 0L15.414 12 14 10.586z"/>
+        </svg>
+
         <!-- 'card-edit': credit card with pencil overlay -->
-        <svg v-if="name === 'card-edit'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-23.000000, -136.000000)">
-                <g transform="translate(0.000000, 120.000000)">
-                    <g transform="translate(23.000000, 16.000000)">
-                        <polygon class="path" points="12 14 9 15 10 12 14 8 16 10"></polygon>
-                        <path class="path" d="M2,6 L16,6 L16,1 C16,0.448 15.553,0 15,0 L1,0 C0.447,0 0,0.448 0,1 L0,11 C0,11.552 0.447,12 1,12 L7,12 L7,10 L2,10 L2,6 Z M2,2 L14,2 L14,4 L2,4 L2,2 Z"></path>
-                    </g>
-                </g>
-            </g>
+        <svg v-if="name === 'card-edit'" :style="styleOverride" width="16" height="16" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M12 14l-3 1 1-3 4-4 2 2zM2 6h14V1a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6v-2H2V6zm0-4h12v2H2V2z"/>
         </svg>
 
         <!-- 'chain-link': single link in the chain -->
-        <svg v-if="name === 'chain-link'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-1009.000000, -21.000000)">
-                <g transform="translate(1009.000000, 21.000000)">
-                    <path class="path" d="M5.5,16 C4.3,16 3.2,15.5 2.3,14.7 C0.5,12.9 0.5,10.1 2.3,8.3 L3,7.6 L4.4,9 L3.7,9.7 C2.7,10.7 2.7,12.3 3.7,13.3 C4.7,14.3 6.3,14.3 7.3,13.3 L10.3,10.3 C11.3,9.3 11.3,7.7 10.3,6.7 L9.6,6 L11,4.6 L11.7,5.3 C13.5,7.1 13.5,9.9 11.7,11.7 L8.7,14.7 C7.9,15.5 6.7,16 5.5,16 Z"></path>
-                    <path class="path" d="M7,11.4 L6.3,10.7 C4.5,8.9 4.5,6.1 6.3,4.3 L9.3,1.3 C10.2,0.4 11.3,8.8817842e-16 12.5,8.8817842e-16 C13.7,8.8817842e-16 14.8,0.5 15.7,1.3 C17.5,3.1 17.5,5.9 15.7,7.7 L15,8.4 L13.6,7 L14.3,6.3 C15.3,5.3 15.3,3.7 14.3,2.7 C13.3,1.7 11.7,1.7 10.7,2.7 L7.7,5.7 C6.7,6.7 6.7,8.3 7.7,9.3 L8.4,10 L7,11.4 Z"></path>
-                </g>
-            </g>
+        <svg v-if="name === 'chain-link'" :style="styleOverride" width="16" height="16" viewBox="0 0 18 16" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M5.5 16c-1.2 0-2.3-.5-3.2-1.3-1.8-1.8-1.8-4.6 0-6.4l.7-.7L4.4 9l-.7.7c-1 1-1 2.6 0 3.6s2.6 1 3.6 0l3-3c1-1 1-2.6 0-3.6L9.6 6 11 4.6l.7.7c1.8 1.8 1.8 4.6 0 6.4l-3 3c-.8.8-2 1.3-3.2 1.3z"/><path class="path" d="M7 11.4l-.7-.7c-1.8-1.8-1.8-4.6 0-6.4l3-3c.9-.9 2-1.3 3.2-1.3 1.2 0 2.3.5 3.2 1.3 1.8 1.8 1.8 4.6 0 6.4l-.7.7L13.6 7l.7-.7c1-1 1-2.6 0-3.6s-2.6-1-3.6 0l-3 3c-1 1-1 2.6 0 3.6l.7.7L7 11.4z"/>
         </svg>
 
         <!-- 'clock': default clock - 3 o'clock -->
-        <svg v-if="name === 'clock'" :style="styleOverride" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g transform="translate(-1107.000000, -21.000000)">
-                <g transform="translate(1009.000000, 21.000000)">
-                    <g transform="translate(98.000000, 0.000000)">
-                        <path class="path" d="M8,0 C3.6,0 0,3.6 0,8 C0,12.4 3.6,16 8,16 C12.4,16 16,12.4 16,8 C16,3.6 12.4,0 8,0 Z M8,14 C4.7,14 2,11.3 2,8 C2,4.7 4.7,2 8,2 C11.3,2 14,4.7 14,8 C14,11.3 11.3,14 8,14 Z"></path>
-                        <polygon class="path" points="9 4 7 4 7 9 12 9 12 7 9 7"></polygon>
-                    </g>
+        <svg v-if="name === 'clock'" :style="styleOverride" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
+            <path class="path" d="M9 4H7v5h5V7H9z"/>
+        </svg>
+
+        <!-- 'sort': sort arrow icon -->
+        <svg v-if="name === 'sort'" :style="styleOverride" width="7" height="9" viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd">
+                <path class="path" fill="#000" d="M3 0h1v8H3z"/>
+                <g fill="#222235">
+                    <path class="path" d="M3 8h1v1H3zM2 7h1v1H2zM1 6h1v1H1zM0 5h1v1H0zM4 7h1v1H4zM5 6h1v1H5zM6 5h1v1H6z"/>
                 </g>
             </g>
         </svg>
