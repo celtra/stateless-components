@@ -11,15 +11,15 @@ import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
+import Toast from '@/stateless/Toast.vue'
+import PieChart from '@/stateless/PieChart.vue'
+import InlineDialog from '@/stateless/InlineDialog.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilter from '@/stateless/ColumnFilter.vue'
-import Toast from '@/stateless/Toast.vue'
-import PieChart from '@/stateless/PieChart.vue'
-import InlineDialog from '@/stateless/InlineDialog.vue'
 import FilterChip from '@/stateless/FilterChip.vue'
 import FilterChipWithMultiselect from '@/stateless/FilterChipWithMultiSelect.vue'
 
@@ -102,7 +102,7 @@ export default {
     Multiselect: {
         component: Multiselect,
         defaultProps: {
-            options: largeItems,
+            options: defaultNestedItems,
             value: [],
             isSearchable: true,
         },
@@ -136,6 +136,18 @@ export default {
     },
     Icon: {
         component: Icon,
+        availableProps: {
+            name: [
+                'caret', 'pencil-edit', 'delete-icon', 'duplicate-icon', 'sort-arrow',
+                'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
+                'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
+                'search', 'clear', 'close', 'mail', 'screen-download',
+                'card-edit', 'chain-link', 'clock', 'sort',
+            ],
+        },
+        defaultProps: {
+            name: 'caret',
+        },
     },
     Toast: {
         component: Toast,
