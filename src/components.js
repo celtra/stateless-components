@@ -10,13 +10,10 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
-<<<<<<< HEAD
+import Icon from '@/stateless/icon.vue'
 import Toast from '@/stateless/Toast.vue'
 import PieChart from '@/stateless/PieChart.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
-=======
-import Icon from '@/stateless/icon.vue'
->>>>>>> master
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
