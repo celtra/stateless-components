@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton should match the snapshot 1`] = `
+<div
+  class="radio-element radio-element--normal radio-element--dark"
+  data-id="something"
+  tabindex="0"
+  title=""
+>
+  <div
+    class="radio-element__radio-row radio-element__radio-row--checked"
+    title=""
+  >
+    <div
+      class="radio-element__oval-wrapper radio-element__oval-wrapper--checked"
+    >
+      <div
+        class="radio-element__oval radio-element__oval--checked"
+      />
+       
+      <div
+        class="radio-element__inner-oval radio-element__inner-oval--checked"
+      />
+    </div>
+     
+    <div
+      class="radio-element__label-text radio-element__label-text--checked"
+    >
+      
+            
+        
+    </div>
+  </div>
+   
+  <!---->
+</div>
+`;
