@@ -10,6 +10,7 @@ import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
+import Icon from '@/stateless/icon.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -107,6 +108,21 @@ export default {
         component: SupportText,
         defaultProps: {
             text: 'Lorem Ipsum',
+        },
+    },
+    Icon: {
+        component: Icon,
+        availableProps: {
+            name: [
+                'caret', 'pencil-edit', 'delete-icon', 'duplicate-icon', 'sort-arrow',
+                'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
+                'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
+                'search', 'clear', 'close', 'mail', 'screen-download',
+                'card-edit', 'chain-link', 'clock', 'sort',
+            ],
+        },
+        defaultProps: {
+            name: 'caret',
         },
     },
 }
