@@ -1,7 +1,7 @@
 <template>
     <div class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" size="phat" theme="light">
+            <input-element v-model="searchQuery" :label="label" :size="size" theme="light">
                 <icon slot="before" name="search" />
             </input-element>
         </div>
@@ -10,7 +10,7 @@
 
         <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
             <div v-if="showSelectClearAll" class="multiselect__change-multiple">
-                <checkbox-element v-if="value.length === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
+                <checkbox-element v-if="value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
                     <span class="multiselect__select-all-label">SELECT ALL</span>
                 </checkbox-element>
                 <div v-else class="multiselect__clear-all" @click="clearAll">

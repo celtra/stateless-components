@@ -105,6 +105,7 @@ export default {
             options: defaultNestedItems,
             value: [],
             isSearchable: true,
+            size: 'condensed',
         },
     },
     RadioButton: {
