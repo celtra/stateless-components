@@ -17,7 +17,7 @@
                                 </select>
                             </div>
                             <div v-else-if="typeof(prop.default) == typeof(true)">
-                                <input :value="prop.value"
+                                <input :checked="prop.value"
                                        type="checkbox"
                                        @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
                             </div>
