@@ -1,16 +1,18 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
 
         <div ref="inputWrap" :class="{ 'input-field--with-icon': !!$slots.before }" :title="mappedDisabledText" class="input-field">
-            <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
-                {{ label }}
-            </div>
-            <div :class="cssStates | prefix('input-field__label-text--')" class="input-field__label-text">
-                {{ mappedLabelText }}
-            </div>
+            <template v-if="label !== undefined">
+                <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
+                    {{ label }}
+                </div>
+                <div :class="cssStates | prefix('input-field__label-text--')" class="input-field__label-text">
+                    {{ mappedLabelText }}
+                </div>
+            </template>
 
             <div :class="cssStates | prefix('input-row--')" class="input-row">
                 <div v-if="$slots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
@@ -35,9 +37,10 @@
                            :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" class="input-row__placeholder-text" type="password" @keyup.delete.stop @keyup.left.stop @keyup.right.stop
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
-                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')"
-                           :value="text" :placeholder="mappedPlaceholderText" :disabled="disabled" class="input-row__placeholder-text" type="text" @keyup.delete.stop
-                           @keyup.left.stop @keyup.right.stop @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
+                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" class="input-row__placeholder-text" type="text"
+                           :value="text" :placeholder="mappedPlaceholderText" :disabled="disabled" :style="{'text-align': alignment}"
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
+                           @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
                 <div v-if="$slots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
@@ -88,7 +91,7 @@ import { formElementTransitionTime } from './form_element_constants'
 export default {
     props: {
         value: { type: [String, Number], default: '' },
-        label: { type: String, required: true },
+        label: { type: String, required: false },
         disabled: { type: Boolean, required: false, default: false },
         hasWarning: { type: Function, required: false },
         isValid: { type: Function, required: false },
@@ -104,6 +107,10 @@ export default {
         maxLength: { type: Number, required: false },
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
+        step: { type: Number, default: 1 },
+        minValue: { type: Number, default: 0 },
+        maxValue: { type: Number, default: 100 },
+        alignment: { type: String, default: 'left' }
     },
     data () {
         return {
@@ -143,13 +150,13 @@ export default {
             return this.type === 'password' && !this.passwordVisible ? 'password' : 'text'
         },
         mappedLabelText () {
-            return (this.states.focused || this.text) ? this.label : ''
+            return (this.states.focused || this.text) && this.label ? this.label : ''
         },
         mappedPlaceholderText () {
             if (this.states.focused) {
                 return this.placeholder
             } else {
-                return this.text ? this.text : this.label
+                return this.text ? this.text : this.label || ''
             }
         },
         mappedHelperText () {
@@ -172,6 +179,10 @@ export default {
         maxLengthCap () {
             return this.maxLength ? parseInt(this.maxLength, 10) : null
         },
+        decimalPlacesCount () {
+            let decimals = this.step.toString().split('.')[1]
+            return decimals ? decimals.length : 0
+        },
         currentLength () {
             if (!this.value) {
                 return 0
@@ -183,7 +194,8 @@ export default {
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
         },
         text () {
-            return this.value && this.value.toString() || ''
+            this.runValidations(this.value)
+            return this.value !== null && this.value.toString() || ''
         },
     },
     watch: {
@@ -239,6 +251,11 @@ export default {
         onInput (event) {
             let value = event.target.value
 
+            if (!value) {
+                this.$emit('input', null)
+                return
+            }
+
             if (this.autogrow) {
                 value = value.replace(/\n{2,}/g, '\n')
             } else {
@@ -257,16 +274,27 @@ export default {
 
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
+                let inRange = this.minValue <= value && value <= this.maxValue
+                let numberValue = parseInt(value)
 
-                if (isNumeric) {
-                    let numberValue = parseInt(value)
-                    if (!isNaN(numberValue)) {
-                        this.runValidations(numberValue)
+                if (isNumeric && inRange && !isNaN(numberValue)) {
+                    this.runValidations(numberValue)
 
-                        this.$emit('input', numberValue)
-                    } else {
-                        this.$emit('input', null)
-                    }
+                    this.$emit('input', value)
+                } else {
+                    event.target.value = this.value
+                }
+            } else if (this.type === 'float') {
+                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
+                let inRange = this.minValue <= value && value <= this.maxValue
+                let numberValue = parseFloat(value)
+
+                if (isNumeric && inRange && !isNaN(numberValue)) {
+                    this.runValidations(numberValue)
+
+                    this.$emit('input', value)
+                } else {
+                    event.target.value = this.value
                 }
             } else {
                 this.runValidations(value)
@@ -277,6 +305,28 @@ export default {
             this.$nextTick(() => {
                 this.updateHeight()
             })
+        },
+        numberIncrement (e) {
+            let numberValue = parseFloat(e.target.value)
+            if ((this.type === 'number' || this.type === 'float') && numberValue < this.maxValue) {
+                numberValue += this.step
+                numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
+                this.runValidations(numberValue)
+                event.target.value = numberValue
+                this.$emit('input', numberValue)
+                e.preventDefault()
+            }
+        },
+        numberDecrement (e) {
+            let numberValue = parseFloat(e.target.value)
+            if ((this.type === 'number' || this.type === 'float') && numberValue > this.minValue) {
+                numberValue -= this.step
+                numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
+                this.runValidations(numberValue)
+                event.target.value = numberValue
+                this.$emit('input', numberValue)
+                e.preventDefault()
+            }
         },
         updateHeight () {
             if (this.autogrow) {
@@ -297,7 +347,7 @@ export default {
             this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
-            if (this.text === '' || !this.text ) {
+            if ((this.text === '' || !this.text) && this.label) {
                 let translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
                 let translateY = -18.5
                 let scale = 0.63
@@ -315,14 +365,23 @@ export default {
                 this.overlay.open = true
             }
         },
-        blur () {
+        selectText () {
+            this.$refs.input.select()
+        },
+        blur (e) {
+            if (e.key === 'Escape')
+                this.$emit('discard')
+
             this.$refs.input.blur()
         },
         removeFocus () {
+            if (this.states.error)
+                this.$emit('discard')
+
             this.focused = false
             this.$emit('blur')
 
-            if (this.text === '') {
+            if (this.text === '' && this.label) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
