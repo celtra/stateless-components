@@ -1,9 +1,9 @@
 <template>
     <div :class="{ active: isActive, open: isOpen } | prefix('filter-chip--')" class="filter-chip" @click="$emit('click')">
-        <div class="label">
+        <div class="filter-chip__label">
             <slot>{{ label }}</slot>
         </div>
-        <div v-if="totalCount > 0" class="selection-counter">
+        <div v-if="totalCount > 0">
             {{ selectedCount }}/{{ totalCount }}
         </div>
     </div>
@@ -47,7 +47,7 @@ export default {
         }
     }
 
-    &:active, &.filter-chip--open {
+    &:active, &--open {
         background-color: @bluish-gray;
         color: @white;
 
@@ -56,7 +56,7 @@ export default {
         }
     }
 
-    &.filter-chip--active {
+    &--active {
         background-color: fade(@royal-blue, 80);
 
         &:hover {
@@ -64,7 +64,7 @@ export default {
         }
     }
 
-    .label {
+    &__label {
         padding-right: 5px;
     }
 }
