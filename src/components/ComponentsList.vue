@@ -80,7 +80,6 @@ export default {
         let vars = {
             componentId: Object.keys(components)[0],
             theme: 'light',
-            size: 'normal',
         }
         for (let component of getComponents()) {
             let componentData = {}
@@ -101,7 +100,6 @@ export default {
                     data: {
                         ...this[componentData.id],
                         theme: this.theme,
-                        size: this.size,
                     },
                     props: componentData.props.map(prop => {
                         return {
