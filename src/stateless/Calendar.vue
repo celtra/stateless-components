@@ -46,6 +46,7 @@ export default {
         isRange: { type: Boolean, default: false },
         minDate: { type: Date },
         maxDate: { type: Date },
+        selectAllTime: { type: Boolean, default: false },
     },
     data () {
         return {
@@ -76,14 +77,13 @@ export default {
                     if (this.isRange) {
                         isCurrent = this.value.from && compareDate(this.value.from, date) === 0 || this.value.to && compareDate(this.value.to, date) === 0
 
-                        if (this.value.from && this.value.to) {
+                        if (this.value.from && (this.value.to || this.hoverDate)) {
                             let fromDate = this.value.from
-                            let toDate = this.value.to
-                            if (this.value.from > this.value.to) {
-                                fromDate = this.value.to
-                                toDate = this.value.from
+                            let toDate = this.value.to ? this.value.to : this.hoverDate
+                            if (fromDate > toDate) {
+                                [fromDate, toDate] = [toDate, fromDate]
                             }
-                            isInRange = compareDate(fromDate, date) <= 0 && compareDate(toDate, date) >= 0
+                            isInRange = compareDate(fromDate, date) < 0 && compareDate(toDate, date) > 0
                         }
                     } else {
                         isCurrent = compareDate(this.value, date) === 0
@@ -93,8 +93,8 @@ export default {
                 return {
                     date: date,
                     number: date.getDate(),
-                    isCurrent: isCurrent,
-                    isInRange: isInRange,
+                    isCurrent: this.selectAllTime ? false : isCurrent,
+                    isInRange: this.selectAllTime ? true : isInRange,
                     isDisabled: !this.isDateValid(date),
                     isDifferentMonth: date.getMonth() !== this.month - 1,
                 }
@@ -167,7 +167,11 @@ export default {
                 if (!this.value || !this.value.from || this.value.to) {
                     this.$emit('input', { from: day.date })
                 } else {
-                    this.$emit('input', { from: this.value.from, to: day.date })
+                    if (compareDate(day.date, this.value.from) > 0) {
+                        this.$emit('input', { from: this.value.from, to: day.date })
+                    } else {
+                        this.$emit('input', { from: day.date, to: this.value.from })
+                    }
                 }
             } else {
                 this.$emit('input', day.date)
@@ -361,6 +365,8 @@ export default {
         text-align: center;
         transition: all 150ms ease;
         user-select: none;
+        border: 2px solid transparent;
+        box-sizing: border-box;
 
         &--different-month {
             color: fade(@gunpowder, 60%);
@@ -372,8 +378,7 @@ export default {
         }
 
         &--hover {
-            color: white;
-            background-color: @royal-blue;
+            border-color: @royal-blue;
         }
 
         &--current {
