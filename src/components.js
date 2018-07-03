@@ -20,6 +20,7 @@ import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilter from '@/stateless/ColumnFilter.vue'
+import Chip from '@/stateless/Chip.vue'
 import FilterChip from '@/stateless/FilterChip.vue'
 import FilterChipWithMultiselect from '@/stateless/FilterChipWithMultiSelect.vue'
 
@@ -226,6 +227,13 @@ export default {
                     ],
                 },
             ],
+        },
+    },
+    Chip: {
+        component: Chip,
+        defaultProps: {
+            label: 'Label 3/9',
+            theme: 'light',
         },
     },
     FilterChip: {

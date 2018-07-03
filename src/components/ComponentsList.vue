@@ -98,8 +98,8 @@ export default {
                 return {
                     ...componentData,
                     data: {
-                        ...this[componentData.id],
                         theme: this.theme,
+                        ...this[componentData.id],
                     },
                     props: componentData.props.map(prop => {
                         return {
