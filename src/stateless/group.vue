@@ -4,8 +4,8 @@
             <div>{{ label }}</div>
             <support-text
                 v-if="description"
-                class="group__info"
                 :text="description"
+                class="group__info"
             ></support-text>
         </div>
         <slot></slot>
@@ -17,12 +17,12 @@ import SupportText from './support_text.vue'
 
 export default {
     components: {
-        supportText: SupportText
+        supportText: SupportText,
     },
     props: {
         label: { type: String },
-        description: { type: String, required: false }
-    }
+        description: { type: String, required: false },
+    },
 }
 </script>
 

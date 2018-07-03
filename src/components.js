@@ -11,6 +11,7 @@ import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
+import Group from '@/stateless/group.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -124,5 +125,8 @@ export default {
         defaultProps: {
             name: 'caret',
         },
+    },
+    Group: {
+        component: Group,
     },
 }
