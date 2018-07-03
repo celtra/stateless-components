@@ -1,5 +1,5 @@
 <template>
-    <div class="slider-container" :class="Object.assign(sizeClass(), themeClass())">
+    <div :class="Object.assign(sizeClass(), themeClass())" class="slider-container">
 
         <div class="slider-header">
             {{ label }}
@@ -23,26 +23,26 @@
                 ><span slot="right">%</span></input-element>
             </div>
 
-            <div class="slider-wrapper" :class="stateClass()"  @mousedown="startDrag" @keydown="keyboard" ref="slider" tabindex="0">
+            <div ref="slider" :class="stateClass()" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="keyboard">
                 <div class="slider-content">
                     <div class="slider-label">
 
-                        <div class="slider-label__unit" :class="labelClass(0)" ref="min">{{ minLabelValue }}</div>
- 
+                        <div ref="min" :class="labelClass(0)" class="slider-label__unit">{{ minLabelValue }}</div>
+
                         <div class="slider-label__unit-tick-container">
                             <div class="slider-label__unit slider-label__unit-tick"></div>
-                            <div class="slider-label__unit slider-label__unit-tick" :class="tickClass(n)" v-for="n in 18" :key="n">|</div>
+                            <div v-for="n in 18" :class="tickClass(n)" :key="n" class="slider-label__unit slider-label__unit-tick">|</div>
                             <div class="slider-label__unit slider-label__unit-tick"></div>
                         </div>
 
-                        <div class="slider-label__unit" :class="labelClass(19)" ref="max">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelClass(19)" class="slider-label__unit">{{ maxLabelValue }}</div>
 
                     </div>
 
                     <div class="slider">
                         <div class="bar bar--passive"></div>
-                        <div class="bar bar--active" :class="{'bar--exceeds': limit && currentValue > limitValue}" :style="activeBarStyle"></div>
-                        <div class="bar__handle" :style="handleStyle" ref="handle">
+                        <div :class="{'bar--exceeds': limit && currentValue > limitValue}" :style="activeBarStyle" class="bar bar--active"></div>
+                        <div ref="handle" :style="handleStyle" class="bar__handle">
                             <div class="bar__handle-dot"></div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
 
                 <div class="slider-helper-text"></div>
             </div>
-            
+
         </div>
 
     </div>
@@ -61,7 +61,7 @@ import Input from './input.vue'
 
 export default {
     components: {
-        inputElement: Input
+        inputElement: Input,
     },
     props: {
         min: { type: Number },
@@ -77,7 +77,7 @@ export default {
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         alignment: { type: String, default: 'left' },
-        isValid: { type: Function, required: false }
+        isValid: { type: Function, required: false },
     },
     data () {
         return {
@@ -86,8 +86,52 @@ export default {
             inputValue: null,
             changedFlag: false,
             draggingFlag: false,
-            inputFlag: false
+            inputFlag: false,
         }
+    },
+    computed: {
+        limitValue () {
+            return this.limit || this.max
+        },
+        minLabelValue () {
+            return this.minLabel || this.min.toString()
+        },
+        maxLabelValue () {
+            return this.maxLabel || this.limitValue.toString()
+        },
+        stepsCount () {
+            return (this.limitValue - this.min) / this.step
+        },
+        stepPercentage () {
+            return 1 / this.stepsCount
+        },
+        percentage () {
+            return this.index * this.stepPercentage
+        },
+        position () {
+            if (this.domReady)
+                return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.bounds.width
+        },
+        activeBarStyle () {
+            return {
+                'width': `${this.position}px`,
+            }
+        },
+        handleStyle () {
+            return {
+                'left': `${this.position}px`,
+            }
+        },
+        decimalPlacesCount () {
+            let decimals = this.step.toString().split('.')[1]
+            return decimals ? decimals.length : 0
+        },
+        currentValue () {
+            return this.inputFlag ? this.inputValue : Number((this.min + this.index * this.step).toFixed(this.decimalPlacesCount))
+        },
+        inputType () {
+            return this.decimalPlacesCount === 0 ? 'number' : 'float'
+        },
     },
     created () {
         let isStepValid = (this.max - this.min) / this.step % 1 === 0
@@ -116,50 +160,6 @@ export default {
         this.maxThreshold = this.bounds.width - this.$refs.max.getBoundingClientRect().width - 5
 
         this.domReady = true
-    },
-    computed: {
-        limitValue () {
-            return this.limit || this.max
-        },
-        minLabelValue () {
-            return this.minLabel || this.min.toString()
-        },
-        maxLabelValue () {
-            return this.maxLabel || this.limitValue.toString()
-        },
-        stepsCount () {
-            return (this.limitValue - this.min) / this.step
-        },
-        stepPercentage () {
-            return 1 / this.stepsCount
-        },
-        percentage () {
-            return this.index * this.stepPercentage
-        },
-        position () {
-            if (this.domReady) 
-                return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.bounds.width
-        },
-        activeBarStyle () {
-            return {
-                'width': `${this.position}px`
-            }
-        },
-        handleStyle () {
-            return {
-                'left': `${this.position}px`
-            }
-        },
-        decimalPlacesCount () {
-            let decimals = this.step.toString().split('.')[1]
-            return decimals ? decimals.length : 0
-        },
-        currentValue () {
-          return this.inputFlag ? this.inputValue : Number((this.min + this.index * this.step).toFixed(this.decimalPlacesCount))
-        },
-        inputType () {
-            return this.decimalPlacesCount === 0 ? 'number' : 'float'
-        }
     },
     methods: {
         startDrag (e) {
@@ -211,7 +211,7 @@ export default {
 
             this.inputFlag = true
             this.inputValue = value
-            
+
             if (this.min <= numberValue && numberValue <= this.max)
                 this.index = (value - this.min) / this.step
         },
@@ -230,34 +230,34 @@ export default {
 
             return {
                 'slider-label__unit--active': this.isUnitActive(index),
-                'slider-label__unit--hidden': hidden
+                'slider-label__unit--hidden': hidden,
             }
         },
         labelClass (index) {
             return {
-                'slider-label__unit--active': this.isUnitActive(index) && this.size === 'normal'
+                'slider-label__unit--active': this.isUnitActive(index) && this.size === 'normal',
             }
         },
         stateClass () {
             return {
                 'slider-wrapper--disabled': this.disabled,
                 'slider-wrapper--changed': this.changedFlag,
-                'slider-wrapper--dragging': this.draggingFlag
+                'slider-wrapper--dragging': this.draggingFlag,
             }
         },
         sizeClass () {
             return {
                 'slider-container--normal': this.size === 'normal',
-                'slider-container--condensed': this.size === 'condensed'
+                'slider-container--condensed': this.size === 'condensed',
             }
         },
         themeClass () {
             return {
                 'slider-container--light': this.theme === 'light',
-                'slider-container--dark': this.theme === 'dark'
+                'slider-container--dark': this.theme === 'dark',
             }
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -312,7 +312,7 @@ export default {
     &--changed {
 
       .bar__handle {
-        background-color: @white;      
+        background-color: @white;
       }
     }
 
@@ -328,7 +328,7 @@ export default {
       }
 
       &:hover:not(&--disabled) {
-          
+
         .slider-label__unit--active {
           color: @royal-blue;
         }
@@ -385,7 +385,7 @@ export default {
       transition: color 0.15s ease-out;
 
       &-tick {
-      
+
         &-container {
           position: absolute;
           width: 100%;
@@ -429,7 +429,7 @@ export default {
     background-color: @royal-blue;
     width: 0;
   }
-  
+
   &--passive {
     background-color: @gunpowder;
     width: 100%;
@@ -514,7 +514,7 @@ export default {
 .slider-container--light {
 
   .slider {
-    
+
     &-wrapper {
 
       &:hover:not(&--disabled) {

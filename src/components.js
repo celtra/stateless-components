@@ -11,6 +11,7 @@ import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
+import Slider from '@/stateless/slider.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -123,6 +124,15 @@ export default {
         },
         defaultProps: {
             name: 'caret',
+        },
+    },
+    Slider: {
+        component: Slider,
+        defaultProps: {
+            min: 1,
+            max: 10,
+            step: 1,
+            value: 5,
         },
     },
 }
