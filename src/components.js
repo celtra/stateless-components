@@ -118,7 +118,7 @@ export default {
                 'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
-                'card-edit', 'chain-link', 'clock', 'sort',
+                'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
             ],
         },
         defaultProps: {
