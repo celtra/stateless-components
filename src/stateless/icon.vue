@@ -101,7 +101,7 @@
 
         <!-- 'clear-small': X sign, bold -->
         <svg v-if="name === 'x-bold'" :style="styleOverride" width="16" height="16" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
-            <path class="path" d="M10.4 4L8 6.4 5.6 4 4 5.6 6.4 8 4 10.4 5.6 12 8 9.6l2.4 2.4 1.6-1.6L9.6 8 12 5.6z" transform="translate(-4 -4)"/>
+            <path class="path" d="M6.4 0L4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6z"/>
         </svg>
 
         <!-- 'close': X sign, thin -->
