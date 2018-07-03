@@ -1,8 +1,8 @@
 <template>
     <div :class="[theme, size, { open: isOpen, highlight: isHighlight, active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
-        <span @click.stop="$emit('remove')">
-            <icon v-if="isRemovable" :style-override="{ width: '8px', height: '8px'}" class="chip__remove-btn" name="x-bold"></icon>
+        <span v-if="isRemovable" @click.stop="$emit('remove')">
+            <icon :style-override="{ width: '8px', height: '8px'}" class="chip__remove-btn" name="x-bold"></icon>
         </span>
     </div>
 </template>
