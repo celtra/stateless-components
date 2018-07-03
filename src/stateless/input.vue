@@ -37,8 +37,8 @@
                            :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" class="input-row__placeholder-text" type="password" @keyup.delete.stop @keyup.left.stop @keyup.right.stop
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
-                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" class="input-row__placeholder-text" type="text"
-                           :value="text" :placeholder="mappedPlaceholderText" :disabled="disabled" :style="{'text-align': alignment}"
+                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
+                           :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
                            @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
                            @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
@@ -110,7 +110,7 @@ export default {
         step: { type: Number, default: 1 },
         minValue: { type: Number, default: 0 },
         maxValue: { type: Number, default: 100 },
-        alignment: { type: String, default: 'left' }
+        alignment: { type: String, default: 'left' },
     },
     data () {
         return {
