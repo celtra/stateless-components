@@ -1,13 +1,13 @@
 <template>
     <div v-click-outside="close">
-        <filter-chip
+        <chip
             :is-open="isOpen"
             :is-active="value.length > 0"
-            :selected-count="value.length"
-            :total-count="options.length"
-            :label="label"
+            :is-highlight="true"
+            :theme="theme"
+            :label="`${label} ${value.length}/${options.length}`"
             @click="chipClick">
-        </filter-chip>
+        </chip>
         <inline-dialog v-if="isOpen">
             <multiselect
                 :value="value"
@@ -15,6 +15,8 @@
                 :is-searchable="options.length > searchableWhenOptionsLengthIsMoreThan"
                 :show-select-clear-all="options.length > searchableWhenOptionsLengthIsMoreThan"
                 :options="options"
+                :theme="theme"
+                :size="size"
                 @input="selectionChange">
             </multiselect>
         </inline-dialog>
@@ -22,17 +24,19 @@
 </template>
 
 <script>
-import FilterChip from './FilterChip'
+import Chip from './Chip'
 import InlineDialog from './InlineDialog'
 import Multiselect from './multiselect'
 
 export default {
     components: {
-        FilterChip,
+        Chip,
         InlineDialog,
         Multiselect,
     },
     props: {
+        theme: { type: String, default: 'dark' }, // dark | light
+        size: { type: String, default: 'normal' }, // condensed | normal
         value: { type: Array, required: true },
         options: { type: Array, required: true },
         label: { type: String, required: true },
