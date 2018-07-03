@@ -20,8 +20,7 @@ import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilterComponent from '@/stateless/ColumnFilter.vue'
-import FilterChipComponent from '@/stateless/FilterChip.vue'
-import FilterChipWithMultiselectComponent from '@/stateless/FilterChipWithMultiselect.vue'
+import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
@@ -45,5 +44,4 @@ export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
 export const ColumnFilter = ColumnFilterComponent
-export const FilterChip = FilterChipComponent
-export const FilterChipWithMultiselect = FilterChipWithMultiselectComponent
+export const ChipWithMultiselect = ChipWithMultiselectComponent
