@@ -94,10 +94,17 @@
             <path class="path" d="M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z" fill-rule="nonzero"/>
         </svg>
 
+        <!-- 'clear': X sign, transparent and encircled -->
         <svg v-if="name === 'clear'" :style="styleOverride" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm3.5 10.1l-1.4 1.4L8 9.4l-2.1 2.1-1.4-1.4L6.6 8 4.5 5.9l1.4-1.4L8 6.6l2.1-2.1 1.4 1.4L9.4 8l2.1 2.1z" fill-rule="nonzero"/>
         </svg>
 
+        <!-- 'clear-small': X sign, bold -->
+        <svg v-if="name === 'x-bold'" :style="styleOverride" width="16" height="16" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M10.4 4L8 6.4 5.6 4 4 5.6 6.4 8 4 10.4 5.6 12 8 9.6l2.4 2.4 1.6-1.6L9.6 8 12 5.6z" transform="translate(-4 -4)"/>
+        </svg>
+
+        <!-- 'close': X sign, thin -->
         <svg v-if="name === 'close'" :style="styleOverride" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero"/>
         </svg>
