@@ -2,8 +2,8 @@
 
 exports[`Selectbox should match the snapshot 1`] = `
 <div
-  class="selectbox selectbox--condensed selectbox--light"
-  id="something"
+  class="selectbox selectbox--normal selectbox--dark"
+  id="label"
   tabindex="0"
   title=""
 >
@@ -11,7 +11,7 @@ exports[`Selectbox should match the snapshot 1`] = `
     class="selectbox__label-text selectbox__label-text--selected selectbox__label-text--with-search"
   >
     
-        Something
+        Label
     
   </div>
    
@@ -24,10 +24,10 @@ exports[`Selectbox should match the snapshot 1`] = `
       <div
         class="selectbox__label selectbox__label--selected selectbox__label--with-search"
         style="width: 100%;"
-        title="Please select"
+        title="Placeholder"
       >
         
-                Please select
+                Placeholder
             
       </div>
        
