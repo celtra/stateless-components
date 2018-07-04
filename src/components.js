@@ -77,7 +77,7 @@ export default {
         component: FileUpload,
         defaultProps: {
             file: {},
-            uploadUrl: '',
+            uploadUrl: 'https://example.com',
         },
     },
     ImageList: {

@@ -99,7 +99,7 @@ export default {
 
             if (this.autoReorder) {
                 result = itemsUtils.sort(result, (x, y) => {
-                    if (!this.areGroupsSelectable && (x.options || y.options)) {
+                    if (!this.areGroupsSelectable && (x.items || y.items)) {
                         return 0
                     }
 
@@ -121,9 +121,9 @@ export default {
                 })
 
                 if (!this.areGroupsSelectable) {
-                    let selectedItems = this.value.map(itemId => itemsUtils.find(result, x => !(x.options || x.items) && x.id === itemId))
+                    let selectedItems = this.value.map(itemId => itemsUtils.find(result, x => !x.items && x.id === itemId))
                     let unselectedItems = itemsUtils.filter(result, item => {
-                        return !(item.options || item.items) && !this.value.includes(item.id)
+                        return !item.items && !this.value.includes(item.id)
                     })
 
                     result = selectedItems.concat(unselectedItems)

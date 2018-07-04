@@ -3,9 +3,8 @@ export function find (items, fn) {
         if (fn(item)) {
             return item
         }
-        let children = item.items || item.options
-        if (children) {
-            let found = find(children, fn)
+        if (item.items) {
+            let found = find(item.items, fn)
             if (found) {
                 return found
             }
@@ -16,12 +15,10 @@ export function find (items, fn) {
 
 export function map (items, fn) {
     return items.map(item => {
-        let children = item.items || item.options
-
-        if (children) {
+        if (item.items) {
             return {
                 ...fn(item),
-                items: map(children, fn),
+                items: map(item.items, fn),
             }
         } else {
             return fn(item)
@@ -34,9 +31,8 @@ export function filter (items, fn) {
         if (fn(item)) {
             return item
         }
-        let children = item.items || item.options
-        if (children) {
-            let newChildren = children.map(mapItem).filter(x => x)
+        if (item.items) {
+            let newChildren = item.items.map(mapItem).filter(x => x)
             if (newChildren.length > 0) {
                 return {
                     ...item,
@@ -51,12 +47,10 @@ export function filter (items, fn) {
 
 export function sort (items, fn) {
     return items.slice().sort(fn).map(item => {
-        let children = item.items || item.options
-
-        if (children) {
+        if (item.items) {
             return {
                 ...item,
-                items: sort(children, fn),
+                items: sort(item.items, fn),
             }
         } else {
             return item
@@ -65,7 +59,7 @@ export function sort (items, fn) {
 }
 
 export function getLeafIds (item) {
-    let children = Array.isArray(item) ? item : item.items || item.options
+    let children = Array.isArray(item) ? item : item.items
 
     let ids = []
     if (children) {
@@ -83,19 +77,17 @@ export function flatten (items) {
 
     let traverse = (items, path) => {
         for (let item of items) {
-            let children = item.items || item.options
-
             let currentPath = path.concat([item.id])
             flat.push({
                 ...item,
                 items: null,
                 key: item.key || item.id,
                 depth: path.length,
-                isLeaf: !children,
+                isLeaf: !item.items,
                 leafIds: getLeafIds(item),
             })
-            if (children) {
-                traverse(children, currentPath)
+            if (item.items) {
+                traverse(item.items, currentPath)
             }
         }
     }

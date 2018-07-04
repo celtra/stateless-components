@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import '@/stateless/vue_helpers'
+import '@/stateless/define_helpers'
 import components from '../components.js'
 
 let getComponents = () => {

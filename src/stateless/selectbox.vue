@@ -133,7 +133,7 @@ export default {
             }
 
             options = itemsUtils.map(options, option => {
-                if (!option.options) {
+                if (!option.items) {
                     return option
                 }
 
