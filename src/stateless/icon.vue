@@ -5,8 +5,8 @@
         </div>
 
         <svg v-if="name === 'schedule-clock'" :style="styleOverride" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-            <g fill-rule="nonzero">
-                <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
+            <g>
+                <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
                 <polygon points="9 4 7 4 7 9 12 9 12 7 9 7"/>
             </g>
         </svg>
