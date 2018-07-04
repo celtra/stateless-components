@@ -1,5 +1,4 @@
 import DialogButton from '@/stateless/dialog_button.vue'
-import '@/stateless/vue_helpers'
 import Vue from 'vue'
 import components from '@/components'
 

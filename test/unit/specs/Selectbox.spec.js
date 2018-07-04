@@ -1,5 +1,4 @@
 import Selectbox from '@/stateless/selectbox.vue'
-import '@/stateless/vue_helpers'
 import Vue from 'vue'
 import components from '@/components'
 

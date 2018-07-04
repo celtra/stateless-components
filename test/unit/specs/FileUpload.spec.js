@@ -1,5 +1,4 @@
 import FileUpload from '@/stateless/file_upload.vue'
-import '@/stateless/vue_helpers'
 import Vue from 'vue'
 import components from '@/components'
 
