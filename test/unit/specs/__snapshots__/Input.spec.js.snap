@@ -2,8 +2,8 @@
 
 exports[`Input should match the snapshot 1`] = `
 <div
-  class="input input--normal input--light"
-  id="something"
+  class="input input--normal input--dark"
+  id="label"
 >
   <!---->
    
@@ -15,7 +15,7 @@ exports[`Input should match the snapshot 1`] = `
       class="input-field__overlay"
     >
       
-            Something
+            Label
         
     </div>
      
@@ -41,7 +41,7 @@ exports[`Input should match the snapshot 1`] = `
          
         <input
           class="input-row__placeholder-text"
-          placeholder="Something"
+          placeholder="Label"
           type="text"
         />
       </div>

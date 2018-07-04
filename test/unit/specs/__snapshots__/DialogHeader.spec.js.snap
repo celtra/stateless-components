@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogHeader should match the snapshot 1`] = `
+<div>
+  <div
+    class="dialog-header__element dialog-header__element--calculation"
+  >
+    Product A
+  </div>
+  <div
+    class="dialog-header__element dialog-header__element--calculation dialog-header__element--active"
+  >
+    Select a format
+  </div>
+   
+  <div
+    class="dialog-header dialog-header--dark dialog-header--open"
+  >
+    <div
+      class="dialog-header__back"
+      tabindex="0"
+    >
+      <svg
+        class="dialog-header__back-svg"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <use
+          xlink:href="#new-dialog-back-icon"
+        />
+      </svg>
+    </div>
+     
+    <div
+      class="dialog-header__content"
+      style="display: none;"
+    >
+      <div
+        class="dialog-header__element"
+        id="product"
+      >
+        Product A
+      </div>
+      <div
+        class="dialog-header__element dialog-header__element--active"
+        id="format"
+      >
+        Select a format
+      </div>
+      <div
+        class="dialog-header__element"
+        id="finalize"
+      >
+        Finalize
+      </div>
+    </div>
+     
+    <div
+      class="dialog-header__close"
+      tabindex="0"
+    >
+      <svg
+        class="dialog-header__close-svg"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <use
+          xlink:href="#new-dialog-close-icon"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
