@@ -147,6 +147,7 @@ export default {
         background-color: white;
         padding: 30px 15px;
         box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
+        z-index: 1;
     }
 
     &__date-input {
