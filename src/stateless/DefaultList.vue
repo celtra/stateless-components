@@ -131,12 +131,8 @@ export default {
             }
         }
 
-        &-enter, &-leave-to {
-            opacity: 0;
-        }
-
-        &-leave-active {
-            position: absolute;
+        &-enter-active, &-leave-active, &-enter, &-leave-to {
+            display: none;
         }
     }
 
