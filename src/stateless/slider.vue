@@ -12,7 +12,7 @@
                     :type="inputType"
                     :size="size"
                     :disabled="disabled"
-                    :value="currentValue"
+                    :value="value"
                     :step="step"
                     :min-value="0"
                     :max-value="999"
@@ -41,7 +41,7 @@
 
                     <div class="slider">
                         <div class="bar bar--passive"></div>
-                        <div :class="{'bar--exceeds': limit && currentValue > limitValue}" :style="{width: `${position}px`}" class="bar bar--active"></div>
+                        <div :class="{'bar--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="bar bar--active"></div>
                         <div ref="handle" :style="{left: `${position}px`}" class="bar__handle">
                             <div class="bar__handle-dot"></div>
                         </div>
@@ -83,11 +83,8 @@ export default {
     data () {
         return {
             domReady: false,
-            index: (this.value - this.min) / this.step,
-            inputValue: null,
             changedFlag: false,
             draggingFlag: false,
-            inputFlag: false,
         }
     },
     computed: {
@@ -100,6 +97,9 @@ export default {
         maxLabelValue () {
             return this.maxLabel || this.limitValue.toString()
         },
+        index () {
+            return (this.value - this.min) / this.step
+        },
         stepsCount () {
             return (this.limitValue - this.min) / this.step
         },
@@ -107,7 +107,7 @@ export default {
             return 1 / this.stepsCount
         },
         percentage () {
-            return this.index * this.stepPercentage
+            return (this.value - this.min) / (this.max - this.min)
         },
         position () {
             if (this.domReady)
@@ -116,9 +116,6 @@ export default {
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
             return decimals ? decimals.length : 0
-        },
-        currentValue () {
-            return this.inputFlag ? this.inputValue : Number((this.min + this.index * this.step).toFixed(this.decimalPlacesCount))
         },
         inputType () {
             return this.decimalPlacesCount === 0 ? 'number' : 'float'
@@ -143,8 +140,8 @@ export default {
             throw new Error('Value must be between min and max')
     },
     mounted () {
-        this.bounds = this.$refs.slider.getBoundingClientRect()
-        this.handle = this.$refs.handle.getBoundingClientRect()
+        this.bounds = this.$refs.slider.getBoundingClientRect() // hotfix, will try to find a better way
+        this.handle = this.$refs.handle.getBoundingClientRect() // hotfix, will try to find a better way
 
         // threshold for ticks disappearing under labels,  +/- 5 guarantees some padding
         this.minThreshold = this.$refs.min.getBoundingClientRect().width + 5
@@ -161,7 +158,6 @@ export default {
 
             this.changedFlag = true
             this.draggingFlag = true
-            this.inputFlag = false
 
             this.setPosition(e)
             window.addEventListener('mouseup', this.stopDrag)
@@ -169,11 +165,12 @@ export default {
             this.$refs.slider.focus()
         },
         setPosition (e) {
-            let percent = (e.clientX - this.bounds.x) / this.bounds.width
+            let percent = (e.clientX - this.bounds.x) / this.bounds.width // client width to data
             percent = Math.min(Math.max(0, percent), 0.999999)
-
             let edgeStepOffset = this.stepPercentage / 2
-            this.index = Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1
+
+            let value = (Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1) * this.step + this.min
+            this.$emit('input', value)
 
             e.preventDefault()
         },
@@ -181,7 +178,6 @@ export default {
             this.draggingFlag = false
             window.removeEventListener('mouseup', this.stopDrag)
             window.removeEventListener('mousemove', this.setPosition)
-            this.$emit('input', this.currentValue)
         },
         keyboard (e) {
             if (this.disabled) return
@@ -190,21 +186,15 @@ export default {
             let key = e.keyCode
 
             if ((key === 38 || key === 39) && this.index < this.stepsCount)
-                this.index++
+                this.$emit('input', this.value + this.step)
             else if ((key === 37 || key === 40) && this.index > 0)
-                this.index--
+                this.$emit('input', this.value - this.step)
 
-            this.$emit('input', this.currentValue)
             e.preventDefault()
         },
         handleInput (value) {
-            let numberValue = parseFloat(value)
-
-            this.inputFlag = true
-            this.inputValue = value
-
-            if (this.min <= numberValue && numberValue <= this.max)
-                this.index = (value - this.min) / this.step
+            let number = parseFloat(value)
+            this.$emit('input', isNaN(number) ? null : number)
         },
         isUnitActive (index) {
             return index / 19 <= this.percentage
