@@ -140,8 +140,8 @@ export default {
             throw new Error('Value must be between min and max')
     },
     mounted () {
-        this.bounds = this.$refs.slider.getBoundingClientRect() // hotfix, will try to find a better way
-        this.handle = this.$refs.handle.getBoundingClientRect() // hotfix, will try to find a better way
+        this.bounds = this.$refs.slider.getBoundingClientRect()
+        this.handle = this.$refs.handle.getBoundingClientRect()
 
         // threshold for ticks disappearing under labels,  +/- 5 guarantees some padding
         this.minThreshold = this.$refs.min.getBoundingClientRect().width + 5
