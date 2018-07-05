@@ -1,11 +1,11 @@
 <template>
-    <div class="dialog-button__wrapper">
+    <div class="dialog-button">
         <a v-if="href" :href="href" :target="target" class="dialog-button__link" @click="click">
-            <dialog-button :disabled="disabled" :loading="loading" :error="error" :style="{ width: 'inherit' }">
+            <dialog-button :disabled="disabled" :loading="loading" :error="error" style="width: inherit;">
                 <slot></slot>
             </dialog-button>
         </a>
-        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button--')" :tabindex="disabled ? -1 : 0" class="dialog-button" @click="click" @keyup.enter.prevent.stop="click">
+        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button__container--')" :tabindex="disabled ? -1 : 0" class="dialog-button__container" @click="click" @keyup.enter.prevent.stop="click">
             <svg v-if="loading" viewBox="0 0 30 30">
                 <path d="M15,30C6.7,30,0,23.3,0,15c0-4.7,2.3-9.2,6-12l2.4,3.2C5.6,8.2,4,11.5,4,15C4,21,8.9,26,15,26c6.1,0,11-4.9,11-11c0-5.7-4.4-10.5-10-11l0.3-4C24,0.7,30,7.2,30,15C30,23.3,23.3,30,15,30z"/>
             </svg>
@@ -41,16 +41,16 @@ export default {
 <style lang="less" scoped>
 @import (reference) './variables';
 
-.dialog-button__wrapper {
+.dialog-button {
     width: fit-content;
 }
 
 .dialog-button__link,
-.dialog-button {
+.dialog-button__container {
     width: 100%;
 }
 
-.dialog-button {
+.dialog-button__container {
     position: relative;
     margin: auto;
     padding: 22px 75px;
@@ -73,7 +73,7 @@ export default {
     text-decoration: none;
 }
 
-.dialog-button--disabled {
+.dialog-button__container--disabled {
     background-color: @extremly-light-green;
     cursor: default;
     pointer-events: none;
@@ -83,7 +83,7 @@ export default {
     }
 }
 
-.dialog-button--error {
+.dialog-button__container--error {
     color: white;
     background-color: @pink-red;
     opacity: 0.8;
@@ -96,7 +96,7 @@ export default {
     &:focus { outline: none; }
 }
 
-.dialog-button--loading {
+.dialog-button__container--loading {
     background-color: @extremly-light-green;
     cursor: default;
     min-height: 16px;
@@ -120,7 +120,7 @@ export default {
     }
 }
 
-.dialog-button--error.dialog-button--loading {
+.dialog-button__container--error.dialog-button__container--loading {
     background-color: @light-pink-red;
 }
 
