@@ -39,11 +39,11 @@ const defaultItems = [
 const defaultNestedItems = [
     { id: 'a', label: 'G1', items: defaultItems },
     { id: 'b', label: 'G2', items: [
-        { id: '1', key: 'G2/1', label: "Something", metadata: 'someone@lorem.ipsum' },
+        { id: '1', key: 'G2/1', label: "Something", metadata: 'someone@lorem.ipsum', tooltip: 'Test tooltip' },
         { id: '11', label: "D", metadata: 'someone@lorem.ipsum' },
         { id: '12', label: "E", metadata: 'someone@lorem.ipsum' },
         { id: '13', label: "F", metadata: 'someone@lorem.ipsum' },
-        { id: '14', label: "G", metadata: 'someone@lorem.ipsum' },
+        { id: '14', label: "G", metadata: 'someone@lorem.ipsum', tooltip: 'Something else' },
     ] },
 ]
 
@@ -104,7 +104,7 @@ export default {
             width: '450px',
         },
         defaultProps: {
-            options: largeItems,
+            options: defaultNestedItems,
             value: [],
             isSearchable: true,
         },
