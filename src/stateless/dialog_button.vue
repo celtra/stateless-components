@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <a v-if="href" :href="href" :target="target" :style="styleOverride" class="dialog-button__link" @click="click">
-            <dialog-button :disabled="disabled" :loading="loading" :error="error">
+    <div class="dialog-button__wrapper">
+        <a v-if="href" :href="href" :target="target" class="dialog-button__link" @click="click">
+            <dialog-button :disabled="disabled" :loading="loading" :error="error" :style="{ width: 'inherit' }">
                 <slot></slot>
             </dialog-button>
         </a>
-        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button--')" :style="styleOverride" :tabindex="disabled ? -1 : 0" class="dialog-button" @click="click" @keyup.enter.prevent.stop="click">
+        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button--')" :tabindex="disabled ? -1 : 0" class="dialog-button" @click="click" @keyup.enter.prevent.stop="click">
             <svg v-if="loading" viewBox="0 0 30 30">
                 <path d="M15,30C6.7,30,0,23.3,0,15c0-4.7,2.3-9.2,6-12l2.4,3.2C5.6,8.2,4,11.5,4,15C4,21,8.9,26,15,26c6.1,0,11-4.9,11-11c0-5.7-4.4-10.5-10-11l0.3-4C24,0.7,30,7.2,30,15C30,23.3,23.3,30,15,30z"/>
             </svg>
@@ -28,7 +28,6 @@ export default {
         error: { type: Boolean, default: false },
         href: { type: String },
         target: { type: String, default: '_self' },
-        styleOverride: { type: Object },
     },
     methods: {
         click () {
@@ -42,9 +41,17 @@ export default {
 <style lang="less" scoped>
 @import (reference) './variables';
 
+.dialog-button__wrapper {
+    width: fit-content;
+}
+
+.dialog-button__link,
+.dialog-button {
+    width: 100%;
+}
+
 .dialog-button {
     position: relative;
-    width: fit-content;
     margin: auto;
     padding: 22px 75px;
     background-color: @very-light-green;
@@ -54,6 +61,8 @@ export default {
     text-transform: uppercase;
     cursor: pointer;
     user-select: none;
+    text-align: center;
+    box-sizing: border-box;
 
     &:hover, &:focus { background-color : @light-green; }
 
