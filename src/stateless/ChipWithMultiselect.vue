@@ -12,8 +12,9 @@
             <multiselect
                 :value="value"
                 :auto-reorder="false"
-                :is-searchable="options.length > searchableWhenOptionsLengthIsMoreThan"
-                :show-select-clear-all="options.length > searchableWhenOptionsLengthIsMoreThan"
+                :is-searchable="isSearchable"
+                :can-select-all="canSelectAll"
+                :can-clear-all="canClearAll"
                 :options="options"
                 :theme="theme"
                 :size="size"
@@ -40,7 +41,9 @@ export default {
         value: { type: Array, required: true },
         options: { type: Array, required: true },
         label: { type: String, required: true },
-        searchableWhenOptionsLengthIsMoreThan: { type: Number, default: 6 },
+        isSearchable: { type: Boolean, default: false },
+        canSelectAll: { type: Boolean, default: false },
+        canClearAll: { type: Boolean, default: false },
     },
     data () {
         return {
