@@ -1,13 +1,13 @@
 <template>
-    <div :class="Object.assign(sizeClass(), themeClass())" class="slider-container">
+    <div :class="[theme, size] | prefix('slider-container--')" class="slider-container">
 
-        <div class="slider-header">
+        <div class="slider__header">
             {{ label }}
         </div>
 
         <div class="slider-unit">
 
-            <div class="slider-input">
+            <div class="slider__input">
                 <input-element
                     :type="inputType"
                     :size="size"
@@ -20,29 +20,29 @@
                     :theme="theme"
                     :alignment="alignment"
                     @input="handleInput"
-                ><span slot="right">%</span></input-element>
+                ><span v-if="unit === '%'" slot="right">%</span></input-element>
             </div>
 
-            <div ref="slider" :class="stateClass()" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="keyboard">
+            <div ref="slider" :class="stateClass() | prefix('slider-wrapper--')" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="keyboard">
                 <div class="slider-content">
-                    <div class="slider-label">
+                    <div class="slider__label">
 
-                        <div ref="min" :class="labelClass(0)" class="slider-label__unit">{{ minLabelValue }}</div>
+                        <div ref="min" :class="labelClass(0) | prefix('slider__label-unit--')" class="slider__label-unit">{{ minLabelValue }}</div>
 
-                        <div class="slider-label__unit-tick-container">
-                            <div class="slider-label__unit slider-label__unit-tick"></div>
-                            <div v-for="n in 18" :class="tickClass(n)" :key="n" class="slider-label__unit slider-label__unit-tick">|</div>
-                            <div class="slider-label__unit slider-label__unit-tick"></div>
+                        <div class="slider__label-unit__tick-container">
+                            <div class="slider__label-unit slider__label-unit__tick"></div>
+                            <div v-for="n in 18" :class="tickClass(n) | prefix('slider__label-unit--')" :key="n" class="slider__label-unit slider__label-unit__tick">|</div>
+                            <div class="slider__label-unit slider__label-unit__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelClass(19)" class="slider-label__unit">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelClass(19) | prefix('slider__label-unit--')" class="slider__label-unit">{{ maxLabelValue }}</div>
 
                     </div>
 
                     <div class="slider">
                         <div class="bar bar--passive"></div>
-                        <div :class="{'bar--exceeds': limit && currentValue > limitValue}" :style="activeBarStyle" class="bar bar--active"></div>
-                        <div ref="handle" :style="handleStyle" class="bar__handle">
+                        <div :class="{'bar--exceeds': limit && currentValue > limitValue}" :style="{width: `${position}px`}" class="bar bar--active"></div>
+                        <div ref="handle" :style="{left: `${position}px`}" class="bar__handle">
                             <div class="bar__handle-dot"></div>
                         </div>
                     </div>
@@ -72,6 +72,7 @@ export default {
         label: { type: String },
         step: { type: Number },
         value: { type: Number },
+        unit: { type: String, required: false },
         disabled: { type: Boolean, default: false },
         disabledText: { type: String, required: false },
         theme: { type: String, default: 'dark' },
@@ -111,16 +112,6 @@ export default {
         position () {
             if (this.domReady)
                 return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.bounds.width
-        },
-        activeBarStyle () {
-            return {
-                'width': `${this.position}px`,
-            }
-        },
-        handleStyle () {
-            return {
-                'left': `${this.position}px`,
-            }
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -190,7 +181,7 @@ export default {
             this.draggingFlag = false
             window.removeEventListener('mouseup', this.stopDrag)
             window.removeEventListener('mousemove', this.setPosition)
-            this.$emit('value', this.currentValue)
+            this.$emit('input', this.currentValue)
         },
         keyboard (e) {
             if (this.disabled) return
@@ -203,7 +194,7 @@ export default {
             else if ((key === 37 || key === 40) && this.index > 0)
                 this.index--
 
-            this.$emit('value', this.currentValue)
+            this.$emit('input', this.currentValue)
             e.preventDefault()
         },
         handleInput (value) {
@@ -229,32 +220,20 @@ export default {
             }
 
             return {
-                'slider-label__unit--active': this.isUnitActive(index),
-                'slider-label__unit--hidden': hidden,
+                'active': this.isUnitActive(index),
+                'hidden': hidden,
             }
         },
         labelClass (index) {
             return {
-                'slider-label__unit--active': this.isUnitActive(index) && this.size === 'normal',
+                'active': this.isUnitActive(index) && this.size === 'normal',
             }
         },
         stateClass () {
             return {
-                'slider-wrapper--disabled': this.disabled,
-                'slider-wrapper--changed': this.changedFlag,
-                'slider-wrapper--dragging': this.draggingFlag,
-            }
-        },
-        sizeClass () {
-            return {
-                'slider-container--normal': this.size === 'normal',
-                'slider-container--condensed': this.size === 'condensed',
-            }
-        },
-        themeClass () {
-            return {
-                'slider-container--light': this.theme === 'light',
-                'slider-container--dark': this.theme === 'dark',
+                'disabled': this.disabled,
+                'changed': this.changedFlag,
+                'dragging': this.draggingFlag,
             }
         },
     },
@@ -271,7 +250,7 @@ export default {
     height: 60px;
   }
 
-  &-header {
+  &__header {
     height: 13px;
     font-size: 11px;
     color: @dolphin;
@@ -282,7 +261,7 @@ export default {
     display: flex;
   }
 
-  &-input {
+  &__input {
     width: 50px;
     margin-right: 10px;
   }
@@ -297,7 +276,7 @@ export default {
 
     &:hover:not(&--disabled) {
 
-      .slider-label__unit {
+      .slider__label-unit {
         color: @dolphin;
       }
 
@@ -318,7 +297,7 @@ export default {
 
     &--dragging {
 
-      .slider-label__unit {
+      .slider__label-unit {
         color: @dolphin;
         transition: color 0s;
 
@@ -329,7 +308,7 @@ export default {
 
       &:hover:not(&--disabled) {
 
-        .slider-label__unit--active {
+        .slider__label-unit--active {
           color: @royal-blue;
         }
       }
@@ -353,7 +332,7 @@ export default {
     &--disabled {
       cursor: default;
 
-      .slider-label__unit {
+      .slider__label-unit {
         color: @gunpowder;
       }
 
@@ -372,19 +351,19 @@ export default {
     height: 29px;
   }
 
-  &-label {
+  &__label {
     position: relative;
     display: flex;
     justify-content: space-between;
 
-    &__unit {
+    &-unit {
       color: @dolphin;
       font-size: 10px;
       padding-top: 8px;
       font-family: @regular-text-font;
       transition: color 0.15s ease-out;
 
-      &-tick {
+      &__tick {
 
         &-container {
           position: absolute;
@@ -476,11 +455,11 @@ export default {
 
   .slider {
 
-    &-header {
+    &__header {
       font-size: 10px;
     }
 
-    &-input {
+    &__input {
       order: 1;
       margin-right: 0;
       margin-left: 10px;
@@ -496,10 +475,10 @@ export default {
       height: 20px;
     }
 
-    &-label__unit {
+    &__label-unit {
       padding-top: 4px;
 
-      &-tick-container {
+      &__tick-container {
         display: none;
       }
     }
@@ -519,10 +498,10 @@ export default {
 
       &:hover:not(&--disabled) {
 
-        .slider-label__unit {
+        .slider__label-unit {
           color: @bluish-gray;
 
-          &-tick {
+          &__tick {
             color: @bluish-gray;
           }
         }
@@ -530,8 +509,8 @@ export default {
 
       &--dragging {
 
-        .slider-label__unit {
-          &-tick {
+        .slider__label-unit {
+          &__tick {
             color: @bluish-gray;
           }
 
@@ -545,7 +524,7 @@ export default {
         }
 
         &:hover:not(&--disabled) {
-          .slider-label__unit--active {
+          .slider__label-unit--active {
             color: @royal-blue;
           }
         }
@@ -554,7 +533,7 @@ export default {
       &--disabled {
         cursor: default;
 
-        .slider-label__unit {
+        .slider__label-unit {
           color: @very-light-gray;
         }
 
@@ -568,10 +547,10 @@ export default {
       }
     }
 
-    &-label__unit {
+    &__label-unit {
       color: @bluish-gray;
 
-      &-tick {
+      &__tick {
         color: @very-light-gray;
       }
     }
