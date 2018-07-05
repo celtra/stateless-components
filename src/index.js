@@ -1,3 +1,6 @@
+import * as filtersObject from '@/helpers/filters.js'
+import * as directivesObject from '@/helpers/directives.js'
+
 import CheckboxComponent from '@/stateless/checkbox.vue'
 import DialogButtonComponent from '@/stateless/dialog_button.vue'
 import DialogComponent from '@/stateless/dialog.vue'
@@ -11,6 +14,9 @@ import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
 import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
+
+export const filters = filtersObject
+export const directives = directivesObject
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent

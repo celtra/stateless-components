@@ -1,5 +1,4 @@
 import SupportText from '@/stateless/support_text.vue'
-import '@/stateless/vue_helpers'
 import Vue from 'vue'
 import components from '@/components'
 
