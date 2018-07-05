@@ -43,6 +43,7 @@ export default {
 
 .dialog-button {
     width: fit-content;
+    margin: 0 auto;
 }
 
 .dialog-button__link,
@@ -52,7 +53,6 @@ export default {
 
 .dialog-button__container {
     position: relative;
-    margin: auto;
     padding: 22px 75px;
     background-color: @very-light-green;
     font-size: 14px;
