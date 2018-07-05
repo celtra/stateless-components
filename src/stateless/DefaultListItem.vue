@@ -163,7 +163,6 @@ export default {
         display: inline-block;
 
         &--error { color: @pink-red; }
-        &--disabled { color: @gray-blue; }
         &--with-metadata { padding-right: 5px; }
     }
 
@@ -193,6 +192,7 @@ export default {
         &__label {
             color: @very-light-gray;
             &--selected { color: @black; }
+            &--disabled { color: @gunpowder; }
             &:hover {
                 &:not(.default-list-item--disabled)&:not(.default-list-item--selected) {
                     .default-list-item__label { color: @white; }
@@ -207,6 +207,7 @@ export default {
         &__label {
             color: @gunpowder;
             &--selected { color: @royal-blue; }
+            &--disabled { color: @gray-blue; }
             &:hover {
                 &:not(.default-list-item--disabled)&:not(.default-list-item--selected) {
                     .default-list-item__label { color: @black; }
