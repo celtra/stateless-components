@@ -5,13 +5,15 @@
             :is-active="value.length > 0"
             :is-highlight="true"
             :theme="theme"
-            :label="label"
+            :size="size"
+            :label="chipLabel"
             :metadata="`${value.length}/${options.length}`"
             @click="chipClick">
         </chip>
         <inline-dialog v-if="isOpen">
             <multiselect
                 :value="value"
+                :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
                 :can-select-all="canSelectAll"
@@ -41,7 +43,8 @@ export default {
         size: { type: String, default: 'normal' }, // condensed | normal
         value: { type: Array, required: true },
         options: { type: Array, required: true },
-        label: { type: String, required: true },
+        chipLabel: { type: String, required: true },
+        searchLabel: { type: String, required: true },
         isSearchable: { type: Boolean, default: false },
         canSelectAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
@@ -67,6 +70,7 @@ export default {
 
 <style lang="less" scoped>
 .inline-dialog {
-    margin-top: 5px;
+    margin-top: 10px;
+    padding: 15px;
 }
 </style>

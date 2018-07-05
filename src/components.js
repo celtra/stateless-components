@@ -258,7 +258,8 @@ export default {
             isSearchable: true,
             canSelectAll: true,
             canClearAll: true,
-            label: 'Test Label',
+            chipLabel: 'Chip Label',
+            searchLabel: 'Search Label',
         },
     },
 }
