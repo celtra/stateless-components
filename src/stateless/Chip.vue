@@ -1,7 +1,7 @@
 <template>
     <div :class="[theme, size, { open: isOpen, highlight: isHighlight, active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
-        <div class="chip__metadata">{{ metadata }}</div>
+        <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
             <icon :style-override="{ width: '8px', height: '8px'}" class="chip__remove-btn" name="x-bold"></icon>
         </span>
@@ -49,6 +49,7 @@ export default {
 
 .chip__metadata {
     font-family: @regular-text-font;
+    padding-right: 5px;
 }
 
 .chip__remove-btn {
