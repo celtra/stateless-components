@@ -1,11 +1,15 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting" name="default-list__item" tag="div">
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
+
+                    <div v-if="item.tooltip && hoveringOptionId === item.id" class="default-list__item-tooltip">
+                        {{ item.tooltip }}
+                    </div>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -15,11 +19,15 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
+
+                    <div v-if="item.tooltip && hoveringOptionId === item.id" class="default-list__item-tooltip">
+                        {{ item.tooltip }}
+                    </div>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -50,6 +58,7 @@ export default {
     data () {
         return {
             activeId: null,
+            hoveringOptionId: null,
         }
     },
     computed: {
@@ -118,6 +127,7 @@ export default {
     width: 100%;
 
     &__item {
+        position: relative;
         padding: 0px 15px;
         transition: transform 0.3s ease-in, background-color @form-element-transition-time ease-in-out;
 
@@ -131,13 +141,23 @@ export default {
             }
         }
 
-        &-enter, &-leave-to {
-            opacity: 0;
+        &-enter-active, &-leave-active, &-enter, &-leave-to {
+            display: none;
         }
+    }
 
-        &-leave-active {
-            position: absolute;
-        }
+    &__item-tooltip {
+        position: absolute;
+        top: 65%;
+        left: 0px;
+        color: white;
+        background-color: @gunpowder;
+        border-radius: 3px;
+        font-size: 11px;
+        text-align: center;
+        padding: 6px 20px;
+        z-index: @z-index-new-dialog + 25;
+        max-width: 200px;
     }
 
     &__group {

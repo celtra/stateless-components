@@ -1,7 +1,7 @@
 <template>
     <div class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" :size="size" theme="light">
+            <input-element v-model="searchQuery" :label="label" :size="size" :theme="theme">
                 <icon slot="before" name="search" />
             </input-element>
         </div>
@@ -9,11 +9,12 @@
         <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
         <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
-            <div v-if="showSelectClearAll" class="multiselect__change-multiple">
-                <checkbox-element v-if="value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
+            <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
+                <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
                     <span class="multiselect__select-all-label">SELECT ALL</span>
                 </checkbox-element>
-                <div v-else class="multiselect__clear-all" @click="clearAll">
+
+                <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
                         <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
                     </svg>
@@ -23,25 +24,21 @@
 
             <div>
                 <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list">
-                    <div slot-scope="{ item }" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
+                    <div slot-scope="{ item }">
                         <checkbox-element
                             :disabled="item.disabled"
                             :title-text="item.label"
                             :disabled-text="item.disabledText"
                             :value="isChecked(item)"
                             :size="size"
-                            theme="light"
+                            :theme="theme"
                             class="multiselect__checkbox"
                             @input="setChecked(item, $event)">
 
                             <slot :item="item">
-                                <default-list-item :label="item.label" :metadata="item.metadata" :size="size" theme="light" class="multiselect__default-list-item" />
+                                <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
                             </slot>
                         </checkbox-element>
-
-                        <div v-if="hoveringOptionId === item.id && item.tooltip" class="multiselect__tooltip">
-                            {{ item.tooltip }}
-                        </div>
                     </div>
                 </default-list>
             </div>
@@ -70,18 +67,19 @@ export default {
         options: { type: Array, required: true },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
-        showSelectClearAll: { type: Boolean, default: true },
+        canSelectAll: { type: Boolean, default: true },
+        canClearAll: { type: Boolean, default: true },
         areGroupsSelectable: { type: Boolean, default: false },
         getOptions: { type: Function },
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
     },
     data () {
         return {
             searchQuery: null,
             queryOptions: [],
             currentScrollTop: 0,
-            hoveringOptionId: null,
         }
     },
     computed: {
@@ -277,20 +275,6 @@ export default {
 
     &__checkbox {
         width: 100%;
-    }
-
-    &__tooltip {
-        position: absolute;
-        top: 12px;
-        left: -4px;
-        color: white;
-        background-color: @gunpowder;
-        border-radius: 3px;
-        font-size: 11px;
-        text-align: center;
-        padding: 6px 20px;
-        z-index: @z-index-new-dialog + 25;
-        max-width: 200px;
     }
 }
 
