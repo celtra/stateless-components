@@ -1,6 +1,7 @@
 <template>
     <div :class="[theme, size, { open: isOpen, highlight: isHighlight, active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
+        <div class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
             <icon :style-override="{ width: '8px', height: '8px'}" class="chip__remove-btn" name="x-bold"></icon>
         </span>
@@ -18,6 +19,7 @@ export default {
         theme: { type: String, default: 'dark' }, // dark | light
         size: { type: String, default: 'normal' }, // condensed | normal
         label: { type: String, default: '' },
+        metadata: { type: String, default: '' },
         isOpen: { type: Boolean, default: false },
         isActive: { type: Boolean, default: false },
         isHighlight: { type: Boolean, default: false },
@@ -43,6 +45,10 @@ export default {
 
 .chip__label {
     padding: 0 5px;
+}
+
+.chip__metadata {
+    font-family: @regular-text-font;
 }
 
 .chip__remove-btn {

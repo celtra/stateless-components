@@ -5,7 +5,8 @@
             :is-active="value.length > 0"
             :is-highlight="true"
             :theme="theme"
-            :label="`${label} ${value.length}/${options.length}`"
+            :label="label"
+            :metadata="`${value.length}/${options.length}`"
             @click="chipClick">
         </chip>
         <inline-dialog v-if="isOpen">

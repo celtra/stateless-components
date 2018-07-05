@@ -235,7 +235,8 @@ export default {
     Chip: {
         component: Chip,
         defaultProps: {
-            label: 'Label 3/9',
+            label: 'Label',
+            metadata: '3/9',
             theme: 'light',
         },
     },
