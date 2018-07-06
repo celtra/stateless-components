@@ -79,7 +79,7 @@ export default {
         return {
             searchQuery: null,
             queryOptions: [],
-            currentScrollTop: 0,
+            canScrollTop: false,
         }
     },
     computed: {
@@ -88,9 +88,6 @@ export default {
         },
         allIds () {
             return itemsUtils.getLeafIds(this.allOptions)
-        },
-        canScrollTop () {
-            return this.currentScrollTop > 0
         },
         listItems () {
             let result = this.allOptions
@@ -156,7 +153,10 @@ export default {
             this.$emit('input', [])
         },
         onScroll (e) {
-            this.currentScrollTop = e.target.scrollTop
+            let canScrollTop = e.target.scrollTop > 0
+            if (this.canScrollTop !== canScrollTop) {
+                this.canScrollTop = canScrollTop
+            }
         },
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
