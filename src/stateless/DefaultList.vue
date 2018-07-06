@@ -176,7 +176,7 @@ export default {
     &__item-tooltip {
         visibility: hidden;
         position: absolute;
-        top: 65%;
+        top: 100%;
         left: 0px;
         color: white;
         background-color: @gunpowder;
