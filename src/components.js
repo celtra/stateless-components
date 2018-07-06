@@ -106,7 +106,7 @@ export default {
             width: '450px',
         },
         defaultProps: {
-            options: defaultNestedItems,
+            options: largeItems,
             value: [],
             isSearchable: true,
             size: 'condensed',

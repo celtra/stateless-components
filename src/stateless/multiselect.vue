@@ -1,5 +1,5 @@
 <template>
-    <div class="multiselect">
+    <div :class="[theme] | prefix('multiselect--')" class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
             <input-element v-model="searchQuery" :label="label" :size="size" :theme="theme">
                 <icon slot="before" name="search" />
@@ -8,39 +8,44 @@
 
         <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
-        <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
-            <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
-                <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
-                    <span class="multiselect__select-all-label">SELECT ALL</span>
-                </checkbox-element>
+        <div class="multiselect__options-wrap">
+            <div class="multiselect__options-overlay multiselect__options-overlay--top"></div>
+            <div class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
-                <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                        <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                    </svg>
-                    <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
-                </div>
-            </div>
+            <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
+                <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
+                    <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
+                        <span class="multiselect__select-all-label">SELECT ALL</span>
+                    </checkbox-element>
 
-            <div>
-                <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list">
-                    <div slot-scope="{ item }">
-                        <checkbox-element
-                            :disabled="item.disabled"
-                            :title-text="item.label"
-                            :disabled-text="item.disabledText"
-                            :value="isChecked(item)"
-                            :size="size"
-                            :theme="theme"
-                            class="multiselect__checkbox"
-                            @input="setChecked(item, $event)">
-
-                            <slot :item="item">
-                                <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
-                            </slot>
-                        </checkbox-element>
+                    <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
+                            <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
+                        </svg>
+                        <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
                     </div>
-                </default-list>
+                </div>
+
+                <div>
+                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list">
+                        <div slot-scope="{ item }">
+                            <checkbox-element
+                                :disabled="item.disabled"
+                                :title-text="item.label"
+                                :disabled-text="item.disabledText"
+                                :value="isChecked(item)"
+                                :size="size"
+                                :theme="theme"
+                                class="multiselect__checkbox"
+                                @input="setChecked(item, $event)">
+
+                                <slot :item="item">
+                                    <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
+                                </slot>
+                            </checkbox-element>
+                        </div>
+                    </default-list>
+                </div>
             </div>
         </div>
     </div>
@@ -79,7 +84,7 @@ export default {
         return {
             searchQuery: null,
             queryOptions: [],
-            currentScrollTop: 0,
+            canScrollTop: false,
         }
     },
     computed: {
@@ -88,9 +93,6 @@ export default {
         },
         allIds () {
             return itemsUtils.getLeafIds(this.allOptions)
-        },
-        canScrollTop () {
-            return this.currentScrollTop > 0
         },
         listItems () {
             let result = this.allOptions
@@ -156,7 +158,10 @@ export default {
             this.$emit('input', [])
         },
         onScroll (e) {
-            this.currentScrollTop = e.target.scrollTop
+            let canScrollTop = e.target.scrollTop > 0
+            if (this.canScrollTop !== canScrollTop) {
+                this.canScrollTop = canScrollTop
+            }
         },
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
@@ -228,6 +233,10 @@ export default {
         cursor: pointer;
     }
 
+    &__options-wrap {
+        position: relative;
+    }
+
     &__options {
         padding-bottom: 10px;
         flex: auto;
@@ -239,6 +248,22 @@ export default {
         padding-right: 5px;
         clip-path: inset(0px 0px 0px 0px);
         overscroll-behavior: contain;
+    }
+
+    &__options-overlay {
+        position: absolute;
+        height: 15px;
+        width: 100%;
+        pointer-events: none;
+        z-index: 10;
+
+        &--top {
+            top: 0;
+        }
+
+        &--bottom {
+            bottom: 0;
+        }
     }
 
     &__change-multiple {
@@ -275,6 +300,30 @@ export default {
 
     &__checkbox {
         width: 100%;
+    }
+}
+
+.multiselect--dark {
+    .multiselect__options-overlay {
+        &--top {
+            background: linear-gradient(180deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
+        }
+
+        &--bottom {
+            background: linear-gradient(0deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
+        }
+    }
+}
+
+.multiselect--light {
+    .multiselect__options-overlay {
+        &--top {
+            background: linear-gradient(180deg, @extremely-light-gray, fade(@extremely-dark-gray, 0%));
+        }
+
+        &--bottom {
+            background: linear-gradient(0deg, @extremely-light-gray, fade(@extremely-light-gray, 0%));
+        }
     }
 }
 

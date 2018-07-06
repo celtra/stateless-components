@@ -1,3 +1,5 @@
+import * as itemsUtilsObject from '@/stateless/items_utils.js'
+
 import CheckboxComponent from '@/stateless/checkbox.vue'
 import DialogButtonComponent from '@/stateless/dialog_button.vue'
 import DialogComponent from '@/stateless/dialog.vue'
@@ -22,6 +24,8 @@ import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import ColumnFilterComponent from '@/stateless/ColumnFilter.vue'
 import ChipComponent from '@/stateless/Chip.vue'
 import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
+
+export const itemsUtils = itemsUtilsObject
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent

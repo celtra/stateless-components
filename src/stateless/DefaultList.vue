@@ -1,13 +1,13 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting" name="default-list__item" tag="div">
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
+            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
 
-                    <div v-if="item.tooltip && hoveringOptionId === item.id" class="default-list__item-tooltip">
+                    <div v-if="item.tooltip" class="default-list__item-tooltip">
                         {{ item.tooltip }}
                     </div>
                 </template>
@@ -19,13 +19,13 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="hoveringOptionId = item.id" @mouseleave="hoveringOptionId = null">
+            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
 
-                    <div v-if="item.tooltip && hoveringOptionId === item.id" class="default-list__item-tooltip">
+                    <div v-if="item.tooltip" class="default-list__item-tooltip">
                         {{ item.tooltip }}
                     </div>
                 </template>
@@ -58,13 +58,24 @@ export default {
     data () {
         return {
             activeId: null,
-            hoveringOptionId: null,
+            renderAllItems: false,
         }
     },
     computed: {
         flatItems () {
-            return flatten(this.items)
+            const MIN_NUM_ITEMS = 50
+
+            let flatItems = flatten(this.items)
+            if (this.renderAllItems || flatItems.length <= MIN_NUM_ITEMS) {
+                return flatItems
+            }
+            return flatItems.slice(0, MIN_NUM_ITEMS)
         },
+    },
+    mounted () {
+        setTimeout(() => {
+            this.renderAllItems = true
+        }, 100)
     },
     methods: {
         selectItem (itemId) {
@@ -144,11 +155,28 @@ export default {
         &-enter-active, &-leave-active, &-enter, &-leave-to {
             display: none;
         }
+
+        &:hover {
+            .default-list__item-tooltip {
+                animation: 0.6s fadeIn;
+                animation-fill-mode: forwards;
+            }
+
+            @keyframes fadeIn {
+                99% {
+                    visibility: hidden;
+                }
+                100% {
+                    visibility: visible;
+                }
+            }
+        }
     }
 
     &__item-tooltip {
+        visibility: hidden;
         position: absolute;
-        top: 65%;
+        top: 100%;
         left: 0px;
         color: white;
         background-color: @gunpowder;
