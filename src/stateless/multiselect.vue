@@ -319,11 +319,11 @@ export default {
 .multiselect--light {
     .multiselect__options-overlay {
         &--top {
-            background: linear-gradient(180deg, @extremely-light-gray, fade(@extremely-dark-gray, 0%));
+            background: linear-gradient(180deg, @white, fade(@white, 0%));
         }
 
         &--bottom {
-            background: linear-gradient(0deg, @extremely-light-gray, fade(@extremely-light-gray, 0%));
+            background: linear-gradient(0deg, @white, fade(@white, 0%));
         }
     }
 }
