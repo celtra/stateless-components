@@ -19,7 +19,6 @@ import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
-import ColumnFilter from '@/stateless/ColumnFilter.vue'
 import Chip from '@/stateless/Chip.vue'
 import ChipWithMultiselect from '@/stateless/ChipWithMultiSelect.vue'
 
@@ -186,51 +185,6 @@ export default {
     },
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
-    },
-    ColumnFilter: {
-        component: ColumnFilter,
-        rootCss: {
-            width: '400px',
-            boxShadow: '1px 2px 5px 0 rgba(0,0,0,0.25)',
-            height: 'fit-content',
-        },
-        defaultProps: {
-            columns: [
-                {
-                    items: [
-                        { id: 'creativeName', label: 'Creative name', type: 'String' },
-                        { id: 'unit', label: 'Unit', type: 'String' },
-                        { id: 'pageViews', label: 'Page views', type: 'Number' },
-                    ],
-                },
-                {
-                    label: 'Campaign level filtering',
-                    items: [
-                        { id: 'creative', label: 'Creative', type: 'String' },
-                        { id: 'placement', label: 'Placement', type: 'String' },
-                        {
-                            id: 'supplier',
-                            label: 'Supplier',
-                            type: 'Multiselect',
-                            props: {
-                                options: [
-                                    { id: 'banner', label: 'Banner', metadata: 'Something', ratio: 0.9 },
-                                    { id: 'expandableBanner', label: 'ExpandableBanner', metadata: 'Something', ratio: 0.2 },
-                                ],
-                                getOptions (v) {
-                                    return new Promise((resolve, reject) => {
-                                        resolve([
-                                            { id: 'interstitial', label: 'Interstitial' },
-                                        ])
-                                    })
-                                },
-                                autoReorder: false,
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
     },
     Chip: {
         component: Chip,
