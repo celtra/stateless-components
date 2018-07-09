@@ -9,12 +9,12 @@
         <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
         <div class="multiselect__options-wrap">
-            <div class="multiselect__options-overlay multiselect__options-overlay--top"></div>
-            <div class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
+            <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
+            <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
             <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
                 <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
-                    <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
+                    <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
                         <span class="multiselect__select-all-label">SELECT ALL</span>
                     </checkbox-element>
 
@@ -74,6 +74,7 @@ export default {
         isSearchable: { type: Boolean, default: false },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
+        showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
         getOptions: { type: Function },
         label: { type: String, default: 'Search' },
@@ -268,7 +269,6 @@ export default {
 
     &__change-multiple {
         flex: none;
-        margin-left: 3px;
     }
 
     &__select-all-label {
@@ -284,6 +284,7 @@ export default {
         cursor: pointer;
         display: flex;
         align-items: center;
+        margin-left: 10px;
     }
 
     &__clear-all-text {
@@ -351,17 +352,6 @@ export default {
 </style>
 
 <style lang="less">
-// custom code to override checkbox styles since the size here is ultra small
-.multiselect__select-all.checkbox-element.checkbox-element--condensed .checkbox-element__check-wrapper {
-    width: 10px;
-    height: 10px;
-}
-
-.multiselect__select-all.checkbox-element.checkbox-element--condensed .checkbox-element__square {
-    width: 7px;
-    height: 7px;
-    margin-top: 3px;
-}
 
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
