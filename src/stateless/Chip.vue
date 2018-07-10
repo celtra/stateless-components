@@ -72,9 +72,21 @@ export default {
 .chip--dark {
     color: @very-light-gray;
 
+    .chip__remove-btn {
+        color: @gunpowder;
+    }
+
     &.chip--active {
         color: @very-light-gray;
         background-color: fade(@very-light-gray, 40%);
+
+        .chip__remove-btn {
+            color: fade(@very-light-gray, 40%);
+        }
+
+        &:hover .chip__remove-btn:hover {
+            color: @very-light-gray;
+        }
     }
 
     &:hover {
@@ -84,6 +96,10 @@ export default {
         &.chip--active {
             color: @white;
         }
+
+        .chip__remove-btn {
+            color: fade(@very-light-gray, 40%);
+        }
     }
 }
 
@@ -91,8 +107,24 @@ export default {
 .chip--light {
     color: @gunpowder;
 
+    .chip__remove-btn {
+        color: fade(@gunpowder, 20%);
+    }
+
     &.chip--active {
         background-color: fade(@very-light-gray, 40%);
+
+        .chip__remove-btn {
+            color: fade(@gunpowder, 60%);
+        }
+
+        &:hover .chip__remove-btn {
+            color: fade(@gunpowder, 40%);
+
+            &:hover {
+                color: @gunpowder;
+            }
+        }
     }
 
     &:hover {
@@ -102,6 +134,10 @@ export default {
         &.chip--active {
             color: @black;
             background-color: @very-light-gray;
+        }
+
+        .chip__remove-btn {
+            color: fade(@gunpowder, 60%);
         }
     }
 }
