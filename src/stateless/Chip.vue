@@ -112,7 +112,7 @@ export default {
     }
 
     &.chip--active {
-        background-color: fade(@very-light-gray, 40%);
+        background-color: fade(@very-light-gray, 60%);
 
         .chip__remove-btn {
             color: fade(@gunpowder, 60%);
