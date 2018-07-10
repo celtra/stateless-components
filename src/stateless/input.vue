@@ -108,8 +108,8 @@ export default {
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
         step: { type: Number, default: 1 },
-        minValue: { type: Number, default: 0 },
-        maxValue: { type: Number, default: 100 },
+        minValue: { type: Number, required: false },
+        maxValue: { type: Number, required: false },
         alignment: { type: String, default: 'left' },
     },
     data () {
@@ -274,7 +274,7 @@ export default {
 
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
-                let inRange = this.minValue <= value && value <= this.maxValue
+                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
                 let numberValue = parseInt(value)
 
                 if (isNumeric && inRange && !isNaN(numberValue)) {
@@ -286,7 +286,7 @@ export default {
                 }
             } else if (this.type === 'float') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
-                let inRange = this.minValue <= value && value <= this.maxValue
+                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
                 let numberValue = parseFloat(value)
 
                 if (isNumeric && inRange && !isNaN(numberValue)) {
@@ -308,7 +308,7 @@ export default {
         },
         numberIncrement (e) {
             let numberValue = parseFloat(e.target.value)
-            if ((this.type === 'number' || this.type === 'float') && numberValue < this.maxValue) {
+            if ((this.type === 'number' || this.type === 'float') && this.maxValue ? numberValue < this.maxValue : true) {
                 numberValue += this.step
                 numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
                 this.runValidations(numberValue)
@@ -319,7 +319,7 @@ export default {
         },
         numberDecrement (e) {
             let numberValue = parseFloat(e.target.value)
-            if ((this.type === 'number' || this.type === 'float') && numberValue > this.minValue) {
+            if ((this.type === 'number' || this.type === 'float') && this.minValue ? numberValue > this.minValue : true) {
                 numberValue -= this.step
                 numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
                 this.runValidations(numberValue)
