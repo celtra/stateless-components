@@ -1,12 +1,10 @@
 <template>
     <div :class="[theme, size] | prefix('slider-container--')" class="slider-container">
-
         <div class="slider__header">
             {{ label }}
         </div>
 
         <div class="slider-unit">
-
             <div class="slider__input">
                 <input-element
                     :type="inputType"
@@ -23,20 +21,18 @@
                 ><span v-if="unit === '%'" slot="right">%</span></input-element>
             </div>
 
-            <div ref="slider" :class="stateClass() | prefix('slider-wrapper--')" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="keyboard">
+            <div ref="slider" :class="stateClass() | prefix('slider-wrapper--')" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
                 <div class="slider-content">
                     <div class="slider__label">
-
                         <div ref="min" :class="labelClass(0) | prefix('slider__label-unit--')" class="slider__label-unit">{{ minLabelValue }}</div>
 
                         <div class="slider__label-unit__tick-container">
                             <div class="slider__label-unit slider__label-unit__tick"></div>
-                            <div v-for="n in 18" :class="tickClass(n) | prefix('slider__label-unit--')" :key="n" class="slider__label-unit slider__label-unit__tick">|</div>
+                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slider__label-unit--')" :key="n" class="slider__label-unit slider__label-unit__tick">|</div>
                             <div class="slider__label-unit slider__label-unit__tick"></div>
                         </div>
 
                         <div ref="max" :class="labelClass(19) | prefix('slider__label-unit--')" class="slider__label-unit">{{ maxLabelValue }}</div>
-
                     </div>
 
                     <div class="slider">
@@ -83,8 +79,8 @@ export default {
     data () {
         return {
             isDomReady: false,
-            changedFlag: false,
-            draggingFlag: false,
+            isChanged: false,
+            isDragging: false,
         }
     },
     computed: {
@@ -110,16 +106,13 @@ export default {
             return (this.value - this.min) / (this.max - this.min)
         },
         position () {
-            if (this.isDomReady)
-                return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.sliderWidth
+            return this.isDomReady ? Math.min(this.index, this.stepsCount) * this.stepPercentage * this.sliderWidth : 0
         },
         sliderWidth () {
-            if (this.isDomReady)
-                return this.$refs.slider.clientWidth
+            return this.isDomReady ? this.$refs.slider.clientWidth : 0
         },
         sliderOffset () {
-            if (this.isDomReady)
-                return this.$refs.slider.offsetLeft
+            return this.isDomReady ? this.$refs.slider.offsetLeft : 0
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -138,28 +131,31 @@ export default {
         if (!isValueValid)
             throw new Error('Value is not a valid step')
 
-        if (this.min < 0 || 998 < this.min)
+        if (this.min < 0 || this.min > 998)
             throw new Error('Min must be between 0 and 998')
 
-        if (this.max > 999 || this.min >= this.max)
+        if (this.max > 999 || this.max <= this.min)
             throw new Error('Max must be between min+1 and 999')
 
-        if (this.value < this.min || this.max < this.value)
+        if (this.value < this.min || this.value > this.max)
             throw new Error('Value must be between min and max')
+
+        this.ticksCount = 18
+        this.labelPadding = 5
     },
     mounted () {
         this.isDomReady = true
 
-        // threshold for ticks disappearing under labels,  +/- 5 guarantees some padding
-        this.minThreshold = this.$refs.min.clientWidth + 5
-        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - 5
+        // threshold for ticks disappearing under labels
+        this.minThreshold = this.$refs.min.clientWidth + this.labelPadding
+        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
     },
     methods: {
         startDrag (e) {
             if (this.disabled) return
 
-            this.changedFlag = true
-            this.draggingFlag = true
+            this.isChanged = true
+            this.isDragging = true
 
             this.setPosition(e)
             window.addEventListener('mouseup', this.stopDrag)
@@ -167,7 +163,7 @@ export default {
             this.$refs.slider.focus()
         },
         setPosition (e) {
-            let percent = (e.clientX - this.sliderOffset) / this.sliderWidth // client width to data
+            let percent = (e.clientX - this.sliderOffset) / this.sliderWidth
             percent = Math.min(Math.max(0, percent), 0.999999)
             let edgeStepOffset = this.stepPercentage / 2
 
@@ -177,13 +173,13 @@ export default {
             e.preventDefault()
         },
         stopDrag () {
-            this.draggingFlag = false
+            this.isDragging = false
             window.removeEventListener('mouseup', this.stopDrag)
             window.removeEventListener('mousemove', this.setPosition)
         },
-        keyboard (e) {
+        onKeyboardInput (e) {
             if (this.disabled) return
-            this.changedFlag = true
+            this.isChanged = true
 
             let key = e.keyCode
 
@@ -199,7 +195,7 @@ export default {
             this.$emit('input', isNaN(number) ? null : number)
         },
         isUnitActive (index) {
-            return index / 19 <= this.percentage
+            return index / (this.ticksCount + 1) <= this.percentage
         },
         isValidInput (value, onError) {
             return (value < this.min || this.max < value) ? '' : null
@@ -207,7 +203,7 @@ export default {
         tickClass (index) {
             let hidden = false
             if (this.isDomReady) {
-                let position = index / 19 * this.sliderWidth
+                let position = index / (this.ticksCount + 1) * this.sliderWidth
                 hidden = position <= this.minThreshold || position >= this.maxThreshold
             }
 
@@ -224,8 +220,8 @@ export default {
         stateClass () {
             return {
                 'disabled': this.disabled,
-                'changed': this.changedFlag,
-                'dragging': this.draggingFlag,
+                'changed': this.isChanged,
+                'dragging': this.isDragging,
             }
         },
     },
@@ -267,13 +263,11 @@ export default {
     cursor: pointer;
 
     &:hover:not(&--disabled) {
-
       .slider__label-unit {
         color: @dolphin;
       }
 
       .bar {
-
         &--passive {
           background-color: @bluish-gray;
         }
@@ -281,14 +275,12 @@ export default {
     }
 
     &--changed {
-
       .bar__handle {
         background-color: @white;
       }
     }
 
     &--dragging {
-
       .slider__label-unit {
         color: @dolphin;
         transition: color 0s;
@@ -299,14 +291,12 @@ export default {
       }
 
       &:hover:not(&--disabled) {
-
         .slider__label-unit--active {
           color: @royal-blue;
         }
       }
 
       .bar {
-
         &--passive {
           background-color: @bluish-gray;
         }
@@ -353,10 +343,9 @@ export default {
       font-size: 10px;
       padding-top: 8px;
       font-family: @regular-text-font;
-      transition: color 0.15s ease-out;
+      transition: color @form-element-transition-time ease-out;
 
       &__tick {
-
         &-container {
           position: absolute;
           width: 100%;
@@ -390,7 +379,6 @@ export default {
 }
 
 .bar {
-
   & {
     height: 2px;
     position: absolute;
@@ -404,11 +392,11 @@ export default {
   &--passive {
     background-color: @gunpowder;
     width: 100%;
-    transition: background-color 0.15s ease-out;
+    transition: background-color @form-element-transition-time ease-out;
   }
 
   &--exceeds {
-    background: linear-gradient(90deg, #3366FF 0%, #4FDEE6 100%);
+    background: linear-gradient(90deg, @royal-blue 0%, @progress-blue 100%);
   }
 
   &__handle {
@@ -422,7 +410,7 @@ export default {
     border-radius: 50%;
     background-color: @very-light-gray;
     border: 2px solid @extremely-dark-gray;
-    transition: transform 0.2s ease-out;
+    transition: transform @opening-animation-time-content ease-out;
 
     &-dot {
       width: 2px;
@@ -436,7 +424,7 @@ export default {
       left: 0px;
       margin: auto;
       opacity: 0;
-      transition: opacity 0.2s ease-out;
+      transition: opacity @opening-animation-time-content ease-out;
     }
   }
 }
@@ -483,13 +471,9 @@ export default {
 
 // themes
 .slider-container--light {
-
   .slider {
-
     &-wrapper {
-
       &:hover:not(&--disabled) {
-
         .slider__label-unit {
           color: @bluish-gray;
 
@@ -500,7 +484,6 @@ export default {
       }
 
       &--dragging {
-
         .slider__label-unit {
           &__tick {
             color: @bluish-gray;
@@ -549,7 +532,6 @@ export default {
   }
 
   .bar {
-
     &--passive {
       background-color: @very-light-gray;
     }
