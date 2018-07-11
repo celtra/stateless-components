@@ -48,7 +48,7 @@ export default {
   &__info {
     width: 16px;
     height: 16px;
-    padding: 3px 6px 0 16px;
+    margin: 3px 6px 0 16px;
   }
 }
 </style>
