@@ -42,7 +42,7 @@
                     <div class="slider">
                         <div class="bar bar--passive"></div>
                         <div :class="{'bar--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="bar bar--active"></div>
-                        <div ref="handle" :style="{left: `${position}px`}" class="bar__handle">
+                        <div :style="{left: `${position}px`}" class="bar__handle">
                             <div class="bar__handle-dot"></div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ export default {
     },
     data () {
         return {
-            domReady: false,
+            isDomReady: false,
             changedFlag: false,
             draggingFlag: false,
         }
@@ -110,8 +110,16 @@ export default {
             return (this.value - this.min) / (this.max - this.min)
         },
         position () {
-            if (this.domReady)
-                return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.bounds.width
+            if (this.isDomReady)
+                return Math.min(this.index, this.stepsCount) * this.stepPercentage * this.sliderWidth
+        },
+        sliderWidth () {
+            if (this.isDomReady)
+                return this.$refs.slider.clientWidth
+        },
+        sliderOffset () {
+            if (this.isDomReady)
+                return this.$refs.slider.offsetLeft
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -140,21 +148,15 @@ export default {
             throw new Error('Value must be between min and max')
     },
     mounted () {
-        this.bounds = this.$refs.slider.getBoundingClientRect()
-        this.handle = this.$refs.handle.getBoundingClientRect()
+        this.isDomReady = true
 
         // threshold for ticks disappearing under labels,  +/- 5 guarantees some padding
-        this.minThreshold = this.$refs.min.getBoundingClientRect().width + 5
-        this.maxThreshold = this.bounds.width - this.$refs.max.getBoundingClientRect().width - 5
-
-        this.domReady = true
+        this.minThreshold = this.$refs.min.clientWidth + 5
+        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - 5
     },
     methods: {
         startDrag (e) {
             if (this.disabled) return
-
-            this.bounds = this.$refs.slider.getBoundingClientRect() // hotfix, will try to find a better way
-            this.handle = this.$refs.handle.getBoundingClientRect() // hotfix, will try to find a better way
 
             this.changedFlag = true
             this.draggingFlag = true
@@ -165,7 +167,7 @@ export default {
             this.$refs.slider.focus()
         },
         setPosition (e) {
-            let percent = (e.clientX - this.bounds.x) / this.bounds.width // client width to data
+            let percent = (e.clientX - this.sliderOffset) / this.sliderWidth // client width to data
             percent = Math.min(Math.max(0, percent), 0.999999)
             let edgeStepOffset = this.stepPercentage / 2
 
@@ -204,8 +206,8 @@ export default {
         },
         tickClass (index) {
             let hidden = false
-            if (this.domReady) {
-                let position = index / 19 * this.bounds.width
+            if (this.isDomReady) {
+                let position = index / 19 * this.sliderWidth
                 hidden = position <= this.minThreshold || position >= this.maxThreshold
             }
 
