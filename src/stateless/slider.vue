@@ -106,13 +106,13 @@ export default {
             return (this.value - this.min) / (this.max - this.min)
         },
         position () {
-            return this.isDomReady ? Math.min(this.index, this.stepsCount) * this.stepPercentage * this.sliderWidth : 0
+            return this.isDomReady ? Math.max(0, Math.min(this.index, this.stepsCount)) * this.stepPercentage * this.sliderWidth : 0
         },
         sliderWidth () {
             return this.isDomReady ? this.$refs.slider.clientWidth : 0
         },
         sliderOffset () {
-            return this.isDomReady ? this.$refs.slider.offsetLeft : 0
+            return this.isDomReady ? this.$refs.slider.getBoundingClientRect().x : 0
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -546,5 +546,4 @@ export default {
     }
   }
 }
-
 </style>
