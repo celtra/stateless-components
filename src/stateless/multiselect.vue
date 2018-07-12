@@ -94,8 +94,8 @@ export default {
         allOptions () {
             return this.options.concat(this.queryOptions)
         },
-        allIds () {
-            return itemsUtils.getLeafIds(this.allOptions)
+        allPossibleIds () {
+            return itemsUtils.getLeafIds(this.listItems)
         },
         listItems () {
             let result = this.allOptions
@@ -155,7 +155,7 @@ export default {
     },
     methods: {
         selectAll () {
-            this.$emit('input', this.allIds)
+            this.$emit('input', this.allPossibleIds)
         },
         clearAll () {
             this.$emit('input', [])
