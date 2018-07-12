@@ -1,9 +1,7 @@
 <template>
     <div v-click-outside="close">
         <chip
-            :is-open="isOpen"
             :is-active="value.length > 0"
-            :is-highlight="true"
             :theme="theme"
             :size="size"
             :label="chipLabel"
