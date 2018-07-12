@@ -307,25 +307,29 @@ export default {
             })
         },
         numberIncrement (e) {
-            if ((this.type === 'number' || this.type === 'float') && this.maxValue ? numberValue < this.maxValue : true) {
+            if (this.type === 'number' || this.type === 'float') {
                 let numberValue = parseFloat(e.target.value)
-                numberValue += this.step
-                numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                this.runValidations(numberValue)
-                event.target.value = numberValue
-                this.$emit('input', numberValue)
-                e.preventDefault()
+                if (!this.maxValue || numberValue < this.maxValue){
+                    numberValue += this.step
+                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
+                    this.runValidations(numberValue)
+                    event.target.value = numberValue
+                    this.$emit('input', numberValue)
+                    e.preventDefault()
+                }
             }
         },
         numberDecrement (e) {
-            if ((this.type === 'number' || this.type === 'float') && this.minValue ? numberValue > this.minValue : true) {
+            if (this.type === 'number' || this.type === 'float') {
                 let numberValue = parseFloat(e.target.value)
-                numberValue -= this.step
-                numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                this.runValidations(numberValue)
-                event.target.value = numberValue
-                this.$emit('input', numberValue)
-                e.preventDefault()
+                if (!this.minValue || numberValue > this.minValue){
+                    numberValue -= this.step
+                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
+                    this.runValidations(numberValue)
+                    event.target.value = numberValue
+                    this.$emit('input', numberValue)
+                    e.preventDefault()
+                }
             }
         },
         updateHeight () {
