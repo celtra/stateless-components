@@ -58,6 +58,7 @@ import Checkbox from './checkbox.vue'
 import DefaultList from './DefaultList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
+import { throttle } from 'lodash'
 
 export default {
     components: {
@@ -159,12 +160,12 @@ export default {
         clearAll () {
             this.$emit('input', [])
         },
-        onScroll (e) {
+        onScroll: throttle(function (e) {
             let canScrollTop = e.target.scrollTop > 0
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
             }
-        },
+        }, 250),
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
         },
