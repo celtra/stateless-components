@@ -12,7 +12,7 @@
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
-            <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
+            <div ref="multiselectOptions" :style="{maxHeight: optionsMaxHeight}" class="multiselect__options" @scroll="onScroll">
                 <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
                     <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
                         <span class="multiselect__select-all-label">SELECT ALL</span>
@@ -80,6 +80,7 @@ export default {
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
+        optionsMaxHeight: { type: String, default: '370px' },
     },
     data () {
         return {
@@ -241,7 +242,6 @@ export default {
     &__options {
         padding-bottom: 10px;
         flex: auto;
-        max-height: 370px;
         overflow-y: auto;
         overflow-x: hidden;
         margin-top: 5px;
