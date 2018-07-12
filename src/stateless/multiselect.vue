@@ -12,7 +12,7 @@
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
-            <div ref="multiselectOptions" class="multiselect__options" @scroll="onScroll">
+            <div ref="multiselectOptions" :style="{maxHeight: optionsMaxHeight}" class="multiselect__options" @scroll="onScroll">
                 <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
                     <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
                         <span class="multiselect__select-all-label">SELECT ALL</span>
@@ -58,6 +58,7 @@ import Checkbox from './checkbox.vue'
 import DefaultList from './DefaultList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
+import { throttle } from 'lodash'
 
 export default {
     components: {
@@ -80,6 +81,7 @@ export default {
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
+        optionsMaxHeight: { type: String, default: '370px' },
     },
     data () {
         return {
@@ -92,8 +94,8 @@ export default {
         allOptions () {
             return this.options.concat(this.queryOptions)
         },
-        allIds () {
-            return itemsUtils.getLeafIds(this.allOptions)
+        allPossibleIds () {
+            return itemsUtils.getLeafIds(this.listItems)
         },
         listItems () {
             let result = this.allOptions
@@ -153,17 +155,17 @@ export default {
     },
     methods: {
         selectAll () {
-            this.$emit('input', this.allIds)
+            this.$emit('input', this.allPossibleIds)
         },
         clearAll () {
             this.$emit('input', [])
         },
-        onScroll (e) {
+        onScroll: throttle(function (e) {
             let canScrollTop = e.target.scrollTop > 0
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
             }
-        },
+        }, 250),
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
         },
@@ -241,7 +243,6 @@ export default {
     &__options {
         padding-bottom: 10px;
         flex: auto;
-        max-height: 370px;
         overflow-y: auto;
         overflow-x: hidden;
         margin-top: 5px;
@@ -319,11 +320,11 @@ export default {
 .multiselect--light {
     .multiselect__options-overlay {
         &--top {
-            background: linear-gradient(180deg, @extremely-light-gray, fade(@extremely-dark-gray, 0%));
+            background: linear-gradient(180deg, @white, fade(@white, 0%));
         }
 
         &--bottom {
-            background: linear-gradient(0deg, @extremely-light-gray, fade(@extremely-light-gray, 0%));
+            background: linear-gradient(0deg, @white, fade(@white, 0%));
         }
     }
 }
