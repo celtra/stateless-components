@@ -39,7 +39,7 @@
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                     <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
-                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up="numberIncrement" @keydown.down="numberDecrement"
                            @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
@@ -307,8 +307,8 @@ export default {
             })
         },
         numberIncrement (e) {
-            let numberValue = parseFloat(e.target.value)
             if ((this.type === 'number' || this.type === 'float') && this.maxValue ? numberValue < this.maxValue : true) {
+                let numberValue = parseFloat(e.target.value)
                 numberValue += this.step
                 numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
                 this.runValidations(numberValue)
@@ -318,8 +318,8 @@ export default {
             }
         },
         numberDecrement (e) {
-            let numberValue = parseFloat(e.target.value)
             if ((this.type === 'number' || this.type === 'float') && this.minValue ? numberValue > this.minValue : true) {
+                let numberValue = parseFloat(e.target.value)
                 numberValue -= this.step
                 numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
                 this.runValidations(numberValue)
