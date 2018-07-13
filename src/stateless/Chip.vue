@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme, size, { open: isOpen, highlight: isHighlight, active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
+    <div :class="[theme, size, { active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
@@ -20,9 +20,7 @@ export default {
         size: { type: String, default: 'normal' }, // condensed | normal
         label: { type: String, default: '' },
         metadata: { type: String, default: '' },
-        isOpen: { type: Boolean, default: false },
         isActive: { type: Boolean, default: false },
-        isHighlight: { type: Boolean, default: false },
         isRemovable: { type: Boolean, default: false },
     },
 }
@@ -76,46 +74,27 @@ export default {
 
     .chip__remove-btn {
         color: @gunpowder;
-        :hover { color: @white; }
-
-        .chip--active& {
-            color: fade(@white, 40%);
-            :hover { color: @white; }
-        }
     }
 
-    &.chip--highlight {
+    &.chip--active {
+        color: @very-light-gray;
         background-color: fade(@gunpowder, 60%);
-        .chip__remove-btn { color: fade(@very-light-gray, 40%); }
 
-        &.chip--active {
-            background-color: fade(@royal-blue, 80%);
-            .chip__remove-btn { color: fade(@white, 80%); }
+        .chip__remove-btn {
+            color: fade(@very-light-gray, 60%);
+        }
+
+        &:hover .chip__remove-btn:hover {
+            color: @very-light-gray;
         }
     }
 
     &:hover {
         color: @white;
         background-color: @gunpowder;
-        .chip__remove-btn { color: fade(@very-light-gray, 40%); }
 
-        &.chip--active {
-            color: @white;
-            background-color: @royal-blue;
-            .chip__remove-btn { color: fade(@white, 80%); }
-        }
-    }
-
-    &:active,
-    &.chip--open {
-        color: @white;
-        background-color: fade(@bluish-gray, 60%);
-        .chip__remove-btn { color: fade(@very-light-gray, 40%); }
-
-        &.chip--active {
-            color: @white;
-            background-color: @royal-blue;
-            .chip__remove-btn { color: fade(@white, 80%); }
+        .chip__remove-btn {
+            color: fade(@very-light-gray, 60%);
         }
     }
 }
@@ -124,52 +103,29 @@ export default {
 .chip--light {
     color: @gunpowder;
 
-    &.chip--active {
-        color: @royal-blue;
-    }
-
     .chip__remove-btn {
         color: fade(@gunpowder, 20%);
-        :hover { color: @black; }
-
-        .chip--active& {
-            :hover { color: @white; }
-        }
     }
 
-    &.chip--highlight {
+    &.chip--active {
+        color: @black;
         background-color: fade(@very-light-gray, 60%);
-        .chip__remove-btn { color: fade(@gunpowder, 80%) }
 
-        &.chip--active {
-            color: @white;
-            background-color: fade(@royal-blue, 80%);
-            .chip__remove-btn { color: fade(@white, 80%) }
+        .chip__remove-btn {
+            color: fade(@gunpowder, 60%);
+        }
+
+        &:hover .chip__remove-btn:hover {
+            color: @gunpowder;
         }
     }
 
     &:hover {
         color: @black;
         background-color: @very-light-gray;
-        .chip__remove-btn { color: fade(@gunpowder, 80%) }
 
-        &.chip--active {
-            color: @white;
-            background-color: @royal-blue;
-            .chip__remove-btn { color: fade(@white, 80%) }
-        }
-    }
-
-    &:active,
-    &.chip--open {
-        color: @black;
-        background-color: fade(@bluish-gray, 60%);
-        .chip__remove-btn { color: fade(@gunpowder, 80%) }
-
-        &.chip--active {
-            color: @white;
-            background-color: @royal-blue;
-            .chip__remove-btn { color: fade(@white, 80%) }
+        .chip__remove-btn {
+            color: fade(@gunpowder, 60%);
         }
     }
 }

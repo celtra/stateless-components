@@ -1,13 +1,11 @@
 <template>
     <div v-click-outside="close">
         <chip
-            :is-open="isOpen"
             :is-active="value.length > 0"
-            :is-highlight="true"
-            :theme="theme"
             :size="size"
             :label="chipLabel"
             :metadata="`${value.length}/${options.length}`"
+            theme="dark"
             @click="chipClick">
         </chip>
         <inline-dialog v-if="isOpen">
@@ -19,8 +17,8 @@
                 :can-select-all="canSelectAll"
                 :can-clear-all="canClearAll"
                 :options="options"
-                :theme="theme"
                 :size="size"
+                theme="light"
                 @input="selectionChange">
             </multiselect>
         </inline-dialog>
@@ -39,7 +37,6 @@ export default {
         Multiselect,
     },
     props: {
-        theme: { type: String, default: 'dark' }, // dark | light
         size: { type: String, default: 'normal' }, // condensed | normal
         value: { type: Array, required: true },
         options: { type: Array, required: true },
