@@ -8,8 +8,7 @@
                 ></support-text>
             </div>
         </div>
-        <slot>If the actual lift in conversion is 5%, you will get a statistically significant result by running 2,069,740
-        impressions</slot>
+        <slot></slot>
     </div>
 </template>
 
@@ -41,7 +40,7 @@ export default {
         display: flex;
         align-items: center;
         position: absolute;
-        top: -13px;
+        top: -11px;
         padding: 0 10px;
         background-color: @extremely-dark-gray;
     }
