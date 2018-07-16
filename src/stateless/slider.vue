@@ -12,8 +12,8 @@
                     :disabled="disabled"
                     :value="value"
                     :step="step"
-                    :min-value="0"
-                    :max-value="999"
+                    :min-value="min"
+                    :max-value="max"
                     :is-valid="isValidInput"
                     :theme="theme"
                     :alignment="alignment"
@@ -60,8 +60,8 @@ export default {
         inputElement: Input,
     },
     props: {
-        min: { type: Number },
-        max: { type: Number },
+        min: { type: Number, required: true },
+        max: { type: Number, required: true },
         limit: { type: Number, required: false },
         minLabel: { type: String, required: false },
         maxLabel: { type: String, required: false },
