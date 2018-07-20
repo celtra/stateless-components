@@ -100,13 +100,13 @@ export default {
                     ...componentData,
                     data: {
                         ...this[componentData.id],
-                        theme: this.theme,
-                        size: this.size,
                     },
                     props: componentData.props.map(prop => {
                         return {
                             ...prop,
                             value: this[componentData.id][prop.name],
+                            theme: this.theme,
+                            size: this.size,
                         }
                     }),
                     listeners: {
