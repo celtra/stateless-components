@@ -1,10 +1,12 @@
 <template>
-    <div :class="[theme, size] | prefix('slider-container--')" class="slider-container">
-        <div class="slider__header">
-            {{ label }}
+    <div :class="[theme, size] | prefix('slider--')" class="slider">
+        <div class="slider__row">
+            <div class="slider__label">
+                {{ label }}
+            </div>
         </div>
 
-        <div class="slider-unit">
+        <div class="slider__row">
             <div class="slider__input">
                 <input-element
                     :type="inputType"
@@ -21,25 +23,23 @@
                 ><span v-if="unit === '%'" slot="right">%</span></input-element>
             </div>
 
-            <div ref="slider" :class="stateClass() | prefix('slider-wrapper--')" class="slider-wrapper" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
-                <div class="slider-content">
-                    <div class="slider__label">
-                        <div ref="min" :class="labelClass(0) | prefix('slider__label-unit--')" class="slider__label-unit">{{ minLabelValue }}</div>
+            <div ref="bar" :class="stateClass() | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
+                <div class="bar__container">
+                    <div class="ruler">
+                        <div ref="min" :class="labelClass(0) | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
 
-                        <div class="slider__label-unit__tick-container">
-                            <div class="slider__label-unit slider__label-unit__tick"></div>
-                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slider__label-unit--')" :key="n" class="slider__label-unit slider__label-unit__tick">|</div>
-                            <div class="slider__label-unit slider__label-unit__tick"></div>
+                        <div class="ruler__ticks">
+                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('ruler__tick--')" :key="n" class="ruler__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelClass(19) | prefix('slider__label-unit--')" class="slider__label-unit">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelClass(19) | prefix('ruler__label--')" class="ruler__label">{{ maxLabelValue }}</div>
                     </div>
 
-                    <div class="slider">
-                        <div class="bar bar--passive"></div>
-                        <div :class="{'bar--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="bar bar--active"></div>
-                        <div :style="{left: `${position}px`}" class="bar__handle">
-                            <div class="bar__handle-dot"></div>
+                    <div class="bar__rail">
+                        <div class="rail rail--passive"></div>
+                        <div :class="{'rail--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="rail rail--active"></div>
+                        <div :style="{left: `${position}px`}" class="rail__handle">
+                            <div class="rail__handle-dot"></div>
                         </div>
                     </div>
                 </div>
@@ -103,16 +103,16 @@ export default {
             return 1 / this.stepsCount
         },
         percentage () {
-            return (this.value - this.min) / (this.max - this.min)
+            return (this.value - this.min) / (this.limitValue - this.min)
         },
         position () {
             return this.isDomReady ? Math.max(0, Math.min(this.index, this.stepsCount)) * this.stepPercentage * this.sliderWidth : 0
         },
         sliderWidth () {
-            return this.isDomReady ? this.$refs.slider.clientWidth : 0
+            return this.isDomReady ? this.$refs.bar.clientWidth : 0
         },
         sliderOffset () {
-            return this.isDomReady ? this.$refs.slider.getBoundingClientRect().x : 0
+            return this.isDomReady ? this.$refs.bar.getBoundingClientRect().x : 0
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -140,8 +140,8 @@ export default {
         if (this.value < this.min || this.value > this.max)
             throw new Error('Value must be between min and max')
 
-        this.ticksCount = 18
-        this.labelPadding = 5
+        this.ticksCount = 20
+        this.labelPadding = 8
     },
     mounted () {
         this.isDomReady = true
@@ -160,7 +160,7 @@ export default {
             this.setPosition(e)
             window.addEventListener('mouseup', this.stopDrag)
             window.addEventListener('mousemove', this.setPosition)
-            this.$refs.slider.focus()
+            this.$refs.bar.focus()
         },
         setPosition (e) {
             let percent = (e.clientX - this.sliderOffset) / this.sliderWidth
@@ -232,29 +232,112 @@ export default {
 @import (reference) 'variables';
 
 .slider {
-
-  &-container {
     margin-bottom: 15px;
     height: 60px;
-  }
 
-  &__header {
-    height: 13px;
-    font-size: 11px;
-    color: @dolphin;
-    font-family: @regular-text-font;
-  }
+    &__row {
+        display: flex;
+    }
 
-  &-unit {
+    &__label {
+        height: 13px;
+        font-size: 11px;
+        color: @dolphin;
+        font-family: @regular-text-font;
+    }
+
+    &__input {
+        width: 50px;
+        margin-right: 10px;
+    }
+}
+
+.slider-helper-text {
+    height: 17px;
+}
+
+.ruler {
+    position: relative;
     display: flex;
-  }
+    justify-content: space-between;
+    padding-top: 8px;
 
-  &__input {
-    width: 50px;
-    margin-right: 10px;
-  }
+    &__tick {
+        width: 1px;
+        height: 7px;
+        margin-top: 3px;
+        background-color: @gunpowder;
+        transition: background-color @form-element-transition-time ease-out;
 
-  &-wrapper {
+        &--hidden {
+            visibility: hidden;
+        }
+    }
+
+    &__label {
+        color: @dolphin;
+        font-size: 10px;
+        font-family: @regular-text-font;
+    }
+
+    &__ticks {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.rail {
+    height: 2px;
+    position: absolute;
+
+    &--active {
+        background-color: @royal-blue;
+        width: 0;
+    }
+
+    &--passive {
+        background-color: @gunpowder;
+        width: 100%;
+        transition: background-color @form-element-transition-time ease-out;
+    }
+
+    &--exceeds {
+        background: linear-gradient(90deg, @royal-blue 0%, @progress-blue 100%);
+    }
+
+    &__handle {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        transform: translateX(-50%) translateY(50%);
+        width: 14px;
+        height: 14px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background-color: @very-light-gray;
+        border: 2px solid @extremely-dark-gray;
+        transition: transform @opening-animation-time-content ease-out;
+
+        &-dot {
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background-color: @extremely-dark-gray;
+            position: absolute;
+            bottom: 0;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            margin: auto;
+            opacity: 0;
+            transition: opacity @opening-animation-time-content ease-out;
+        }
+    }
+}
+
+.bar {
     flex-grow: 1;
     max-width: 370px;
     min-width: 190px;
@@ -262,288 +345,188 @@ export default {
     outline: none;
     cursor: pointer;
 
-    &:hover:not(&--disabled) {
-      .slider__label-unit {
-        color: @dolphin;
-      }
-
-      .bar {
-        &--passive {
-          background-color: @bluish-gray;
-        }
-      }
+    &__container {
+        position: relative;
+        height: 29px;
     }
 
-    &--changed {
-      .bar__handle {
+    &__rail {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+
+    &--changed .rail__handle {
         background-color: @white;
-      }
     }
 
-    &--dragging {
-      .slider__label-unit {
-        color: @dolphin;
-        transition: color 0s;
-
-        &--active {
-          color: @royal-blue;
-        }
-      }
-
-      &:hover:not(&--disabled) {
-        .slider__label-unit--active {
-          color: @royal-blue;
-        }
-      }
-
-      .bar {
-        &--passive {
-          background-color: @bluish-gray;
+    &:not(.bar--disabled):hover {
+        .ruler__tick {
+            background-color: @dolphin;
         }
 
-        &__handle {
-          transform: scale(2, 2) translate(-3.5px, 3.5px);
-
-          &-dot {
-            opacity: 1;
-          }
+        .rail--passive {
+            background-color: @bluish-gray;
         }
-      }
+    }
+
+    &--dragging:not(.bar--disabled):focus {
+        .ruler__tick {
+            transition: color 0s;
+
+            &--active {
+                background-color: @royal-blue;
+            }
+        }
+
+        .ruler__label--active {
+            color: @royal-blue;
+        }
+
+        .rail {
+            &--passive {
+                background-color: @gunpowder;
+            }
+
+            &__handle {
+                transform: scale(2, 2) translate(-3.5px, 3.5px);
+
+                &-dot {
+                    opacity: 1;
+                }
+            }
+        }
     }
 
     &--disabled {
-      cursor: default;
+        cursor: default;
 
-      .slider__label-unit {
-        color: @gunpowder;
-      }
-
-      .bar {
-        background-color: @gunpowder;
-      }
-
-      .bar__handle {
-        background-color: @gunpowder;
-      }
-    }
-  }
-
-  &-content {
-    position: relative;
-    height: 29px;
-  }
-
-  &__label {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-
-    &-unit {
-      color: @dolphin;
-      font-size: 10px;
-      padding-top: 8px;
-      font-family: @regular-text-font;
-      transition: color @form-element-transition-time ease-out;
-
-      &__tick {
-        &-container {
-          position: absolute;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
+        .ruler__label {
+            color: @gunpowder;
         }
 
-        & {
-          text-align: center;
-          color: @gunpowder;
-          width: 1px;
-          font-size: 9px;
+        .rail {
+            &--active {
+                background-color: @bluish-gray;
+            }
+
+            &__handle {
+                background-color: @very-light-gray;
+            }
         }
-      }
-
-      &--hidden {
-        visibility: hidden;
-      }
     }
-  }
-
-  & {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-  }
-
-  &-helper-text {
-    height: 17px;
-  }
-}
-
-.bar {
-  & {
-    height: 2px;
-    position: absolute;
-  }
-
-  &--active {
-    background-color: @royal-blue;
-    width: 0;
-  }
-
-  &--passive {
-    background-color: @gunpowder;
-    width: 100%;
-    transition: background-color @form-element-transition-time ease-out;
-  }
-
-  &--exceeds {
-    background: linear-gradient(90deg, @royal-blue 0%, @progress-blue 100%);
-  }
-
-  &__handle {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    transform: translateX(-50%) translateY(50%);
-    width: 14px;
-    height: 14px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    background-color: @very-light-gray;
-    border: 2px solid @extremely-dark-gray;
-    transition: transform @opening-animation-time-content ease-out;
-
-    &-dot {
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-      background-color: @extremely-dark-gray;
-      position: absolute;
-      bottom: 0;
-      top: 0px;
-      right: 0px;
-      left: 0px;
-      margin: auto;
-      opacity: 0;
-      transition: opacity @opening-animation-time-content ease-out;
-    }
-  }
 }
 
 // sizes
-.slider-container--condensed {
-  height: 46px;
+.slider--condensed {
+    height: 46px;
 
-  .slider {
+    .slider {
+        &__label {
+            font-size: 10px;
+        }
 
-    &__header {
-      font-size: 10px;
+        &__input {
+            order: 1;
+            margin-right: 0;
+            margin-left: 10px;
+        }
     }
 
-    &__input {
-      order: 1;
-      margin-right: 0;
-      margin-left: 10px;
+    .bar {
+        height: 33px;
+        max-width: 320px;
+        min-width: 140px;
+
+        &__container {
+            height: 20px;
+        }
     }
 
-    &-wrapper {
-      height: 33px;
-      max-width: 320px;
-      min-width: 140px;
+    .ruler {
+        padding-top: 4px;
+
+        &__ticks {
+            display: none;
+        }
     }
 
-    &-content {
-      height: 20px;
+    .slider-helper-text {
+        height: 12px;
     }
-
-    &__label-unit {
-      padding-top: 4px;
-
-      &__tick-container {
-        display: none;
-      }
-    }
-
-    &-helper-text {
-      height: 12px;
-    }
-  }
 }
 
 // themes
-.slider-container--light {
-  .slider {
-    &-wrapper {
-      &:hover:not(&--disabled) {
-        .slider__label-unit {
-          color: @bluish-gray;
+.slider--light {
+    .rail {
+        &--passive {
+            background-color: @very-light-gray;
+        }
 
-          &__tick {
+        &__handle {
+            background-color: @black;
+            border-color: @white;
+
+            &-dot {
+                background-color: @white;
+            }
+        }
+    }
+
+    .ruler {
+        &__label {
             color: @bluish-gray;
-          }
-        }
-      }
-
-      &--dragging {
-        .slider__label-unit {
-          &__tick {
-            color: @bluish-gray;
-          }
-
-          &--active {
-            color: @royal-blue;
-          }
         }
 
-        .bar--passive {
-          background-color: @bluish-gray;
+        &__tick {
+            background-color: @very-light-gray;
         }
-
-        &:hover:not(&--disabled) {
-          .slider__label-unit--active {
-            color: @royal-blue;
-          }
-        }
-      }
-
-      &--disabled {
-        cursor: default;
-
-        .slider__label-unit {
-          color: @very-light-gray;
-        }
-
-        .bar {
-          background-color: @very-light-gray;
-        }
-
-        .bar__handle {
-          background-color: @very-light-gray;
-        }
-      }
     }
 
-    &__label-unit {
-      color: @bluish-gray;
+    .bar {
+        &:not(.bar--disabled):hover {
+            .ruler {
+                &__label {
+                    color: @bluish-gray;
+                }
 
-      &__tick {
-        color: @very-light-gray;
-      }
+                &__tick {
+                    background-color: @bluish-gray;
+                }
+            }
+        }
+
+        &--dragging:not(.bar--disabled):focus {
+            .ruler__tick--active {
+                background-color: @royal-blue;
+            }
+
+            .ruler__label--active {
+                color: @royal-blue;
+            }
+
+            .rail {
+                &--passive {
+                    background-color: @bluish-gray;
+                }
+            }
+        }
+
+        &--disabled {
+            .ruler__label {
+                color: @very-light-gray;
+            }
+
+            .rail {
+                &--active {
+                    background-color: @bluish-gray;
+                }
+
+                &__handle {
+                    background-color: @very-light-gray;
+                }
+            }
+        }
     }
-  }
-
-  .bar {
-    &--passive {
-      background-color: @very-light-gray;
-    }
-
-    &__handle {
-      background-color: @black;
-      border-color: @white;
-
-      &-bar {
-        background-color: @white;
-      }
-    }
-  }
 }
 </style>

@@ -131,9 +131,14 @@ export default {
         defaultProps: {
             min: 0,
             max: 100,
+            limit: 20,
             step: 1,
+            theme: 'light',
+            size: 'normal',
             label: 'Basic slider',
-            value: 0,
+            value: 5,
+            unit: '%',
+            alignment: 'right',
         },
     },
 }
