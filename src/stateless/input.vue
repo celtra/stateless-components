@@ -368,16 +368,10 @@ export default {
         selectText () {
             this.$refs.input.select()
         },
-        blur (e) {
-            if (e.key === 'Escape')
-                this.$emit('discard')
-
+        blur () {
             this.$refs.input.blur()
         },
         removeFocus () {
-            if (this.states.error)
-                this.$emit('discard')
-
             this.focused = false
             this.$emit('blur')
 
