@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         click () {
-            this.$root.$emit('tracking-event', { type: 'button', label: this.$attrs.trackName || (this.$slots && this.$slots.default) ? this.$slots.default[0].text : 'dialog-button', trigger: 'click' })
+            this.$root.$emit('tracking-event', { type: 'button', label: this.$attrs['track-name'] || ((this.$slots && this.$slots.default && this.$slots.default[0].text) ? this.$slots.default[0].text : 'dialog-button'), trigger: 'click' })
             this.$emit('click')
         },
     },
