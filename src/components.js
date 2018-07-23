@@ -55,7 +55,7 @@ export default {
         component: FileUpload,
         defaultProps: {
             file: {},
-            uploadUrl: '',
+            uploadUrl: 'https://example.com',
         },
     },
     ImageList: {
@@ -74,7 +74,6 @@ export default {
         },
         defaultProps: {
             label: 'Something',
-            theme: 'light',
         },
     },
     Multiselect: {
@@ -100,8 +99,6 @@ export default {
             groups: [{ options: defaultItems }],
             isSearchable: true,
             isUnselectable: true,
-            theme: 'light',
-            size: 'condensed',
             label: 'Something',
         },
     },
@@ -119,7 +116,7 @@ export default {
                 'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
-                'card-edit', 'chain-link', 'clock', 'sort',
+                'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
             ],
         },
         defaultProps: {
