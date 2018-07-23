@@ -3,9 +3,7 @@
         <div class="group__header">
             <div class="group__label">{{ label }}</div>
             <div v-if="description" class="group__tooltip-wrapper">
-                <support-text
-                    :text="description"
-                ></support-text>
+                <support-text :text="description"></support-text>
             </div>
         </div>
         <slot></slot>
@@ -22,7 +20,7 @@ export default {
     props: {
         label: { type: String },
         description: { type: String, required: false },
-        theme: { type: String, required: false, default: 'dark' },
+        theme: { type: String, default: 'dark' },
     },
 }
 </script>
