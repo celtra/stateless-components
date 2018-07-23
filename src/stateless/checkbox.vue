@@ -449,6 +449,14 @@ export default {
 .checkbox-element--light {
     .checkbox-element__label-text {
         color: @gunpowder;
+
+        &--disabled {
+          color: @very-light-gray;
+        }
+    }
+
+    .checkbox-element__square--disabled {
+        border-color: @very-light-gray;
     }
 
     .checkbox-element__check-row {
