@@ -23,16 +23,16 @@
                 ><span v-if="unit === '%'" slot="right">%</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass() | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
+            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
                 <div class="bar__container">
                     <div class="ruler">
-                        <div ref="min" :class="labelClass(0) | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
+                        <div ref="min" :class="labelsClass.min | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
 
                         <div class="ruler__ticks">
                             <div v-for="n in ticksCount" :class="tickClass(n) | prefix('ruler__tick--')" :key="n" class="ruler__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelClass(19) | prefix('ruler__label--')" class="ruler__label">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelsClass.max | prefix('ruler__label--')" class="ruler__label">{{ maxLabelValue }}</div>
                     </div>
 
                     <div class="bar__rail">
@@ -100,9 +100,6 @@ export default {
         stepPercentage () {
             return 1 / this.stepsCount
         },
-        percentage () {
-            return (this.value - this.min) / (this.limitValue - this.min)
-        },
         position () {
             return this.isDomReady ? Math.max(0, Math.min(this.index, this.stepsCount)) * this.stepPercentage * this.sliderWidth : 0
         },
@@ -119,6 +116,28 @@ export default {
         inputType () {
             return this.decimalPlacesCount === 0 ? 'number' : 'float'
         },
+        lastActiveIndex () {
+            let valueRatio = (this.value - this.min) / (this.limitValue - this.min)
+            return Math.floor(valueRatio * (this.ticksCount + 1))
+        },
+        stateClass () {
+            return {
+                'disabled': this.disabled,
+                'changed': this.isChanged,
+                'dragging': this.isDragging,
+            }
+        },
+        labelsClass () {
+            let isNormalSize = this.size === 'normal'
+            return {
+                min: { active: this.lastActiveIndex >= 0 && isNormalSize },
+                max: { active: this.lastActiveIndex >= 19 && isNormalSize },
+            }
+        },
+    },
+    beforeCreate () {
+        this.ticksCount = 20
+        this.labelPadding = 8
     },
     created () {
         if (this.decimalPlacesCount > 1)
@@ -140,16 +159,9 @@ export default {
 
         if (this.value < this.min || this.value > this.max)
             throw new Error('Value must be between min and max.')
-
-        this.ticksCount = 20
-        this.labelPadding = 8
     },
     mounted () {
         this.isDomReady = true
-
-        // threshold for ticks disappearing under labels
-        this.minThreshold = this.$refs.min.clientWidth + this.labelPadding
-        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
     },
     methods: {
         startDrag (e) {
@@ -169,7 +181,15 @@ export default {
             let edgeStepOffset = this.stepPercentage / 2
 
             let value = (Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1) * this.step + this.min
-            this.$emit('input', this.roundValue(value))
+
+            let roundingFactor = 1
+            let decimalsPart = this.step.toString().split('.')[1]
+            if (decimalsPart) {
+                roundingFactor = parseInt('1' + '0'.repeat(decimalsPart.length), 10)
+            }
+            let roundedValue = Math.round(value * roundingFactor) / roundingFactor
+
+            this.$emit('input', roundedValue)
 
             e.preventDefault()
         },
@@ -191,20 +211,9 @@ export default {
 
             e.preventDefault()
         },
-        roundValue (value) {
-            let roundingFactor = 1
-            let decimalsPart = this.step.toString().split('.')[1]
-            if (decimalsPart) {
-                roundingFactor = parseInt('1' + '0'.repeat(decimalsPart.length), 10)
-            }
-            return Math.round(value * roundingFactor) / roundingFactor
-        },
         handleInput (value) {
             let number = parseFloat(value)
             this.$emit('input', isNaN(number) ? null : number)
-        },
-        isUnitActive (index) {
-            return index / (this.ticksCount + 1) <= this.percentage
         },
         isValidInput (value, onError) {
             return (value < this.min || this.max < value) ? '' : null
@@ -212,25 +221,17 @@ export default {
         tickClass (index) {
             let hidden = false
             if (this.isDomReady) {
+                // threshold for ticks disappearing under labels
+                let minThreshold = this.$refs.min.clientWidth + this.labelPadding
+                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
+
                 let position = index / (this.ticksCount + 1) * this.sliderWidth
-                hidden = position <= this.minThreshold || position >= this.maxThreshold
+                hidden = position <= minThreshold || position >= maxThreshold
             }
 
             return {
-                'active': this.isUnitActive(index),
+                'active': index <= this.lastActiveIndex,
                 'hidden': hidden,
-            }
-        },
-        labelClass (index) {
-            return {
-                'active': this.isUnitActive(index) && this.size === 'normal',
-            }
-        },
-        stateClass () {
-            return {
-                'disabled': this.disabled,
-                'changed': this.isChanged,
-                'dragging': this.isDragging,
             }
         },
     },
