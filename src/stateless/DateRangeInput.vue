@@ -6,6 +6,8 @@
             :value="value && value.from"
             :min-date="minDate"
             :max-date="maxDate"
+            :date-format="dateFormat"
+            :date-format-focus="dateFormatFocus"
             label="Start date"
             @input="onFromInput">
         </date-input>
@@ -18,6 +20,8 @@
             :value="value && value.to"
             :min-date="minDate"
             :max-date="maxDate"
+            :date-format="dateFormat"
+            :date-format-focus="dateFormatFocus"
             label="End date"
             @input="onToInput">
         </date-input>
@@ -37,6 +41,8 @@ export default {
         value: { type: Object },
         minDate: { type: Date },
         maxDate: { type: Date },
+        dateFormat: { type: String },
+        dateFormatFocus: { type: String, required: false },
     },
     methods: {
         onFromInput (value) {

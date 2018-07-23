@@ -12,6 +12,8 @@
                     :value="value"
                     :min-date="minDate"
                     :max-date="maxDate"
+                    :date-format="dateFormat"
+                    :date-format-focus="dateFormatFocus"
                     class="date-picker__date-input"
                     @input="setValue">
                 </date-range-input>
@@ -22,6 +24,8 @@
                     :value="value"
                     :min-date="minDate"
                     :max-date="maxDate"
+                    :date-format="dateFormat"
+                    :date-format-focus="dateFormatFocus"
                     :label="label"
                     class="date-picker__date-input"
                     @input="setValue">
@@ -64,6 +68,7 @@ export default {
         maxDate: { type: Date },
         hasInput: { type: Boolean, default: true },
         dateFormat: { type: String },
+        dateFormatFocus: { type: String, required: false },
     },
     data () {
         return {
