@@ -1,43 +1,64 @@
 <template>
-    <div class="components-list">
-        <div class="sidebar">
-            <div v-for="componentData in components" :key="componentData.id" class="sidebar-item" @click="componentId = componentData.id">
-                {{ componentData.id }}
+    <div :class="{ 'dark-theme': theme === 'dark' }">
+        <div class="theme">
+            <div class="flex">
+                <span>Theme</span>
+                <input id="light" v-model="theme" type="radio" value="light">
+                <label for="light">Light</label>
+                <input id="dark" v-model="theme" type="radio" value="dark">
+                <label for="dark">Dark</label>
+            </div>
+            <div class="flex">
+                <span>Size</span>
+                <input id="condensed" v-model="size" type="radio" value="condensed">
+                <label for="condensed">Condensed</label>
+                <input id="normal" v-model="size" type="radio" value="normal">
+                <label for="normal">Normal</label>
+                <input id="phat" v-model="size" type="radio" value="phat">
+                <label for="phat">Phat</label>
             </div>
         </div>
-        <div class="component-container">
-            <div class="props">
-                <table>
-                    <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
-                        <td class="prop-name">{{ prop.name }}</td>
-                        <td class="prop-value">
-                            <div v-if="prop.availableValues">
-                                <select @change="updateProp(componentData.id, prop.name, $event.target.value)">
-                                    <option v-for="value in prop.availableValues" :key="value">{{ value }}</option>
-                                </select>
-                            </div>
-                            <div v-else-if="typeof(prop.default) == typeof(true)">
-                                <input :value="prop.value"
-                                       type="checkbox"
-                                       @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
-                            </div>
-                            <div v-else>
-                                <input :value="prop.value"
-                                       type="text"
-                                       @input="updateProp(componentData.id, prop.name, $event.target.value)" />
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
 
-            <component :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
+        <div class="components-list">
+            <div class="sidebar">
+                <div v-for="componentData in components" :key="componentData.id" class="sidebar-item" @click="componentId = componentData.id">
+                    {{ componentData.id }}
+                </div>
+            </div>
+            <div class="component-container">
+                <div class="props">
+                    <table>
+                        <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
+                            <td class="prop-name">{{ prop.name }}</td>
+                            <td class="prop-value">
+                                <div v-if="prop.availableValues">
+                                    <select @change="updateProp(componentData.id, prop.name, $event.target.value)">
+                                        <option v-for="value in prop.availableValues" :key="value">{{ value }}</option>
+                                    </select>
+                                </div>
+                                <div v-else-if="typeof(prop.default) == typeof(true)">
+                                    <input :value="prop.value"
+                                           type="checkbox"
+                                           @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
+                                </div>
+                                <div v-else>
+                                    <input :value="prop.value"
+                                           :disabled="prop.name === 'theme' || prop.name === 'size'"
+                                           type="text"
+                                           @input="updateProp(componentData.id, prop.name, $event.target.value)" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <component :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import '@/stateless/vue_helpers'
+import '@/stateless/define_helpers'
 import components from '../components.js'
 
 let getComponents = () => {
@@ -100,13 +121,13 @@ export default {
                     ...componentData,
                     data: {
                         ...this[componentData.id],
-                        theme: this.theme,
-                        size: this.size,
                     },
                     props: componentData.props.map(prop => {
                         return {
                             ...prop,
-                            value: this[componentData.id][prop.name],
+                            value: prop.name === 'theme' ?
+                                this.theme : prop.name === 'size' ?  this.size :
+                                    this[componentData.id][prop.name],
                         }
                     }),
                     listeners: {
@@ -121,6 +142,14 @@ export default {
             return this.components.find(c => c.id === this.componentId)
         },
     },
+    watch: {
+        theme (value) {
+            this.updateProp(this.componentId, 'theme', value)
+        },
+        size (value) {
+            this.updateProp(this.componentId, 'size', value)
+        },
+    },
     methods: {
         updateProp (componentId, name, value) {
             this.$set(this[componentId], name, value)
@@ -130,12 +159,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import (reference) '../stateless/variables';
+
 .components-list {
     display: flex;
 }
 
 .sidebar {
-    margin-top: 30px;
     margin-right: 50px;
 }
 
@@ -169,5 +199,14 @@ export default {
     .prop-value {
         padding-left: 10px;
     }
+}
+
+.flex {
+    display: flex;
+}
+
+.dark-theme {
+    background-color: @dark-gray;
+    color: white;
 }
 </style>
