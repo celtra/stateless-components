@@ -484,7 +484,7 @@ export default {
             &--selected { color: @white; }
             &--disabled { color: @gunpowder; }
 
-            &:hover { color: @white; }
+            &:hover:not(&--disabled) { color: @white; }
         }
 
         .selectbox__metadata {

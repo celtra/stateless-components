@@ -4,7 +4,86 @@ exports[`Multiselect should match the snapshot 1`] = `
 <div
   class="multiselect"
 >
-  <!---->
+  <div
+    class="multiselect__search-with-icon"
+  >
+    <div
+      class="input input--phat input--dark"
+      id="search"
+    >
+      <div
+        class="input__icon-prepend"
+      >
+        <img
+          class="input__icon"
+          src="/img/icons/search.svg"
+        />
+      </div>
+       
+      <div
+        class="input-field input-field--with-icon"
+        title=""
+      >
+        <div
+          class="input-field__overlay"
+        >
+          
+            Search
+        
+        </div>
+         
+        <div
+          class="input-field__label-text"
+        >
+          
+            
+        
+        </div>
+         
+        <div
+          class="input-row"
+        >
+          <!---->
+           
+          <div
+            class="input-row__input-flex"
+          >
+            <!---->
+             
+            <!---->
+             
+            <input
+              class="input-row__placeholder-text"
+              placeholder="Search"
+              type="text"
+            />
+          </div>
+           
+          <!---->
+           
+          <!---->
+        </div>
+         
+        <div
+          class="input-field__border-overlay"
+        />
+         
+        <div
+          class="input-field__message-wrap"
+        >
+          <div
+            class="input-field__helper-text"
+          >
+            
+                    
+                
+          </div>
+           
+          <!---->
+        </div>
+      </div>
+    </div>
+  </div>
    
   <div
     class="multiselect__change-multiple"
@@ -59,13 +138,13 @@ exports[`Multiselect should match the snapshot 1`] = `
       >
         <div
           class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="a"
+          data-id="option-1"
           tabindex="0"
-          title="A"
+          title="option 1"
         >
           <div
             class="checkbox-element__check-row"
-            title="A"
+            title="option 1"
           >
             <div
               class="checkbox-element__check-wrapper"
@@ -83,351 +162,7 @@ exports[`Multiselect should match the snapshot 1`] = `
               class="checkbox-element__label-text"
             >
               
-                    A
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="b"
-          tabindex="0"
-          title="B"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="B"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    B
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="c"
-          tabindex="0"
-          title="C"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="C"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    C
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="d"
-          tabindex="0"
-          title="D"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="D"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    D
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="e"
-          tabindex="0"
-          title="E"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="E"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    E
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="f"
-          tabindex="0"
-          title="F"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="F"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    F
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="g"
-          tabindex="0"
-          title="G"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="G"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    G
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="ipsum"
-          tabindex="0"
-          title="Ipsum"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="Ipsum"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    Ipsum
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <p
-          class="multiselect__metadata"
-        >
-          someone@lorem.ipsum
-        </p>
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="lorem"
-          tabindex="0"
-          title="Lorem"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="Lorem"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    Lorem
+                    option 1
                 
             </div>
           </div>
@@ -442,13 +177,13 @@ exports[`Multiselect should match the snapshot 1`] = `
       >
         <div
           class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="something"
+          data-id="option-2"
           tabindex="0"
-          title="Something"
+          title="option 2"
         >
           <div
             class="checkbox-element__check-row"
-            title="Something"
+            title="option 2"
           >
             <div
               class="checkbox-element__check-wrapper"
@@ -466,7 +201,7 @@ exports[`Multiselect should match the snapshot 1`] = `
               class="checkbox-element__label-text"
             >
               
-                    Something
+                    option 2
                 
             </div>
           </div>
@@ -474,11 +209,46 @@ exports[`Multiselect should match the snapshot 1`] = `
           <!---->
         </div>
          
-        <p
-          class="multiselect__metadata"
+        <!---->
+      </div>
+      <div
+        class="multiselect__option"
+      >
+        <div
+          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+          data-id="option-3"
+          tabindex="0"
+          title="option 3"
         >
-          zan.kusterle@gmail.com
-        </p>
+          <div
+            class="checkbox-element__check-row"
+            title="option 3"
+          >
+            <div
+              class="checkbox-element__check-wrapper"
+            >
+              <div
+                class="checkbox-element__square"
+              />
+               
+              <div
+                class="checkbox-element__check"
+              />
+            </div>
+             
+            <div
+              class="checkbox-element__label-text"
+            >
+              
+                    option 3
+                
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <!---->
       </div>
     </div>
   </div>
@@ -492,13 +262,13 @@ exports[`Multiselect should match the snapshot 1`] = `
     >
       <div
         class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="a"
+        data-id="option-1"
         tabindex="0"
-        title="A"
+        title="option 1"
       >
         <div
           class="checkbox-element__check-row"
-          title="A"
+          title="option 1"
         >
           <div
             class="checkbox-element__check-wrapper"
@@ -516,351 +286,7 @@ exports[`Multiselect should match the snapshot 1`] = `
             class="checkbox-element__label-text"
           >
             
-                A
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="b"
-        tabindex="0"
-        title="B"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="B"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                B
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="c"
-        tabindex="0"
-        title="C"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="C"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                C
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="d"
-        tabindex="0"
-        title="D"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="D"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                D
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="e"
-        tabindex="0"
-        title="E"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="E"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                E
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="f"
-        tabindex="0"
-        title="F"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="F"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                F
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="g"
-        tabindex="0"
-        title="G"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="G"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                G
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="ipsum"
-        tabindex="0"
-        title="Ipsum"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="Ipsum"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                Ipsum
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <p
-        class="multiselect__metadata"
-      >
-        someone@lorem.ipsum
-      </p>
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="lorem"
-        tabindex="0"
-        title="Lorem"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="Lorem"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                Lorem
+                option 1
             
           </div>
         </div>
@@ -875,13 +301,13 @@ exports[`Multiselect should match the snapshot 1`] = `
     >
       <div
         class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="something"
+        data-id="option-2"
         tabindex="0"
-        title="Something"
+        title="option 2"
       >
         <div
           class="checkbox-element__check-row"
-          title="Something"
+          title="option 2"
         >
           <div
             class="checkbox-element__check-wrapper"
@@ -899,7 +325,7 @@ exports[`Multiselect should match the snapshot 1`] = `
             class="checkbox-element__label-text"
           >
             
-                Something
+                option 2
             
           </div>
         </div>
@@ -907,11 +333,46 @@ exports[`Multiselect should match the snapshot 1`] = `
         <!---->
       </div>
        
-      <p
-        class="multiselect__metadata"
+      <!---->
+    </div>
+    <div
+      class="multiselect__option"
+    >
+      <div
+        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+        data-id="option-3"
+        tabindex="0"
+        title="option 3"
       >
-        zan.kusterle@gmail.com
-      </p>
+        <div
+          class="checkbox-element__check-row"
+          title="option 3"
+        >
+          <div
+            class="checkbox-element__check-wrapper"
+          >
+            <div
+              class="checkbox-element__square"
+            />
+             
+            <div
+              class="checkbox-element__check"
+            />
+          </div>
+           
+          <div
+            class="checkbox-element__label-text"
+          >
+            
+                option 3
+            
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
     </div>
   </div>
 </div>

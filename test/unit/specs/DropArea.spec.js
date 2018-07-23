@@ -1,5 +1,4 @@
 import DropArea from '@/stateless/drop_area.vue'
-import '@/stateless/vue_helpers'
 import Vue from 'vue'
 import components from '@/components'
 
