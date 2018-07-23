@@ -1,3 +1,8 @@
+import '@/stateless/define_helpers'
+
+import * as filtersObject from '@/helpers/filters.js'
+import * as directivesObject from '@/helpers/directives.js'
+
 import CheckboxComponent from '@/stateless/checkbox.vue'
 import DialogButtonComponent from '@/stateless/dialog_button.vue'
 import DialogComponent from '@/stateless/dialog.vue'
@@ -14,6 +19,9 @@ import IconComponent from '@/stateless/icon.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
+
+export const filters = filtersObject
+export const directives = directivesObject
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
