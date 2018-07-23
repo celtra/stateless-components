@@ -121,22 +121,25 @@ export default {
         },
     },
     created () {
+        if (this.decimalPlacesCount > 1)
+            throw new Error('Max one decimal place is supported.')
+
         let isStepValid = (this.max - this.min) / this.step % 1 === 0
         if (!isStepValid)
-            throw new Error('Difference between max and min is not divisible by step')
+            throw new Error('Difference between max and min is not divisible by step.')
 
         let isValueValid = ((this.value - this.min) % this.step).toFixed(0) === '0'
         if (!isValueValid)
-            throw new Error('Value is not a valid step')
+            throw new Error('Value is not a valid step.')
 
         if (this.min < 0 || this.min > 998)
-            throw new Error('Min must be between 0 and 998')
+            throw new Error('Min must be between 0 and 998.')
 
         if (this.max > 999 || this.max <= this.min)
-            throw new Error('Max must be between min+1 and 999')
+            throw new Error('Max must be between min+1 and 999.')
 
         if (this.value < this.min || this.value > this.max)
-            throw new Error('Value must be between min and max')
+            throw new Error('Value must be between min and max.')
 
         this.ticksCount = 20
         this.labelPadding = 8
@@ -418,6 +421,10 @@ export default {
 
             &__handle {
                 background-color: @very-light-gray;
+            }
+
+            &--exceeds {
+                background: linear-gradient(90deg, @bluish-gray 0%, @very-light-gray 100%);
             }
         }
     }
