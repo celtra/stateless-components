@@ -128,5 +128,9 @@ export default {
     },
     Group: {
         component: Group,
+        defaultProps: {
+            label: 'Modeling',
+            theme: 'light',
+        },
     },
 }
