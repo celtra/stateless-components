@@ -1,3 +1,5 @@
+import '@/stateless/define_helpers'
+
 import * as filtersObject from '@/helpers/filters.js'
 import * as directivesObject from '@/helpers/directives.js'
 
