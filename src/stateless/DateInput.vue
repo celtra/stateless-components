@@ -27,6 +27,8 @@ export default {
         value: { type: Date },
         minDate: { type: Date },
         maxDate: { type: Date },
+        dateFormat: { type: String },
+        dateFormatFocus: { type: String, required: false },
     },
     data () {
         return {
@@ -41,13 +43,13 @@ export default {
             if (!this.value)
                 return null
             if (this.inFocus)
-                return moment(this.value).format('YYYY/MM/DD')
-            return moment(this.value).format('MMMM Do, YYYY')
+                return moment(this.value).format(this.dateFormatFocus || this.dateFormat)
+            return moment(this.value).format(this.dateFormat)
         },
         momentDate () {
             if (!this.textValue)
                 return null
-            return moment(this.textValue, 'YYYY/MM/DD')
+            return moment(this.textValue, this.dateFormatFocus || this.dateFormat)
         },
         errorText () {
             if (this.momentDate && this.inFocus) {

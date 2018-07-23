@@ -63,6 +63,7 @@ export default {
         minDate: { type: Date },
         maxDate: { type: Date },
         hasInput: { type: Boolean, default: true },
+        dateFormat: { type: String },
     },
     data () {
         return {
@@ -82,12 +83,12 @@ export default {
             }
 
             if (this.isRange) {
-                let from = this.value && this.value.from ? moment(this.value.from).format('MMMM Do, YYYY') : '?'
-                let to = this.value && this.value.to ? moment(this.value.to).format('MMMM Do, YYYY') : '?'
+                let from = this.value && this.value.from ? moment(this.value.from).format(this.dateFormat) : '?'
+                let to = this.value && this.value.to ? moment(this.value.to).format(this.dateFormat) : '?'
                 return `${from} - ${to}`
             }
 
-            return this.value ? moment(this.value).format('MMMM Do, YYYY') : '?'
+            return this.value ? moment(this.value).format(this.dateFormat) : '?'
         },
     },
     methods: {
