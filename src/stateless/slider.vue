@@ -46,9 +46,7 @@
 
                 <div class="slider-helper-text"></div>
             </div>
-
         </div>
-
     </div>
 </template>
 
@@ -168,7 +166,7 @@ export default {
             let edgeStepOffset = this.stepPercentage / 2
 
             let value = (Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1) * this.step + this.min
-            this.$emit('input', value)
+            this.$emit('input', this.roundValue(value))
 
             e.preventDefault()
         },
@@ -189,6 +187,14 @@ export default {
                 this.$emit('input', this.value - this.step)
 
             e.preventDefault()
+        },
+        roundValue (value) {
+            let roundingFactor = 1
+            let decimalsPart = this.step.toString().split('.')[1]
+            if (decimalsPart) {
+                roundingFactor = parseInt('1' + '0'.repeat(decimalsPart.length), 10)
+            }
+            return Math.round(value * roundingFactor) / roundingFactor
         },
         handleInput (value) {
             let number = parseFloat(value)

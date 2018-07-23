@@ -129,10 +129,10 @@ export default {
     Slider: {
         component: Slider,
         defaultProps: {
-            min: 0,
+            min: 0.1,
             max: 100,
             limit: 20,
-            step: 1,
+            step: 0.1,
             theme: 'light',
             size: 'normal',
             label: 'Basic slider',
