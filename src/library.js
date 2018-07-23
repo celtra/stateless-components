@@ -30,9 +30,6 @@ export const filters = filtersObject
 export const directives = directivesObject
 export const itemsUtils = itemsUtilsObject
 
-export const filters = filtersObject
-export const directives = directivesObject
-
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
 export const Dialog = DialogComponent
