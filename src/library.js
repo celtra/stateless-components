@@ -1,3 +1,8 @@
+import '@/stateless/define_helpers'
+
+import * as filtersObject from '@/helpers/filters.js'
+import * as directivesObject from '@/helpers/directives.js'
+
 import CheckboxComponent from '@/stateless/checkbox.vue'
 import DialogButtonComponent from '@/stateless/dialog_button.vue'
 import DialogComponent from '@/stateless/dialog.vue'
@@ -15,6 +20,9 @@ import CalendarComponent from '@/stateless/Calendar.vue'
 import DateInputComponent from '@/stateless/DateInput.vue'
 import DateRangeInputComponent from '@/stateless/DateRangeInput.vue'
 import DatePickerComponent from '@/stateless/DatePicker.vue'
+
+export const filters = filtersObject
+export const directives = directivesObject
 
 export const Checkbox = CheckboxComponent
 export const DialogButton = DialogButtonComponent
