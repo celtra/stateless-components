@@ -96,7 +96,6 @@ export default {
         },
         defaultProps: {
             label: 'Something',
-            theme: 'light',
         },
     },
     Multiselect: {
@@ -127,8 +126,6 @@ export default {
             options: defaultItems,
             isSearchable: true,
             isUnselectable: true,
-            theme: 'light',
-            size: 'condensed',
             label: 'Something',
         },
     },

@@ -1,3 +1,7 @@
+import '@/stateless/define_helpers'
+
+import * as filtersObject from '@/helpers/filters.js'
+import * as directivesObject from '@/helpers/directives.js'
 import * as itemsUtilsObject from '@/stateless/items_utils.js'
 
 import CheckboxComponent from '@/stateless/checkbox.vue'
@@ -24,6 +28,8 @@ import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import ChipComponent from '@/stateless/Chip.vue'
 import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 
+export const filters = filtersObject
+export const directives = directivesObject
 export const itemsUtils = itemsUtilsObject
 
 export const Checkbox = CheckboxComponent

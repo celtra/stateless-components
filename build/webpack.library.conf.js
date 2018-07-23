@@ -13,7 +13,7 @@ function resolve (dir) {
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: './src/index.js',
+  entry: './src/library.js',
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../'),
