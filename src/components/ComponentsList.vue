@@ -39,13 +39,12 @@
                                     </select>
                                 </div>
                                 <div v-else-if="typeof(prop.default) == typeof(true)">
-                                    <input :value="prop.value"
+                                    <input :checked="prop.value"
                                            type="checkbox"
                                            @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
                                 </div>
                                 <div v-else>
                                     <input :value="prop.value"
-                                           :disabled="prop.name === 'theme' || prop.name === 'size'"
                                            type="text"
                                            @input="updateProp(componentData.id, prop.name, $event.target.value)" />
                                 </div>
