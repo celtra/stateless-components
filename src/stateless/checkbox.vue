@@ -273,11 +273,6 @@ export default {
         opacity: 0.8;
 
         &--focused, &:hover {
-            opacity: 1;
-
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @white;
-            }
 
             .checkbox-element__toggle-circle {
                 background-color: white;
@@ -295,7 +290,7 @@ export default {
         width: 25px;
         min-width: 25px;
         border-radius: 8px;
-        background-color: @gunpowder;
+        background-color: @very-light-gray;
         transition: all @form-element-transition-time ease-out;
 
         &--checked {
@@ -307,12 +302,11 @@ export default {
         width: 15px;
         height: 15px;
         border-radius: 50%;
-        background-color: @gray-blue;
+        background-color: @extremely-light-gray;
         transition: all @form-element-transition-time ease-out;
 
         &--checked {
             margin-left: 10px;
-            background-color: white;
         }
     }
 }
