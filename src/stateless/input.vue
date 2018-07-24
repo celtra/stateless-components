@@ -39,8 +39,8 @@
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                     <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
-                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
-                           @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.stop="blur" @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
+                           @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
                 <div v-if="$slots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
