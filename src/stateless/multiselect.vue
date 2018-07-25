@@ -58,7 +58,7 @@ import Checkbox from './checkbox.vue'
 import DefaultList from './DefaultList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
-import { throttle } from 'lodash'
+import throttle from 'lodash.throttle'
 
 export default {
     components: {
