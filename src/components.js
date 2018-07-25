@@ -14,6 +14,7 @@ import Icon from '@/stateless/icon.vue'
 import Toast from '@/stateless/Toast.vue'
 import PieChart from '@/stateless/PieChart.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
+import Tooltip from '@/stateless/Tooltip.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -127,6 +128,9 @@ export default {
     },
     Toast: {
         component: Toast,
+    },
+    Tooltip: {
+        component: Tooltip,
     },
     PieChart: {
         component: PieChart,

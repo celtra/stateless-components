@@ -184,6 +184,7 @@ export default {
     width: fit-content;
     margin-bottom: 40px;
     margin-top: 60px;
+    position: relative;
 }
 
 .props {
