@@ -25,6 +25,7 @@ import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
 import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
+import TooltipComponent from '@/stateless/Tooltip.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -51,3 +52,4 @@ export const DefaultListItem = DefaultListItemComponent
 export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
+export const Tooltip = TooltipComponent
