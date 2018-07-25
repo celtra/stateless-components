@@ -19,6 +19,7 @@ import IconComponent from '@/stateless/icon.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
+import TooltipComponent from '@/stateless/Tooltip.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -39,3 +40,4 @@ export const Icon = IconComponent
 export const Toast = ToastComponent
 export const PieChart = PieChartComponent
 export const InlineDialog = InlineDialogComponent
+export const Tooltip = TooltipComponent
