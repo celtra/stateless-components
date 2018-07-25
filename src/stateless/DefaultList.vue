@@ -6,10 +6,7 @@
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-
-                    <div v-if="item.tooltip" class="default-list__item-tooltip">
-                        {{ item.tooltip }}
-                    </div>
+                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -24,10 +21,7 @@
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-
-                    <div v-if="item.tooltip" class="default-list__item-tooltip">
-                        {{ item.tooltip }}
-                    </div>
+                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -41,11 +35,13 @@
 
 <script>
 import DefaultListItem from './DefaultListItem.vue'
+import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
 
 export default {
     components: {
         DefaultListItem,
+        Tooltip,
     },
     props: {
         size: { type: String, default: 'normal' },
@@ -155,37 +151,6 @@ export default {
         &-enter-active, &-leave-active, &-enter, &-leave-to {
             display: none;
         }
-
-        &:hover {
-            .default-list__item-tooltip {
-                animation: 0.6s fadeIn;
-                animation-fill-mode: forwards;
-            }
-
-            @keyframes fadeIn {
-                99% {
-                    visibility: hidden;
-                }
-                100% {
-                    visibility: visible;
-                }
-            }
-        }
-    }
-
-    &__item-tooltip {
-        visibility: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0px;
-        color: white;
-        background-color: @gunpowder;
-        border-radius: 3px;
-        font-size: 11px;
-        text-align: center;
-        padding: 6px 20px;
-        z-index: @z-index-new-dialog + 25;
-        max-width: 200px;
     }
 
     &__group {
