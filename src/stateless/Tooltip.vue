@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'tooltip--visible': show }" class="tooltip">
+    <div :class="{ 'hover-tooltip--visible': show }" class="hover-tooltip">
         <slot></slot>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 <style lang="less" scoped>
 @import (reference) './variables';
 
-.tooltip {
+.hover-tooltip {
     position: absolute;
     opacity: 0;
     top: 100%;
@@ -30,8 +30,8 @@ export default {
     max-width: 200px;
 }
 
-:hover > .tooltip,
-.tooltip--visible {
+:hover > .hover-tooltip,
+.hover-tooltip--visible {
     animation: 0.2s fadeIn;
     animation-delay: 0.4s;
     animation-fill-mode: forwards;
