@@ -55,7 +55,7 @@
 <script>
 import Input from './input.vue'
 import Checkbox from './checkbox.vue'
-import _ from 'lodash'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -197,7 +197,7 @@ export default {
                 this.setChecked(option.id, false)
             })
         },
-        updateOptionsOrder: _.debounce(function () {
+        updateOptionsOrder: debounce(function () {
             this.checkedForSorting = this.checked.slice().filter(optionId => !this.options.find(o => o.id === optionId).disabled)
         }, 350),
     },
