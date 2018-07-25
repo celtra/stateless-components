@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { formElementTransitionTime } from './form_element_constants'
 
 export default {
@@ -268,7 +267,7 @@ export default {
             }
 
             if (this.type === 'number') {
-                let isNumeric = _.every(value.split('').map((c) => c >= '0' && c <= '9'))
+                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
 
                 if (isNumeric) {
                     this.text = value
