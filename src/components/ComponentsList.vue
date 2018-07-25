@@ -8,8 +8,7 @@
                 <input id="dark" v-model="theme" type="radio" value="dark">
                 <label for="dark">Dark</label>
             </div>
-        </div>
-        <div class="component-container">
+
             <div class="flex">
                 <span>Size</span>
                 <input id="condensed" v-model="size" type="radio" value="condensed">
@@ -45,6 +44,7 @@
                                 </div>
                                 <div v-else>
                                     <input :value="prop.value"
+                                           :disabled="prop.name === 'theme' || prop.name === 'size'"
                                            type="text"
                                            @input="updateProp(componentData.id, prop.name, $event.target.value)" />
                                 </div>
@@ -102,6 +102,7 @@ export default {
         let vars = {
             componentId: Object.keys(components)[0],
             theme: 'light',
+            size: 'normal',
         }
         for (let component of getComponents()) {
             let componentData = {}
