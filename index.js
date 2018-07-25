@@ -5293,7 +5293,7 @@ module.exports = debounce;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
-        show: { type: Boolean, required: false, default: false }
+        show: { type: Boolean, default: false }
     }
 });
 
@@ -19380,7 +19380,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Tooltip_vue__ = __webpack_require__(85);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6b0f8d86_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_bcdc46e6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__ = __webpack_require__(217);
 function injectStyle (ssrContext) {
   __webpack_require__(215)
 }
@@ -19395,12 +19395,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6b0f8d86"
+var __vue_scopeId__ = "data-v-bcdc46e6"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Tooltip_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6b0f8d86_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_bcdc46e6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19421,7 +19421,7 @@ var content = __webpack_require__(216);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("688195cc", content, true, {});
+var update = __webpack_require__(1)("38085fd3", content, true, {});
 
 /***/ }),
 /* 216 */
@@ -19432,7 +19432,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.tooltip[data-v-6b0f8d86] {\n  position: absolute;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: center;\n  padding: 6px 20px;\n  z-index: 5025;\n  max-width: 200px;\n}\n:hover > .tooltip[data-v-6b0f8d86],\n.tooltip--visible[data-v-6b0f8d86] {\n  -webkit-animation: 0.2s fadeIn-data-v-6b0f8d86;\n          animation: 0.2s fadeIn-data-v-6b0f8d86;\n  -webkit-animation-delay: 0.4s;\n          animation-delay: 0.4s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-6b0f8d86 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-6b0f8d86 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/Tooltip.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,WAAW;EACX,UAAU;EACV,UAAU;EACV,eAAe;EACf,0BAA0B;EAC1B,mBAAmB;EACnB,gBAAgB;EAChB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd,iBAAiB;CAClB;AACD;;EAEE,+CAA+C;UACvC,uCAAuC;EAC/C,8BAA8B;UACtB,sBAAsB;EAC9B,sCAAsC;UAC9B,8BAA8B;CACvC;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA","file":"Tooltip.vue","sourcesContent":["\n.tooltip[data-v-6b0f8d86] {\n  position: absolute;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: center;\n  padding: 6px 20px;\n  z-index: 5025;\n  max-width: 200px;\n}\n:hover > .tooltip[data-v-6b0f8d86],\n.tooltip--visible[data-v-6b0f8d86] {\n  -webkit-animation: 0.2s fadeIn-data-v-6b0f8d86;\n          animation: 0.2s fadeIn-data-v-6b0f8d86;\n  -webkit-animation-delay: 0.4s;\n          animation-delay: 0.4s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-6b0f8d86 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-6b0f8d86 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.tooltip[data-v-bcdc46e6] {\n  position: absolute;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: center;\n  padding: 6px 20px;\n  z-index: 5025;\n  max-width: 200px;\n}\n:hover > .tooltip[data-v-bcdc46e6],\n.tooltip--visible[data-v-bcdc46e6] {\n  -webkit-animation: 0.2s fadeIn-data-v-bcdc46e6;\n          animation: 0.2s fadeIn-data-v-bcdc46e6;\n  -webkit-animation-delay: 0.4s;\n          animation-delay: 0.4s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-bcdc46e6 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-bcdc46e6 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/Tooltip.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,WAAW;EACX,UAAU;EACV,UAAU;EACV,eAAe;EACf,0BAA0B;EAC1B,mBAAmB;EACnB,gBAAgB;EAChB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd,iBAAiB;CAClB;AACD;;EAEE,+CAA+C;UACvC,uCAAuC;EAC/C,8BAA8B;UACtB,sBAAsB;EAC9B,sCAAsC;UAC9B,8BAA8B;CACvC;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA;AACD;AACA;IACI,WAAW;CACd;AACD;IACI,WAAW;CACd;CACA","file":"Tooltip.vue","sourcesContent":["\n.tooltip[data-v-bcdc46e6] {\n  position: absolute;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: center;\n  padding: 6px 20px;\n  z-index: 5025;\n  max-width: 200px;\n}\n:hover > .tooltip[data-v-bcdc46e6],\n.tooltip--visible[data-v-bcdc46e6] {\n  -webkit-animation: 0.2s fadeIn-data-v-bcdc46e6;\n          animation: 0.2s fadeIn-data-v-bcdc46e6;\n  -webkit-animation-delay: 0.4s;\n          animation-delay: 0.4s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-bcdc46e6 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-bcdc46e6 {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
 
 // exports
 

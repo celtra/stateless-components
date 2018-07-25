@@ -7,7 +7,7 @@
 <script>
 export default {
     props: {
-        show: { type: Boolean, required: false, default: false },
+        show: { type: Boolean, default: false },
     },
 }
 </script>
