@@ -8,7 +8,6 @@
                 <input id="dark" v-model="theme" type="radio" value="dark">
                 <label for="dark">Dark</label>
             </div>
-
             <div class="flex">
                 <span>Size</span>
                 <input id="condensed" v-model="size" type="radio" value="condensed">
