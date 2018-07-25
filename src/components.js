@@ -12,6 +12,7 @@ import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
 import Slider from '@/stateless/slider.vue'
+import Group from '@/stateless/group.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -136,6 +137,11 @@ export default {
             value: 5,
             unit: '%',
             alignment: 'right',
+    Group: {
+        component: Group,
+        defaultProps: {
+            label: 'Modeling',
+            theme: 'light',
         },
     },
 }
