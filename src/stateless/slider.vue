@@ -23,7 +23,7 @@
                 ><span v-if="unit === '%'" slot="right">%</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown="onKeyboardInput">
+            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keyup.left.stop="decreaseValue" @keyup.down.stop="decreaseValue" @keyup.right.stop="increaseValue" @keyup.up.stop="increaseValue">
                 <div class="bar__container">
                     <div class="ruler">
                         <div ref="min" :class="labelsClass.min | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
@@ -198,18 +198,17 @@ export default {
             window.removeEventListener('mouseup', this.stopDrag)
             window.removeEventListener('mousemove', this.setPosition)
         },
-        onKeyboardInput (e) {
-            if (this.disabled) return
-            this.isChanged = true
-
-            let key = e.keyCode
-
-            if ((key === 38 || key === 39) && this.index < this.stepsCount)
-                this.$emit('input', this.value + this.step)
-            else if ((key === 37 || key === 40) && this.index > 0)
+        decreaseValue () {
+            if (!this.disabled && this.index > 0) {
+                this.isChanged = true
                 this.$emit('input', this.value - this.step)
-
-            e.preventDefault()
+            }
+        },
+        increaseValue () {
+            if (!this.disabled && this.index < this.stepsCount) {
+                this.isChanged = true
+                this.$emit('input', this.value + this.step)
+            }
         },
         handleInput (value) {
             let number = parseFloat(value)
