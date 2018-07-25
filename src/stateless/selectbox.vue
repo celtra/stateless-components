@@ -58,7 +58,7 @@
 
                         <div v-for="option in group.options" :data-option-id="option.id" :class="getOptionCssStates(option) | prefix('selectbox__option--')"
                              :key="option.id" class="selectbox__option" @click="selectOption(option.id)">
-                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :style="showOptionMetadata ? { width: '70%' } : { width: '100%' }" :title="option.label" class="selectbox__label">
+                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :style="option.metadata ? { width: '70%' } : { width: '100%' }" :title="option.label" class="selectbox__label">
                                 {{ option.label }}
                             </div>
 
@@ -196,14 +196,6 @@ export default {
                 option: optionHeight,
                 search: searchHeight,
             }
-        },
-        showOptionMetadata () {
-            let options = this.groups.reduce((result, group) => {
-                result = result.concat(group.options)
-                return result
-            }, [])
-
-            return options.filter((option) => { return option.metadata }).length > 0
         },
     },
     mounted () {
