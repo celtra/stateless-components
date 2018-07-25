@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import Icon from './icon.vue'
 import Input from './input.vue'
 import ScrollableList from './ScrollableList.vue'
@@ -227,7 +227,7 @@ export default {
 
             this.$refs.menu.style.top = `${Math.max(minOffset, Math.min(maxOffset, targetOffset))}px`
         },
-        setSearch: _.debounce(function () {
+        setSearch: debounce(function () {
             this.searchTextDebounced = this.searchText
         }, 400),
         clearSearch () {

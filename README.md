@@ -4,25 +4,27 @@
 
 ## Build Setup
 
+Make sure you have `yarn` installed.
+
 ``` bash
 # install dependencies
-npm install
+yarn
 
 # serve demo page at localhost:8080
-npm run dev
+yarn dev
 
 # build library and demo page (run before pushing to GitHub)
-npm run build
+yarn build
 
 # build for production and view the bundle analyzer report
-npm run build --report
+yarn build --report
 
 # run unit tests
-npm run unit
+yarn unit
 
 # run e2e tests
-npm run e2e
+yarn e2e
 
 # run all tests
-npm test
+yarn test
 ```
