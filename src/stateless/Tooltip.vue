@@ -17,6 +17,7 @@ export default {
 
 .hover-tooltip {
     position: absolute;
+    visibility: hidden;
     opacity: 0;
     top: 100%;
     left: 0px;
@@ -39,9 +40,11 @@ export default {
 
 @keyframes fadeIn {
     0% {
+        visibility: hidden;
         opacity: 0;
     }
     100% {
+        visibility: visible;
         opacity: 1;
     }
 }
