@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import debounce from 'lodash.debounce'
 
 export default {
     props: {
@@ -339,7 +339,7 @@ export default {
                 this.closeSelectList()
             }
         },
-        setSearch: _.debounce(function () {
+        setSearch: debounce(function () {
             this.searchTextDebounced = this.searchText
         }, 400),
         clearSearch () {
