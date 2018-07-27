@@ -685,12 +685,17 @@ export default {
 
         &--warning { color: @pale-yellow; }
     }
+
     .input-row__unit {
         color: @dolphin;
 
         &--warning {
             color: @pale-yellow;
         }
+    }
+
+    .input__icon-prepend {
+        color: white;
     }
 }
 
@@ -719,12 +724,17 @@ export default {
 
         &--warning { color: @orange-yellow; }
     }
+
     .input-row__unit {
         color: @bluish-gray;
 
         &--warning {
             color: @orange-yellow;
         }
+    }
+
+    .input__icon-prepend {
+        color: black;
     }
 }
 
