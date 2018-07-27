@@ -474,7 +474,6 @@ export default {
 
 .input-field__label-text {
     height: 13px;
-    color: @dolphin;
     display: flex;
     align-items: center;
     font-size: 11px;
@@ -500,7 +499,6 @@ export default {
     align-items: center;
     border-width: 0 0 2px 0;
     border-style: solid;
-    border-color: @gunpowder;
     transition: border-color @form-element-transition-time ease-out;
 
     &__input-flex {
@@ -531,7 +529,6 @@ export default {
         background-color: transparent;
         border: 0;
         outline: none;
-        color: white;
         margin: 4px 0px;
 
         &.input-row__textarea {
@@ -541,7 +538,6 @@ export default {
 
         &::placeholder {
             white-space: nowrap;
-            color: @very-light-gray;
             overflow: hidden;
             text-overflow: ellipsis !important;
         }
@@ -592,14 +588,12 @@ export default {
 
     &:hover:not(&--focused):not(&--disabled) {
         border-color: @gray-blue;
-        .input-row__placeholder-text::placeholder { color: @white; }
     }
 }
 
 .input-row__unit {
     flex: none;
     font-size: 18px;
-    color: @dolphin;
 
     &__password-icon {
         width: 16px;
@@ -618,10 +612,6 @@ export default {
 
     &--disabled {
         color: @gunpowder;
-    }
-
-    &--warning {
-        color: @pale-yellow;
     }
 }
 
@@ -660,21 +650,51 @@ export default {
 }
 
 .input-field__helper-text {
-    color: @dolphin;
     min-height: 17px;
     flex: 1 0 0;
     font-size: 11px;
     letter-spacing: 0.5px;
 
-    &--warning { color: @pale-yellow; }
-
     &--disabled { color: @gunpowder; }
 
     &--error { color: @pink-red; }
-
 }
 
-.input--light.input--light {
+.input--dark {
+    .input-row {
+        border-color: @gunpowder;
+
+        &__placeholder-text {
+            color: white;
+            &::placeholder {
+                color: @very-light-gray;
+            }
+        }
+
+        &:hover {
+            .input-row__placeholder-text::placeholder { color: white; }
+        }
+    }
+
+    .input-field__label-text {
+        color: @dolphin;
+    }
+
+    .input-field__helper-text {
+        color: @dolphin;
+
+        &--warning { color: @pale-yellow; }
+    }
+    .input-row__unit {
+        color: @dolphin;
+
+        &--warning {
+            color: @pale-yellow;
+        }
+    }
+}
+
+.input--light {
     .input-row {
         border-color: @very-light-gray;
 
@@ -688,8 +708,6 @@ export default {
         &:hover {
             .input-row__placeholder-text::placeholder { color: @black; }
         }
-
-        &--focused { border-color: @royal-blue; }
     }
 
     .input-field__label-text {
@@ -698,8 +716,6 @@ export default {
 
     .input-field__helper-text {
         color: @bluish-gray;
-
-        &--error { color: @pink-red; }
 
         &--warning { color: @orange-yellow; }
     }
