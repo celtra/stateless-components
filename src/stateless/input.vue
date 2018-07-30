@@ -280,7 +280,7 @@ export default {
                 if (isNumeric && inRange && !isNaN(numberValue)) {
                     this.runValidations(numberValue)
 
-                    this.$emit('input', value)
+                    this.$emit('input', numberValue)
                 } else {
                     event.target.value = this.value
                 }
@@ -292,7 +292,7 @@ export default {
                 if (isNumeric && inRange && !isNaN(numberValue)) {
                     this.runValidations(numberValue)
 
-                    this.$emit('input', value)
+                    this.$emit('input', numberValue)
                 } else {
                     event.target.value = this.value
                 }
