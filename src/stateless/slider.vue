@@ -9,10 +9,10 @@
         <div class="slider__row">
             <div class="slider__input">
                 <input-element
-                    :type="inputType"
+                    :type="isWholeNumber ? 'number' : 'float'"
                     :size="size"
                     :disabled="disabled"
-                    :value="value"
+                    :value="value.toFixed(decimalPlacesCount)"
                     :step="step"
                     :min-value="min"
                     :max-value="max"
@@ -20,10 +20,10 @@
                     :theme="theme"
                     :alignment="alignment"
                     @input="handleInput"
-                ><span v-if="unit === '%'" slot="right">%</span></input-element>
+                ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keyup.left.stop="decreaseValue" @keyup.down.stop="decreaseValue" @keyup.right.stop="increaseValue" @keyup.up.stop="increaseValue">
+            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
                 <div class="bar__container">
                     <div class="ruler">
                         <div ref="min" :class="labelsClass.min | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
@@ -113,12 +113,12 @@ export default {
             let decimals = this.step.toString().split('.')[1]
             return decimals ? decimals.length : 0
         },
-        inputType () {
-            return this.decimalPlacesCount === 0 ? 'number' : 'float'
+        isWholeNumber () {
+            return this.decimalPlacesCount === 0
         },
         lastActiveIndex () {
             let valueRatio = (this.value - this.min) / (this.limitValue - this.min)
-            return Math.floor(valueRatio * (this.ticksCount + 1))
+            return valueRatio * (this.ticksCount - 1)
         },
         stateClass () {
             return {
@@ -137,7 +137,7 @@ export default {
     },
     beforeCreate () {
         this.ticksCount = 20
-        this.labelPadding = 8
+        this.labelPadding = 7
     },
     created () {
         if (this.decimalPlacesCount > 1)
@@ -162,6 +162,10 @@ export default {
     },
     mounted () {
         this.isDomReady = true
+
+        // threshold for ticks disappearing under labels
+        this.minThreshold = this.$refs.min.clientWidth + this.labelPadding
+        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
     },
     methods: {
         startDrag (e) {
@@ -220,16 +224,12 @@ export default {
         tickClass (index) {
             let hidden = false
             if (this.isDomReady) {
-                // threshold for ticks disappearing under labels
-                let minThreshold = this.$refs.min.clientWidth + this.labelPadding
-                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
-
-                let position = index / (this.ticksCount + 1) * this.sliderWidth
-                hidden = position <= minThreshold || position >= maxThreshold
+                let position = (index - 1) / (this.ticksCount - 1) * this.sliderWidth
+                hidden = position <= this.minThreshold || position >= this.maxThreshold
             }
 
             return {
-                'active': index <= this.lastActiveIndex,
+                'active': index - 1 <= this.lastActiveIndex,
                 'hidden': hidden,
             }
         },
