@@ -137,6 +137,8 @@ export default {
             value: 5,
             unit: '%',
             alignment: 'right',
+        },
+    },
     Group: {
         component: Group,
         defaultProps: {
