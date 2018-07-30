@@ -203,12 +203,13 @@ export default {
             }
         },
         isChecked (option) {
-            if (!option.items) {
+            if (!option.items && option.isLeaf !== false) {
                 return this.value.includes(option.id)
             } else {
                 let allChecked = true
                 let someChecked = false
-                for (let id of itemsUtils.getLeafIds(option)) {
+                let leafIds = option.leafIds || itemsUtils.getLeafIds(option)
+                for (let id of leafIds) {
                     if (!this.value.includes(id)) {
                         allChecked = false
                     } else {
