@@ -12,6 +12,10 @@
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
+            <div :style="{height: optionsMaxHeight}" class="multiselect__loading">
+                <icon v-if="isLoading" name="loading" class="spin multiselect__loading-icon" />
+            </div>
+
             <div ref="multiselectOptions" :style="{maxHeight: optionsMaxHeight}" class="multiselect__options" @scroll="onScroll">
                 <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
                     <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
@@ -85,6 +89,7 @@ export default {
     },
     data () {
         return {
+            isLoading: false,
             searchQuery: null,
             queryOptions: [],
             canScrollTop: false,
@@ -171,8 +176,10 @@ export default {
         },
         loadAsyncOptions () {
             if (this.getOptions) {
+                this.isLoading = true
                 this.getOptions(this.searchQuery).then(result => {
                     this.queryOptions = result
+                    this.isLoading = false
                 })
             }
         },
@@ -196,7 +203,7 @@ export default {
             }
         },
         isChecked (option) {
-            if (!option.options) {
+            if (!option.items) {
                 return this.value.includes(option.id)
             } else {
                 let allChecked = true
@@ -302,6 +309,21 @@ export default {
 
     &__checkbox {
         width: 100%;
+    }
+
+    &__loading {
+        margin-top: 5px;
+        position: absolute;
+        width: 100%;
+    }
+
+    .multiselect__loading-icon.multiselect__loading-icon {
+        position: absolute;
+        z-index: @z-index-new-dialog + 100;
+        top: calc(50% - 75px);
+        width: 100%;
+        height: 150px;
+        opacity: 0.8;
     }
 }
 
