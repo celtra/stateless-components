@@ -162,10 +162,6 @@ export default {
     },
     mounted () {
         this.isDomReady = true
-
-        // threshold for ticks disappearing under labels
-        this.minThreshold = this.$refs.min.clientWidth + this.labelPadding
-        this.maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
     },
     methods: {
         startDrag (e) {
@@ -225,7 +221,10 @@ export default {
             let hidden = false
             if (this.isDomReady) {
                 let position = (index - 1) / (this.ticksCount - 1) * this.sliderWidth
-                hidden = position <= this.minThreshold || position >= this.maxThreshold
+                // threshold for ticks disappearing under labels
+                let minThreshold = this.$refs.min.clientWidth + this.labelPadding
+                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
+                hidden = position <= minThreshold || position >= maxThreshold
             }
 
             return {

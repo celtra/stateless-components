@@ -1,0 +1,317 @@
+import Slider from '@/stateless/slider.vue'
+import Vue from 'vue'
+
+const Constructor = Vue.extend(Slider)
+let vm = null
+let dragEvent = { clientX: 300, preventDefault: () => {} }
+
+describe('Slider', () => {
+    beforeEach(() => {
+        vm = new Constructor({
+            propsData: {
+                min: 0.1,
+                max: 10,
+                step: 0.1,
+                theme: 'light',
+                size: 'normal',
+                label: 'Basic slider',
+                value: 5,
+                unit: '%',
+                alignment: 'right',
+            },
+        }).$mount()
+
+        vm.isDomReady = false
+        vm.$refs.bar = { clientWidth: 300, getBoundingClientRect: () => { return { x: 160 } }, focus: () => {} }
+    })
+
+    it('should match the snapshot', () => {
+        expect(vm.$el).toMatchSnapshot()
+    })
+
+    describe('computed', () => {
+        describe('limitValue', () => {
+            it('should be max', () => {
+                expect(vm.limitValue).toBe(10)
+            })
+
+            it('should be limit', () => {
+                vm.limit = 8
+
+                expect(vm.limitValue).toBe(8)
+            })
+        })
+
+        describe('minLabelValue', () => {
+            it('should be min', () => {
+                expect(vm.minLabelValue).toBe('0.1')
+            })
+
+            it('should be minLabel', () => {
+                vm.minLabel = 'minLabel'
+
+                expect(vm.minLabelValue).toBe('minLabel')
+            })
+        })
+
+        describe('maxLabelValue', () => {
+            it('should be limitValue', () => {
+                expect(vm.maxLabelValue).toBe('10')
+            })
+
+            it('should be maxLabel', () => {
+                vm.maxLabel = 'maxLabel'
+
+                expect(vm.maxLabelValue).toBe('maxLabel')
+            })
+        })
+
+        describe('index', () => {
+            it('should be 49', () => {
+                expect(vm.index).toBe(49)
+            })
+        })
+
+        describe('stepsCount', () => {
+            it('should be 99', () => {
+                expect(vm.stepsCount).toBe(99)
+            })
+        })
+
+        describe('stepPercentage', () => {
+            it('should be close to 0.01', () => {
+                expect(vm.stepPercentage).toBeCloseTo(0.01)
+            })
+        })
+
+        describe('position', () => {
+            it('should be 0', () => {
+                expect(vm.position).toBe(0)
+            })
+
+            it('should not be close to 148.48', () => {
+                vm.isDomReady = true
+
+                expect(vm.position).toBeCloseTo(148.48)
+            })
+        })
+
+        describe('sliderWidth', () => {
+            it('should be zero', () => {
+                expect(vm.sliderWidth).toBe(0)
+            })
+
+            it('should be some positive number', () => {
+                vm.isDomReady = true
+
+                expect(vm.sliderWidth).toBe(300)
+            })
+        })
+
+        describe('sliderOffset', () => {
+            it('should be zero', () => {
+                expect(vm.sliderOffset).toBe(0)
+            })
+
+            it('should be some positive number', () => {
+                vm.isDomReady = true
+
+                expect(vm.sliderOffset).toBe(160)
+            })
+        })
+
+        describe('decimalPlacesCount', () => {
+            it('should be 1', () => {
+                expect(vm.decimalPlacesCount).toBeCloseTo(1)
+            })
+
+            it('should be 0', () => {
+                vm.min = 0
+                vm.step = 1
+
+                expect(vm.decimalPlacesCount).toBe(0)
+            })
+        })
+
+        describe('isWholeNumber', () => {
+            it('should be false', () => {
+                expect(vm.isWholeNumber).toBe(false)
+            })
+
+            it('should be true', () => {
+                vm.min = 0
+                vm.step = 1
+
+                expect(vm.isWholeNumber).toBe(true)
+            })
+        })
+
+        describe('lastActiveIndex', () => {
+            it('should be close to 9.4', () => {
+                expect(vm.lastActiveIndex).toBeCloseTo(9.4)
+            })
+        })
+
+        describe('stateClass', () => {
+            it('should be default', () => {
+                expect(vm.stateClass).toEqual({
+                    'disabled': false,
+                    'changed': false,
+                    'dragging': false,
+                })
+            })
+
+            it('should be disabled', () => {
+                vm.disabled = true
+
+                expect(vm.stateClass).toEqual({
+                    'disabled': true,
+                    'changed': false,
+                    'dragging': false,
+                })
+            })
+
+            it('should be changed and dragging', () => {
+                vm.startDrag(dragEvent)
+
+                expect(vm.stateClass).toEqual({
+                    'disabled': false,
+                    'changed': true,
+                    'dragging': true,
+                })
+            })
+        })
+
+        describe('labelClass', () => {
+            it('should be min === true, max === false', () => {
+                expect(vm.labelsClass).toEqual({
+                    min: { active: true },
+                    max: { active: false },
+                })
+            })
+        })
+    })
+
+    describe('methods', () => {
+        describe('startDrag', () => {
+            it('should return null', () => {
+                vm.disabled = true
+            })
+        })
+
+        describe('startDrag', () => {
+            it('should return null', () => {
+                vm.disabled = true
+
+                expect(vm.startDrag(dragEvent)).toBeUndefined()
+            })
+
+            it('should set isChanged and isDragging to true', () => {
+                spyOn(vm, 'setPosition')
+
+                vm.startDrag(dragEvent)
+                expect(vm.isChanged).toBe(true)
+                expect(vm.isDragging).toBe(true)
+                expect(vm.setPosition).toHaveBeenCalled()
+            })
+        })
+
+        describe('setPosition', () => {
+            it('should emit new value', () => {
+                spyOn(vm, '$emit')
+
+                vm.setPosition(dragEvent)
+                expect(vm.$emit).toHaveBeenCalledWith('input', 10)
+            })
+        })
+
+        describe('stopDrag', () => {
+            it('should set isDragging to false', () => {
+                spyOn(vm, 'stopDrag')
+
+                vm.stopDrag()
+                expect(vm.isDragging).toBe(false)
+            })
+        })
+
+        describe('decreaseValue', () => {
+            it('should emit decreased value', () => {
+                spyOn(vm, '$emit')
+                vm.decreaseValue()
+                expect(vm.$emit).toHaveBeenCalled()
+            })
+
+            it ('should not emit anything', () => {
+                vm.value = 0.1
+
+                spyOn(vm, '$emit')
+                vm.decreaseValue()
+                expect(vm.$emit).not.toHaveBeenCalled()
+            })
+        })
+
+        describe('increaseValue', () => {
+            it('should emit increased value', () => {
+                spyOn(vm, '$emit')
+                vm.increaseValue()
+                expect(vm.$emit).toHaveBeenCalled()
+            })
+
+            it ('should not emit anything', () => {
+                vm.value = 100
+
+                spyOn(vm, '$emit')
+                vm.increaseValue()
+                expect(vm.$emit).not.toHaveBeenCalled()
+            })
+        })
+
+        describe('handleInput', () => {
+            it('should emit a number eg. 5', () => {
+                spyOn(vm, '$emit')
+                vm.handleInput(5)
+                expect(vm.$emit).toHaveBeenCalledWith('input', 5)
+            })
+
+            it('should emit null', () => {
+                spyOn(vm, '$emit')
+                vm.handleInput('error')
+                expect(vm.$emit).toHaveBeenCalledWith('input', null)
+            })
+        })
+
+        describe('isValidInput', () => {
+            it('should be true', () => {
+                expect(vm.isValidInput(5)).toBeNull()
+            })
+
+            it('should be false', () => {
+                expect(vm.isValidInput(0)).toBe('')
+            })
+
+            it('should be false', () => {
+                expect(vm.isValidInput(101)).toBe('')
+            })
+        })
+
+        describe('tickClass', () => {
+            it('should be active and hidden', () => {
+                vm.isDomReady = true
+
+                expect(vm.tickClass(1)).toEqual({
+                    'active': true,
+                    'hidden': true,
+                })
+            })
+
+            it('should be inactive and shown', () => {
+                vm.isDomReady = true
+
+                expect(vm.tickClass(15)).toEqual({
+                    'active': false,
+                    'hidden': false,
+                })
+            })
+        })
+    })
+})
