@@ -73,7 +73,7 @@ describe('Input', () => {
             })
 
             it('should set valid state', function () {
-                vm.text = 'AAA'
+                vm.value = 'AAA'
                 vm.isValid = (v) => true
 
                 vm.runValidations('')
@@ -132,10 +132,10 @@ describe('Input', () => {
             })
 
             it('should be text or label when not focused', function () {
-                vm.text = 'Value'
+                vm.value = 'Value'
 
                 expect(vm.mappedPlaceholderText).toBe("Value")
-                vm.text = null
+                vm.value = null
                 expect(vm.mappedPlaceholderText).toBe("Label")
             })
         })
@@ -177,40 +177,16 @@ describe('Input', () => {
             })
         })
 
-        describe('hasLeftUnit', () => {
-            it('should be true if has unit', function () {
-                vm.unit = { label: "Label", position: "left" }
-
-                expect(vm.hasLeftUnit).toBe(true)
-            })
-
-            it('should be false otherwise', function () {
-                expect(vm.hasLeftUnit).toBe(false)
-            })
-        })
-
-        describe('hasRightUnit', () => {
-            it('should be true if has unit', function () {
-                vm.unit = { label: "Label", position: "right" }
-
-                expect(vm.hasRightUnit).toBe(true)
-            })
-
-            it('should be false otherwise', function () {
-                expect(vm.hasRightUnit).toBe(false)
-            })
-        })
-
         describe('currentLength', () => {
             it('should return current length when text is null', function () {
                 vm.maxLength = 5
-                vm.text = null
+                vm.value = null
                 expect(vm.currentLength).toBe(0)
             })
 
             it('should return current length', function () {
                 vm.maxLength = 5
-                vm.text = "Test"
+                vm.value = "Test"
                 expect(vm.currentLength).toBe(4)
             })
         })
