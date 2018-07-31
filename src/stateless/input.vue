@@ -218,6 +218,9 @@ export default {
         if (this.type === 'float' && stepParts[1] && stepParts[1].length > this.decimalPrecision)
             throw new Error('Step cannot have more decimals then decimal precision.')
 
+        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
+            throw new Error('Only type text is compatible with autogrow and input length props.')
+
         this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : this.value
 
         this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
@@ -273,16 +276,6 @@ export default {
                 value = value.replace(/\n/g, '')
             }
 
-            if (this.maxLengthCap > 0) {
-                if (this.getCount) {
-                    while (this.getCount(value) > this.maxLengthCap) {
-                        value = value.substring(0, value.length - 1)
-                    }
-                } else {
-                    value = value.substring(0, this.maxLengthCap)
-                }
-            }
-
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
                 let numberValue = parseInt(value)
@@ -313,6 +306,21 @@ export default {
                     event.target.value = this.text
                 }
             } else {
+                if (this.maxLengthCap > 0) {
+                    if (this.getCount) {
+                        while (this.getCount(value) > this.maxLengthCap) {
+                            value = value.substring(0, value.length - 1)
+                        }
+                    } else {
+                        value = value.substring(0, this.maxLengthCap)
+                    }
+                }
+
+                if (value === this.lastEmittedValue) {
+                    // need to set input value directly because watcher will not detect any value changes when text in capped
+                    this.$refs.input.value = value
+                }
+
                 this.runValidations(value)
 
                 this.text = value
