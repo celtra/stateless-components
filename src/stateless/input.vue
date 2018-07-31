@@ -185,10 +185,10 @@ export default {
             return this.maxLength ? parseInt(this.maxLength, 10) : null
         },
         currentLength () {
-            if (!this.value) {
+            if (!this.text) {
                 return 0
             }
-            return this.getCount ? this.getCount(this.value) : this.value.length
+            return this.getCount ? this.getCount(this.text) : this.text.length
         },
         textareaClasses (){
             // Apparently you can't use a filter within array class binding in template

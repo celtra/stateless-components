@@ -194,13 +194,7 @@ describe('Slider', () => {
 
     describe('methods', () => {
         describe('startDrag', () => {
-            it('should return null', () => {
-                vm.disabled = true
-            })
-        })
-
-        describe('startDrag', () => {
-            it('should return null', () => {
+            it('should return undefined', () => {
                 vm.disabled = true
 
                 expect(vm.startDrag(dragEvent)).toBeUndefined()
@@ -227,8 +221,6 @@ describe('Slider', () => {
 
         describe('stopDrag', () => {
             it('should set isDragging to false', () => {
-                spyOn(vm, 'stopDrag')
-
                 vm.stopDrag()
                 expect(vm.isDragging).toBe(false)
             })
@@ -281,15 +273,15 @@ describe('Slider', () => {
         })
 
         describe('isValidInput', () => {
-            it('should be true', () => {
+            it('should be null', () => {
                 expect(vm.isValidInput(5)).toBeNull()
             })
 
-            it('should be false', () => {
+            it('should be empty string', () => {
                 expect(vm.isValidInput(0)).toBe('')
             })
 
-            it('should be false', () => {
+            it('should be empty string', () => {
                 expect(vm.isValidInput(101)).toBe('')
             })
         })
