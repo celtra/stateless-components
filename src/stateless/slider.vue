@@ -19,6 +19,7 @@
                     :is-valid="isValidInput"
                     :theme="theme"
                     :alignment="alignment"
+                    :locale="locale"
                     @input="handleInput"
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
@@ -73,6 +74,7 @@ export default {
         size: { type: String, default: 'normal' },
         alignment: { type: String, default: 'left' },
         isValid: { type: Function, required: false },
+        locale: { type: String, default: 'en-US' },
     },
     data () {
         return {
