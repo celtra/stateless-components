@@ -139,7 +139,7 @@ export default {
     },
     beforeCreate () {
         this.ticksCount = 20
-        this.labelPadding = 7
+        this.labelPadding = 6
     },
     created () {
         if (this.decimalPlacesCount > 1)
