@@ -73,7 +73,7 @@ describe('Input', () => {
             })
 
             it('should set valid state', function () {
-                vm.value = 'AAA'
+                vm.text = 'AAA'
                 vm.isValid = (v) => true
 
                 vm.runValidations('')
@@ -132,10 +132,10 @@ describe('Input', () => {
             })
 
             it('should be text or label when not focused', function () {
-                vm.value = 'Value'
+                vm.text = 'Value'
 
                 expect(vm.mappedPlaceholderText).toBe("Value")
-                vm.value = null
+                vm.text = null
                 expect(vm.mappedPlaceholderText).toBe("Label")
             })
         })
@@ -180,13 +180,13 @@ describe('Input', () => {
         describe('currentLength', () => {
             it('should return current length when text is null', function () {
                 vm.maxLength = 5
-                vm.value = null
+                vm.text = null
                 expect(vm.currentLength).toBe(0)
             })
 
             it('should return current length', function () {
                 vm.maxLength = 5
-                vm.value = "Test"
+                vm.text = "Test"
                 expect(vm.currentLength).toBe(4)
             })
         })
