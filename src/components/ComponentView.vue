@@ -12,7 +12,7 @@ export default {
     data () {
         return {
             name: null,
-            value: [],
+            value: null,
         }
     },
     computed: {
