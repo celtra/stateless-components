@@ -111,12 +111,15 @@ export default {
         minValue: { type: Number, required: false },
         maxValue: { type: Number, required: false },
         alignment: { type: String, default: 'left' },
+        decimalPrecision: { type: Number, default: 1 },
     },
     data () {
         return {
             warningMessage: null,
             errorMessage: null,
             focused: false,
+            text: '',
+            lastEmittedValue: null,
             passwordVisible: false,
             textareaOverflow: false,
             overlay: {
@@ -179,10 +182,6 @@ export default {
         maxLengthCap () {
             return this.maxLength ? parseInt(this.maxLength, 10) : null
         },
-        decimalPlacesCount () {
-            let decimals = this.step.toString().split('.')[1]
-            return decimals ? decimals.length : 0
-        },
         currentLength () {
             if (!this.value) {
                 return 0
@@ -193,15 +192,11 @@ export default {
             // Apparently you can't use a filter within array class binding in template
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
         },
-        text () {
-            this.runValidations(this.value)
-            return this.value !== null && this.value.toString() || ''
-        },
     },
     watch: {
         value () {
-            if (this.$refs.input && this.$refs.input.value !== this.text) {
-                this.$refs.input.value = this.text
+            if (this.value !== this.lastEmittedValue) {
+                this.text = this.type === 'float' ? this.value.toFixed(this.decimalPrecision) : this.value
             }
         },
         disabled (v) {
@@ -212,6 +207,16 @@ export default {
         error (v) {
             this.errorMessage = v === null ? true : v
         },
+    },
+    created () {
+        let stepParts = this.step.toString().split('.')
+        if (this.type === 'number' && stepParts.length > 1)
+            throw new Error('Decimal step cannot be used with type number.')
+
+        if (this.type === 'float' && stepParts[1] && stepParts[1].length > this.decimalPrecision)
+            throw new Error('Step cannot have more decimals then decimal precision.')
+
+        this.text = this.type === 'float' ? this.value.toFixed(this.decimalPrecision) : this.value
     },
     mounted () {
         this.$nextTick(() => {
@@ -252,6 +257,8 @@ export default {
             let value = event.target.value
 
             if (!value) {
+                this.text = null
+                this.lastEmittedValue = null
                 this.$emit('input', null)
                 return
             }
@@ -280,25 +287,32 @@ export default {
                 if (isNumeric && inRange && !isNaN(numberValue)) {
                     this.runValidations(numberValue)
 
+                    this.text = value
+                    this.lastEmittedValue = numberValue
                     this.$emit('input', numberValue)
                 } else {
-                    event.target.value = this.value
+                    event.target.value = this.text
                 }
             } else if (this.type === 'float') {
-                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
+                let isFloat = value.split('.').length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
                 let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
+                let decimals = value.split('.')[1]
                 let numberValue = parseFloat(value)
 
-                if (isNumeric && inRange && !isNaN(numberValue)) {
+                if (isFloat && inRange && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
                     this.runValidations(numberValue)
 
+                    this.text = value
+                    this.lastEmittedValue = numberValue
                     this.$emit('input', numberValue)
                 } else {
-                    event.target.value = this.value
+                    event.target.value = this.text
                 }
             } else {
                 this.runValidations(value)
 
+                this.text = value
+                this.lastEmittedValue = value
                 this.$emit('input', value || null)
             }
 
@@ -309,12 +323,16 @@ export default {
         numberIncrement (e) {
             if (this.type === 'number' || this.type === 'float') {
                 let numberValue = parseFloat(e.target.value)
+                if (isNaN(numberValue)) {
+                    numberValue = this.minValue || 0
+                }
                 if (!this.maxValue || numberValue < this.maxValue){
-                    numberValue += this.step
-                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                    this.runValidations(numberValue)
-                    event.target.value = numberValue
-                    this.$emit('input', numberValue)
+                    let incrementedNumber = Math.round((numberValue + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    this.runValidations(incrementedNumber)
+                    this.text = this.type === 'float' ? incrementedNumber.toFixed(this.decimalPrecision) : e.target.value
+                    event.target.value = incrementedNumber
+                    this.lastEmittedValue = incrementedNumber
+                    this.$emit('input', incrementedNumber)
                     e.preventDefault()
                 }
             }
@@ -322,12 +340,16 @@ export default {
         numberDecrement (e) {
             if (this.type === 'number' || this.type === 'float') {
                 let numberValue = parseFloat(e.target.value)
+                if (isNaN(numberValue)) {
+                    numberValue = this.minValue || 0
+                }
                 if (!this.minValue || numberValue > this.minValue){
-                    numberValue -= this.step
-                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                    this.runValidations(numberValue)
-                    event.target.value = numberValue
-                    this.$emit('input', numberValue)
+                    let decrementedNumber = Math.round((numberValue - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    this.runValidations(decrementedNumber)
+                    this.text = this.type === 'float' ? decrementedNumber.toFixed(this.decimalPrecision) : e.target.value
+                    event.target.value = decrementedNumber
+                    this.lastEmittedValue = decrementedNumber
+                    this.$emit('input', decrementedNumber)
                     e.preventDefault()
                 }
             }
