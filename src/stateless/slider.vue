@@ -88,10 +88,10 @@ export default {
             return this.limit || this.max
         },
         minLabelValue () {
-            return this.minLabel || this.min.toString()
+            return this.minLabel || this.min.toLocaleString(this.locale)
         },
         maxLabelValue () {
-            return this.maxLabel || this.limitValue.toString()
+            return this.maxLabel || this.limitValue.toString().toLocaleString(this.locale)
         },
         index () {
             return (this.value - this.min) / this.step
