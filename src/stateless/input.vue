@@ -25,7 +25,7 @@
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
                     <textarea v-if="autogrow" ref="inputHidden"
-                              :value="maxLengthNumber === null ? text : text.substring(0, maxLengthNumber)"
+                              :value="maxLengthNumber === null ? text : text ? text.substring(0, maxLengthNumber) : null"
                               class="input-row__placeholder-text input-row__textarea"
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
