@@ -12,7 +12,7 @@
                     :type="isWholeNumber ? 'number' : 'float'"
                     :size="size"
                     :disabled="disabled"
-                    :value="value.toFixed(decimalPlacesCount)"
+                    :value="value"
                     :step="step"
                     :min-value="min"
                     :max-value="max"
