@@ -112,15 +112,17 @@ export default {
         maxValue: { type: Number, required: false },
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
+        locale: { type: String, default: 'en-US' },
     },
     data () {
         return {
             warningMessage: null,
             errorMessage: null,
             focused: false,
-            text: '',
+            text: null,
             lastEmittedValue: null,
             passwordVisible: false,
+            decimalSeperator: null,
             textareaOverflow: false,
             overlay: {
                 open: false,
@@ -196,7 +198,7 @@ export default {
     watch: {
         value () {
             if (this.value !== this.lastEmittedValue) {
-                this.text = this.type === 'float' ? this.value.toFixed(this.decimalPrecision) : this.value
+                this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : this.value
             }
         },
         disabled (v) {
@@ -209,14 +211,16 @@ export default {
         },
     },
     created () {
-        let stepParts = this.step.toString().split('.')
+        let stepParts = this.step.toString().split(this.decimalSeperator)
         if (this.type === 'number' && stepParts.length > 1)
             throw new Error('Decimal step cannot be used with type number.')
 
         if (this.type === 'float' && stepParts[1] && stepParts[1].length > this.decimalPrecision)
             throw new Error('Step cannot have more decimals then decimal precision.')
 
-        this.text = this.type === 'float' ? this.value.toFixed(this.decimalPrecision) : this.value
+        this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : this.value
+
+        this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
     },
     mounted () {
         this.$nextTick(() => {
@@ -281,8 +285,8 @@ export default {
 
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
-                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
                 let numberValue = parseInt(value)
+                let inRange = (this.minValue ? this.minValue <= numberValue : true) && (this.maxValue ? numberValue <= this.maxValue : true)
 
                 if (isNumeric && inRange && !isNaN(numberValue)) {
                     this.runValidations(numberValue)
@@ -294,10 +298,10 @@ export default {
                     event.target.value = this.text
                 }
             } else if (this.type === 'float') {
-                let isFloat = value.split('.').length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
-                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
-                let decimals = value.split('.')[1]
-                let numberValue = parseFloat(value)
+                let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
+                let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
+                let inRange = (this.minValue ? this.minValue <= numberValue : true) && (this.maxValue ? numberValue <= this.maxValue : true)
+                let decimals = value.split(this.decimalSeperator)[1]
 
                 if (isFloat && inRange && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
                     this.runValidations(numberValue)
@@ -322,14 +326,14 @@ export default {
         },
         numberIncrement (e) {
             if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value)
+                let numberValue = parseFloat(e.target.value.replace(this.decimalSeperator, '.'))
                 if (isNaN(numberValue)) {
                     numberValue = this.minValue || 0
                 }
                 if (!this.maxValue || numberValue < this.maxValue){
                     let incrementedNumber = Math.round((numberValue + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
                     this.runValidations(incrementedNumber)
-                    this.text = this.type === 'float' ? incrementedNumber.toFixed(this.decimalPrecision) : e.target.value
+                    this.text = this.type === 'float' ? incrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : incrementedNumber
                     event.target.value = incrementedNumber
                     this.lastEmittedValue = incrementedNumber
                     this.$emit('input', incrementedNumber)
@@ -339,14 +343,14 @@ export default {
         },
         numberDecrement (e) {
             if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value)
+                let numberValue = parseFloat(e.target.value.replace(this.decimalSeperator, '.'))
                 if (isNaN(numberValue)) {
                     numberValue = this.minValue || 0
                 }
                 if (!this.minValue || numberValue > this.minValue){
                     let decrementedNumber = Math.round((numberValue - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
                     this.runValidations(decrementedNumber)
-                    this.text = this.type === 'float' ? decrementedNumber.toFixed(this.decimalPrecision) : e.target.value
+                    this.text = this.type === 'float' ? decrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : decrementedNumber
                     event.target.value = decrementedNumber
                     this.lastEmittedValue = decrementedNumber
                     this.$emit('input', decrementedNumber)
