@@ -12,7 +12,7 @@
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
-            <div :style="{height: optionsMaxHeight}" class="multiselect__loading">
+            <div class="multiselect__loading">
                 <icon v-if="isLoading" name="loading" class="spin multiselect__loading-icon" />
             </div>
 
@@ -321,7 +321,7 @@ export default {
     .multiselect__loading-icon.multiselect__loading-icon {
         position: absolute;
         z-index: @z-index-new-dialog + 100;
-        top: calc(50% - 75px);
+        top: 0px;
         width: 100%;
         height: 150px;
         opacity: 0.8;
