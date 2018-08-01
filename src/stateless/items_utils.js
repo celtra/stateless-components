@@ -46,7 +46,15 @@ export function filter (items, fn) {
 }
 
 export function sort (items, fn) {
-    return items.slice().sort(fn).map(item => {
+    let keys = items.map(x => x.key)
+    return items.slice().sort((x, y) => {
+        let fnValue = fn(x, y)
+        if (fnValue === 0) {
+            return keys.indexOf(x.key) - keys.indexOf(y.key)
+        } else {
+            return fnValue
+        }
+    }).map(item => {
         if (item.items) {
             return {
                 ...item,

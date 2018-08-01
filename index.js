@@ -1000,7 +1000,17 @@ function filter(items, fn) {
 }
 
 function sort(items, fn) {
-    return items.slice().sort(fn).map(function (item) {
+    var keys = items.map(function (x) {
+        return x.key;
+    });
+    return items.slice().sort(function (x, y) {
+        var fnValue = fn(x, y);
+        if (fnValue === 0) {
+            return keys.indexOf(x.key) - keys.indexOf(y.key);
+        } else {
+            return fnValue;
+        }
+    }).map(function (item) {
         if (item.items) {
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item, {
                 items: sort(item.items, fn)
