@@ -46,11 +46,11 @@ export function filter (items, fn) {
 }
 
 export function sort (items, fn) {
-    let keys = items.map(x => x.key)
+    let keys = items.map(x => x.key || x.id)
     return items.slice().sort((x, y) => {
         let fnValue = fn(x, y)
         if (fnValue === 0) {
-            return keys.indexOf(x.key) - keys.indexOf(y.key)
+            return keys.indexOf(x.key || x.id) - keys.indexOf(y.key || y.id)
         } else {
             return fnValue
         }

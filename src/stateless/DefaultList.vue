@@ -1,6 +1,6 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
-        <transition-group v-if="transitionSorting" name="default-list__item" tag="div">
+        <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
@@ -55,6 +55,7 @@ export default {
         return {
             activeId: null,
             renderAllItems: false,
+            canTransition: true,
         }
     },
     computed: {
@@ -66,6 +67,44 @@ export default {
                 return flatItems
             }
             return flatItems.slice(0, MIN_NUM_ITEMS)
+        },
+    },
+    watch: {
+        items (v, ov) {
+            let getCount = (items) => {
+                let count = 0
+                for (let item of items) {
+                    count += 1
+                    if (item.items)
+                        count += getCount(item.items)
+                }
+                return count
+            }
+
+            let getDeltaCount = (a, b) => {
+                let aKeys = a.map(x => x.key || x.id)
+                let bKeys = b.map(x => x.key || x.id)
+                let onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
+                let onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
+                let intersection = a.filter(x => bKeys.includes(x.key || x.id))
+
+                let count = getCount(onlyA) + getCount(onlyB)
+                for (let aItem of intersection) {
+                    let bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
+
+                    if (aItem.items && bItem.items) {
+                        count += getDeltaCount(aItem.items, bItem.items)
+                    } else if (aItem.items) {
+                        count += getCount(aItem.items)
+                    } else if (bItem.items) {
+                        count += getCount(bItem.items)
+                    }
+                }
+
+                return count
+            }
+
+            this.canTransition = getDeltaCount(v, ov) <= 5
         },
     },
     mounted () {
