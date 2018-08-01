@@ -105,6 +105,29 @@ export default {
         listItems () {
             let result = this.allOptions
 
+            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
+            if (cleanQuery.length > 0) {
+                let searchFn = option => {
+                    if (option.items) {
+                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
+                            return 1
+                        }
+                    } else {
+                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
+                            return 4
+                        } else if (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0) {
+                            return 3
+                        } else if (option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery) >= 0) {
+                            return 2
+                        }
+                    }
+                    return 0
+                }
+
+                result = itemsUtils.filter(result, x => searchFn(x) > 0)
+                result = itemsUtils.sort(result, (a, b) => searchFn(b) - searchFn(a))
+            }
+
             if (this.autoReorder) {
                 result = itemsUtils.sort(result, (x, y) => {
                     if (!this.areGroupsSelectable && (x.items || y.items)) {
@@ -114,17 +137,18 @@ export default {
                     let isCheckedX = this.isChecked(x)
                     let isCheckedY = this.isChecked(y)
 
-                    if (isCheckedX === isCheckedY) {
-                        return 0
-                    } else if (isCheckedX === true) {
-                        return -1
-                    } else if (isCheckedY === true) {
-                        return 1
-                    } else if (isCheckedX === null) {
-                        return -1
-                    } else if (isCheckedY === null) {
-                        return 1
+                    if (isCheckedX !== isCheckedY) {
+                        if (isCheckedX === true) {
+                            return -1
+                        } else if (isCheckedY === true) {
+                            return 1
+                        } else if (isCheckedX === null) {
+                            return -1
+                        } else if (isCheckedY === null) {
+                            return 1
+                        }
                     }
+
                     return 0
                 })
 
@@ -136,14 +160,6 @@ export default {
 
                     result = selectedItems.concat(unselectedItems)
                 }
-            }
-
-            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
-            if (cleanQuery.length > 0) {
-                result = itemsUtils.filter(result, (option) => {
-                    return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
-                        (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0)
-                })
             }
 
             return result
