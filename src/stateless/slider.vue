@@ -215,8 +215,8 @@ export default {
         handleInput (value) {
             this.$emit('input', value)
         },
-        isValidInput (value, onError) {
-            return (value < this.min || this.max < value) ? '' : null
+        isValidInput (value) {
+            return (!value || value < this.min || this.max < value) ? '' : null
         },
         tickClass (index) {
             let hidden = false

@@ -266,6 +266,7 @@ export default {
             let value = event.target.value
 
             if (!value) {
+                this.runValidations(value)
                 this.text = null
                 this.lastEmittedValue = null
                 this.$emit('input', null)
