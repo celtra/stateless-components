@@ -72,7 +72,7 @@
                     </template>
                 </div>
 
-                <div v-if="maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
+                <div v-if="counter && maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
                     <template v-if="currentLength > maxLengthNumber">
                         <span class="input-row__unit--warning">{{ currentLength }}</span>/{{ maxLengthNumber }}
                     </template>
@@ -105,6 +105,7 @@ export default {
         theme: { type: String, required: false, default: 'dark' },
         recommendedMaxLength: { type: Number, required: false },
         maxLength: { type: Number, required: false },
+        counter: { type: Boolean, default: true },
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
         step: { type: Number, default: 1 },
