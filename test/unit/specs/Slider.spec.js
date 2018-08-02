@@ -259,16 +259,10 @@ describe('Slider', () => {
         })
 
         describe('handleInput', () => {
-            it('should emit a number eg. 5', () => {
+            it('should proxy event', () => {
                 spyOn(vm, '$emit')
-                vm.handleInput(5)
-                expect(vm.$emit).toHaveBeenCalledWith('input', 5)
-            })
-
-            it('should emit null', () => {
-                spyOn(vm, '$emit')
-                vm.handleInput('error')
-                expect(vm.$emit).toHaveBeenCalledWith('input', null)
+                vm.handleInput('value')
+                expect(vm.$emit).toHaveBeenCalledWith('input', 'value')
             })
         })
 

@@ -213,8 +213,7 @@ export default {
             }
         },
         handleInput (value) {
-            let number = parseFloat(value)
-            this.$emit('input', isNaN(number) ? null : number)
+            this.$emit('input', value)
         },
         isValidInput (value, onError) {
             return (value < this.min || this.max < value) ? '' : null

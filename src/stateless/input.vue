@@ -198,7 +198,8 @@ export default {
     watch: {
         value () {
             if (this.value !== this.lastEmittedValue) {
-                this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : this.value
+                this.runValidations(this.value)
+                this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
             }
         },
         disabled (v) {
@@ -221,7 +222,7 @@ export default {
         if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
             throw new Error('Only type text is compatible with autogrow and input length props.')
 
-        this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : this.value
+        this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
 
         this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
     },
@@ -276,15 +277,47 @@ export default {
                 value = value.replace(/\n/g, '')
             }
 
+            let trimLeadingZeros = (value) => {
+                let parts = value.split(this.decimalSeperator)
+                let wholeNumber = parts[0].replace(/^0*/, '')
+                wholeNumber = wholeNumber.length === 0 ? '0' : wholeNumber
+                return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
+            }
+
+            let fitRange = (numberValue) => {
+                if (this.maxValue && numberValue > this.maxValue) {
+                    numberValue = this.maxValue
+                } else if (this.minValue && numberValue < this.minValue) {
+                    numberValue = this.minValue
+                }
+                return numberValue
+            }
+
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
                 let numberValue = parseInt(value)
-                let inRange = (this.minValue ? this.minValue <= numberValue : true) && (this.maxValue ? numberValue <= this.maxValue : true)
 
-                if (isNumeric && inRange && !isNaN(numberValue)) {
+                if (isNumeric && !isNaN(numberValue)) {
+                    let fittedNumberValue = fitRange(numberValue)
+                    if (fittedNumberValue !== numberValue) {
+                        numberValue = fittedNumberValue
+                        value = numberValue.toString()
+                    }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                    }
+
                     this.runValidations(numberValue)
 
-                    this.text = value
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
                     this.lastEmittedValue = numberValue
                     this.$emit('input', numberValue)
                 } else {
@@ -293,13 +326,31 @@ export default {
             } else if (this.type === 'float') {
                 let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
                 let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
-                let inRange = (this.minValue ? this.minValue <= numberValue : true) && (this.maxValue ? numberValue <= this.maxValue : true)
                 let decimals = value.split(this.decimalSeperator)[1]
 
-                if (isFloat && inRange && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
+                if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
+                    let fittedNumberValue = fitRange(numberValue)
+                    if (fittedNumberValue !== numberValue) {
+                        numberValue = fittedNumberValue
+                        value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
+                        this.$refs.input.value = value
+                    }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                        this.$refs.input.value = value
+                    }
+
                     this.runValidations(numberValue)
 
-                    this.text = value
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
                     this.lastEmittedValue = numberValue
                     this.$emit('input', numberValue)
                 } else {
@@ -314,11 +365,9 @@ export default {
                     } else {
                         value = value.substring(0, this.maxLengthCap)
                     }
-                }
 
-                if (value === this.lastEmittedValue) {
-                    // need to set input value directly because watcher will not detect any value changes when text in capped
-                    this.$refs.input.value = value
+                    // need to reset input value because watcher will not detect any value changes when text in capped
+                    event.target.value = value
                 }
 
                 this.runValidations(value)
@@ -339,9 +388,14 @@ export default {
                     numberValue = this.minValue || 0
                 }
                 if (!this.maxValue || numberValue < this.maxValue){
-                    let incrementedNumber = Math.round((numberValue + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    let incrementedNumber
+                    if (this.minValue && this.minValue > numberValue) {
+                        incrementedNumber = this.minValue
+                    } else {
+                        incrementedNumber = Math.round((numberValue + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    }
                     this.runValidations(incrementedNumber)
-                    this.text = this.type === 'float' ? incrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : incrementedNumber
+                    this.text = this.type === 'float' ? incrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : incrementedNumber
                     event.target.value = incrementedNumber
                     this.lastEmittedValue = incrementedNumber
                     this.$emit('input', incrementedNumber)
@@ -356,9 +410,14 @@ export default {
                     numberValue = this.minValue || 0
                 }
                 if (!this.minValue || numberValue > this.minValue){
-                    let decrementedNumber = Math.round((numberValue - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    let decrementedNumber
+                    if (this.maxValue && this.maxValue < numberValue) {
+                        decrementedNumber = this.maxValue
+                    } else {
+                        decrementedNumber = Math.round((numberValue - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                    }
                     this.runValidations(decrementedNumber)
-                    this.text = this.type === 'float' ? decrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision }) : decrementedNumber
+                    this.text = this.type === 'float' ? decrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : decrementedNumber
                     event.target.value = decrementedNumber
                     this.lastEmittedValue = decrementedNumber
                     this.$emit('input', decrementedNumber)
