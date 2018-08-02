@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import (reference) './variables';
 .typeahead-multiselect {
     &__item {
         display: flex;
@@ -61,7 +62,8 @@ export default {
     }
 
     &__item-label {
-        font-size: 15px;
+        font-size: 14px;
+        color: @gunpowder;
     }
 
     &__item-metadata {
@@ -69,14 +71,15 @@ export default {
         align-items: center;
 
         > span {
-            font-size: 12px;
-            color: #aaa;
+            font-size: 14px;
+            color: @bluish-gray;
         }
     }
 
     &__item-remove {
-        margin-left: 10px;
+        margin-left: 5px;
         cursor: pointer;
+        color: @gunpowder;
     }
 }
 </style>

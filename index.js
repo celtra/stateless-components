@@ -20896,7 +20896,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TypeaheadMultiselect_vue__ = __webpack_require__(93);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_68d883e9_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TypeaheadMultiselect_vue__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24be914a_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TypeaheadMultiselect_vue__ = __webpack_require__(242);
 function injectStyle (ssrContext) {
   __webpack_require__(240)
 }
@@ -20911,12 +20911,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-68d883e9"
+var __vue_scopeId__ = "data-v-24be914a"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TypeaheadMultiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_68d883e9_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TypeaheadMultiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24be914a_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TypeaheadMultiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20937,7 +20937,7 @@ var content = __webpack_require__(241);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("82aedca2", content, true, {});
+var update = __webpack_require__(1)("5d7a110a", content, true, {});
 
 /***/ }),
 /* 241 */
@@ -20948,7 +20948,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.typeahead-multiselect__item[data-v-68d883e9] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-top: 15px;\n}\n.typeahead-multiselect__item-label[data-v-68d883e9] {\n  font-size: 15px;\n}\n.typeahead-multiselect__item-metadata[data-v-68d883e9] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.typeahead-multiselect__item-metadata > span[data-v-68d883e9] {\n  font-size: 12px;\n  color: #aaa;\n}\n.typeahead-multiselect__item-remove[data-v-68d883e9] {\n  margin-left: 10px;\n  cursor: pointer;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/TypeaheadMultiselect.vue"],"names":[],"mappings":";AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,iBAAiB;CAClB;AACD;EACE,gBAAgB;CACjB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,gBAAgB;EAChB,YAAY;CACb;AACD;EACE,kBAAkB;EAClB,gBAAgB;CACjB","file":"TypeaheadMultiselect.vue","sourcesContent":["\n.typeahead-multiselect__item[data-v-68d883e9] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-top: 15px;\n}\n.typeahead-multiselect__item-label[data-v-68d883e9] {\n  font-size: 15px;\n}\n.typeahead-multiselect__item-metadata[data-v-68d883e9] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.typeahead-multiselect__item-metadata > span[data-v-68d883e9] {\n  font-size: 12px;\n  color: #aaa;\n}\n.typeahead-multiselect__item-remove[data-v-68d883e9] {\n  margin-left: 10px;\n  cursor: pointer;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.typeahead-multiselect__item[data-v-24be914a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-top: 15px;\n}\n.typeahead-multiselect__item-label[data-v-24be914a] {\n  font-size: 14px;\n  color: #444450;\n}\n.typeahead-multiselect__item-metadata[data-v-24be914a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.typeahead-multiselect__item-metadata > span[data-v-24be914a] {\n  font-size: 14px;\n  color: #939399;\n}\n.typeahead-multiselect__item-remove[data-v-24be914a] {\n  margin-left: 5px;\n  cursor: pointer;\n  color: #444450;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/TypeaheadMultiselect.vue"],"names":[],"mappings":";AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,iBAAiB;CAClB;AACD;EACE,gBAAgB;EAChB,eAAe;CAChB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,gBAAgB;EAChB,eAAe;CAChB;AACD;EACE,iBAAiB;EACjB,gBAAgB;EAChB,eAAe;CAChB","file":"TypeaheadMultiselect.vue","sourcesContent":["\n.typeahead-multiselect__item[data-v-24be914a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-top: 15px;\n}\n.typeahead-multiselect__item-label[data-v-24be914a] {\n  font-size: 14px;\n  color: #444450;\n}\n.typeahead-multiselect__item-metadata[data-v-24be914a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.typeahead-multiselect__item-metadata > span[data-v-24be914a] {\n  font-size: 14px;\n  color: #939399;\n}\n.typeahead-multiselect__item-remove[data-v-24be914a] {\n  margin-left: 5px;\n  cursor: pointer;\n  color: #444450;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
