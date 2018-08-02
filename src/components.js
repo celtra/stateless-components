@@ -183,5 +183,25 @@ export default {
     },
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
+        rootCss: {
+            width: '450px',
+        },
+        defaultProps: {
+            label: 'Something',
+            value: [],
+            getSuggestions: (text) => {
+                return [
+                    { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                    { id: '2', label: "Lorem" },
+                    { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
+                ]
+            },
+            isValid: (text) => {
+                if (text.indexOf('@') === -1) {
+                    return 'Not a valid email address'
+                }
+                return null
+            },
+        },
     },
 }

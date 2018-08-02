@@ -1,6 +1,6 @@
 <template>
     <div class="typeahead-multiselect">
-        <typeahead v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :theme="theme" @select="selectItem"></typeahead>
+        <typeahead v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :close-on-select="false" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
 
         <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
             <div class="typeahead-multiselect__item-label">{{ item.label }}</div>
@@ -22,11 +22,12 @@ export default {
         Typeahead,
     },
     props: {
-        theme: { type: String, default: 'light' },
         label: { type: String, required: true },
         value: { type: Array, required: true },
         getSuggestions: { type: Function, required: true },
-        noItemsText: { type: String, default: 'No items found' },
+        noItemsText: { type: String, default: 'No items' },
+        theme: { type: String, default: 'light' },
+        isValid: { type: Function, required: false },
     },
     data () {
         return {
