@@ -73,15 +73,15 @@ export default {
         DefaultListItem,
     },
     props: {
-        value: { type: Array, required: true },
-        options: { type: Array, required: true },
+        value: { type: Array },
+        options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
-        getOptions: { type: Function },
+        getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
@@ -109,23 +109,31 @@ export default {
             if (cleanQuery.length > 0) {
                 let searchFn = option => {
                     if (option.items) {
-                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 1
+                        let index = option.label && option.label.toLowerCase().indexOf(cleanQuery)
+                        if (index >= 0) {
+                            return index === 0 ? 50 : 49
                         }
                     } else {
-                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 4
-                        } else if (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 3
-                        } else if (option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 2
+                        let labelIndex = option.label && option.label.toLowerCase().indexOf(cleanQuery)
+                        if (labelIndex >= 0) {
+                            return labelIndex === 0 ? 100 : 99
+                        }
+
+                        let metadataIndex = option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery)
+                        if (metadataIndex >= 0) {
+                            return metadataIndex === 0 ? 90 : 89
+                        }
+
+                        let tooltipIndex = option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery)
+                        if (tooltipIndex >= 0) {
+                            return tooltipIndex === 0 ? 80 : 79
                         }
                     }
                     return 0
                 }
 
                 result = itemsUtils.filter(result, x => searchFn(x) > 0)
-                result = itemsUtils.sort(result, (a, b) => searchFn(b) - searchFn(a))
+                result = itemsUtils.sortBy(result, searchFn)
             }
 
             if (this.autoReorder) {

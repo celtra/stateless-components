@@ -72,9 +72,8 @@ export default {
     watch: {
         items (v, ov) {
             let getCount = (items) => {
-                let count = 0
+                let count = items.length
                 for (let item of items) {
-                    count += 1
                     if (item.items)
                         count += getCount(item.items)
                 }

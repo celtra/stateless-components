@@ -66,6 +66,10 @@ export function sort (items, fn) {
     })
 }
 
+export function sortBy (items, fn) {
+    return sort(items, (a, b) => fn(b) - fn(a))
+}
+
 export function getLeafIds (item) {
     let children = Array.isArray(item) ? item : item.items
 

@@ -920,6 +920,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["map"] = map;
 /* harmony export (immutable) */ __webpack_exports__["filter"] = filter;
 /* harmony export (immutable) */ __webpack_exports__["sort"] = sort;
+/* harmony export (immutable) */ __webpack_exports__["sortBy"] = sortBy;
 /* harmony export (immutable) */ __webpack_exports__["getLeafIds"] = getLeafIds;
 /* harmony export (immutable) */ __webpack_exports__["flatten"] = flatten;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(19);
@@ -1018,6 +1019,12 @@ function sort(items, fn) {
         } else {
             return item;
         }
+    });
+}
+
+function sortBy(items, fn) {
+    return sort(items, function (a, b) {
+        return fn(b) - fn(a);
     });
 }
 
@@ -1151,7 +1158,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__ = __webpack_require__(80);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_150429d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_25bf67b2_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(201);
 function injectStyle (ssrContext) {
   __webpack_require__(193)
 }
@@ -1166,12 +1173,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-150429d8"
+var __vue_scopeId__ = "data-v-25bf67b2"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_150429d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_25bf67b2_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -4067,15 +4074,15 @@ module.exports = function (C, x) {
         DefaultListItem: __WEBPACK_IMPORTED_MODULE_5__DefaultListItem_vue__["a" /* default */]
     },
     props: {
-        value: { type: Array, required: true },
-        options: { type: Array, required: true },
+        value: { type: Array },
+        options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
-        getOptions: { type: Function },
+        getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
@@ -4106,16 +4113,24 @@ module.exports = function (C, x) {
             if (cleanQuery.length > 0) {
                 var searchFn = function searchFn(option) {
                     if (option.items) {
-                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 1;
+                        var index = option.label && option.label.toLowerCase().indexOf(cleanQuery);
+                        if (index >= 0) {
+                            return index === 0 ? 50 : 49;
                         }
                     } else {
-                        if (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 4;
-                        } else if (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 3;
-                        } else if (option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery) >= 0) {
-                            return 2;
+                        var labelIndex = option.label && option.label.toLowerCase().indexOf(cleanQuery);
+                        if (labelIndex >= 0) {
+                            return labelIndex === 0 ? 100 : 99;
+                        }
+
+                        var metadataIndex = option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery);
+                        if (metadataIndex >= 0) {
+                            return metadataIndex === 0 ? 90 : 89;
+                        }
+
+                        var tooltipIndex = option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery);
+                        if (tooltipIndex >= 0) {
+                            return tooltipIndex === 0 ? 80 : 79;
                         }
                     }
                     return 0;
@@ -4124,9 +4139,7 @@ module.exports = function (C, x) {
                 result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["filter"](result, function (x) {
                     return searchFn(x) > 0;
                 });
-                result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["sort"](result, function (a, b) {
-                    return searchFn(b) - searchFn(a);
-                });
+                result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["sortBy"](result, searchFn);
             }
 
             if (this.autoReorder) {
@@ -4526,7 +4539,7 @@ module.exports = function (C, x) {
     watch: {
         items: function items(v, ov) {
             var getCount = function getCount(items) {
-                var count = 0;
+                var count = items.length;
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
@@ -4535,7 +4548,6 @@ module.exports = function (C, x) {
                     for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(items), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var item = _step.value;
 
-                        count += 1;
                         if (item.items) count += getCount(item.items);
                     }
                 } catch (err) {
@@ -19215,7 +19227,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__ = __webpack_require__(78);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_318bff01_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_418786d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(203);
 function injectStyle (ssrContext) {
   __webpack_require__(186)
   __webpack_require__(188)
@@ -19231,12 +19243,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-318bff01"
+var __vue_scopeId__ = "data-v-418786d8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_318bff01_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_418786d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19257,7 +19269,7 @@ var content = __webpack_require__(187);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("24491f3e", content, true, {});
+var update = __webpack_require__(1)("2a324788", content, true, {});
 
 /***/ }),
 /* 187 */
@@ -19268,7 +19280,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.multiselect[data-v-318bff01] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-318bff01] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-318bff01] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-318bff01] {\n  position: relative;\n}\n.multiselect__options[data-v-318bff01] {\n  padding-bottom: 10px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-318bff01] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-318bff01] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-318bff01] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-318bff01] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n.multiselect__select-all-label[data-v-318bff01] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-318bff01] {\n  color: #939399;\n  font-size: 11px;\n  margin-top: 10px;\n  height: 20px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-318bff01] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-318bff01] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__checkbox[data-v-318bff01] {\n  width: 100%;\n}\n.multiselect__loading[data-v-318bff01] {\n  margin-top: 5px;\n  position: absolute;\n  width: 100%;\n}\n.multiselect .multiselect__loading-icon.multiselect__loading-icon[data-v-318bff01] {\n  position: absolute;\n  z-index: 5100;\n  top: 0px;\n  width: 100%;\n  height: 150px;\n  opacity: 0.8;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-318bff01] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-318bff01] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-318bff01] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-318bff01] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-318bff01] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-318bff01]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-318bff01]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-318bff01]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-318bff01]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;EAC1C,6BAA6B;CAC9B;AACD;EACE,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,qBAAqB;EACrB,YAAY;CACb;AACD;EACE,OAAO;CACR;AACD;EACE,UAAU;CACX;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;CACpB;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,aAAa;EACb,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,cAAc;EACd,SAAS;EACT,YAAY;EACZ,cAAc;EACd,aAAa;CACd;AACD;EACE,oGAAoG;EACpG,kEAAkE;CACnE;AACD;EACE,oGAAoG;EACpG,gEAAgE;CACjE;AACD;EACE,uGAAuG;EACvG,qEAAqE;CACtE;AACD;EACE,uGAAuG;EACvG,mEAAmE;CACpE;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,0BAA0B;CAC3B;AACD;EACE,8BAA8B;CAC/B","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-318bff01] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-318bff01] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-318bff01] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-318bff01] {\n  position: relative;\n}\n.multiselect__options[data-v-318bff01] {\n  padding-bottom: 10px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-318bff01] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-318bff01] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-318bff01] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-318bff01] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n.multiselect__select-all-label[data-v-318bff01] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-318bff01] {\n  color: #939399;\n  font-size: 11px;\n  margin-top: 10px;\n  height: 20px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-318bff01] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-318bff01] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__checkbox[data-v-318bff01] {\n  width: 100%;\n}\n.multiselect__loading[data-v-318bff01] {\n  margin-top: 5px;\n  position: absolute;\n  width: 100%;\n}\n.multiselect .multiselect__loading-icon.multiselect__loading-icon[data-v-318bff01] {\n  position: absolute;\n  z-index: 5100;\n  top: 0px;\n  width: 100%;\n  height: 150px;\n  opacity: 0.8;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-318bff01] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-318bff01] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-318bff01] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-318bff01] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-318bff01] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-318bff01]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-318bff01]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-318bff01]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-318bff01]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.multiselect[data-v-418786d8] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-418786d8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-418786d8] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-418786d8] {\n  position: relative;\n}\n.multiselect__options[data-v-418786d8] {\n  padding-bottom: 10px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-418786d8] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-418786d8] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-418786d8] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-418786d8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n.multiselect__select-all-label[data-v-418786d8] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-418786d8] {\n  color: #939399;\n  font-size: 11px;\n  margin-top: 10px;\n  height: 20px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-418786d8] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-418786d8] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__checkbox[data-v-418786d8] {\n  width: 100%;\n}\n.multiselect__loading[data-v-418786d8] {\n  margin-top: 5px;\n  position: absolute;\n  width: 100%;\n}\n.multiselect .multiselect__loading-icon.multiselect__loading-icon[data-v-418786d8] {\n  position: absolute;\n  z-index: 5100;\n  top: 0px;\n  width: 100%;\n  height: 150px;\n  opacity: 0.8;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-418786d8] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-418786d8] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-418786d8] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-418786d8] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-418786d8] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-418786d8]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-418786d8]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-418786d8]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-418786d8]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;EAC1C,6BAA6B;CAC9B;AACD;EACE,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,qBAAqB;EACrB,YAAY;CACb;AACD;EACE,OAAO;CACR;AACD;EACE,UAAU;CACX;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;CACpB;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,aAAa;EACb,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,cAAc;EACd,SAAS;EACT,YAAY;EACZ,cAAc;EACd,aAAa;CACd;AACD;EACE,oGAAoG;EACpG,kEAAkE;CACnE;AACD;EACE,oGAAoG;EACpG,gEAAgE;CACjE;AACD;EACE,uGAAuG;EACvG,qEAAqE;CACtE;AACD;EACE,uGAAuG;EACvG,mEAAmE;CACpE;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,0BAA0B;CAC3B;AACD;EACE,8BAA8B;CAC/B","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-418786d8] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-418786d8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-418786d8] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-418786d8] {\n  position: relative;\n}\n.multiselect__options[data-v-418786d8] {\n  padding-bottom: 10px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-418786d8] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-418786d8] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-418786d8] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-418786d8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n.multiselect__select-all-label[data-v-418786d8] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-418786d8] {\n  color: #939399;\n  font-size: 11px;\n  margin-top: 10px;\n  height: 20px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-418786d8] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-418786d8] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__checkbox[data-v-418786d8] {\n  width: 100%;\n}\n.multiselect__loading[data-v-418786d8] {\n  margin-top: 5px;\n  position: absolute;\n  width: 100%;\n}\n.multiselect .multiselect__loading-icon.multiselect__loading-icon[data-v-418786d8] {\n  position: absolute;\n  z-index: 5100;\n  top: 0px;\n  width: 100%;\n  height: 150px;\n  opacity: 0.8;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-418786d8] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-418786d8] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-418786d8] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-418786d8] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-418786d8] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-418786d8]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-418786d8]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-418786d8]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-418786d8]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19284,7 +19296,7 @@ var content = __webpack_require__(189);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("b02d14ce", content, true, {});
+var update = __webpack_require__(1)("4c4b851e", content, true, {});
 
 /***/ }),
 /* 189 */
@@ -19348,7 +19360,7 @@ var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("d895178a", content, true, {});
+var update = __webpack_require__(1)("0c443ef4", content, true, {});
 
 /***/ }),
 /* 194 */
@@ -19359,7 +19371,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n*[data-v-150429d8] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-150429d8] {\n  outline: none;\n  width: 100%;\n}\n.default-list__item[data-v-150429d8] {\n  position: relative;\n  padding: 0px 15px;\n  -webkit-transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n}\n.default-list__item--active[data-v-150429d8] {\n  background-color: #d6d8dd;\n}\n.default-list__item--leaf[data-v-150429d8]:hover {\n  background-color: #d6d8dd;\n}\n.default-list__item-enter-active[data-v-150429d8],\n.default-list__item-leave-active[data-v-150429d8],\n.default-list__item-enter[data-v-150429d8],\n.default-list__item-leave-to[data-v-150429d8] {\n  display: none;\n}\n.default-list__group[data-v-150429d8] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,kBAAkB;EAClB,uFAAuF;EACvF,+EAA+E;EAC/E,uEAAuE;EACvE,uGAAuG;CACxG;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B;AACD;;;;EAIE,cAAc;CACf;AACD;EACE,aAAa;EACb,kBAAkB;EAClB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB","file":"DefaultList.vue","sourcesContent":["\n*[data-v-150429d8] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-150429d8] {\n  outline: none;\n  width: 100%;\n}\n.default-list__item[data-v-150429d8] {\n  position: relative;\n  padding: 0px 15px;\n  -webkit-transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n}\n.default-list__item--active[data-v-150429d8] {\n  background-color: #d6d8dd;\n}\n.default-list__item--leaf[data-v-150429d8]:hover {\n  background-color: #d6d8dd;\n}\n.default-list__item-enter-active[data-v-150429d8],\n.default-list__item-leave-active[data-v-150429d8],\n.default-list__item-enter[data-v-150429d8],\n.default-list__item-leave-to[data-v-150429d8] {\n  display: none;\n}\n.default-list__group[data-v-150429d8] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n*[data-v-25bf67b2] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-25bf67b2] {\n  outline: none;\n  width: 100%;\n}\n.default-list__item[data-v-25bf67b2] {\n  position: relative;\n  padding: 0px 15px;\n  -webkit-transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n}\n.default-list__item--active[data-v-25bf67b2] {\n  background-color: #d6d8dd;\n}\n.default-list__item--leaf[data-v-25bf67b2]:hover {\n  background-color: #d6d8dd;\n}\n.default-list__item-enter-active[data-v-25bf67b2],\n.default-list__item-leave-active[data-v-25bf67b2],\n.default-list__item-enter[data-v-25bf67b2],\n.default-list__item-leave-to[data-v-25bf67b2] {\n  display: none;\n}\n.default-list__group[data-v-25bf67b2] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,kBAAkB;EAClB,uFAAuF;EACvF,+EAA+E;EAC/E,uEAAuE;EACvE,uGAAuG;CACxG;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B;AACD;;;;EAIE,cAAc;CACf;AACD;EACE,aAAa;EACb,kBAAkB;EAClB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB","file":"DefaultList.vue","sourcesContent":["\n*[data-v-25bf67b2] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-25bf67b2] {\n  outline: none;\n  width: 100%;\n}\n.default-list__item[data-v-25bf67b2] {\n  position: relative;\n  padding: 0px 15px;\n  -webkit-transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out;\n  transition: transform 0.3s ease-in, background-color 0.15s ease-in-out, -webkit-transform 0.3s ease-in;\n}\n.default-list__item--active[data-v-25bf67b2] {\n  background-color: #d6d8dd;\n}\n.default-list__item--leaf[data-v-25bf67b2]:hover {\n  background-color: #d6d8dd;\n}\n.default-list__item-enter-active[data-v-25bf67b2],\n.default-list__item-leave-active[data-v-25bf67b2],\n.default-list__item-enter[data-v-25bf67b2],\n.default-list__item-leave-to[data-v-25bf67b2] {\n  display: none;\n}\n.default-list__group[data-v-25bf67b2] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
