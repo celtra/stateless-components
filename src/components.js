@@ -128,6 +128,9 @@ export default {
     },
     Calendar: {
         component: Calendar,
+        defaultProps: {
+            isRange: true,
+        },
     },
     DateInput: {
         component: DateInput,
