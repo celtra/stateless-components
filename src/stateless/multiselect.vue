@@ -347,7 +347,7 @@ export default {
         z-index: @z-index-new-dialog + 100;
         top: 0px;
         width: 100%;
-        height: 150px;
+        height: 60px;
         opacity: 0.8;
     }
 }
