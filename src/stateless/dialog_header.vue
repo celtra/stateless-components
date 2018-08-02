@@ -4,9 +4,7 @@
 
         <div :class="['dialog-header--' + theme, 'dialog-header--' + dialogViewState, { 'dialog-header--green': isValid !== false }]" class="dialog-header">
             <div v-show="stepIndex > 0 && hasBackButton" ref="backButton" class="dialog-header__back" tabindex="0" @click="previousStep" @keyup.enter.stop="previousStep">
-                <svg class="dialog-header__back-svg" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#new-dialog-back-icon"></use>
-                </svg>
+                <icon class="dialog-header__back-svg" name="left-arrow" />
             </div>
 
             <div v-show="showHeader" ref="headerContent" :style="headerStyle" class="dialog-header__content">
@@ -14,16 +12,19 @@
             </div>
 
             <div v-show="hasCloseButton" ref="closeButton" :class="{'dialog-header__close--light': theme === 'light'}" class="dialog-header__close" tabindex="0" @click="closeDialog" @keyup.enter.stop="closeDialog">
-                <svg class="dialog-header__close-svg" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#new-dialog-close-icon"></use>
-                </svg>
+                <icon class="dialog-header__close-svg" name="close" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Icon from './icon.vue'
+
 export default {
+    components: {
+        Icon,
+    },
     props: {
         theme: { type: String, default: 'dark' },
         dialogViewState: { type: String, required: true },
