@@ -226,7 +226,7 @@ export default {
         &:focus { outline: none; }
     }
 
-    &__back-svg {
+    .dialog-header__back-svg.dialog-header__back-svg {
         width: 30px;
         height: 22px;
     }
@@ -247,7 +247,7 @@ export default {
         &:focus { outline: none; }
     }
 
-    &__close-svg {
+    .dialog-header__close-svg.dialog-header__close-svg {
         width: 24px;
         height: 24px;
         fill: @very-light-gray;
