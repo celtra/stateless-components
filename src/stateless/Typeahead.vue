@@ -62,9 +62,11 @@ export default {
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
             this.$emit('select', suggestion)
-            if (this.closeOnSelect) {
-                this.isOpen = false
-            }
+            this.$nextTick(() => {
+                if (this.closeOnSelect || this.suggestions.length === 0) {
+                    this.isOpen = false
+                }
+            })
         },
         move (delta) {
             if (!this.isOpen) {
@@ -93,7 +95,7 @@ export default {
 
     &__no-items-text {
         position: absolute;
-        margin-top: 10px;
+        margin-top: -7px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 20px;
         width: calc(~'100% - 2 * 20px');

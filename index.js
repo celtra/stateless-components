@@ -5607,7 +5607,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__ = __webpack_require__(92);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_27000fa4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_953562bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(238);
 function injectStyle (ssrContext) {
   __webpack_require__(236)
 }
@@ -5622,12 +5622,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-27000fa4"
+var __vue_scopeId__ = "data-v-953562bc"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_27000fa4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_953562bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -5708,11 +5708,15 @@ var Component = normalizeComponent(
             this.$emit('input', v);
         },
         onSelect: function onSelect(suggestion) {
+            var _this = this;
+
             this.$emit('input', suggestion.label);
             this.$emit('select', suggestion);
-            if (this.closeOnSelect) {
-                this.isOpen = false;
-            }
+            this.$nextTick(function () {
+                if (_this.closeOnSelect || _this.suggestions.length === 0) {
+                    _this.isOpen = false;
+                }
+            });
         },
         move: function move(delta) {
             if (!this.isOpen) {
@@ -20859,7 +20863,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("45f85bc0", content, true, {});
+var update = __webpack_require__(1)("4f369713", content, true, {});
 
 /***/ }),
 /* 237 */
@@ -20870,7 +20874,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.typeahead[data-v-27000fa4] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-27000fa4] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-27000fa4] {\n  position: absolute;\n  margin-top: 10px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,0BAA0B;EAC1B,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;CACnB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,6BAA6B;EAC7B,oBAAoB;EACpB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-27000fa4] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-27000fa4] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-27000fa4] {\n  position: absolute;\n  margin-top: 10px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.typeahead[data-v-953562bc] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,0BAA0B;EAC1B,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;CACnB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,6BAA6B;EAC7B,oBAAoB;EACpB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-953562bc] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
