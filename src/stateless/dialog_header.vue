@@ -191,7 +191,6 @@ export default {
     &__element {
         float: left;
         margin-right: 30px;
-        color: @gray;
         letter-spacing: 0.5px;
         font-size: 11px;
         line-height: 11px;
@@ -226,11 +225,6 @@ export default {
         &:focus { outline: none; }
     }
 
-    .dialog-header__back-svg.dialog-header__back-svg {
-        width: 30px;
-        height: 22px;
-    }
-
     &__close {
         position: absolute;
         right: 30px;
@@ -247,10 +241,28 @@ export default {
         &:focus { outline: none; }
     }
 
+    .dialog-header__back-svg.dialog-header__back-svg {
+        width: 30px;
+        height: 22px;
+    }
+
     .dialog-header__close-svg.dialog-header__close-svg {
         width: 24px;
         height: 24px;
-        fill: @very-light-gray;
+    }
+}
+
+.dialog-header--dark {
+    .dialog-header__element {
+        color: @gray;
+    }
+
+    .dialog-header__back-svg {
+        color: @very-light-gray;
+    }
+
+    .dialog-header__close-svg {
+        color: @very-light-gray;
     }
 }
 
@@ -259,8 +271,12 @@ export default {
         color: @bluish-gray;
     }
 
+    .dialog-header__back-svg {
+        color: @gunpowder;
+    }
+
     .dialog-header__close-svg {
-        fill: @gunpowder;
+        color: @gunpowder;
     }
 }
 </style>
