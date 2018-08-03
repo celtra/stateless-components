@@ -177,7 +177,7 @@ export default {
     },
     watch: {
         searchQuery (v) {
-            this.loadAsyncOptions()
+            this.debouncedLoadAsyncOptions()
         },
     },
     created () {
