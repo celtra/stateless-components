@@ -198,6 +198,11 @@ export default {
             }
         },
     },
+    watch: {
+        value () {
+            this.selectedId = this.value
+        },
+    },
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.positionSelectList())
