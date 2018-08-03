@@ -59,22 +59,20 @@ export default {
         inputElement: Input,
     },
     props: {
-        min: { type: Number, required: true },
-        max: { type: Number, required: true },
-        limit: { type: Number, required: false },
-        minLabel: { type: String, required: false },
-        maxLabel: { type: String, required: false },
-        label: { type: String },
+        min: { type: Number },
+        max: { type: Number },
         step: { type: Number },
         value: { type: Number },
-        unit: { type: String, required: false },
-        disabled: { type: Boolean, default: false },
-        disabledText: { type: String, required: false },
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         alignment: { type: String, default: 'left' },
-        isValid: { type: Function, required: false },
         locale: { type: String, default: 'en-US' },
+        label: { type: String, required: false },
+        limit: { type: Number, required: false },
+        minLabel: { type: String, required: false },
+        maxLabel: { type: String, required: false },
+        unit: { type: String, required: false },
+        disabled: { type: Boolean, default: false },
     },
     data () {
         return {
@@ -103,13 +101,10 @@ export default {
             return 1 / this.stepsCount
         },
         position () {
-            return this.isDomReady ? Math.max(0, Math.min(this.index, this.stepsCount)) * this.stepPercentage * this.sliderWidth : 0
+            return Math.max(0, Math.min(this.index, this.stepsCount)) / this.stepsCount * this.sliderWidth
         },
         sliderWidth () {
             return this.isDomReady ? this.$refs.bar.clientWidth : 0
-        },
-        sliderOffset () {
-            return this.isDomReady ? this.$refs.bar.getBoundingClientRect().x : 0
         },
         decimalPlacesCount () {
             let decimals = this.step.toString().split('.')[1]
@@ -178,16 +173,16 @@ export default {
             this.$refs.bar.focus()
         },
         setPosition (e) {
-            let percent = (e.clientX - this.sliderOffset) / this.sliderWidth
+            let sliderOffset = this.isDomReady ? this.$refs.bar.getBoundingClientRect().x : 0
+            let percent = (e.clientX - sliderOffset) / this.sliderWidth
             percent = Math.min(Math.max(0, percent), 0.999999)
             let edgeStepOffset = this.stepPercentage / 2
 
             let value = (Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1) * this.step + this.min
 
             let roundingFactor = 1
-            let decimalsPart = this.step.toString().split('.')[1]
-            if (decimalsPart) {
-                roundingFactor = parseInt('1' + '0'.repeat(decimalsPart.length), 10)
+            if (this.decimalPlacesCount > 0) {
+                roundingFactor = Math.pow(10, this.decimalPlacesCount)
             }
             let roundedValue = Math.round(value * roundingFactor) / roundingFactor
 
@@ -216,7 +211,7 @@ export default {
             this.$emit('input', value)
         },
         isValidInput (value) {
-            return (!value || value < this.min || this.max < value) ? '' : null
+            return (!value || value < this.min || value > this.max) ? '' : null
         },
         tickClass (index) {
             let hidden = false
