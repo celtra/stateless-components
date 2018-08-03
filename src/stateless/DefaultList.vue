@@ -55,7 +55,7 @@ export default {
         return {
             activeId: null,
             renderAllItems: false,
-            canTransition: true,
+            canTransition: false,
         }
     },
     computed: {
@@ -71,6 +71,7 @@ export default {
     },
     watch: {
         items (v, ov) {
+            return null
             let getCount = (items) => {
                 let count = items.length
                 for (let item of items) {
