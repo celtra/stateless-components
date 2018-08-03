@@ -63,6 +63,7 @@ import DefaultList from './DefaultList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -86,6 +87,7 @@ export default {
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
         optionsMaxHeight: { type: String, default: '370px' },
+        loadAsyncDebounce: { type: Number, default: 0 },
     },
     data () {
         return {
@@ -198,7 +200,7 @@ export default {
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
         },
-        loadAsyncOptions () {
+        loadAsyncOptions: debounce(function () {
             if (this.getOptions) {
                 this.isLoading = true
                 this.getOptions(this.searchQuery).then(result => {
@@ -206,7 +208,7 @@ export default {
                     this.isLoading = false
                 })
             }
-        },
+        }, this.loadAsyncDebounce),
         setChecked (option, isChecked) {
             if (!option.disabled) {
                 if (option.isLeaf) {
