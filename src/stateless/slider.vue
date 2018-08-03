@@ -24,23 +24,23 @@
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass | prefix('bar--')" class="bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
-                <div class="bar__container">
-                    <div class="ruler">
-                        <div ref="min" :class="labelsClass.min | prefix('ruler__label--')" class="ruler__label">{{ minLabelValue }}</div>
+            <div ref="bar" :class="stateClass | prefix('slide-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
+                <div class="slider-bar__container">
+                    <div class="slide-ruler">
+                        <div ref="min" :class="labelsClass.min | prefix('slide-ruler__label--')" class="slide-ruler__label">{{ minLabelValue }}</div>
 
-                        <div class="ruler__ticks">
-                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('ruler__tick--')" :key="n" class="ruler__tick"></div>
+                        <div class="slide-ruler__ticks">
+                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slide-ruler__tick--')" :key="n" class="slide-ruler__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelsClass.max | prefix('ruler__label--')" class="ruler__label">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelsClass.max | prefix('slide-ruler__label--')" class="slide-ruler__label">{{ maxLabelValue }}</div>
                     </div>
 
-                    <div class="bar__rail">
-                        <div class="rail rail--passive"></div>
-                        <div :class="{'rail--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="rail rail--active"></div>
-                        <div :style="{left: `${position}px`}" class="rail__handle">
-                            <div class="rail__handle-dot"></div>
+                    <div class="slider-bar__rail">
+                        <div class="slider-rail slider-rail--passive"></div>
+                        <div :class="{'slider-rail--exceeds': limit && value > limitValue}" :style="{width: `${position}px`}" class="slider-rail slider-rail--active"></div>
+                        <div :style="{left: `${position}px`}" class="slider-rail__handle">
+                            <div class="slider-rail__handle-dot"></div>
                         </div>
                     </div>
                 </div>
@@ -260,7 +260,7 @@ export default {
     height: 17px;
 }
 
-.ruler {
+.slide-ruler {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -292,7 +292,7 @@ export default {
     }
 }
 
-.rail {
+.slider-rail {
     height: 2px;
     position: absolute;
 
@@ -341,7 +341,7 @@ export default {
     }
 }
 
-.bar {
+.slider-bar {
     flex-grow: 1;
     max-width: 370px;
     min-width: 190px;
@@ -360,22 +360,22 @@ export default {
         bottom: 0;
     }
 
-    &--changed .rail__handle {
+    &--changed .slider-rail__handle {
         background-color: @white;
     }
 
-    &:not(.bar--disabled):hover {
-        .ruler__tick {
+    &:not(.slider-bar--disabled):hover {
+        .slide-ruler__tick {
             background-color: @dolphin;
         }
 
-        .rail--passive {
+        .slider-rail--passive {
             background-color: @bluish-gray;
         }
     }
 
-    &--dragging:not(.bar--disabled):focus {
-        .ruler__tick {
+    &--dragging:not(.slider-bar--disabled):focus {
+        .slide-ruler__tick {
             transition: color 0s;
 
             &--active {
@@ -383,11 +383,11 @@ export default {
             }
         }
 
-        .ruler__label--active {
+        .slide-ruler__label--active {
             color: @royal-blue;
         }
 
-        .rail {
+        .slider-rail {
             &--passive {
                 background-color: @gunpowder;
             }
@@ -405,11 +405,11 @@ export default {
     &--disabled {
         cursor: default;
 
-        .ruler__label {
+        .slide-ruler__label {
             color: @gunpowder;
         }
 
-        .rail {
+        .slider-rail {
             &--active {
                 background-color: @bluish-gray;
             }
@@ -441,7 +441,7 @@ export default {
         }
     }
 
-    .bar {
+    .slider-bar {
         height: 33px;
         max-width: 320px;
         min-width: 140px;
@@ -451,7 +451,7 @@ export default {
         }
     }
 
-    .ruler {
+    .slide-ruler {
         padding-top: 4px;
 
         &__ticks {
@@ -466,7 +466,7 @@ export default {
 
 // themes
 .slider--light {
-    .rail {
+    .slider-rail {
         &--passive {
             background-color: @very-light-gray;
         }
@@ -481,7 +481,7 @@ export default {
         }
     }
 
-    .ruler {
+    .slide-ruler {
         &__label {
             color: @bluish-gray;
         }
@@ -491,9 +491,9 @@ export default {
         }
     }
 
-    .bar {
-        &:not(.bar--disabled):hover {
-            .ruler {
+    .slider-bar {
+        &:not(.slider-bar--disabled):hover {
+            .slide-ruler {
                 &__label {
                     color: @bluish-gray;
                 }
@@ -504,16 +504,16 @@ export default {
             }
         }
 
-        &--dragging:not(.bar--disabled):focus {
-            .ruler__tick--active {
+        &--dragging:not(.slider-bar--disabled):focus {
+            .slide-ruler__tick--active {
                 background-color: @royal-blue;
             }
 
-            .ruler__label--active {
+            .slide-ruler__label--active {
                 color: @royal-blue;
             }
 
-            .rail {
+            .slider-rail {
                 &--passive {
                     background-color: @bluish-gray;
                 }
@@ -521,11 +521,11 @@ export default {
         }
 
         &--disabled {
-            .ruler__label {
+            .slide-ruler__label {
                 color: @very-light-gray;
             }
 
-            .rail {
+            .slider-rail {
                 &--active {
                     background-color: @bluish-gray;
                 }

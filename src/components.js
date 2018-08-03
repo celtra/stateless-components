@@ -130,7 +130,7 @@ export default {
             min: 1,
             max: 100,
             limit: 20,
-            step: 0.1,
+            step: 1,
             theme: 'light',
             size: 'normal',
             label: 'Basic slider',
