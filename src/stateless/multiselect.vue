@@ -3,6 +3,7 @@
         <div v-if="isSearchable" class="multiselect__search-with-icon">
             <input-element v-model="searchQuery" :label="label" :theme="theme" size="phat">
                 <icon slot="before" name="search" />
+                <icon v-if="isLoading" slot="right" name="loading" class="spin" />
             </input-element>
         </div>
 
@@ -11,10 +12,6 @@
         <div class="multiselect__options-wrap">
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
-
-            <div class="multiselect__loading">
-                <icon v-if="isLoading" name="loading" class="spin multiselect__loading-icon" />
-            </div>
 
             <div ref="multiselectOptions" :style="{maxHeight: optionsMaxHeight}" class="multiselect__options" @scroll="onScroll">
                 <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
@@ -339,21 +336,6 @@ export default {
 
     &__checkbox {
         width: 100%;
-    }
-
-    &__loading {
-        margin-top: 5px;
-        position: absolute;
-        width: 100%;
-    }
-
-    .multiselect__loading-icon.multiselect__loading-icon {
-        position: absolute;
-        z-index: @z-index-new-dialog + 100;
-        top: 0px;
-        width: 100%;
-        height: 60px;
-        opacity: 0.8;
     }
 }
 
