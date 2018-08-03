@@ -113,15 +113,16 @@ export default {
         component: Icon,
         availableProps: {
             name: [
-                'caret', 'pencil-edit', 'delete-icon', 'duplicate-icon', 'sort-arrow',
-                'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
+                'pencil-edit', 'pencil-edit-line', 'delete-icon', 'duplicate-icon', 'sort-arrow',
+                'calendar', 'back', 'backward', 'save', 'arrow-down-strong', 'loading',
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
                 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
+                'alpha', 'beta',
             ],
         },
         defaultProps: {
-            name: 'caret',
+            name: 'pencil-edit',
         },
     },
     Slider: {
