@@ -108,18 +108,6 @@ describe('Slider', () => {
             })
         })
 
-        describe('sliderOffset', () => {
-            it('should be zero', () => {
-                expect(vm.sliderOffset).toBe(0)
-            })
-
-            it('should be some positive number', () => {
-                vm.isDomReady = true
-
-                expect(vm.sliderOffset).toBe(160)
-            })
-        })
-
         describe('decimalPlacesCount', () => {
             it('should be 1', () => {
                 expect(vm.decimalPlacesCount).toBeCloseTo(1)

@@ -84,111 +84,111 @@ exports[`Slider should match the snapshot 1`] = `
     </div>
      
     <div
-      class="bar"
+      class="slider-bar"
       tabindex="0"
     >
       <div
-        class="bar__container"
+        class="slider-bar__container"
       >
         <div
-          class="ruler"
+          class="slider-ruler"
         >
           <div
-            class="ruler__label ruler__label--active"
+            class="slider-ruler__label slider-ruler__label--active"
           >
             0.1
           </div>
            
           <div
-            class="ruler__ticks"
+            class="slider-ruler__ticks"
           >
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick ruler__tick--active"
+              class="slider-ruler__tick slider-ruler__tick--active"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
             <div
-              class="ruler__tick"
+              class="slider-ruler__tick"
             />
           </div>
            
           <div
-            class="ruler__label"
+            class="slider-ruler__label"
           >
             10
           </div>
         </div>
          
         <div
-          class="bar__rail"
+          class="slider-bar__rail"
         >
           <div
-            class="rail rail--passive"
+            class="slider-rail slider-rail--passive"
           />
            
           <div
-            class="rail rail--active"
+            class="slider-rail slider-rail--active"
             style="width: 0px;"
           />
            
           <div
-            class="rail__handle"
+            class="slider-rail__handle"
             style="left: 0px;"
           >
             <div
-              class="rail__handle-dot"
+              class="slider-rail__handle-dot"
             />
           </div>
         </div>
