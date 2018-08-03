@@ -24,16 +24,16 @@
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass | prefix('slide-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
+            <div ref="bar" :class="stateClass | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
                 <div class="slider-bar__container">
-                    <div class="slide-ruler">
-                        <div ref="min" :class="labelsClass.min | prefix('slide-ruler__label--')" class="slide-ruler__label">{{ minLabelValue }}</div>
+                    <div class="slider-ruler">
+                        <div ref="min" :class="labelsClass.min | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ minLabelValue }}</div>
 
-                        <div class="slide-ruler__ticks">
-                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slide-ruler__tick--')" :key="n" class="slide-ruler__tick"></div>
+                        <div class="slider-ruler__ticks">
+                            <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slider-ruler__tick--')" :key="n" class="slider-ruler__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelsClass.max | prefix('slide-ruler__label--')" class="slide-ruler__label">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelsClass.max | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ maxLabelValue }}</div>
                     </div>
 
                     <div class="slider-bar__rail">
@@ -260,7 +260,7 @@ export default {
     height: 17px;
 }
 
-.slide-ruler {
+.slider-ruler {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -365,7 +365,7 @@ export default {
     }
 
     &:not(.slider-bar--disabled):hover {
-        .slide-ruler__tick {
+        .slider-ruler__tick {
             background-color: @dolphin;
         }
 
@@ -375,7 +375,7 @@ export default {
     }
 
     &--dragging:not(.slider-bar--disabled):focus {
-        .slide-ruler__tick {
+        .slider-ruler__tick {
             transition: color 0s;
 
             &--active {
@@ -383,7 +383,7 @@ export default {
             }
         }
 
-        .slide-ruler__label--active {
+        .slider-ruler__label--active {
             color: @royal-blue;
         }
 
@@ -405,7 +405,7 @@ export default {
     &--disabled {
         cursor: default;
 
-        .slide-ruler__label {
+        .slider-ruler__label {
             color: @gunpowder;
         }
 
@@ -451,7 +451,7 @@ export default {
         }
     }
 
-    .slide-ruler {
+    .slider-ruler {
         padding-top: 4px;
 
         &__ticks {
@@ -481,7 +481,7 @@ export default {
         }
     }
 
-    .slide-ruler {
+    .slider-ruler {
         &__label {
             color: @bluish-gray;
         }
@@ -493,7 +493,7 @@ export default {
 
     .slider-bar {
         &:not(.slider-bar--disabled):hover {
-            .slide-ruler {
+            .slider-ruler {
                 &__label {
                     color: @bluish-gray;
                 }
@@ -505,11 +505,11 @@ export default {
         }
 
         &--dragging:not(.slider-bar--disabled):focus {
-            .slide-ruler__tick--active {
+            .slider-ruler__tick--active {
                 background-color: @royal-blue;
             }
 
-            .slide-ruler__label--active {
+            .slider-ruler__label--active {
                 color: @royal-blue;
             }
 
@@ -521,7 +521,7 @@ export default {
         }
 
         &--disabled {
-            .slide-ruler__label {
+            .slider-ruler__label {
                 color: @very-light-gray;
             }
 
