@@ -180,6 +180,9 @@ export default {
             this.loadAsyncOptions()
         },
     },
+    created () {
+        this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
+    },
     mounted () {
         this.loadAsyncOptions()
         //this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
@@ -200,7 +203,7 @@ export default {
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
         },
-        loadAsyncOptions: debounce(function () {
+        loadAsyncOptions () {
             if (this.getOptions) {
                 this.isLoading = true
                 this.getOptions(this.searchQuery).then(result => {
@@ -208,7 +211,7 @@ export default {
                     this.isLoading = false
                 })
             }
-        }, this.loadAsyncDebounce),
+        },
         setChecked (option, isChecked) {
             if (!option.disabled) {
                 if (option.isLeaf) {
