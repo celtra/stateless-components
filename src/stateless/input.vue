@@ -120,9 +120,7 @@ export default {
             errorMessage: null,
             focused: false,
             text: null,
-            lastEmittedValue: null,
             passwordVisible: false,
-            decimalSeperator: null,
             textareaOverflow: false,
             overlay: {
                 open: false,
@@ -190,9 +188,12 @@ export default {
             }
             return this.getCount ? this.getCount(this.text) : this.text.length
         },
-        textareaClasses (){
+        textareaClasses () {
             // Apparently you can't use a filter within array class binding in template
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
+        },
+        decimalSeperator () {
+            return 1.1.toLocaleString(this.locale).substring(1, 2)
         },
     },
     watch: {
@@ -216,8 +217,6 @@ export default {
             throw new Error('Only type text is compatible with autogrow and input length props.')
 
         this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
-
-        this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
     },
     mounted () {
         this.$nextTick(() => {

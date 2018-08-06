@@ -81,8 +81,6 @@ export default {
             isDomReady: false,
             isChanged: false,
             isDragging: false,
-            decimalPrecision: 1,
-            decimalSeperator: null,
         }
     },
     computed: {
@@ -148,7 +146,7 @@ export default {
         if (this.value < this.min || this.value > this.max)
             throw new Error('Value must be between min and max.')
 
-        this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
+        this.decimalPrecision = 1
     },
     mounted () {
         this.isDomReady = true
