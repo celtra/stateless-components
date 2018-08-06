@@ -66,21 +66,9 @@ describe('Slider', () => {
             })
         })
 
-        describe('index', () => {
-            it('should be 49', () => {
-                expect(vm.index).toBe(49)
-            })
-        })
-
         describe('stepsCount', () => {
             it('should be 99', () => {
                 expect(vm.stepsCount).toBe(99)
-            })
-        })
-
-        describe('stepPercentage', () => {
-            it('should be close to 0.01', () => {
-                expect(vm.stepPercentage).toBeCloseTo(0.01)
             })
         })
 
@@ -140,39 +128,9 @@ describe('Slider', () => {
             })
         })
 
-        describe('stateClass', () => {
-            it('should be default', () => {
-                expect(vm.stateClass).toEqual({
-                    'disabled': false,
-                    'changed': false,
-                    'dragging': false,
-                })
-            })
-
-            it('should be disabled', () => {
-                vm.disabled = true
-
-                expect(vm.stateClass).toEqual({
-                    'disabled': true,
-                    'changed': false,
-                    'dragging': false,
-                })
-            })
-
-            it('should be changed and dragging', () => {
-                vm.startDrag(dragEvent)
-
-                expect(vm.stateClass).toEqual({
-                    'disabled': false,
-                    'changed': true,
-                    'dragging': true,
-                })
-            })
-        })
-
-        describe('labelClass', () => {
+        describe('labelsActiveClass', () => {
             it('should be min === true, max === false', () => {
-                expect(vm.labelsClass).toEqual({
+                expect(vm.labelsActiveClass).toEqual({
                     min: { active: true },
                     max: { active: false },
                 })

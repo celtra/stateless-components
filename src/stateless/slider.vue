@@ -24,16 +24,16 @@
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="stateClass | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
+            <div ref="bar" :class="{disabled: disabled, changed: isChanged, dragging: isDragging} | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
                 <div class="slider-bar__container">
                     <div class="slider-ruler">
-                        <div ref="min" :class="labelsClass.min | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ minLabelValue }}</div>
+                        <div ref="min" :class="labelsActiveClass.min | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ minLabelValue }}</div>
 
                         <div class="slider-ruler__ticks">
                             <div v-for="n in ticksCount" :class="tickClass(n) | prefix('slider-ruler__tick--')" :key="n" class="slider-ruler__tick"></div>
                         </div>
 
-                        <div ref="max" :class="labelsClass.max | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ maxLabelValue }}</div>
+                        <div ref="max" :class="labelsActiveClass.max | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ maxLabelValue }}</div>
                     </div>
 
                     <div class="slider-bar__rail">
@@ -63,11 +63,11 @@ export default {
         max: { type: Number },
         step: { type: Number },
         value: { type: Number },
+        label: { type: String },
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         alignment: { type: String, default: 'left' },
         locale: { type: String, default: 'en-US' },
-        label: { type: String, required: false },
         limit: { type: Number, required: false },
         minLabel: { type: String, required: false },
         maxLabel: { type: String, required: false },
@@ -91,17 +91,12 @@ export default {
         maxLabelValue () {
             return this.maxLabel || this.limitValue.toString().toLocaleString(this.locale)
         },
-        index () {
-            return (this.value - this.min) / this.step
-        },
         stepsCount () {
             return (this.limitValue - this.min) / this.step
         },
-        stepPercentage () {
-            return 1 / this.stepsCount
-        },
         position () {
-            return Math.max(0, Math.min(this.index, this.stepsCount)) / this.stepsCount * this.sliderWidth
+            let index = (this.value - this.min) / this.step
+            return Math.max(0, Math.min(index, this.stepsCount)) / this.stepsCount * this.sliderWidth
         },
         sliderWidth () {
             return this.isDomReady ? this.$refs.bar.clientWidth : 0
@@ -117,24 +112,16 @@ export default {
             let valueRatio = (this.value - this.min) / (this.limitValue - this.min)
             return valueRatio * (this.ticksCount - 1)
         },
-        stateClass () {
-            return {
-                'disabled': this.disabled,
-                'changed': this.isChanged,
-                'dragging': this.isDragging,
-            }
-        },
-        labelsClass () {
+        labelsActiveClass () {
             let isNormalSize = this.size === 'normal'
             return {
                 min: { active: this.lastActiveIndex >= 0 && isNormalSize },
-                max: { active: this.lastActiveIndex >= 19 && isNormalSize },
+                max: { active: this.lastActiveIndex >= this.ticksCount - 1 && isNormalSize },
             }
         },
     },
     beforeCreate () {
         this.ticksCount = 20
-        this.labelPadding = 6
     },
     created () {
         if (this.decimalPlacesCount > 1)
@@ -173,17 +160,14 @@ export default {
             this.$refs.bar.focus()
         },
         setPosition (e) {
-            let sliderOffset = this.isDomReady ? this.$refs.bar.getBoundingClientRect().x : 0
-            let percent = (e.clientX - sliderOffset) / this.sliderWidth
-            percent = Math.min(Math.max(0, percent), 0.999999)
-            let edgeStepOffset = this.stepPercentage / 2
+            let sliderOffset = this.$refs.bar.getBoundingClientRect().x
+            let ratio = (e.clientX - sliderOffset) / this.sliderWidth
+            ratio = Math.min(Math.max(0, ratio), 1)
+            let edgeStepOffset = 0.5 / this.stepsCount
 
-            let value = (Math.floor((percent - edgeStepOffset) / this.stepPercentage) + 1) * this.step + this.min
+            let value = (Math.floor((ratio - edgeStepOffset) * this.stepsCount) + 1) * this.step + this.min
 
-            let roundingFactor = 1
-            if (this.decimalPlacesCount > 0) {
-                roundingFactor = Math.pow(10, this.decimalPlacesCount)
-            }
+            let roundingFactor = Math.pow(10, this.decimalPlacesCount)
             let roundedValue = Math.round(value * roundingFactor) / roundingFactor
 
             this.$emit('input', roundedValue)
@@ -196,15 +180,15 @@ export default {
             window.removeEventListener('mousemove', this.setPosition)
         },
         decreaseValue () {
-            if (!this.disabled && this.index > 0) {
+            if (!this.disabled && this.value > this.min) {
                 this.isChanged = true
-                this.$emit('input', this.value - this.step)
+                this.$emit('input', Math.max(this.min, this.value - this.step))
             }
         },
         increaseValue () {
-            if (!this.disabled && this.index < this.stepsCount) {
+            if (!this.disabled && this.value < this.max) {
                 this.isChanged = true
-                this.$emit('input', this.value + this.step)
+                this.$emit('input', Math.min(this.max, this.value + this.step))
             }
         },
         handleInput (value) {
@@ -216,10 +200,11 @@ export default {
         tickClass (index) {
             let hidden = false
             if (this.isDomReady) {
+                let labelPadding = 6
                 let position = (index - 1) / (this.ticksCount - 1) * this.sliderWidth
                 // threshold for ticks disappearing under labels
-                let minThreshold = this.$refs.min.clientWidth + this.labelPadding
-                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - this.labelPadding
+                let minThreshold = this.$refs.min.clientWidth + labelPadding
+                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - labelPadding
                 hidden = position <= minThreshold || position >= maxThreshold
             }
 
@@ -282,6 +267,7 @@ export default {
         color: @dolphin;
         font-size: 10px;
         font-family: @regular-text-font;
+        transition: color @form-element-transition-time ease-out;
     }
 
     &__ticks {
@@ -375,12 +361,8 @@ export default {
     }
 
     &--dragging:not(.slider-bar--disabled):focus {
-        .slider-ruler__tick {
-            transition: color 0s;
-
-            &--active {
-                background-color: @royal-blue;
-            }
+        .slider-ruler__tick--active {
+            background-color: @royal-blue;
         }
 
         .slider-ruler__label--active {
