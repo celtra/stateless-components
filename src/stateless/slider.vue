@@ -13,18 +13,20 @@
                     :size="size"
                     :disabled="disabled"
                     :value="value"
-                    :step="step"
-                    :min-value="min"
-                    :max-value="max"
+                    :min-number-cap="0"
+                    :max-number-cap="max"
                     :is-valid="isValidInput"
                     :theme="theme"
                     :alignment="alignment"
                     :locale="locale"
+                    :decimal-precision="decimalPrecision"
                     @input="handleInput"
+                    @keydown.up.stop="handleStepIncrease"
+                    @keydown.down.stop="handleStepDecrease"
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="{disabled: disabled, changed: isChanged, dragging: isDragging} | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="decreaseValue" @keydown.down.stop="decreaseValue" @keydown.right.stop="increaseValue" @keydown.up.stop="increaseValue">
+            <div ref="bar" :class="{disabled: disabled, changed: isChanged, dragging: isDragging} | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="handleStepDecrease" @keydown.down.stop="handleStepDecrease" @keydown.right.stop="handleStepIncrease" @keydown.up.stop="handleStepIncrease">
                 <div class="slider-bar__container">
                     <div class="slider-ruler">
                         <div ref="min" :class="labelsActiveClass.min | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ minLabelValue }}</div>
@@ -79,6 +81,8 @@ export default {
             isDomReady: false,
             isChanged: false,
             isDragging: false,
+            decimalPrecision: 1,
+            decimalSeperator: null,
         }
     },
     computed: {
@@ -143,6 +147,8 @@ export default {
 
         if (this.value < this.min || this.value > this.max)
             throw new Error('Value must be between min and max.')
+
+        this.decimalSeperator = 1.1.toLocaleString(this.locale).substring(1, 2)
     },
     mounted () {
         this.isDomReady = true
@@ -179,23 +185,35 @@ export default {
             window.removeEventListener('mouseup', this.stopDrag)
             window.removeEventListener('mousemove', this.setPosition)
         },
-        decreaseValue () {
-            if (!this.disabled && this.value > this.min) {
+        handleStepIncrease () {
+            if (this.value < this.max) {
                 this.isChanged = true
-                this.$emit('input', Math.max(this.min, this.value - this.step))
+                let incrementedNumber
+                if (this.value < this.min) {
+                    incrementedNumber = this.min
+                } else {
+                    incrementedNumber = Math.round((this.value + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                }
+                this.handleInput(incrementedNumber)
             }
         },
-        increaseValue () {
-            if (!this.disabled && this.value < this.max) {
+        handleStepDecrease () {
+            if (this.value > this.min) {
                 this.isChanged = true
-                this.$emit('input', Math.min(this.max, this.value + this.step))
+                let decrementedNumber
+                if (this.value > this.maxValue) {
+                    decrementedNumber = this.maxValue
+                } else {
+                    decrementedNumber = Math.round((this.value - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
+                }
+                this.handleInput(decrementedNumber)
             }
         },
         handleInput (value) {
             this.$emit('input', value)
         },
         isValidInput (value) {
-            return (!value || value < this.min || value > this.max) ? '' : null
+            return (value === undefined || value === null  || value < this.min || value > this.max) ? '' : null
         },
         tickClass (index) {
             let hidden = false

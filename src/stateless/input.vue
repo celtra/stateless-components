@@ -39,7 +39,7 @@
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                     <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
-                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keydown.up.stop="numberIncrement" @keydown.down.stop="numberDecrement"
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keydown="$emit('keydown', $event)"
                            @keyup="$emit('keyup', $event)" @keyup.esc.stop="blur" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
@@ -108,9 +108,8 @@ export default {
         counter: { type: Boolean, default: true },
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
-        step: { type: Number, default: 1 },
-        minValue: { type: Number, required: false },
-        maxValue: { type: Number, required: false },
+        minNumberCap: { type: Number, required: false },
+        maxNumberCap: { type: Number, required: false },
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
@@ -213,13 +212,6 @@ export default {
         },
     },
     created () {
-        let stepParts = this.step.toString().split(this.decimalSeperator)
-        if (this.type === 'number' && stepParts.length > 1)
-            throw new Error('Decimal step cannot be used with type number.')
-
-        if (this.type === 'float' && stepParts[1] && stepParts[1].length > this.decimalPrecision)
-            throw new Error('Step cannot have more decimals then decimal precision.')
-
         if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
             throw new Error('Only type text is compatible with autogrow and input length props.')
 
@@ -286,11 +278,11 @@ export default {
                 return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
             }
 
-            let fitRange = (numberValue) => {
-                if (this.maxValue && numberValue > this.maxValue) {
-                    numberValue = this.maxValue
-                } else if (this.minValue && numberValue < this.minValue) {
-                    numberValue = this.minValue
+            let capNumber = (numberValue) => {
+                if (this.maxNumberCap && numberValue > this.maxNumberCap) {
+                    numberValue = this.maxNumberCap
+                } else if (this.minNumberCap && numberValue < this.minNumberCap) {
+                    numberValue = this.minNumberCap
                 }
                 return numberValue
             }
@@ -300,9 +292,9 @@ export default {
                 let numberValue = parseInt(value)
 
                 if (isNumeric && !isNaN(numberValue)) {
-                    let fittedNumberValue = fitRange(numberValue)
-                    if (fittedNumberValue !== numberValue) {
-                        numberValue = fittedNumberValue
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
                         value = numberValue.toString()
                     }
 
@@ -331,9 +323,9 @@ export default {
                 let decimals = value.split(this.decimalSeperator)[1]
 
                 if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
-                    let fittedNumberValue = fitRange(numberValue)
-                    if (fittedNumberValue !== numberValue) {
-                        numberValue = fittedNumberValue
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
                         value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
                         this.$refs.input.value = value
                     }
@@ -382,50 +374,6 @@ export default {
             this.$nextTick(() => {
                 this.updateHeight()
             })
-        },
-        numberIncrement (e) {
-            if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value.replace(this.decimalSeperator, '.'))
-                if (isNaN(numberValue)) {
-                    numberValue = this.minValue || 0
-                }
-                if (!this.maxValue || numberValue < this.maxValue){
-                    let incrementedNumber
-                    if (this.minValue && this.minValue > numberValue) {
-                        incrementedNumber = this.minValue
-                    } else {
-                        incrementedNumber = Math.round((numberValue + this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
-                    }
-                    this.runValidations(incrementedNumber)
-                    this.text = this.type === 'float' ? incrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : incrementedNumber
-                    event.target.value = incrementedNumber
-                    this.lastEmittedValue = incrementedNumber
-                    this.$emit('input', incrementedNumber)
-                    e.preventDefault()
-                }
-            }
-        },
-        numberDecrement (e) {
-            if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value.replace(this.decimalSeperator, '.'))
-                if (isNaN(numberValue)) {
-                    numberValue = this.minValue || 0
-                }
-                if (!this.minValue || numberValue > this.minValue){
-                    let decrementedNumber
-                    if (this.maxValue && this.maxValue < numberValue) {
-                        decrementedNumber = this.maxValue
-                    } else {
-                        decrementedNumber = Math.round((numberValue - this.step) * Math.pow(10, this.decimalPrecision)) / Math.pow(10, this.decimalPrecision)
-                    }
-                    this.runValidations(decrementedNumber)
-                    this.text = this.type === 'float' ? decrementedNumber.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : decrementedNumber
-                    event.target.value = decrementedNumber
-                    this.lastEmittedValue = decrementedNumber
-                    this.$emit('input', decrementedNumber)
-                    e.preventDefault()
-                }
-            }
         },
         updateHeight () {
             if (this.autogrow) {

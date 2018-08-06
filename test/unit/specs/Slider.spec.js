@@ -172,10 +172,10 @@ describe('Slider', () => {
             })
         })
 
-        describe('decreaseValue', () => {
+        describe('handleStepDecrease', () => {
             it('should emit decreased value', () => {
                 spyOn(vm, '$emit')
-                vm.decreaseValue()
+                vm.handleStepDecrease()
                 expect(vm.$emit).toHaveBeenCalled()
             })
 
@@ -183,15 +183,15 @@ describe('Slider', () => {
                 vm.value = 0.1
 
                 spyOn(vm, '$emit')
-                vm.decreaseValue()
+                vm.handleStepDecrease()
                 expect(vm.$emit).not.toHaveBeenCalled()
             })
         })
 
-        describe('increaseValue', () => {
+        describe('handleStepIncrease', () => {
             it('should emit increased value', () => {
                 spyOn(vm, '$emit')
-                vm.increaseValue()
+                vm.handleStepIncrease()
                 expect(vm.$emit).toHaveBeenCalled()
             })
 
@@ -199,7 +199,7 @@ describe('Slider', () => {
                 vm.value = 100
 
                 spyOn(vm, '$emit')
-                vm.increaseValue()
+                vm.handleStepIncrease()
                 expect(vm.$emit).not.toHaveBeenCalled()
             })
         })
