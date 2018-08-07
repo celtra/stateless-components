@@ -24,6 +24,7 @@ exports[`Slider should match the snapshot 1`] = `
     >
       <div
         class="input input--normal input--light"
+        id=""
       >
         <!---->
          

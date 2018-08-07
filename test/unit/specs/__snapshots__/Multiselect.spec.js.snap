@@ -9,6 +9,7 @@ exports[`Multiselect should match the snapshot 1`] = `
   >
     <div
       class="input input--phat input--dark"
+      id="search"
     >
       <div
         class="input__icon-prepend"
