@@ -55,7 +55,7 @@ export default {
   background-color: white;
   position: fixed;
   padding: 0 30px;
-  bottom: 100px;
+  bottom: 70px;
   box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
   animation: slide-in @toast-slide-in-out-animation-time ease-out;
   z-index: 100;
