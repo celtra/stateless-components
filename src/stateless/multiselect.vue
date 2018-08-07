@@ -160,7 +160,7 @@ export default {
                 })
 
                 if (!this.areGroupsSelectable) {
-                    let selectedItems = this.value.map(itemId => itemsUtils.find(result, x => !x.items && x.id === itemId))
+                    let selectedItems = this.value.map(itemId => itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId))
                     let unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
