@@ -138,7 +138,7 @@ export default {
                 focused: this.focused,
                 error: isError,
                 warning: isWarning,
-                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text.length > 0,
+                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text && this.text.length > 0,
                 disabled: this.disabled,
             }
         },
