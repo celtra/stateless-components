@@ -5995,7 +5995,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__ = __webpack_require__(93);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_953562bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_44cb4646_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(238);
 function injectStyle (ssrContext) {
   __webpack_require__(236)
 }
@@ -6010,12 +6010,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-953562bc"
+var __vue_scopeId__ = "data-v-44cb4646"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_953562bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_44cb4646_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20867,7 +20867,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("4f369713", content, true, {});
+var update = __webpack_require__(1)("e3c280aa", content, true, {});
 
 /***/ }),
 /* 237 */
@@ -20878,7 +20878,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.typeahead[data-v-953562bc] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,0BAA0B;EAC1B,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;CACnB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,6BAA6B;EAC7B,oBAAoB;EACpB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-953562bc] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-953562bc] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.typeahead[data-v-44cb4646] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-44cb4646] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-44cb4646] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,0BAA0B;EAC1B,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;CACnB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,6BAA6B;EAC7B,oBAAoB;EACpB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-44cb4646] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-44cb4646] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n}\n.typeahead__no-items-text[data-v-44cb4646] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: calc(100% - 2 * 20px);\n  background: #FFFFFF;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -20888,7 +20888,7 @@ exports.push([module.i, "\n.typeahead[data-v-953562bc] {\n  position: relative;\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.onBlur),expression:"onBlur"}],staticClass:"typeahead",on:{"keyup":[function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"up",38,$event.key,["Up","ArrowUp"])){ return null; }_vm.move(-1)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"down",40,$event.key,["Down","ArrowDown"])){ return null; }_vm.move(1)}]}},[_c('input-element',_vm._b({staticClass:"typeahead__input",attrs:{"is-valid":_vm.isValid},on:{"focus":_vm.onFocus,"input":_vm.onInput}},'input-element',_vm.inputData,false)),_vm._v(" "),(_vm.isOpen && _vm.isValueValid)?[(_vm.suggestions.length > 0)?_c('default-list',{ref:"list",staticClass:"typeahead__suggestions",attrs:{"items":_vm.suggestions,"highlight-query":_vm.value},on:{"select":_vm.onSelect}}):(_vm.noItemsText)?_c('div',{staticClass:"typeahead__no-items-text"},[_vm._v(_vm._s(_vm.noItemsText))]):_vm._e()]:_vm._e()],2)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.onBlur),expression:"onBlur"}],staticClass:"typeahead",on:{"keyup":[function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"up",38,$event.key,["Up","ArrowUp"])){ return null; }_vm.move(-1)},function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"down",40,$event.key,["Down","ArrowDown"])){ return null; }_vm.move(1)}]}},[_c('input-element',_vm._b({staticClass:"typeahead__input",attrs:{"is-valid":_vm.isValid},on:{"focus":_vm.onFocus,"input":_vm.onInput}},'input-element',_vm.inputData,false)),_vm._v(" "),(_vm.isOpen && (_vm.isValueValid || _vm.suggestions.length > 0))?[(_vm.suggestions.length > 0)?_c('default-list',{ref:"list",staticClass:"typeahead__suggestions",attrs:{"items":_vm.suggestions,"highlight-query":_vm.value},on:{"select":_vm.onSelect}}):(_vm.noItemsText)?_c('div',{staticClass:"typeahead__no-items-text"},[_vm._v(_vm._s(_vm.noItemsText))]):_vm._e()]:_vm._e()],2)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

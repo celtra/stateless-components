@@ -2,7 +2,7 @@
     <div v-click-outside="onBlur" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
         <input-element v-bind="inputData" :is-valid="isValid" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
 
-        <template v-if="isOpen && isValueValid">
+        <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
             <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
