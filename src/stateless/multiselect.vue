@@ -3,6 +3,7 @@
         <div v-if="isSearchable" class="multiselect__search-with-icon">
             <input-element v-model="searchQuery" :label="label" :size="size" :theme="theme">
                 <icon slot="before" name="search" />
+                <icon v-if="isLoading" slot="right" name="loading" class="spin" />
             </input-element>
         </div>
 
@@ -59,6 +60,7 @@ import DefaultList from './DefaultList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -69,22 +71,24 @@ export default {
         DefaultListItem,
     },
     props: {
-        value: { type: Array, required: true },
-        options: { type: Array, required: true },
+        value: { type: Array },
+        options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
-        getOptions: { type: Function },
+        getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
         optionsMaxHeight: { type: String, default: '370px' },
+        loadAsyncDebounce: { type: Number, default: 0 },
     },
     data () {
         return {
+            isLoading: false,
             searchQuery: null,
             queryOptions: [],
             canScrollTop: false,
@@ -100,6 +104,37 @@ export default {
         listItems () {
             let result = this.allOptions
 
+            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
+            if (cleanQuery.length > 0) {
+                let searchFn = option => {
+                    if (option.items) {
+                        let index = option.label && option.label.toLowerCase().indexOf(cleanQuery)
+                        if (index >= 0) {
+                            return index === 0 ? 50 : 49
+                        }
+                    } else {
+                        let labelIndex = option.label && option.label.toLowerCase().indexOf(cleanQuery)
+                        if (labelIndex >= 0) {
+                            return labelIndex === 0 ? 100 : 99
+                        }
+
+                        let metadataIndex = option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery)
+                        if (metadataIndex >= 0) {
+                            return metadataIndex === 0 ? 90 : 89
+                        }
+
+                        let tooltipIndex = option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery)
+                        if (tooltipIndex >= 0) {
+                            return tooltipIndex === 0 ? 80 : 79
+                        }
+                    }
+                    return 0
+                }
+
+                result = itemsUtils.filter(result, x => searchFn(x) > 0)
+                result = itemsUtils.sortBy(result, searchFn)
+            }
+
             if (this.autoReorder) {
                 result = itemsUtils.sort(result, (x, y) => {
                     if (!this.areGroupsSelectable && (x.items || y.items)) {
@@ -109,22 +144,23 @@ export default {
                     let isCheckedX = this.isChecked(x)
                     let isCheckedY = this.isChecked(y)
 
-                    if (isCheckedX === isCheckedY) {
-                        return 0
-                    } else if (isCheckedX === true) {
-                        return -1
-                    } else if (isCheckedY === true) {
-                        return 1
-                    } else if (isCheckedX === null) {
-                        return -1
-                    } else if (isCheckedY === null) {
-                        return 1
+                    if (isCheckedX !== isCheckedY) {
+                        if (isCheckedX === true) {
+                            return -1
+                        } else if (isCheckedY === true) {
+                            return 1
+                        } else if (isCheckedX === null) {
+                            return -1
+                        } else if (isCheckedY === null) {
+                            return 1
+                        }
                     }
+
                     return 0
                 })
 
                 if (!this.areGroupsSelectable) {
-                    let selectedItems = this.value.map(itemId => itemsUtils.find(result, x => !x.items && x.id === itemId))
+                    let selectedItems = this.value.map(itemId => itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId))
                     let unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
@@ -133,21 +169,16 @@ export default {
                 }
             }
 
-            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
-            if (cleanQuery.length > 0) {
-                result = itemsUtils.filter(result, (option) => {
-                    return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
-                        (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0)
-                })
-            }
-
             return result
         },
     },
     watch: {
         searchQuery (v) {
-            this.loadAsyncOptions()
+            this.debouncedLoadAsyncOptions()
         },
+    },
+    created () {
+        this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     mounted () {
         this.loadAsyncOptions()
@@ -171,8 +202,10 @@ export default {
         },
         loadAsyncOptions () {
             if (this.getOptions) {
+                this.isLoading = true
                 this.getOptions(this.searchQuery).then(result => {
                     this.queryOptions = result
+                    this.isLoading = false
                 })
             }
         },
@@ -196,12 +229,13 @@ export default {
             }
         },
         isChecked (option) {
-            if (!option.options) {
+            if (!option.items && option.isLeaf !== false) {
                 return this.value.includes(option.id)
             } else {
                 let allChecked = true
                 let someChecked = false
-                for (let id of itemsUtils.getLeafIds(option)) {
+                let leafIds = option.leafIds || itemsUtils.getLeafIds(option)
+                for (let id of leafIds) {
                     if (!this.value.includes(id)) {
                         allChecked = false
                     } else {

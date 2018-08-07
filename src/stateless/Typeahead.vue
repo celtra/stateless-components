@@ -1,9 +1,9 @@
 <template>
     <div v-click-outside="onBlur" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
+        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
 
-        <template v-if="isOpen">
-            <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect" />
+        <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
+            <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
@@ -12,16 +12,19 @@
 <script>
 import Input from './input.vue'
 import DefaultList from './DefaultList.vue'
+import DefaultListItem from './DefaultListItem.vue'
 
 export default {
     components: {
         inputElement: Input,
         DefaultList,
+        DefaultListItem,
     },
     props: {
         value: { type: [String, Number], default: '' },
         getSuggestions: { type: Function, required: true },
-        noItemsText: { type: String },
+        noItemsText: { type: String, default: 'No items' },
+        isValid: { type: Function, required: false },
     },
     data () {
         return {
@@ -31,12 +34,22 @@ export default {
     computed: {
         inputData () {
             return {
-                ...this.$props,
                 ...this.$attrs,
+                value: this.value,
+                error: null,
             }
         },
         suggestions () {
             return this.getSuggestions(this.value)
+        },
+        inputError () {
+            if (this.isOpen || !this.isValid) {
+                return null
+            }
+            return this.isValid(this.value)
+        },
+        isValueValid () {
+            return this.isValid ? this.isValid(this.value) === null : true
         },
     },
     methods: {
@@ -53,9 +66,9 @@ export default {
             this.$emit('input', v)
         },
         onSelect (suggestion) {
-            this.isOpen = false
             this.$emit('input', suggestion.label)
             this.$emit('select', suggestion)
+            this.isOpen = false
         },
         move (delta) {
             if (!this.isOpen) {
@@ -69,25 +82,14 @@ export default {
 }
 </script>
 
-<style lang="less">
-.typeahead {
-    &__input {
-        .input-field__message-wrap.input-field__message-wrap {
-            display: none;
-        }
-    }
-}
-</style>
-
 <style lang="less" scoped>
 @import (reference) './variables';
-
 .typeahead {
     position: relative;
 
     &__suggestions {
         position: absolute;
-        margin-top: 10px;
+        margin-top: -7px;
         background-color: #FFFFFF;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 15px 0px;
@@ -95,7 +97,7 @@ export default {
 
     &__no-items-text {
         position: absolute;
-        margin-top: 10px;
+        margin-top: -7px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 20px;
         width: calc(~'100% - 2 * 20px');

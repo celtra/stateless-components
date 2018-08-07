@@ -1,15 +1,12 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
-        <transition-group v-if="transitionSorting" name="default-list__item" tag="div">
+        <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-
-                    <div v-if="item.tooltip" class="default-list__item-tooltip">
-                        {{ item.tooltip }}
-                    </div>
+                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -24,10 +21,7 @@
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-
-                    <div v-if="item.tooltip" class="default-list__item-tooltip">
-                        {{ item.tooltip }}
-                    </div>
+                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -41,11 +35,13 @@
 
 <script>
 import DefaultListItem from './DefaultListItem.vue'
+import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
 
 export default {
     components: {
         DefaultListItem,
+        Tooltip,
     },
     props: {
         size: { type: String, default: 'normal' },
@@ -59,6 +55,7 @@ export default {
         return {
             activeId: null,
             renderAllItems: false,
+            canTransition: false,
         }
     },
     computed: {
@@ -70,6 +67,43 @@ export default {
                 return flatItems
             }
             return flatItems.slice(0, MIN_NUM_ITEMS)
+        },
+    },
+    watch: {
+        items (v, ov) {
+            let getCount = (items) => {
+                let count = items.length
+                for (let item of items) {
+                    if (item.items)
+                        count += getCount(item.items)
+                }
+                return count
+            }
+
+            let getDeltaCount = (a, b) => {
+                let aKeys = a.map(x => x.key || x.id)
+                let bKeys = b.map(x => x.key || x.id)
+                let onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
+                let onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
+                let intersection = a.filter(x => bKeys.includes(x.key || x.id))
+
+                let count = getCount(onlyA) + getCount(onlyB)
+                for (let aItem of intersection) {
+                    let bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
+
+                    if (aItem.items && bItem.items) {
+                        count += getDeltaCount(aItem.items, bItem.items)
+                    } else if (aItem.items) {
+                        count += getCount(aItem.items)
+                    } else if (bItem.items) {
+                        count += getCount(bItem.items)
+                    }
+                }
+
+                return count
+            }
+
+            this.canTransition = getDeltaCount(v, ov) <= 5
         },
     },
     mounted () {
@@ -155,37 +189,6 @@ export default {
         &-enter-active, &-leave-active, &-enter, &-leave-to {
             display: none;
         }
-
-        &:hover {
-            .default-list__item-tooltip {
-                animation: 0.6s fadeIn;
-                animation-fill-mode: forwards;
-            }
-
-            @keyframes fadeIn {
-                99% {
-                    visibility: hidden;
-                }
-                100% {
-                    visibility: visible;
-                }
-            }
-        }
-    }
-
-    &__item-tooltip {
-        visibility: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0px;
-        color: white;
-        background-color: @gunpowder;
-        border-radius: 3px;
-        font-size: 11px;
-        text-align: center;
-        padding: 6px 20px;
-        z-index: @z-index-new-dialog + 25;
-        max-width: 200px;
     }
 
     &__group {
