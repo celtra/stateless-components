@@ -197,7 +197,7 @@ export default {
                 ]
             },
             isValid: (text) => {
-                if (text.indexOf('@') === -1) {
+                if (text && text.length > 0 && text.indexOf('@') === -1) {
                     return 'Not a valid email address'
                 }
                 return null

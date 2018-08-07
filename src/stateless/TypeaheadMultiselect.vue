@@ -1,6 +1,6 @@
 <template>
     <div class="typeahead-multiselect">
-        <typeahead v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :close-on-select="false" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
+        <typeahead v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
 
         <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
             <div class="typeahead-multiselect__item-label">{{ item.label }}</div>

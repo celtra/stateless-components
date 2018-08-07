@@ -1,6 +1,6 @@
 <template>
     <div v-click-outside="onBlur" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :is-valid="isValid" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
+        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
             <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
@@ -24,7 +24,6 @@ export default {
         value: { type: [String, Number], default: '' },
         getSuggestions: { type: Function, required: true },
         noItemsText: { type: String, default: 'No items' },
-        closeOnSelect: { type: Boolean, default: true },
         isValid: { type: Function, required: false },
     },
     data () {
@@ -35,12 +34,19 @@ export default {
     computed: {
         inputData () {
             return {
-                ...this.$props,
                 ...this.$attrs,
+                value: this.value,
+                error: null,
             }
         },
         suggestions () {
             return this.getSuggestions(this.value)
+        },
+        inputError () {
+            if (this.isOpen || !this.isValid) {
+                return null
+            }
+            return this.isValid(this.value)
         },
         isValueValid () {
             return this.isValid ? this.isValid(this.value) === null : true
@@ -62,11 +68,7 @@ export default {
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
             this.$emit('select', suggestion)
-            this.$nextTick(() => {
-                if (this.closeOnSelect || this.suggestions.length === 0) {
-                    this.isOpen = false
-                }
-            })
+            this.isOpen = false
         },
         move (delta) {
             if (!this.isOpen) {
