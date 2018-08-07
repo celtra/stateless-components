@@ -11,6 +11,8 @@ import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
+import Slider from '@/stateless/slider.vue'
+import Group from '@/stateless/group.vue'
 import Calendar from '@/stateless/Calendar.vue'
 import DateInput from '@/stateless/DateInput.vue'
 import DateRangeInput from '@/stateless/DateRangeInput.vue'
@@ -115,15 +117,38 @@ export default {
         component: Icon,
         availableProps: {
             name: [
-                'caret', 'pencil-edit', 'delete-icon', 'duplicate-icon', 'sort-arrow',
-                'calendar', 'back', 'save', 'arrow-down-strong', 'loading',
+                'pencil-edit', 'pencil-edit-line', 'delete-icon', 'duplicate-icon', 'sort-arrow',
+                'calendar', 'back', 'backward', 'save', 'arrow-down-strong', 'loading',
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
                 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
+                'alpha', 'beta',
             ],
         },
         defaultProps: {
-            name: 'caret',
+            name: 'pencil-edit',
+        },
+    },
+    Slider: {
+        component: Slider,
+        defaultProps: {
+            min: 1,
+            max: 100,
+            limit: 20,
+            step: 1,
+            theme: 'light',
+            size: 'normal',
+            label: 'Basic slider',
+            value: 5,
+            unit: '%',
+            alignment: 'right',
+        },
+    },
+    Group: {
+        component: Group,
+        defaultProps: {
+            label: 'Modeling',
+            theme: 'light',
         },
     },
     Calendar: {
