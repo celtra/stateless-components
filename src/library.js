@@ -17,6 +17,8 @@ import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
 import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
+import SliderComponent from '@/stateless/slider.vue'
+import GroupComponent from '@/stateless/group.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
@@ -44,6 +46,8 @@ export const RadioButton = RadioButtonComponent
 export const Selectbox = SelectboxComponent
 export const SupportText = SupportTextComponent
 export const Icon = IconComponent
+export const Slider = SliderComponent
+export const Group = GroupComponent
 export const Toast = ToastComponent
 export const PieChart = PieChartComponent
 export const InlineDialog = InlineDialogComponent

@@ -25,7 +25,7 @@
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
                     <textarea v-if="autogrow" ref="inputHidden"
-                              :value="maxLengthNumber === null ? text : text.substring(0, maxLengthNumber)"
+                              :value="maxLengthNumber === null ? text : text ? text.substring(0, maxLengthNumber) : null"
                               class="input-row__placeholder-text input-row__textarea"
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
@@ -39,8 +39,8 @@
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                     <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
-                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keyup.esc.enter.stop="blur" @keydown.up="numberIncrement" @keydown.down="numberDecrement"
-                           @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keydown="$emit('keydown', $event)"
+                           @keyup="$emit('keyup', $event)" @keyup.esc.stop="blur" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
                 <div v-if="$slots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
@@ -72,7 +72,7 @@
                     </template>
                 </div>
 
-                <div v-if="maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
+                <div v-if="counter && maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
                     <template v-if="currentLength > maxLengthNumber">
                         <span class="input-row__unit--warning">{{ currentLength }}</span>/{{ maxLengthNumber }}
                     </template>
@@ -105,18 +105,21 @@ export default {
         theme: { type: String, required: false, default: 'dark' },
         recommendedMaxLength: { type: Number, required: false },
         maxLength: { type: Number, required: false },
+        counter: { type: Boolean, default: true },
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
-        step: { type: Number, default: 1 },
-        minValue: { type: Number, required: false },
-        maxValue: { type: Number, required: false },
+        minNumberCap: { type: Number, required: false },
+        maxNumberCap: { type: Number, required: false },
         alignment: { type: String, default: 'left' },
+        decimalPrecision: { type: Number, default: 1 },
+        locale: { type: String, default: 'en-US' },
     },
     data () {
         return {
             warningMessage: null,
             errorMessage: null,
             focused: false,
+            text: null,
             passwordVisible: false,
             textareaOverflow: false,
             overlay: {
@@ -179,29 +182,25 @@ export default {
         maxLengthCap () {
             return this.maxLength ? parseInt(this.maxLength, 10) : null
         },
-        decimalPlacesCount () {
-            let decimals = this.step.toString().split('.')[1]
-            return decimals ? decimals.length : 0
-        },
         currentLength () {
-            if (!this.value) {
+            if (!this.text) {
                 return 0
             }
-            return this.getCount ? this.getCount(this.value) : this.value.length
+            return this.getCount ? this.getCount(this.text) : this.text.length
         },
-        textareaClasses (){
+        textareaClasses () {
             // Apparently you can't use a filter within array class binding in template
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
         },
-        text () {
-            this.runValidations(this.value)
-            return this.value !== null && this.value.toString() || ''
+        decimalSeperator () {
+            return 1.1.toLocaleString(this.locale).substring(1, 2)
         },
     },
     watch: {
         value () {
-            if (this.$refs.input && this.$refs.input.value !== this.text) {
-                this.$refs.input.value = this.text
+            if (this.value !== this.lastEmittedValue) {
+                this.runValidations(this.value)
+                this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
             }
         },
         disabled (v) {
@@ -212,6 +211,12 @@ export default {
         error (v) {
             this.errorMessage = v === null ? true : v
         },
+    },
+    created () {
+        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
+            throw new Error('Only type text is compatible with autogrow and input length props.')
+
+        this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
     },
     mounted () {
         this.$nextTick(() => {
@@ -252,6 +257,9 @@ export default {
             let value = event.target.value
 
             if (!value) {
+                this.runValidations(value)
+                this.text = null
+                this.lastEmittedValue = null
                 this.$emit('input', null)
                 return
             }
@@ -262,75 +270,109 @@ export default {
                 value = value.replace(/\n/g, '')
             }
 
-            if (this.maxLengthCap > 0) {
-                if (this.getCount) {
-                    while (this.getCount(value) > this.maxLengthCap) {
-                        value = value.substring(0, value.length - 1)
-                    }
-                } else {
-                    value = value.substring(0, this.maxLengthCap)
+            let trimLeadingZeros = (value) => {
+                let parts = value.split(this.decimalSeperator)
+                let wholeNumber = parts[0].replace(/^0*/, '')
+                wholeNumber = wholeNumber.length === 0 ? '0' : wholeNumber
+                return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
+            }
+
+            let capNumber = (numberValue) => {
+                if (this.maxNumberCap && numberValue > this.maxNumberCap) {
+                    numberValue = this.maxNumberCap
+                } else if (this.minNumberCap && numberValue < this.minNumberCap) {
+                    numberValue = this.minNumberCap
                 }
+                return numberValue
             }
 
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
-                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
                 let numberValue = parseInt(value)
 
-                if (isNumeric && inRange && !isNaN(numberValue)) {
+                if (isNumeric && !isNaN(numberValue)) {
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
+                        value = numberValue.toString()
+                    }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                    }
+
                     this.runValidations(numberValue)
 
-                    this.$emit('input', value)
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
+                    this.lastEmittedValue = numberValue
+                    this.$emit('input', numberValue)
                 } else {
-                    event.target.value = this.value
+                    event.target.value = this.text
                 }
             } else if (this.type === 'float') {
-                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9' || c === '.').every(v => !!v)
-                let inRange = (this.minValue ? this.minValue <= value : true) && (this.maxValue ? value <= this.maxValue : true)
-                let numberValue = parseFloat(value)
+                let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
+                let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
+                let decimals = value.split(this.decimalSeperator)[1]
 
-                if (isNumeric && inRange && !isNaN(numberValue)) {
+                if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
+                        value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
+                        this.$refs.input.value = value
+                    }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                        this.$refs.input.value = value
+                    }
+
                     this.runValidations(numberValue)
 
-                    this.$emit('input', value)
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
+                    this.lastEmittedValue = numberValue
+                    this.$emit('input', numberValue)
                 } else {
-                    event.target.value = this.value
+                    event.target.value = this.text
                 }
             } else {
+                if (this.maxLengthCap > 0) {
+                    if (this.getCount) {
+                        while (this.getCount(value) > this.maxLengthCap) {
+                            value = value.substring(0, value.length - 1)
+                        }
+                    } else {
+                        value = value.substring(0, this.maxLengthCap)
+                    }
+
+                    // need to reset input value because watcher will not detect any value changes when text in capped
+                    event.target.value = value
+                }
+
                 this.runValidations(value)
 
+                this.text = value
+                this.lastEmittedValue = value
                 this.$emit('input', value || null)
             }
 
             this.$nextTick(() => {
                 this.updateHeight()
             })
-        },
-        numberIncrement (e) {
-            if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value)
-                if (!this.maxValue || numberValue < this.maxValue){
-                    numberValue += this.step
-                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                    this.runValidations(numberValue)
-                    event.target.value = numberValue
-                    this.$emit('input', numberValue)
-                    e.preventDefault()
-                }
-            }
-        },
-        numberDecrement (e) {
-            if (this.type === 'number' || this.type === 'float') {
-                let numberValue = parseFloat(e.target.value)
-                if (!this.minValue || numberValue > this.minValue){
-                    numberValue -= this.step
-                    numberValue = Math.round(numberValue * Math.pow(10, this.decimalPlacesCount)) / Math.pow(10, this.decimalPlacesCount)
-                    this.runValidations(numberValue)
-                    event.target.value = numberValue
-                    this.$emit('input', numberValue)
-                    e.preventDefault()
-                }
-            }
         },
         updateHeight () {
             if (this.autogrow) {
@@ -372,16 +414,10 @@ export default {
         selectText () {
             this.$refs.input.select()
         },
-        blur (e) {
-            if (e.key === 'Escape')
-                this.$emit('discard')
-
+        blur () {
             this.$refs.input.blur()
         },
         removeFocus () {
-            if (this.states.error)
-                this.$emit('discard')
-
             this.focused = false
             this.$emit('blur')
 
