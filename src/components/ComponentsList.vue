@@ -106,7 +106,7 @@ export default {
         for (let component of getComponents()) {
             let componentData = {}
             for (let prop of component.props) {
-                componentData[prop.name] = prop.default
+                componentData[prop.name] = prop.name === 'theme' ? vars.theme : prop.name === 'size' ?  vars.size : prop.default
             }
             vars[component.id] = componentData
         }

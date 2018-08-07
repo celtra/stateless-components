@@ -1,20 +1,22 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
-        <div v-if="icon" class="input__icon-prepend">
-            <img :src="icon" class="input__icon"/>
+    <div :class="['input--' + size, 'input--' + theme]" class="input">
+        <div v-if="$slots.before" class="input__icon-prepend">
+            <slot name="before"></slot>
         </div>
 
-        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!icon }" :title="mappedDisabledText" class="input-field">
-            <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
-                {{ label }}
-            </div>
-            <div :class="cssStates | prefix('input-field__label-text--')" class="input-field__label-text">
-                {{ mappedLabelText }}
-            </div>
+        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!$slots.before }" :title="mappedDisabledText" class="input-field">
+            <template v-if="label !== undefined">
+                <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
+                    {{ label }}
+                </div>
+                <div :class="cssStates | prefix('input-field__label-text--')" class="input-field__label-text">
+                    {{ mappedLabelText }}
+                </div>
+            </template>
 
             <div :class="cssStates | prefix('input-row--')" class="input-row">
-                <div v-if="hasLeftUnit" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
-                    {{ unit.label }}
+                <div v-if="$slots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
+                    <slot name="left"></slot>
                 </div>
 
                 <div class="input-row__input-flex">
@@ -23,7 +25,7 @@
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
                     <textarea v-if="autogrow" ref="inputHidden"
-                              :value="maxLengthNumber === null ? text : text.substring(0, maxLengthNumber)"
+                              :value="maxLengthNumber === null ? text : text ? text.substring(0, maxLengthNumber) : null"
                               class="input-row__placeholder-text input-row__textarea"
                               style="height: 0px; position: absolute; visibility: hidden;">
                     </textarea>
@@ -35,17 +37,16 @@
                            :value="text" :placeholder="mappedPlaceholderText"
                            :disabled="disabled" class="input-row__placeholder-text" type="password" @keyup.delete.stop @keyup.left.stop @keyup.right.stop
                            @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
-                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')"
-                           :value="text" :placeholder="mappedPlaceholderText" :disabled="disabled" class="input-row__placeholder-text" type="text" @keyup.delete.stop
-                           @keyup.left.stop @keyup.right.stop @keyup.esc.stop="blur" @keyup="$emit('keyup', $event)" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
+                    <input v-else ref="input" :class="cssStates | prefix('input-row__placeholder-text--')" :value="text" :placeholder="mappedPlaceholderText"
+                           :disabled="disabled" :style="{'text-align': alignment}" class="input-row__placeholder-text" type="text"
+                           @keyup.delete.stop @keyup.left.stop @keyup.right.stop @keydown="$emit('keydown', $event)"
+                           @keyup="$emit('keyup', $event)" @keyup.esc.stop="blur" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
-                <div v-if="hasRightUnit" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
-                    {{ unit.label }}
+                <div v-if="$slots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
+                    <slot name="right"></slot>
                 </div>
-
-                <div v-if="type==='password'" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right"
-                     @click="togglePasswordVisibility">
+                <div v-else-if="type==='password'" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right" @click="togglePasswordVisibility">
                     <svg v-show="passwordVisible" xmlns="http://www.w3.org/2000/svg" class="input-row__unit__password-icon">
                         <symbol viewBox="0 0 16 16">
                             <g fill-rule="nonzero" ><path d="M14.6 5.6l-8.2 8.2c.5.1 1.1.2 1.6.2 3.6 0 6.4-3.1 7.6-4.9.5-.7.5-1.6 0-2.3-.2-.3-.6-.7-1-1.2zM14.3.3L11.6 3C10.5 2.4 9.3 2 8 2 4.4 2 1.6 5.1.4 6.9c-.5.7-.5 1.6 0 2.2.5.8 1.4 1.8 2.4 2.7L.3 14.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3l14-14c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0zm-9 9C5.1 8.9 5 8.5 5 8c0-1.7 1.3-3 3-3 .5 0 .9.1 1.3.3l-4 4z"/></g>
@@ -71,7 +72,7 @@
                     </template>
                 </div>
 
-                <div v-if="maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
+                <div v-if="counter && maxLengthNumber > 0" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right input-row__unit input-row__unit--max-length">
                     <template v-if="currentLength > maxLengthNumber">
                         <span class="input-row__unit--warning">{{ currentLength }}</span>/{{ maxLengthNumber }}
                     </template>
@@ -90,15 +91,13 @@ import { formElementTransitionTime } from './form_element_constants'
 export default {
     props: {
         value: { type: [String, Number], default: '' },
-        label: { type: String, required: true },
+        label: { type: String, required: false },
         disabled: { type: Boolean, required: false, default: false },
         hasWarning: { type: Function, required: false },
         isValid: { type: Function, required: false },
         getCount: { type: Function, required: false },
         error: { type: String, required: false },
         placeholder: { type: String, required: false, default: '' },
-        icon: { type: String, required: false, default: '' },
-        unit: { type: Object, required: false },
         helperText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         type: { type: String, required: false, default: 'text' },
@@ -106,15 +105,21 @@ export default {
         theme: { type: String, required: false, default: 'dark' },
         recommendedMaxLength: { type: Number, required: false },
         maxLength: { type: Number, required: false },
+        counter: { type: Boolean, default: true },
         autogrow: { type: Boolean, default: false },
         maxHeight: { type: Number, default: 200 },
+        minNumberCap: { type: Number, required: false },
+        maxNumberCap: { type: Number, required: false },
+        alignment: { type: String, default: 'left' },
+        decimalPrecision: { type: Number, default: 1 },
+        locale: { type: String, default: 'en-US' },
     },
     data () {
         return {
             warningMessage: null,
             errorMessage: null,
             focused: false,
-            text: '',
+            text: null,
             passwordVisible: false,
             textareaOverflow: false,
             overlay: {
@@ -148,13 +153,13 @@ export default {
             return this.type === 'password' && !this.passwordVisible ? 'password' : 'text'
         },
         mappedLabelText () {
-            return (this.states.focused || this.text) ? this.label : ''
+            return (this.states.focused || this.text) && this.label ? this.label : ''
         },
         mappedPlaceholderText () {
             if (this.states.focused) {
                 return this.placeholder
             } else {
-                return this.text ? this.text : this.label
+                return this.text ? this.text : this.label || ''
             }
         },
         mappedHelperText () {
@@ -171,12 +176,6 @@ export default {
         mappedDisabledText () {
             return this.states.disabled ? this.disabledText : ''
         },
-        hasLeftUnit () {
-            return !!this.unit && this.unit.position === 'left'
-        },
-        hasRightUnit () {
-            return !!this.unit && this.unit.position === 'right'
-        },
         maxLengthNumber () {
             return this.recommendedMaxLength || this.maxLength ? parseInt(this.recommendedMaxLength || this.maxLength, 10) : null
         },
@@ -189,15 +188,19 @@ export default {
             }
             return this.getCount ? this.getCount(this.text) : this.text.length
         },
-        textareaClasses (){
+        textareaClasses () {
             // Apparently you can't use a filter within array class binding in template
             return [this.$options.filters.prefix(this.cssStates, 'input-row__placeholder-text--'), { 'input-row__textarea--overflow': this.textareaOverflow }]
         },
+        decimalSeperator () {
+            return 1.1.toLocaleString(this.locale).substring(1, 2)
+        },
     },
     watch: {
-        value (v) {
-            if (this.disabled) {
-                this.text = this.value && this.value.toString() || ''
+        value () {
+            if (this.value !== this.lastEmittedValue) {
+                this.runValidations(this.value)
+                this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
             }
         },
         disabled (v) {
@@ -210,7 +213,10 @@ export default {
         },
     },
     created () {
-        this.text = this.value && this.value.toString() || ''
+        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
+            throw new Error('Only type text is compatible with autogrow and input length props.')
+
+        this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
     },
     mounted () {
         this.$nextTick(() => {
@@ -250,47 +256,118 @@ export default {
         onInput (event) {
             let value = event.target.value
 
+            if (!value) {
+                this.runValidations(value)
+                this.text = null
+                this.lastEmittedValue = null
+                this.$emit('input', null)
+                return
+            }
+
             if (this.autogrow) {
                 value = value.replace(/\n{2,}/g, '\n')
             } else {
                 value = value.replace(/\n/g, '')
             }
 
-            if (this.maxLengthCap > 0) {
-                if (this.getCount) {
-                    while (this.getCount(value) > this.maxLengthCap) {
-                        value = value.substring(0, value.length - 1)
-                    }
-                } else {
-                    value = value.substring(0, this.maxLengthCap)
+            let trimLeadingZeros = (value) => {
+                let parts = value.split(this.decimalSeperator)
+                let wholeNumber = parts[0].replace(/^0*/, '')
+                wholeNumber = wholeNumber.length === 0 ? '0' : wholeNumber
+                return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
+            }
+
+            let capNumber = (numberValue) => {
+                if (this.maxNumberCap && numberValue > this.maxNumberCap) {
+                    numberValue = this.maxNumberCap
+                } else if (this.minNumberCap && numberValue < this.minNumberCap) {
+                    numberValue = this.minNumberCap
                 }
+                return numberValue
             }
 
             if (this.type === 'number') {
                 let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
+                let numberValue = parseInt(value)
 
-                if (isNumeric) {
-                    this.text = value
-
-                    let numberValue = parseInt(value)
-                    if (!isNaN(numberValue)) {
-                        this.runValidations(numberValue)
-
-                        this.$emit('input', numberValue)
-                    } else {
-                        this.$emit('input', null)
+                if (isNumeric && !isNaN(numberValue)) {
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
+                        value = numberValue.toString()
                     }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                    }
+
+                    this.runValidations(numberValue)
+
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
+                    this.lastEmittedValue = numberValue
+                    this.$emit('input', numberValue)
+                } else {
+                    event.target.value = this.text
+                }
+            } else if (this.type === 'float') {
+                let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
+                let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
+                let decimals = value.split(this.decimalSeperator)[1]
+
+                if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
+                    let cappedNumberValue = capNumber(numberValue)
+                    if (cappedNumberValue !== numberValue) {
+                        numberValue = cappedNumberValue
+                        value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
+                        this.$refs.input.value = value
+                    }
+
+                    let trimmedValue = trimLeadingZeros(value)
+                    if (trimmedValue !== value) {
+                        value = trimmedValue
+                        this.$refs.input.value = value
+                    }
+
+                    this.runValidations(numberValue)
+
+                    if (value === this.text && value !== event.target.value) {
+                        // need to reset input value because watcher will not detect any value changes
+                        event.target.value = value
+                    } else {
+                        this.text = value
+                    }
+
+                    this.lastEmittedValue = numberValue
+                    this.$emit('input', numberValue)
+                } else {
+                    event.target.value = this.text
                 }
             } else {
-                this.text = value
+                if (this.maxLengthCap > 0) {
+                    if (this.getCount) {
+                        while (this.getCount(value) > this.maxLengthCap) {
+                            value = value.substring(0, value.length - 1)
+                        }
+                    } else {
+                        value = value.substring(0, this.maxLengthCap)
+                    }
+
+                    // need to reset input value because watcher will not detect any value changes when text in capped
+                    event.target.value = value
+                }
 
                 this.runValidations(value)
 
+                this.text = value
+                this.lastEmittedValue = value
                 this.$emit('input', value || null)
-            }
-
-            if (this.$refs.input && this.$refs.input.value !== this.text) {
-                this.$refs.input.value = this.text
             }
 
             this.$nextTick(() => {
@@ -307,7 +384,7 @@ export default {
             }
         },
         positionOverlay () {
-            if (this.hasLeftUnit) {
+            if (this.$slots.left) {
                 this.$refs.labelOverlay.style['margin-left'] = `${this.$refs.input.getBoundingClientRect().left - this.$refs.inputWrap.getBoundingClientRect().left}px`
             }
         },
@@ -316,7 +393,7 @@ export default {
             this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
-            if (this.text === '' || !this.text ) {
+            if ((this.text === '' || !this.text) && this.label) {
                 let translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
                 let translateY = -18.5
                 let scale = 0.63
@@ -334,13 +411,17 @@ export default {
                 this.overlay.open = true
             }
         },
+        selectText () {
+            this.$refs.input.select()
+        },
         blur () {
             this.$refs.input.blur()
         },
         removeFocus () {
             this.focused = false
+            this.$emit('blur')
 
-            if (this.text === '') {
+            if (this.text === '' && this.label) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
@@ -373,11 +454,6 @@ export default {
         margin-top: 18px;
         width: 16px;
         text-align: right;
-    }
-
-    &__icon {
-        height: 16px;
-        width: 16px;
     }
 }
 
