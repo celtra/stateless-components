@@ -16,6 +16,8 @@ import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
 import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
+import SliderComponent from '@/stateless/slider.vue'
+import GroupComponent from '@/stateless/group.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -33,3 +35,5 @@ export const RadioButton = RadioButtonComponent
 export const Selectbox = SelectboxComponent
 export const SupportText = SupportTextComponent
 export const Icon = IconComponent
+export const Slider = SliderComponent
+export const Group = GroupComponent

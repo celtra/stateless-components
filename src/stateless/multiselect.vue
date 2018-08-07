@@ -1,11 +1,8 @@
 <template>
     <div class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element
-                v-model="searchQuery"
-                :label="label"
-                icon="/img/icons/search.svg"
-                size="phat">
+            <input-element v-model="searchQuery" :label="label" size="phat">
+                <img slot="before" src="/img/icons/search.svg" style="height: 16px; width: 16px;"/>
             </input-element>
         </div>
 
