@@ -28,10 +28,11 @@ export default {
         error: { type: Boolean, default: false },
         href: { type: String },
         target: { type: String, default: '_self' },
+        trackName: { type: String, required: false },
     },
     methods: {
         click () {
-            this.$root.$emit('tracking-event', { type: 'button', label: this.$attrs['track-name'] || ((this.$slots && this.$slots.default && this.$slots.default[0].text) ? this.$slots.default[0].text : 'dialog-button'), trigger: 'click' })
+            this.$root.$emit('tracking-event', { type: 'button', label: this.trackName || ((this.$slots && this.$slots.default && this.$slots.default[0].text) ? this.$slots.default[0].text : 'dialog-button'), trigger: 'click' })
             this.$emit('click')
         },
     },

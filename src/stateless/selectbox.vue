@@ -58,7 +58,7 @@
 
                         <div v-for="option in group.options" :data-option-id="option.id" :class="getOptionCssStates(option) | prefix('selectbox__option--')"
                              :key="option.id" class="selectbox__option" @click="selectOption(option.id)">
-                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :title="option.label" class="selectbox__label">
+                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :style="option.metadata ? { width: '70%' } : { width: '100%' }" :title="option.label" class="selectbox__label">
                                 {{ option.label }}
                             </div>
 
@@ -92,6 +92,7 @@ export default {
         showSelectedMetadata: { type: Boolean, required: false, default: false },
         size: { type: String, required: false, default: 'normal' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -198,6 +199,11 @@ export default {
             }
         },
     },
+    watch: {
+        value () {
+            this.selectedId = this.value
+        },
+    },
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.positionSelectList())
@@ -209,7 +215,7 @@ export default {
     methods: {
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
         },
         clearFocus () {
@@ -707,7 +713,6 @@ export default {
             }
 
             .selectbox__label {
-                width: 70%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
