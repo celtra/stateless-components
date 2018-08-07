@@ -113,6 +113,7 @@ export default {
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -390,7 +391,7 @@ export default {
         },
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
