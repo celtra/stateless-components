@@ -20,6 +20,7 @@
                     :alignment="alignment"
                     :locale="locale"
                     :decimal-precision="decimalPrecision"
+                    :track-name="trackName"
                     @input="handleInput"
                     @keydown.up.stop="handleStepIncrease"
                     @keydown.down.stop="handleStepDecrease"
@@ -75,6 +76,7 @@ export default {
         maxLabel: { type: String, required: false },
         unit: { type: String, required: false },
         disabled: { type: Boolean, default: false },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
