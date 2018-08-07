@@ -1,5 +1,5 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
