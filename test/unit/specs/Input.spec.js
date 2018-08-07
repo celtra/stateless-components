@@ -177,30 +177,6 @@ describe('Input', () => {
             })
         })
 
-        describe('hasLeftUnit', () => {
-            it('should be true if has unit', function () {
-                vm.unit = { label: "Label", position: "left" }
-
-                expect(vm.hasLeftUnit).toBe(true)
-            })
-
-            it('should be false otherwise', function () {
-                expect(vm.hasLeftUnit).toBe(false)
-            })
-        })
-
-        describe('hasRightUnit', () => {
-            it('should be true if has unit', function () {
-                vm.unit = { label: "Label", position: "right" }
-
-                expect(vm.hasRightUnit).toBe(true)
-            })
-
-            it('should be false otherwise', function () {
-                expect(vm.hasRightUnit).toBe(false)
-            })
-        })
-
         describe('currentLength', () => {
             it('should return current length when text is null', function () {
                 vm.maxLength = 5
