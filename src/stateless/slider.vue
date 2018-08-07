@@ -8,22 +8,22 @@
 
         <div class="slider__row">
             <div class="slider__input">
-                <input-element ref="input"
-                               :type="isWholeNumber ? 'number' : 'float'"
-                               :size="size"
-                               :disabled="disabled"
-                               :value="value"
-                               :min-number-cap="0"
-                               :max-number-cap="max"
-                               :is-valid="isValidInput"
-                               :theme="theme"
-                               :alignment="alignment"
-                               :locale="locale"
-                               :decimal-precision="decimalPrecision"
-                               :track-name="trackName"
-                               @input="handleInput"
-                               @keydown.up.stop="handleStepIncrease"
-                               @keydown.down.stop="handleStepDecrease"
+                <input-element
+                    :type="isWholeNumber ? 'number' : 'float'"
+                    :size="size"
+                    :disabled="disabled"
+                    :value="value"
+                    :min-number-cap="0"
+                    :max-number-cap="max"
+                    :is-valid="isValidInput"
+                    :theme="theme"
+                    :alignment="alignment"
+                    :locale="locale"
+                    :decimal-precision="decimalPrecision"
+                    :track-name="trackName"
+                    @input="handleInput"
+                    @keydown.up.stop="handleStepIncrease"
+                    @keydown.down.stop="handleStepDecrease"
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
@@ -149,7 +149,6 @@ export default {
             throw new Error('Value must be between min and max.')
 
         this.decimalPrecision = 1
-
     },
     mounted () {
         this.isDomReady = true
