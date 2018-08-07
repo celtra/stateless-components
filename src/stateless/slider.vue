@@ -26,7 +26,7 @@
                 ><span v-if="unit" slot="right">{{ unit }}</span></input-element>
             </div>
 
-            <div ref="bar" :class="{disabled: disabled, changed: isChanged, dragging: isDragging} | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="handleStepDecrease" @keydown.down.stop="handleStepDecrease" @keydown.right.stop="handleStepIncrease" @keydown.up.stop="handleStepIncrease">
+            <div ref="bar" :class="{disabled: disabled, changed: isChanged, dragging: isDragging} | prefix('slider-bar--')" class="slider-bar" tabindex="0" @mousedown="startDrag" @keydown.left.stop="handleStepDecrease" @keydown.down.stop="handleStepDecrease" @keydown.right.stop="handleStepIncrease" @keydown.up.stop="handleStepIncrease" @keyup.left.stop @keyup.right.stop>
                 <div class="slider-bar__container">
                     <div class="slider-ruler">
                         <div ref="min" :class="labelsActiveClass.min | prefix('slider-ruler__label--')" class="slider-ruler__label">{{ minLabelValue }}</div>
