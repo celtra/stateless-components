@@ -11,6 +11,8 @@ import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
 import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
+import Slider from '@/stateless/slider.vue'
+import Group from '@/stateless/group.vue'
 
 const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
@@ -121,6 +123,28 @@ export default {
         },
         defaultProps: {
             name: 'pencil-edit',
+        },
+    },
+    Slider: {
+        component: Slider,
+        defaultProps: {
+            min: 1,
+            max: 100,
+            limit: 20,
+            step: 1,
+            theme: 'light',
+            size: 'normal',
+            label: 'Basic slider',
+            value: 5,
+            unit: '%',
+            alignment: 'right',
+        },
+    },
+    Group: {
+        component: Group,
+        defaultProps: {
+            label: 'Modeling',
+            theme: 'light',
         },
     },
 }

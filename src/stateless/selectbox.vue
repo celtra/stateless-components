@@ -58,7 +58,7 @@
 
                         <div v-for="option in group.options" :data-option-id="option.id" :class="getOptionCssStates(option) | prefix('selectbox__option--')"
                              :key="option.id" class="selectbox__option" @click="selectOption(option.id)">
-                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :title="option.label" class="selectbox__label">
+                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :style="option.metadata ? { width: '70%' } : { width: '100%' }" :title="option.label" class="selectbox__label">
                                 {{ option.label }}
                             </div>
 
@@ -196,6 +196,11 @@ export default {
                 option: optionHeight,
                 search: searchHeight,
             }
+        },
+    },
+    watch: {
+        value () {
+            this.selectedId = this.value
         },
     },
     mounted () {
@@ -707,7 +712,6 @@ export default {
             }
 
             .selectbox__label {
-                width: 70%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
