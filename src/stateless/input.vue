@@ -750,14 +750,20 @@ export default {
         &:hover {
             .input-row__placeholder-text::placeholder { color: @black; }
         }
+
+        &--focused { border-color: @royal-blue; }
     }
 
     .input-field__label-text {
         color: @bluish-gray;
+
+        &--focused { color: @royal-blue; }
     }
 
     .input-field__helper-text {
         color: @bluish-gray;
+
+        &--error { color: @pink-red; }
 
         &--warning { color: @orange-yellow; }
     }
