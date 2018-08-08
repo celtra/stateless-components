@@ -7,7 +7,7 @@
             </input-element>
         </div>
 
-        <div :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
+        <div v-if="hasScrollTop" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
         <div class="multiselect__options-wrap">
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
@@ -75,6 +75,7 @@ export default {
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        hasScrollTop: { type: Boolean, default: true },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
         showListOverlay: { type: Boolean, default: false },
