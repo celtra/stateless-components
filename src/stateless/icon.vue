@@ -32,7 +32,7 @@
         </svg>
 
         <svg v-if="name === 'sort-arrow'" :style="styleOverride" xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 9 10">
+             viewBox="0 0 8 8">
             <path class="path" transform="translate(-4 -4)" d="M12 8.231l-.836-.787-2.567 2.419V4H7.403v5.863l-2.567-2.42L4 8.232 8 12z"/>
         </svg>
 
