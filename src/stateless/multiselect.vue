@@ -1,7 +1,7 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" :size="size" :theme="theme">
+            <input-element v-model="searchQuery" :label="label" :theme="theme" :size="size">
                 <icon slot="before" name="search" />
                 <icon v-if="isLoading" slot="right" name="loading" class="spin" />
             </input-element>
