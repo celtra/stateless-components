@@ -16,12 +16,12 @@ import Group from '@/stateless/group.vue'
 import Toast from '@/stateless/Toast.vue'
 import PieChart from '@/stateless/PieChart.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
-import Tooltip from '@/stateless/Tooltip.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import DefaultListItem from '@/stateless/DefaultListItem.vue'
 import ScrollableList from '@/stateless/ScrollableList.vue'
 import Typeahead from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselect from '@/stateless/TypeaheadMultiselect.vue'
+import Tooltip from '@/stateless/Tooltip.vue'
 import Chip from '@/stateless/Chip.vue'
 import ChipWithMultiselect from '@/stateless/ChipWithMultiSelect.vue'
 
@@ -110,7 +110,6 @@ export default {
             options: largeItems,
             value: [],
             isSearchable: true,
-            size: 'condensed',
         },
     },
     RadioButton: {

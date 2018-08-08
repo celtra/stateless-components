@@ -22,12 +22,12 @@ import GroupComponent from '@/stateless/group.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
-import TooltipComponent from '@/stateless/Tooltip.vue'
 import DefaultListComponent from '@/stateless/DefaultList.vue'
 import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
 import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
+import TooltipComponent from '@/stateless/Tooltip.vue'
 import ChipComponent from '@/stateless/Chip.vue'
 import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 
@@ -53,11 +53,11 @@ export const Group = GroupComponent
 export const Toast = ToastComponent
 export const PieChart = PieChartComponent
 export const InlineDialog = InlineDialogComponent
-export const Tooltip = TooltipComponent
 export const DefaultList = DefaultListComponent
 export const DefaultListItem = DefaultListItemComponent
 export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
+export const Tooltip = TooltipComponent
 export const Chip = ChipComponent
 export const ChipWithMultiselect = ChipWithMultiselectComponent
