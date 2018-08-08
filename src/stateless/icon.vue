@@ -33,9 +33,7 @@
 
         <svg v-if="name === 'sort-arrow'" :style="styleOverride" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 9 10">
-            <polygon class="path"
-                     points="9 5.8125 8.05970149 4.9375 5.17164179 7.625 5.17164179 0 3.82835821 0 3.82835821 7.625 0.940298507 4.9375 7.78543896e-14 5.8125 4.5 10"
-                     fill-rule="nonzero"/>
+            <path class="path" transform="translate(-4 -4)" d="M12 8.231l-.836-.787-2.567 2.419V4H7.403v5.863l-2.567-2.42L4 8.232 8 12z"/>
         </svg>
 
         <svg v-if="name === 'calendar'" :style="styleOverride" viewBox="0 0 16 16"
