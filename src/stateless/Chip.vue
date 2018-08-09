@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme, size, { active: isActive }] | prefix('chip--')" class="chip" @click="$emit('click')">
+    <div :class="[theme, size, { active: isActive }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
@@ -89,7 +89,7 @@ export default {
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         color: @white;
         background-color: @gunpowder;
 
@@ -120,7 +120,7 @@ export default {
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         color: @black;
         background-color: @very-light-gray;
 
