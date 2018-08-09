@@ -28,7 +28,7 @@
                 </div>
 
                 <div>
-                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list">
+                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list" :list-container="$refs.multiselectOptions">
                         <div slot-scope="{ item }">
                             <checkbox-element
                                 :disabled="item.disabled"

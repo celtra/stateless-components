@@ -21,7 +21,7 @@
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
+                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -50,6 +50,7 @@ export default {
         highlightQuery: { type: String },
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
+        listContainer: { type: HTMLElement, default: null },
     },
     data () {
         return {
