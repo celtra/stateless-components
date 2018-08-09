@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'hover-tooltip--visible': show }" class="hover-tooltip">
+    <div ref="tooltip" :style="{transform: transform}" :class="{ 'hover-tooltip--visible': show }" class="hover-tooltip" @animationstart="handleAnimationStart">
         <slot></slot>
     </div>
 </template>
@@ -8,6 +8,49 @@
 export default {
     props: {
         show: { type: Boolean, default: false },
+        boundaryElement: { type: [HTMLElement, String], default: null },
+    },
+    data () {
+        return {
+            translateX: null,
+            translateY: null,
+        }
+    },
+    computed: {
+        transform () {
+            if (this.translateX || this.translateY) {
+                return `translate(${this.translateX || 0}px, ${this.translateY || 0}px)`
+            }
+        },
+    },
+    methods: {
+        handleAnimationStart () {
+            this.resetPosition()
+            this.$nextTick(this.positionTooltip)
+        },
+        positionTooltip () {
+            if (this.boundaryElement === 'viewport') {
+                let tooltip = this.$refs.tooltip.getBoundingClientRect()
+                if (tooltip.x + tooltip.width > window.innerWidth) {
+                    this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
+                }
+            } else if (this.boundaryElement instanceof HTMLElement) {
+                let tooltip = this.$refs.tooltip.getBoundingClientRect()
+                let boundry = this.boundaryElement.getBoundingClientRect()
+
+                if (tooltip.x + tooltip.width > boundry.x + boundry.width) {
+                    this.translateX = boundry.x + boundry.width - tooltip.x - tooltip.width - 10
+                }
+
+                if (tooltip.y + tooltip.height > boundry.y + boundry.height) {
+                    this.translateY = boundry.y + boundry.height - tooltip.y - tooltip.height - 10
+                }
+            }
+        },
+        resetPosition () {
+            this.translateX = null
+            this.translateY = null
+        },
     },
 }
 </script>
