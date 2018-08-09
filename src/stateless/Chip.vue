@@ -39,6 +39,7 @@ export default {
     user-select: none;
     cursor: pointer;
     transition: all @icon-hover-transition-time;
+    outline: none;
 }
 
 .chip__label {
