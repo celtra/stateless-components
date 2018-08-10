@@ -90,10 +90,10 @@ export default {
         blur () {
             this.$el.blur()
         },
-        toggle () {
+        toggle (ev) {
             if (!this.disabled) {
                 this.$emit('focus')
-                this.$emit('input', !this.value)
+                this.$emit('input', !this.value, ev)
                 this.focused = false
             }
         },
