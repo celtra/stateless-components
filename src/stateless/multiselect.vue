@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme] | prefix('multiselect--')" class="multiselect">
+    <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
             <input-element v-model="searchQuery" :label="label" :theme="theme" size="phat">
                 <icon slot="before" name="search" />
@@ -28,7 +28,7 @@
                 </div>
 
                 <div>
-                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" class="multiselect__default-list" :list-container="$refs.multiselectOptions">
+                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" class="multiselect__default-list">
                         <div slot-scope="{ item }">
                             <checkbox-element
                                 :disabled="item.disabled"
