@@ -18,7 +18,7 @@ export default {
     props: {
         theme: { type: String, default: 'dark' }, // dark | light
         size: { type: String, default: 'normal' }, // condensed | normal
-        label: { type: String, default: '' },
+        label: { type: String, required: true },
         metadata: { type: String, default: '' },
         isActive: { type: Boolean, default: false },
         isRemovable: { type: Boolean, default: false },
