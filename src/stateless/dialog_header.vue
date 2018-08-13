@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="step in shownSteps.slice(0, stepIndex + 1)" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
+        <div v-for="step in calculationSteps" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
 
         <div :class="['dialog-header--' + theme, 'dialog-header--' + dialogViewState, { 'dialog-header--green': isValid !== false }]" class="dialog-header">
             <div v-show="stepIndex > 0 && hasBackButton" ref="backButton" class="dialog-header__back" tabindex="0" @click="previousStep" @keyup.enter.stop="previousStep">
@@ -61,6 +61,9 @@ export default {
             }
             return this.shownSteps.map(s => s.id).indexOf(this.currentStepId)
         },
+        calculationSteps () {
+            return this.shownSteps.slice(0, this.stepIndex + 1)
+        },
         showHeader () {
             return this.headerOffset !== null
         },
@@ -69,7 +72,7 @@ export default {
         },
     },
     watch: {
-        stepIndex () {
+        calculationSteps () {
             this.$nextTick(() => this.transitionHeader())
         },
     },
@@ -79,9 +82,7 @@ export default {
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.transitionHeader())
-            for (let i = 0; i < 4; i++) {
-                setTimeout(() => this.transitionHeader(), Math.pow(2, i) * 100) // safari initially returns wrong width for first step
-            }
+            setTimeout(() => this.transitionHeader(), 100) // safari initially returns wrong width for first step
         })
     },
     methods: {
