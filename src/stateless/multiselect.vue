@@ -1,7 +1,7 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" :theme="theme" size="phat">
+            <input-element v-model="searchQuery" :label="label" :theme="theme" size="phat" @keyup="$emit('keyup', $event)">
                 <icon slot="before" name="search" />
                 <icon v-if="isLoading" slot="right" name="loading" class="spin" />
             </input-element>
