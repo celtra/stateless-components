@@ -1,6 +1,6 @@
 <template>
     <div :class="['selectbox--' + size, 'selectbox--' + theme]" :title="disabledText" :id="label | slugify" class="selectbox" tabindex="0" @focus="setFocus()" @blur="clearFocus()"
-         @keyup.esc.stop="handleEsc" @keyup.up="openSelectList(-1)" @keyup.down="openSelectList(1)" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
+         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList(-1)" @keyup.down="openSelectList(1)" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
 
         <div :class="cssStates | prefix('selectbox__label-text--')" class="selectbox__label-text">
             {{ mappedLabelText }}

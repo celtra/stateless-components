@@ -1,7 +1,7 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
@@ -16,12 +16,12 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in flatItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <template v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
+                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </template>
                 <template v-else>
                     <slot :item="item" name="group">
@@ -30,6 +30,8 @@
                 </template>
             </div>
         </template>
+
+        <div v-if="hiddenHeight > 0" :style="{ height: `${hiddenHeight}px` }"></div>
     </div>
 </template>
 
@@ -50,23 +52,29 @@ export default {
         highlightQuery: { type: String },
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
+        listContainer: { type: HTMLElement, default: null },
+        renderAllItems: { type: Boolean, default: true },
     },
     data () {
         return {
             activeId: null,
-            renderAllItems: false,
+            renderAllItemsTimeout: false,
             canTransition: false,
         }
     },
     computed: {
         flatItems () {
-            const MIN_NUM_ITEMS = 50
-
-            let flatItems = flatten(this.items)
-            if (this.renderAllItems || flatItems.length <= MIN_NUM_ITEMS) {
-                return flatItems
+            return flatten(this.items)
+        },
+        shownItems () {
+            if (this.renderAllItems && this.renderAllItemsTimeout || this.flatItems.length <= this.minItemsCount) {
+                return this.flatItems
             }
-            return flatItems.slice(0, MIN_NUM_ITEMS)
+            return this.flatItems.slice(0, this.minItemsCount)
+        },
+        hiddenHeight () {
+            const assumedItemSize = 30
+            return assumedItemSize * (this.flatItems.length - this.shownItems.length)
         },
     },
     watch: {
@@ -108,8 +116,11 @@ export default {
     },
     mounted () {
         setTimeout(() => {
-            this.renderAllItems = true
+            this.renderAllItemsTimeout = true
         }, 100)
+    },
+    beforeCreate () {
+        this.minItemsCount = 50
     },
     methods: {
         selectItem (itemId) {
