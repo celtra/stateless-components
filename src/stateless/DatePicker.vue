@@ -1,7 +1,7 @@
 <template>
-    <div v-click-outside="clickOutside" class="date-picker">
+    <div v-click-outside="clickOutside" :class="{ 'date-picker--disabled': disabled }" class="date-picker">
         <div v-if="label" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
-        <div class="date-picker__date" @click="isOpen = true">{{ formattedDate }}</div>
+        <div class="date-picker__date" @click="isOpen = !disabled">{{ formattedDate }}</div>
 
         <div v-if="isOpen" class="date-picker__popup">
             <template v-if="hasInput">
@@ -63,6 +63,7 @@ export default {
         size: { type: String, default: 'normal' },
         label: { type: String },
         value: { type: [Date, Object] },
+        disabled: { type: Boolean, default: false },
         isRange: { type: Boolean, default: false },
         minDate: { type: Date },
         maxDate: { type: Date },
@@ -162,6 +163,14 @@ export default {
 
     &__calendar {
         margin: 0 auto;
+    }
+
+    &--disabled {
+        .date-picker__date {
+          cursor: default;
+          color: @very-light-gray;
+          border-bottom: 2px dashed @very-light-gray;
+        }
     }
 }
 </style>
