@@ -199,6 +199,7 @@ export default {
             }
         }, 250),
         scrollTop () {
+            this.canScrollTop = false
             this.$refs.multiselectOptions.scrollTop = 0
         },
         loadAsyncOptions () {
