@@ -28,7 +28,7 @@
                 </div>
 
                 <div>
-                    <default-list ref="defaultList" :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" class="multiselect__default-list">
+                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list">
                         <div slot-scope="{ item }">
                             <checkbox-element
                                 :disabled="item.disabled"
@@ -197,7 +197,6 @@ export default {
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
             }
-            this.$refs.defaultList.renderAllItems = canScrollTop
         }, 250),
         scrollTop () {
             this.$refs.multiselectOptions.scrollTop = 0
