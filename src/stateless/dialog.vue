@@ -70,12 +70,14 @@ export default {
             let onAnimationEnd = (e) => {
                 this.$refs.overlay.removeEventListener('animationend', onAnimationEnd)
 
-                if (this.blurElement) {
-                    this.blurElement.style['-webkit-filter'] = 'blur(5px)'
-                    this.blurElement.style.filter = 'blur(5px)'
-                }
+                if (this.dialogViewState === 'opening') {
+                    if (this.blurElement) {
+                        this.blurElement.style['-webkit-filter'] = 'blur(5px)'
+                        this.blurElement.style.filter = 'blur(5px)'
+                    }
 
-                this.dialogViewState = 'open'
+                    this.dialogViewState = 'open'
+                }
             }
             this.$refs.overlay.addEventListener('animationend', onAnimationEnd)
 
