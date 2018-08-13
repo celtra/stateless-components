@@ -79,7 +79,9 @@ export default {
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.transitionHeader())
-            setTimeout(() => this.transitionHeader(), 100) // safari initially returns wrong width for first step
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => this.transitionHeader(), Math.pow(2, i) * 100) // safari initially returns wrong width for first step
+            }
         })
     },
     methods: {
