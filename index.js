@@ -5659,6 +5659,8 @@ var Component = normalizeComponent(
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -19809,7 +19811,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__ = __webpack_require__(87);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4e4638f5_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db81219c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__ = __webpack_require__(219);
 function injectStyle (ssrContext) {
   __webpack_require__(217)
 }
@@ -19824,12 +19826,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-4e4638f5"
+var __vue_scopeId__ = "data-v-db81219c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4e4638f5_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db81219c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19850,7 +19852,7 @@ var content = __webpack_require__(218);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("1870c3e6", content, true, {});
+var update = __webpack_require__(1)("5ba481d4", content, true, {});
 
 /***/ }),
 /* 218 */
@@ -19861,7 +19863,7 @@ exports = module.exports = __webpack_require__(0)(true);
 
 
 // module
-exports.push([module.i, "\n.pie-chart[data-v-4e4638f5] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-4e4638f5] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--disabled[data-v-4e4638f5] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-4e4638f5] {\n  fill: #5df086;\n}\n", "", {"version":3,"sources":["/Users/jakobkosir/WebstormProjects/stateless-components/src/stateless/PieChart.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,YAAY;EACZ,qCAAqC;UAC7B,6BAA6B;CACtC;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,cAAc;CACf;AACD;EACE,cAAc;CACf","file":"PieChart.vue","sourcesContent":["\n.pie-chart[data-v-4e4638f5] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-4e4638f5] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--disabled[data-v-4e4638f5] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-4e4638f5] {\n  fill: #5df086;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.pie-chart[data-v-db81219c] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-db81219c] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--disabled[data-v-db81219c] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-db81219c] {\n  fill: #5df086;\n}\n", "", {"version":3,"sources":["/Users/jakobkosir/WebstormProjects/stateless-components/src/stateless/PieChart.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,YAAY;EACZ,qCAAqC;UAC7B,6BAA6B;CACtC;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,cAAc;CACf;AACD;EACE,cAAc;CACf","file":"PieChart.vue","sourcesContent":["\n.pie-chart[data-v-db81219c] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-db81219c] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--disabled[data-v-db81219c] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-db81219c] {\n  fill: #5df086;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19871,7 +19873,7 @@ exports.push([module.i, "\n.pie-chart[data-v-4e4638f5] {\n  height: 18px;\n  wid
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"pie-chart",attrs:{"title":_vm.tooltipText,"viewBox":"-1 -1 2 2"}},[_c('circle',{staticClass:"pie-chart__background",class:{'pie-chart__background--disabled' : _vm.disabled},attrs:{"cx":"0","cy":"0","r":"1"}}),_vm._v(" "),_c('path',{staticClass:"pie-chart__share",attrs:{"d":_vm.slicePath}})])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"title":_vm.tooltipText}},[_c('svg',{staticClass:"pie-chart",attrs:{"viewBox":"-1 -1 2 2"}},[_c('circle',{staticClass:"pie-chart__background",class:{'pie-chart__background--disabled' : _vm.disabled},attrs:{"cx":"0","cy":"0","r":"1"}}),_vm._v(" "),_c('path',{staticClass:"pie-chart__share",attrs:{"d":_vm.slicePath}})])])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

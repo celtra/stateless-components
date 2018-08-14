@@ -1,8 +1,10 @@
 <template>
-    <svg :title="tooltipText" class="pie-chart" viewBox="-1 -1 2 2">
-        <circle :class="{'pie-chart__background--disabled' : disabled}" cx="0" cy="0" r="1" class="pie-chart__background"/>
-        <path :d="slicePath" class="pie-chart__share"></path>
-    </svg>
+    <div :title="tooltipText" >
+        <svg class="pie-chart" viewBox="-1 -1 2 2">
+            <circle :class="{'pie-chart__background--disabled' : disabled}" cx="0" cy="0" r="1" class="pie-chart__background"/>
+            <path :d="slicePath" class="pie-chart__share"></path>
+        </svg>
+    </div>
 </template>
 
 <script>
