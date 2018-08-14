@@ -708,6 +708,8 @@ export default {
             }
         }
 
+        &--focused { border-color: @royal-blue; }
+
         &:hover {
             .input-row__placeholder-text::placeholder { color: white; }
         }
@@ -715,6 +717,8 @@ export default {
 
     .input-field__label-text {
         color: @dolphin;
+
+        &--focused { color: @royal-blue; }
     }
 
     .input-field__helper-text {
