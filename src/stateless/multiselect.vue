@@ -391,6 +391,8 @@ export default {
 <style lang="less">
 
 .multiselect__default-list {
+    padding-top: 10px;
+
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
 
