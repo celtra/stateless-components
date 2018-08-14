@@ -73,8 +73,19 @@ export default {
             return this.flatItems.slice(0, this.minItemsCount)
         },
         hiddenHeight () {
-            const assumedItemSize = 30
-            return assumedItemSize * (this.flatItems.length - this.shownItems.length)
+            const groupSize = 30
+            const assumedItemSize = this.size === 'condensed' ? 30 : 45
+
+            let total = 0
+            for (let hiddenItem of this.flatItems.slice(this.shownItems.length)) {
+                if (hiddenItem.isLeaf) {
+                    total += assumedItemSize
+                } else {
+                    total += groupSize
+                }
+            }
+
+            return total
         },
     },
     watch: {

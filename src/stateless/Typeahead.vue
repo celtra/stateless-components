@@ -84,8 +84,6 @@ export default {
             } else {
                 this.isListFocused = true
                 this.$refs.list.$el.focus()
-                console.log('bbb', document.activeElement)
-
                 this.$refs.list.move(delta)
             }
         },

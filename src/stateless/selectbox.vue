@@ -83,7 +83,7 @@ export default {
                 warning: !!this.warningText,
                 disabled: this.disabled,
                 selected: this.value !== null,
-                focused: this.focused,
+                focused: this.focused && !this.disabled,
             }
         },
         cssStates () {
@@ -326,6 +326,10 @@ export default {
             cursor: auto;
             border-style: dashed;
             border-color: @gunpowder;
+
+            .default-list-item {
+                cursor: default;
+            }
         }
     }
 
