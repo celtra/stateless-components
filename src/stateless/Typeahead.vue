@@ -1,6 +1,6 @@
 <template>
-    <div v-click-outside="onBlur" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
+    <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
+        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="open" @input="onInput" @blur="close"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
             <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
@@ -53,11 +53,11 @@ export default {
         },
     },
     methods: {
-        onFocus () {
+        open () {
             this.isOpen = true
             this.$emit('focus')
         },
-        onBlur () {
+        close () {
             this.isOpen = false
             this.$emit('blur')
         },
@@ -68,7 +68,7 @@ export default {
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
             this.$emit('select', suggestion)
-            this.isOpen = false
+            this.close()
         },
         move (delta) {
             if (!this.isOpen) {
