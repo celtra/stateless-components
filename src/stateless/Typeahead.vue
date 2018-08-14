@@ -1,6 +1,6 @@
 <template>
     <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="open" @input="onInput" @blur="close"></input-element>
+        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
             <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
@@ -53,13 +53,21 @@ export default {
         },
     },
     methods: {
-        open () {
+        onInputFocus () {
+            this.isListFocused = false
             this.isOpen = true
             this.$emit('focus')
         },
         close () {
             this.isOpen = false
             this.$emit('blur')
+        },
+        onInputBlur () {
+            if (!this.isListFocused) {
+                this.$nextTick(() => {
+                    setTimeout(() => this.close(), 100) // TODO: Temporary hack, needs to be fixed before deploy
+                })
+            }
         },
         onInput (v) {
             this.isOpen = true
@@ -74,7 +82,10 @@ export default {
             if (!this.isOpen) {
                 this.isOpen = true
             } else {
+                this.isListFocused = true
                 this.$refs.list.$el.focus()
+                console.log('bbb', document.activeElement)
+
                 this.$refs.list.move(delta)
             }
         },
