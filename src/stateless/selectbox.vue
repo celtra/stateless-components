@@ -316,7 +316,7 @@ export default {
         transition: border-color @form-element-transition-time ease-out;
         border-color: @gunpowder;
 
-        &:hover:not(&--disabled) {
+        &:hover:not(&--disabled):not(&--focused) {
             border-style: solid;
             border-color: @bluish-gray;
 
@@ -325,6 +325,8 @@ export default {
 
         &--focused {
             border-color: @royal-blue;
+
+            .selectbox__arrow-wrapper .selectbox__arrow-down { border-top-color: @royal-blue; }
         }
 
         &--disabled {
@@ -415,6 +417,7 @@ export default {
 .selectbox--light {
     .selectbox__label-text {
         color: @bluish-gray;
+
         &--focused {
             color: @royal-blue;
         }
@@ -424,14 +427,17 @@ export default {
 
     .selectbox__select-row {
         border-color: @very-light-gray;
-        &:hover:not(.selectbox__select-row--focused) {
+
+        &:hover:not(.selectbox__select-row--focused):not(.selectbox__select-row--disabled) {
             border-color: @bluish-gray;
 
-            .selectbox__arrow-down { border-top-color: @black; }
+            .selectbox__arrow-wrapper .selectbox__arrow-down { border-top-color: @black; }
         }
+
         &--focused {
             border-color: @royal-blue;
         }
+
         .selectbox__arrow-down--focused { border-top-color: @royal-blue; }
     }
 }
