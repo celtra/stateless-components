@@ -7,7 +7,7 @@
             </div>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
-                <slot></slot>
+                asdfasdf
             </div>
         </div>
         <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle">
@@ -16,7 +16,7 @@
             </div>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
-                <slot></slot>
+                dfass fasd fasd f
             </div>
         </div>
         <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text" @click.stop>
@@ -271,7 +271,6 @@ export default {
         display: flex;
         align-items: center;
         cursor: pointer;
-        opacity: 0.8;
 
         &--focused, &:hover {
             .checkbox-element__toggle-circle {
@@ -459,7 +458,7 @@ export default {
         }
 
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-            color: @gunpowder;
+            color: black;
         }
     }
 }
