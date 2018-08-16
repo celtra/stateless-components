@@ -28,6 +28,8 @@ import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import TooltipComponent from '@/stateless/Tooltip.vue'
+import ChipComponent from '@/stateless/Chip.vue'
+import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -57,3 +59,5 @@ export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
 export const Tooltip = TooltipComponent
+export const Chip = ChipComponent
+export const ChipWithMultiselect = ChipWithMultiselectComponent
