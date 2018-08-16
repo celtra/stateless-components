@@ -258,6 +258,10 @@ export default {
 .dialog-header--dark {
     .dialog-header__element {
         color: @gray;
+
+        &--active {
+          color: white;
+        }
     }
 
     .dialog-header__back-svg {
