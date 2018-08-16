@@ -107,27 +107,36 @@ export default {
 
             let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
             if (cleanQuery.length > 0) {
+                let getMatchingPriority = (value) => {
+                    if (!value)
+                        return 0
+                    let cleanValue = value.trim().toLowerCase()
+                    if (cleanValue === cleanQuery)
+                        return 3
+                    let index = value.toLowerCase().indexOf(cleanQuery)
+                    if (index >= 0) {
+                        return index === 0 ? 2 : 1
+                    }
+                    return 0
+                }
+
                 let searchFn = option => {
                     if (option.items) {
-                        let index = option.label && option.label.toLowerCase().indexOf(cleanQuery)
-                        if (index >= 0) {
-                            return index === 0 ? 50 : 49
-                        }
+                        let priority = getMatchingPriority(option.label)
+                        if (priority > 0)
+                            return 50 + priority
                     } else {
-                        let labelIndex = option.label && option.label.toLowerCase().indexOf(cleanQuery)
-                        if (labelIndex >= 0) {
-                            return labelIndex === 0 ? 100 : 99
-                        }
+                        let labelPriority = getMatchingPriority(option.label)
+                        if (labelPriority > 0)
+                            return 100 + labelPriority
 
-                        let metadataIndex = option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery)
-                        if (metadataIndex >= 0) {
-                            return metadataIndex === 0 ? 90 : 89
-                        }
+                        let metadataPriority = getMatchingPriority(option.metadata)
+                        if (metadataPriority > 0)
+                            return 90 + metadataPriority
 
-                        let tooltipIndex = option.tooltip && option.tooltip.toLowerCase().indexOf(cleanQuery)
-                        if (tooltipIndex >= 0) {
-                            return tooltipIndex === 0 ? 80 : 79
-                        }
+                        let tooltipPriority = getMatchingPriority(option.tooltip)
+                        if (tooltipPriority > 0)
+                            return 80 + tooltipPriority
                     }
                     return 0
                 }
@@ -137,26 +146,17 @@ export default {
             }
 
             if (this.autoReorder) {
-                result = itemsUtils.sort(result, (x, y) => {
-                    if (!this.areGroupsSelectable && (x.items || y.items)) {
+                result = itemsUtils.sortBy(result, item => {
+                    if (!this.areGroupsSelectable && item.items) {
                         return 0
                     }
 
-                    let isCheckedX = this.isChecked(x)
-                    let isCheckedY = this.isChecked(y)
-
-                    if (isCheckedX !== isCheckedY) {
-                        if (isCheckedX === true) {
-                            return -1
-                        } else if (isCheckedY === true) {
-                            return 1
-                        } else if (isCheckedX === null) {
-                            return -1
-                        } else if (isCheckedY === null) {
-                            return 1
-                        }
+                    let isChecked = this.isChecked(item)
+                    if (isChecked === true) {
+                        return 2
+                    } else if (isChecked === null) {
+                        return 1
                     }
-
                     return 0
                 })
 
@@ -391,6 +391,8 @@ export default {
 <style lang="less">
 
 .multiselect__default-list {
+    padding-top: 10px;
+
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
 

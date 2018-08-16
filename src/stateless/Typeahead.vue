@@ -1,6 +1,6 @@
 <template>
-    <div v-click-outside="onBlur" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onFocus" @input="onInput"></input-element>
+    <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
+        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
             <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
@@ -53,13 +53,21 @@ export default {
         },
     },
     methods: {
-        onFocus () {
+        onInputFocus () {
+            this.isListFocused = false
             this.isOpen = true
             this.$emit('focus')
         },
-        onBlur () {
+        close () {
             this.isOpen = false
             this.$emit('blur')
+        },
+        onInputBlur () {
+            if (!this.isListFocused) {
+                this.$nextTick(() => {
+                    setTimeout(() => this.close(), 100) // TODO: Temporary hack, needs to be fixed before deploy
+                })
+            }
         },
         onInput (v) {
             this.isOpen = true
@@ -68,12 +76,13 @@ export default {
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
             this.$emit('select', suggestion)
-            this.isOpen = false
+            this.close()
         },
         move (delta) {
             if (!this.isOpen) {
                 this.isOpen = true
             } else {
+                this.isListFocused = true
                 this.$refs.list.$el.focus()
                 this.$refs.list.move(delta)
             }

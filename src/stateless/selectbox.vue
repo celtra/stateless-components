@@ -154,9 +154,11 @@ export default {
     },
     methods: {
         setFocus () {
-            this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
-            this.$emit('focus')
+            if (!this.disabled) {
+                this.focused = true
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
+                this.$emit('focus')
+            }
         },
         clearFocus () {
             this.focused = false
@@ -199,7 +201,10 @@ export default {
             }
         },
         closeSelectList () {
-            this.focused = true
+            if (!this.disabled) {
+                this.focused = true
+            }
+
             this.isOpen = false
             this.activeId = null
 
@@ -326,6 +331,10 @@ export default {
             cursor: auto;
             border-style: dashed;
             border-color: @gunpowder;
+
+            .default-list-item {
+                cursor: default;
+            }
         }
     }
 
