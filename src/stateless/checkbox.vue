@@ -1,6 +1,6 @@
 <template>
-    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
-        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row" @click="toggle">
+    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
+        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
             <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
                 <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
                 <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check"></div>
@@ -10,7 +10,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle" @click="toggle">
+        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle">
             <div :class="states | prefix('checkbox-element__toggle-wrapper--')" class="checkbox-element__toggle-wrapper">
                 <div :class="states | prefix('checkbox-element__toggle-circle--')" class="checkbox-element__toggle-circle"></div>
             </div>
@@ -19,7 +19,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text">
+        <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text" @click.stop>
             {{ infoText }}
         </div>
     </div>
@@ -112,30 +112,30 @@ export default {
     height: 26px + 12px;
     margin-top: 7px;
     font-family: @regular-text-font;
+    cursor: pointer;
+
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.25, 1.25, 1);
+            border-color: @very-light-gray;
+        }
+
+        .checkbox-element__check:not(.checkbox-element__check--disabled) {
+            transform: scale3d(1.375, 1.375, 1);
+        }
+
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: @white;
+        }
+    }
 
     .checkbox-element__check-row {
         height: 26px;
         display: flex;
         align-items: center;
-        cursor: pointer;
 
         .checkbox-element__check {
             transform: scale3d(1, 1, 1);
-        }
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.25, 1.25, 1);
-                border-color: @very-light-gray;
-            }
-
-            .checkbox-element__check:not(.checkbox-element__check--disabled) {
-                transform: scale3d(1.375, 1.375, 1);
-            }
-
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @white;
-            }
         }
 
         &--disabled {
@@ -247,6 +247,7 @@ export default {
         font-size: 11px;
         letter-spacing: 0.5px;
         color: @dolphin;
+        cursor: default;
 
         &--warning {
             color: @pale-yellow;
@@ -273,7 +274,6 @@ export default {
         opacity: 0.8;
 
         &--focused, &:hover {
-
             .checkbox-element__toggle-circle {
                 background-color: white;
             }
@@ -315,14 +315,14 @@ export default {
     height: 34px + 17px;
     margin-top: 9px;
 
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.2, 1.2, 1);
+        }
+    }
+
     .checkbox-element__check-row {
         height: 34px;
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.2, 1.2, 1);
-            }
-        }
     }
 
     .checkbox-element__check-wrapper {
@@ -378,18 +378,18 @@ export default {
     height: 20px;
     margin-top: 10px;
 
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.286, 1.286, 1);
+        }
+
+        .checkbox-element__check:not(.checkbox-element__check--disabled) {
+            transform: scale3d(1.25, 1.25, 1);
+        }
+    }
+
     .checkbox-element__check-row {
         height: 20px;
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.286, 1.286, 1);
-            }
-
-            .checkbox-element__check:not(.checkbox-element__check--disabled) {
-                transform: scale3d(1.25, 1.25, 1);
-            }
-        }
     }
 
     .checkbox-element__check-wrapper {
@@ -453,15 +453,13 @@ export default {
         border-color: @very-light-gray;
     }
 
-    .checkbox-element__check-row {
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                border-color: @gunpowder;
-            }
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            border-color: @gunpowder;
+        }
 
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @gunpowder;
-            }
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: @gunpowder;
         }
     }
 }
@@ -476,15 +474,13 @@ export default {
         color: @gunpowder;
     }
 
-    .checkbox-element__check-row {
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-              border-color: @gunpowder;
-            }
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            border-color: @gunpowder;
+        }
 
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-              color: @gunpowder;
-            }
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: @gunpowder;
         }
     }
 }
