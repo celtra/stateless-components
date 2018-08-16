@@ -7,7 +7,7 @@
             </div>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
-                asdfasdf
+                <slot></slot>
             </div>
         </div>
         <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle">
@@ -16,7 +16,7 @@
             </div>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
-                dfass fasd fasd f
+                <slot></slot>
             </div>
         </div>
         <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text" @click.stop>
