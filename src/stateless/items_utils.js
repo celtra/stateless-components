@@ -45,10 +45,18 @@ export function filter (items, fn) {
     return items.map(mapItem).filter(x => x)
 }
 
-export function sort (items, fn) {
+export function sortBy (items, fn) {
     let keys = items.map(x => x.key || x.id)
     return items.slice().sort((x, y) => {
-        let fnValue = fn(x, y)
+        let fnValue = fn(y) - fn(x)
+        if (x.items && y.items) {
+            let averageFn = (items) => {
+                let total = items.reduce((total, x) => total + fn(x), 0)
+                return total / items.length
+            }
+            fnValue = averageFn(y.items) - averageFn(x.items)
+        }
+
         if (fnValue === 0) {
             return keys.indexOf(x.key || x.id) - keys.indexOf(y.key || y.id)
         } else {
@@ -58,16 +66,12 @@ export function sort (items, fn) {
         if (item.items) {
             return {
                 ...item,
-                items: sort(item.items, fn),
+                items: sortBy(item.items, fn),
             }
         } else {
             return item
         }
     })
-}
-
-export function sortBy (items, fn) {
-    return sort(items, (a, b) => fn(b) - fn(a))
 }
 
 export function getLeafIds (item) {
