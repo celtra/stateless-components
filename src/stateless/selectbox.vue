@@ -7,7 +7,7 @@
         </div>
 
         <div :class="cssStates | prefix('selectbox__select-row--')" class="selectbox__select-row" @click="openSelectList()">
-            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" />
+            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" />
             <div class="selectbox__arrow-wrapper">
                 <div :class="cssStates | prefix('selectbox__arrow-down--')" class="selectbox__arrow-down"></div>
             </div>
@@ -253,11 +253,11 @@ export default {
 
         &__select-row:hover {
 
-            .default-list-item--light .default-list-item__label {
+            .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
                 color: black;
             }
 
-            .default-list-item--dark .default-list-item__label {
+            .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
                 color: white;
             }
         }
@@ -441,7 +441,13 @@ export default {
         }
     }
 
-    .selectbox__arrow-down { border-top-color: @gunpowder; }
+    .selectbox__arrow-down {
+        border-top-color: @gunpowder;
+
+        &--disabled {
+            border-top-color: @very-light-gray;
+        }
+    }
 
     .selectbox__select-row {
         border-color: @very-light-gray;

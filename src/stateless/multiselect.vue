@@ -254,6 +254,17 @@ export default {
 <style lang="less">
     .multiselect {
         @import './default_list_item';
+
+      &__checkbox:hover {
+          &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
+              color: black;
+          }
+
+          &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+              color: white;
+          }
+      }
+
     }
 </style>
 
