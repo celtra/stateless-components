@@ -1,8 +1,10 @@
 <template>
-    <svg class="pie-chart" viewBox="-1 -1 2 2">
-        <circle :class="{'pie-chart__background--disabled' : disabled}" cx="0" cy="0" r="1" class="pie-chart__background"/>
-        <path :d="slicePath" class="pie-chart__share"></path>
-    </svg>
+    <div :title="tooltipText" >
+        <svg class="pie-chart" viewBox="-1 -1 2 2">
+            <circle :class="{'pie-chart__background--disabled' : disabled}" cx="0" cy="0" r="1" class="pie-chart__background"/>
+            <path :d="slicePath" class="pie-chart__share"></path>
+        </svg>
+    </div>
 </template>
 
 <script>
@@ -10,6 +12,7 @@
 export default {
     props: {
         ratio: { type: Number },
+        tooltip: { type: String, default: null },
     },
     computed: {
         value () {
@@ -31,6 +34,10 @@ export default {
         },
         disabled () {
             return this.value === 0
+        },
+        tooltipText () {
+            // Remove trailing zeros
+            return this.tooltip ? this.tooltip: `${(this.value * 100).toFixed(1).replace(/\.?0*$/,'')} %`
         },
     },
 }
