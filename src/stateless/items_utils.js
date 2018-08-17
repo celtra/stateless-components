@@ -50,11 +50,28 @@ export function sortBy (items, fn) {
     return items.slice().sort((x, y) => {
         let fnValue = fn(y) - fn(x)
         if (x.items && y.items) {
-            let averageFn = (items) => {
-                let total = items.reduce((total, x) => total + fn(x), 0)
-                return total / items.length
+            let sumFn = (items) => items.reduce((total, x) => total + fn(x), 0)
+            let sorts = {
+                max (items) {
+                    return Math.max(...items.map(x => fn(x)))
+                },
+                sum (items) {
+                    return sumFn(items)
+                },
+                avg (items) {
+                    return sumFn(items) / items.length
+                },
             }
-            fnValue = averageFn(y.items) - averageFn(x.items)
+
+            let sortBy = ['max', 'sum', 'avg']
+
+            for (let sortFn of sortBy) {
+                let result = sorts[sortFn](y.items) - sorts[sortFn](x.items)
+                if (result !== 0) {
+                    fnValue = result
+                    break
+                }
+            }
         }
 
         if (fnValue === 0) {

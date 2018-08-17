@@ -189,7 +189,6 @@ export default {
     },
     mounted () {
         this.loadAsyncOptions()
-        //this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
     },
     methods: {
         selectAll () {
