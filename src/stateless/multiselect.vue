@@ -256,23 +256,6 @@ export default {
 }
 </script>
 
-<style lang="less">
-    .multiselect {
-        @import './default_list_item';
-
-      &__checkbox:hover {
-          &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
-              color: black;
-          }
-
-          &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
-              color: white;
-          }
-      }
-
-    }
-</style>
-
 <style lang="less" scoped>
 @import (reference) './variables';
 
@@ -419,6 +402,25 @@ export default {
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
+    }
+
+    .multiselect__checkbox:hover {
+
+        &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: black;
+        }
+
+        &.checkbox-element--light .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+            color: black;
+        }
+
+        &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: white;
+        }
+
+        &.checkbox-element--dark .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+            color: white;
+        }
     }
 }
 </style>
