@@ -12,6 +12,7 @@
 export default {
     props: {
         ratio: { type: Number },
+        tooltip: { type: String, default: null },
     },
     computed: {
         value () {
@@ -36,7 +37,7 @@ export default {
         },
         tooltipText () {
             // Remove trailing zeros
-            return `${(this.value * 100).toFixed(1).replace(/\.?0*$/,'')} %`
+            return this.tooltip ? this.tooltip: `${(this.value * 100).toFixed(1).replace(/\.?0*$/,'')} %`
         },
     },
 }
