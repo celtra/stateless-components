@@ -724,6 +724,8 @@ export default {
     .input-field__helper-text {
         color: @dolphin;
 
+        &--error { color: @pink-red; }
+
         &--warning { color: @pale-yellow; }
     }
 
