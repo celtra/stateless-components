@@ -29,7 +29,7 @@
 
                 <div>
                     <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list">
-                        <div slot-scope="{ item }">
+                        <div slot-scope="{ item }" style="padding-top: 7px;">
                             <checkbox-element
                                 :disabled="item.disabled"
                                 :title-text="item.label"
@@ -161,7 +161,13 @@ export default {
                 })
 
                 if (!this.areGroupsSelectable) {
-                    let selectedItems = this.value.map(itemId => itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId))
+                    let selectedItems = this.value.map(itemId => {
+                        let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                        return {
+                            ...item,
+                            key: 'selected_' + item.key,
+                        }
+                    })
                     let unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
@@ -323,6 +329,10 @@ export default {
 
     &__change-multiple {
         flex: none;
+        background-color: white;
+        z-index: 5;
+        position: relative;
+        height: 38px;
     }
 
     &__select-all-label {
@@ -406,16 +416,11 @@ export default {
 </style>
 
 <style lang="less">
-
 .multiselect__default-list {
     padding-top: 10px;
 
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
-
-        &:hover {
-            background-color: inherit;
-        }
     }
 }
 </style>

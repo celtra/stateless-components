@@ -60,11 +60,12 @@ export default {
             activeId: null,
             renderAllItemsTimeout: false,
             canTransition: false,
+            transitionItems: this.items,
         }
     },
     computed: {
         flatItems () {
-            return flatten(this.items)
+            return flatten(this.transitionItems)
         },
         shownItems () {
             if (this.renderAllItems && this.renderAllItemsTimeout || this.flatItems.length <= this.minItemsCount) {
@@ -123,6 +124,9 @@ export default {
             }
 
             this.canTransition = getDeltaCount(v, ov) <= 5
+            this.$nextTick(() => {
+                this.transitionItems = v
+            })
         },
     },
     mounted () {
@@ -202,7 +206,9 @@ export default {
     &__item {
         position: relative;
         padding: 0px 15px;
-        transition: transform 0.3s ease-in, background-color @form-element-transition-time ease-in-out;
+        background-color: white;
+        width: 100%;
+        z-index: 2;
 
         &--active {
             background-color: @very-light-gray;
@@ -214,8 +220,17 @@ export default {
             }
         }
 
-        &-enter-active, &-leave-active, &-enter, &-leave-to {
-            display: none;
+        &-enter-active, &-leave-active, &-move {
+            transition: transform 200ms ease-out;
+            pointer-events: none;
+        }
+
+        &-enter-active, &-leave-active {
+            z-index: 1;
+        }
+
+        &-enter, &-leave-to {
+            transform: translateY(-30px);
         }
     }
 
@@ -228,6 +243,17 @@ export default {
         letter-spacing: 0.5px;
         font-family: @regular-text-font;
         color: @gray-blue;
+        background-color: white;
+    }
+}
+</style>
+
+<style lang="less">
+.default-list__item {
+    &-leave-to, &-leave-active {
+        > div {
+            position: absolute;
+        }
     }
 }
 </style>
