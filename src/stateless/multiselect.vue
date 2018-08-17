@@ -415,7 +415,15 @@ export default {
             color: black;
         }
 
+        &.checkbox-element--light .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+            color: black;
+        }
+
         &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: white;
+        }
+
+        &.checkbox-element--dark .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
             color: white;
         }
     }
