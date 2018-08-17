@@ -1,33 +1,33 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <template v-if="item.isLeaf || noGroupRendering">
+            <div v-for="(item, index) in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, zIndex: shownItems.length - index + 5 }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+                <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
-                </template>
-                <template v-else>
+                </div>
+                <div v-else>
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
-                </template>
+                </div>
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <template v-if="item.isLeaf || noGroupRendering">
+            <div v-for="(item, index) in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, zIndex: shownItems.length - index + 5 }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+                <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
-                </template>
-                <template v-else>
+                </div>
+                <div v-else>
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
-                </template>
+                </div>
             </div>
         </template>
 
@@ -208,7 +208,6 @@ export default {
         padding: 0px 15px;
         background-color: white;
         width: 100%;
-        z-index: 2;
 
         &--active {
             background-color: @very-light-gray;
@@ -221,16 +220,16 @@ export default {
         }
 
         &-enter-active, &-leave-active, &-move {
-            transition: transform 200ms ease-out;
+            transition: transform 250ms ease-out;
             pointer-events: none;
         }
 
         &-enter-active, &-leave-active {
-            z-index: 1;
+            z-index: 0 !important;
         }
 
         &-enter, &-leave-to {
-            transform: translateY(-30px);
+            transform: translateY(-100%);
         }
     }
 
