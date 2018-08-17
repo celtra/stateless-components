@@ -249,8 +249,6 @@ export default {
 <style lang="less">
     .selectbox {
 
-        @import './default_list_item';
-
         &__select-row:hover {
 
             .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
