@@ -251,6 +251,12 @@ export default {
 }
 </script>
 
+<style lang="less">
+    .multiselect {
+        @import './default_list_item';
+    }
+</style>
+
 <style lang="less" scoped>
 @import (reference) './variables';
 

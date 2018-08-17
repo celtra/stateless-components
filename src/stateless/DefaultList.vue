@@ -182,6 +182,12 @@ export default {
 }
 </script>
 
+<style lang="less">
+    .default-list {
+        @import './default_list_item';
+    }
+</style>
+
 <style lang="less" scoped>
 @import (reference) './variables';
 

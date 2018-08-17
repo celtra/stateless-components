@@ -207,7 +207,7 @@ export default {
 }
 
 .dark-theme {
-    background-color: @dark-gray;
+    background-color: #161623; // Dark background from UI System on invision, don't need this in variables
     color: white;
 }
 </style>

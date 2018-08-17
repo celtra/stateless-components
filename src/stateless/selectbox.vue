@@ -246,6 +246,24 @@ export default {
 }
 </script>
 
+<style lang="less">
+    .selectbox {
+
+        @import './default_list_item';
+
+        &__select-row:hover {
+
+            .default-list-item--light .default-list-item__label {
+                color: black;
+            }
+
+            .default-list-item--dark .default-list-item__label {
+                color: white;
+            }
+        }
+    }
+</style>
+
 <style lang="less" scoped>
 @import (reference) './variables';
 
