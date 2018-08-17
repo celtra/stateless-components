@@ -260,15 +260,28 @@ export default {
     .multiselect {
         @import './default_list_item';
 
-      &__checkbox:hover {
-          &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
-              color: black;
-          }
+        &__checkbox:hover {
+            &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
+                color: black;
+            }
 
-          &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
-              color: white;
-          }
-      }
+            &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+                color: white;
+            }
+        }
+
+        @import './multiline_list_item';
+
+        &__checkbox:hover {
+
+            &.checkbox-element--light .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+                color: black;
+            }
+
+            &.checkbox-element--dark .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+                color: white;
+            }
+        }
 
     }
 </style>
