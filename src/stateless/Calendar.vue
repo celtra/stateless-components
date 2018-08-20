@@ -126,10 +126,12 @@ export default {
         this.goToCurrentValue()
     },
     mounted () {
-        this.$el.addEventListener('keydown', this.onKeyPress)
+        this.$el.addEventListener('keyup', this.onKeyUp)
+        this.$el.addEventListener('keydown', this.onKeyDown)
     },
     beforeDestroy () {
-        this.$el.removeEventListener('keydown', this.onKeyPress)
+        this.$el.removeEventListener('keyup', this.onKeyUp)
+        this.$el.removeEventListener('keydown', this.onKeyDown)
     },
     methods: {
         isDateValid (date) {
@@ -221,16 +223,7 @@ export default {
             this.year = targetYear
             this.month = targetMonth
         },
-        onKeyPress (e) {
-            let setValue = (value) => {
-                e.preventDefault()
-                e.stopPropagation()
-
-                this.hoverDate = null
-                this.$emit('input', value)
-                this.$nextTick(this.goToCurrentValue)
-            }
-
+        onKeyDown (e) {
             let deltaByKeyCode = {
                 37: -1,
                 38: -7,
@@ -243,43 +236,59 @@ export default {
             }
 
             if (this.isRange) {
-                if (e.keyCode == 13) {
-                    if (this.value && this.value.from && !this.value.to) {
-                        setValue({ from: this.value.from, to: this.value.from })
-                    }
-                } else if (e.keyCode === 27) {
-                    if (this.value && this.value.from) {
-                        setValue(this.value && this.value.from && this.value.to ? { from: this.value.from } : null)
-                        e.stopPropagation()
-                    }
-                } else if (delta) {
+                if (delta) {
                     if (!this.value || !this.value.from) {
-                        setValue({ from: new Date() })
+                        this.setValue({ from: new Date() })
                     } else if (!this.value.to) {
                         let date = addDaysToDate(this.value.from, delta)
                         if (this.isDateValid(date)) {
-                            setValue({ from: date })
+                            this.setValue({ from: date })
                         }
                     } else {
                         let date = addDaysToDate(this.value.to)
                         if (this.isDateValid(date)) {
-                            setValue({ from: this.value.from, to: date })
+                            this.setValue({ from: this.value.from, to: date })
                         }
+                    }
+                }
+            } else {
+                if (delta) {
+                    let date = this.value ? addDaysToDate(this.value) : new Date()
+                    if (this.isDateValid(date)) {
+                        this.setValue(date)
+                    }
+                }
+            }
+        },
+        onKeyUp (e) {
+            if (this.isRange) {
+                if (e.keyCode == 13) {
+                    if (this.value && this.value.from && !this.value.to) {
+                        this.setValue({ from: this.value.from, to: this.value.from })
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+                } else if (e.keyCode === 27) {
+                    if (this.value && this.value.from) {
+                        this.setValue(this.value && this.value.from && this.value.to ? { from: this.value.from } : null)
+                        e.preventDefault()
+                        e.stopPropagation()
                     }
                 }
             } else {
                 if (e.keyCode === 27) {
                     if (this.value) {
-                        setValue(null)
+                        this.setValue(null)
+                        e.preventDefault()
                         e.stopPropagation()
-                    }
-                } else if (delta) {
-                    let date = this.value ? addDaysToDate(this.value) : new Date()
-                    if (this.isDateValid(date)) {
-                        setValue(date)
                     }
                 }
             }
+        },
+        setValue (value) {
+            this.hoverDate = null
+            this.$emit('input', value)
+            this.$nextTick(this.goToCurrentValue)
         },
     },
 }
