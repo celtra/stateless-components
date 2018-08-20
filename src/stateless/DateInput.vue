@@ -7,7 +7,8 @@
         :error="errorText"
         @input="onInput"
         @focus="onFocus"
-        @blur="onBlur">
+        @blur="onBlur"
+        @keyup="$emit('keyup', $event)">
     </input-element>
 </template>
 

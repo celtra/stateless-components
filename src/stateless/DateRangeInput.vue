@@ -9,7 +9,8 @@
             :date-format="dateFormat"
             :date-format-focus="dateFormatFocus"
             label="Start date"
-            @input="onFromInput">
+            @input="onFromInput"
+            @keyup="$emit('keyup', $event)">
         </date-input>
 
         <div class="date-range-input__dash">―</div>
@@ -23,7 +24,8 @@
             :date-format="dateFormat"
             :date-format-focus="dateFormatFocus"
             label="End date"
-            @input="onToInput">
+            @input="onToInput"
+            @keyup="$emit('keyup', $event)">
         </date-input>
     </div>
 </template>
