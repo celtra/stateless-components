@@ -92,6 +92,7 @@ export default {
         showSelectedMetadata: { type: Boolean, required: false, default: false },
         size: { type: String, required: false, default: 'normal' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -214,7 +215,7 @@ export default {
     methods: {
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
         },
         clearFocus () {

@@ -42,6 +42,7 @@ export default {
         url: { type: String, required: false },
         isRight: { type: Boolean, default: false },
         theme: { type: String, default: 'dark' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -84,7 +85,7 @@ export default {
             setTimeout(() => this.showText = false, 300)
         },
         click () {
-            this.$root.$emit('tracking-event', { type: 'link', label: this.$attrs.trackName || 'supportText', trigger: 'click' })
+            this.$root.$emit('tracking-event', { type: 'link', label: this.trackName || 'supportText', trigger: 'click' })
         },
     },
 }

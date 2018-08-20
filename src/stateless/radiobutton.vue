@@ -34,6 +34,7 @@ export default {
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -67,7 +68,7 @@ export default {
         setFocus (isFocused) {
             this.focused = isFocused
             if (isFocused) {
-                this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.labelText, trigger: 'focus' })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.labelText, trigger: 'focus' })
                 this.$emit('focus')
             }
         },
@@ -76,7 +77,7 @@ export default {
         },
         click () {
             if (!this.disabled) {
-                this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.labelText, trigger: 'click' })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.labelText, trigger: 'click' })
                 this.$emit('input', this.value)
                 this.$emit('focus')
                 this.focused = false

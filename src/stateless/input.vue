@@ -1,5 +1,5 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
@@ -113,6 +113,7 @@ export default {
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -137,7 +138,7 @@ export default {
                 focused: this.focused,
                 error: isError,
                 warning: isWarning,
-                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text.length > 0,
+                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text && this.text.length > 0,
                 disabled: this.disabled,
             }
         },
@@ -390,7 +391,7 @@ export default {
         },
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
