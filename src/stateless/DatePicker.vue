@@ -1,7 +1,9 @@
 <template>
     <div v-click-outside="clickOutside" :class="{ 'date-picker--disabled': disabled }" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
-        <div :class="size | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">{{ formattedDate }}</div>
+        <div :class="size | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">{{ formattedDate }}
+            <icon :style="{ width: caretSize }" name="caret" class="icon-appendix"></icon>
+        </div>
 
         <div v-if="isOpen" class="date-picker__popup">
             <template v-if="hasInput">
@@ -51,12 +53,14 @@ import moment from 'moment'
 import Calendar from './Calendar.vue'
 import DateInput from './DateInput.vue'
 import DateRangeInput from './DateRangeInput.vue'
+import Icon from './Icon.vue'
 
 export default {
     components: {
         Calendar,
         DateInput,
         DateRangeInput,
+        Icon,
     },
     props: {
         theme: { type: String, default: 'normal' },
@@ -95,6 +99,9 @@ export default {
             }
 
             return this.value ? moment(this.value).format(this.dateFormat) : '?'
+        },
+        caretSize () {
+            return this.size === 'condensed' ? '7px' : '12px'
         },
     },
     methods: {
@@ -153,6 +160,8 @@ export default {
         border-bottom: 2px solid @very-light-gray;
         padding-bottom: 4px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
 
         &.date-picker__date--condensed {
             font-size: 14px;
@@ -188,5 +197,11 @@ export default {
           border-bottom: 2px dashed @very-light-gray;
         }
     }
+}
+
+.icon-appendix.icon-wrapper {
+    position: relative;
+    margin: 0 4px 0 22px;
+    top: 1px;
 }
 </style>
