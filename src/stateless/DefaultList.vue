@@ -233,7 +233,6 @@ export default {
         letter-spacing: 0.5px;
         font-family: @regular-text-font;
         color: @gray-blue;
-        background-color: white;
     }
 }
 </style>

@@ -408,6 +408,10 @@ export default {
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
+
+        &:hover {
+            background-color: inherit;
+        }
     }
 
     .multiselect__checkbox.multiselect__checkbox {
