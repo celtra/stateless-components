@@ -96,6 +96,11 @@ export default {
         cursor: auto;
     }
 
+    &__content {
+        display: flex;
+        align-items: center;
+    }
+
     &__label {
         margin: 0;
         white-space: nowrap;

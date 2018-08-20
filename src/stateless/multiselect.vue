@@ -151,7 +151,7 @@ export default {
                         let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
                         return {
                             ...item,
-                            key: 'selected_' + item.key,
+                            key: 'selected_' + (item.key || item.id),
                         }
                     })
                     let unselectedItems = itemsUtils.filter(result, item => {

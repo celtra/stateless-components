@@ -130,6 +130,7 @@ export default {
     }
 
     .checkbox-element__check-row {
+        width: 100%;
         height: 26px;
         display: flex;
         align-items: center;
