@@ -75,6 +75,7 @@ export default {
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         hasScrollTop: { type: Boolean, default: true },
         canSelectAll: { type: Boolean, default: true },
         canClearAll: { type: Boolean, default: true },
@@ -90,7 +91,7 @@ export default {
     data () {
         return {
             isLoading: false,
-            searchQuery: null,
+            searchQuery: this.initSearchQuery,
             queryOptions: [],
             canScrollTop: false,
         }
