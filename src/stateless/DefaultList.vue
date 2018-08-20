@@ -1,7 +1,7 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, height: transitionSorting ? `${item.isLeaf || noGroupRendering ? assumedItemHeight : assumedGroupHeight}px` : 'auto' }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
@@ -16,7 +16,7 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, height: transitionSorting ? `${item.isLeaf || noGroupRendering ? assumedItemHeight : assumedGroupHeight}px` : 'auto' }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
@@ -73,17 +73,16 @@ export default {
             }
             return this.flatItems.slice(0, this.minItemsCount)
         },
+        assumedItemHeight () {
+            return this.size === 'condensed' ? 30 : 45
+        },
+        assumedGroupHeight () {
+            return 30
+        },
         hiddenHeight () {
-            const groupSize = 30
-            const assumedItemSize = this.size === 'condensed' ? 30 : 45
-
             let total = 0
             for (let hiddenItem of this.flatItems.slice(this.shownItems.length)) {
-                if (hiddenItem.isLeaf) {
-                    total += assumedItemSize
-                } else {
-                    total += groupSize
-                }
+                total += hiddenItem.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
             }
 
             return total
@@ -203,7 +202,6 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
-        height: 45px;
 
         &:hover {
             position: relative;
@@ -219,7 +217,7 @@ export default {
         }
 
         &-enter, &-leave-to {
-            height: 0;
+            height: 0 !important;
             opacity: 0;
         }
 
