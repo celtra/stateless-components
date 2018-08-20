@@ -107,6 +107,7 @@ export default {
             let result = this.allOptions
 
             let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
+            this.$emit('search', cleanQuery)
             if (cleanQuery.length > 0) {
                 let getMatchingPriority = (value) => {
                     if (!value)

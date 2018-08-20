@@ -14,11 +14,13 @@
                 :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
+                :init-search-query="initSearchQuery"
                 :can-select-all="canSelectAll"
                 :can-clear-all="canClearAll"
                 :options="options"
                 :size="size"
                 theme="light"
+                @search="searchQueryChange"
                 @input="selectionChange">
             </multiselect>
         </inline-dialog>
@@ -43,6 +45,7 @@ export default {
         chipLabel: { type: String, required: true },
         searchLabel: { type: String, required: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         canSelectAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
     },
@@ -57,6 +60,9 @@ export default {
         },
         close () {
             this.isOpen = false
+        },
+        searchQueryChange (searchQuery) {
+            this.$emit('search', searchQuery)
         },
         selectionChange (selected) {
             this.$emit('input', selected)
