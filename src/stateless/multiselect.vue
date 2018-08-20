@@ -28,8 +28,8 @@
                 </div>
 
                 <div>
-                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list">
-                        <div slot-scope="{ item }" style="padding-top: 7px;">
+                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list" @before-update="onBeforeUpdate">
+                        <div slot-scope="{ item }">
                             <checkbox-element
                                 :disabled="item.disabled"
                                 :title-text="item.label"
@@ -146,20 +146,6 @@ export default {
             }
 
             if (this.autoReorder) {
-                result = itemsUtils.sortBy(result, item => {
-                    if (!this.areGroupsSelectable && item.items) {
-                        return 0
-                    }
-
-                    let isChecked = this.isChecked(item)
-                    if (isChecked === true) {
-                        return 2
-                    } else if (isChecked === null) {
-                        return 1
-                    }
-                    return 0
-                })
-
                 if (!this.areGroupsSelectable) {
                     let selectedItems = this.value.map(itemId => {
                         let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
@@ -174,6 +160,20 @@ export default {
 
                     result = selectedItems.concat(unselectedItems)
                 }
+
+                result = itemsUtils.sortBy(result, item => {
+                    if (!this.areGroupsSelectable && item.items) {
+                        return 0
+                    }
+
+                    let isChecked = this.isChecked(item)
+                    if (isChecked === true) {
+                        return 2
+                    } else if (isChecked === null) {
+                        return 1
+                    }
+                    return 0
+                })
             }
 
             return result
@@ -191,6 +191,12 @@ export default {
         this.loadAsyncOptions()
     },
     methods: {
+        onBeforeUpdate () {
+            let scrollTop = this.$refs.multiselectOptions.scrollTop
+            this.$nextTick(() => {
+                this.$refs.multiselectOptions.scrollTop = scrollTop
+            })
+        },
         selectAll () {
             this.$emit('input', this.allPossibleIds)
         },
@@ -282,7 +288,7 @@ export default {
     }
 
     &__options {
-        padding-bottom: 10px;
+        padding-bottom: 50px;
         flex: auto;
         overflow-y: auto;
         overflow-x: hidden;
@@ -326,7 +332,7 @@ export default {
     &__clear-all {
         color: @bluish-gray;
         font-size: 11px;
-        margin-top: 10px;
+        padding-top: 10px;
         height: 20px;
         cursor: pointer;
         display: flex;
@@ -402,6 +408,11 @@ export default {
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
+    }
+
+    .multiselect__checkbox.multiselect__checkbox {
+        margin-top: 0;
+        height: auto;
     }
 
     .multiselect__checkbox:hover {

@@ -160,8 +160,7 @@ export default {
         border-style: solid;
         border-radius: 2px;
         border-color: @bluish-gray;
-        transition: all @form-element-transition-time ease-out;
-        transform: scale3d(1, 1, 1);
+        transition: transform @form-element-transition-time ease-out;
         opacity: 1;
 
         &--checked {
@@ -182,7 +181,7 @@ export default {
         padding-top: 3px;
         display: flex;
         justify-content: center;
-        transition: all @form-element-transition-time ease-out;
+        transition: transform @form-element-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
 

@@ -1,7 +1,7 @@
 <template>
     <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="(item, index) in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, zIndex: shownItems.length - index + 5 }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
@@ -16,7 +16,7 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="(item, index) in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, zIndex: shownItems.length - index + 5 }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px` }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
@@ -125,6 +125,7 @@ export default {
 
             this.canTransition = getDeltaCount(v, ov) <= 5
             this.$nextTick(() => {
+                this.$emit('before-update')
                 this.transitionItems = v
             })
         },
@@ -198,32 +199,28 @@ export default {
     width: 100%;
 
     &__item {
-        position: relative;
         padding: 0px 15px;
-        background-color: white;
         width: 100%;
+        display: flex;
+        align-items: center;
+        height: 45px;
 
-        &--active {
+        &:hover {
+            position: relative;
+        }
+
+        &--active, &--leaf:hover {
             background-color: @very-light-gray;
         }
 
-        &--leaf {
-            &:hover {
-                background-color: @very-light-gray;
-            }
-        }
-
         &-enter-active, &-leave-active, &-move {
-            transition: transform 250ms ease-out;
+            transition: all 250ms ease-out;
             pointer-events: none;
         }
 
-        &-enter-active, &-leave-active {
-            z-index: 0 !important;
-        }
-
         &-enter, &-leave-to {
-            transform: translateY(-100%);
+            height: 0;
+            opacity: 0;
         }
     }
 
@@ -237,16 +234,6 @@ export default {
         font-family: @regular-text-font;
         color: @gray-blue;
         background-color: white;
-    }
-}
-</style>
-
-<style lang="less">
-.default-list__item {
-    &-leave-to, &-leave-active {
-        > div {
-            position: absolute;
-        }
     }
 }
 </style>
