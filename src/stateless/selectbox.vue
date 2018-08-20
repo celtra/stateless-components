@@ -1,22 +1,13 @@
 <template>
     <div :class="['selectbox--' + size, 'selectbox--' + theme]" :title="disabledText" :id="label | slugify" class="selectbox" tabindex="0" @focus="setFocus()" @blur="clearFocus()"
-         @keyup.esc.stop="handleEsc" @keyup.up="move(-1)" @keyup.down="move(1)" @keyup.enter="selectActiveOption" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
+         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList(-1)" @keyup.down="openSelectList(1)" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
 
         <div :class="cssStates | prefix('selectbox__label-text--')" class="selectbox__label-text">
             {{ mappedLabelText }}
         </div>
 
         <div :class="cssStates | prefix('selectbox__select-row--')" class="selectbox__select-row" @click="openSelectList()">
-            <div class="selectbox__selected-text">
-                <div :class="cssStates | prefix('selectbox__label--')" :style="selectedMetadataText && showSelectedMetadata ? { width: '70%' } : { width: '100%' }" :title="states.disabled ? mappedDisabledText : selectedLabelText" class="selectbox__label">
-                    {{ selectedLabelText }}
-                </div>
-
-                <div v-if="selectedMetadataText" :title="selectedMetadataText"
-                     class="selectbox__metadata">
-                    {{ selectedMetadataText }}
-                </div>
-            </div>
+            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" />
             <div class="selectbox__arrow-wrapper">
                 <div :class="cssStates | prefix('selectbox__arrow-down--')" class="selectbox__arrow-down"></div>
             </div>
@@ -26,47 +17,20 @@
             {{ mappedHelperText }}
         </div>
 
-        <div v-click-outside="closeSelectList" v-if="isOpen" :class="{ 'with-search': isSearchable }"
-             class="selectbox__select-list">
+        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap">
             <div class="selectbox__list-frame"></div>
-            <div class="selectbox__list-content">
-                <div v-if="isSearchable" class="selectbox__search-wrapper">
-                    <div class="selectbox__search-icon-wrapper">
-                        <img class="selectbox__icon" src="/img/icons/search.svg"/>
+            <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
+                <div class="selectbox__select-list-content">
+                    <div v-if="isSearchable" class="selectbox__search-wrapper">
+                        <input-element ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch">
+                            <icon slot="before" name="search" />
+                            <icon slot="right" name="clear" class="selectbox__search-clear-icon" @click="clearSearch" />
+                        </input-element>
                     </div>
 
-                    <div class="selectbox__input-field">
-                        <div class="selectbox__label">Search</div>
-                        <div class="selectbox__input-row">
-                            <input v-model="searchText" class="selectbox__text" type="text" @input="setSearch"/>
-                            <img class="selectbox__clear-icon" src="/img/icons/clear.svg" @click="clearSearch"/>
-                        </div>
+                    <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
+                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" @select="selectValue" @scroll="onScroll"></scrollable-list>
                     </div>
-                </div>
-
-                <div :class="cssStates | prefix('selectbox__options-wrapper--')" class="selectbox__options-wrapper">
-                    <div v-if="isUnselectable" :class="cssStates | prefix('selectbox__option--')" class="selectbox__option"
-                         @click="selectOption(null)">
-                        <div class="selectbox__label">
-                            {{ placeholder }}
-                        </div>
-                    </div>
-                    <template v-for="(group, groupIndex) in filteredGroups">
-                        <div v-if="group.label" :key="groupIndex" :class="cssStates | prefix('selectbox__group--')" class="selectbox__group">
-                            {{ group.label.toUpperCase() }}
-                        </div>
-
-                        <div v-for="option in group.options" :data-option-id="option.id" :class="getOptionCssStates(option) | prefix('selectbox__option--')"
-                             :key="option.id" class="selectbox__option" @click="selectOption(option.id)">
-                            <div :class="getOptionCssStates(option) | prefix('selectbox__label--')" :style="option.metadata ? { width: '70%' } : { width: '100%' }" :title="option.label" class="selectbox__label">
-                                {{ option.label }}
-                            </div>
-
-                            <div v-if="option.metadata" :title="option.metadata" class="selectbox__metadata">
-                                {{ option.metadata }}
-                            </div>
-                        </div>
-                    </template>
                 </div>
             </div>
         </div>
@@ -75,8 +39,19 @@
 
 <script>
 import debounce from 'lodash.debounce'
+import Icon from './icon.vue'
+import Input from './input.vue'
+import ScrollableList from './ScrollableList.vue'
+import DefaultListItem from './DefaultListItem.vue'
+import * as itemsUtils from './items_utils.js'
 
 export default {
+    components: {
+        Icon,
+        inputElement: Input,
+        ScrollableList,
+        DefaultListItem,
+    },
     props: {
         label: { type: String, required: false, default: '' },
         placeholder: { type: String, required: false, default: 'Please select' },
@@ -85,7 +60,7 @@ export default {
         disabledText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
-        groups: { type: Array, required: true },
+        options: { type: Array, required: true },
         value: { type: String, required: false, default: '' },
         isSearchable: { type: Boolean, required: false, default: false },
         isUnselectable: { type: Boolean, required: false, default: false },
@@ -97,11 +72,9 @@ export default {
     data () {
         return {
             isOpen: false,
+            focused: false,
             searchText: '',
             searchTextDebounced: '',
-            activeId: null,
-            selectedId: this.value,
-            focused: false,
         }
     },
     computed: {
@@ -110,7 +83,7 @@ export default {
                 error: !!this.errorText,
                 warning: !!this.warningText,
                 disabled: this.disabled,
-                selected: this.selectedId !== null,
+                selected: this.value !== null,
                 focused: this.focused,
             }
         },
@@ -125,8 +98,7 @@ export default {
             return this.label
         },
         selected () {
-            let found = this.filteredOptions.filter(o => o.id == this.selectedId)
-            return found.length > 0 ? found[0] : null
+            return itemsUtils.find(this.options, o => o.id == this.value)
         },
         selectedLabelText () {
             return this.selected ? this.selected.label : this.placeholder
@@ -146,77 +118,48 @@ export default {
         mappedDisabledText () {
             return this.disabled ? this.disabledText : ''
         },
-        filteredGroups () {
-            let filtered = []
+        listItems () {
+            let options = this.options
 
-            for (let i = 0; i < this.groups.length; i++) {
-                let group = this.groups[i]
-                let filteredOptions = []
-                for (let j = 0; j < group.options.length; j++) {
-                    let option = group.options[j]
-                    if (option.label.toLowerCase().indexOf(this.searchTextDebounced.toLowerCase()) > -1) {
-                        filteredOptions.push(option)
-                    }
+            if (this.isUnselectable) {
+                options = [{ id: 'CLEAR_SELECTION', label: this.placeholder }].concat(options)
+            }
+
+            let cleanQuery = (this.searchTextDebounced || '').trim(' ').toLowerCase()
+            if (cleanQuery.length > 0) {
+                options = itemsUtils.filter(options, (option) => {
+                    return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
+                        (option.metadata && option.metadata.toLowerCase().indexOf(cleanQuery) >= 0)
+                })
+            }
+
+            options = itemsUtils.map(options, option => {
+                if (!option.items) {
+                    return option
                 }
-                if (filteredOptions.length > 0) {
-                    filtered.push({ label: group.label, options: filteredOptions })
+
+                return {
+                    ...option,
+                    label: option.label.toUpperCase(),
                 }
-            }
+            })
 
-            return filtered
+            return options
         },
-        filteredOptions () {
-            return this.filteredGroups
-                .map((group) => group.options)
-                .reduce((a, b) => a.concat(b), [])
-                .filter((option) => !option.disabled)
-        },
-        heights () {
-            let labelHeight = 13
-            let border = 2
-            let margin = 15
-            let groupHeight = 30
-            let optionHeight = 30
-            let searchHeight = 38
-            if (this.size === 'condensed') {
-                border = 1
-                margin = 10
-                optionHeight = 20
-                searchHeight = 33
-            } else if (this.size === 'phat') {
-                labelHeight = 21
-                optionHeight = 45
-                searchHeight = 46
+        scrollableListBottomPadding () {
+            if (this.size === 'normal') {
+                return 10
             }
-
-            return {
-                border: border,
-                margin: margin,
-                label: labelHeight,
-                group: groupHeight,
-                option: optionHeight,
-                search: searchHeight,
-            }
+            return 15
         },
-    },
-    watch: {
-        value () {
-            this.selectedId = this.value
-        },
-    },
-    mounted () {
-        this.$nextTick(() => {
-            window.addEventListener('resize', () => this.positionSelectList())
-        })
-    },
-    beforeDestroy () {
-        window.removeEventListener('resize', () => this.positionSelectList())
     },
     methods: {
         setFocus () {
-            this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
-            this.$emit('focus')
+            if (!this.disabled) {
+                this.focused = true
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
+                this.$emit('focus')
+            }
         },
         clearFocus () {
             this.focused = false
@@ -233,117 +176,62 @@ export default {
                 this.clearFocus()
             }
         },
-        openSelectList () {
-            if (this.disabled) {
-                return
-            }
-
-            this.isOpen = true
-
-            if (!this.focused) {
-                this.$emit('focus')
-            }
-
-            this.$nextTick(() => {
-                if (this.isSearchable) {
-                    this.clearSearch()
-                    this.$el.getElementsByClassName('selectbox__text')[0].focus()
+        openSelectList (direction) {
+            if (this.isOpen) {
+                this.move(direction)
+            } else {
+                if (this.disabled) {
+                    return
                 }
 
-                this.positionSelectList()
-            })
+                this.isOpen = true
+
+                if (!this.focused) {
+                    this.$emit('focus')
+                }
+
+                this.$nextTick(() => {
+                    if (this.isSearchable) {
+                        this.$refs.search.$el.focus()
+                    } else {
+                        this.$refs.list.$el.focus()
+                    }
+
+                    this.onScroll(0)
+                })
+            }
         },
         closeSelectList () {
-            this.focused = true
+            if (!this.disabled) {
+                this.focused = true
+            }
+
             this.isOpen = false
             this.activeId = null
 
             this.$el.focus()
         },
-        positionSelectList () {
-            if (this.isOpen) {
-                let selectBox = this.$el
-                let selectList = this.$el.querySelector('.selectbox__select-list')
-                let optionsWrapper = this.$el.querySelector('.selectbox__options-wrapper')
-                let offsetTop = selectBox.getBoundingClientRect().top + document.documentElement.scrollTop
-
-                let numGroupsBefore = 0
-                let numOptionsBefore = 0
-                if (this.selectedId) {
-                    for (let group of this.groups) {
-                        if (group.label) {
-                            numGroupsBefore++
-                        }
-
-                        for (let option of group.options) {
-                            if (option.id === this.selectedId) {
-                                break
-                            }
-                            numOptionsBefore++
-                        }
-                    }
-                }
-
-                let { position, scroll } = this.calculateOffset(numGroupsBefore, numOptionsBefore, offsetTop, selectList.clientHeight, optionsWrapper.scrollHeight, document.documentElement.clientHeight)
-
-                optionsWrapper.scrollTop = scroll
-                selectList.style.top = `${-position}px`
-            }
-        },
-        calculateOffset (numGroupsBefore, numOptionsBefore, offsetTop, selectListHeight, scrollHeight, screenHeight) {
-            let heights = this.heights
-
-            let top = heights.margin - heights.label + (heights.border / 2)
-            top += heights.group * numGroupsBefore + heights.option * numOptionsBefore
-            if (this.selectedId && this.isUnselectable) {
-                top += heights.option
-            }
-
-            let scrollTop
-            if (top < selectListHeight / 2) {
-                scrollTop = 0
-            } else if (top > scrollHeight - (selectListHeight / 2)) {
-                scrollTop = scrollHeight - selectListHeight
-                top = selectListHeight - (scrollHeight - top)
-            } else {
-                scrollTop = (selectListHeight / 2) + (top - selectListHeight)
-                top = selectListHeight / 2
-            }
-
-            if (this.selectedId && top > offsetTop - (heights.option / 2)) {
-                top = offsetTop - (heights.option / 2)
-            } else if (offsetTop + selectListHeight - top > screenHeight - (heights.option / 2)) {
-                top = offsetTop + selectListHeight - screenHeight + (heights.option / 2)
-            }
-
-            // if selectbox has search input, we have to position it further up
-            if (this.isSearchable) {
-                if (this.selectedId) {
-                    top += heights.search + heights.margin + heights.border
-                } else {
-                    // to align selectbox search line with input line
-                    top += 12
-                }
-            }
-
-            return {
-                position: top,
-                scroll: scrollTop,
-            }
-        },
-        selectOption (optionId) {
-            if (optionId) {
-                let option = this.filteredOptions.find(o => o.id == optionId)
-                if (option && !option.disabled) {
-                    this.selectedId = optionId
-                    this.$emit('input', optionId)
-                    this.closeSelectList()
-                }
-            } else {
-                this.selectedId = null
+        selectValue (v) {
+            if (v.id === 'CLEAR_SELECTION') {
                 this.$emit('input', null)
-                this.closeSelectList()
+            } else {
+                this.$emit('input', v.id)
             }
+            this.closeSelectList()
+        },
+        onScroll (shownY) {
+            let rootY = this.$el.getBoundingClientRect().top
+            let menuRect = this.$refs.menu.getBoundingClientRect()
+            let menuY = menuRect.top
+            let menuHeight = menuRect.height
+            let listY = this.$refs.list.$el.getBoundingClientRect().top
+            let headerHeight = listY - menuY
+
+            let targetOffset = -shownY - headerHeight + 30
+            let minOffset = -rootY
+            let maxOffset = -rootY - menuHeight + document.documentElement.clientHeight
+
+            this.$refs.menu.style.top = `${Math.max(minOffset, Math.min(maxOffset, targetOffset))}px`
         },
         setSearch: debounce(function () {
             this.searchTextDebounced = this.searchText
@@ -352,62 +240,28 @@ export default {
             this.searchText = ''
             this.searchTextDebounced = ''
         },
-        scrollIntoView (selectedId) {
-            let optionsWrapper = this.$el.querySelector('.selectbox__options-wrapper')
-            let optionsBoundingClientRect = optionsWrapper.getBoundingClientRect()
-            let elemBoundingClientRect = this.$el.querySelector(`[data-option-id="${selectedId}"]`).getBoundingClientRect()
-
-            let offsetTop = elemBoundingClientRect.top - optionsBoundingClientRect.top - optionsBoundingClientRect.height
-            let offsetBottom = optionsBoundingClientRect.height - (optionsBoundingClientRect.bottom - elemBoundingClientRect.bottom)
-
-            if (offsetTop + elemBoundingClientRect.height > 0) {
-                optionsWrapper.scrollTop += offsetTop + elemBoundingClientRect.height
-            } else if (offsetBottom - elemBoundingClientRect.height < 0) {
-                optionsWrapper.scrollTop += offsetBottom - elemBoundingClientRect.height
-            }
-        },
         move (direction) {
-            if (!this.isOpen)
-                this.openSelectList()
-
-            if (this.activeId === null) {
-                this.activeId = this.selectedId
-            }
-
-            if (this.filteredOptions.length === 0){
-                return // Empty list
-            }
-
-            let activeIndex = this.filteredOptions.indexOf(this.filteredOptions.find(o => o.id === this.activeId))
-            activeIndex += direction
-            activeIndex = Math.max(0, Math.min(this.filteredOptions.length - 1, activeIndex))
-
-            this.activeId = this.filteredOptions[activeIndex].id
-            this.$nextTick(() => {
-                this.scrollIntoView(this.activeId)
-            })
-        },
-        getOptionCssStates (option) {
-            return {
-                ...this.cssStates,
-                'disabled': option.disabled,
-                'is-selected': option.id === this.activeId,
-                'selected': option.id === this.selectedId,
-                'with-metadata': option.metadata !== '',
-            }
-        },
-        selectActiveOption () {
-            if (!this.isOpen)
-                this.openSelectList()
-
-            if (this.activeId) {
-                this.selectOption(this.activeId)
-                this.closeSelectList()
-            }
+            this.$refs.list.move(direction)
         },
     },
 }
 </script>
+
+<style lang="less">
+    .selectbox {
+
+        &__select-row:hover {
+
+            .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
+                color: black;
+            }
+
+            .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+                color: white;
+            }
+        }
+    }
+</style>
 
 <style lang="less" scoped>
 @import (reference) './variables';
@@ -468,81 +322,46 @@ export default {
         }
     }
 
-    &__selected-text {
-        width: 94%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .selectbox__label {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 18px;
-            font-family: @regular-text-font;
-            transition: color @form-element-transition-time ease-out;
-            color: @very-light-gray;
-
-            &--error { color: @pink-red; }
-
-            &--with-metadata { padding-right: 5px; }
-
-            &--selected { color: @white; }
-            &--disabled { color: @gunpowder; }
-
-            &:hover:not(&--disabled) { color: @white; }
-        }
-
-        .selectbox__metadata {
-            padding-right: 8px;
-            width: 30%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: right;
-            font-size: 12px;
-            font-family: @regular-text-font;
-            color: @gray-blue;
-
-            &.disabled { color: @gunpowder; }
-        }
-    }
-
     &__select-row {
         height: 30px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         border-width: 0 0 2px 0;
         border-style: solid;
         cursor: pointer;
         transition: border-color @form-element-transition-time ease-out;
         border-color: @gunpowder;
 
-        &:hover:not(&--disabled) {
+        &:hover:not(&--disabled):not(&--focused) {
             border-style: solid;
             border-color: @bluish-gray;
 
-            .selected-text .selectbox__label { color: @white; }
             .selectbox__arrow-wrapper .selectbox__arrow-down { border-top-color: @white; }
         }
 
         &--focused {
             border-color: @royal-blue;
+
+            .selectbox__arrow-wrapper .selectbox__arrow-down { border-top-color: @royal-blue; }
         }
 
         &--disabled {
             cursor: auto;
             border-style: dashed;
             border-color: @gunpowder;
+
+            .default-list-item {
+                cursor: default;
+            }
         }
     }
 
-    &__select-list {
+    &__select-list-wrap {
         position: absolute;
-        top: 0;
+        top: 0px;
         left: -15px;
         width: calc(~'100% + 2 * 15px');
-        max-height: calc(~'8 * 30px');
         z-index: @z-index-new-dialog + 75;
 
         &--with-search {
@@ -583,9 +402,14 @@ export default {
         }
     }
 
-    &__list-content {
+    &__select-list {
+        font-family: @regular-text-font;
+    }
+
+    &__select-list-content {
         position: relative;
-        animation: list-content-open @select-list-animation-time-content ease-out;
+        opacity: 0;
+        animation: list-content-open @select-list-animation-time-content ease-out @select-list-animation-time-frame/3 forwards;
 
         @keyframes list-content-open {
             from { opacity: 0; }
@@ -594,343 +418,140 @@ export default {
     }
 
     &__search-wrapper {
-        margin: 15px 0 17px 0;
-        display: flex;
-
-        .selectbox__search-icon-wrapper {
-            width: 45px;
-            height: 38px;
-            padding-bottom: 3px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-
-            .selectbox__icon {
-                width: 16px;
-                height: 16px;
-            }
-        }
+        margin: 15px;
+        margin-bottom: 0px;
     }
 
-    &__input-field {
+    &__search-clear-icon {
+        cursor: pointer;
+    }
+
+    &__scrollable-list-wrap {
         width: 100%;
-        height: 100%;
-        margin-right: 15px;
-
-        .selectbox__label {
-            width: 70%;
-            height: 13px;
-            display: flex;
-            align-items: center;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            color: @royal-blue;
-        }
-    }
-
-    &__input-row {
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-width: 0 0 2px 0;
-        border-style: solid;
-        border-color: @royal-blue;
-
-        .selectbox__text {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            color: @black;
-            font-size: 18px;
-            font-family: @regular-text-font;
-            background-color: transparent;
-            border: 0;
-            outline: none;
-        }
-
-        .selectbox__clear-icon {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            margin-left: 5px;
-        }
-    }
-
-    &__options-wrapper {
-        max-height: calc(~'8 * 30px');
-        overflow-y: scroll;
-
-        &--with-search { max-height: calc(~'8 * 30px - 75px'); }
-
-        &::-webkit-scrollbar { display: none; }
-
-        .selectbox__group {
-            height: 30px;
-            padding: 10px 15px 0 15px;
-            display: flex;
-            align-items: center;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            font-family: @regular-text-font;
-            color: @gray-blue;
-
-            &--with-search { padding: 0 15px 0 45px; }
-        }
-
-        .selectbox__option {
-            height: 30px;
-            padding: 0 15px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color @form-element-transition-time ease-in-out;
-
-            &:first-of-type { margin-top: 15px; }
-
-            &:last-of-type { margin-bottom: 15px; }
-
-            &--is-selected {
-                background-color: @very-light-gray;
-                .selectbox__label { color: @black; }
-            }
-
-            &:hover {
-                &:not(.selectbox__option--disabled) {
-                    background-color: @very-light-gray;
-                    &:not(.selectbox__option--selected) {
-                        .selectbox__label { color: @black; }
-                    }
-
-                }
-            }
-
-            &--disabled { cursor: auto; }
-
-            &--with-search {
-                padding: 0 15px 0 45px;
-                &:first-of-type { margin-top: 0; }
-            }
-
-            .selectbox__label {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                font-size: 18px;
-                font-family: @regular-text-font;
-                color: @gunpowder;
-
-                &--selected { color: @royal-blue; }
-                &--disabled { color: @gray-blue; }
-
-                &--with-metadata { padding-right: 5px; }
-            }
-
-            .selectbox__metadata {
-                width: 30%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                text-align: right;
-                font-size: 12px;
-                font-family: @regular-text-font;
-                color: @gray-blue;
-            }
-        }
     }
 }
 
 .selectbox--light {
-    .selectbox__label {
-        color: @gunpowder;
-
-        &--selected { color: @black; }
-        &:hover { color: @black; }
-    }
-
     .selectbox__label-text {
         color: @bluish-gray;
+
         &--focused {
             color: @royal-blue;
         }
     }
 
-    .selectbox__arrow-down { border-top-color: @gunpowder; }
+    .selectbox__arrow-down {
+        border-top-color: @gunpowder;
+
+        &--disabled {
+            border-top-color: @very-light-gray;
+        }
+    }
 
     .selectbox__select-row {
         border-color: @very-light-gray;
-        &:hover:not(.selectbox__select-row--focused) {
+
+        &:hover:not(.selectbox__select-row--focused):not(.selectbox__select-row--disabled) {
             border-color: @bluish-gray;
 
-            .selectbox__label { color: @black; }
-            .selectbox__arrow-down { border-top-color: @black; }
+            .selectbox__arrow-wrapper .selectbox__arrow-down { border-top-color: @black; }
         }
+
         &--focused {
             border-color: @royal-blue;
         }
+
         .selectbox__arrow-down--focused { border-top-color: @royal-blue; }
     }
 }
 
 .selectbox--condensed {
-    .selectbox__label-text {
-        font-size: 10px;
-        letter-spacing: 0.5px;
-    }
-
-    .selectbox__helper-text {
-        height: 12px;
-        font-size: 10px;
-        letter-spacing: 0.5px;
-    }
-
-    .selectbox__arrow-wrapper {
-        .selectbox__arrow-down { border-width: 3px 3.5px 0 3.5px; }
-    }
-
-    .selectbox__selected-text {
-        .selectbox__label { font-size: 14px; }
-        .selectbox__metadata {
-            padding-right: 5px;
-            font-size: 11px;
+    .selectbox {
+        &__label-text {
+            font-size: 10px;
             letter-spacing: 0.5px;
         }
-    }
 
-    .selectbox__select-row {
-        height: 20px;
-    }
-
-    .selectbox__select-list {
-        left: -10px;
-        width: calc(~'100% + 2 * 10px');
-        max-height: calc(~'8 * 20px');
-
-        &--with-search {
-            top: -10px;
-            left: -35px;
-            width: calc(~'100% + 35px + 10px');
-        }
-    }
-
-    .selectbox__search-wrapper {
-        margin: 10px 0 12px 0;
-
-        .selectbox__search-icon-wrapper {
-            width: 35px;
-            height: 33px;
-            padding-bottom: 2px;
-        }
-    }
-
-    .selectbox__input-field {
-        font-size: 10px;
-        margin-right: 10px;
-        letter-spacing: 0.5px;
-    }
-
-    .selectbox__input-row {
-        height: 20px;
-        border-width: 0 0 1px 0;
-
-        .selectbox__text {
-            height: 20px;
-            font-size: 14px;
-            border-width: 0 0 1px 0;
-        }
-    }
-
-    .selectbox__options-wrapper {
-        max-height: calc(~'8 * 20px');
-
-        &--with-search { max-height: calc(~'8 * 20px - 55px'); }
-
-        .selectbox__group {
-            padding: 0 10px;
-
-            &--with-search { padding: 0 10px 0 36px; }
-        }
-
-        .selectbox__option {
-            height: 20px;
-            padding: 0 10px;
-
-            &:first-of-type { margin-top: 10px; }
-
-            &:last-of-type { margin-bottom: 10px; }
-
-            &--with-search { padding: 0 10px 0 36px; }
-        }
-
-        .selectbox__label { font-size: 14px; }
-        .selectbox__metadata {
-            font-size: 11px;
+        &__helper-text {
+            height: 12px;
+            font-size: 10px;
             letter-spacing: 0.5px;
+        }
+
+        &__arrow-down { border-width: 3px 3.5px 0 3.5px; }
+
+        &__select-row {
+            height: 20px;
+        }
+
+        &__select-list-wrap {
+            left: -10px;
+            width: calc(~'100% + 2 * 10px');
+
+            &--with-search {
+                top: -10px;
+                left: -35px;
+                width: calc(~'100% + 35px + 10px');
+            }
+        }
+
+        &__search-wrapper {
+            margin: 10px 10px 12px 6px;
         }
     }
 }
 
 .selectbox--phat {
-    .selectbox__label-text {
-        height: 21px;
-        font-size: 14px;
-    }
-
-    .selectbox__helper-text {
-        height: 17px;
-        font-size: 12px;
-    }
-
-    .selectbox__selected-text {
-        .selectbox__label { font-size: 22px; }
-        .selectbox__metadata { font-size: 14px; }
-    }
-
-    .selectbox__select-row {
-        height: 45px;
-    }
-
-    .selectbox__select-list {
-        max-height: calc(~'8 * 45px');
-
-        &--with-search { top: -18px; }
-    }
-
-    .selectbox__search-wrapper {
-        margin-bottom: 19px;
-
-        .selectbox__search-icon-wrapper {
-            height: 46px;
-            padding-bottom: 14px;
+    .selectbox {
+        .selectbox__label-text {
+            height: 21px;
+            font-size: 14px;
         }
-    }
 
-    .selectbox__input-field {
-        height: 21px;
-        font-size: 14px;
-    }
+        .selectbox__helper-text {
+            height: 17px;
+            font-size: 12px;
+        }
 
-    .selectbox__input-row {
-        height: 45px;
-        border-width: 0 0 1px 0;
-
-        .selectbox__text {
+        &__select-row {
             height: 45px;
-            font-size: 22px;
+        }
+
+        &__select-list-wrap {
+            &--with-search { top: -18px; }
         }
     }
+}
+</style>
 
-    .selectbox__options-wrapper {
-        max-height: calc(~'8 * 45px');
-
-        &--with-search { max-height: calc(~'8 * 45px - 115px'); }
-
-        .selectbox__option { height: 45px; }
-
-        .selectbox__label { font-size: 22px; }
-
-        .selectbox__metadata { font-size: 14px; }
+<style lang="less">
+.selectbox.selectbox {
+    .input-field__message-wrap {
+        display: none;
     }
+}
 
+.selectbox--condensed {
+    .selectbox__select-list--with-search {
+        .default-list__item {
+            padding-left: 36px;
+        }
+    }
+}
+
+.selectbox--normal {
+    .selectbox__select-list--with-search {
+        .default-list__item {
+            padding-left: 44px;
+        }
+    }
+}
+
+.selectbox--phat {
+    .selectbox__select-list--with-search {
+        .default-list__item {
+            padding-left: 44px;
+        }
+    }
 }
 </style>

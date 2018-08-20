@@ -1,0 +1,25 @@
+<template>
+    <div class="inline-dialog">
+        <div v-if="$slots.header" class="inline-dialog__header">
+            <slot name="header"></slot>
+        </div>
+        <slot></slot>
+    </div>
+</template>
+
+<style lang="less" scoped>
+@import (reference) './variables';
+.inline-dialog {
+    position: absolute;
+    width: 340px;
+    background-color: @white;
+    box-shadow: 1px 2px 5px 0 @shadow-default;
+    font-size: 14px;
+    z-index: 1;
+
+    &__header {
+        padding: 10px 15px;
+        border-bottom: 1px solid @white-smoke;
+    }
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="titleText" :data-id="labelText | slugify" class="checkbox-element" tabindex="0" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
-        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="titleText" class="checkbox-element__check-row" @click="toggle">
+    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
+        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
             <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
                 <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
                 <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check"></div>
@@ -10,7 +10,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="titleText" class="checkbox-element__toggle" @click="toggle">
+        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle">
             <div :class="states | prefix('checkbox-element__toggle-wrapper--')" class="checkbox-element__toggle-wrapper">
                 <div :class="states | prefix('checkbox-element__toggle-circle--')" class="checkbox-element__toggle-circle"></div>
             </div>
@@ -19,7 +19,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text">
+        <div v-if="infoText.length > 0" :class="states | prefix('checkbox-element__helper-text--')" class="checkbox-element__helper-text" @click.stop>
             {{ infoText }}
         </div>
     </div>
@@ -28,11 +28,12 @@
 <script>
 export default {
     props: {
-        value: { type: Boolean, required: true },
+        value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
         helperText: { type: String, required: false, default: '' },
+        titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
@@ -44,19 +45,20 @@ export default {
         }
     },
     computed: {
-        labelText () {
-            let getText = (vnode) => {
-                if (vnode.text) {
-                    return vnode.text
-                }
-                for (let child of vnode.children) {
-                    return getText(child)
-                }
+        actualTitleText () {
+            if (this.titleText.length > 0) {
+                return this.titleText
             }
-            return this.$slots.default && getText(this.$slots.default[0]).replace(/^\s+|\s+$/g, '') || ''
-        },
-        titleText () {
-            return this.disabled && this.disabledText.length > 0 ? this.disabledText : this.labelText
+
+            if (this.disabled && this.disabledText.length > 0) {
+                return this.disabledText
+            }
+
+            if (this.$slots.default && this.$slots.default.length === 1 && this.$slots.default[0].text) {
+                return this.$slots.default[0].text.replace(/^\s+|\s+$/g, '')
+            }
+
+            return ''
         },
         infoText () {
             if (this.errorText) {
@@ -71,7 +73,8 @@ export default {
             return {
                 error: !!this.errorText,
                 warning: !!this.warningText && !this.errorText,
-                checked: this.value,
+                some: this.value === null,
+                checked: this.value === true,
                 disabled: this.disabled,
                 focused: this.focused,
             }
@@ -87,10 +90,10 @@ export default {
         blur () {
             this.$el.blur()
         },
-        toggle () {
+        toggle (ev) {
             if (!this.disabled) {
                 this.$emit('focus')
-                this.$emit('input', !this.value)
+                this.$emit('input', !this.value, ev)
                 this.focused = false
             }
         },
@@ -109,30 +112,31 @@ export default {
     height: 26px + 12px;
     margin-top: 7px;
     font-family: @regular-text-font;
+    cursor: pointer;
+
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.25, 1.25, 1);
+            border-color: @very-light-gray;
+        }
+
+        .checkbox-element__check:not(.checkbox-element__check--disabled) {
+            transform: scale3d(1.375, 1.375, 1);
+        }
+
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: @white;
+        }
+    }
 
     .checkbox-element__check-row {
+        width: 100%;
         height: 26px;
         display: flex;
         align-items: center;
-        cursor: pointer;
 
         .checkbox-element__check {
             transform: scale3d(1, 1, 1);
-        }
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.25, 1.25, 1);
-                border-color: @very-light-gray;
-            }
-
-            .checkbox-element__check:not(.checkbox-element__check--disabled) {
-                transform: scale3d(1.375, 1.375, 1);
-            }
-
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @white;
-            }
         }
 
         &--disabled {
@@ -157,8 +161,7 @@ export default {
         border-style: solid;
         border-radius: 2px;
         border-color: @bluish-gray;
-        transition: all @form-element-transition-time ease-out;
-        transform: scale3d(1, 1, 1);
+        transition: transform @form-element-transition-time ease-out;
         opacity: 1;
 
         &--checked {
@@ -179,23 +182,36 @@ export default {
         padding-top: 3px;
         display: flex;
         justify-content: center;
-        transition: all @form-element-transition-time ease-out;
+        transition: transform @form-element-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
 
         &--checked {
+            &:after {
+                content: '';
+                width: 5px;
+                height: 11px;
+                display: block;
+                border: solid @royal-blue;
+                border-width: 0 3.5px 3.5px 0;
+                transform: rotate(45deg);
+            }
+
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
 
-        &:after {
-            content: '';
-            width: 5px;
-            height: 11px;
-            display: block;
-            border: solid @royal-blue;
-            border-width: 0 3.5px 3.5px 0;
-            transform: rotate(45deg);
+        &--some {
+            &:after {
+                content: '';
+                width: 10px;
+                height: 11px;
+                display: block;
+                border-bottom: 2px solid @royal-blue;
+            }
+
+            transform: scale3d(1, 1, 1);
+            opacity: 1;
         }
 
         &--disabled:after {
@@ -231,6 +247,7 @@ export default {
         font-size: 11px;
         letter-spacing: 0.5px;
         color: @dolphin;
+        cursor: default;
 
         &--warning {
             color: @pale-yellow;
@@ -254,15 +271,8 @@ export default {
         display: flex;
         align-items: center;
         cursor: pointer;
-        opacity: 0.8;
 
         &--focused, &:hover {
-            opacity: 1;
-
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @white;
-            }
-
             .checkbox-element__toggle-circle {
                 background-color: white;
             }
@@ -279,7 +289,7 @@ export default {
         width: 25px;
         min-width: 25px;
         border-radius: 8px;
-        background-color: @gunpowder;
+        background-color: @very-light-gray;
         transition: all @form-element-transition-time ease-out;
 
         &--checked {
@@ -291,12 +301,11 @@ export default {
         width: 15px;
         height: 15px;
         border-radius: 50%;
-        background-color: @gray-blue;
+        background-color: @extremely-light-gray;
         transition: all @form-element-transition-time ease-out;
 
         &--checked {
             margin-left: 10px;
-            background-color: white;
         }
     }
 }
@@ -305,14 +314,14 @@ export default {
     height: 34px + 17px;
     margin-top: 9px;
 
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.2, 1.2, 1);
+        }
+    }
+
     .checkbox-element__check-row {
         height: 34px;
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.2, 1.2, 1);
-            }
-        }
     }
 
     .checkbox-element__check-wrapper {
@@ -368,18 +377,18 @@ export default {
     height: 20px;
     margin-top: 10px;
 
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            transform: scale3d(1.286, 1.286, 1);
+        }
+
+        .checkbox-element__check:not(.checkbox-element__check--disabled) {
+            transform: scale3d(1.25, 1.25, 1);
+        }
+    }
+
     .checkbox-element__check-row {
         height: 20px;
-
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                transform: scale3d(1.286, 1.286, 1);
-            }
-
-            .checkbox-element__check:not(.checkbox-element__check--disabled) {
-                transform: scale3d(1.25, 1.25, 1);
-            }
-        }
     }
 
     .checkbox-element__check-wrapper {
@@ -433,17 +442,23 @@ export default {
 .checkbox-element--light {
     .checkbox-element__label-text {
         color: @gunpowder;
+
+        &--disabled {
+          color: @very-light-gray;
+        }
     }
 
-    .checkbox-element__check-row {
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-                border-color: @gunpowder;
-            }
+    .checkbox-element__square--disabled {
+        border-color: @very-light-gray;
+    }
 
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-                color: @gunpowder;
-            }
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            border-color: @gunpowder;
+        }
+
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: black;
         }
     }
 }
@@ -458,15 +473,13 @@ export default {
         color: @gunpowder;
     }
 
-    .checkbox-element__check-row {
-        &--focused, &:hover {
-            .checkbox-element__square:not(.checkbox-element__square--disabled) {
-              border-color: @gunpowder;
-            }
+    .checkbox-element--focused, &:hover {
+        .checkbox-element__square:not(.checkbox-element__square--disabled) {
+            border-color: @gunpowder;
+        }
 
-            .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
-              color: @gunpowder;
-            }
+        .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
+            color: @gunpowder;
         }
     }
 }
