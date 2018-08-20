@@ -222,6 +222,11 @@ export default {
             height: 0;
             opacity: 0;
         }
+
+        > div {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     &__group {

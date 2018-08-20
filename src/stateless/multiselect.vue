@@ -29,7 +29,7 @@
 
                 <div>
                     <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list" @before-update="onBeforeUpdate">
-                        <div slot-scope="{ item }">
+                        <div slot-scope="{ item }" style="width: 100%; height: 100%">
                             <checkbox-element
                                 :disabled="item.disabled"
                                 :title-text="item.label"
@@ -317,7 +317,6 @@ export default {
 
     &__change-multiple {
         flex: none;
-        background-color: white;
         z-index: 5;
         position: relative;
         height: 38px;
@@ -417,6 +416,11 @@ export default {
     .multiselect__checkbox.multiselect__checkbox {
         margin-top: 0;
         height: auto;
+
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
     }
 
     .multiselect__checkbox:hover {
