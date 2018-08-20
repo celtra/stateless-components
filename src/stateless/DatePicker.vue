@@ -1,7 +1,8 @@
 <template>
     <div v-click-outside="clickOutside" :class="{ 'date-picker--disabled': disabled }" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
-        <div :class="size | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">{{ formattedDate }}
+        <div :class="size | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
+            <span class="date-picker__date-text">{{ formattedDate }}</span>
             <icon :style="{ width: caretSize }" name="caret" class="icon-appendix"></icon>
         </div>
 
@@ -172,6 +173,10 @@ export default {
         }
     }
 
+    &__date-text {
+        margin-right: 22px;
+    }
+
     &__popup {
         position: absolute;
         top: -200px;
@@ -201,7 +206,7 @@ export default {
 
 .icon-appendix.icon-wrapper {
     position: relative;
-    margin: 0 4px 0 22px;
+    margin: 0 4px 0 auto;
     top: 1px;
 }
 </style>
