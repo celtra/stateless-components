@@ -1,5 +1,5 @@
 <template>
-    <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
+    <div class="default-list" tabindex="0" @keydown.up.prevent @keydown.down.prevent @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, height: transitionSorting ? `${item.isLeaf || noGroupRendering ? assumedItemHeight : assumedGroupHeight}px` : 'auto' }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering">
