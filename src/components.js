@@ -43,6 +43,9 @@ export default {
     },
     Dialog: {
         component: Dialog,
+        defaultProps: {
+            title: 'Something',
+        },
     },
     DropArea: {
         component: DropArea,
