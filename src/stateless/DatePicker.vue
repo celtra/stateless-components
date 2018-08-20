@@ -53,7 +53,7 @@ import moment from 'moment'
 import Calendar from './Calendar.vue'
 import DateInput from './DateInput.vue'
 import DateRangeInput from './DateRangeInput.vue'
-import Icon from './Icon.vue'
+import Icon from './icon.vue'
 
 export default {
     components: {
