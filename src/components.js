@@ -113,7 +113,7 @@ export default {
     SupportText: {
         component: SupportText,
         defaultProps: {
-            text: 'Lorem Ipsum',
+            text: 'Lorem Ipsum<br>And a new line',
         },
     },
     Icon: {
