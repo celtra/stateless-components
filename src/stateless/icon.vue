@@ -164,15 +164,9 @@
             <path d="M80.192 86.006h-27.01v-60h26.552c11.296 0 18.382 5.78 18.382 14.97 0 6.57-4.918 12.057-11.296 13.014v.332c8.17.624 14.173 6.57 14.173 14.512 0 10.56-7.962 17.172-20.8 17.172zM65.77 35.362v15.592h9.42c6.71 0 10.546-2.952 10.546-8.025 0-4.824-3.376-7.568-9.254-7.568H65.77zm0 41.29h11.213c7.253 0 11.17-3.078 11.17-8.816 0-5.614-4.042-8.607-11.462-8.607H65.77v17.42zm84.183-1.04H122.69V60.475h25.72V50.83h-25.72V36.36h27.263V26.006h-39.85v60h39.85V75.61zm38.205 10.394H175.57V36.36h-17.59V26.006h47.81V36.36H188.16v49.646zm57.797 0l-4.585-14.553h-21.134l-4.585 14.553h-12.92l20.883-60h14.797l20.926 60h-13.38zm-15.298-48.524l-7.71 24.574h15.714l-7.71-24.574h-.293z" fill="#FFF"/>
         </svg>
 
-        <!-- 'caret': small triangle down -->
-        <div v-if="name === 'caret'" :style="styleOverride" class="icon-wrapper__inner">
-            <div class="icon-caret"></div>
-        </div>
-
-        <!-- 'caret-big': small triangle down -->
-        <div v-if="name === 'caret-big'" :style="styleOverride" class="icon-wrapper__inner">
-            <div class="icon-caret icon-caret--big"></div>
-        </div>
+        <svg v-if="name === 'caret'" :style="styleOverride" viewBox="0 0 12 5" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M6 5l6-5H0z"/>
+        </svg>
     </div>
 </template>
 
@@ -191,14 +185,6 @@ export default {
     display: inline-block;
     width: 16px;
     height: 16px;
-}
-
-.icon-wrapper__inner {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
 }
 
 .icon-wrapper > svg {
@@ -220,16 +206,5 @@ export default {
 @keyframes SPIN {
     0%   { transform: rotate(0); }
     100% { transform: rotate(720deg); }
-}
-
-/* Styles for specific icons */
-.icon-caret {
-    border-width: 3px 3.5px 0 3.5px;
-    border-style: solid;
-    border-color: currentColor transparent transparent transparent;
-
-    &--big {
-        border-width: 5px 6px 0 6px;
-    }
 }
 </style>
