@@ -196,6 +196,12 @@ export default {
     },
     DatePicker: {
         component: DatePicker,
+        rootCss: {
+            width: '600px',
+        },
+        defaultProps: {
+
+        },
     },
     Toast: {
         component: Toast,
