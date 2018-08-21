@@ -4,7 +4,15 @@
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
-                        <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
+                        <default-list-item
+                            :label="item.label"
+                            :metadata="item.metadata"
+                            :icon="item.icon"
+                            :disabled="item.disabled"
+                            :selected="item.id === value"
+                            :highlight-query="highlightQuery"
+                            :size="size"
+                            theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
@@ -19,7 +27,15 @@
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
-                        <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
+                        <default-list-item
+                            :label="item.label"
+                            :metadata="item.metadata"
+                            :icon="item.icon"
+                            :disabled="item.disabled"
+                            :selected="item.id === value"
+                            :highlight-query="highlightQuery"
+                            :size="size"
+                            theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
