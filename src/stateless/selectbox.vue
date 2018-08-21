@@ -125,7 +125,7 @@ export default {
                 options = [{ id: 'CLEAR_SELECTION', label: this.placeholder }].concat(options)
             }
 
-            let cleanQuery = (this.searchTextDebounced || '').trim(' ').toLowerCase()
+            const cleanQuery = (this.searchTextDebounced || '').trim(' ').toLowerCase()
             if (cleanQuery.length > 0) {
                 options = itemsUtils.filter(options, (option) => {
                     return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
@@ -165,7 +165,7 @@ export default {
             this.focused = false
         },
         handleEsc () {
-            let wasOpen = this.isOpen
+            const wasOpen = this.isOpen
 
             this.closeSelectList()
 
@@ -220,16 +220,16 @@ export default {
             this.closeSelectList()
         },
         onScroll (shownY) {
-            let rootY = this.$el.getBoundingClientRect().top
-            let menuRect = this.$refs.menu.getBoundingClientRect()
-            let menuY = menuRect.top
-            let menuHeight = menuRect.height
-            let listY = this.$refs.list.$el.getBoundingClientRect().top
-            let headerHeight = listY - menuY
+            const rootY = this.$el.getBoundingClientRect().top
+            const menuRect = this.$refs.menu.getBoundingClientRect()
+            const menuY = menuRect.top
+            const menuHeight = menuRect.height
+            const listY = this.$refs.list.$el.getBoundingClientRect().top
+            const headerHeight = listY - menuY
 
-            let targetOffset = -shownY - headerHeight + 30
-            let minOffset = -rootY
-            let maxOffset = -rootY - menuHeight + document.documentElement.clientHeight
+            const targetOffset = -shownY - headerHeight + 30
+            const minOffset = -rootY
+            const maxOffset = -rootY - menuHeight + document.documentElement.clientHeight
 
             this.$refs.menu.style.top = `${Math.max(minOffset, Math.min(maxOffset, targetOffset))}px`
         },
@@ -359,7 +359,7 @@ export default {
 
     &__select-list-wrap {
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -15px;
         width: calc(~'100% + 2 * 15px');
         z-index: @z-index-new-dialog + 75;
@@ -418,8 +418,7 @@ export default {
     }
 
     &__search-wrapper {
-        margin: 15px;
-        margin-bottom: 0px;
+        margin: 15px 15px 0px 15px;
     }
 
     &__search-clear-icon {

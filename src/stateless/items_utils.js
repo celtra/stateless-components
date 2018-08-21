@@ -4,7 +4,7 @@ export function find (items, fn) {
             return item
         }
         if (item.items) {
-            let found = find(item.items, fn)
+            const found = find(item.items, fn)
             if (found) {
                 return found
             }
@@ -27,12 +27,12 @@ export function map (items, fn) {
 }
 
 export function filter (items, fn) {
-    let mapItem = (item) => {
+    const mapItem = (item) => {
         if (fn(item)) {
             return item
         }
         if (item.items) {
-            let newChildren = item.items.map(mapItem).filter(x => x)
+            const newChildren = item.items.map(mapItem).filter(x => x)
             if (newChildren.length > 0) {
                 return {
                     ...item,
@@ -46,12 +46,12 @@ export function filter (items, fn) {
 }
 
 export function sortBy (items, fn) {
-    let keys = items.map(x => x.key || x.id)
+    const keys = items.map(x => x.key || x.id)
     return items.slice().sort((x, y) => {
         let fnValue = fn(y) - fn(x)
         if (x.items && y.items) {
-            let sumFn = (items) => items.reduce((total, x) => total + fn(x), 0)
-            let sorts = {
+            const sumFn = (items) => items.reduce((total, x) => total + fn(x), 0)
+            const sorts = {
                 max (items) {
                     return Math.max(...items.map(x => fn(x)))
                 },
@@ -63,10 +63,10 @@ export function sortBy (items, fn) {
                 },
             }
 
-            let sortBy = ['max', 'sum', 'avg']
+            const sortBy = ['max', 'sum', 'avg']
 
             for (let sortFn of sortBy) {
-                let result = sorts[sortFn](y.items) - sorts[sortFn](x.items)
+                const result = sorts[sortFn](y.items) - sorts[sortFn](x.items)
                 if (result !== 0) {
                     fnValue = result
                     break
@@ -92,7 +92,7 @@ export function sortBy (items, fn) {
 }
 
 export function getLeafIds (item) {
-    let children = Array.isArray(item) ? item : item.items
+    const children = Array.isArray(item) ? item : item.items
 
     let ids = []
     if (children) {
@@ -108,9 +108,9 @@ export function getLeafIds (item) {
 export function flatten (items) {
     let flat = []
 
-    let traverse = (items, path) => {
+    const traverse = (items, path) => {
         for (let item of items) {
-            let currentPath = path.concat([item.id])
+            const currentPath = path.concat([item.id])
             flat.push({
                 ...item,
                 items: null,

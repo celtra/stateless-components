@@ -1,14 +1,14 @@
 <template>
-    <div class="default-list" tabindex="0" @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
+    <div class="default-list" tabindex="0" @keydown.up.prevent @keydown.down.prevent @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, height: transitionSorting ? `${item.isLeaf || noGroupRendering ? assumedItemHeight : assumedGroupHeight}px` : 'auto' }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <div v-if="item.isLeaf || noGroupRendering">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
-                    <tooltip v-if="item.tooltip">{{ item.tooltip }}</tooltip>
+                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
-                <div v-else>
+                <div v-else class="default-list__item-content">
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
@@ -16,14 +16,14 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in shownItems" :key="item.key" :data-item-id="item.id" :style="{ marginLeft: `${getOffset(item)}px`, height: transitionSorting ? `${item.isLeaf || noGroupRendering ? assumedItemHeight : assumedGroupHeight}px` : 'auto' }" :class="{ leaf: item.isLeaf || noGroupRendering, active: item.id === activeId } | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <div v-if="item.isLeaf || noGroupRendering">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item v-bind="item" :selected="item.id === value" :highlight-query="highlightQuery" :size="size" theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
-                <div v-else>
+                <div v-else class="default-list__item-content">
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
@@ -73,6 +73,20 @@ export default {
             }
             return this.flatItems.slice(0, this.minItemsCount)
         },
+        shownItemsWithData () {
+            return this.shownItems.map(item => {
+                let css = { marginLeft: `${this.getOffset(item)}px` }
+                if (this.transitionSorting) {
+                    css.height = `${item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight}px`
+                }
+
+                return {
+                    ...item,
+                    css: css,
+                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: item.id === this.activeId },
+                }
+            })
+        },
         assumedItemHeight () {
             return this.size === 'condensed' ? 30 : 45
         },
@@ -90,7 +104,7 @@ export default {
     },
     watch: {
         items (v, ov) {
-            let getCount = (items) => {
+            const getCount = (items) => {
                 let count = items.length
                 for (let item of items) {
                     if (item.items)
@@ -99,16 +113,16 @@ export default {
                 return count
             }
 
-            let getDeltaCount = (a, b) => {
-                let aKeys = a.map(x => x.key || x.id)
-                let bKeys = b.map(x => x.key || x.id)
-                let onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
-                let onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
-                let intersection = a.filter(x => bKeys.includes(x.key || x.id))
+            const getDeltaCount = (a, b) => {
+                const aKeys = a.map(x => x.key || x.id)
+                const bKeys = b.map(x => x.key || x.id)
+                const onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
+                const onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
+                const intersection = a.filter(x => bKeys.includes(x.key || x.id))
 
                 let count = getCount(onlyA) + getCount(onlyB)
                 for (let aItem of intersection) {
-                    let bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
+                    const bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
 
                     if (aItem.items && bItem.items) {
                         count += getDeltaCount(aItem.items, bItem.items)
@@ -140,19 +154,19 @@ export default {
     methods: {
         selectItem (itemId) {
             if (itemId) {
-                let item = this.flatItems.find(x => x.id == itemId)
+                const item = this.flatItems.find(x => x.id == itemId)
                 if (item && !item.disabled && item.isLeaf) {
                     this.$emit('select', item)
                 }
             }
         },
         move (direction) {
-            let flatLeafItems = this.flatItems.filter(x => x.isLeaf)
-            if (flatLeafItems.length === 0){
+            const flatLeafItems = this.flatItems.filter(x => x.isLeaf)
+            if (flatLeafItems.length === 0) {
                 return
             }
 
-            let findId = this.activeId || this.value
+            const findId = this.activeId || this.value
             let activeIndex = flatLeafItems.indexOf(flatLeafItems.find(x => x.id === findId))
             activeIndex += direction
             if (activeIndex > flatLeafItems.length - 1) {
@@ -171,7 +185,7 @@ export default {
                 return 0
             }
 
-            let offset = 20
+            const offset = 20
             if (this.areGroupsSelectable) {
                 return depth * offset
             } else {
@@ -220,11 +234,11 @@ export default {
             height: 0 !important;
             opacity: 0;
         }
+    }
 
-        > div {
-            width: 100%;
-            height: 100%;
-        }
+    &__item-content {
+        width: 100%;
+        height: 100%;
     }
 
     &__group {

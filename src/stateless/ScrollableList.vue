@@ -62,27 +62,27 @@ export default {
             }
         },
         scrollTo (itemId) {
-            let rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
-            let itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top + this.$el.scrollTop
+            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top + this.$el.scrollTop
 
-            let scrollY = itemY - rootY - (this.maxHeight - this.itemHeight) / 2
+            const scrollY = itemY - rootY - (this.maxHeight - this.itemHeight) / 2
             this.$el.scrollTop = scrollY
 
             this.$nextTick(() => {
-                let rootY = this.$el.getBoundingClientRect().top
-                let itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
-                let shownY = itemY - rootY + this.itemHeight / 2
+                const rootY = this.$el.getBoundingClientRect().top
+                const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
+                const shownY = itemY - rootY + this.itemHeight / 2
 
                 this.$emit('scroll', shownY)
             })
         },
         onActivate (itemId) {
-            let currentScroll = this.$el.scrollTop
-            let rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
-            let itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
+            const currentScroll = this.$el.scrollTop
+            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
-            let upTarget = currentScroll + itemY - rootY
-            let downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding
+            const upTarget = currentScroll + itemY - rootY
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding
 
             if (currentScroll > upTarget) {
                 this.$el.scrollTop = upTarget

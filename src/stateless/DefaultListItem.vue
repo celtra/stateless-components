@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { getTextHighlightParts } from './string_utils.js'
 import Icon from './icon.vue'
 
 export default {
@@ -77,10 +78,9 @@ export default {
         calculateWidths () {
             if (this.metadata) {
                 const THRESHOLD = 0.1
-                let totalWidth = this.$el.clientWidth - 5
-
-                let labelWidth = this.$refs.labelContainer.clientWidth
-                let metadataWidth = this.$refs.metadataContainer.clientWidth
+                const totalWidth = this.$el.clientWidth - 5
+                const labelWidth = this.$refs.labelContainer.clientWidth
+                const metadataWidth = this.$refs.metadataContainer.clientWidth
 
                 if (labelWidth + metadataWidth > totalWidth) {
                     let finalLabelWidth
@@ -104,37 +104,7 @@ export default {
             }
         },
         getParts (label) {
-            let index = this.highlightQuery && this.highlightQuery.length > 0 ? label.toLowerCase().indexOf(this.highlightQuery.toLowerCase()) : -1
-            if (index === -1) {
-                return [
-                    { text: label, bold: false },
-                ]
-            }
-            let beforeIndex = label.substring(0, index)
-            let atIndex = label.substring(index, index + this.highlightQuery.length)
-            let afterIndex = label.substring(index + this.highlightQuery.length)
-
-            let parts = []
-            if (beforeIndex.length > 0) {
-                parts.push({
-                    text: beforeIndex,
-                    bold: false,
-                })
-            }
-
-            parts.push({
-                text: atIndex,
-                bold: true,
-            })
-
-            if (afterIndex.length > 0) {
-                parts.push({
-                    text: afterIndex,
-                    bold: false,
-                })
-            }
-
-            return parts
+            return getTextHighlightParts(label, this.highlightQuery)
         },
     },
 }

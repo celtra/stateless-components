@@ -105,36 +105,36 @@ export default {
         listItems () {
             let result = this.allOptions
 
-            let cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
+            const cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
             if (cleanQuery.length > 0) {
-                let getMatchingPriority = (value) => {
+                const getMatchingPriority = (value) => {
                     if (!value)
                         return 0
-                    let cleanValue = value.trim().toLowerCase()
+                    const cleanValue = value.trim().toLowerCase()
                     if (cleanValue === cleanQuery)
                         return 3
-                    let index = value.toLowerCase().indexOf(cleanQuery)
+                    const index = value.toLowerCase().indexOf(cleanQuery)
                     if (index >= 0) {
                         return index === 0 ? 2 : 1
                     }
                     return 0
                 }
 
-                let searchFn = option => {
+                const searchFn = option => {
                     if (option.items) {
                         let priority = getMatchingPriority(option.label)
                         if (priority > 0)
                             return 50 + priority
                     } else {
-                        let labelPriority = getMatchingPriority(option.label)
+                        const labelPriority = getMatchingPriority(option.label)
                         if (labelPriority > 0)
                             return 100 + labelPriority
 
-                        let metadataPriority = getMatchingPriority(option.metadata)
+                        const metadataPriority = getMatchingPriority(option.metadata)
                         if (metadataPriority > 0)
                             return 90 + metadataPriority
 
-                        let tooltipPriority = getMatchingPriority(option.tooltip)
+                        const tooltipPriority = getMatchingPriority(option.tooltip)
                         if (tooltipPriority > 0)
                             return 80 + tooltipPriority
                     }
@@ -147,14 +147,14 @@ export default {
 
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
-                    let selectedItems = this.value.map(itemId => {
-                        let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                    const selectedItems = this.value.map(itemId => {
+                        const item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
                         return {
                             ...item,
                             key: 'selected_' + (item.key || item.id),
                         }
                     })
-                    let unselectedItems = itemsUtils.filter(result, item => {
+                    const unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
 
@@ -166,7 +166,7 @@ export default {
                         return 0
                     }
 
-                    let isChecked = this.isChecked(item)
+                    const isChecked = this.isChecked(item)
                     if (isChecked === true) {
                         return 2
                     } else if (isChecked === null) {
@@ -192,7 +192,7 @@ export default {
     },
     methods: {
         onBeforeUpdate () {
-            let scrollTop = this.$refs.multiselectOptions.scrollTop
+            const scrollTop = this.$refs.multiselectOptions.scrollTop
             this.$nextTick(() => {
                 this.$refs.multiselectOptions.scrollTop = scrollTop
             })
@@ -204,7 +204,7 @@ export default {
             this.$emit('input', [])
         },
         onScroll: throttle(function (e) {
-            let canScrollTop = e.target.scrollTop > 0
+            const canScrollTop = e.target.scrollTop > 0
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
             }
@@ -225,14 +225,14 @@ export default {
         setChecked (option, isChecked) {
             if (!option.disabled) {
                 if (option.isLeaf) {
-                    let valueWithout = this.value.filter(id => id !== option.id)
+                    const valueWithout = this.value.filter(id => id !== option.id)
                     if (isChecked) {
                         this.$emit('input', valueWithout.concat([option.id]))
                     } else {
                         this.$emit('input', valueWithout)
                     }
                 } else {
-                    let valueWithout = this.value.filter(id => !option.leafIds.includes(id))
+                    const valueWithout = this.value.filter(id => !option.leafIds.includes(id))
                     if (isChecked) {
                         this.$emit('input', valueWithout.concat(option.leafIds))
                     } else {
@@ -247,7 +247,7 @@ export default {
             } else {
                 let allChecked = true
                 let someChecked = false
-                let leafIds = option.leafIds || itemsUtils.getLeafIds(option)
+                const leafIds = option.leafIds || itemsUtils.getLeafIds(option)
                 for (let id of leafIds) {
                     if (!this.value.includes(id)) {
                         allChecked = false
