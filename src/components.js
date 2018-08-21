@@ -198,6 +198,9 @@ export default {
     },
     Typeahead: {
         component: Typeahead,
+        rootCss: {
+            width: '600px',
+        },
         defaultProps: {
             label: 'Something',
             value: 'Lorem',

@@ -99,7 +99,7 @@ export default {
     &__suggestions {
         position: absolute;
         margin-top: -7px;
-        background-color: #FFFFFF;
+        background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 15px 0px;
     }
@@ -109,8 +109,9 @@ export default {
         margin-top: -7px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 20px;
-        width: calc(~'100% - 2 * 20px');
-        background: #FFFFFF;
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
         font-size: 16px;
     }
 }

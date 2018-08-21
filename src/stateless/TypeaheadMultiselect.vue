@@ -5,7 +5,7 @@
         <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
             <div class="typeahead-multiselect__item-label">{{ item.label }}</div>
             <div class="typeahead-multiselect__item-metadata">
-                <span>{{ item.metadata }}</span>
+                <span class="typeahead-multiselect__item-metadata-text">{{ item.metadata }}</span>
                 <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
             </div>
         </div>
@@ -26,7 +26,7 @@ export default {
         value: { type: Array, required: true },
         getSuggestions: { type: Function, required: true },
         noItemsText: { type: String, default: 'No items' },
-        theme: { type: String, default: 'light' },
+        theme: { type: String, default: 'dark' },
         isValid: { type: Function, required: false },
     },
     data () {
@@ -43,8 +43,8 @@ export default {
             this.$emit('input', this.value.filter(x => x.id !== item.id))
         },
         getAvailableSuggestions (v) {
-            let suggestions = this.getSuggestions(v)
-            let ids = this.value.map(x => x.id)
+            const suggestions = this.getSuggestions(v)
+            const ids = this.value.map(x => x.id)
             return suggestions.filter(x => !ids.includes(x.id))
         },
     },
@@ -69,11 +69,11 @@ export default {
     &__item-metadata {
         display: flex;
         align-items: center;
+    }
 
-        > span {
-            font-size: 14px;
-            color: @bluish-gray;
-        }
+    &__item-metadata-text {
+        font-size: 14px;
+        color: @bluish-gray;
     }
 
     &__item-remove {
