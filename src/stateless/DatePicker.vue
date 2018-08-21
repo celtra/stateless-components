@@ -1,10 +1,12 @@
 <template>
-    <div v-click-outside="clickOutside" class="date-picker">
+    <div v-click-outside="clickOutside" :class="states | prefix('date-picker--')" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
             <icon :style="{ width: caretSize }" name="caret" class="icon-appendix"></icon>
         </div>
+        <div :class="states | prefix('date-picker__border-overlay--')" class="date-picker__border-overlay"></div>
+        <div :class="size | prefix('date-picker__error-message--')" class="date-picker__error-message">{{ error }}</div>
 
         <div v-if="isOpen" class="date-picker__popup">
             <template v-if="hasInput">
@@ -70,6 +72,8 @@ export default {
         value: { type: [Date, Object] },
         disabled: { type: Boolean, default: false },
         isRange: { type: Boolean, default: false },
+        isValid: { type: Function },
+        error: { type: String },
         minDate: { type: Date },
         maxDate: { type: Date },
         hasInput: { type: Boolean, default: true },
@@ -82,6 +86,13 @@ export default {
         }
     },
     computed: {
+        states () {
+            return {
+                disabled: this.disabled,
+                valid: this.isValid,
+                error: this.error,
+            }
+        },
         isEmpty () {
             if (this.isRange) {
                 return !(this.value && this.value.from && this.value.to)
@@ -199,6 +210,54 @@ export default {
 
     &__calendar {
         margin: 0 auto;
+    }
+
+    &--disabled {
+        .date-picker__date {
+          cursor: default;
+          color: @very-light-gray;
+          border-bottom: 2px dashed @very-light-gray;
+        }
+    }
+
+    &__error-message {
+        color: @pink-red;
+        font-size: 11px;
+        min-height: 14px;
+        text-align: left;
+
+        &.date-picker__error-message--condensed {
+            font-size: 10px;
+        }
+
+        &.date-picker__error-message--phat {
+            font-size: 12px;
+        }
+    }
+
+    &__border-overlay {
+        position: relative;
+        top: -2px;
+        margin-bottom: 1px;
+        width: 0;
+        height: 2px;
+        transition: width @input-border-overlay ease-out;
+
+        &--valid {
+            width: 100%;
+            background-color: @light-green;
+        }
+
+        &--error {
+            width: 100%;
+            background-color: @pink-red;
+        }
+
+        &--disabled {
+            opacity: 0;
+            width: 100%;
+            background-color: @gunpowder;
+        }
     }
 }
 

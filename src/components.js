@@ -165,5 +165,11 @@ export default {
     },
     DatePicker: {
         component: DatePicker,
+        rootCss: {
+            width: '600px',
+        },
+        defaultProps: {
+
+        },
     },
 }
