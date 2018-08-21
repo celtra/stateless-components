@@ -1,7 +1,7 @@
 <template>
-    <div v-click-outside="clickOutside" :class="{ 'date-picker--disabled': disabled }" class="date-picker">
+    <div v-click-outside="clickOutside" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
-        <div :class="size | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
+        <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
             <icon :style="{ width: caretSize }" name="caret" class="icon-appendix"></icon>
         </div>
@@ -64,7 +64,7 @@ export default {
         Icon,
     },
     props: {
-        theme: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         label: { type: String },
         value: { type: [Date, Object] },
@@ -145,11 +145,11 @@ export default {
         margin-bottom: 4px;
         min-height: 13px;
 
-        &.date-picker__label--condensed {
+        &--condensed {
             font-size: 10px;
         }
 
-        &.date-picker__label--phat {
+        &--phat {
             font-size: 14px;
         }
     }
@@ -164,12 +164,18 @@ export default {
         display: flex;
         align-items: center;
 
-        &.date-picker__date--condensed {
+        &--condensed {
             font-size: 14px;
         }
 
-        &.date-picker__date--phat {
+        &--phat {
             font-size: 22px;
+        }
+
+        &--disabled {
+            cursor: default;
+            color: @very-light-gray;
+            border-bottom: 2px dashed @very-light-gray;
         }
     }
 
@@ -193,14 +199,6 @@ export default {
 
     &__calendar {
         margin: 0 auto;
-    }
-
-    &--disabled {
-        .date-picker__date {
-          cursor: default;
-          color: @very-light-gray;
-          border-bottom: 2px dashed @very-light-gray;
-        }
     }
 }
 

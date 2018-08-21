@@ -38,7 +38,7 @@ export default {
         DateInput,
     },
     props: {
-        theme: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         value: { type: Object },
         minDate: { type: Date },

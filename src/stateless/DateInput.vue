@@ -22,7 +22,7 @@ export default {
         inputElement: Input,
     },
     props: {
-        theme: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         label: { type: String },
         value: { type: Date },
@@ -90,7 +90,3 @@ export default {
     },
 }
 </script>
-
-<style lang="less" scoped>
-
-</style>

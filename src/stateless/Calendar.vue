@@ -8,7 +8,7 @@
 
         <div class="calendar__wrap">
             <div class="calendar__week-header">
-                <div v-for="name in dayNames" :key="name" class="calendar__day-header">{{ name }}</div>
+                <div v-for="name in dayNames" :key="name" class="calendar__day-header">{{ name.substring(0, 3) }}</div>
             </div>
             <div class="calendar__month-wrap">
                 <transition :name="transitionName" @before-leave="isAnimating = true" @after-enter="animationDone()">
@@ -34,19 +34,21 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Icon from './icon.vue'
 import { compareDate } from './date_utils'
 
 export default {
     components: { Icon },
     props: {
-        theme: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
         value: { type: [Date, Object] },
         isRange: { type: Boolean, default: false },
         minDate: { type: Date },
         maxDate: { type: Date },
         selectAllTime: { type: Boolean, default: false },
+        locale: { type: String, default: 'en-US' },
     },
     data () {
         return {
@@ -58,13 +60,16 @@ export default {
         }
     },
     computed: {
+        dayNames () {
+            const names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            const firstDay = moment.localeData(this.locale).firstDayOfWeek()
+            return names.slice(firstDay).concat(names.slice(0, firstDay))
+        },
         days () {
-            let numDaysInMonth = new Date(this.year, this.month, 0).getDate()
-
             let dates = []
 
-            let firstDay = new Date(this.year, this.month - 1, 1)
-            let numPreviousMonth = firstDay.getDay()
+            const firstDay = new Date(this.year, this.month - 1, 1)
+            const numPreviousMonth = firstDay.getDay()
 
             for (let i = -numPreviousMonth; i < 6 * 7; i++) {
                 dates.push(new Date(this.year, this.month - 1, i + 1))
@@ -114,7 +119,6 @@ export default {
         },
     },
     created () {
-        this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
         this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
         this.goToCurrentValue()
@@ -195,8 +199,8 @@ export default {
                 date = new Date()
             }
 
-            let targetYear = date.getFullYear()
-            let targetMonth = date.getMonth() + 1
+            const targetYear = date.getFullYear()
+            const targetMonth = date.getMonth() + 1
 
             if (this.year < targetYear) {
                 this.transitionName = 'next-month'
@@ -214,28 +218,26 @@ export default {
             this.month = targetMonth
         },
         onKeyDown (e) {
-            let deltaByKeyCode = {
+            const deltaByKeyCode = {
                 37: -1,
                 38: -7,
                 39: 1,
                 40: 7,
             }
-            let delta = deltaByKeyCode[e.keyCode]
-            let addDaysToDate = (date) => {
-                return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
-            }
+            const delta = deltaByKeyCode[e.keyCode]
+            let addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
 
             if (this.isRange) {
                 if (delta) {
                     if (!this.value || !this.value.from) {
                         this.setValue({ from: new Date() })
                     } else if (!this.value.to) {
-                        let date = addDaysToDate(this.value.from, delta)
+                        const date = addDaysToDate(this.value.from)
                         if (this.isDateValid(date)) {
                             this.setValue({ from: date })
                         }
                     } else {
-                        let date = addDaysToDate(this.value.to)
+                        const date = addDaysToDate(this.value.to)
                         if (this.isDateValid(date)) {
                             this.setValue({ from: this.value.from, to: date })
                         }
@@ -243,7 +245,7 @@ export default {
                 }
             } else {
                 if (delta) {
-                    let date = this.value ? addDaysToDate(this.value) : new Date()
+                    const date = this.value ? addDaysToDate(this.value) : new Date()
                     if (this.isDateValid(date)) {
                         this.setValue(date)
                     }
@@ -338,7 +340,7 @@ export default {
     }
 
     &__month-wrap {
-        clip-path: inset(0px 0px 0px 0px);
+        clip-path: inset(0);
         position: relative;
         height: @day-size * 6;
     }
@@ -393,7 +395,7 @@ export default {
 
         &--disabled&&--current {
             color: fade(@white, 80%);
-             background-color: fade(@royal-blue, 80%);
+            background-color: fade(@royal-blue, 80%);
         }
     }
 }
