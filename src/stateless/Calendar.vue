@@ -1,9 +1,9 @@
 <template>
     <div class="calendar" tabindex="0" @click="focus" @focus="focus">
         <div class="calendar__header">
-            <icon :class="{ disabled: !canGoToPreviousMonth } | prefix('calendar__navigation-icon--')" name="left-arrow" class="calendar__navigation-icon" @click="previousMonth()"></icon>
+            <icon name="left-arrow" class="calendar__navigation-icon" @click="previousMonth()"></icon>
             <div class="calendar__current">{{ monthNames[month - 1] }} {{ year }}</div>
-            <icon :class="{ disabled: !canGoToNextMonth } | prefix('calendar__navigation-icon--')" name="right-arrow" class="calendar__navigation-icon" @click="nextMonth()"></icon>
+            <icon name="right-arrow" class="calendar__navigation-icon" @click="nextMonth()"></icon>
         </div>
 
         <div class="calendar__wrap">
@@ -107,12 +107,6 @@ export default {
             }
             return weeks
         },
-        canGoToPreviousMonth () {
-            return this.isDateValid(new Date(this.year, this.month - 1, 0))
-        },
-        canGoToNextMonth () {
-            return this.isDateValid(new Date(this.year, this.month, 1))
-        },
     },
     watch: {
         value () {
@@ -180,23 +174,19 @@ export default {
             }
         },
         previousMonth () {
-            if (this.canGoToPreviousMonth) {
-                this.transitionName = 'previous-month'
-                this.month--
-                if (this.month === 0) {
-                    this.year -= 1
-                    this.month = 12
-                }
+            this.transitionName = 'previous-month'
+            this.month--
+            if (this.month === 0) {
+                this.year -= 1
+                this.month = 12
             }
         },
         nextMonth (direction) {
-            if (this.canGoToNextMonth) {
-                this.transitionName = 'next-month'
-                this.month ++
-                if (this.month === 13) {
-                    this.year += 1
-                    this.month = 1
-                }
+            this.transitionName = 'next-month'
+            this.month ++
+            if (this.month === 13) {
+                this.year += 1
+                this.month = 1
             }
         },
         goToCurrentValue () {
@@ -325,11 +315,6 @@ export default {
     &__navigation-icon {
         color: @gunpowder;
         cursor: pointer;
-
-        &--disabled {
-            cursor: not-allowed;
-            color: fade(@gunpowder, 20%);
-        }
     }
 
     &__wrap {
@@ -404,6 +389,11 @@ export default {
         &--disabled {
             color: fade(@gunpowder, 20%);
             cursor: not-allowed;
+        }
+
+        &--disabled&&--current {
+            color: fade(@white, 80%);
+             background-color: fade(@royal-blue, 80%);
         }
     }
 }
