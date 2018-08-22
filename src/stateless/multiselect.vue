@@ -110,45 +110,7 @@ export default {
         listItems () {
             let result = this.allOptions
 
-            const cleanQuery = (this.searchQuery || '').trim(' ').toLowerCase()
-            if (cleanQuery.length > 0) {
-                const getMatchingPriority = (value) => {
-                    if (!value)
-                        return 0
-                    const cleanValue = value.trim().toLowerCase()
-                    if (cleanValue === cleanQuery)
-                        return 3
-                    const index = value.toLowerCase().indexOf(cleanQuery)
-                    if (index >= 0) {
-                        return index === 0 ? 2 : 1
-                    }
-                    return 0
-                }
-
-                const searchFn = option => {
-                    if (option.items) {
-                        let priority = getMatchingPriority(option.label)
-                        if (priority > 0)
-                            return 50 + priority
-                    } else {
-                        const labelPriority = getMatchingPriority(option.label)
-                        if (labelPriority > 0)
-                            return 100 + labelPriority
-
-                        const metadataPriority = getMatchingPriority(option.metadata)
-                        if (metadataPriority > 0)
-                            return 90 + metadataPriority
-
-                        const tooltipPriority = getMatchingPriority(option.tooltip)
-                        if (tooltipPriority > 0)
-                            return 80 + tooltipPriority
-                    }
-                    return 0
-                }
-
-                result = itemsUtils.filter(result, x => searchFn(x) > 0)
-                result = itemsUtils.sortBy(result, searchFn)
-            }
+            result = itemsUtils.search(result, this.searchQuery)
 
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
