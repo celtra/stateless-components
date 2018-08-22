@@ -153,19 +153,11 @@ export default {
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
                     const selectedItems = this.value.map(itemId => {
-                        const item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
-                        let prefixKey = this.previousTopUnselectedKey !== this.value[this.value.length - 1].key
-                        return {
-                            ...item,
-                            key: (prefixKey ? 'selected_' : '') + (item.key || item.id),
-                        }
+                        return itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
                     })
                     const unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
-                    // TODO: Find a better solution in the future
-                    /* eslint-disable-next-line */
-                    this.previousTopUnselectedKey = unselectedItems[0].key
 
                     result = selectedItems.concat(unselectedItems)
                 }
