@@ -212,14 +212,6 @@ export default {
         margin: 0 auto;
     }
 
-    &--disabled {
-        .date-picker__date {
-          cursor: default;
-          color: @very-light-gray;
-          border-bottom: 2px dashed @very-light-gray;
-        }
-    }
-
     &__error-message {
         color: @pink-red;
         font-size: 11px;
