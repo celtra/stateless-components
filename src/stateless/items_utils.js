@@ -129,3 +129,34 @@ export function flatten (items) {
 
     return flat
 }
+
+export function search (items, query, fields = ['label', 'metadata', 'tooltip']) {
+    const cleanQuery = (query || '').trim(' ').toLowerCase()
+    if (cleanQuery.length === 0) {
+        return items
+    }
+
+    const getMatchingPriority = (value) => {
+        if (!value)
+            return 0
+        const cleanValue = value.trim().toLowerCase()
+        if (cleanValue === cleanQuery)
+            return 3
+        const index = value.toLowerCase().indexOf(cleanQuery)
+        if (index >= 0) {
+            return index === 0 ? 2 : 1
+        }
+        return 0
+    }
+
+    const searchFn = option => {
+        for (let i = 0; i < fields.length; i++) {
+            let priority = getMatchingPriority(option[fields[i]])
+            if (priority > 0)
+                return (option.items ? 0: 100) + 10 * (fields.length - i) + priority
+        }
+        return 0
+    }
+
+    return sortBy(filter(items, x => searchFn(x) > 0), searchFn)
+}
