@@ -94,15 +94,17 @@ export function sortBy (items, fn) {
 export function getLeafIds (item) {
     const children = Array.isArray(item) ? item : item.items
 
-    let ids = []
+    let ids = {}
     if (children) {
         for (let child of children) {
-            ids = ids.concat(getLeafIds(child))
+            for (let id of getLeafIds(child)) {
+                ids[id] = true
+            }
         }
     } else {
-        ids.push(item.id)
+        ids[item.id] = true
     }
-    return ids
+    return Object.keys(ids)
 }
 
 export function flatten (items) {
@@ -158,5 +160,5 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltip'])
         return 0
     }
 
-    return sortBy(filter(items, x => searchFn(x) > 0), searchFn)
+    return sortBy(flatten(items).filter(x => x.isLeaf && searchFn(x) > 0), searchFn)
 }
