@@ -154,14 +154,18 @@ export default {
                 if (!this.areGroupsSelectable) {
                     const selectedItems = this.value.map(itemId => {
                         const item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                        let prefixKey = this.previousTopUnselectedKey !== this.value[this.value.length - 1].key
                         return {
                             ...item,
-                            key: 'selected_' + (item.key || item.id),
+                            key: (prefixKey ? 'selected_' : '') + (item.key || item.id),
                         }
                     })
                     const unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
+                    // TODO: Find a better solution in the future
+                    /* eslint-disable-next-line */
+                    this.previousTopUnselectedKey = unselectedItems[0].key
 
                     result = selectedItems.concat(unselectedItems)
                 }
@@ -324,8 +328,16 @@ export default {
         flex: none;
         z-index: 5;
         position: relative;
-        height: 38px;
+        height: 24px;
         padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .multiselect__select-all.multiselect__select-all {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
     }
 
     &__select-all-label {
@@ -336,8 +348,6 @@ export default {
     &__clear-all {
         color: @bluish-gray;
         font-size: 11px;
-        padding-top: 10px;
-        height: 20px;
         cursor: pointer;
         display: flex;
         align-items: center;
