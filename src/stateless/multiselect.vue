@@ -7,46 +7,51 @@
             </input-element>
         </div>
 
-        <div v-if="hasScrollTop" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
+        <div v-if="hasScrollTop && listItems.length > 0" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="multiselect__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
         <div class="multiselect__options-wrap">
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--top"></div>
             <div v-if="showListOverlay" class="multiselect__options-overlay multiselect__options-overlay--bottom"></div>
 
             <div ref="multiselectOptions" :style="{maxHeight: optionsMaxHeight}" class="multiselect__options" @scroll="onScroll">
-                <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
-                    <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
-                        <span class="multiselect__select-all-label">SELECT ALL</span>
-                    </checkbox-element>
-
-                    <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                            <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                        </svg>
-                        <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
-                    </div>
+                <div v-if="listItems.length === 0" class="multiselect__no-items">
+                    No items
                 </div>
+                <template v-else>
+                    <div v-if="canSelectAll || canClearAll" class="multiselect__change-multiple">
+                        <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
+                            <span class="multiselect__select-all-label">SELECT ALL</span>
+                        </checkbox-element>
 
-                <div>
-                    <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list" @before-update="onBeforeUpdate">
-                        <div slot-scope="{ item }" style="width: 100%; height: 100%">
-                            <checkbox-element
-                                :disabled="item.disabled"
-                                :title-text="item.label"
-                                :disabled-text="item.disabledText"
-                                :value="isChecked(item)"
-                                :size="size"
-                                :theme="theme"
-                                class="multiselect__checkbox"
-                                @input="setChecked(item, $event)">
-
-                                <slot :item="item">
-                                    <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
-                                </slot>
-                            </checkbox-element>
+                        <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
+                                <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
+                            </svg>
+                            <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
                         </div>
-                    </default-list>
-                </div>
+                    </div>
+
+                    <div>
+                        <default-list :items="listItems" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :list-container="$refs.multiselectOptions" :render-all-items="canScrollTop" class="multiselect__default-list" @before-update="onBeforeUpdate">
+                            <div slot-scope="{ item }" style="width: 100%; height: 100%">
+                                <checkbox-element
+                                    :disabled="item.disabled"
+                                    :title-text="item.label"
+                                    :disabled-text="item.disabledText"
+                                    :value="isChecked(item)"
+                                    :size="size"
+                                    :theme="theme"
+                                    class="multiselect__checkbox"
+                                    @input="setChecked(item, $event)">
+
+                                    <slot :item="item">
+                                        <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
+                                    </slot>
+                                </checkbox-element>
+                            </div>
+                        </default-list>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -349,6 +354,11 @@ export default {
         height: 7px;
         margin-top: 3px;
         fill: @bluish-gray;
+    }
+
+    &__no-items {
+        text-align: center;
+        font-size: 18px;
     }
 
     &__checkbox {
