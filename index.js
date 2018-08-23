@@ -5208,7 +5208,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(15)(function () {
+module.exports = !__webpack_require__(16)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -5225,31 +5225,6 @@ module.exports = function (it, key) {
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(58);
-var defined = __webpack_require__(37);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5276,6 +5251,31 @@ exports.default = _assign2.default || function (target) {
 
   return target;
 };
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(58);
+var defined = __webpack_require__(37);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
 
 /***/ }),
 /* 18 */
@@ -5549,7 +5549,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_get_iterator__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_get_iterator__);
@@ -6435,7 +6435,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(13) && !__webpack_require__(15)(function () {
+module.exports = !__webpack_require__(13) && !__webpack_require__(16)(function () {
   return Object.defineProperty(__webpack_require__(38)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -6499,7 +6499,7 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(14);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var arrayIndexOf = __webpack_require__(251)(false);
 var IE_PROTO = __webpack_require__(41)('IE_PROTO');
 
@@ -8036,7 +8036,7 @@ module.exports = function (C, x) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_math_sign__ = __webpack_require__(330);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_math_sign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_math_sign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_list_utils_js__ = __webpack_require__(334);
 
@@ -8425,7 +8425,7 @@ module.exports = function (C, x) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_element_constants__ = __webpack_require__(338);
 
@@ -8891,7 +8891,7 @@ module.exports = function (C, x) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__ = __webpack_require__(85);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5b8faf56_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_39868b38_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(354);
 function injectStyle (ssrContext) {
   __webpack_require__(340)
   __webpack_require__(342)
@@ -8907,12 +8907,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5b8faf56"
+var __vue_scopeId__ = "data-v-39868b38"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5b8faf56_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_39868b38_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8927,18 +8927,21 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__icon_vue__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input_vue__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__checkbox_vue__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__DefaultList_vue__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DefaultListItem_vue__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__items_utils_js__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_throttle__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_throttle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_throttle__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_debounce__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash_debounce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icon_vue__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__input_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__checkbox_vue__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DefaultList_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__DefaultListItem_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__items_utils_js__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_throttle__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_throttle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash_throttle__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_debounce__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash_debounce__);
+
 
 //
 //
@@ -9011,11 +9014,11 @@ var Component = normalizeComponent(
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     components: {
-        Icon: __WEBPACK_IMPORTED_MODULE_1__icon_vue__["a" /* default */],
-        inputElement: __WEBPACK_IMPORTED_MODULE_2__input_vue__["a" /* default */],
-        checkboxElement: __WEBPACK_IMPORTED_MODULE_3__checkbox_vue__["a" /* default */],
-        DefaultList: __WEBPACK_IMPORTED_MODULE_4__DefaultList_vue__["a" /* default */],
-        DefaultListItem: __WEBPACK_IMPORTED_MODULE_5__DefaultListItem_vue__["a" /* default */]
+        Icon: __WEBPACK_IMPORTED_MODULE_2__icon_vue__["a" /* default */],
+        inputElement: __WEBPACK_IMPORTED_MODULE_3__input_vue__["a" /* default */],
+        checkboxElement: __WEBPACK_IMPORTED_MODULE_4__checkbox_vue__["a" /* default */],
+        DefaultList: __WEBPACK_IMPORTED_MODULE_5__DefaultList_vue__["a" /* default */],
+        DefaultListItem: __WEBPACK_IMPORTED_MODULE_6__DefaultListItem_vue__["a" /* default */]
     },
     props: {
         value: { type: Array },
@@ -9045,33 +9048,66 @@ var Component = normalizeComponent(
 
     computed: {
         allOptions: function allOptions() {
-            return this.options.concat(this.queryOptions);
+            var result = this.options;
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(this.queryOptions), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var queryOption = _step.value;
+
+                    if (!result.map(function (x) {
+                        return x.id;
+                    }).includes(queryOption.id)) {
+                        result.push(queryOption);
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return result;
         },
         allPossibleIds: function allPossibleIds() {
-            return __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["getLeafIds"](this.listItems);
+            return __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["getLeafIds"](this.listItems);
         },
         listItems: function listItems() {
             var _this = this;
 
             var result = this.allOptions;
 
-            result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["search"](result, this.searchQuery);
+            result = __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["search"](result, this.searchQuery);
 
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
                     var selectedItems = this.value.map(function (itemId) {
-                        return __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["find"](_this.allOptions, function (x) {
+                        var item = __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["find"](_this.allOptions, function (x) {
                             return !x.items && x.id === itemId;
                         });
+                        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, item, {
+                            key: 'selected_' + (item.key || item.id)
+                        });
                     });
-                    var unselectedItems = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["filter"](result, function (item) {
+                    var unselectedItems = __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["filter"](result, function (item) {
                         return !item.items && !_this.value.includes(item.id);
                     });
 
                     result = selectedItems.concat(unselectedItems);
                 }
 
-                result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["sortBy"](result, function (item) {
+                result = __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["sortBy"](result, function (item) {
                     if (!_this.areGroupsSelectable && item.items) {
                         return 0;
                     }
@@ -9095,7 +9131,7 @@ var Component = normalizeComponent(
         }
     },
     created: function created() {
-        this.debouncedLoadAsyncOptions = __WEBPACK_IMPORTED_MODULE_8_lodash_debounce___default()(this.loadAsyncOptions, this.loadAsyncDebounce);
+        this.debouncedLoadAsyncOptions = __WEBPACK_IMPORTED_MODULE_9_lodash_debounce___default()(this.loadAsyncOptions, this.loadAsyncDebounce);
     },
     mounted: function mounted() {
         this.loadAsyncOptions();
@@ -9117,7 +9153,7 @@ var Component = normalizeComponent(
             this.$emit('input', []);
         },
 
-        onScroll: __WEBPACK_IMPORTED_MODULE_7_lodash_throttle___default()(function (e) {
+        onScroll: __WEBPACK_IMPORTED_MODULE_8_lodash_throttle___default()(function (e) {
             var canScrollTop = e.target.scrollTop > 0;
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop;
@@ -9167,14 +9203,14 @@ var Component = normalizeComponent(
             } else {
                 var allChecked = true;
                 var someChecked = false;
-                var leafIds = option.leafIds || __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["getLeafIds"](option);
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
+                var leafIds = option.leafIds || __WEBPACK_IMPORTED_MODULE_7__items_utils_js__["getLeafIds"](option);
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
 
                 try {
-                    for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(leafIds), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var id = _step.value;
+                    for (var _iterator2 = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(leafIds), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var id = _step2.value;
 
                         if (!this.value.includes(id)) {
                             allChecked = false;
@@ -9183,16 +9219,16 @@ var Component = normalizeComponent(
                         }
                     }
                 } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
                         }
                     } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
                         }
                     }
                 }
@@ -9210,7 +9246,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DefaultListItem_vue__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Tooltip_vue__ = __webpack_require__(89);
@@ -10271,7 +10307,7 @@ module.exports = debounce;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_debounce__);
@@ -11113,7 +11149,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Calendar_vue__ = __webpack_require__(101);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_51c5e9ca_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Calendar_vue__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5166bdd4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Calendar_vue__ = __webpack_require__(387);
 function injectStyle (ssrContext) {
   __webpack_require__(383)
 }
@@ -11128,12 +11164,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-51c5e9ca"
+var __vue_scopeId__ = "data-v-5166bdd4"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Calendar_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_51c5e9ca_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Calendar_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5166bdd4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Calendar_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -11229,7 +11265,7 @@ var Component = normalizeComponent(
             var numPreviousMonth = firstDay.getDay();
 
             for (var i = -numPreviousMonth; i < 6 * 7; i++) {
-                dates.push(new Date(this.year, this.month - 1, i + 1));
+                dates.push(new Date(Date.UTC(this.year, this.month - 1, i + 1)));
             }
 
             return dates.map(function (date) {
@@ -11388,13 +11424,16 @@ var Component = normalizeComponent(
             };
             var delta = deltaByKeyCode[e.keyCode];
             var addDaysToDate = function addDaysToDate(date) {
-                return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta);
+                return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + delta));
             };
+
+            var now = new Date();
+            var utcNow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
 
             if (this.isRange) {
                 if (delta) {
                     if (!this.value || !this.value.from) {
-                        this.setValue({ from: new Date() });
+                        this.setValue({ from: utcNow });
                     } else if (!this.value.to) {
                         var date = addDaysToDate(this.value.from);
                         if (this.isDateValid(date)) {
@@ -11409,7 +11448,7 @@ var Component = normalizeComponent(
                 }
             } else {
                 if (delta) {
-                    var _date2 = this.value ? addDaysToDate(this.value) : new Date();
+                    var _date2 = this.value ? addDaysToDate(this.value) : utcNow;
                     if (this.isDateValid(_date2)) {
                         this.setValue(_date2);
                     }
@@ -23902,7 +23941,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__input_vue__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DefaultList_vue__ = __webpack_require__(35);
@@ -35724,7 +35763,7 @@ module.exports = __webpack_require__(13) ? Object.defineProperties : function de
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var toLength = __webpack_require__(40);
 var toAbsoluteIndex = __webpack_require__(252);
 module.exports = function (IS_INCLUDES) {
@@ -35788,7 +35827,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 var addToUnscopables = __webpack_require__(255);
 var step = __webpack_require__(256);
 var Iterators = __webpack_require__(23);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -35866,7 +35905,7 @@ var DESCRIPTORS = __webpack_require__(13);
 var $export = __webpack_require__(7);
 var redefine = __webpack_require__(55);
 var META = __webpack_require__(260).KEY;
-var $fails = __webpack_require__(15);
+var $fails = __webpack_require__(16);
 var shared = __webpack_require__(42);
 var setToStringTag = __webpack_require__(30);
 var uid = __webpack_require__(29);
@@ -35877,7 +35916,7 @@ var enumKeys = __webpack_require__(261);
 var isArray = __webpack_require__(262);
 var anObject = __webpack_require__(8);
 var isObject = __webpack_require__(12);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var toPrimitive = __webpack_require__(39);
 var createDesc = __webpack_require__(22);
 var _create = __webpack_require__(56);
@@ -36106,7 +36145,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(15)(function () {
+var FREEZE = !__webpack_require__(16)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -36190,7 +36229,7 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var gOPN = __webpack_require__(60).f;
 var toString = {}.toString;
 
@@ -36216,7 +36255,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 var pIE = __webpack_require__(32);
 var createDesc = __webpack_require__(22);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var toPrimitive = __webpack_require__(39);
 var has = __webpack_require__(14);
 var IE8_DOM_DEFINE = __webpack_require__(54);
@@ -36282,7 +36321,7 @@ __webpack_require__(270)('keys', function () {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(7);
 var core = __webpack_require__(4);
-var fails = __webpack_require__(15);
+var fails = __webpack_require__(16);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -36425,7 +36464,7 @@ var IObject = __webpack_require__(58);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(15)(function () {
+module.exports = !$assign || __webpack_require__(16)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -37824,7 +37863,7 @@ var content = __webpack_require__(341);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("254e4169", content, true, {});
+var update = __webpack_require__(2)("a9678b12", content, true, {});
 
 /***/ }),
 /* 341 */
@@ -37835,7 +37874,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.multiselect[data-v-5b8faf56] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-5b8faf56] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-5b8faf56] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-5b8faf56] {\n  position: relative;\n}\n.multiselect__options[data-v-5b8faf56] {\n  padding-bottom: 50px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-5b8faf56] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-5b8faf56] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-5b8faf56] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 5;\n  position: relative;\n  height: 24px;\n  padding-bottom: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-5b8faf56] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-5b8faf56] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-5b8faf56] {\n  color: #939399;\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-5b8faf56] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-5b8faf56] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-5b8faf56] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-5b8faf56] {\n  width: 100%;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-5b8faf56] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-5b8faf56]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;EAC1C,6BAA6B;CAC9B;AACD;EACE,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,qBAAqB;EACrB,YAAY;CACb;AACD;EACE,OAAO;CACR;AACD;EACE,UAAU;CACX;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,WAAW;EACX,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,eAAe;EACf,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,oGAAoG;EACpG,kEAAkE;CACnE;AACD;EACE,oGAAoG;EACpG,gEAAgE;CACjE;AACD;EACE,uGAAuG;EACvG,qEAAqE;CACtE;AACD;EACE,uGAAuG;EACvG,mEAAmE;CACpE;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,0BAA0B;CAC3B;AACD;EACE,8BAA8B;CAC/B","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-5b8faf56] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-5b8faf56] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-5b8faf56] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-5b8faf56] {\n  position: relative;\n}\n.multiselect__options[data-v-5b8faf56] {\n  padding-bottom: 50px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-5b8faf56] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-5b8faf56] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-5b8faf56] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 5;\n  position: relative;\n  height: 24px;\n  padding-bottom: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-5b8faf56] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-5b8faf56] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-5b8faf56] {\n  color: #939399;\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-5b8faf56] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-5b8faf56] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-5b8faf56] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-5b8faf56] {\n  width: 100%;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-5b8faf56] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-5b8faf56] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-5b8faf56]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-5b8faf56]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.multiselect[data-v-39868b38] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-39868b38] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-39868b38] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-39868b38] {\n  position: relative;\n}\n.multiselect__options[data-v-39868b38] {\n  padding-bottom: 50px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-39868b38] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-39868b38] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-39868b38] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-39868b38] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 5;\n  position: relative;\n  height: 24px;\n  padding-bottom: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-39868b38] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-39868b38] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-39868b38] {\n  color: #939399;\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-39868b38] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-39868b38] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-39868b38] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-39868b38] {\n  width: 100%;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-39868b38] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-39868b38] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-39868b38] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-39868b38] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-39868b38] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-39868b38]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-39868b38]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-39868b38]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-39868b38]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,gBAAgB;EAChB,mBAAmB;EACnB,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;EAC1C,6BAA6B;CAC9B;AACD;EACE,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,qBAAqB;EACrB,YAAY;CACb;AACD;EACE,OAAO;CACR;AACD;EACE,UAAU;CACX;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,WAAW;EACX,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,eAAe;EACf,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,oGAAoG;EACpG,kEAAkE;CACnE;AACD;EACE,oGAAoG;EACpG,gEAAgE;CACjE;AACD;EACE,uGAAuG;EACvG,qEAAqE;CACtE;AACD;EACE,uGAAuG;EACvG,mEAAmE;CACpE;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,0BAA0B;CAC3B;AACD;EACE,8BAA8B;CAC/B","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-39868b38] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-39868b38] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__scroll-top[data-v-39868b38] {\n  display: inline;\n  margin: 0 0 0 auto;\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.multiselect__options-wrap[data-v-39868b38] {\n  position: relative;\n}\n.multiselect__options[data-v-39868b38] {\n  padding-bottom: 50px;\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-y: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n  overscroll-behavior: contain;\n}\n.multiselect__options-overlay[data-v-39868b38] {\n  position: absolute;\n  height: 15px;\n  width: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.multiselect__options-overlay--top[data-v-39868b38] {\n  top: 0;\n}\n.multiselect__options-overlay--bottom[data-v-39868b38] {\n  bottom: 0;\n}\n.multiselect__change-multiple[data-v-39868b38] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 5;\n  position: relative;\n  height: 24px;\n  padding-bottom: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-39868b38] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-39868b38] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-39868b38] {\n  color: #939399;\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all-text[data-v-39868b38] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-39868b38] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-39868b38] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-39868b38] {\n  width: 100%;\n}\n.multiselect--dark .multiselect__options-overlay--top[data-v-39868b38] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(180deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--dark .multiselect__options-overlay--bottom[data-v-39868b38] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#1f1f2c), to(rgba(31, 31, 44, 0)));\n  background: linear-gradient(0deg, #1f1f2c, rgba(31, 31, 44, 0));\n}\n.multiselect--light .multiselect__options-overlay--top[data-v-39868b38] {\n  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect--light .multiselect__options-overlay--bottom[data-v-39868b38] {\n  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(rgba(255, 255, 255, 0)));\n  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));\n}\n.multiselect__option > .multiselect__checkbox[data-v-39868b38] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n[data-v-39868b38]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-39868b38]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n[data-v-39868b38]::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  background-color: #d6d8dd;\n}\n[data-v-39868b38]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -37851,7 +37890,7 @@ var content = __webpack_require__(343);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("5ed0c591", content, true, {});
+var update = __webpack_require__(2)("cedc237a", content, true, {});
 
 /***/ }),
 /* 343 */
@@ -38902,7 +38941,7 @@ var content = __webpack_require__(384);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("572b4e18", content, true, {});
+var update = __webpack_require__(2)("49cbe766", content, true, {});
 
 /***/ }),
 /* 384 */
@@ -38913,7 +38952,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.calendar[data-v-51c5e9ca] {\n  width: 322px;\n  background-color: white;\n  outline: none;\n  font-family: \"SF UI Text Regular\";\n}\n.calendar__header[data-v-51c5e9ca] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 290px;\n  margin: 0 auto;\n  margin-bottom: 18px;\n}\n.calendar__current[data-v-51c5e9ca] {\n  font-family: \"SF UI Text Medium\";\n  font-size: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  color: #444450;\n}\n.calendar__navigation-icon[data-v-51c5e9ca] {\n  color: #444450;\n  cursor: pointer;\n}\n.calendar__wrap[data-v-51c5e9ca] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.calendar__week-header[data-v-51c5e9ca] {\n  width: 100%;\n}\n.calendar__day-header[data-v-51c5e9ca] {\n  width: 46px;\n  display: inline-block;\n  text-align: center;\n  height: 26px;\n  line-height: 26px;\n  color: #939399;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 12px;\n}\n.calendar__month-wrap[data-v-51c5e9ca] {\n  -webkit-clip-path: inset(0);\n          clip-path: inset(0);\n  position: relative;\n  height: 276px;\n}\n.calendar__month[data-v-51c5e9ca] {\n  position: absolute;\n  top: 0;\n}\n.calendar__week[data-v-51c5e9ca] {\n  width: 100%;\n}\n.calendar__day[data-v-51c5e9ca] {\n  cursor: pointer;\n  width: 46px;\n  height: 46px;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 15px;\n  color: #444450;\n  background-color: white;\n  text-align: center;\n  -webkit-transition: all 150ms ease;\n  transition: all 150ms ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border: 2px solid transparent;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.calendar__day--different-month[data-v-51c5e9ca] {\n  color: rgba(68, 68, 80, 0.6);\n}\n.calendar__day--in-range[data-v-51c5e9ca] {\n  color: white;\n  background-color: rgba(51, 102, 255, 0.6);\n}\n.calendar__day--hover[data-v-51c5e9ca] {\n  border-color: #3366ff;\n}\n.calendar__day--current[data-v-51c5e9ca] {\n  color: white;\n  background-color: #3366ff;\n}\n.calendar__day--disabled[data-v-51c5e9ca] {\n  color: rgba(68, 68, 80, 0.2);\n  cursor: not-allowed;\n}\n.calendar__day--disabled.calendar__day.calendar__day--current[data-v-51c5e9ca] {\n  color: rgba(255, 255, 255, 0.8);\n  background-color: rgba(51, 102, 255, 0.8);\n}\n.next-month-leave-active[data-v-51c5e9ca] {\n  -webkit-animation: next-month-leave-animation-data-v-51c5e9ca 500ms ease;\n          animation: next-month-leave-animation-data-v-51c5e9ca 500ms ease;\n}\n.next-month-enter-active[data-v-51c5e9ca] {\n  -webkit-animation: next-month-enter-animation-data-v-51c5e9ca 500ms ease;\n          animation: next-month-enter-animation-data-v-51c5e9ca 500ms ease;\n}\n.previous-month-leave-active[data-v-51c5e9ca] {\n  -webkit-animation: previous-month-leave-animation-data-v-51c5e9ca 500ms ease;\n          animation: previous-month-leave-animation-data-v-51c5e9ca 500ms ease;\n}\n.previous-month-enter-active[data-v-51c5e9ca] {\n  -webkit-animation: previous-month-enter-animation-data-v-51c5e9ca 500ms ease;\n          animation: previous-month-enter-animation-data-v-51c5e9ca 500ms ease;\n}\n@-webkit-keyframes next-month-leave-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes next-month-leave-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes next-month-enter-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes next-month-enter-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@-webkit-keyframes previous-month-leave-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes previous-month-leave-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes previous-month-enter-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes previous-month-enter-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Calendar.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,wBAAwB;EACxB,cAAc;EACd,kCAAkC;CACnC;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,aAAa;EACb,eAAe;EACf,oBAAoB;CACrB;AACD;EACE,iCAAiC;EACjC,gBAAgB;EAChB,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,eAAe;CAChB;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,YAAY;CACb;AACD;EACE,YAAY;EACZ,sBAAsB;EACtB,mBAAmB;EACnB,aAAa;EACb,kBAAkB;EAClB,eAAe;EACf,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,gBAAgB;CACjB;AACD;EACE,4BAA4B;UACpB,oBAAoB;EAC5B,mBAAmB;EACnB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,OAAO;CACR;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,YAAY;EACZ,aAAa;EACb,4BAA4B;EAC5B,4BAA4B;EAC5B,qBAAqB;EACrB,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,eAAe;EACf,wBAAwB;EACxB,mBAAmB;EACnB,mCAAmC;EACnC,2BAA2B;EAC3B,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,8BAA8B;EAC9B,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,6BAA6B;CAC9B;AACD;EACE,aAAa;EACb,0CAA0C;CAC3C;AACD;EACE,sBAAsB;CACvB;AACD;EACE,aAAa;EACb,0BAA0B;CAC3B;AACD;EACE,6BAA6B;EAC7B,oBAAoB;CACrB;AACD;EACE,gCAAgC;EAChC,0CAA0C;CAC3C;AACD;EACE,yEAAyE;UACjE,iEAAiE;CAC1E;AACD;EACE,yEAAyE;UACjE,iEAAiE;CAC1E;AACD;EACE,6EAA6E;UACrE,qEAAqE;CAC9E;AACD;EACE,6EAA6E;UACrE,qEAAqE;CAC9E;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;CACA;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;AACA;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA","file":"Calendar.vue","sourcesContent":["\n.calendar[data-v-51c5e9ca] {\n  width: 322px;\n  background-color: white;\n  outline: none;\n  font-family: \"SF UI Text Regular\";\n}\n.calendar__header[data-v-51c5e9ca] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 290px;\n  margin: 0 auto;\n  margin-bottom: 18px;\n}\n.calendar__current[data-v-51c5e9ca] {\n  font-family: \"SF UI Text Medium\";\n  font-size: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  color: #444450;\n}\n.calendar__navigation-icon[data-v-51c5e9ca] {\n  color: #444450;\n  cursor: pointer;\n}\n.calendar__wrap[data-v-51c5e9ca] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.calendar__week-header[data-v-51c5e9ca] {\n  width: 100%;\n}\n.calendar__day-header[data-v-51c5e9ca] {\n  width: 46px;\n  display: inline-block;\n  text-align: center;\n  height: 26px;\n  line-height: 26px;\n  color: #939399;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 12px;\n}\n.calendar__month-wrap[data-v-51c5e9ca] {\n  -webkit-clip-path: inset(0);\n          clip-path: inset(0);\n  position: relative;\n  height: 276px;\n}\n.calendar__month[data-v-51c5e9ca] {\n  position: absolute;\n  top: 0;\n}\n.calendar__week[data-v-51c5e9ca] {\n  width: 100%;\n}\n.calendar__day[data-v-51c5e9ca] {\n  cursor: pointer;\n  width: 46px;\n  height: 46px;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 15px;\n  color: #444450;\n  background-color: white;\n  text-align: center;\n  -webkit-transition: all 150ms ease;\n  transition: all 150ms ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border: 2px solid transparent;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.calendar__day--different-month[data-v-51c5e9ca] {\n  color: rgba(68, 68, 80, 0.6);\n}\n.calendar__day--in-range[data-v-51c5e9ca] {\n  color: white;\n  background-color: rgba(51, 102, 255, 0.6);\n}\n.calendar__day--hover[data-v-51c5e9ca] {\n  border-color: #3366ff;\n}\n.calendar__day--current[data-v-51c5e9ca] {\n  color: white;\n  background-color: #3366ff;\n}\n.calendar__day--disabled[data-v-51c5e9ca] {\n  color: rgba(68, 68, 80, 0.2);\n  cursor: not-allowed;\n}\n.calendar__day--disabled.calendar__day.calendar__day--current[data-v-51c5e9ca] {\n  color: rgba(255, 255, 255, 0.8);\n  background-color: rgba(51, 102, 255, 0.8);\n}\n.next-month-leave-active[data-v-51c5e9ca] {\n  -webkit-animation: next-month-leave-animation-data-v-51c5e9ca 500ms ease;\n          animation: next-month-leave-animation-data-v-51c5e9ca 500ms ease;\n}\n.next-month-enter-active[data-v-51c5e9ca] {\n  -webkit-animation: next-month-enter-animation-data-v-51c5e9ca 500ms ease;\n          animation: next-month-enter-animation-data-v-51c5e9ca 500ms ease;\n}\n.previous-month-leave-active[data-v-51c5e9ca] {\n  -webkit-animation: previous-month-leave-animation-data-v-51c5e9ca 500ms ease;\n          animation: previous-month-leave-animation-data-v-51c5e9ca 500ms ease;\n}\n.previous-month-enter-active[data-v-51c5e9ca] {\n  -webkit-animation: previous-month-enter-animation-data-v-51c5e9ca 500ms ease;\n          animation: previous-month-enter-animation-data-v-51c5e9ca 500ms ease;\n}\n@-webkit-keyframes next-month-leave-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes next-month-leave-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes next-month-enter-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes next-month-enter-animation-data-v-51c5e9ca {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@-webkit-keyframes previous-month-leave-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes previous-month-leave-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes previous-month-enter-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes previous-month-enter-animation-data-v-51c5e9ca {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.calendar[data-v-5166bdd4] {\n  width: 322px;\n  background-color: white;\n  outline: none;\n  font-family: \"SF UI Text Regular\";\n}\n.calendar__header[data-v-5166bdd4] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 290px;\n  margin: 0 auto;\n  margin-bottom: 18px;\n}\n.calendar__current[data-v-5166bdd4] {\n  font-family: \"SF UI Text Medium\";\n  font-size: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  color: #444450;\n}\n.calendar__navigation-icon[data-v-5166bdd4] {\n  color: #444450;\n  cursor: pointer;\n}\n.calendar__wrap[data-v-5166bdd4] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.calendar__week-header[data-v-5166bdd4] {\n  width: 100%;\n}\n.calendar__day-header[data-v-5166bdd4] {\n  width: 46px;\n  display: inline-block;\n  text-align: center;\n  height: 26px;\n  line-height: 26px;\n  color: #939399;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 12px;\n}\n.calendar__month-wrap[data-v-5166bdd4] {\n  -webkit-clip-path: inset(0);\n          clip-path: inset(0);\n  position: relative;\n  height: 276px;\n}\n.calendar__month[data-v-5166bdd4] {\n  position: absolute;\n  top: 0;\n}\n.calendar__week[data-v-5166bdd4] {\n  width: 100%;\n}\n.calendar__day[data-v-5166bdd4] {\n  cursor: pointer;\n  width: 46px;\n  height: 46px;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 15px;\n  color: #444450;\n  background-color: white;\n  text-align: center;\n  -webkit-transition: all 150ms ease;\n  transition: all 150ms ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border: 2px solid transparent;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.calendar__day--different-month[data-v-5166bdd4] {\n  color: rgba(68, 68, 80, 0.6);\n}\n.calendar__day--in-range[data-v-5166bdd4] {\n  color: white;\n  background-color: rgba(51, 102, 255, 0.6);\n}\n.calendar__day--hover[data-v-5166bdd4] {\n  border-color: #3366ff;\n}\n.calendar__day--current[data-v-5166bdd4] {\n  color: white;\n  background-color: #3366ff;\n}\n.calendar__day--disabled[data-v-5166bdd4] {\n  color: rgba(68, 68, 80, 0.2);\n  cursor: not-allowed;\n}\n.calendar__day--disabled.calendar__day.calendar__day--current[data-v-5166bdd4] {\n  color: rgba(255, 255, 255, 0.8);\n  background-color: rgba(51, 102, 255, 0.8);\n}\n.next-month-leave-active[data-v-5166bdd4] {\n  -webkit-animation: next-month-leave-animation-data-v-5166bdd4 500ms ease;\n          animation: next-month-leave-animation-data-v-5166bdd4 500ms ease;\n}\n.next-month-enter-active[data-v-5166bdd4] {\n  -webkit-animation: next-month-enter-animation-data-v-5166bdd4 500ms ease;\n          animation: next-month-enter-animation-data-v-5166bdd4 500ms ease;\n}\n.previous-month-leave-active[data-v-5166bdd4] {\n  -webkit-animation: previous-month-leave-animation-data-v-5166bdd4 500ms ease;\n          animation: previous-month-leave-animation-data-v-5166bdd4 500ms ease;\n}\n.previous-month-enter-active[data-v-5166bdd4] {\n  -webkit-animation: previous-month-enter-animation-data-v-5166bdd4 500ms ease;\n          animation: previous-month-enter-animation-data-v-5166bdd4 500ms ease;\n}\n@-webkit-keyframes next-month-leave-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes next-month-leave-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes next-month-enter-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes next-month-enter-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@-webkit-keyframes previous-month-leave-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes previous-month-leave-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes previous-month-enter-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes previous-month-enter-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Calendar.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,wBAAwB;EACxB,cAAc;EACd,kCAAkC;CACnC;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,aAAa;EACb,eAAe;EACf,oBAAoB;CACrB;AACD;EACE,iCAAiC;EACjC,gBAAgB;EAChB,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,eAAe;CAChB;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,YAAY;CACb;AACD;EACE,YAAY;EACZ,sBAAsB;EACtB,mBAAmB;EACnB,aAAa;EACb,kBAAkB;EAClB,eAAe;EACf,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,gBAAgB;CACjB;AACD;EACE,4BAA4B;UACpB,oBAAoB;EAC5B,mBAAmB;EACnB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,OAAO;CACR;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,YAAY;EACZ,aAAa;EACb,4BAA4B;EAC5B,4BAA4B;EAC5B,qBAAqB;EACrB,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,eAAe;EACf,wBAAwB;EACxB,mBAAmB;EACnB,mCAAmC;EACnC,2BAA2B;EAC3B,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,8BAA8B;EAC9B,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,6BAA6B;CAC9B;AACD;EACE,aAAa;EACb,0CAA0C;CAC3C;AACD;EACE,sBAAsB;CACvB;AACD;EACE,aAAa;EACb,0BAA0B;CAC3B;AACD;EACE,6BAA6B;EAC7B,oBAAoB;CACrB;AACD;EACE,gCAAgC;EAChC,0CAA0C;CAC3C;AACD;EACE,yEAAyE;UACjE,iEAAiE;CAC1E;AACD;EACE,yEAAyE;UACjE,iEAAiE;CAC1E;AACD;EACE,6EAA6E;UACrE,qEAAqE;CAC9E;AACD;EACE,6EAA6E;UACrE,qEAAqE;CAC9E;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;CACA;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;AACA;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;AACD;IACI,4CAA4C;YACpC,oCAAoC;IAC5C,WAAW;CACd;CACA;AACD;AACA;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA;AACD;AACA;IACI,6CAA6C;YACrC,qCAAqC;IAC7C,WAAW;CACd;AACD;IACI,wCAAwC;YAChC,gCAAgC;IACxC,WAAW;CACd;CACA","file":"Calendar.vue","sourcesContent":["\n.calendar[data-v-5166bdd4] {\n  width: 322px;\n  background-color: white;\n  outline: none;\n  font-family: \"SF UI Text Regular\";\n}\n.calendar__header[data-v-5166bdd4] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 290px;\n  margin: 0 auto;\n  margin-bottom: 18px;\n}\n.calendar__current[data-v-5166bdd4] {\n  font-family: \"SF UI Text Medium\";\n  font-size: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  color: #444450;\n}\n.calendar__navigation-icon[data-v-5166bdd4] {\n  color: #444450;\n  cursor: pointer;\n}\n.calendar__wrap[data-v-5166bdd4] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.calendar__week-header[data-v-5166bdd4] {\n  width: 100%;\n}\n.calendar__day-header[data-v-5166bdd4] {\n  width: 46px;\n  display: inline-block;\n  text-align: center;\n  height: 26px;\n  line-height: 26px;\n  color: #939399;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 12px;\n}\n.calendar__month-wrap[data-v-5166bdd4] {\n  -webkit-clip-path: inset(0);\n          clip-path: inset(0);\n  position: relative;\n  height: 276px;\n}\n.calendar__month[data-v-5166bdd4] {\n  position: absolute;\n  top: 0;\n}\n.calendar__week[data-v-5166bdd4] {\n  width: 100%;\n}\n.calendar__day[data-v-5166bdd4] {\n  cursor: pointer;\n  width: 46px;\n  height: 46px;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 15px;\n  color: #444450;\n  background-color: white;\n  text-align: center;\n  -webkit-transition: all 150ms ease;\n  transition: all 150ms ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border: 2px solid transparent;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.calendar__day--different-month[data-v-5166bdd4] {\n  color: rgba(68, 68, 80, 0.6);\n}\n.calendar__day--in-range[data-v-5166bdd4] {\n  color: white;\n  background-color: rgba(51, 102, 255, 0.6);\n}\n.calendar__day--hover[data-v-5166bdd4] {\n  border-color: #3366ff;\n}\n.calendar__day--current[data-v-5166bdd4] {\n  color: white;\n  background-color: #3366ff;\n}\n.calendar__day--disabled[data-v-5166bdd4] {\n  color: rgba(68, 68, 80, 0.2);\n  cursor: not-allowed;\n}\n.calendar__day--disabled.calendar__day.calendar__day--current[data-v-5166bdd4] {\n  color: rgba(255, 255, 255, 0.8);\n  background-color: rgba(51, 102, 255, 0.8);\n}\n.next-month-leave-active[data-v-5166bdd4] {\n  -webkit-animation: next-month-leave-animation-data-v-5166bdd4 500ms ease;\n          animation: next-month-leave-animation-data-v-5166bdd4 500ms ease;\n}\n.next-month-enter-active[data-v-5166bdd4] {\n  -webkit-animation: next-month-enter-animation-data-v-5166bdd4 500ms ease;\n          animation: next-month-enter-animation-data-v-5166bdd4 500ms ease;\n}\n.previous-month-leave-active[data-v-5166bdd4] {\n  -webkit-animation: previous-month-leave-animation-data-v-5166bdd4 500ms ease;\n          animation: previous-month-leave-animation-data-v-5166bdd4 500ms ease;\n}\n.previous-month-enter-active[data-v-5166bdd4] {\n  -webkit-animation: previous-month-enter-animation-data-v-5166bdd4 500ms ease;\n          animation: previous-month-enter-animation-data-v-5166bdd4 500ms ease;\n}\n@-webkit-keyframes next-month-leave-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes next-month-leave-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n100% {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes next-month-enter-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes next-month-enter-animation-data-v-5166bdd4 {\n0% {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@-webkit-keyframes previous-month-leave-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@keyframes previous-month-leave-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\nto {\n    -webkit-transform: translate3d(322px, 0, 0);\n            transform: translate3d(322px, 0, 0);\n    opacity: 0;\n}\n}\n@-webkit-keyframes previous-month-enter-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n@keyframes previous-month-enter-animation-data-v-5166bdd4 {\nfrom {\n    -webkit-transform: translate3d(-322px, 0, 0);\n            transform: translate3d(-322px, 0, 0);\n    opacity: 0;\n}\nto {\n    -webkit-transform: translate3d(0, 0, 0);\n            transform: translate3d(0, 0, 0);\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
 
 // exports
 
