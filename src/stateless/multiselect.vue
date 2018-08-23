@@ -102,7 +102,13 @@ export default {
     },
     computed: {
         allOptions () {
-            return this.options.concat(this.queryOptions)
+            let result = this.options
+            for (let queryOption of this.queryOptions) {
+                if (!result.map(x => x.id).includes(queryOption.id)) {
+                    result.push(queryOption)
+                }
+            }
+            return result
         },
         allPossibleIds () {
             return itemsUtils.getLeafIds(this.listItems)
@@ -115,7 +121,11 @@ export default {
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
                     const selectedItems = this.value.map(itemId => {
-                        return itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                        let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                        return {
+                            ...item,
+                            key: `selected_${item.key || item.id}`,
+                        }
                     })
                     const unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
