@@ -72,7 +72,7 @@ export default {
             const numPreviousMonth = firstDay.getDay()
 
             for (let i = -numPreviousMonth; i < 6 * 7; i++) {
-                dates.push(new Date(this.year, this.month - 1, i + 1))
+                dates.push(new Date(Date.UTC(this.year, this.month - 1, i + 1)))
             }
 
             return dates.map(date => {
@@ -225,12 +225,15 @@ export default {
                 40: 7,
             }
             const delta = deltaByKeyCode[e.keyCode]
-            let addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
+            let addDaysToDate = date => new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + delta))
+
+            const now = new Date()
+            const utcNow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
 
             if (this.isRange) {
                 if (delta) {
                     if (!this.value || !this.value.from) {
-                        this.setValue({ from: new Date() })
+                        this.setValue({ from: utcNow })
                     } else if (!this.value.to) {
                         const date = addDaysToDate(this.value.from)
                         if (this.isDateValid(date)) {
@@ -245,7 +248,7 @@ export default {
                 }
             } else {
                 if (delta) {
-                    const date = this.value ? addDaysToDate(this.value) : new Date()
+                    const date = this.value ? addDaysToDate(this.value) : utcNow
                     if (this.isDateValid(date)) {
                         this.setValue(date)
                     }
