@@ -1,30 +1,35 @@
 <template>
-    <div class="scrollable-list" @keydown.up.prevent @keydown.down.prevent>
+    <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent>
         <div v-if="enableScrollTop && items.length > 0" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="scrollable-list__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
 
-        <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll">
-            <slot name="before"></slot>
+        <div class="scrollable-list__list-wrap">
+            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top"></div>
+            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--bottom"></div>
 
-            <default-list
-                ref="list"
-                :items="items"
-                :value="value"
-                :highlight-query="highlightQuery"
-                :transition-sorting="transitionSorting"
-                :no-group-rendering="noGroupRendering"
-                :size="size"
-                :style="bottomPadding > 0 ? { marginBottom: `${bottomPadding}px` } : {}"
-                :list-container="$refs.scrollable"
-                class="scrollable-list__default-list"
-                @select="$emit('select', $event)"
-                @activate="onActivate"
-                @before-update="onBeforeUpdate">
-                <template v-if="$scopedSlots.default" slot-scope="{ item }">
-                    <slot :item="item"></slot>
-                </template>
-            </default-list>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll">
+                <slot name="before"></slot>
 
-            <slot name="after"></slot>
+                <default-list
+                    ref="list"
+                    :items="items"
+                    :value="value"
+                    :highlight-query="highlightQuery"
+                    :transition-sorting="transitionSorting"
+                    :no-group-rendering="noGroupRendering"
+                    :size="size"
+                    :style="bottomPadding > 0 ? { marginBottom: `${bottomPadding}px` } : {}"
+                    :list-container="$refs.scrollable"
+                    class="scrollable-list__default-list"
+                    @select="$emit('select', $event)"
+                    @activate="onActivate"
+                    @before-update="onBeforeUpdate">
+                    <template v-if="$scopedSlots.default" slot-scope="{ item }">
+                        <slot :item="item"></slot>
+                    </template>
+                </default-list>
+
+                <slot name="after"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -37,7 +42,8 @@ export default {
         DefaultList,
     },
     props: {
-        size: { type: String, required: false, default: 'normal' },
+        size: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         numItems: { type: Number, required: true },
         items: { type: Array, required: true },
         value: { type: String },
@@ -46,6 +52,7 @@ export default {
         noGroupRendering: { type: Boolean, default: false },
         bottomPadding: { type: Number, default: 0 },
         enableScrollTop: { type: Boolean, default: false },
+        showOverlay: { type: Boolean, default: false },
     },
     data () {
         return {
@@ -113,8 +120,9 @@ export default {
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
-            const upTarget = currentScroll + itemY - rootY
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding
+            const overlayHeight = this.showOverlay ? 15 : 0
+            const upTarget = currentScroll + itemY - rootY - overlayHeight * 2
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding - overlayHeight
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget
@@ -142,9 +150,15 @@ export default {
 .scrollable-list {
     width: 100%;
 
+    &__list-wrap {
+        position: relative;
+        overflow-y: hidden;
+    }
+
     &__list {
         overflow-y: auto;
         overscroll-behavior: contain;
+        padding-top: 10px;
     }
 
     &__scroll-top {
@@ -153,6 +167,46 @@ export default {
         cursor: pointer;
         width: 100%;
         text-align: right;
+    }
+
+    &__overlay {
+        position: absolute;
+        height: 15px;
+        width: 100%;
+        pointer-events: none;
+        z-index: 10;
+
+        &--top {
+            top: 0;
+        }
+
+        &--bottom {
+            bottom: 0;
+        }
+    }
+}
+
+.scrollable-list--dark {
+    .scrollable-list__overlay {
+        &--top {
+            background: linear-gradient(180deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
+        }
+
+        &--bottom {
+            background: linear-gradient(0deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
+        }
+    }
+}
+
+.scrollable-list--light {
+    .scrollable-list__overlay {
+        &--top {
+            background: linear-gradient(180deg, @white, fade(@white, 0%));
+        }
+
+        &--bottom {
+            background: linear-gradient(0deg, @white, fade(@white, 0%));
+        }
     }
 }
 
