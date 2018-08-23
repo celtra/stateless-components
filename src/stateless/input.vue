@@ -418,6 +418,9 @@ export default {
         blur () {
             this.$refs.input.blur()
         },
+        focus () {
+            this.$refs.input.focus()
+        },
         removeFocus () {
             this.focused = false
             this.$emit('blur')

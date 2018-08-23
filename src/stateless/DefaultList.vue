@@ -1,5 +1,18 @@
 <template>
-    <div class="default-list" tabindex="0" @keydown.up.prevent @keydown.down.prevent @keyup.up.prevent.stop="move(-1)" @keyup.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
+    <div class="default-list" tabindex="0" @focus="onFocus" @blur="isFocused = false" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
+        <div class="default-list__hidden-slots">
+            <div ref="hiddenSlot">
+                <slot :item="{ label: 'A' }">
+                    <default-list-item :size="size" label="A"/>
+                </slot>
+            </div>
+            <div ref="hiddenGroupSlot">
+                <slot :item="{ label: 'A' }" name="group">
+                    <div class="default-list__group">A</div>
+                </slot>
+            </div>
+        </div>
+
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
@@ -73,15 +86,21 @@ export default {
     },
     data () {
         return {
+            isFocused: false,
             activeId: null,
             renderAllItemsTimeout: false,
             canTransition: false,
             transitionItems: this.items,
+            itemHeight: null,
+            groupHeight: null,
         }
     },
     computed: {
         flatItems () {
             return flatten(this.transitionItems)
+        },
+        flatSelectableItems () {
+            return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
         shownItems () {
             if (this.renderAllItems && this.renderAllItemsTimeout || this.flatItems.length <= this.minItemsCount) {
@@ -90,6 +109,8 @@ export default {
             return this.flatItems.slice(0, this.minItemsCount)
         },
         shownItemsWithData () {
+            let activeId = this.isFocused ? this.activeId : null
+
             return this.shownItems.map(item => {
                 let css = { marginLeft: `${this.getOffset(item)}px` }
                 if (this.transitionSorting) {
@@ -99,22 +120,28 @@ export default {
                 return {
                     ...item,
                     css: css,
-                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: item.id === this.activeId },
+                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: item.id === activeId },
                 }
             })
         },
         assumedItemHeight () {
-            return this.size === 'condensed' ? 30 : 45
+            return this.itemHeight || 30
         },
         assumedGroupHeight () {
-            return 30
+            return this.groupHeight || 30
         },
         hiddenHeight () {
             let total = 0
             for (let hiddenItem of this.flatItems.slice(this.shownItems.length)) {
                 total += hiddenItem.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
             }
-
+            return total
+        },
+        maxHeight () {
+            let total = 0
+            for (let item of this.flatItems) {
+                total += item.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
+            }
             return total
         },
     },
@@ -163,11 +190,21 @@ export default {
         setTimeout(() => {
             this.renderAllItemsTimeout = true
         }, 100)
+        this.$nextTick(() => {
+            this.itemHeight = this.$refs.hiddenSlot.clientHeight
+            this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
+        })
     },
     beforeCreate () {
         this.minItemsCount = 50
     },
     methods: {
+        onFocus () {
+            this.isFocused = true
+            if (this.flatSelectableItems.length > 0) {
+                this.activeId = this.flatSelectableItems[0].id
+            }
+        },
         selectItem (itemId) {
             if (itemId) {
                 const item = this.flatItems.find(x => x.id == itemId)
@@ -176,22 +213,24 @@ export default {
                 }
             }
         },
+        focus () {
+            this.$el.focus()
+        },
         move (direction) {
-            const flatLeafItems = this.flatItems.filter(x => x.isLeaf)
-            if (flatLeafItems.length === 0) {
+            if (this.flatSelectableItems.length === 0) {
                 return
             }
 
             const findId = this.activeId || this.value
-            let activeIndex = flatLeafItems.indexOf(flatLeafItems.find(x => x.id === findId))
+            let activeIndex = this.flatSelectableItems.findIndex(x => x.id === findId)
             activeIndex += direction
-            if (activeIndex > flatLeafItems.length - 1) {
+            if (activeIndex > this.flatSelectableItems.length - 1) {
                 activeIndex = 0
             } else if (activeIndex < 0) {
-                activeIndex = flatLeafItems.length - 1
+                activeIndex = this.flatSelectableItems.length - 1
             }
 
-            this.activeId = flatLeafItems[activeIndex].id
+            this.activeId = this.flatSelectableItems[activeIndex].id
 
             this.$emit('activate', this.activeId)
             this.$el.focus()
@@ -226,6 +265,11 @@ export default {
 .default-list {
     outline: none;
     width: 100%;
+
+    &__hidden-slots {
+        visibility: hidden;
+        position: absolute;
+    }
 
     &__item {
         padding: 0px 15px;
