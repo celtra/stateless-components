@@ -3,7 +3,7 @@
         <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
-            <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
+            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
@@ -11,14 +11,12 @@
 
 <script>
 import Input from './input.vue'
-import DefaultList from './DefaultList.vue'
-import DefaultListItem from './DefaultListItem.vue'
+import ScrollableList from './ScrollableList.vue'
 
 export default {
     components: {
         inputElement: Input,
-        DefaultList,
-        DefaultListItem,
+        ScrollableList,
     },
     props: {
         value: { type: [String, Number], default: '' },

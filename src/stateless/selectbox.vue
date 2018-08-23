@@ -1,6 +1,6 @@
 <template>
     <div :class="['selectbox--' + size, 'selectbox--' + theme]" :title="disabledText" :id="label | slugify" class="selectbox" tabindex="0" @focus="setFocus()" @blur="clearFocus()"
-         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList(-1)" @keyup.down="openSelectList(1)" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
+         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList()" @keyup.down="openSelectList()" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
 
         <div :class="cssStates | prefix('selectbox__label-text--')" class="selectbox__label-text">
             {{ mappedLabelText }}
@@ -29,7 +29,7 @@
                     </div>
 
                     <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
-                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" @select="selectValue" @scroll="onScroll"></scrollable-list>
+                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
                     </div>
                 </div>
             </div>
@@ -175,9 +175,9 @@ export default {
                 this.clearFocus()
             }
         },
-        openSelectList (direction) {
+        openSelectList () {
             if (this.isOpen) {
-                this.move(direction)
+                this.$refs.list.focus()
             } else {
                 if (this.disabled) {
                     return
@@ -191,9 +191,9 @@ export default {
 
                 this.$nextTick(() => {
                     if (this.isSearchable) {
-                        this.$refs.search.$el.focus()
+                        this.$refs.search.focus()
                     } else {
-                        this.$refs.list.$el.focus()
+                        this.$refs.list.focus()
                     }
 
                     this.onScroll(0)
@@ -525,6 +525,12 @@ export default {
 <style lang="less">
 .selectbox.selectbox {
     .input-field__message-wrap {
+        display: none;
+    }
+}
+
+.selectbox__scrollable-list {
+    .scrollable-list__list::-webkit-scrollbar {
         display: none;
     }
 }
