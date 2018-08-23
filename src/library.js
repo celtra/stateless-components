@@ -19,6 +19,10 @@ import SupportTextComponent from '@/stateless/support_text.vue'
 import IconComponent from '@/stateless/icon.vue'
 import SliderComponent from '@/stateless/slider.vue'
 import GroupComponent from '@/stateless/group.vue'
+import CalendarComponent from '@/stateless/Calendar.vue'
+import DateInputComponent from '@/stateless/DateInput.vue'
+import DateRangeInputComponent from '@/stateless/DateRangeInput.vue'
+import DatePickerComponent from '@/stateless/DatePicker.vue'
 import ToastComponent from '@/stateless/Toast.vue'
 import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
@@ -51,6 +55,10 @@ export const SupportText = SupportTextComponent
 export const Icon = IconComponent
 export const Slider = SliderComponent
 export const Group = GroupComponent
+export const Calendar = CalendarComponent
+export const DateInput = DateInputComponent
+export const DateRangeInput = DateRangeInputComponent
+export const DatePicker = DatePickerComponent
 export const Toast = ToastComponent
 export const PieChart = PieChartComponent
 export const InlineDialog = InlineDialogComponent

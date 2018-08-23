@@ -67,6 +67,7 @@ export default {
         showSelectedMetadata: { type: Boolean, required: false, default: false },
         size: { type: String, required: false, default: 'normal' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {

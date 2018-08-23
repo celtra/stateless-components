@@ -1,7 +1,7 @@
 <template>
     <div :title="tooltipText" >
         <svg class="pie-chart" viewBox="-1 -1 2 2">
-            <circle :class="{'pie-chart__background--disabled' : disabled}" cx="0" cy="0" r="1" class="pie-chart__background"/>
+            <circle :class="{'pie-chart__background--grey': isValueZero}" cx="0" cy="0" r="1" class="pie-chart__background"/>
             <path :d="slicePath" class="pie-chart__share"></path>
         </svg>
     </div>
@@ -32,12 +32,12 @@ export default {
         largeArcFlag () {
             return this.value > 0.5 ? 1 : 0
         },
-        disabled () {
+        isValueZero () {
             return this.value === 0
         },
         tooltipText () {
             // Remove trailing zeros
-            return this.tooltip ? this.tooltip: `${(this.value * 100).toFixed(1).replace(/\.?0*$/,'')} %`
+            return this.tooltip ? this.tooltip : `${(this.value * 100).toFixed(1).replace(/\.?0*$/,'')} %`
         },
     },
 }
@@ -47,20 +47,20 @@ export default {
 @import (reference) './variables';
 
 .pie-chart {
-  height: 18px;
-  width: 18px;
-  transform: rotate(-0.25turn);
+    height: 18px;
+    width: 18px;
+    transform: rotate(-0.25turn);
 
-  &__background {
-    fill: @extremly-light-green;
+    &__background {
+        fill: @extremly-light-green;
 
-    &--disabled {
-       fill: @very-light-gray;
+        &--grey {
+            fill: @very-light-gray;
+        }
     }
-  }
 
-  &__share {
-    fill: @light-green;
-  }
+    &__share {
+        fill: @light-green;
+    }
 }
 </style>

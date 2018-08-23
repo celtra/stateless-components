@@ -13,6 +13,10 @@ import SupportText from '@/stateless/support_text.vue'
 import Icon from '@/stateless/icon.vue'
 import Slider from '@/stateless/slider.vue'
 import Group from '@/stateless/group.vue'
+import Calendar from '@/stateless/Calendar.vue'
+import DateInput from '@/stateless/DateInput.vue'
+import DateRangeInput from '@/stateless/DateRangeInput.vue'
+import DatePicker from '@/stateless/DatePicker.vue'
 import Toast from '@/stateless/Toast.vue'
 import PieChart from '@/stateless/PieChart.vue'
 import InlineDialog from '@/stateless/InlineDialog.vue'
@@ -63,6 +67,9 @@ export default {
     },
     Dialog: {
         component: Dialog,
+        defaultProps: {
+            title: 'Something',
+        },
     },
     DropArea: {
         component: DropArea,
@@ -134,7 +141,7 @@ export default {
     SupportText: {
         component: SupportText,
         defaultProps: {
-            text: 'Lorem Ipsum',
+            text: 'Lorem Ipsum<br>And a new line',
         },
     },
     Icon: {
@@ -146,7 +153,7 @@ export default {
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
                 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
-                'alpha', 'beta',
+                'alpha', 'beta', 'caret',
             ],
         },
         defaultProps: {
@@ -173,6 +180,27 @@ export default {
         defaultProps: {
             label: 'Modeling',
             theme: 'light',
+        },
+    },
+    Calendar: {
+        component: Calendar,
+        defaultProps: {
+            isRange: true,
+        },
+    },
+    DateInput: {
+        component: DateInput,
+    },
+    DateRangeInput: {
+        component: DateRangeInput,
+    },
+    DatePicker: {
+        component: DatePicker,
+        rootCss: {
+            width: '600px',
+        },
+        defaultProps: {
+
         },
     },
     Toast: {

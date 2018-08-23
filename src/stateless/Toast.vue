@@ -15,7 +15,7 @@ export default {
     props: {
         label: { type: String },
         actionLabel: { type: String },
-        theme: { type: String, default: 'light' },
+        theme: { type: String, default: 'dark' },
         timeout: { type: Number, default: 5000 },
     },
     data () {
@@ -24,11 +24,18 @@ export default {
         }
     },
     mounted () {
-        this.timeoutSet = setTimeout(this.leave, this.timeout)
+        this.timeoutId = setTimeout(this.leave, this.timeout)
+    },
+    beforeDestroy () {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId)
+        }
     },
     methods: {
         leave () {
-            clearTimeout(this.timeoutSet)
+            if (this.timeoutId) {
+                clearTimeout(this.timeoutId)
+            }
             this.leaving = true
         },
         close () {
@@ -47,62 +54,62 @@ export default {
 @import (reference) 'variables';
 
 .toast-element {
-  width: 320px;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  position: fixed;
-  padding: 0 30px;
-  bottom: 70px;
-  box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
-  animation: slide-in @toast-slide-in-out-animation-time ease-out;
-  z-index: 100;
+    width: 320px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    padding: 0 30px;
+    bottom: 70px;
+    box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
+    animation: slide-in @toast-slide-in-out-animation-time ease-out;
+    z-index: 100;
 
-  &--leave {
-    animation: slide-out @toast-slide-in-out-animation-time ease-in forwards;
-  }
-
-  &__label {
-    font-size: 14px;
-    color: @pale-gray;
-    font-family: @regular-text-font;
-    user-select: none;
-  }
-
-  &__action-label {
-    font-size: 12px;
-    color: @gunpowder;
-    font-family: @regular-text-font;
-    user-select: none;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-
-  &--dark {
-    background-color: @gunpowder;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
-
-    .toast-element__label {
-      color: white;
+    &--leave {
+        animation: slide-out @toast-slide-in-out-animation-time ease-in forwards;
     }
 
-    .toast-element__action-label {
-      color: @very-light-gray;
+    &__label {
+        font-size: 14px;
+        color: @pale-gray;
+        font-family: @regular-text-font;
+        user-select: none;
     }
-  }
+
+    &__action-label {
+        font-size: 12px;
+        color: @gunpowder;
+        font-family: @regular-text-font;
+        user-select: none;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    &--dark {
+        background-color: @gunpowder;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+
+        .toast-element__label {
+            color: white;
+        }
+
+        .toast-element__action-label {
+            color: @very-light-gray;
+        }
+    }
 }
 
 @keyframes slide-in {
-  from {
-    transform: translateY(120px)
-  }
+    from {
+        transform: translateY(120px)
+    }
 }
 
 @keyframes slide-out {
-  to {
-    transform: translateY(120px)
-  }
+    to {
+        transform: translateY(120px)
+    }
 }
 </style>

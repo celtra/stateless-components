@@ -1,5 +1,5 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
@@ -113,6 +113,7 @@ export default {
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -137,7 +138,7 @@ export default {
                 focused: this.focused,
                 error: isError,
                 warning: isWarning,
-                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text.length > 0,
+                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text && this.text.length > 0,
                 disabled: this.disabled,
             }
         },
@@ -390,7 +391,7 @@ export default {
         },
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
@@ -513,7 +514,6 @@ export default {
 
 .input-field__label-text {
     height: 13px;
-    color: @dolphin;
     display: flex;
     align-items: center;
     font-size: 11px;
@@ -539,7 +539,6 @@ export default {
     align-items: center;
     border-width: 0 0 2px 0;
     border-style: solid;
-    border-color: @gunpowder;
     transition: border-color @form-element-transition-time ease-out;
 
     &__input-flex {
@@ -570,7 +569,6 @@ export default {
         background-color: transparent;
         border: 0;
         outline: none;
-        color: white;
         margin: 4px 0px;
 
         &.input-row__textarea {
@@ -580,7 +578,6 @@ export default {
 
         &::placeholder {
             white-space: nowrap;
-            color: @very-light-gray;
             overflow: hidden;
             text-overflow: ellipsis !important;
         }
@@ -631,14 +628,12 @@ export default {
 
     &:hover:not(&--focused):not(&--disabled) {
         border-color: @gray-blue;
-        .input-row__placeholder-text::placeholder { color: @white; }
     }
 }
 
 .input-row__unit {
     flex: none;
     font-size: 18px;
-    color: @dolphin;
 
     &__password-icon {
         width: 16px;
@@ -657,10 +652,6 @@ export default {
 
     &--disabled {
         color: @gunpowder;
-    }
-
-    &--warning {
-        color: @pale-yellow;
     }
 }
 
@@ -699,21 +690,62 @@ export default {
 }
 
 .input-field__helper-text {
-    color: @dolphin;
     min-height: 17px;
     flex: 1 0 0;
     font-size: 11px;
     letter-spacing: 0.5px;
 
-    &--warning { color: @pale-yellow; }
-
     &--disabled { color: @gunpowder; }
 
     &--error { color: @pink-red; }
-
 }
 
-.input--light.input--light {
+.input--dark {
+    .input-row {
+        border-color: @gunpowder;
+
+        &__placeholder-text {
+            color: white;
+            &::placeholder {
+                color: @very-light-gray;
+            }
+        }
+
+        &--focused { border-color: @royal-blue; }
+
+        &:hover {
+            .input-row__placeholder-text::placeholder { color: white; }
+        }
+    }
+
+    .input-field__label-text {
+        color: @dolphin;
+
+        &--focused { color: @royal-blue; }
+    }
+
+    .input-field__helper-text {
+        color: @dolphin;
+
+        &--error { color: @pink-red; }
+
+        &--warning { color: @pale-yellow; }
+    }
+
+    .input-row__unit {
+        color: @dolphin;
+
+        &--warning {
+            color: @pale-yellow;
+        }
+    }
+
+    .input__icon-prepend {
+        color: white;
+    }
+}
+
+.input--light {
     .input-row {
         border-color: @very-light-gray;
 
@@ -733,6 +765,8 @@ export default {
 
     .input-field__label-text {
         color: @bluish-gray;
+
+        &--focused { color: @royal-blue; }
     }
 
     .input-field__helper-text {
@@ -742,12 +776,17 @@ export default {
 
         &--warning { color: @orange-yellow; }
     }
+
     .input-row__unit {
         color: @bluish-gray;
 
         &--warning {
             color: @orange-yellow;
         }
+    }
+
+    .input__icon-prepend {
+        color: black;
     }
 }
 
