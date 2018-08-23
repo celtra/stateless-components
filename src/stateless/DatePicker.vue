@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="clickOutside" :class="states | prefix('date-picker--')" class="date-picker">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
@@ -168,8 +168,8 @@ export default {
     &__date {
         width: 100%;
         font-size: 18px;
-        color: @gunpowder;
-        border-bottom: 2px solid @very-light-gray;
+        color: @white;
+        border-bottom: 2px solid @gunpowder;
         padding-bottom: 4px;
         cursor: pointer;
         display: flex;
@@ -257,5 +257,12 @@ export default {
     position: relative;
     margin: 0 4px 0 auto;
     top: 1px;
+}
+
+.date-picker--light .date-picker {
+    &__date {
+        color: @gunpowder;
+        border-bottom: 2px solid @very-light-gray;
+    }
 }
 </style>
