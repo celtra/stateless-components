@@ -124,8 +124,13 @@ export default {
                 }
 
                 result = itemsUtils.sortBy(result, item => {
-                    if (!this.areGroupsSelectable && item.items) {
-                        return 0
+                    if (item.items) {
+                        if (item.items.every(x => x.disabled)) {
+                            return -1
+                        }
+                        if (!this.areGroupsSelectable) {
+                            return 0
+                        }
                     }
 
                     const isChecked = this.isChecked(item)
