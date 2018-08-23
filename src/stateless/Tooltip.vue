@@ -29,21 +29,23 @@ export default {
             this.$nextTick(this.positionTooltip)
         },
         positionTooltip () {
-            if (this.boundaryElement === 'viewport') {
-                const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                if (tooltip.x + tooltip.width > window.innerWidth) {
-                    this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
-                }
-            } else if (this.boundaryElement instanceof HTMLElement) {
-                const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                const boundary = this.boundaryElement.getBoundingClientRect()
+            if (this.$refs.tooltip) {
+                if (this.boundaryElement === 'viewport') {
+                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
+                    if (tooltip.x + tooltip.width > window.innerWidth) {
+                        this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
+                    }
+                } else if (this.boundaryElement instanceof HTMLElement) {
+                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
+                    const boundary = this.boundaryElement.getBoundingClientRect()
 
-                if (tooltip.x + tooltip.width > boundary.x + boundary.width) {
-                    this.translateX = boundary.x + boundary.width - tooltip.x - tooltip.width - 10
-                }
+                    if (tooltip.x + tooltip.width > boundary.x + boundary.width) {
+                        this.translateX = boundary.x + boundary.width - tooltip.x - tooltip.width - 10
+                    }
 
-                if (tooltip.y + tooltip.height > boundary.y + boundary.height) {
-                    this.translateY = boundary.y + boundary.height - tooltip.y - tooltip.height - 10
+                    if (tooltip.y + tooltip.height > boundary.y + boundary.height) {
+                        this.translateY = boundary.y + boundary.height - tooltip.y - tooltip.height - 10
+                    }
                 }
             }
         },
