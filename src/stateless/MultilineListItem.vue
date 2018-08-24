@@ -59,6 +59,7 @@ export default {
 @import (reference) './variables';
 
 .multiline-list-item {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
