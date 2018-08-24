@@ -6,7 +6,7 @@
             <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top"></div>
             <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--bottom"></div>
 
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll">
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <slot name="before"></slot>
 
                 <default-list
@@ -115,10 +115,10 @@ export default {
                 this.$emit('scroll', shownY)
             })
         },
-        onActivate (itemId) {
+        onActivate (data) {
             const currentScroll = this.$refs.scrollable.scrollTop
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
-            const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
+            const itemY = data.element.getBoundingClientRect().top
 
             const overlayHeight = this.showOverlay ? 15 : 0
             const upTarget = currentScroll + itemY - rootY - overlayHeight * 2
@@ -130,7 +130,7 @@ export default {
                 this.$refs.scrollable.scrollTop = downTarget
             }
 
-            this.$emit('activate', itemId)
+            this.$emit('activate', data)
         },
         focus () {
             let scrollTop = this.$refs.scrollable.scrollTop

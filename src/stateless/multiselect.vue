@@ -12,13 +12,15 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list">
-                    <div v-if="canSelectAll || canClearAll" slot="before" class="multiselect__change-multiple">
-                        <checkbox-element v-if="canSelectAll && value.length === 0" :value="false" :size="size" class="multiselect__select-all" @input="selectAll">
-                            <span class="multiselect__select-all-label">SELECT ALL</span>
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @activate="onActivate">
+                    <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
+                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="$event ? selectAll() : clearAll()">
+                            <span v-if="changeMultipleState !== true" class="multiselect__select-all-label">SELECT ALL</span>
+                            <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
                         </checkbox-element>
-
-                        <div v-if="canClearAll && value.length > 0" class="multiselect__clear-all" @click="clearAll">
+                    </div>
+                    <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
+                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="clearAll" @keyup.space.prevent.stop="clearAll" @click="clearAll">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
                                 <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
                             </svg>
@@ -71,8 +73,8 @@ export default {
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
         hasScrollTop: { type: Boolean, default: true },
-        canSelectAll: { type: Boolean, default: true },
-        canClearAll: { type: Boolean, default: true },
+        canSelectAndClearAll: { type: Boolean, default: false },
+        canClearAll: { type: Boolean, default: false },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
         getOptions: { type: Function, required: false },
@@ -101,6 +103,9 @@ export default {
         },
         allPossibleIds () {
             return itemsUtils.getLeafIds(this.listItems)
+        },
+        changeMultipleState () {
+            return this.value.length === 0 ? false : this.value.length === this.allPossibleIds.length ? true : null
         },
         listItems () {
             let result = this.allOptions
@@ -158,6 +163,13 @@ export default {
         this.loadAsyncOptions()
     },
     methods: {
+        onActivate ({ element }) {
+            const checkboxes = element.getElementsByClassName('checkbox-element')
+            const checkbox = checkboxes.length > 0 ? checkboxes[0] : null
+            if (checkbox) {
+                checkbox.focus()
+            }
+        },
         selectAll () {
             this.$emit('input', this.allPossibleIds)
         },
@@ -190,6 +202,8 @@ export default {
                         this.$emit('input', valueWithout)
                     }
                 }
+
+                this.$refs.list.focus()
             }
         },
         isChecked (option) {

@@ -117,6 +117,7 @@ export default {
             options: largeItems,
             value: [],
             isSearchable: true,
+            canClearAll: true,
         },
     },
     RadioButton: {
@@ -286,7 +287,7 @@ export default {
             ],
             value: [ '1', '2' ],
             isSearchable: true,
-            canSelectAll: true,
+            canSelectAndClearAll: true,
             canClearAll: true,
             chipLabel: 'Chip Label',
             searchLabel: 'Search Label',

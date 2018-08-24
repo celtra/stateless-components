@@ -1,5 +1,5 @@
 <template>
-    <div class="default-list" tabindex="0" @focus="onFocus" @blur="isFocused = false" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
+    <div class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)">
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
                 <slot :item="{ label: 'A' }">
@@ -199,10 +199,17 @@ export default {
         this.minItemsCount = 50
     },
     methods: {
-        onFocus () {
-            this.isFocused = true
-            if (this.flatSelectableItems.length > 0) {
-                this.activeId = this.flatSelectableItems[0].id
+        onFocus (ev) {
+            if (!this.isFocused) {
+                this.isFocused = true
+                if (this.flatSelectableItems.length > 0) {
+                    this.activeId = this.flatSelectableItems[0].id
+                }
+            }
+        },
+        onBlur (ev) {
+            if (ev.relatedTarget === null) {
+                this.isFocused = false
             }
         },
         selectItem (itemId) {
@@ -232,8 +239,8 @@ export default {
 
             this.activeId = this.flatSelectableItems[activeIndex].id
 
-            this.$emit('activate', this.activeId)
-            this.$el.focus()
+            let activeElement = this.$el.querySelector(`[data-item-id="${this.activeId}"]`)
+            this.$emit('activate', { id: this.activeId, element: activeElement })
         },
         getOffset ({ depth, isLeaf }) {
             if (depth === 0) {

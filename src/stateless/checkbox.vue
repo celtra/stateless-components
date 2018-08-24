@@ -205,7 +205,7 @@ export default {
             &:after {
                 content: '';
                 width: 10px;
-                height: 11px;
+                height: 9px;
                 display: block;
                 border-bottom: 2px solid @royal-blue;
             }
@@ -229,6 +229,8 @@ export default {
         font-size: 18px;
         font-family: @regular-text-font;
         transition: color @form-element-transition-time ease-out;
+        display: flex;
+        align-items: center;
 
         &--disabled {
             color: @gunpowder;
@@ -334,10 +336,17 @@ export default {
         height: 18px;
     }
 
-    .checkbox-element__check:after {
-        width: 6px;
-        height: 14px;
-        border-width: 0 4.5px 5px 0;
+    .checkbox-element__check {
+        &--checked:after {
+            width: 6px;
+            height: 14px;
+            border-width: 0 4.5px 5px 0;
+        }
+
+        &--some:after {
+            width: 12px;
+            height: 11px;
+        }
     }
 
     .checkbox-element__label-text {
@@ -403,6 +412,12 @@ export default {
 
     .checkbox-element__check {
         padding-top: 0;
+
+        &--some {
+            &:after {
+                height: 11px;
+            }
+        }
     }
 
     .checkbox-element__label-text {
