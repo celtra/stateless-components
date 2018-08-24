@@ -308,6 +308,12 @@ export default {
     margin-top: 0px;
     margin-left: -5px;
 }
+
+.multiselect--light.multiselect--light {
+    .multiselect__no-items {
+        color: white;
+    }
+}
 </style>
 
 <style lang="less">

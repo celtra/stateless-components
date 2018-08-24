@@ -2,7 +2,7 @@
     <input-element ref="input" :value="value" :label="label" :theme="theme" :size="size" @keyup="$emit('keyup', $event)" @input="$emit('input', $event)">
         <icon slot="before" name="search" />
         <icon v-if="isLoading" slot="right" name="loading" class="spin" />
-        <icon slot="right" name="clear" class="search-input__clear-icon" @click="$emit('input', null)" />
+        <icon v-if="value && value.length > 0" slot="right" name="clear" class="search-input__clear-icon" @click="$emit('input', null)" />
     </input-element>
 </template>
 

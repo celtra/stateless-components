@@ -17,6 +17,7 @@
                     :transition-sorting="transitionSorting"
                     :no-group-rendering="noGroupRendering"
                     :size="size"
+                    :theme="theme"
                     :style="bottomPadding > 0 ? { marginBottom: `${bottomPadding}px` } : {}"
                     :list-container="$refs.scrollable"
                     class="scrollable-list__default-list"

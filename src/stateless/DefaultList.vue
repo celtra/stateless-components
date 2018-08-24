@@ -1,5 +1,5 @@
 <template>
-    <div class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)">
+    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)">
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
                 <slot :item="{ label: 'A' }">
@@ -76,6 +76,7 @@ export default {
     },
     props: {
         size: { type: String, default: 'normal' },
+        theme: { type: String, default: 'dark' },
         items: { type: Array, required: true },
         value: { type: String },
         highlightQuery: { type: String },
@@ -283,10 +284,6 @@ export default {
             position: relative;
         }
 
-        &--active, &--leaf:hover {
-            background-color: @very-light-gray;
-        }
-
         &-enter-active, &-leave-active, &-move {
             transition: all 250ms ease-out;
             pointer-events: none;
@@ -314,4 +311,21 @@ export default {
         color: @gray-blue;
     }
 }
+
+.default-list--dark {
+    .default-list__item {
+        &--active, &--leaf:hover {
+            background-color: @very-dark-gray;
+        }
+    }
+}
+
+.default-list--light {
+    .default-list__item {
+        &--active, &--leaf:hover {
+            background-color: @very-light-gray;
+        }
+    }
+}
+
 </style>
