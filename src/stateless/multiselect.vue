@@ -12,7 +12,7 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @activate="onActivate">
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                         <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="$event ? selectAll() : clearAll()">
                             <span v-if="changeMultipleState !== true" class="multiselect__select-all-label">SELECT ALL</span>
@@ -35,8 +35,8 @@
                             :value="isChecked(item)"
                             :size="size"
                             :theme="theme"
-                            class="multiselect__checkbox"
-                            @input="setChecked(item, $event)">
+                            tabindex="-1"
+                            class="multiselect__checkbox">
 
                             <slot :item="item">
                                 <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
@@ -163,18 +163,15 @@ export default {
         this.loadAsyncOptions()
     },
     methods: {
-        onActivate ({ element }) {
-            const checkboxes = element.getElementsByClassName('checkbox-element')
-            const checkbox = checkboxes.length > 0 ? checkboxes[0] : null
-            if (checkbox) {
-                checkbox.focus()
-            }
+        onSelect (item) {
+            this.setChecked(item, this.isChecked(item) ? false : true)
         },
         selectAll () {
             this.$emit('input', this.allPossibleIds)
         },
         clearAll () {
             this.$emit('input', [])
+            this.$refs.list.focus()
         },
         loadAsyncOptions () {
             if (this.getOptions) {
@@ -202,8 +199,6 @@ export default {
                         this.$emit('input', valueWithout)
                     }
                 }
-
-                this.$refs.list.focus()
             }
         },
         isChecked (option) {

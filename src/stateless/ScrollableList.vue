@@ -115,10 +115,10 @@ export default {
                 this.$emit('scroll', shownY)
             })
         },
-        onActivate (data) {
+        onActivate (itemId) {
             const currentScroll = this.$refs.scrollable.scrollTop
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
-            const itemY = data.element.getBoundingClientRect().top
+            const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
             const overlayHeight = this.showOverlay ? 15 : 0
             const upTarget = currentScroll + itemY - rootY - overlayHeight * 2
@@ -130,7 +130,7 @@ export default {
                 this.$refs.scrollable.scrollTop = downTarget
             }
 
-            this.$emit('activate', data)
+            this.$emit('activate', itemId)
         },
         focus () {
             let scrollTop = this.$refs.scrollable.scrollTop
