@@ -2,11 +2,13 @@
     <div class="typeahead-multiselect">
         <typeahead v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
 
-        <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
-            <div class="typeahead-multiselect__item-label">{{ item.label }}</div>
-            <div class="typeahead-multiselect__item-metadata">
-                <span class="typeahead-multiselect__item-metadata-text">{{ item.metadata }}</span>
-                <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
+        <div :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
+            <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
+                <div class="typeahead-multiselect__item-label">{{ item.label }}</div>
+                <div class="typeahead-multiselect__item-metadata">
+                    <span class="typeahead-multiselect__item-metadata-text">{{ item.metadata }}</span>
+                    <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +30,7 @@ export default {
         noItemsText: { type: String, default: 'No items' },
         theme: { type: String, default: 'dark' },
         isValid: { type: Function, required: false },
+        numItems: { type: Number, default: 8 },
     },
     data () {
         return {
@@ -54,11 +57,16 @@ export default {
 <style lang="less" scoped>
 @import (reference) './variables';
 .typeahead-multiselect {
+    &__item-list {
+        overflow-y: auto;
+    }
+
     &__item {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 15px;
+        height: 20px;
     }
 
     &__item-label {
@@ -81,5 +89,22 @@ export default {
         cursor: pointer;
         color: @gunpowder;
     }
+}
+
+::-webkit-scrollbar {
+    width : 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color : transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius    : 5px;
+    background-color : @very-light-gray;
+}
+
+::-webkit-scrollbar-corner {
+    background-color : transparent;
 }
 </style>
