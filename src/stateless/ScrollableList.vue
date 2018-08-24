@@ -157,6 +157,7 @@ export default {
 
     &__list {
         overflow-y: auto;
+        overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
         padding-top: 10px;
     }
