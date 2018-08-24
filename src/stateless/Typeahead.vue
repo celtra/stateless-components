@@ -1,8 +1,8 @@
 <template>
     <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
+        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.down="$refs.list && $refs.list.focus()" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
 
-        <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
+        <template v-if="isOpen && (isValueValid || suggestions.length > 0) && !(value === null || typeof value === 'string' && value.length <= 2)">
             <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
@@ -51,6 +51,9 @@ export default {
         },
     },
     methods: {
+        focus () {
+            this.$refs.input.focus()
+        },
         onInputFocus () {
             this.isListFocused = false
             this.isOpen = true
