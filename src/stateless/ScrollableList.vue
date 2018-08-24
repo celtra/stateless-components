@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent>
-        <div v-if="enableScrollTop && items.length > 0" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="scrollable-list__scroll-top" @click="scrollTop">SCROLL TO TOP</div>
+        <div v-if="enableScrollTop && items.length > 0" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
 
         <div class="scrollable-list__list-wrap">
             <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top"></div>
@@ -167,6 +167,11 @@ export default {
         cursor: pointer;
         width: 100%;
         text-align: right;
+
+        &:focus {
+            outline: none;
+            color: black;
+        }
     }
 
     &__overlay {

@@ -165,6 +165,7 @@ export default {
     methods: {
         onSelect (item) {
             this.setChecked(item, this.isChecked(item) ? false : true)
+            this.$refs.list.focus()
         },
         selectAll () {
             this.$emit('input', this.allPossibleIds)
@@ -272,6 +273,11 @@ export default {
         display: flex;
         align-items: center;
         margin-left: 10px;
+
+        &:focus {
+            outline: none;
+            color: black;
+        }
     }
 
     &__clear-all-text {
