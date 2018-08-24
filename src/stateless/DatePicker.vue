@@ -168,8 +168,6 @@ export default {
     &__date {
         width: 100%;
         font-size: 18px;
-        color: @white;
-        border-bottom: 2px solid @gunpowder;
         padding-bottom: 4px;
         cursor: pointer;
         display: flex;
@@ -259,8 +257,17 @@ export default {
     top: 1px;
 }
 
-.date-picker--light .date-picker {
-    &__date {
+/* DARK THEME */
+.date-picker--dark {
+    .date-picker__date {
+        color: @white;
+        border-bottom: 2px solid @gunpowder;
+    }
+}
+
+/* LIGHT THEME */
+.date-picker--light {
+    .date-picker__date {
         color: @gunpowder;
         border-bottom: 2px solid @very-light-gray;
     }
