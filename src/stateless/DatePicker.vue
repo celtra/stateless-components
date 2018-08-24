@@ -45,7 +45,7 @@
                 :min-date="minDate"
                 :max-date="maxDate"
                 class="date-picker__calendar"
-                @input="setValue"
+                @input="setCalendarValue"
             ></calendar>
         </div>
     </div>
@@ -117,6 +117,18 @@ export default {
         },
     },
     methods: {
+        setCalendarValue (v) {
+            this.setValue(v)
+            if (this.isRange) {
+                if (v.from && v.to) {
+                    this.isOpen = false
+                }
+            } else {
+                if (v) {
+                    this.isOpen = false
+                }
+            }
+        },
         setValue (v) {
             this.$emit('input', v)
         },
