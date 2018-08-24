@@ -22,10 +22,7 @@
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
                     <div v-if="isSearchable" class="selectbox__search-wrapper">
-                        <input-element ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch">
-                            <icon slot="before" name="search" />
-                            <icon slot="right" name="clear" class="selectbox__search-clear-icon" @click="clearSearch" />
-                        </input-element>
+                        <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
                     <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
@@ -39,16 +36,14 @@
 
 <script>
 import debounce from 'lodash.debounce'
-import Icon from './icon.vue'
-import Input from './input.vue'
+import SearchInput from './SearchInput.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 
 export default {
     components: {
-        Icon,
-        inputElement: Input,
+        SearchInput,
         ScrollableList,
         DefaultListItem,
     },
@@ -73,11 +68,22 @@ export default {
         return {
             isOpen: false,
             focused: false,
-            searchText: '',
-            searchTextDebounced: '',
+            searchTextValue: '',
         }
     },
     computed: {
+        searchText: {
+            get () {
+                return this.searchTextValue
+            },
+            set (v) {
+                if (!v) {
+                    this.searchTextValue = ''
+                } else {
+                    this.setSearch(v)
+                }
+            },
+        },
         states () {
             return {
                 error: !!this.errorText,
@@ -125,7 +131,7 @@ export default {
                 options = [{ id: 'CLEAR_SELECTION', label: this.placeholder }].concat(options)
             }
 
-            const cleanQuery = (this.searchTextDebounced || '').trim(' ').toLowerCase()
+            const cleanQuery = (this.searchText || '').trim(' ').toLowerCase()
             if (cleanQuery.length > 0) {
                 options = itemsUtils.filter(options, (option) => {
                     return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
@@ -233,13 +239,9 @@ export default {
 
             this.$refs.menu.style.top = `${Math.max(minOffset, Math.min(maxOffset, targetOffset))}px`
         },
-        setSearch: debounce(function () {
-            this.searchTextDebounced = this.searchText
+        setSearch: debounce(function (v) {
+            this.searchTextValue = v
         }, 400),
-        clearSearch () {
-            this.searchText = ''
-            this.searchTextDebounced = ''
-        },
         move (direction) {
             this.$refs.list.move(direction)
         },
@@ -419,10 +421,6 @@ export default {
 
     &__search-wrapper {
         margin: 15px 15px 0px 15px;
-    }
-
-    &__search-clear-icon {
-        cursor: pointer;
     }
 
     &__scrollable-list-wrap {

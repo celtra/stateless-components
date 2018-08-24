@@ -1,10 +1,7 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" :theme="theme" :size="size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)">
-                <icon slot="before" name="search" />
-                <icon v-if="isLoading" slot="right" name="loading" class="spin" />
-            </input-element>
+            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
         <div class="multiselect__options">
@@ -51,8 +48,7 @@
 </template>
 
 <script>
-import Icon from './icon.vue'
-import Input from './input.vue'
+import SearchInput from './SearchInput.vue'
 import Checkbox from './checkbox.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
@@ -61,8 +57,7 @@ import debounce from 'lodash.debounce'
 
 export default {
     components: {
-        Icon,
-        inputElement: Input,
+        SearchInput,
         checkboxElement: Checkbox,
         ScrollableList,
         DefaultListItem,
@@ -115,12 +110,15 @@ export default {
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
                     const selectedItems = this.value.map(itemId => {
-                        let item = itemsUtils.find(this.allOptions, x => !x.items && x.id === itemId)
+                        let item = itemsUtils.find(result, x => !x.items && x.id === itemId)
+                        if (!item) {
+                            return null
+                        }
                         return {
                             ...item,
                             key: `selected_${item.key || item.id}`,
                         }
-                    })
+                    }).filter(x => x)
                     const unselectedItems = itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
                     })
