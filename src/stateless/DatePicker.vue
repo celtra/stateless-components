@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="clickOutside" :class="states | prefix('date-picker--')" class="date-picker">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
@@ -45,7 +45,7 @@
                 :min-date="minDate"
                 :max-date="maxDate"
                 class="date-picker__calendar"
-                @input="setValue"
+                @input="setCalendarValue"
             ></calendar>
         </div>
     </div>
@@ -117,6 +117,18 @@ export default {
         },
     },
     methods: {
+        setCalendarValue (v) {
+            this.setValue(v)
+            if (this.isRange) {
+                if (v.from && v.to) {
+                    this.isOpen = false
+                }
+            } else {
+                if (v) {
+                    this.isOpen = false
+                }
+            }
+        },
         setValue (v) {
             this.$emit('input', v)
         },
@@ -168,8 +180,6 @@ export default {
     &__date {
         width: 100%;
         font-size: 18px;
-        color: @gunpowder;
-        border-bottom: 2px solid @very-light-gray;
         padding-bottom: 4px;
         cursor: pointer;
         display: flex;
@@ -257,5 +267,21 @@ export default {
     position: relative;
     margin: 0 4px 0 auto;
     top: 1px;
+}
+
+/* DARK THEME */
+.date-picker--dark {
+    .date-picker__date {
+        color: @white;
+        border-bottom: 2px solid @gunpowder;
+    }
+}
+
+/* LIGHT THEME */
+.date-picker--light {
+    .date-picker__date {
+        color: @gunpowder;
+        border-bottom: 2px solid @very-light-gray;
+    }
 }
 </style>
