@@ -12,6 +12,7 @@ import FileUploadRequirementsComponent from '@/stateless/file_upload_requirement
 import FileUploadComponent from '@/stateless/file_upload.vue'
 import ImageListComponent from '@/stateless/image_list.vue'
 import InputComponent from '@/stateless/input.vue'
+import SearchInputComponent from '@/stateless/SearchInput.vue'
 import MultiselectComponent from '@/stateless/multiselect.vue'
 import RadioButtonComponent from '@/stateless/radiobutton.vue'
 import SelectboxComponent from '@/stateless/selectbox.vue'
@@ -48,6 +49,7 @@ export const FileUploadRequirements = FileUploadRequirementsComponent
 export const FileUpload = FileUploadComponent
 export const ImageList = ImageListComponent
 export const Input = InputComponent
+export const SearchInput = SearchInputComponent
 export const Multiselect = MultiselectComponent
 export const RadioButton = RadioButtonComponent
 export const Selectbox = SelectboxComponent
