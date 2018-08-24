@@ -34,6 +34,7 @@ export default {
 .search-input {
     &__clear-icon {
         cursor: pointer;
+        margin-left: 6px;
     }
 }
 </style>

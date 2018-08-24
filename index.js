@@ -6084,7 +6084,7 @@ module.exports.f = function (C) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__ = __webpack_require__(85);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_40d32230_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0f0c7262_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(344);
 function injectStyle (ssrContext) {
   __webpack_require__(342)
 }
@@ -6099,12 +6099,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-40d32230"
+var __vue_scopeId__ = "data-v-0f0c7262"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_40d32230_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0f0c7262_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -38046,7 +38046,7 @@ var content = __webpack_require__(343);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("cb104e08", content, true, {});
+var update = __webpack_require__(2)("0a9fb5a4", content, true, {});
 
 /***/ }),
 /* 343 */
@@ -38057,7 +38057,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.search-input__clear-icon[data-v-40d32230] {\n  cursor: pointer;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,gBAAgB;CACjB","file":"SearchInput.vue","sourcesContent":["\n.search-input__clear-icon[data-v-40d32230] {\n  cursor: pointer;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.search-input__clear-icon[data-v-0f0c7262] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,gBAAgB;EAChB,iBAAiB;CAClB","file":"SearchInput.vue","sourcesContent":["\n.search-input__clear-icon[data-v-0f0c7262] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
