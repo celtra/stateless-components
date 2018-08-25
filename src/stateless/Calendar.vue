@@ -374,12 +374,12 @@ export default {
         box-sizing: border-box;
 
         &--different-month {
-            color: fade(@gunpowder, 60%);
+            color: @very-light-gray;
         }
 
         &--in-range {
-            color: white;
-            background-color: fade(@royal-blue, 60%);
+            color: @gunpowder;
+            background-color: fade(@royal-blue, 15%);
         }
 
         &--hover {
@@ -387,7 +387,7 @@ export default {
         }
 
         &--current {
-            color: white;
+            color: @white;
             background-color: @royal-blue;
         }
 
