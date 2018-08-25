@@ -154,7 +154,7 @@ export default {
                 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow',
                 'search', 'clear', 'close', 'mail', 'screen-download',
                 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold',
-                'alpha', 'beta', 'caret',
+                'alpha', 'beta', 'caret', 'list-search',
             ],
         },
         defaultProps: {
