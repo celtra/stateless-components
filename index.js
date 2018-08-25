@@ -23643,7 +23643,7 @@ function compareDate(a, b) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DateRangeInput_vue__ = __webpack_require__(230);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_694799d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DateRangeInput_vue__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_995c8c72_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DateRangeInput_vue__ = __webpack_require__(395);
 function injectStyle (ssrContext) {
   __webpack_require__(393)
 }
@@ -23658,12 +23658,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-694799d8"
+var __vue_scopeId__ = "data-v-995c8c72"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DateRangeInput_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_694799d8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DateRangeInput_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_995c8c72_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DateRangeInput_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -23725,7 +23725,8 @@ var Component = normalizeComponent(
         minDate: { type: Date },
         maxDate: { type: Date },
         dateFormat: { type: String },
-        dateFormatFocus: { type: String, required: false }
+        dateFormatFocus: { type: String, required: false },
+        separator: { type: String }
     },
     methods: {
         onFromInput: function onFromInput(value) {
@@ -39074,7 +39075,7 @@ var content = __webpack_require__(394);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("002975ba", content, true, {});
+var update = __webpack_require__(2)("960dcf80", content, true, {});
 
 /***/ }),
 /* 394 */
@@ -39085,7 +39086,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.date-range-input[data-v-694799d8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-width: 475px;\n}\n.date-range-input__dash[data-v-694799d8] {\n  margin: 17px 20px 0px 20px;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/DateRangeInput.vue"],"names":[],"mappings":";AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,iBAAiB;CAClB;AACD;EACE,2BAA2B;CAC5B","file":"DateRangeInput.vue","sourcesContent":["\n.date-range-input[data-v-694799d8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-width: 475px;\n}\n.date-range-input__dash[data-v-694799d8] {\n  margin: 17px 20px 0px 20px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.date-range-input[data-v-995c8c72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-width: 475px;\n}\n.date-range-input__separator[data-v-995c8c72] {\n  margin: 17px 7.5px 0px 7.5px;\n}\n.date-range-input__separator--with-margin[data-v-995c8c72] {\n  margin: 17px 20px 0px 20px;\n}\n", "", {"version":3,"sources":["/Users/kurent/Work/Celtra/stateless-components/src/stateless/DateRangeInput.vue"],"names":[],"mappings":";AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,iBAAiB;CAClB;AACD;EACE,6BAA6B;CAC9B;AACD;EACE,2BAA2B;CAC5B","file":"DateRangeInput.vue","sourcesContent":["\n.date-range-input[data-v-995c8c72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-width: 475px;\n}\n.date-range-input__separator[data-v-995c8c72] {\n  margin: 17px 7.5px 0px 7.5px;\n}\n.date-range-input__separator--with-margin[data-v-995c8c72] {\n  margin: 17px 20px 0px 20px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -39095,7 +39096,7 @@ exports.push([module.i, "\n.date-range-input[data-v-694799d8] {\n  display: -web
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-range-input"},[_c('date-input',{attrs:{"theme":_vm.theme,"size":_vm.size,"value":_vm.value && _vm.value.from,"min-date":_vm.minDate,"max-date":_vm.maxDate,"date-format":_vm.dateFormat,"date-format-focus":_vm.dateFormatFocus,"label":"Start date"},on:{"input":_vm.onFromInput,"keyup":function($event){_vm.$emit('keyup', $event)}}}),_vm._v(" "),_c('div',{staticClass:"date-range-input__dash"},[_vm._v("―")]),_vm._v(" "),_c('date-input',{attrs:{"theme":_vm.theme,"size":_vm.size,"value":_vm.value && _vm.value.to,"min-date":_vm.minDate,"max-date":_vm.maxDate,"date-format":_vm.dateFormat,"date-format-focus":_vm.dateFormatFocus,"label":"End date"},on:{"input":_vm.onToInput,"keyup":function($event){_vm.$emit('keyup', $event)}}})],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"date-range-input"},[_c('date-input',{attrs:{"theme":_vm.theme,"size":_vm.size,"value":_vm.value && _vm.value.from,"min-date":_vm.minDate,"max-date":_vm.maxDate,"date-format":_vm.dateFormat,"date-format-focus":_vm.dateFormatFocus,"label":"Start date"},on:{"input":_vm.onFromInput,"keyup":function($event){_vm.$emit('keyup', $event)}}}),_vm._v(" "),_c('div',{staticClass:"date-range-input__separator",class:{'date-range-input__separator--with-margin': !!_vm.separator}},[_vm._v(_vm._s(_vm.separator))]),_vm._v(" "),_c('date-input',{attrs:{"theme":_vm.theme,"size":_vm.size,"value":_vm.value && _vm.value.to,"min-date":_vm.minDate,"max-date":_vm.maxDate,"date-format":_vm.dateFormat,"date-format-focus":_vm.dateFormatFocus,"label":"End date"},on:{"input":_vm.onToInput,"keyup":function($event){_vm.$emit('keyup', $event)}}})],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
