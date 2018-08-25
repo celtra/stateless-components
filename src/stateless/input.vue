@@ -738,7 +738,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: @gunpowder;
+        color: @dolphin;
     }
 }
 
@@ -783,7 +783,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: @gunpowder;
+        color: @dolphin;
     }
 }
 
