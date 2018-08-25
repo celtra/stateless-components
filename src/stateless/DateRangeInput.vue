@@ -13,7 +13,7 @@
             @keyup="$emit('keyup', $event)">
         </date-input>
 
-        <div class="date-range-input__dash">―</div>
+        <div :class="{'date-range-input__separator--with-margin': !!separator}" class="date-range-input__separator">{{ separator }}</div>
 
         <date-input
             :theme="theme"
@@ -45,6 +45,7 @@ export default {
         maxDate: { type: Date },
         dateFormat: { type: String },
         dateFormatFocus: { type: String, required: false },
+        separator: { type: String },
     },
     methods: {
         onFromInput (value) {
@@ -62,8 +63,12 @@ export default {
     display: flex;
     min-width: 475px;
 
-    &__dash {
-        margin: 17px 20px 0px 20px;
+    &__separator {
+        margin: 17px 7.5px 0px 7.5px;
+
+        &--with-margin {
+            margin: 17px 20px 0px 20px;
+        }
     }
 }
 </style>
