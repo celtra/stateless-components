@@ -425,7 +425,7 @@ export default {
             this.focused = false
             this.$emit('blur')
 
-            if (this.text === '' && this.label) {
+            if ((this.text === '' || this.text === null) && this.label) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
@@ -741,7 +741,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: white;
+        color: @gunpowder;
     }
 }
 
@@ -786,7 +786,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: black;
+        color: @gunpowder;
     }
 }
 
