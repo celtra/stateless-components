@@ -1,5 +1,5 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
@@ -138,7 +138,7 @@ export default {
                 focused: this.focused,
                 error: isError,
                 warning: isWarning,
-                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text.length > 0,
+                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text && this.text.length > 0,
                 disabled: this.disabled,
             }
         },
@@ -422,7 +422,7 @@ export default {
             this.focused = false
             this.$emit('blur')
 
-            if (this.text === '' && this.label) {
+            if ((this.text === '' || this.text === null) && this.label) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
