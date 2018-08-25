@@ -738,7 +738,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: white;
+        color: @gunpowder;
     }
 }
 
@@ -783,7 +783,7 @@ export default {
     }
 
     .input__icon-prepend {
-        color: black;
+        color: @gunpowder;
     }
 }
 
