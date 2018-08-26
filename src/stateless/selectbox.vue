@@ -26,7 +26,7 @@
                     </div>
 
                     <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
-                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
+                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" :theme="theme" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
                     </div>
                 </div>
             </div>
