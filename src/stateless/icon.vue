@@ -171,6 +171,10 @@
         <svg v-if="name === 'list-search'" :style-override="styleOverride" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M4 12H1a1 1 0 0 1 0-2h3v2zM15 2H1a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2zM4 7H1a1 1 0 0 1 0-2h3v2zM15.707 12.293l-2.274-2.274A3.947 3.947 0 0 0 14 8c0-2.206-1.794-4-4-4S6 5.794 6 8s1.794 4 4 4c.74 0 1.424-.215 2.019-.567l2.274 2.274 1.414-1.414zM10 10c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/>
         </svg>
+
+        <svg v-if="name === 'bars'" :style-override="styleOverride" viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M1 0v10H0V0h1zm3 0v10H3V0h1zm3 0v10H6V0h1z"/>
+        </svg>
     </div>
 </template>
 
