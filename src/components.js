@@ -224,6 +224,10 @@ export default {
     },
     ScrollableList: {
         component: ScrollableList,
+        defaultProps: {
+            items: defaultItems,
+            label: 'Something',
+        },
     },
     Typeahead: {
         component: Typeahead,
