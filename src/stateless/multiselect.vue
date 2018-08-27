@@ -116,7 +116,7 @@ export default {
                         }
                         return {
                             ...item,
-                            key: `selected_${item.key || item.id}`,
+                            key: `S_${item.key || item.id}`,
                         }
                     }).filter(x => x)
                     const unselectedItems = itemsUtils.filter(result, item => {

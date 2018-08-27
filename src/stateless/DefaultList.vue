@@ -14,7 +14,7 @@
         </div>
 
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -37,7 +37,7 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -48,7 +48,9 @@
                             :selected="item.id === value"
                             :highlight-query="highlightQuery"
                             :size="size"
-                            theme="light" />
+                            theme="light">
+                            <div slot="right">some</div>
+                        </default-list-item>
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
@@ -65,7 +67,7 @@
 </template>
 
 <script>
-import DefaultListItem from './DefaultListItem.vue'
+import DefaultListItem from './MultilineListItem.vue'
 import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
 
@@ -121,7 +123,7 @@ export default {
                 return {
                     ...item,
                     css: css,
-                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: item.id === activeId },
+                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId },
                 }
             })
         },
@@ -203,7 +205,8 @@ export default {
         onFocus (ev) {
             this.isFocused = true
             if (this.flatSelectableItems.length > 0) {
-                this.activeId = this.flatSelectableItems[0].id
+                let activeItem = this.flatSelectableItems[0]
+                this.activeId = activeItem.key || activeItem.id
             }
         },
         onBlur (ev) {
@@ -211,7 +214,7 @@ export default {
         },
         selectItem (itemId) {
             if (itemId) {
-                const item = this.flatItems.find(x => x.id == itemId)
+                const item = this.flatItems.find(x => x.key === itemId || x.id === itemId)
                 if (item && !item.disabled && item.isLeaf) {
                     this.$emit('select', item)
                 }
@@ -226,17 +229,18 @@ export default {
             }
 
             const findId = this.activeId || this.value
-            let activeIndex = this.flatSelectableItems.findIndex(x => x.id === findId)
+            let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
             activeIndex += direction
             if (activeIndex > this.flatSelectableItems.length - 1) {
                 activeIndex = 0
             } else if (activeIndex < 0) {
                 activeIndex = this.flatSelectableItems.length - 1
             }
+            let nextItem = this.flatSelectableItems[activeIndex]
 
-            this.activeId = this.flatSelectableItems[activeIndex].id
+            this.activeId = (nextItem.key || nextItem.id)
 
-            this.$emit('activate', this.activeId)
+            this.$emit('activate', nextItem.key || nextItem.id)
         },
         getOffset ({ depth, isLeaf }) {
             if (depth === 0) {

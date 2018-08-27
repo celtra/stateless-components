@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { find } from './items_utils'
 import DefaultList from './DefaultList.vue'
 
 export default {
@@ -98,7 +99,8 @@ export default {
         },
         positionSelectList () {
             if (this.value) {
-                this.scrollTo(this.value)
+                let item = find(this.items, x => x.id === this.value)
+                this.scrollTo(item ? item.key || item.id : this.value)
             }
         },
         scrollTo (itemId) {

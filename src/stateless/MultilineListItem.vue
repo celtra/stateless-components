@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size, cssModifiers] | prefix('multiline-list-item--')" class="multiline-list-item">
-        <div class="multiline-list-item__content">
+        <div :style="$slots.right ? { width: `calc(100% - ${slotWidth}px)` } : {}" class="multiline-list-item__content">
             <p :class="cssModifiers | prefix('multiline-list-item__label--')" class="multiline-list-item__label">
                 <template v-if="highlightQuery">
                     <span v-for="(part, index) in getParts(label)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
@@ -37,13 +37,13 @@ export default {
         selected: { type: Boolean },
         disabled: { type: Boolean },
         highlightQuery: { type: String },
+        slotWidth: { type: Number, default: 50 },
     },
     computed: {
         cssModifiers () {
             return {
                 selected: this.selected,
                 disabled: this.disabled,
-                'with-metadata': !!this.metadata,
             }
         },
     },
@@ -71,7 +71,8 @@ export default {
 
     &__content {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        justify-items: center;
     }
 
     &__label {
@@ -81,31 +82,17 @@ export default {
         text-overflow: ellipsis;
         font-family: @regular-text-font;
         color: @very-light-gray;
-        display: inline-block;
 
         &--error { color: @pink-red; }
         &--disabled { color: @gray-blue; }
-        &--with-metadata { padding-right: 5px; }
     }
 
     &__metadata {
-        display: flex;
-        align-items: center;
         margin: 0;
         white-space: nowrap;
-        text-align: right;
         overflow: hidden;
         font-family: @regular-text-font;
         color: @gray-blue;
-    }
-
-    &__icon {
-        margin-left: 10px;
-    }
-
-    &__hidden-widths {
-        visibility: hidden;
-        position: absolute;
     }
 }
 
@@ -138,8 +125,7 @@ export default {
 }
 
 .multiline-list-item--condensed {
-    height: 20px;
-
+    padding: 3px 0px;
     .multiline-list-item {
         &__label {
             font-size: 14px;
@@ -153,6 +139,8 @@ export default {
 }
 
 .multiline-list-item--normal {
+    padding: 5px 0px;
+
     .multiline-list-item {
         &__label {
             font-size: 18px;
@@ -165,7 +153,7 @@ export default {
 }
 
 .multiline-list-item--phat {
-    height: 45px;
+    padding: 10px 0px;
 
     .multiline-list-item {
         &__label {

@@ -35,7 +35,7 @@ const defaultItems = [
     { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
     { id: '2', label: "Lorem" },
     { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
-    { id: '4', label: "A", metadata: 'someone@lorem.ipsum' },
+    { id: '4', label: "Really loooooooooooooooooooooooooooooooong label", metadata: 'someone@lorem.ipsum' },
     { id: '5', label: "B", metadata: 'someone@lorem.ipsum' },
     { id: '6', label: "C", metadata: 'someone@lorem.ipsum' },
     { id: '7', label: "D", metadata: 'someone@lorem.ipsum' },
@@ -218,6 +218,12 @@ export default {
     },
     DefaultList: {
         component: DefaultList,
+        rootCss: {
+            width: '400px',
+        },
+        defaultProps: {
+            items: defaultItems,
+        },
     },
     DefaultListItem: {
         component: DefaultListItem,
