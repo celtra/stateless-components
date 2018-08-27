@@ -24,7 +24,7 @@
                             <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
                         </div>
                     </div>
-                    <div slot-scope="{ item }" :style="{ height: `${size === 'condensed' ? 30 : 45}px` }" style="width: 100%;">
+                    <div slot-scope="{ item }" style="width: 100%; height: 45px;">
                         <checkbox-element
                             :disabled="item.disabled"
                             :title-text="item.label"
@@ -249,7 +249,6 @@ export default {
         z-index: 5;
         position: relative;
         height: 24px;
-        padding-bottom: 10px;
         display: flex;
         align-items: center;
     }
