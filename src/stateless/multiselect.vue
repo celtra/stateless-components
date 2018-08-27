@@ -248,7 +248,7 @@ export default {
         flex: none;
         z-index: 5;
         position: relative;
-        height: 16px;
+        height: 24px;
         padding-bottom: 10px;
         display: flex;
         align-items: center;
