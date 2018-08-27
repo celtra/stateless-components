@@ -18,13 +18,13 @@
             <icon v-if="icon" :name="icon" class="default-list-item__icon" />
         </p>
 
-        <div v-if="metadata" class="default-list-item__hidden-widths">
-            <p ref="labelContainer" class="default-list-item__label">{{ label }}</p>
-            <p ref="metadataContainer" class="default-list-item__metadata">
+        <template v-if="metadata">
+            <p ref="labelContainer" class="default-list-item__hidden-width default-list-item__label">{{ label }}</p>
+            <p ref="metadataContainer" class="default-list-item__hidden-width default-list-item__metadata">
                 {{ metadata }}
                 <icon v-if="icon" :name="icon" class="default-list-item__icon" />
             </p>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -143,7 +143,7 @@ export default {
         align-items: center;
         margin: 0;
         white-space: nowrap;
-        text-align: right;
+        justify-content: flex-end;
         overflow: hidden;
         font-family: @regular-text-font;
         color: @gray-blue;
@@ -153,7 +153,7 @@ export default {
         margin-left: 10px;
     }
 
-    &__hidden-widths {
+    &__hidden-width {
         visibility: hidden;
         position: absolute;
     }
