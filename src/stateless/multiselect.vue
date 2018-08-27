@@ -1,7 +1,7 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)">
         <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
+            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
         <div class="multiselect__options">
@@ -74,8 +74,9 @@ export default {
         areGroupsSelectable: { type: Boolean, default: false },
         getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
-        size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
+        size: { type: String, default: 'normal' },
+        searchSize: { type: String, required: false },
         numItems: { type: Number, default: 10 },
         loadAsyncDebounce: { type: Number, default: 0 },
     },
