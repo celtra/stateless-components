@@ -39301,7 +39301,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__ = __webpack_require__(233);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8ba3d6ba_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e15ee576_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__ = __webpack_require__(409);
 function injectStyle (ssrContext) {
   __webpack_require__(407)
 }
@@ -39316,12 +39316,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-8ba3d6ba"
+var __vue_scopeId__ = "data-v-e15ee576"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8ba3d6ba_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_e15ee576_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -39342,7 +39342,7 @@ var content = __webpack_require__(408);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("6e022072", content, true, {});
+var update = __webpack_require__(2)("94eeddae", content, true, {});
 
 /***/ }),
 /* 408 */
@@ -39353,7 +39353,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.pie-chart[data-v-8ba3d6ba] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-8ba3d6ba] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--grey[data-v-8ba3d6ba] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-8ba3d6ba] {\n  fill: #5df086;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/PieChart.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,YAAY;EACZ,qCAAqC;UAC7B,6BAA6B;CACtC;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,cAAc;CACf;AACD;EACE,cAAc;CACf","file":"PieChart.vue","sourcesContent":["\n.pie-chart[data-v-8ba3d6ba] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-8ba3d6ba] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--grey[data-v-8ba3d6ba] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-8ba3d6ba] {\n  fill: #5df086;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.pie-chart[data-v-e15ee576] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.pie-chart__svg[data-v-e15ee576] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-e15ee576] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--grey[data-v-e15ee576] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-e15ee576] {\n  fill: #5df086;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/PieChart.vue"],"names":[],"mappings":";AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,aAAa;EACb,YAAY;EACZ,qCAAqC;UAC7B,6BAA6B;CACtC;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,cAAc;CACf;AACD;EACE,cAAc;CACf","file":"PieChart.vue","sourcesContent":["\n.pie-chart[data-v-e15ee576] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.pie-chart__svg[data-v-e15ee576] {\n  height: 18px;\n  width: 18px;\n  -webkit-transform: rotate(-0.25turn);\n          transform: rotate(-0.25turn);\n}\n.pie-chart__background[data-v-e15ee576] {\n  fill: rgba(93, 240, 134, 0.4);\n}\n.pie-chart__background--grey[data-v-e15ee576] {\n  fill: #d6d8dd;\n}\n.pie-chart__share[data-v-e15ee576] {\n  fill: #5df086;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -39363,7 +39363,7 @@ exports.push([module.i, "\n.pie-chart[data-v-8ba3d6ba] {\n  height: 18px;\n  wid
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"title":_vm.tooltipText}},[_c('svg',{staticClass:"pie-chart",attrs:{"viewBox":"-1 -1 2 2"}},[_c('circle',{staticClass:"pie-chart__background",class:{'pie-chart__background--grey': _vm.isValueZero},attrs:{"cx":"0","cy":"0","r":"1"}}),_vm._v(" "),_c('path',{staticClass:"pie-chart__share",attrs:{"d":_vm.slicePath}})])])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pie-chart",attrs:{"title":_vm.tooltipText}},[_c('svg',{staticClass:"pie-chart__svg",attrs:{"viewBox":"-1 -1 2 2"}},[_c('circle',{staticClass:"pie-chart__background",class:{'pie-chart__background--grey': _vm.isValueZero},attrs:{"cx":"0","cy":"0","r":"1"}}),_vm._v(" "),_c('path',{staticClass:"pie-chart__share",attrs:{"d":_vm.slicePath}})])])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
