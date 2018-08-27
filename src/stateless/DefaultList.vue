@@ -48,9 +48,7 @@
                             :selected="item.id === value"
                             :highlight-query="highlightQuery"
                             :size="size"
-                            theme="light">
-                            <div slot="right">some</div>
-                        </default-list-item>
+                            theme="light" />
                     </slot>
                     <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
@@ -67,7 +65,7 @@
 </template>
 
 <script>
-import DefaultListItem from './MultilineListItem.vue'
+import DefaultListItem from './DefaultListItem.vue'
 import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
 
