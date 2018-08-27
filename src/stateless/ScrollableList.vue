@@ -1,9 +1,9 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent>
-        <div v-if="enableScrollTop && items.length > 0" :style="!canScrollTop ? { visibility: 'hidden' } : {}" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
-
         <div class="scrollable-list__list-wrap">
-            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top"></div>
+            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top">
+                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
+            </div>
             <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--bottom"></div>
 
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
@@ -169,8 +169,9 @@ export default {
         font-size: 11px;
         color: @bluish-gray;
         cursor: pointer;
-        width: 100%;
-        text-align: right;
+        pointer-events: all;
+        padding: 1px 3px;
+        margin-right: 5px;
 
         &:focus {
             outline: none;
@@ -187,6 +188,9 @@ export default {
 
         &--top {
             top: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
         }
 
         &--bottom {
@@ -196,6 +200,10 @@ export default {
 }
 
 .scrollable-list--dark {
+    .scrollable-list__scroll-top {
+        background-color: @extremely-dark-gray;
+    }
+
     .scrollable-list__overlay {
         &--top {
             background: linear-gradient(180deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
@@ -208,6 +216,10 @@ export default {
 }
 
 .scrollable-list--light {
+    .scrollable-list__scroll-top {
+        background-color: @white;
+    }
+
     .scrollable-list__overlay {
         &--top {
             background: linear-gradient(180deg, @white, fade(@white, 0%));
