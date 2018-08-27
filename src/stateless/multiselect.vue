@@ -24,7 +24,7 @@
                             <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
                         </div>
                     </div>
-                    <div slot-scope="{ item }" style="width: 100%; height: 45px;">
+                    <div slot-scope="{ item }" :style="{ height: `${size === 'condensed' ? 30 : 45}px` }" style="width: 100%;">
                         <checkbox-element
                             :disabled="item.disabled"
                             :title-text="item.label"
