@@ -2,13 +2,13 @@
     <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)">
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
-                <slot :item="{ label: 'A' }">
-                    <default-list-item :size="size" label="A"/>
+                <slot :item="assumedItem">
+                    <default-list-item :size="size" v-bind="assumedItem" />
                 </slot>
             </div>
             <div ref="hiddenGroupSlot">
-                <slot :item="{ label: 'A' }" name="group">
-                    <div class="default-list__group">A</div>
+                <slot :item="assumedItem" name="group">
+                    <div class="default-list__group">{{ assumedItem.label }}</div>
                 </slot>
             </div>
         </div>
@@ -198,6 +198,7 @@ export default {
     },
     beforeCreate () {
         this.minItemsCount = 50
+        this.assumedItem = { label: 'A', metadata: 'A' }
     },
     methods: {
         onFocus (ev) {
