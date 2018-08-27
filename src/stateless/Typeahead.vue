@@ -3,7 +3,7 @@
         <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.down="$refs.list && $refs.list.focus()" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0) && !(value === null || typeof value === 'string' && value.length <= 2)">
-            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
+            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
