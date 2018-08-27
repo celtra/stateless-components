@@ -202,19 +202,25 @@ export default {
     },
     methods: {
         onFocus (ev) {
-            this.isFocused = true
-            if (this.flatSelectableItems.length > 0) {
-                let activeItem = this.flatSelectableItems[0]
-                this.activeId = activeItem.key || activeItem.id
+            if (!this.isFocused) {
+                this.isFocused = true
+                if (this.flatSelectableItems.length > 0) {
+                    let activeItem = this.flatSelectableItems[0]
+                    this.activeId = activeItem.key || activeItem.id
+                }
             }
         },
         onBlur (ev) {
-            this.isFocused = false
+            if (!this.$el.contains(event.relatedTarget)) {
+                this.isFocused = false
+            }
         },
         selectItem (itemId) {
             if (itemId) {
                 const item = this.flatItems.find(x => x.key === itemId || x.id === itemId)
                 if (item && !item.disabled && item.isLeaf) {
+                    this.isFocused = true
+                    this.activeId = item.key || item.id
                     this.$emit('select', item)
                 }
             }

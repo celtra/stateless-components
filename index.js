@@ -9481,7 +9481,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__ = __webpack_require__(90);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7465fd22_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7e6c51b9_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(361);
 function injectStyle (ssrContext) {
   __webpack_require__(353)
 }
@@ -9496,12 +9496,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-7465fd22"
+var __vue_scopeId__ = "data-v-7e6c51b9"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7465fd22_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7e6c51b9_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -9841,14 +9841,18 @@ var Component = normalizeComponent(
 
     methods: {
         onFocus: function onFocus(ev) {
-            this.isFocused = true;
-            if (this.flatSelectableItems.length > 0) {
-                var activeItem = this.flatSelectableItems[0];
-                this.activeId = activeItem.key || activeItem.id;
+            if (!this.isFocused) {
+                this.isFocused = true;
+                if (this.flatSelectableItems.length > 0) {
+                    var activeItem = this.flatSelectableItems[0];
+                    this.activeId = activeItem.key || activeItem.id;
+                }
             }
         },
         onBlur: function onBlur(ev) {
-            this.isFocused = false;
+            if (!this.$el.contains(event.relatedTarget)) {
+                this.isFocused = false;
+            }
         },
         selectItem: function selectItem(itemId) {
             if (itemId) {
@@ -9856,6 +9860,8 @@ var Component = normalizeComponent(
                     return x.key === itemId || x.id === itemId;
                 });
                 if (item && !item.disabled && item.isLeaf) {
+                    this.isFocused = true;
+                    this.activeId = item.key || item.id;
                     this.$emit('select', item);
                 }
             }
@@ -38205,7 +38211,7 @@ var content = __webpack_require__(354);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("107d6a78", content, true, {});
+var update = __webpack_require__(2)("36284e70", content, true, {});
 
 /***/ }),
 /* 354 */
@@ -38216,7 +38222,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n*[data-v-7465fd22] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-7465fd22] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-7465fd22] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-7465fd22] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.default-list__item[data-v-7465fd22]:hover {\n  position: relative;\n}\n.default-list__item-enter-active[data-v-7465fd22],\n.default-list__item-leave-active[data-v-7465fd22],\n.default-list__item-move[data-v-7465fd22] {\n  -webkit-transition: all 250ms ease-out;\n  transition: all 250ms ease-out;\n  pointer-events: none;\n}\n.default-list__item-enter[data-v-7465fd22],\n.default-list__item-leave-to[data-v-7465fd22] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-content[data-v-7465fd22] {\n  width: 100%;\n  height: 100%;\n}\n.default-list__group[data-v-7465fd22] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-7465fd22],\n.default-list--dark .default-list__item--leaf[data-v-7465fd22]:hover {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-7465fd22],\n.default-list--light .default-list__item--leaf[data-v-7465fd22]:hover {\n  background-color: #d6d8dd;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,mBAAmB;CACpB;AACD;EACE,kBAAkB;EAClB,YAAY;EACZ,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,mBAAmB;CACpB;AACD;;;EAGE,uCAAuC;EACvC,+BAA+B;EAC/B,qBAAqB;CACtB;AACD;;EAEE,qBAAqB;EACrB,WAAW;CACZ;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,aAAa;EACb,kBAAkB;EAClB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB;AACD;;EAEE,0BAA0B;CAC3B;AACD;;EAEE,0BAA0B;CAC3B","file":"DefaultList.vue","sourcesContent":["\n*[data-v-7465fd22] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-7465fd22] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-7465fd22] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-7465fd22] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.default-list__item[data-v-7465fd22]:hover {\n  position: relative;\n}\n.default-list__item-enter-active[data-v-7465fd22],\n.default-list__item-leave-active[data-v-7465fd22],\n.default-list__item-move[data-v-7465fd22] {\n  -webkit-transition: all 250ms ease-out;\n  transition: all 250ms ease-out;\n  pointer-events: none;\n}\n.default-list__item-enter[data-v-7465fd22],\n.default-list__item-leave-to[data-v-7465fd22] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-content[data-v-7465fd22] {\n  width: 100%;\n  height: 100%;\n}\n.default-list__group[data-v-7465fd22] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-7465fd22],\n.default-list--dark .default-list__item--leaf[data-v-7465fd22]:hover {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-7465fd22],\n.default-list--light .default-list__item--leaf[data-v-7465fd22]:hover {\n  background-color: #d6d8dd;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n*[data-v-7e6c51b9] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-7e6c51b9] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-7e6c51b9] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-7e6c51b9] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.default-list__item[data-v-7e6c51b9]:hover {\n  position: relative;\n}\n.default-list__item-enter-active[data-v-7e6c51b9],\n.default-list__item-leave-active[data-v-7e6c51b9],\n.default-list__item-move[data-v-7e6c51b9] {\n  -webkit-transition: all 250ms ease-out;\n  transition: all 250ms ease-out;\n  pointer-events: none;\n}\n.default-list__item-enter[data-v-7e6c51b9],\n.default-list__item-leave-to[data-v-7e6c51b9] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-content[data-v-7e6c51b9] {\n  width: 100%;\n  height: 100%;\n}\n.default-list__group[data-v-7e6c51b9] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-7e6c51b9],\n.default-list--dark .default-list__item--leaf[data-v-7e6c51b9]:hover {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-7e6c51b9],\n.default-list--light .default-list__item--leaf[data-v-7e6c51b9]:hover {\n  background-color: #d6d8dd;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,mBAAmB;CACpB;AACD;EACE,kBAAkB;EAClB,YAAY;EACZ,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,mBAAmB;CACpB;AACD;;;EAGE,uCAAuC;EACvC,+BAA+B;EAC/B,qBAAqB;CACtB;AACD;;EAEE,qBAAqB;EACrB,WAAW;CACZ;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,aAAa;EACb,kBAAkB;EAClB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB;AACD;;EAEE,0BAA0B;CAC3B;AACD;;EAEE,0BAA0B;CAC3B","file":"DefaultList.vue","sourcesContent":["\n*[data-v-7e6c51b9] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-7e6c51b9] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-7e6c51b9] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-7e6c51b9] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.default-list__item[data-v-7e6c51b9]:hover {\n  position: relative;\n}\n.default-list__item-enter-active[data-v-7e6c51b9],\n.default-list__item-leave-active[data-v-7e6c51b9],\n.default-list__item-move[data-v-7e6c51b9] {\n  -webkit-transition: all 250ms ease-out;\n  transition: all 250ms ease-out;\n  pointer-events: none;\n}\n.default-list__item-enter[data-v-7e6c51b9],\n.default-list__item-leave-to[data-v-7e6c51b9] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-content[data-v-7e6c51b9] {\n  width: 100%;\n  height: 100%;\n}\n.default-list__group[data-v-7e6c51b9] {\n  height: 30px;\n  padding-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-7e6c51b9],\n.default-list--dark .default-list__item--leaf[data-v-7e6c51b9]:hover {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-7e6c51b9],\n.default-list--light .default-list__item--leaf[data-v-7e6c51b9]:hover {\n  background-color: #d6d8dd;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
