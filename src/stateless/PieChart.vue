@@ -1,6 +1,6 @@
 <template>
-    <div :title="tooltipText" >
-        <svg class="pie-chart" viewBox="-1 -1 2 2">
+    <div :title="tooltipText" class="pie-chart">
+        <svg class="pie-chart__svg" viewBox="-1 -1 2 2">
             <circle :class="{'pie-chart__background--grey': isValueZero}" cx="0" cy="0" r="1" class="pie-chart__background"/>
             <path :d="slicePath" class="pie-chart__share"></path>
         </svg>
@@ -47,9 +47,14 @@ export default {
 @import (reference) './variables';
 
 .pie-chart {
-    height: 18px;
-    width: 18px;
-    transform: rotate(-0.25turn);
+    display: flex;
+    align-items: center;
+
+    &__svg {
+        height: 18px;
+        width: 18px;
+        transform: rotate(-0.25turn);
+    }
 
     &__background {
         fill: @extremly-light-green;
