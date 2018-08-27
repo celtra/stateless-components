@@ -126,6 +126,7 @@ export default {
 
 .multiline-list-item--condensed {
     padding: 3px 0px;
+
     .multiline-list-item {
         &__label {
             font-size: 14px;
