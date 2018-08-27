@@ -130,11 +130,15 @@ export default {
     .multiline-list-item {
         &__label {
             font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         &__metadata {
             font-size: 11px;
             letter-spacing: 0.5px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     }
 }
