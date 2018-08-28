@@ -51,7 +51,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) 'variables';
+@import (reference) './common';
+
+@slide-in-out-animation-time: 0.4s;
 
 .toast-element {
     width: 320px;
@@ -64,11 +66,11 @@ export default {
     padding: 0 30px;
     bottom: 70px;
     box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
-    animation: slide-in @toast-slide-in-out-animation-time ease-out;
-    z-index: 100;
+    animation: slide-in @slide-in-out-animation-time ease-out;
+    z-index: @z-lowest;
 
     &--leave {
-        animation: slide-out @toast-slide-in-out-animation-time ease-in forwards;
+        animation: slide-out @slide-in-out-animation-time ease-in forwards;
     }
 
     &__label {

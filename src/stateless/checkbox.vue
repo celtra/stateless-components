@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box
@@ -161,7 +161,7 @@ export default {
         border-style: solid;
         border-radius: 2px;
         border-color: @bluish-gray;
-        transition: transform @form-element-transition-time ease-out;
+        transition: transform @default-transition-time ease-out;
         opacity: 1;
 
         &--checked {
@@ -182,7 +182,7 @@ export default {
         padding-top: 3px;
         display: flex;
         justify-content: center;
-        transition: transform @form-element-transition-time ease-out;
+        transition: transform @default-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
 
@@ -228,7 +228,7 @@ export default {
         text-overflow: ellipsis;
         font-size: 18px;
         font-family: @regular-text-font;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
         display: flex;
         align-items: center;
 
@@ -292,7 +292,7 @@ export default {
         min-width: 25px;
         border-radius: 8px;
         background-color: @very-light-gray;
-        transition: all @form-element-transition-time ease-out;
+        transition: all @default-transition-time ease-out;
 
         &--checked {
             background-color: @light-green;
@@ -304,7 +304,7 @@ export default {
         height: 15px;
         border-radius: 50%;
         background-color: @extremely-light-gray;
-        transition: all @form-element-transition-time ease-out;
+        transition: all @default-transition-time ease-out;
 
         &--checked {
             margin-left: 10px;

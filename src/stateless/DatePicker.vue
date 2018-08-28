@@ -160,7 +160,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .date-picker {
     width: 100%;
@@ -217,7 +217,7 @@ export default {
         background-color: white;
         padding: 30px 15px;
         box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
-        z-index: 1;
+        z-index: @z-default;
     }
 
     &__date-input {
@@ -249,7 +249,7 @@ export default {
         margin-bottom: 1px;
         width: 0;
         height: 2px;
-        transition: width @input-border-overlay ease-out;
+        transition: width 0.25s ease-out;
 
         &--valid {
             width: 100%;

@@ -343,7 +343,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .file-upload {
     width: 100%;
@@ -366,7 +366,7 @@ export default {
         right: 0;
         margin: 0 auto;
         fill: white;
-        z-index: (@z-index-new-dialog + 200); // This must be higher than drag-drop-overlay z-index in drop_area.vue
+        z-index: @z-sky; // This must be higher than drag-drop-overlay z-index in drop_area.vue
         pointer-events: none;
     }
 }
@@ -398,7 +398,7 @@ export default {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        transition: opacity @icon-hover-transition-time;
+        transition: opacity @default-transition-time;
     }
 
     &__buttons {
@@ -482,7 +482,7 @@ export default {
             color: white;
             position: absolute;
             pointer-events: none;
-            z-index: (@z-index-new-dialog + 200); // This must be higher than drag-drop-overlay z-index in drop_area.vue
+            z-index: @z-sky; // This must be higher than drag-drop-overlay z-index in drop_area.vue
         }
     }
 

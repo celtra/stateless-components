@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .scrollable-list {
     width: 100%;
@@ -185,7 +185,7 @@ export default {
         height: 15px;
         width: calc(100% - 6px);
         pointer-events: none;
-        z-index: 10;
+        z-index: @z-lowest;
 
         &--top {
             top: 0;

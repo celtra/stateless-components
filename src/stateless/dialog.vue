@@ -147,8 +147,14 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) './breakpoints';
-@import (reference) './variables';
+@import (reference) './common';
+
+@open-close-animation-time-background: 0.27s;
+@close-animation-time-background-delay: 0.27s;
+@closing-animation-time-background: 0.3s;
+@closing-animation-time-background-delay: 0.1s;
+@opening-animation-time-content: 0.2s;
+@closing-animation-time-content: 0.2s;
 
 .new-dialog {
     -webkit-font-smoothing: antialiased;
@@ -161,7 +167,7 @@ export default {
     height: 100%;
     box-sizing: border-box;
 
-    z-index: @z-index-new-dialog;
+    z-index: @z-high;
 
     &--closed {
         display: none;
@@ -291,7 +297,9 @@ export default {
 </style>
 
 <style lang="less">
-@import (reference) './variables';
+@import (reference) './common';
+
+@step-animation-time: 0.2s;
 
 .step-next-leave-active     { animation: step-next-leave-animation @step-animation-time ease-in; }
 .step-next-enter-active     { animation: step-next-enter-animation @step-animation-time ease-out; }
@@ -356,7 +364,7 @@ export default {
 </style>
 
 <style lang="less">
-@import (reference) './breakpoints';
+@import (reference) './common';
 
 .new-dialog__step-wrapper {
     width: 100%;

@@ -8,14 +8,14 @@
 </template>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 .inline-dialog {
     position: absolute;
     width: 340px;
     background-color: @white;
     box-shadow: 1px 2px 5px 0 @shadow-default;
     font-size: 14px;
-    z-index: 1;
+    z-index: @z-default;
 
     &__header {
         padding: 10px 15px;

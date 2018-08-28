@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 .typeahead-multiselect {
     &__item-list {
         overflow-y: auto;

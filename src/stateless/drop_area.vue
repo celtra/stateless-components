@@ -79,12 +79,12 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) './variables';
+@import (reference) './common';
 
 .drop-area__overlay {
     position: absolute;
     background-color: fade(@royal-blue, 60);
-    z-index: (@z-index-new-dialog + 100);
+    z-index: @z-highest;
     width: 100%;
     height: ~"calc(100% - 30px)";
 

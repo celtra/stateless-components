@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="less">
-@import (reference) './variables';
+@import (reference) './common';
 
 .default-list-item {
     width: 100%;
@@ -132,7 +132,7 @@ export default {
         font-family: @regular-text-font;
         color: @very-light-gray;
         display: inline-block;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
 
         &--error { color: @pink-red; }
         &--with-metadata { padding-right: 5px; }

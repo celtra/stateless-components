@@ -266,7 +266,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box;
@@ -315,7 +315,7 @@ export default {
     &__arrow-down {
         border-width: 5px 6px 0 6px;
         border-style: solid;
-        transition: border-color @form-element-transition-time ease-out;
+        transition: border-color @default-transition-time ease-out;
         border-color: @very-light-gray transparent transparent transparent;
 
         &--disabled {
@@ -332,7 +332,7 @@ export default {
         border-width: 0 0 2px 0;
         border-style: solid;
         cursor: pointer;
-        transition: border-color @form-element-transition-time ease-out;
+        transition: border-color @default-transition-time ease-out;
         border-color: @gunpowder;
 
         &:hover:not(&--disabled):not(&--focused) {
@@ -368,7 +368,7 @@ export default {
         top: 0;
         left: -15px;
         width: calc(~'100% + 2 * 15px');
-        z-index: @z-index-new-dialog + 75;
+        z-index: @z-highest;
 
         &--with-search {
             top: -15px;
@@ -386,7 +386,7 @@ export default {
         transform-origin: center center;
         background-color: @white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        animation: list-frame-open @select-list-animation-time-frame ease-out;
+        animation: list-frame-open 0.3s ease-out;
         animation-fill-mode: forwards;
 
         @keyframes list-frame-open {
@@ -415,7 +415,7 @@ export default {
     &__select-list-content {
         position: relative;
         opacity: 0;
-        animation: list-content-open @select-list-animation-time-content ease-out @select-list-animation-time-frame/3 forwards;
+        animation: list-content-open 0.2s ease-out 0.1s forwards;
 
         @keyframes list-content-open {
             from { opacity: 0; }

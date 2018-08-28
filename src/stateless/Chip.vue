@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .chip {
     height: 20px;
@@ -38,7 +38,7 @@ export default {
     align-items: center;
     user-select: none;
     cursor: pointer;
-    transition: all @icon-hover-transition-time;
+    transition: all @default-transition-time;
     outline: none;
 }
 
@@ -52,7 +52,7 @@ export default {
 }
 
 .chip__remove-btn {
-    transition: all @icon-hover-transition-time;
+    transition: all @default-transition-time;
     padding: 0 0 0 5px;
 }
 

@@ -290,7 +290,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 @day-size: 46px;
 @width: @day-size * 7;
@@ -368,7 +368,7 @@ export default {
         color: @gunpowder;
         background-color: white;
         text-align: center;
-        transition: all 150ms ease;
+        transition: all @default-transition-time ease;
         user-select: none;
         border: 2px solid transparent;
         box-sizing: border-box;

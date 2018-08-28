@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .support-text {
     position: relative;
@@ -122,7 +122,7 @@ export default {
         position: absolute;
         border-radius: 7px;
         padding: 0 0 4px 2px; // For shadow
-        z-index: @z-index-new-dialog + 25;
+        z-index: @z-highest;
 
         &--left {
             left: -2px;
@@ -144,7 +144,7 @@ export default {
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
         line-height: 14px;
         white-space: pre;
-        transition: transform 150ms ease-out;
+        transition: transform @default-transition-time ease-out;
 
         &--light {
             background-color: #F7F7F7;
@@ -175,7 +175,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         position: relative;
-        z-index: @z-index-new-dialog + 50;
+        z-index: @z-sky;
 
         &--open {
             pointer-events: none;

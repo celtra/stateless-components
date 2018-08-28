@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .hover-tooltip {
     position: absolute;
@@ -72,7 +72,7 @@ export default {
     font-size: 11px;
     text-align: center;
     padding: 6px 20px;
-    z-index: @z-index-new-dialog + 25;
+    z-index: @z-highest;
     max-width: 200px;
 }
 

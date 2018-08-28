@@ -223,7 +223,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .multiselect {
     height: fit-content;
@@ -246,7 +246,7 @@ export default {
 
     &__change-multiple {
         flex: none;
-        z-index: 5;
+        z-index: @z-lowest;
         position: relative;
         height: 24px;
         display: flex;

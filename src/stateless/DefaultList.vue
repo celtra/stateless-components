@@ -275,7 +275,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box;

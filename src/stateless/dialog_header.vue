@@ -124,8 +124,13 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) "./variables";
-@import (reference) './breakpoints';
+@import (reference) './common';
+
+@step-animation-time: 0.2s;
+@open-close-animation-time-header: 0.21s;
+@closing-animation-time-header: @default-transition-time;
+@open-animation-time-header-delay: 0.1s;
+@close-animation-time-header-delay: 0.06s;
 
 .dialog-header {
     position: absolute;
