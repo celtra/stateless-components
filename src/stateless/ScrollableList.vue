@@ -182,7 +182,7 @@ export default {
     &__overlay {
         position: absolute;
         height: 15px;
-        width: 100%;
+        width: calc(100% - 6px);
         pointer-events: none;
         z-index: 10;
 
