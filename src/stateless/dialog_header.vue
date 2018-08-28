@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="step in calculationSteps" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive && isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
+        <div v-for="step in calculationSteps" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive, 'green': isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
 
         <div :class="['dialog-header--' + theme, 'dialog-header--' + dialogViewState]" class="dialog-header">
             <div v-show="stepIndex > 0 && hasBackButton" ref="backButton" class="dialog-header__back" tabindex="0" @click="previousStep" @keyup.enter.stop="previousStep">
@@ -8,7 +8,7 @@
             </div>
 
             <div v-show="showHeader" ref="headerContent" :style="headerStyle" class="dialog-header__content">
-                <div v-for="step in shownSteps" :id="step.id" :key="step.id" :class="{ 'active': step.isActive && isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element">{{ step.label | middleEllipsis(32) }}</div>
+                <div v-for="step in shownSteps" :id="step.id" :key="step.id" :class="{ 'active': step.isActive, 'green': isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element">{{ step.label | middleEllipsis(32) }}</div>
             </div>
 
             <div v-show="hasCloseButton" ref="closeButton" :class="{'dialog-header__close--light': theme === 'light'}" class="dialog-header__close" tabindex="0" @click="closeDialog" @keyup.enter.stop="closeDialog">
@@ -256,6 +256,10 @@ export default {
         color: @gray;
 
         &--active {
+            color: @white;
+        }
+
+        &--green {
             color: @light-green;
         }
     }
@@ -274,6 +278,10 @@ export default {
         color: @bluish-gray;
 
         &--active {
+            color: @white;
+        }
+
+        &--green {
             color: @light-green;
         }
     }
