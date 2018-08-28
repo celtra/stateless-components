@@ -421,9 +421,9 @@ export default {
         focus () {
             this.$refs.input.focus()
         },
-        removeFocus () {
+        removeFocus (ev) {
             this.focused = false
-            this.$emit('blur')
+            this.$emit('blur', ev)
 
             if ((this.text === '' || this.text === null) && this.label) {
                 this.$refs.labelOverlay.style.transform = ''

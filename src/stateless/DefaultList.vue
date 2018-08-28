@@ -219,6 +219,7 @@ export default {
         onBlur (ev) {
             if (!this.$el.contains(event.relatedTarget)) {
                 this.isFocused = false
+                this.$emit('blur', ev)
             }
         },
         selectItem (itemId) {

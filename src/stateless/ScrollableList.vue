@@ -22,6 +22,7 @@
                     :list-container="$refs.scrollable"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
+                    @blur="$emit('blur', $event)"
                     @activate="onActivate"
                     @before-update="onBeforeUpdate">
                     <template v-if="$scopedSlots.default" slot-scope="{ item }">

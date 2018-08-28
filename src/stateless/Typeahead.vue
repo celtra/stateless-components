@@ -1,9 +1,9 @@
 <template>
-    <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.down="$refs.list && $refs.list.focus()" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
+    <div v-click-outside="close" class="typeahead">
+        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.down="$refs.list && $refs.list.focus()" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
         <template v-if="isOpen && (isValueValid || suggestions.length > 0) && !(value === null || typeof value === 'string' && value.length <= 2)">
-            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect"/>
+            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
@@ -55,7 +55,6 @@ export default {
             this.$refs.input.focus()
         },
         onInputFocus () {
-            this.isListFocused = false
             this.isOpen = true
             this.$emit('focus')
         },
@@ -63,11 +62,9 @@ export default {
             this.isOpen = false
             this.$emit('blur')
         },
-        onInputBlur () {
-            if (!this.isListFocused) {
-                this.$nextTick(() => {
-                    setTimeout(() => this.close(), 100) // TODO: Temporary hack, needs to be fixed before deploy
-                })
+        onBlur (ev) {
+            if (!this.$el.contains(ev.relatedTarget)) {
+                this.close()
             }
         },
         onInput (v) {
@@ -83,7 +80,6 @@ export default {
             if (!this.isOpen) {
                 this.isOpen = true
             } else {
-                this.isListFocused = true
                 this.$refs.list.$el.focus()
                 this.$refs.list.move(delta)
             }
@@ -103,6 +99,7 @@ export default {
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 15px 0px;
+        z-index: @z-heaven;
     }
 
     &__no-items-text {
