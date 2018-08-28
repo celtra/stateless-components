@@ -8,6 +8,8 @@
             :max-date="maxDate"
             :date-format="dateFormat"
             :date-format-focus="dateFormatFocus"
+            :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
+            :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
             label="Start date"
             @input="onFromInput"
             @keyup="$emit('keyup', $event)">
@@ -23,6 +25,8 @@
             :max-date="maxDate"
             :date-format="dateFormat"
             :date-format-focus="dateFormatFocus"
+            :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
+            :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
             label="End date"
             @input="onToInput"
             @keyup="$emit('keyup', $event)">
@@ -46,6 +50,8 @@ export default {
         dateFormat: { type: String },
         dateFormatFocus: { type: String, required: false },
         separator: { type: String },
+        dateBeforeMinDateErrorMessage: { type: String, required: false },
+        dateAfterMaxDateErrorMessage: { type: String, required: false },
     },
     methods: {
         onFromInput (value) {

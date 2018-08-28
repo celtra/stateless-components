@@ -19,6 +19,8 @@
                     :max-date="maxDate"
                     :date-format="dateFormat"
                     :date-format-focus="dateFormatFocus"
+                    :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
+                    :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     class="date-picker__date-input"
                     @input="setValue">
                 </date-range-input>
@@ -31,6 +33,8 @@
                     :max-date="maxDate"
                     :date-format="dateFormat"
                     :date-format-focus="dateFormatFocus"
+                    :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
+                    :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     :label="label"
                     class="date-picker__date-input"
                     @input="setValue">
@@ -79,6 +83,8 @@ export default {
         hasInput: { type: Boolean, default: true },
         dateFormat: { type: String },
         dateFormatFocus: { type: String, required: false },
+        dateBeforeMinDateErrorMessage: { type: String, required: false },
+        dateAfterMaxDateErrorMessage: { type: String, required: false },
     },
     data () {
         return {
