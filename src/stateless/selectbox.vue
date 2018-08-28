@@ -7,7 +7,7 @@
         </div>
 
         <div :class="cssStates | prefix('selectbox__select-row--')" class="selectbox__select-row" @click="openSelectList()">
-            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" />
+            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" class="selectbox__current-item" />
             <div class="selectbox__arrow-wrapper">
                 <div :class="cssStates | prefix('selectbox__arrow-down--')" class="selectbox__arrow-down"></div>
             </div>
@@ -357,6 +357,10 @@ export default {
                 cursor: default;
             }
         }
+    }
+
+    &__current-item {
+        width: calc(~'100% - 20px');
     }
 
     &__select-list-wrap {
