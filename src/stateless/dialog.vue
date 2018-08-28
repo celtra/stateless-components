@@ -41,7 +41,7 @@ export default {
         blurElement: { type: HTMLElement, required: false },
         steps: { type: Array, required: false },
         title: { type: String, required: false },
-        isValid: { type: Boolean, default: true },
+        isValid: { type: Boolean, default: false },
         hasBackButton: { type: Boolean, default: true },
         hasCloseButton: { type: Boolean, default: true },
         isClosingAllowed: { type: Boolean, default: true },
