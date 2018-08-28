@@ -278,7 +278,7 @@ export default {
         color: @bluish-gray;
 
         &--active {
-            color: @white;
+            color: @bluish-gray;
         }
 
         &--green {
