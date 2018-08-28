@@ -155,7 +155,7 @@ export default {
 
     &__list-wrap {
         position: relative;
-        overflow-y: hidden;
+        overflow: hidden;
     }
 
     &__list {
