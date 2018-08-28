@@ -2,7 +2,6 @@
     <div v-click-outside="close">
         <chip
             :is-active="value.length > 0"
-            :size="size"
             :label="chipLabel"
             :metadata="`${value.length}/${options.length}`"
             theme="dark"
