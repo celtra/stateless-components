@@ -265,7 +265,6 @@ export default {
     }
 
     &__clear-all {
-        color: @bluish-gray;
         font-size: 11px;
         cursor: pointer;
         display: flex;
@@ -311,8 +310,30 @@ export default {
 
 .multiselect--light.multiselect--light {
     .multiselect__no-items {
-        color: white;
+        color: @gray-blue;
     }
+
+    .multiselect__clear-all {
+        color: @gunpowder;
+
+        &:focus, &:hover {
+            color: black;
+        }
+    }
+}
+
+.multiselect--dark.multiselect--dark {
+  .multiselect__no-items {
+      color: @gunpowder;
+  }
+
+  .multiselect__clear-all {
+      color: @very-light-gray;
+
+      &:focus, &:hover {
+          color: white;
+      }
+  }
 }
 </style>
 
