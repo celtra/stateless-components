@@ -30,6 +30,8 @@ export default {
         maxDate: { type: Date },
         dateFormat: { type: String },
         dateFormatFocus: { type: String, required: false },
+        dateBeforeMinDateErrorMessage: { type: String, required: false },
+        dateAfterMaxDateErrorMessage: { type: String, required: false },
     },
     data () {
         return {
@@ -56,16 +58,24 @@ export default {
             if (this.momentDate && this.inFocus) {
                 if (!this.momentDate.isValid()) {
                     return 'Date is not valid'
-                } else if (!this.isDateValid(this.momentDate.toDate())) {
-                    return 'Date is not in specified range'
+                } else if (!this.isDateAfterMinDate(this.momentDate.toDate())) {
+                    return this.dateBeforeMinDateErrorMessage || 'Date not in required range'
+                } else if (!this.isDateBeforeMaxDate(this.momentDate.toDate())) {
+                    return this.dateAfterMaxDateErrorMessage || 'Date not in required range'
                 }
             }
             return null
         },
     },
     methods: {
+        isDateAfterMinDate (date) {
+            return !this.minDate || compareDate(date, this.minDate) >= 0
+        },
+        isDateBeforeMaxDate (date) {
+            return !this.maxDate || compareDate(date, this.maxDate) <= 0
+        },
         isDateValid (date) {
-            return (!this.minDate || compareDate(date, this.minDate) >= 0) && (!this.maxDate || compareDate(date, this.maxDate) <= 0)
+            return this.isDateAfterMinDate(date) && this.isDateBeforeMaxDate(date)
         },
         onInput (value) {
             this.textValue = value
