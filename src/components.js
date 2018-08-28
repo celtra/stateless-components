@@ -40,7 +40,11 @@ export default {
     Dialog: {
         component: Dialog,
         defaultProps: {
-            title: 'Something',
+            steps: [
+                { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
+                { id: 'b', passiveLabel: 'B', activeLabel: 'B' },
+            ],
+            stepId: 'b',
         },
     },
     DropArea: {
