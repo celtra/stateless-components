@@ -240,9 +240,14 @@ export default {
     background-color : transparent;
 }
 
-::-webkit-scrollbar-thumb {
-    border-radius    : 5px;
-    background-color : @very-light-gray;
+.scrollable-list--light .scrollable-list__list::-webkit-scrollbar-thumb {
+    background-color: @very-light-gray;
+    border-radius: 5px;
+}
+
+.scrollable-list--dark .scrollable-list__list::-webkit-scrollbar-thumb {
+    background-color: @gunpowder;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-corner {
