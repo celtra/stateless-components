@@ -206,6 +206,12 @@ export default {
                 this.isFocused = true
                 if (this.flatSelectableItems.length > 0) {
                     let activeItem = this.flatSelectableItems[0]
+                    if (this.value) {
+                        let currentItem = this.flatSelectableItems.find(x => x.id === this.value)
+                        if (currentItem) {
+                            activeItem = currentItem
+                        }
+                    }
                     this.activeId = activeItem.key || activeItem.id
                 }
             }
@@ -288,6 +294,7 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
+        transition: background-color 100ms ease;
 
         &:hover {
             position: relative;
@@ -322,19 +329,26 @@ export default {
 }
 
 .default-list--dark {
-    .default-list__item {
-        &--active, &--leaf:hover {
-            background-color: @very-dark-gray;
-        }
+    .default-list__item--leaf:hover {
+        background-color: @very-dark-gray;
+    }
+}
+
+.default-list--dark:not(:hover) {
+    .default-list__item--active {
+        background-color: @very-dark-gray;
     }
 }
 
 .default-list--light {
-    .default-list__item {
-        &--active, &--leaf:hover {
-            background-color: @very-light-gray;
-        }
+    .default-list__item--leaf:hover {
+        background-color: @very-light-gray;
     }
 }
 
+.default-list--light:not(:hover) {
+    .default-list__item--active {
+        background-color: @very-light-gray;
+    }
+}
 </style>
