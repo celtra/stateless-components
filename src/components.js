@@ -235,7 +235,8 @@ export default {
     ScrollableList: {
         component: ScrollableList,
         defaultProps: {
-            items: defaultItems,
+            items: largeItems,
+            numItems: 10,
             label: 'Something',
         },
     },

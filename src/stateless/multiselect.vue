@@ -40,7 +40,6 @@
                             </slot>
                         </checkbox-element>
                     </div>
-                    <div slot="after" class="multiselect__after-list"></div>
                 </scrollable-list>
             </div>
         </div>
@@ -292,10 +291,6 @@ export default {
     &__no-items {
         text-align: center;
         font-size: 18px;
-    }
-
-    &__after-list {
-        height: 60px;
     }
 
     &__checkbox {
