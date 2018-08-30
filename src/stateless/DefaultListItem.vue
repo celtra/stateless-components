@@ -122,6 +122,10 @@ export default {
 
     &--disabled {
         cursor: auto;
+
+        .default-list-item__icon {
+            color: @gray-blue;
+        }
     }
 
     &__label {
@@ -151,6 +155,7 @@ export default {
 
     &__icon {
         margin-left: 10px;
+        color: @gunpowder;
     }
 
     &__hidden-width {
