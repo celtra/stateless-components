@@ -86,9 +86,14 @@ export default {
     }
 
     &__item-remove {
-        margin-left: 5px;
+        margin-left: 15px;
         cursor: pointer;
         color: @gunpowder;
+        transition: color @default-transition-time;
+
+        &:hover {
+            color: black
+        }
     }
 }
 

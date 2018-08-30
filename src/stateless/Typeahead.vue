@@ -1,8 +1,8 @@
 <template>
     <div v-click-outside="close" class="typeahead">
-        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.down="$refs.list && $refs.list.focus()" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
+        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
-        <template v-if="isOpen && (isValueValid || suggestions.length > 0) && !(value === null || typeof value === 'string' && value.length <= 2)">
+        <template v-if="showSuggestions">
             <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
@@ -37,17 +37,36 @@ export default {
                 error: null,
             }
         },
+        showSuggestions () {
+            return this.isOpen && (this.isValueValid || this.suggestions.length > 0) && !(this.value === null || typeof this.value === 'string' && this.value.length <= 2)
+        },
         suggestions () {
             return this.getSuggestions(this.value)
         },
         inputError () {
-            if (this.isOpen || !this.isValid) {
+            if (this.showSuggestions || !this.isValid) {
                 return null
             }
             return this.isValid(this.value)
         },
         isValueValid () {
             return this.isValid ? this.isValid(this.value) === null : true
+        },
+    },
+    watch: {
+        value () {
+            if (this.showSuggestions){
+                this.$nextTick(() => {
+                    this.$refs.list.highlightItem(0)
+                })
+            }
+        },
+        isOpen () {
+            if (this.showSuggestions){
+                this.$nextTick(() => {
+                    this.$refs.list.highlightItem(0)
+                })
+            }
         },
     },
     methods: {
@@ -76,12 +95,15 @@ export default {
             this.$emit('select', suggestion)
             this.close()
         },
-        move (delta) {
-            if (!this.isOpen) {
-                this.isOpen = true
-            } else {
-                this.$refs.list.$el.focus()
-                this.$refs.list.move(delta)
+        selectFirstItem () {
+            if (this.showSuggestions && this.suggestions.length > 0) {
+                this.onSelect(this.suggestions[0])
+            }
+        },
+        onDown () {
+            if (this.$refs.list){
+                this.$refs.list.focus()
+                this.$refs.list.move(1)
             }
         },
     },

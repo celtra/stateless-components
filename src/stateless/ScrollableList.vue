@@ -144,6 +144,9 @@ export default {
         move (direction) {
             this.$refs.list.move(direction)
         },
+        highlightItem (index) {
+            this.$refs.list.highlightItem(index)
+        },
     },
 }
 </script>
