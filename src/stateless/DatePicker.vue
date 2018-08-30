@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker" @keydown.esc.stop="isOpen = false">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker" @keyup.esc.stop="isOpen = false">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="openCalendar">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
@@ -146,7 +146,6 @@ export default {
                 this.isOpen = true
                 this.$nextTick(() => {
                     this.$refs.popup.focus()
-                    console.log(document.activeElement)
                 })
             }
         },
