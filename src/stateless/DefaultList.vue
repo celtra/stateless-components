@@ -121,7 +121,7 @@ export default {
                 return {
                     ...item,
                     css: css,
-                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId },
+                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
                 }
             })
         },
@@ -309,7 +309,7 @@ export default {
         align-items: center;
         transition: background-color 100ms ease;
 
-        &:hover {
+        &--with-tooltip:hover {
             position: relative;
         }
 

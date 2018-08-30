@@ -258,14 +258,14 @@ export default {
     TypeaheadMultiselect: {
         component: TypeaheadMultiselect,
         rootCss: {
-            width: '450px',
+            width: '600px',
         },
         defaultProps: {
             label: 'Something',
             value: [],
             getSuggestions: (text) => {
                 return [
-                    { id: '1', label: "Something", metadata: 'zan.kusterle@gmail.com', icon: 'plus' },
+                    { id: '1', label: "Something Something Something Something Something Something Something Something Something", metadata: 'zan.kusterle@gmail.comzan.kusterle@gmail.comzan.kusterle@gmail.com', icon: 'plus' },
                     { id: '2', label: "Lorem" },
                     { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
                 ]

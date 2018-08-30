@@ -74,6 +74,7 @@ export default {
     padding: 6px 20px;
     z-index: @z-highest;
     max-width: 200px;
+    word-wrap: break-word;
 }
 
 :hover > .hover-tooltip,

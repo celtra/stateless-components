@@ -2,12 +2,19 @@
     <div class="typeahead-multiselect">
         <typeahead ref="typeahead" v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
 
-        <div :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
+        <div ref="list" :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
             <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
-                <div class="typeahead-multiselect__item-label">{{ item.label }}</div>
-                <div class="typeahead-multiselect__item-metadata">
-                    <span class="typeahead-multiselect__item-metadata-text">{{ item.metadata }}</span>
-                    <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
+                <div class="typeahead-multiselect__tooltip-wrap">
+                    <div class="typeahead-multiselect__item-label">{{ textEllipsis(item.label) }}</div>
+                    <tooltip v-if="item.label.length > maxLength" :boundary-element="$refs.list">{{ item.label }}</tooltip>
+                </div>
+
+                <div class="typeahead-multiselect__tooltip-wrap">
+                    <div class="typeahead-multiselect__item-metadata">
+                        <span class="typeahead-multiselect__item-metadata-text">{{ textEllipsis(item.metadata) }}</span>
+                        <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
+                    </div>
+                    <tooltip v-if="item.metadata.length > maxLength" :boundary-element="$refs.list">{{ item.metadata }}</tooltip>
                 </div>
             </div>
         </div>
@@ -17,11 +24,13 @@
 <script>
 import Icon from './icon.vue'
 import Typeahead from './Typeahead.vue'
+import Tooltip from './Tooltip.vue'
 
 export default {
     components: {
         Icon,
         Typeahead,
+        Tooltip,
     },
     props: {
         label: { type: String, required: true },
@@ -31,6 +40,7 @@ export default {
         theme: { type: String, default: 'dark' },
         isValid: { type: Function, required: false },
         numItems: { type: Number, default: 8 },
+        maxLength: { type: Number, default: 30 },
     },
     data () {
         return {
@@ -51,6 +61,9 @@ export default {
             const ids = this.value.map(x => x.id)
             return suggestions.filter(x => !ids.includes(x.id))
         },
+        textEllipsis (text) {
+            return text.length > this.maxLength ? text.substring(0, this.maxLength - 3) + '...' : text
+        },
     },
 }
 </script>
@@ -60,6 +73,8 @@ export default {
 .typeahead-multiselect {
     &__item-list {
         overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 70px;
     }
 
     &__item {
@@ -68,6 +83,10 @@ export default {
         align-items: center;
         margin-top: 15px;
         height: 20px;
+    }
+
+    &__tooltip-wrap {
+        position: relative;
     }
 
     &__item-label {
