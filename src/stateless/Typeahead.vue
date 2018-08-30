@@ -67,7 +67,7 @@ export default {
             this.$nextTick(() => {
                 this.highlightFirstItem()
                 // Reset input state to normal
-                if (text && text.length <= 2) {
+                if (this.isOpen) {
                     this.$refs.input.errorMessage = null
                 }
             })
