@@ -250,6 +250,7 @@ export default {
         height: 24px;
         display: flex;
         align-items: center;
+        margin-bottom: 5px;
     }
 
     .multiselect__select-all.multiselect__select-all {
@@ -336,10 +337,6 @@ export default {
 .multiselect__default-list {
     .default-list__item.default-list__item.default-list__item {
         padding: 0;
-
-        &:hover:not(.default-list__item--active) {
-            background-color: inherit;
-        }
     }
 
     .multiselect__checkbox.multiselect__checkbox {

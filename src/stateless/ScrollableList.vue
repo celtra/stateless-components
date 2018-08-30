@@ -125,8 +125,8 @@ export default {
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
             const overlayHeight = this.showOverlay ? 15 : 0
-            const upTarget = currentScroll + itemY - rootY - overlayHeight * 2
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding - overlayHeight
+            const upTarget = currentScroll + itemY - rootY - overlayHeight
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget
@@ -173,6 +173,7 @@ export default {
         pointer-events: all;
         padding: 1px 3px;
         margin-right: 5px;
+        line-height: 12px;
 
         &:focus {
             outline: none;
