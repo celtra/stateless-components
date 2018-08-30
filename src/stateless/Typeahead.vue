@@ -44,7 +44,7 @@ export default {
             return this.getSuggestions(this.value)
         },
         inputError () {
-            if (this.showSuggestions || !this.isValid) {
+            if (this.suggestions.filter(item => !item.disabled).length > 0 || !this.isValid || ( this.value === null || typeof this.value === 'string' && this.value.length <= 2)) {
                 return null
             }
             return this.isValid(this.value)
@@ -54,7 +54,13 @@ export default {
         },
     },
     watch: {
-        value () {
+        value (text) {
+            this.$nextTick(() => {
+                // Reset input state to normal
+                if (text && text.length <= 2) {
+                    this.$refs.input.errorMessage = null
+                }
+            })
             this.$nextTick(this.highlightFirstItem)
         },
         isOpen () {
