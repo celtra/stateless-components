@@ -39,6 +39,7 @@ export default {
     cursor: pointer;
     transition: all @default-transition-time;
     outline: none;
+    padding: 0 5px;
 }
 
 .chip__label {
@@ -53,10 +54,6 @@ export default {
 .chip__remove-btn {
     transition: all @default-transition-time;
     padding: 0 0 0 5px;
-}
-
-.chip--normal {
-    padding: 0 5px;
 }
 
 /* DARK THEME */
