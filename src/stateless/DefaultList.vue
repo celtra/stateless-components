@@ -258,9 +258,10 @@ export default {
             // This is only used in Typeahead to fake highlight first item and select it on enter
             this.isFocused = true
             let item = this.flatSelectableItems[index]
-            console.log(index)
-            this.activeId = (item.key || item.id)
-            this.$emit('activate', item.key || item.id)
+            if (item) {
+                this.activeId = (item.key || item.id)
+                this.$emit('activate', item.key || item.id)
+            }
         },
         getOffset ({ depth, isLeaf }) {
             if (depth === 0) {
