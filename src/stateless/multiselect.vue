@@ -11,8 +11,8 @@
             <div v-else>
                 <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
-                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="$event ? selectAll() : clearAll()">
-                            <span v-if="changeMultipleState !== true" class="multiselect__select-all-label">SELECT ALL</span>
+                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
+                            <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
                             <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
                         </checkbox-element>
                     </div>

@@ -121,7 +121,7 @@ export default {
             options: largeItems,
             value: [],
             isSearchable: true,
-            canClearAll: true,
+            canSelectAndClearAll: true,
         },
     },
     RadioButton: {
