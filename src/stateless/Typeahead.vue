@@ -44,7 +44,7 @@ export default {
             return this.getSuggestions(this.value)
         },
         inputError () {
-            if (this.suggestions.filter(item => !item.disabled).length > 0 || !this.isValid || ( this.value === null || typeof this.value === 'string' && this.value.length <= 2)) {
+            if (this.showSuggestions || this.suggestions.filter(item => !item.disabled).length > 0 || !this.isValid || ( this.value === null || typeof this.value === 'string' && this.value.length <= 2)) {
                 return null
             }
             return this.isValid(this.value)
