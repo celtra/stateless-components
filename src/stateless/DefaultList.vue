@@ -342,11 +342,11 @@ export default {
     }
 }
 
-.default-list--dark {
-    .default-list__item--leaf:hover {
-        background-color: @very-dark-gray;
-    }
-}
+// .default-list--dark {
+//     .default-list__item--leaf:hover {
+//         background-color: @very-dark-gray;
+//     }
+// }
 
 .default-list--dark:not(:hover) {
     .default-list__item--active {
@@ -354,11 +354,11 @@ export default {
     }
 }
 
-.default-list--light {
-    .default-list__item--leaf:hover {
-        background-color: @very-light-gray;
-    }
-}
+// .default-list--light {
+//     .default-list__item--leaf:hover {
+//         background-color: @very-light-gray;
+//     }
+// }
 
 .default-list--light:not(:hover) {
     .default-list__item--active {
