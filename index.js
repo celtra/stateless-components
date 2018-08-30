@@ -24169,7 +24169,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__ = __webpack_require__(237);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7d1517d3_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(420);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6d097b3c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__ = __webpack_require__(420);
 function injectStyle (ssrContext) {
   __webpack_require__(418)
 }
@@ -24184,12 +24184,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-7d1517d3"
+var __vue_scopeId__ = "data-v-6d097b3c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Typeahead_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7d1517d3_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6d097b3c_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Typeahead_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -24271,15 +24271,23 @@ var Component = normalizeComponent(
             var _this = this;
 
             this.$nextTick(function () {
+                _this.highlightFirstItem();
                 // Reset input state to normal
                 if (text && text.length <= 2) {
                     _this.$refs.input.errorMessage = null;
                 }
             });
-            this.$nextTick(this.highlightFirstItem);
         },
         isOpen: function isOpen() {
-            this.$nextTick(this.highlightFirstItem);
+            var _this2 = this;
+
+            this.$nextTick(function () {
+                _this2.highlightFirstItem();
+                // Reset input state to normal
+                if (text && text.length <= 2) {
+                    _this2.$refs.input.errorMessage = null;
+                }
+            });
         }
     },
     methods: {
@@ -39580,7 +39588,7 @@ var content = __webpack_require__(419);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2ddac588", content, true, {});
+var update = __webpack_require__(2)("a2fc96c8", content, true, {});
 
 /***/ }),
 /* 419 */
@@ -39591,7 +39599,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.typeahead[data-v-7d1517d3] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-7d1517d3] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: white;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n  z-index: 8000;\n}\n.typeahead__no-items-text[data-v-7d1517d3] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: white;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/jakobkosir/WebstormProjects/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,wBAAwB;EACxB,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;EAClB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,YAAY;EACZ,+BAA+B;UACvB,uBAAuB;EAC/B,kBAAkB;EAClB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-7d1517d3] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-7d1517d3] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: white;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n  z-index: 8000;\n}\n.typeahead__no-items-text[data-v-7d1517d3] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: white;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.typeahead[data-v-6d097b3c] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-6d097b3c] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: white;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n  z-index: 8000;\n}\n.typeahead__no-items-text[data-v-6d097b3c] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: white;\n  font-size: 16px;\n}\n", "", {"version":3,"sources":["/Users/jakobkosir/WebstormProjects/stateless-components/src/stateless/Typeahead.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,wBAAwB;EACxB,mDAAmD;UAC3C,2CAA2C;EACnD,kBAAkB;EAClB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,mDAAmD;UAC3C,2CAA2C;EACnD,cAAc;EACd,YAAY;EACZ,+BAA+B;UACvB,uBAAuB;EAC/B,kBAAkB;EAClB,gBAAgB;CACjB","file":"Typeahead.vue","sourcesContent":["\n.typeahead[data-v-6d097b3c] {\n  position: relative;\n}\n.typeahead__suggestions[data-v-6d097b3c] {\n  position: absolute;\n  margin-top: -7px;\n  background-color: white;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 15px 0px;\n  z-index: 8000;\n}\n.typeahead__no-items-text[data-v-6d097b3c] {\n  position: absolute;\n  margin-top: -7px;\n  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);\n  padding: 20px;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: white;\n  font-size: 16px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 

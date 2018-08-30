@@ -56,15 +56,21 @@ export default {
     watch: {
         value (text) {
             this.$nextTick(() => {
+                this.highlightFirstItem()
                 // Reset input state to normal
                 if (text && text.length <= 2) {
                     this.$refs.input.errorMessage = null
                 }
             })
-            this.$nextTick(this.highlightFirstItem)
         },
         isOpen () {
-            this.$nextTick(this.highlightFirstItem)
+            this.$nextTick(() => {
+                this.highlightFirstItem()
+                // Reset input state to normal
+                if (text && text.length <= 2) {
+                    this.$refs.input.errorMessage = null
+                }
+            })
         },
     },
     methods: {
@@ -93,7 +99,7 @@ export default {
             this.$emit('select', suggestion)
             this.close()
         },
-        highlightFirstItem (){
+        highlightFirstItem () {
             if (this.showSuggestions) {
                 let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
                 if (firstEnabledIndex > -1 ) {
