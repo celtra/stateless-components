@@ -1,14 +1,14 @@
 <template>
-    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker" @keydown.esc.stop="isOpen = false">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
-        <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="isOpen = !disabled">
+        <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="openCalendar">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
             <icon :style="{ width: caretSize }" name="caret" class="icon-appendix"></icon>
         </div>
         <div :class="states | prefix('date-picker__border-overlay--')" class="date-picker__border-overlay"></div>
         <div :class="size | prefix('date-picker__error-message--')" class="date-picker__error-message">{{ error }}</div>
 
-        <div v-if="isOpen" class="date-picker__popup">
+        <div v-if="isOpen" ref="popup" class="date-picker__popup" tabindex="0">
             <template v-if="hasInput">
                 <date-range-input
                     v-if="isRange"
@@ -141,6 +141,15 @@ export default {
         clickOutside () {
             this.isOpen = false
         },
+        openCalendar () {
+            if (!this.disabled) {
+                this.isOpen = true
+                this.$nextTick(() => {
+                    this.$refs.popup.focus()
+                    console.log(document.activeElement)
+                })
+            }
+        },
     },
 }
 </script>
@@ -218,6 +227,7 @@ export default {
         padding: 30px 15px;
         box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
         z-index: @z-default;
+        outline: none;
     }
 
     &__date-input {
