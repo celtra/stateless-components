@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)">
+    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur">
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
                 <slot :item="assumedItem">
@@ -221,6 +221,9 @@ export default {
                 this.isFocused = false
                 this.$emit('blur', ev)
             }
+        },
+        blur () {
+            this.$el.blur()
         },
         selectItem (itemId) {
             if (itemId) {
