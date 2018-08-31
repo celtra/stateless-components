@@ -238,10 +238,8 @@ export default {
             }
         },
         onItemHover (ev, item) {
-            if (this.setActiveOnHover) {
-                if (ev.movementX !== 0 || ev.movementY !== 0) {
-                    this.activeId = item.key || item.id
-                }
+            if (this.setActiveOnHover && item.isLeaf && (ev.movementX !== 0 || ev.movementY !== 0)) {
+                this.activeId = item.key || item.id
             }
         },
         focus () {
