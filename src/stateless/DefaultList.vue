@@ -37,7 +37,7 @@
             </div>
         </transition-group>
         <template v-else>
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -84,6 +84,7 @@ export default {
         noGroupRendering: { type: Boolean, default: false },
         listContainer: { type: HTMLElement, default: null },
         renderAllItems: { type: Boolean, default: true },
+        setActiveOnHover: { type: Boolean, default: true },
     },
     data () {
         return {
@@ -235,6 +236,13 @@ export default {
                 }
             }
         },
+        onItemHover (ev, item) {
+            if (this.setActiveOnHover) {
+                if (ev.movementX !== 0 || ev.movementY !== 0) {
+                    this.activeId = item.key || item.id
+                }
+            }
+        },
         focus () {
             this.$el.focus()
         },
@@ -342,25 +350,13 @@ export default {
     }
 }
 
-// .default-list--dark {
-//     .default-list__item--leaf:hover {
-//         background-color: @very-dark-gray;
-//     }
-// }
-
-.default-list--dark:not(:hover) {
+.default-list--dark {
     .default-list__item--active {
         background-color: @very-dark-gray;
     }
 }
 
-// .default-list--light {
-//     .default-list__item--leaf:hover {
-//         background-color: @very-light-gray;
-//     }
-// }
-
-.default-list--light:not(:hover) {
+.default-list--light {
     .default-list__item--active {
         background-color: @very-light-gray;
     }

@@ -1,6 +1,6 @@
 <template>
-    <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)">
-        <div v-if="isSearchable" class="multiselect__search-with-icon">
+    <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)" @click="$refs.list && $refs.list.focus()">
+        <div v-if="isSearchable" class="multiselect__search-with-icon" @click.stop>
             <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
@@ -9,7 +9,7 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                         <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
                             <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>

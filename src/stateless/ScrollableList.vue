@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent>
+    <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
             <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top">
                 <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
@@ -16,6 +16,7 @@
                     :highlight-query="highlightQuery"
                     :transition-sorting="transitionSorting"
                     :no-group-rendering="noGroupRendering"
+                    :set-active-on-hover="setActiveOnHover"
                     :size="size"
                     :theme="theme"
                     :style="bottomPadding > 0 ? { marginBottom: `${bottomPadding}px` } : {}"
@@ -53,6 +54,7 @@ export default {
         highlightQuery: { type: String },
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
+        setActiveOnHover: { type: Boolean, default: true },
         bottomPadding: { type: Number, default: 0 },
         enableScrollTop: { type: Boolean, default: false },
         showOverlay: { type: Boolean, default: false },
@@ -70,6 +72,9 @@ export default {
         maxHeight () {
             return this.numItems * this.itemHeight + this.bottomPadding
         },
+    },
+    beforeCreate () {
+        this.topPadding = 10 // Must be in sync with .scrollable-list__list padding-top
     },
     mounted () {
         this.$nextTick(() => {
@@ -126,7 +131,7 @@ export default {
 
             const overlayHeight = this.showOverlay ? 15 : 0
             const upTarget = currentScroll + itemY - rootY - overlayHeight
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight + this.bottomPadding
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - this.topPadding
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget

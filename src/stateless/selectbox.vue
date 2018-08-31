@@ -17,11 +17,11 @@
             {{ mappedHelperText }}
         </div>
 
-        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap">
+        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap" @click="$refs.list.focus()">
             <div class="selectbox__list-frame"></div>
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
-                    <div v-if="isSearchable" class="selectbox__search-wrapper">
+                    <div v-if="isSearchable" class="selectbox__search-wrapper" @click.stop>
                         <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
