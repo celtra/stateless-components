@@ -1,7 +1,7 @@
 <template>
     <div class="support-text">
         <div :class="{right: isRight, left: !isRight} | prefix('support-text__main--')" class="support-text__main">
-            <a v-if="url" :href="url" target="_blank" tabindex="-1" @click="click">
+            <a v-if="url" :href="url" target="_blank" tabindex="-1" class="support-text__link" @click="click">
                 <support-text :theme="theme" :text="text" :is-right="isRight"></support-text>
             </a>
             <template v-else>
@@ -113,6 +113,10 @@ export default {
             right: 0;
             top: 0;
         }
+    }
+
+    &__link {
+        outline: none;
     }
 
     &__hidden {
