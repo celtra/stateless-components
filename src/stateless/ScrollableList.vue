@@ -191,7 +191,7 @@ export default {
         height: 15px;
         width: calc(100% - 6px);
         pointer-events: none;
-        z-index: @z-lowest;
+        z-index: @z-middle;
 
         &--top {
             top: 0;
