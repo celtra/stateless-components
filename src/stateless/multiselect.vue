@@ -89,7 +89,9 @@ export default {
     computed: {
         allOptions () {
             let result = this.queryOptions
-            for (let option of this.options) {
+
+            let matchingOptions = itemsUtils.search(this.options, this.searchQuery)
+            for (let option of matchingOptions) {
                 if (!result.map(x => x.id).includes(option.id)) {
                     result = [option].concat(result)
                 }
@@ -104,8 +106,6 @@ export default {
         },
         listItems () {
             let result = this.allOptions
-
-            result = itemsUtils.search(result, this.searchQuery)
 
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
