@@ -88,10 +88,10 @@ export default {
     },
     computed: {
         allOptions () {
-            let result = this.options
-            for (let queryOption of this.queryOptions) {
-                if (!result.map(x => x.id).includes(queryOption.id)) {
-                    result.push(queryOption)
+            let result = this.queryOptions
+            for (let option of this.options) {
+                if (!result.map(x => x.id).includes(option.id)) {
+                    result = [option].concat(result)
                 }
             }
             return result
