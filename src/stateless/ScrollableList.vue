@@ -179,6 +179,7 @@ export default {
         padding: 1px 3px;
         margin-right: 5px;
         line-height: 12px;
+        border-radius: 0 0 5px 5px;
 
         &:focus {
             outline: none;
