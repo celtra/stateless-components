@@ -91,6 +91,7 @@ export default {
             let result = this.queryOptions
 
             let matchingOptions = itemsUtils.search(this.options, this.searchQuery)
+            matchingOptions.reverse()
             for (let option of matchingOptions) {
                 if (!result.map(x => x.id).includes(option.id)) {
                     result = [option].concat(result)
