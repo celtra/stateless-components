@@ -126,7 +126,7 @@ export default {
         position: absolute;
         border-radius: 7px;
         padding: 0 0 4px 2px; // For shadow
-        z-index: @z-highest;
+        z-index: @z-middle;
 
         &--left {
             left: -2px;
@@ -179,7 +179,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         position: relative;
-        z-index: @z-sky;
+        z-index: @z-high;
 
         &--open {
             pointer-events: none;
