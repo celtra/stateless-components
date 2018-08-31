@@ -429,6 +429,7 @@ export default {
 
     &__scrollable-list-wrap {
         width: 100%;
+        margin-top: 10px;
     }
 }
 
@@ -499,6 +500,10 @@ export default {
         &__search-wrapper {
             margin: 10px 10px 12px 6px;
         }
+
+        &__scrollable-list-wrap {
+            margin-top: 15px;
+        }
     }
 }
 
@@ -520,6 +525,10 @@ export default {
 
         &__select-list-wrap {
             &--with-search { top: -18px; }
+        }
+
+        &__scrollable-list-wrap {
+            margin-top: 15px;
         }
     }
 }
@@ -544,6 +553,12 @@ export default {
             padding-left: 36px;
         }
     }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 15px;
+        }
+    }
 }
 
 .selectbox--normal {
@@ -552,12 +567,24 @@ export default {
             padding-left: 44px;
         }
     }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 10px;
+        }
+    }
 }
 
 .selectbox--phat {
     .selectbox__select-list--with-search {
         .default-list__item {
             padding-left: 44px;
+        }
+    }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 15px;
         }
     }
 }

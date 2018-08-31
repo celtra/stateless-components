@@ -19,7 +19,6 @@
                     :set-active-on-hover="setActiveOnHover"
                     :size="size"
                     :theme="theme"
-                    :style="bottomPadding > 0 ? { marginBottom: `${bottomPadding}px` } : {}"
                     :list-container="$refs.scrollable"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
@@ -55,7 +54,6 @@ export default {
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
         setActiveOnHover: { type: Boolean, default: true },
-        bottomPadding: { type: Number, default: 0 },
         enableScrollTop: { type: Boolean, default: false },
         showOverlay: { type: Boolean, default: false },
     },
@@ -70,11 +68,8 @@ export default {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0
         },
         maxHeight () {
-            return this.numItems * this.itemHeight + this.bottomPadding
+            return this.numItems * this.itemHeight
         },
-    },
-    beforeCreate () {
-        this.topPadding = 10 // Must be in sync with .scrollable-list__list padding-top
     },
     mounted () {
         this.$nextTick(() => {
@@ -126,12 +121,14 @@ export default {
         },
         onActivate (itemId) {
             const currentScroll = this.$refs.scrollable.scrollTop
+            const computedScrollableStyle = getComputedStyle(this.$refs.scrollable)
+            const verticalPadding = parseFloat(computedScrollableStyle.paddingTop) + parseFloat(computedScrollableStyle.paddingBottom)
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
             const overlayHeight = this.showOverlay ? 15 : 0
             const upTarget = currentScroll + itemY - rootY - overlayHeight
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - this.topPadding
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + overlayHeight
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget
@@ -171,7 +168,7 @@ export default {
         overflow-y: auto;
         overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
-        padding-top: 10px;
+        padding: 10px 0;
     }
 
     &__scroll-top {

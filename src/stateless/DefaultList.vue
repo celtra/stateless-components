@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur">
+    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
                 <slot :item="assumedItem">
@@ -89,6 +89,7 @@ export default {
     data () {
         return {
             isFocused: false,
+            isHovered: false,
             activeId: null,
             renderAllItemsTimeout: false,
             canTransition: false,
@@ -111,7 +112,7 @@ export default {
             return this.flatItems.slice(0, this.minItemsCount)
         },
         shownItemsWithData () {
-            let activeId = this.isFocused ? this.activeId : null
+            let activeId = this.isFocused || (this.setActiveOnHover && this.isHovered) ? this.activeId : null
 
             return this.shownItems.map(item => {
                 let css = { marginLeft: `${this.getOffset(item)}px` }
