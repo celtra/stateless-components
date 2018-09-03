@@ -3,7 +3,10 @@
         <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
             <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
                 <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
-                <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check"></div>
+                <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check">
+                    <icon v-if="states.checked" name="check" ></icon>
+                    <icon v-else-if="states.some" name="minus" ></icon>
+                </div>
             </div>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
@@ -26,7 +29,10 @@
 </template>
 
 <script>
+import Icon from './icon.vue'
+
 export default {
+    components: { Icon },
     props: {
         value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -161,7 +167,7 @@ export default {
         border-style: solid;
         border-radius: 2px;
         border-color: @bluish-gray;
-        transition: transform @default-transition-time ease-out;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
         opacity: 1;
 
         &--checked {
@@ -179,43 +185,23 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        padding-top: 3px;
         display: flex;
         justify-content: center;
-        transition: transform @default-transition-time ease-out;
+        align-items: center;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
+        color: @royal-blue;
 
-        &--checked {
-            &:after {
-                content: '';
-                width: 5px;
-                height: 11px;
-                display: block;
-                border: solid @royal-blue;
-                border-width: 0 3.5px 3.5px 0;
-                transform: rotate(45deg);
-            }
-
+        &--checked, &--some {
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
+        &--checked > div { width: 16px; }
+        &--some > div { width: 12px; }
 
-        &--some {
-            &:after {
-                content: '';
-                width: 10px;
-                height: 9px;
-                display: block;
-                border-bottom: 2px solid @royal-blue;
-            }
-
-            transform: scale3d(1, 1, 1);
-            opacity: 1;
-        }
-
-        &--disabled:after {
-            border-color: @gunpowder;
+        &--disabled {
+            color: @gunpowder;
         }
     }
 
@@ -337,16 +323,8 @@ export default {
     }
 
     .checkbox-element__check {
-        &--checked:after {
-            width: 6px;
-            height: 14px;
-            border-width: 0 4.5px 5px 0;
-        }
-
-        &--some:after {
-            width: 12px;
-            height: 11px;
-        }
+        &--checked > div { width: 20px; }
+        &--some > div { width: 14px; }
     }
 
     .checkbox-element__label-text {
@@ -413,11 +391,8 @@ export default {
     .checkbox-element__check {
         padding-top: 0;
 
-        &--some {
-            &:after {
-                height: 11px;
-            }
-        }
+        &--checked > div { width: 14px; }
+        &--some > div { width: 10px; }
     }
 
     .checkbox-element__label-text {
@@ -479,9 +454,11 @@ export default {
 }
 
 .checkbox-element--white {
-    .checkbox-element__check:after {
-        border: solid white;
-        border-width: 0 3.5px 3.5px 0;
+    .checkbox-element__check {
+        color: @white;
+
+        &--checked > div { width: 14px; }
+        &--some > div { width: 10px; }
     }
 
     .checkbox-element__label-text {
