@@ -184,7 +184,7 @@ export default {
         },
         setChecked (option, isChecked) {
             if (!option.disabled) {
-                if (option.isLeaf) {
+                if (option.isLeaf !== false) {
                     const valueWithout = this.value.filter(id => id !== option.id)
                     if (isChecked) {
                         this.$emit('input', valueWithout.concat([option.id]))

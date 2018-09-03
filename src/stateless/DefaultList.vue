@@ -219,7 +219,7 @@ export default {
             }
         },
         onBlur (ev) {
-            if (!this.$el.contains(event.relatedTarget)) {
+            if (!this.$el.contains(ev.relatedTarget)) {
                 this.isFocused = false
                 this.$emit('blur', ev)
             }

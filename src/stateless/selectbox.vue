@@ -190,6 +190,7 @@ export default {
                     return
                 }
 
+                this.searchTextValue = ''
                 this.isOpen = true
 
                 if (!this.focused) {

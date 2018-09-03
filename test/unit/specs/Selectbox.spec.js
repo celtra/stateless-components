@@ -10,7 +10,7 @@ describe('Selectbox', () => {
             propsData: {
                 label          : "Label",
                 placeholder    : "Placeholder",
-                groups         : [],
+                options        : [],
                 selected       : null,
                 isSearchable   : true,
                 isUnselectable : false,
@@ -59,8 +59,8 @@ describe('Selectbox', () => {
             })
 
             it('should be selected option', function () {
-                vm.groups = [{ name : "Group A", options: [{ id: '1', label: 'OptionA' }] }]
-                vm.selectedId = '1'
+                vm.options = [{ name : "Group A", items: [{ id: '1', label: 'OptionA' }] }]
+                vm.value = '1'
                 expect(vm.selectedLabelText).toBe("OptionA")
             })
         })
@@ -80,8 +80,8 @@ describe('Selectbox', () => {
 
             it('should be option metadata', function () {
                 vm.showSelectedMetadata = true
-                vm.groups = [{ name : "Group A", options: [{ id: '1', label: 'OptionA', metadata: 'Test' }] }]
-                vm.selectedId = '1'
+                vm.options = [{ name : "Group A", items: [{ id: '1', label: 'OptionA', metadata: 'Test' }] }]
+                vm.value = '1'
 
                 expect(vm.selectedMetadataText).toBe("Test")
             })
@@ -114,41 +114,40 @@ describe('Selectbox', () => {
             })
         })
 
-        describe('filterGroups', function () {
+        describe('listItems', function () {
             it('should not filter if empty search query', function () {
-
-                let groups = [
-                    { label : "Group A", options : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
-                    { label : "Group B", options : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
-                    { label : "Group C", options : [{ id : 5, label : "Option D" }] },
+                let options = [
+                    { label : "GROUP A", items : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
+                    { label : "GROUP B", items : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
+                    { label : "GROUP C", items : [{ id : 5, label : "Option D" }] },
                 ]
-                vm.groups = groups
+                vm.options = options
 
-                vm.searchTextDebounced = ''
-                expect(vm.filteredGroups).toEqual(groups)
+                vm.searchTextValue = ''
+                expect(vm.listItems).toEqual(options)
             })
 
             it('should filter single option', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
-                    { label : "Group B", options : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
-                    { label : "Group C", options : [{ id : 5, label : "Option D" }] },
+                vm.options = [
+                    { label : "GROUP A", items : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
+                    { label : "GROUP B", items : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
+                    { label : "GROUP C", items : [{ id : 5, label : "Option D" }] },
                 ]
 
-                vm.searchTextDebounced = 'Option E'
-                expect(vm.filteredGroups.length).toBe(1)
-                expect(vm.filteredGroups[0].options.length).toBe(1)
+                vm.searchTextValue = 'Option E'
+                expect(vm.listItems.length).toBe(1)
+                expect(vm.listItems[0].items.length).toBe(1)
             })
 
             it('should filter everything', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
-                    { label : "Group B", options : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
-                    { label : "Group C", options : [{ id : 5, label : "Option D" }] },
+                vm.options = [
+                    { label : "GROUP A", items : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
+                    { label : "GROUP B", items : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
+                    { label : "GROUP C", items : [{ id : 5, label : "Option D" }] },
                 ]
 
-                vm.searchTextDebounced = 'Something'
-                expect(vm.filteredGroups).toEqual([])
+                vm.searchTextValue = 'Something'
+                expect(vm.listItems).toEqual([])
             })
         })
     })
@@ -211,8 +210,7 @@ describe('Selectbox', () => {
         describe('openSelectList', function () {
             it('should do nothing if state is disabled', function () {
                 spyOn(vm, '$emit')
-                spyOn(vm, 'clearSearch')
-                spyOn(vm, 'positionSelectList')
+                spyOn(vm, 'onScroll')
 
                 vm.disabled = true
                 vm.isOpen = false
@@ -221,14 +219,12 @@ describe('Selectbox', () => {
 
                 expect(vm.isOpen).toBe(false)
                 expect(vm.$emit).not.toHaveBeenCalled()
-                expect(vm.positionSelectList).not.toHaveBeenCalled()
-                expect(vm.clearSearch).not.toHaveBeenCalled()
+                expect(vm.onScroll).not.toHaveBeenCalled()
             })
 
             it('should open list and emit focus', function (done) {
                 spyOn(vm, '$emit')
-                spyOn(vm, 'clearSearch')
-                spyOn(vm, 'positionSelectList')
+                spyOn(vm, 'onScroll')
 
                 vm.isOpen = false
                 vm.focused = false
@@ -240,16 +236,14 @@ describe('Selectbox', () => {
                 expect(vm.$emit).toHaveBeenCalledWith('focus')
 
                 vm.$nextTick(() => {
-                    expect(vm.clearSearch).not.toHaveBeenCalled()
-                    expect(vm.positionSelectList).toHaveBeenCalled()
+                    expect(vm.onScroll).toHaveBeenCalledWith(0)
                     done()
                 })
             })
 
             it('should open already focused list', function (done) {
                 spyOn(vm, '$emit')
-                spyOn(vm, 'clearSearch')
-                spyOn(vm, 'positionSelectList')
+                spyOn(vm, 'onScroll')
 
                 vm.isOpen = false
                 vm.focused = true
@@ -261,16 +255,14 @@ describe('Selectbox', () => {
                 expect(vm.$emit).not.toHaveBeenCalled()
 
                 vm.$nextTick(() => {
-                    expect(vm.clearSearch).not.toHaveBeenCalled()
-                    expect(vm.positionSelectList).toHaveBeenCalled()
+                    expect(vm.onScroll).toHaveBeenCalledWith(0)
                     done()
                 })
             })
 
             it('should focus on search input', function (done) {
                 spyOn(vm, '$emit')
-                spyOn(vm, 'clearSearch')
-                spyOn(vm, 'positionSelectList')
+                spyOn(vm, 'onScroll')
 
                 // Mount will load $el so that getElementByClassName does not throw error
                 vm.$mount()
@@ -285,8 +277,7 @@ describe('Selectbox', () => {
                 expect(vm.$emit).not.toHaveBeenCalled()
 
                 vm.$nextTick(() => {
-                    expect(vm.clearSearch).toHaveBeenCalled()
-                    expect(vm.positionSelectList).toHaveBeenCalled()
+                    expect(vm.onScroll).toHaveBeenCalledWith(0)
                     done()
                 })
             })
@@ -320,171 +311,25 @@ describe('Selectbox', () => {
             })
         })
 
-        describe('selectOption', function () {
-            it('should not emit when selecting disabled option', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true } ] }]
-
+        describe('selectValue', function () {
+            it('should clear when value is CLEAR_SELECTION', function () {
                 spyOn(vm, 'closeSelectList')
                 spyOn(vm, '$emit')
 
-                vm.selectOption('2')
-
-                expect(vm.closeSelectList).not.toHaveBeenCalled()
-                expect(vm.$emit).not.toHaveBeenCalled()
-            })
-
-            it('should emit when clearing option', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true } ] }]
-
-                spyOn(vm, 'closeSelectList')
-                spyOn(vm, '$emit')
-
-                vm.selectOption(null)
+                vm.selectValue({ id: 'CLEAR_SELECTION' })
 
                 expect(vm.closeSelectList).toHaveBeenCalled()
                 expect(vm.$emit).toHaveBeenCalledWith('input', null)
             })
 
-            it('should emit', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true } ] }]
-
+            it('should emit id', function () {
                 spyOn(vm, 'closeSelectList')
                 spyOn(vm, '$emit')
 
-                vm.selectOption('1')
+                vm.selectValue({ id: '1' })
 
                 expect(vm.closeSelectList).toHaveBeenCalled()
                 expect(vm.$emit).toHaveBeenCalledWith('input', '1')
-            })
-        })
-
-        describe('clearSearch', function () {
-            it('should clear search', function () {
-                vm.searchText = "Search me"
-                vm.clearSearch()
-                expect(vm.searchText).toBe('')
-            })
-        })
-
-        describe('move', function () {
-            it('should set active option', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : '1', label: 'A', disabled : false }, { id : '2', label: 'B', disabled : true }] },
-                    { label : "Group B", options : [{ id : '3', label: 'C', disabled : false }] },
-                ]
-                vm.isOpen = true
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, '$nextTick')
-
-                vm.move(1)
-
-                expect(vm.activeId).toEqual('1')
-                expect(vm.openSelectList).not.toHaveBeenCalledWith()
-                expect(vm.$nextTick).toHaveBeenCalled()
-            })
-
-            it('should reset active index to first', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : '1', label: 'A', disabled : false }, { id : '2', label: 'B', disabled : true }] },
-                    { label : "Group B", options : [{ id : '3', label: 'C', disabled : false }] },
-                ]
-                vm.isOpen = true
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, '$nextTick')
-
-                vm.activeId = '1'
-                vm.move(-1)
-
-                expect(vm.activeId).toBe('1')
-                expect(vm.openSelectList).not.toHaveBeenCalledWith()
-                expect(vm.$nextTick).toHaveBeenCalled()
-            })
-
-            it('should reset active index to last', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : '1', label: 'A', disabled : false }, { id : '2', label: 'B', disabled : true }] },
-                    { label : "Group B", options : [{ id : '3', label: 'C', disabled : false }] },
-                ]
-                vm.isOpen = true
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, '$nextTick')
-
-                vm.activeId = '1'
-                vm.move(1)
-
-                expect(vm.activeId).toBe('3')
-                expect(vm.openSelectList).not.toHaveBeenCalledWith()
-                expect(vm.$nextTick).toHaveBeenCalled()
-            })
-
-            it('it should open list if it is closed', function () {
-                vm.groups = [
-                    { label : "Group A", options : [{ id : '1', label: 'A', disabled : false }, { id : '2', label: 'B', disabled : true }] },
-                    { label : "Group B", options : [{ id : '3', label: 'C', disabled : false }] },
-                ]
-                vm.isOpen = true
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, '$nextTick')
-
-                vm.isOpen = false
-                vm.move(1)
-
-                expect(vm.activeId).toEqual('1')
-                expect(vm.openSelectList).toHaveBeenCalledWith()
-                expect(vm.$nextTick).toHaveBeenCalled()
-            })
-        })
-
-        describe('selectActiveOption', function () {
-            it('should not select empty option', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true }] }]
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, 'closeSelectList')
-                spyOn(vm, 'selectOption')
-
-                vm.isOpen = true
-                vm.activeId = null
-                vm.selectActiveOption()
-
-                expect(vm.openSelectList).not.toHaveBeenCalled()
-                expect(vm.closeSelectList).not.toHaveBeenCalled()
-                expect(vm.selectOption).not.toHaveBeenCalled()
-            })
-
-            it('should select active option', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true }] }]
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, 'closeSelectList')
-                spyOn(vm, 'selectOption')
-
-                vm.isOpen = true
-                vm.activeId = '1'
-                vm.selectActiveOption()
-
-                expect(vm.openSelectList).not.toHaveBeenCalled()
-                expect(vm.selectOption).toHaveBeenCalledWith('1')
-                expect(vm.closeSelectList).toHaveBeenCalled()
-            })
-
-            it('should open select list', function () {
-                vm.groups = [{ name : "Group A", options: [ { id: '1', label: 'OptionA' }, { id: '2', label: 'OptionB', disabled: true }] }]
-
-                spyOn(vm, 'openSelectList')
-                spyOn(vm, 'closeSelectList')
-                spyOn(vm, 'selectOption')
-
-                vm.isOpen = false
-                vm.selectActiveOption()
-
-                expect(vm.openSelectList).toHaveBeenCalled()
-                expect(vm.selectOption).not.toHaveBeenCalled()
-                expect(vm.closeSelectList).not.toHaveBeenCalled()
             })
         })
     })
