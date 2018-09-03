@@ -34,6 +34,7 @@ export default {
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -67,7 +68,7 @@ export default {
         setFocus (isFocused) {
             this.focused = isFocused
             if (isFocused) {
-                this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.labelText, trigger: 'focus' })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.labelText, trigger: 'focus' })
                 this.$emit('focus')
             }
         },
@@ -76,7 +77,7 @@ export default {
         },
         click () {
             if (!this.disabled) {
-                this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.labelText, trigger: 'click' })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.labelText, trigger: 'click' })
                 this.$emit('input', this.value)
                 this.$emit('focus')
                 this.focused = false
@@ -87,7 +88,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box;
@@ -147,7 +148,7 @@ export default {
         justify-content: center;
 
         svg {
-            transition: transform @form-element-transition-time ease-out;
+            transition: transform @default-transition-time ease-out;
             width: 20px;
             height: 20px;
         }
@@ -155,7 +156,7 @@ export default {
         svg > * {
             stroke: @very-light-gray;
             fill: @very-light-gray;
-            transition: fill @form-element-transition-time ease-out, stroke @form-element-transition-time ease-out;
+            transition: fill @default-transition-time ease-out, stroke @default-transition-time ease-out;
         }
 
         &--checked {
@@ -180,7 +181,7 @@ export default {
         border-style: solid;
         border-radius: 100%;
         border-color: @nobel;
-        transition: transform @form-element-transition-time ease-out, border-color @form-element-transition-time ease-out;
+        transition: transform @default-transition-time ease-out, border-color @default-transition-time ease-out;
 
         &--checked {
             border-color: @royal-blue;
@@ -203,7 +204,7 @@ export default {
         height: 8px;
         border-radius: 100%;
         background-color: @nobel;
-        transition: all @form-element-transition-time ease-out;
+        transition: all @default-transition-time ease-out;
         transform: scale3d(0, 0, 1);
         opacity: 0;
 
@@ -226,7 +227,7 @@ export default {
         text-overflow: ellipsis;
         font-size: 18px;
         font-family: @regular-text-font;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
 
         &--error {
             color: @pink-red;

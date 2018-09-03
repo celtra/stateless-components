@@ -2,7 +2,6 @@
     <div v-click-outside="close">
         <chip
             :is-active="value.length > 0"
-            :size="size"
             :label="chipLabel"
             :metadata="`${value.length}/${options.length}`"
             theme="dark"
@@ -14,7 +13,7 @@
                 :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
-                :can-select-all="canSelectAll"
+                :can-select-and-clear-all="canSelectAndClearAll"
                 :can-clear-all="canClearAll"
                 :options="options"
                 :size="size"
@@ -43,7 +42,7 @@ export default {
         chipLabel: { type: String, required: true },
         searchLabel: { type: String, required: true },
         isSearchable: { type: Boolean, default: false },
-        canSelectAll: { type: Boolean, default: false },
+        canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
     },
     data () {

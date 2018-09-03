@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { getTextHighlightParts } from './string_utils.js'
 import Icon from './icon.vue'
 import MiddleEllipsis from './MiddleEllipsis.vue'
 
@@ -50,46 +51,17 @@ export default {
     },
     methods: {
         getParts (label) {
-            let index = this.highlightQuery && this.highlightQuery.length > 0 ? label.toLowerCase().indexOf(this.highlightQuery.toLowerCase()) : -1
-            if (index === -1) {
-                return [
-                    { text: label, bold: false },
-                ]
-            }
-            let beforeIndex = label.substring(0, index)
-            let atIndex = label.substring(index, index + this.highlightQuery.length)
-            let afterIndex = label.substring(index + this.highlightQuery.length)
-
-            let parts = []
-            if (beforeIndex.length > 0) {
-                parts.push({
-                    text: beforeIndex,
-                    bold: false,
-                })
-            }
-
-            parts.push({
-                text: atIndex,
-                bold: true,
-            })
-
-            if (afterIndex.length > 0) {
-                parts.push({
-                    text: afterIndex,
-                    bold: false,
-                })
-            }
-
-            return parts
+            return getTextHighlightParts(label, this.highlightQuery)
         },
     },
 }
 </script>
 
 <style lang="less">
-@import (reference) './variables';
+@import (reference) './common';
 
 .default-list-item {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -97,6 +69,10 @@ export default {
 
     &--disabled {
         cursor: auto;
+
+        .default-list-item__icon {
+            color: @gray-blue;
+        }
     }
 
     &__label {
@@ -107,7 +83,7 @@ export default {
         font-family: @regular-text-font;
         color: @very-light-gray;
         display: inline-block;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
 
         &--error { color: @pink-red; }
         &--with-metadata { padding-right: 5px; }
@@ -118,7 +94,7 @@ export default {
         align-items: center;
         margin: 0;
         white-space: nowrap;
-        text-align: right;
+        justify-content: flex-end;
         overflow: hidden;
         font-family: @regular-text-font;
         color: @gray-blue;
@@ -126,6 +102,7 @@ export default {
 
     &__icon {
         margin-left: 10px;
+        color: @gunpowder;
     }
 }
 

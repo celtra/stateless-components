@@ -29,21 +29,23 @@ export default {
             this.$nextTick(this.positionTooltip)
         },
         positionTooltip () {
-            if (this.boundaryElement === 'viewport') {
-                let tooltip = this.$refs.tooltip.getBoundingClientRect()
-                if (tooltip.x + tooltip.width > window.innerWidth) {
-                    this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
-                }
-            } else if (this.boundaryElement instanceof HTMLElement) {
-                let tooltip = this.$refs.tooltip.getBoundingClientRect()
-                let boundry = this.boundaryElement.getBoundingClientRect()
+            if (this.$refs.tooltip) {
+                if (this.boundaryElement === 'viewport') {
+                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
+                    if (tooltip.x + tooltip.width > window.innerWidth) {
+                        this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
+                    }
+                } else if (this.boundaryElement instanceof HTMLElement) {
+                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
+                    const boundary = this.boundaryElement.getBoundingClientRect()
 
-                if (tooltip.x + tooltip.width > boundry.x + boundry.width) {
-                    this.translateX = boundry.x + boundry.width - tooltip.x - tooltip.width - 10
-                }
+                    if (tooltip.x + tooltip.width > boundary.x + boundary.width) {
+                        this.translateX = boundary.x + boundary.width - tooltip.x - tooltip.width - 10
+                    }
 
-                if (tooltip.y + tooltip.height > boundry.y + boundry.height) {
-                    this.translateY = boundry.y + boundry.height - tooltip.y - tooltip.height - 10
+                    if (tooltip.y + tooltip.height > boundary.y + boundary.height) {
+                        this.translateY = boundary.y + boundary.height - tooltip.y - tooltip.height - 10
+                    }
                 }
             }
         },
@@ -56,7 +58,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .hover-tooltip {
     position: absolute;
@@ -70,8 +72,9 @@ export default {
     font-size: 11px;
     text-align: center;
     padding: 6px 20px;
-    z-index: @z-index-new-dialog + 25;
+    z-index: @z-highest;
     max-width: 200px;
+    word-wrap: break-word;
 }
 
 :hover > .hover-tooltip,

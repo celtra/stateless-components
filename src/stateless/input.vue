@@ -1,5 +1,5 @@
 <template>
-    <div :class="['input--' + size, 'input--' + theme]" class="input">
+    <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
         <div v-if="$slots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
@@ -86,8 +86,6 @@
 </template>
 
 <script>
-import { formElementTransitionTime } from './form_element_constants'
-
 export default {
     props: {
         value: { type: [String, Number], default: '' },
@@ -113,6 +111,7 @@ export default {
         alignment: { type: String, default: 'left' },
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
@@ -137,7 +136,7 @@ export default {
                 focused: this.focused,
                 error: isError,
                 warning: isWarning,
-                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text.length > 0,
+                valid: (this.errorMessage === true && !isWarning || this.warningMessage === true && !isError) && this.text && this.text.length > 0,
                 disabled: this.disabled,
             }
         },
@@ -390,7 +389,7 @@ export default {
         },
         setFocus () {
             this.focused = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.$attrs.trackName || this.label, trigger: 'focus' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName || this.label, trigger: 'focus' })
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
@@ -417,15 +416,19 @@ export default {
         blur () {
             this.$refs.input.blur()
         },
-        removeFocus () {
+        focus () {
+            this.$refs.input.focus()
+        },
+        removeFocus (ev) {
             this.focused = false
-            this.$emit('blur')
+            this.$emit('blur', ev)
 
-            if (this.text === '' && this.label) {
+            if ((this.text === '' || this.text === null) && this.label) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
                 this.overlay.close = true
+                const formElementTransitionTime = 0.15
                 setTimeout(() => {
                     this.overlay.close = false
                 }, formElementTransitionTime * 1000)
@@ -439,7 +442,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * { box-sizing: border-box }
 
@@ -478,30 +481,30 @@ export default {
     visibility: hidden;
     z-index: -1;
     user-select: none;
-    transition: transform @form-element-transition-time ease-out,
-                color @form-element-transition-time ease-out,
-                letter-spacing @form-element-transition-time ease-out;
+    transition: transform @default-transition-time ease-out,
+                color @default-transition-time ease-out,
+                letter-spacing @default-transition-time ease-out;
 
     &--overlay-open {
         color: @royal-blue;
         letter-spacing: 0.5px;
-        animation: overlay-fade-open @form-element-transition-time ease-out;
+        animation: overlay-fade-open @default-transition-time ease-out;
 
         @keyframes overlay-fade-open {
             from {
                 visibility: hidden;
-                z-index: 1;
+                z-index: @z-default;
             }
             to {
                 visibility: visible;
-                z-index: 1;
+                z-index: @z-default;
             }
         }
     }
 
     &--overlay-close {
         visibility: visible;
-        z-index: 1;
+        z-index: @z-default;
         color: @gunpowder;
         letter-spacing: normal;
     }
@@ -510,7 +513,6 @@ export default {
 
 .input-field__label-text {
     height: 13px;
-    color: @dolphin;
     display: flex;
     align-items: center;
     font-size: 11px;
@@ -518,7 +520,7 @@ export default {
 
     &--overlay-open {
         // animation duration must be greater than 0, otherwise safari ignores delay
-        animation: label-fade 0.1ms ease-out @form-element-transition-time;
+        animation: label-fade 0.1ms ease-out @default-transition-time;
         animation-fill-mode: both;
 
         @keyframes label-fade {
@@ -536,8 +538,7 @@ export default {
     align-items: center;
     border-width: 0 0 2px 0;
     border-style: solid;
-    border-color: @gunpowder;
-    transition: border-color @form-element-transition-time ease-out;
+    transition: border-color @default-transition-time ease-out;
 
     &__input-flex {
         /* Need an extra div container, setting flex on <input> doesn't work */
@@ -567,7 +568,6 @@ export default {
         background-color: transparent;
         border: 0;
         outline: none;
-        color: white;
         margin: 4px 0px;
 
         &.input-row__textarea {
@@ -577,13 +577,12 @@ export default {
 
         &::placeholder {
             white-space: nowrap;
-            color: @very-light-gray;
             overflow: hidden;
             text-overflow: ellipsis !important;
         }
 
         &--overlay-open {
-            animation: text-fade-open (@form-element-transition-time / 2) ease-out (@form-element-transition-time / 2);
+            animation: text-fade-open (@default-transition-time / 2) ease-out (@default-transition-time / 2);
             animation-fill-mode: backwards;
 
             @keyframes text-fade-open {
@@ -593,7 +592,7 @@ export default {
         }
 
         &--overlay-close {
-            animation: text-fade-close @form-element-transition-time ease-out;
+            animation: text-fade-close @default-transition-time ease-out;
             animation-fill-mode: backwards;
 
             @keyframes text-fade-close {
@@ -628,14 +627,12 @@ export default {
 
     &:hover:not(&--focused):not(&--disabled) {
         border-color: @gray-blue;
-        .input-row__placeholder-text::placeholder { color: @white; }
     }
 }
 
 .input-row__unit {
     flex: none;
     font-size: 18px;
-    color: @dolphin;
 
     &__password-icon {
         width: 16px;
@@ -654,10 +651,6 @@ export default {
 
     &--disabled {
         color: @gunpowder;
-    }
-
-    &--warning {
-        color: @pale-yellow;
     }
 }
 
@@ -696,21 +689,62 @@ export default {
 }
 
 .input-field__helper-text {
-    color: @dolphin;
     min-height: 17px;
     flex: 1 0 0;
     font-size: 11px;
     letter-spacing: 0.5px;
 
-    &--warning { color: @pale-yellow; }
-
     &--disabled { color: @gunpowder; }
 
     &--error { color: @pink-red; }
-
 }
 
-.input--light.input--light {
+.input--dark {
+    .input-row {
+        border-color: @gunpowder;
+
+        &__placeholder-text {
+            color: white;
+            &::placeholder {
+                color: @very-light-gray;
+            }
+        }
+
+        &--focused { border-color: @royal-blue; }
+
+        &:hover {
+            .input-row__placeholder-text::placeholder { color: white; }
+        }
+    }
+
+    .input-field__label-text {
+        color: @dolphin;
+
+        &--focused { color: @royal-blue; }
+    }
+
+    .input-field__helper-text {
+        color: @dolphin;
+
+        &--error { color: @pink-red; }
+
+        &--warning { color: @pale-yellow; }
+    }
+
+    .input-row__unit {
+        color: @dolphin;
+
+        &--warning {
+            color: @pale-yellow;
+        }
+    }
+
+    .input__icon-prepend {
+        color: @dolphin;
+    }
+}
+
+.input--light {
     .input-row {
         border-color: @very-light-gray;
 
@@ -730,6 +764,8 @@ export default {
 
     .input-field__label-text {
         color: @bluish-gray;
+
+        &--focused { color: @royal-blue; }
     }
 
     .input-field__helper-text {
@@ -739,12 +775,17 @@ export default {
 
         &--warning { color: @orange-yellow; }
     }
+
     .input-row__unit {
         color: @bluish-gray;
 
         &--warning {
             color: @orange-yellow;
         }
+    }
+
+    .input__icon-prepend {
+        color: @dolphin;
     }
 }
 

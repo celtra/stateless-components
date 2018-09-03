@@ -1,13 +1,13 @@
 <template>
     <div :class="['selectbox--' + size, 'selectbox--' + theme]" :title="disabledText" :id="label | slugify" class="selectbox" tabindex="0" @focus="setFocus()" @blur="clearFocus()"
-         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList(-1)" @keyup.down="openSelectList(1)" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
+         @keyup="$emit('keyup', $event)" @keyup.esc.stop="handleEsc" @keyup.up="openSelectList()" @keyup.down="openSelectList()" @keyup.enter="openSelectList()" @keyup.left.stop @keyup.right.stop @keyup.delete.stop>
 
         <div :class="cssStates | prefix('selectbox__label-text--')" class="selectbox__label-text">
             {{ mappedLabelText }}
         </div>
 
         <div :class="cssStates | prefix('selectbox__select-row--')" class="selectbox__select-row" @click="openSelectList()">
-            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" />
+            <default-list-item :label="selectedLabelText" :metadata="selectedMetadataText" :title="states.disabled ? mappedDisabledText : selectedLabelText" :theme="theme" :size="size" :disabled="disabled" class="selectbox__current-item" />
             <div class="selectbox__arrow-wrapper">
                 <div :class="cssStates | prefix('selectbox__arrow-down--')" class="selectbox__arrow-down"></div>
             </div>
@@ -17,19 +17,16 @@
             {{ mappedHelperText }}
         </div>
 
-        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap">
+        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap" @click="$refs.list.focus()">
             <div class="selectbox__list-frame"></div>
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
-                    <div v-if="isSearchable" class="selectbox__search-wrapper">
-                        <input-element ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch">
-                            <icon slot="before" name="search" />
-                            <icon slot="right" name="clear" class="selectbox__search-clear-icon" @click="clearSearch" />
-                        </input-element>
+                    <div v-if="isSearchable" class="selectbox__search-wrapper" @click.stop>
+                        <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
                     <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
-                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" @select="selectValue" @scroll="onScroll"></scrollable-list>
+                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" theme="light" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
                     </div>
                 </div>
             </div>
@@ -39,16 +36,14 @@
 
 <script>
 import debounce from 'lodash.debounce'
-import Icon from './icon.vue'
-import Input from './input.vue'
+import SearchInput from './SearchInput.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 
 export default {
     components: {
-        Icon,
-        inputElement: Input,
+        SearchInput,
         ScrollableList,
         DefaultListItem,
     },
@@ -67,16 +62,28 @@ export default {
         showSelectedMetadata: { type: Boolean, required: false, default: false },
         size: { type: String, required: false, default: 'normal' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, required: false },
     },
     data () {
         return {
             isOpen: false,
             focused: false,
-            searchText: '',
-            searchTextDebounced: '',
+            searchTextValue: '',
         }
     },
     computed: {
+        searchText: {
+            get () {
+                return this.searchTextValue
+            },
+            set (v) {
+                if (!v) {
+                    this.searchTextValue = ''
+                } else {
+                    this.setSearch(v)
+                }
+            },
+        },
         states () {
             return {
                 error: !!this.errorText,
@@ -124,7 +131,7 @@ export default {
                 options = [{ id: 'CLEAR_SELECTION', label: this.placeholder }].concat(options)
             }
 
-            let cleanQuery = (this.searchTextDebounced || '').trim(' ').toLowerCase()
+            const cleanQuery = (this.searchText || '').trim(' ').toLowerCase()
             if (cleanQuery.length > 0) {
                 options = itemsUtils.filter(options, (option) => {
                     return (option.label && option.label.toLowerCase().indexOf(cleanQuery) >= 0) ||
@@ -164,7 +171,7 @@ export default {
             this.focused = false
         },
         handleEsc () {
-            let wasOpen = this.isOpen
+            const wasOpen = this.isOpen
 
             this.closeSelectList()
 
@@ -175,14 +182,15 @@ export default {
                 this.clearFocus()
             }
         },
-        openSelectList (direction) {
+        openSelectList () {
             if (this.isOpen) {
-                this.move(direction)
+                this.$refs.list.focus()
             } else {
                 if (this.disabled) {
                     return
                 }
 
+                this.searchTextValue = ''
                 this.isOpen = true
 
                 if (!this.focused) {
@@ -191,9 +199,9 @@ export default {
 
                 this.$nextTick(() => {
                     if (this.isSearchable) {
-                        this.$refs.search.$el.focus()
+                        this.$refs.search.focus()
                     } else {
-                        this.$refs.list.$el.focus()
+                        this.$refs.list.focus()
                     }
 
                     this.onScroll(0)
@@ -219,26 +227,22 @@ export default {
             this.closeSelectList()
         },
         onScroll (shownY) {
-            let rootY = this.$el.getBoundingClientRect().top
-            let menuRect = this.$refs.menu.getBoundingClientRect()
-            let menuY = menuRect.top
-            let menuHeight = menuRect.height
-            let listY = this.$refs.list.$el.getBoundingClientRect().top
-            let headerHeight = listY - menuY
+            const rootY = this.$el.getBoundingClientRect().top
+            const menuRect = this.$refs.menu.getBoundingClientRect()
+            const menuY = menuRect.top
+            const menuHeight = menuRect.height
+            const listY = this.$refs.list.$el.getBoundingClientRect().top
+            const headerHeight = listY - menuY
 
-            let targetOffset = -shownY - headerHeight + 30
-            let minOffset = -rootY
-            let maxOffset = -rootY - menuHeight + document.documentElement.clientHeight
+            const targetOffset = -shownY - headerHeight + 30
+            const minOffset = -rootY
+            const maxOffset = -rootY - menuHeight + document.documentElement.clientHeight
 
             this.$refs.menu.style.top = `${Math.max(minOffset, Math.min(maxOffset, targetOffset))}px`
         },
-        setSearch: debounce(function () {
-            this.searchTextDebounced = this.searchText
+        setSearch: debounce(function (v) {
+            this.searchTextValue = v
         }, 400),
-        clearSearch () {
-            this.searchText = ''
-            this.searchTextDebounced = ''
-        },
         move (direction) {
             this.$refs.list.move(direction)
         },
@@ -263,7 +267,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box;
@@ -312,7 +316,7 @@ export default {
     &__arrow-down {
         border-width: 5px 6px 0 6px;
         border-style: solid;
-        transition: border-color @form-element-transition-time ease-out;
+        transition: border-color @default-transition-time ease-out;
         border-color: @very-light-gray transparent transparent transparent;
 
         &--disabled {
@@ -329,7 +333,7 @@ export default {
         border-width: 0 0 2px 0;
         border-style: solid;
         cursor: pointer;
-        transition: border-color @form-element-transition-time ease-out;
+        transition: border-color @default-transition-time ease-out;
         border-color: @gunpowder;
 
         &:hover:not(&--disabled):not(&--focused) {
@@ -356,12 +360,16 @@ export default {
         }
     }
 
+    &__current-item {
+        width: calc(~'100% - 20px');
+    }
+
     &__select-list-wrap {
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -15px;
         width: calc(~'100% + 2 * 15px');
-        z-index: @z-index-new-dialog + 75;
+        z-index: @z-highest;
 
         &--with-search {
             top: -15px;
@@ -379,7 +387,7 @@ export default {
         transform-origin: center center;
         background-color: @white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        animation: list-frame-open @select-list-animation-time-frame ease-out;
+        animation: list-frame-open 0.3s ease-out;
         animation-fill-mode: forwards;
 
         @keyframes list-frame-open {
@@ -408,7 +416,7 @@ export default {
     &__select-list-content {
         position: relative;
         opacity: 0;
-        animation: list-content-open @select-list-animation-time-content ease-out @select-list-animation-time-frame/3 forwards;
+        animation: list-content-open 0.2s ease-out 0.1s forwards;
 
         @keyframes list-content-open {
             from { opacity: 0; }
@@ -417,16 +425,12 @@ export default {
     }
 
     &__search-wrapper {
-        margin: 15px;
-        margin-bottom: 0px;
-    }
-
-    &__search-clear-icon {
-        cursor: pointer;
+        margin: 15px 15px 0px 15px;
     }
 
     &__scrollable-list-wrap {
         width: 100%;
+        margin-top: 10px;
     }
 }
 
@@ -497,6 +501,10 @@ export default {
         &__search-wrapper {
             margin: 10px 10px 12px 6px;
         }
+
+        &__scrollable-list-wrap {
+            margin-top: 15px;
+        }
     }
 }
 
@@ -519,6 +527,10 @@ export default {
         &__select-list-wrap {
             &--with-search { top: -18px; }
         }
+
+        &__scrollable-list-wrap {
+            margin-top: 15px;
+        }
     }
 }
 </style>
@@ -530,10 +542,22 @@ export default {
     }
 }
 
+.selectbox__scrollable-list {
+    .scrollable-list__list::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 .selectbox--condensed {
     .selectbox__select-list--with-search {
         .default-list__item {
             padding-left: 36px;
+        }
+    }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 15px;
         }
     }
 }
@@ -544,12 +568,24 @@ export default {
             padding-left: 44px;
         }
     }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 10px;
+        }
+    }
 }
 
 .selectbox--phat {
     .selectbox__select-list--with-search {
         .default-list__item {
             padding-left: 44px;
+        }
+    }
+
+    .selectbox__scrollable-list {
+        .scrollable-list__list {
+            padding-bottom: 15px;
         }
     }
 }

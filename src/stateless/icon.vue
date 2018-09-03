@@ -1,5 +1,5 @@
 <template>
-    <div class="icon-wrapper" @click="$emit('click')">
+    <div class="icon-wrapper" @click="$emit('click', $event)" @keyup="$emit('keyup', $event)" @keydown="$emit('keydown', $event)">
         <svg v-if="name === 'undo-arrow'" :style="styleOverride" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M2.502 12.333a6.996 6.996 0 0 1-1.405-3.168l1.973-.331a4.982 4.982 0 0 0 1.003 2.26l-1.571 1.239zM6.834 14.903a7.015 7.015 0 0 1-2.976-1.259l1.186-1.611c.624.459 1.358.77 2.122.898l-.332 1.972zM9.165 14.903l-.33-1.973a4.99 4.99 0 0 0 2.209-.964l1.219 1.586a6.997 6.997 0 0 1-3.098 1.351zM8 1c-1.873 0-3.65.759-4.948 2.052L.9.9.2 7.3l6.4-.7-2.135-2.135A5.023 5.023 0 0 1 8 3c2.757 0 5 2.243 5 5 0 1.06-.327 2.072-.947 2.928l1.621 1.173A6.96 6.96 0 0 0 15 8c0-3.86-3.141-7-7-7z"/>
         </svg>
@@ -32,10 +32,8 @@
         </svg>
 
         <svg v-if="name === 'sort-arrow'" :style="styleOverride" xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 9 10">
-            <polygon class="path"
-                     points="9 5.8125 8.05970149 4.9375 5.17164179 7.625 5.17164179 0 3.82835821 0 3.82835821 7.625 0.940298507 4.9375 7.78543896e-14 5.8125 4.5 10"
-                     fill-rule="nonzero"/>
+             viewBox="0 0 8 8">
+            <path class="path" transform="translate(-4 -4)" d="M12 8.231l-.836-.787-2.567 2.419V4H7.403v5.863l-2.567-2.42L4 8.232 8 12z"/>
         </svg>
 
         <svg v-if="name === 'calendar'" :style="styleOverride" viewBox="0 0 16 16"
@@ -165,6 +163,18 @@
             <path fill="#FE664E" d="M0 0h300v114H0z"/>
             <path d="M80.192 86.006h-27.01v-60h26.552c11.296 0 18.382 5.78 18.382 14.97 0 6.57-4.918 12.057-11.296 13.014v.332c8.17.624 14.173 6.57 14.173 14.512 0 10.56-7.962 17.172-20.8 17.172zM65.77 35.362v15.592h9.42c6.71 0 10.546-2.952 10.546-8.025 0-4.824-3.376-7.568-9.254-7.568H65.77zm0 41.29h11.213c7.253 0 11.17-3.078 11.17-8.816 0-5.614-4.042-8.607-11.462-8.607H65.77v17.42zm84.183-1.04H122.69V60.475h25.72V50.83h-25.72V36.36h27.263V26.006h-39.85v60h39.85V75.61zm38.205 10.394H175.57V36.36h-17.59V26.006h47.81V36.36H188.16v49.646zm57.797 0l-4.585-14.553h-21.134l-4.585 14.553h-12.92l20.883-60h14.797l20.926 60h-13.38zm-15.298-48.524l-7.71 24.574h15.714l-7.71-24.574h-.293z" fill="#FFF"/>
         </svg>
+
+        <svg v-if="name === 'caret'" :style="styleOverride" viewBox="0 0 12 5" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M6 5l6-5H0z"/>
+        </svg>
+
+        <svg v-if="name === 'list-search'" :style-override="styleOverride" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M4 12H1a1 1 0 0 1 0-2h3v2zM15 2H1a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2zM4 7H1a1 1 0 0 1 0-2h3v2zM15.707 12.293l-2.274-2.274A3.947 3.947 0 0 0 14 8c0-2.206-1.794-4-4-4S6 5.794 6 8s1.794 4 4 4c.74 0 1.424-.215 2.019-.567l2.274 2.274 1.414-1.414zM10 10c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/>
+        </svg>
+
+        <svg v-if="name === 'bars'" :style-override="styleOverride" viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
+            <path class="path" d="M1 0v10H0V0h1zm3 0v10H3V0h1zm3 0v10H6V0h1z"/>
+        </svg>
     </div>
 </template>
 
@@ -204,12 +214,5 @@ export default {
 @keyframes SPIN {
     0%   { transform: rotate(0); }
     100% { transform: rotate(720deg); }
-}
-
-/* Styles for specific icons */
-.icon-caret {
-    border-width: 3px 3.5px 0 3.5px;
-    border-style: solid;
-    border-color: currentColor transparent transparent transparent;
 }
 </style>
