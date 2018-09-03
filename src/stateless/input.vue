@@ -14,7 +14,7 @@
                 </div>
             </template>
 
-            <div :class="[cssStates, theme] | prefix('input-row--')" class="input-row">
+            <div :class="cssStates | prefix('input-row--')" class="input-row">
                 <div v-if="$slots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
                     <slot name="left"></slot>
                 </div>
@@ -146,6 +146,7 @@ export default {
                 'overlay-open': this.overlay.open,
                 'overlay-close': this.overlay.close,
                 'autogrow': this.autogrow,
+                [this.theme]: true,
             }
         },
         inputType () {
@@ -599,6 +600,20 @@ export default {
             }
         }
 
+        &--dark {
+            color: white;
+            &::placeholder {
+                color: @very-light-gray;
+            }
+        }
+
+        &--light {
+            color: @black;
+            &::placeholder {
+                color: @gunpowder;
+            }
+        }
+
         &--error { color: @pink-red; }
 
         &--focused { color: @white }
@@ -606,6 +621,26 @@ export default {
 
         &--disabled { color: @gunpowder }
         &--disabled::placeholder { color: @gunpowder }
+    }
+
+    &--dark {
+        border-color: @gunpowder;
+
+        .input-row--focused { border-color: @royal-blue; }
+
+        &:hover {
+            .input-row__placeholder-text::placeholder { color: white; }
+        }
+    }
+
+    &--light {
+        border-color: @very-light-gray;
+
+        &:hover {
+            .input-row__placeholder-text::placeholder { color: @black; }
+        }
+
+        .input-row--focused { border-color: @royal-blue; }
     }
 
     &--focused { border-color: @royal-blue; }
@@ -696,24 +731,6 @@ export default {
     &--error { color: @pink-red; }
 }
 
-// DARK theme
-.input-row--dark {
-    border-color: @gunpowder;
-
-    &__placeholder-text {
-        color: white;
-        &::placeholder {
-            color: @very-light-gray;
-        }
-    }
-
-    &--focused { border-color: @royal-blue; }
-
-    &:hover {
-        .input-row__placeholder-text::placeholder { color: white; }
-    }
-}
-
 .input--dark {
     .input-field__label-text {
         color: @dolphin;
@@ -740,24 +757,6 @@ export default {
     .input__icon-prepend {
         color: @dolphin;
     }
-}
-
-// LIGHT theme
-.input-row--light {
-    border-color: @very-light-gray;
-
-    &__placeholder-text {
-        color: @black;
-        &::placeholder {
-            color: @gunpowder;
-        }
-    }
-
-    &:hover {
-        .input-row__placeholder-text::placeholder { color: @black; }
-    }
-
-    &--focused { border-color: @royal-blue; }
 }
 
 .input--light {
