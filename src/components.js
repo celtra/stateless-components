@@ -213,6 +213,10 @@ export default {
     },
     Tooltip: {
         component: Tooltip,
+        defaultProps: {
+            title: 'Some',
+            show: true,
+        },
     },
     PieChart: {
         component: PieChart,

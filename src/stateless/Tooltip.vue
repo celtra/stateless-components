@@ -1,12 +1,15 @@
 <template>
     <div ref="tooltip" :style="{transform: transform}" :class="{ 'hover-tooltip--visible': show }" class="hover-tooltip" @animationstart="handleAnimationStart">
-        <slot></slot>
+        <p v-if="title" class="hover-tooltip__title">{{ title }}</p>
+        <slot>Something</slot>
     </div>
 </template>
 
 <script>
 export default {
     props: {
+        theme: { type: String, default: 'dark' },
+        title: { type: String, required: false },
         show: { type: Boolean, default: false },
         boundaryElement: { type: [HTMLElement, String], default: null },
     },
@@ -70,17 +73,23 @@ export default {
     background-color: @gunpowder;
     border-radius: 3px;
     font-size: 11px;
-    text-align: center;
+    text-align: left;
     padding: 6px 20px;
     z-index: @z-highest;
     max-width: 200px;
     word-wrap: break-word;
+
+    &__title {
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 5px;
+    }
 }
 
 :hover > .hover-tooltip,
 .hover-tooltip--visible {
     animation: 0.2s fadeIn;
-    animation-delay: 0.4s;
+    animation-delay: 0.8s;
     animation-fill-mode: forwards;
 }
 
