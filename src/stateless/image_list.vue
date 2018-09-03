@@ -366,7 +366,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 .image-list {
     &__items {
         pointer-events: none;
@@ -377,7 +377,7 @@ export default {
     }
 
     &__item-content {
-        transition: opacity 0.15s ease;
+        transition: opacity @default-transition-time ease;
     }
 
     &__item-underline {
@@ -385,7 +385,7 @@ export default {
     }
 
     &__arrow {
-        transition: opacity 0.15s ease-out;
+        transition: opacity @default-transition-time ease-out;
         pointer-events: none;
     }
 

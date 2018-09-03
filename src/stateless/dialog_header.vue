@@ -1,29 +1,30 @@
 <template>
     <div>
-        <div v-for="step in shownSteps.slice(0, stepIndex + 1)" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
+        <div v-for="step in calculationSteps" ref="calculationSteps" :key="step.id + '-hidden'" :class="{ 'active': step.isActive, 'green': isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element dialog-header__element--calculation">{{ step.label | middleEllipsis(32) }}</div>
 
-        <div :class="['dialog-header--' + theme, 'dialog-header--' + dialogViewState, { 'dialog-header--green': isValid !== false }]" class="dialog-header">
+        <div :class="['dialog-header--' + theme, 'dialog-header--' + dialogViewState]" class="dialog-header">
             <div v-show="stepIndex > 0 && hasBackButton" ref="backButton" class="dialog-header__back" tabindex="0" @click="previousStep" @keyup.enter.stop="previousStep">
-                <svg class="dialog-header__back-svg" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#new-dialog-back-icon"></use>
-                </svg>
+                <icon class="dialog-header__back-svg" name="left-arrow" />
             </div>
 
             <div v-show="showHeader" ref="headerContent" :style="headerStyle" class="dialog-header__content">
-                <div v-for="step in shownSteps" :id="step.id" :key="step.id" :class="{ 'active': step.isActive } | prefix('dialog-header__element--')" class="dialog-header__element">{{ step.label | middleEllipsis(32) }}</div>
+                <div v-for="step in shownSteps" :id="step.id" :key="step.id" :class="{ 'active': step.isActive, 'green': isValid !== false } | prefix('dialog-header__element--')" class="dialog-header__element">{{ step.label | middleEllipsis(32) }}</div>
             </div>
 
             <div v-show="hasCloseButton" ref="closeButton" :class="{'dialog-header__close--light': theme === 'light'}" class="dialog-header__close" tabindex="0" @click="closeDialog" @keyup.enter.stop="closeDialog">
-                <svg class="dialog-header__close-svg" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#new-dialog-close-icon"></use>
-                </svg>
+                <icon class="dialog-header__close-svg" name="close" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Icon from './icon.vue'
+
 export default {
+    components: {
+        Icon,
+    },
     props: {
         theme: { type: String, default: 'dark' },
         dialogViewState: { type: String, required: true },
@@ -60,6 +61,9 @@ export default {
             }
             return this.shownSteps.map(s => s.id).indexOf(this.currentStepId)
         },
+        calculationSteps () {
+            return this.shownSteps.slice(0, this.stepIndex + 1)
+        },
         showHeader () {
             return this.headerOffset !== null
         },
@@ -68,7 +72,7 @@ export default {
         },
     },
     watch: {
-        stepIndex () {
+        calculationSteps () {
             this.$nextTick(() => this.transitionHeader())
         },
     },
@@ -77,6 +81,7 @@ export default {
     },
     mounted () {
         this.$nextTick(() => {
+            this.transitionHeader()
             window.addEventListener('resize', () => this.transitionHeader())
             setTimeout(() => this.transitionHeader(), 100) // safari initially returns wrong width for first step
         })
@@ -119,8 +124,13 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) "./variables";
-@import (reference) './breakpoints';
+@import (reference) './common';
+
+@step-animation-time: 0.2s;
+@open-close-animation-time-header: 0.21s;
+@closing-animation-time-header: @default-transition-time;
+@open-animation-time-header-delay: 0.1s;
+@close-animation-time-header-delay: 0.06s;
 
 .dialog-header {
     position: absolute;
@@ -174,10 +184,6 @@ export default {
         to   { opacity: 0; }
     }
 
-    &--green {
-        .dialog-header__element, .dialog-header__element--active { color: @light-green; }
-    }
-
     &__content {
         position: absolute;
         font-family: @regular-text-font;
@@ -190,7 +196,6 @@ export default {
     &__element {
         float: left;
         margin-right: 30px;
-        color: @gray;
         letter-spacing: 0.5px;
         font-size: 11px;
         line-height: 11px;
@@ -206,7 +211,6 @@ export default {
     }
 
     &__element--active {
-        color: #ffffff;
         font-size: 18px;
         line-height: 8px;
     }
@@ -225,11 +229,6 @@ export default {
         &:focus { outline: none; }
     }
 
-    &__back-svg {
-        width: 30px;
-        height: 22px;
-    }
-
     &__close {
         position: absolute;
         right: 30px;
@@ -246,20 +245,58 @@ export default {
         &:focus { outline: none; }
     }
 
-    &__close-svg {
+    .dialog-header__back-svg.dialog-header__back-svg {
+        width: 30px;
+        height: 22px;
+    }
+
+    .dialog-header__close-svg.dialog-header__close-svg {
         width: 24px;
         height: 24px;
-        fill: @very-light-gray;
+    }
+}
+
+.dialog-header--dark {
+    .dialog-header__element {
+        color: @gray;
+
+        &--active {
+            color: @white;
+        }
+
+        &--green {
+            color: @light-green;
+        }
+    }
+
+    .dialog-header__back-svg {
+        color: @very-light-gray;
+    }
+
+    .dialog-header__close-svg {
+        color: @very-light-gray;
     }
 }
 
 .dialog-header--light {
     .dialog-header__element {
         color: @bluish-gray;
+
+        &--active {
+            color: @bluish-gray;
+        }
+
+        &--green {
+            color: @light-green;
+        }
+    }
+
+    .dialog-header__back-svg {
+        color: @gunpowder;
     }
 
     .dialog-header__close-svg {
-        fill: @gunpowder;
+        color: @gunpowder;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme, size, { active: isActive }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
+    <div :class="[theme, { active: isActive }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
@@ -17,7 +17,6 @@ export default {
     },
     props: {
         theme: { type: String, default: 'dark' }, // dark | light
-        size: { type: String, default: 'normal' }, // condensed | normal
         label: { type: String, required: true },
         metadata: { type: String, default: '' },
         isActive: { type: Boolean, default: false },
@@ -27,7 +26,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 .chip {
     height: 20px;
@@ -38,8 +37,9 @@ export default {
     align-items: center;
     user-select: none;
     cursor: pointer;
-    transition: all @icon-hover-transition-time;
+    transition: all @default-transition-time;
     outline: none;
+    padding: 0 5px;
 }
 
 .chip__label {
@@ -52,21 +52,8 @@ export default {
 }
 
 .chip__remove-btn {
-    transition: all @icon-hover-transition-time;
+    transition: all @default-transition-time;
     padding: 0 0 0 5px;
-}
-
-/* SIZES */
-.chip--condensed {
-    padding: 0;
-
-    .chip__remove-btn {
-        padding: 0 5px 0 0;
-    }
-}
-
-.chip--normal {
-    padding: 0 5px;
 }
 
 /* DARK THEME */

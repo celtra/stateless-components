@@ -1,9 +1,9 @@
 <template>
-    <div v-click-outside="close" class="typeahead" @keyup.up="move(-1)" @keyup.down="move(1)">
-        <input-element v-bind="inputData" :error="inputError" class="typeahead__input" @focus="onInputFocus" @input="onInput" @blur="onInputBlur"></input-element>
+    <div v-click-outside="close" class="typeahead">
+        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
-        <template v-if="isOpen && (isValueValid || suggestions.length > 0)">
-            <default-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :highlight-query="value" class="typeahead__suggestions" @select="onSelect"/>
+        <template v-if="showSuggestions">
+            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
@@ -11,14 +11,12 @@
 
 <script>
 import Input from './input.vue'
-import DefaultList from './DefaultList.vue'
-import DefaultListItem from './DefaultListItem.vue'
+import ScrollableList from './ScrollableList.vue'
 
 export default {
     components: {
         inputElement: Input,
-        DefaultList,
-        DefaultListItem,
+        ScrollableList,
     },
     props: {
         value: { type: [String, Number], default: '' },
@@ -39,11 +37,14 @@ export default {
                 error: null,
             }
         },
+        showSuggestions () {
+            return this.isOpen && (this.isValueValid || this.suggestions.length > 0) && !(this.value === null || typeof this.value === 'string' && this.value.length <= 2)
+        },
         suggestions () {
             return this.getSuggestions(this.value)
         },
         inputError () {
-            if (this.isOpen || !this.isValid) {
+            if (this.showSuggestions || this.suggestions.filter(item => !item.disabled).length > 0 || !this.isValid || ( this.value === null || typeof this.value === 'string' && this.value.length <= 2)) {
                 return null
             }
             return this.isValid(this.value)
@@ -52,9 +53,31 @@ export default {
             return this.isValid ? this.isValid(this.value) === null : true
         },
     },
+    watch: {
+        value (text) {
+            this.$nextTick(() => {
+                this.highlightFirstItem()
+                // Reset input state to normal
+                if (text && text.length <= 2) {
+                    this.$refs.input.errorMessage = null
+                }
+            })
+        },
+        isOpen () {
+            this.$nextTick(() => {
+                this.highlightFirstItem()
+                // Reset input state to normal
+                if (this.isOpen) {
+                    this.$refs.input.errorMessage = null
+                }
+            })
+        },
+    },
     methods: {
+        focus () {
+            this.$refs.input.focus()
+        },
         onInputFocus () {
-            this.isListFocused = false
             this.isOpen = true
             this.$emit('focus')
         },
@@ -62,11 +85,9 @@ export default {
             this.isOpen = false
             this.$emit('blur')
         },
-        onInputBlur () {
-            if (!this.isListFocused) {
-                this.$nextTick(() => {
-                    setTimeout(() => this.close(), 100) // TODO: Temporary hack, needs to be fixed before deploy
-                })
+        onBlur (ev) {
+            if (!this.$el.contains(ev.relatedTarget)) {
+                this.close()
             }
         },
         onInput (v) {
@@ -78,13 +99,26 @@ export default {
             this.$emit('select', suggestion)
             this.close()
         },
-        move (delta) {
-            if (!this.isOpen) {
-                this.isOpen = true
-            } else {
-                this.isListFocused = true
-                this.$refs.list.$el.focus()
-                this.$refs.list.move(delta)
+        highlightFirstItem () {
+            if (this.showSuggestions) {
+                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                if (firstEnabledIndex > -1 ) {
+                    this.$refs.list.highlightItem(firstEnabledIndex)
+                }
+            }
+        },
+        selectFirstItem () {
+            if (this.showSuggestions) {
+                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                if (firstEnabledIndex > -1 ) {
+                    this.onSelect(this.suggestions[0])
+                }
+            }
+        },
+        onDown () {
+            if (this.$refs.list){
+                this.$refs.list.focus()
+                this.$refs.list.move(1)
             }
         },
     },
@@ -92,16 +126,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 .typeahead {
     position: relative;
 
     &__suggestions {
         position: absolute;
         margin-top: -7px;
-        background-color: #FFFFFF;
+        background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 15px 0px;
+        z-index: @z-heaven;
     }
 
     &__no-items-text {
@@ -109,8 +144,9 @@ export default {
         margin-top: -7px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         padding: 20px;
-        width: calc(~'100% - 2 * 20px');
-        background: #FFFFFF;
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
         font-size: 16px;
     }
 }

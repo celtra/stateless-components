@@ -2,21 +2,94 @@
 
 exports[`Multiselect should match the snapshot 1`] = `
 <div
-  class="multiselect"
+  class="multiselect multiselect--dark"
 >
   <div
     class="multiselect__search-with-icon"
   >
     <div
-      class="input input--phat input--dark"
+      class="input search-input input--normal input--dark"
+      id="search"
     >
       <div
         class="input__icon-prepend"
       >
-        <img
-          src="/img/icons/search.svg"
-          style="height: 16px; width: 16px;"
-        />
+        <div
+          class="icon-wrapper"
+        >
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <svg
+            viewBox="0 0 16 17"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="path"
+              d="M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z"
+              fill-rule="nonzero"
+            />
+          </svg>
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+        </div>
       </div>
        
       <div
@@ -84,293 +157,310 @@ exports[`Multiselect should match the snapshot 1`] = `
   </div>
    
   <div
-    class="multiselect__change-multiple"
+    class="multiselect__options"
   >
-    <div
-      class="checkbox-element multiselect__select-all checkbox-element--condensed checkbox-element--dark"
-      data-id="select-all"
-      tabindex="0"
-      title="SELECT ALL"
-    >
+    <div>
       <div
-        class="checkbox-element__check-row"
-        title="SELECT ALL"
+        class="scrollable-list multiselect__default-list scrollable-list--dark"
       >
         <div
-          class="checkbox-element__check-wrapper"
+          class="scrollable-list__list-wrap"
         >
           <div
-            class="checkbox-element__square"
+            class="scrollable-list__overlay scrollable-list__overlay--top"
+          >
+            <!---->
+          </div>
+           
+          <div
+            class="scrollable-list__overlay scrollable-list__overlay--bottom"
           />
            
           <div
-            class="checkbox-element__check"
-          />
-        </div>
-         
-        <div
-          class="checkbox-element__label-text"
-        >
-          <span
-            class="multiselect__select-all-label"
+            class="scrollable-list__list"
+            style="max-height: 300px;"
           >
-            SELECT ALL
-          </span>
-        </div>
-      </div>
-       
-      <!---->
-    </div>
-  </div>
-   
-  <div
-    class="multiselect__options"
-    style="height: 0px;"
-  >
-    <div
-      name="multiselect__item"
-      tag="div"
-    >
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="option-1"
-          tabindex="0"
-          title="option 1"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="option 1"
-          >
+             
             <div
-              class="checkbox-element__check-wrapper"
+              class="default-list scrollable-list__default-list default-list--dark"
+              tabindex="0"
             >
               <div
-                class="checkbox-element__square"
-              />
+                class="default-list__hidden-slots"
+              >
+                <div>
+                  <div
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+                      data-id="a"
+                      tabindex="-1"
+                      title="A"
+                    >
+                      <div
+                        class="checkbox-element__check-row"
+                        title="A"
+                      >
+                        <div
+                          class="checkbox-element__check-wrapper"
+                        >
+                          <div
+                            class="checkbox-element__square"
+                          />
+                           
+                          <div
+                            class="checkbox-element__check"
+                          />
+                        </div>
+                         
+                        <div
+                          class="checkbox-element__label-text"
+                        >
+                          <div
+                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal default-list-item--with-metadata"
+                          >
+                            <p
+                              class="default-list-item__label default-list-item__label--with-metadata"
+                              style="width: -3px;"
+                            >
+                              
+            A
+        
+                            </p>
+                             
+                            <p
+                              class="default-list-item__metadata default-list-item__metadata--with-metadata"
+                              style="width: -2px;"
+                            >
+                              
+            ...A
+         
+                              <!---->
+                            </p>
+                             
+                            <p
+                              class="default-list-item__hidden-width default-list-item__label"
+                            >
+                              A
+                            </p>
+                             
+                            <p
+                              class="default-list-item__hidden-width default-list-item__metadata"
+                            >
+                              
+            A
+            
+                              <!---->
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <!---->
+                    </div>
+                  </div>
+                </div>
+                 
+                <div>
+                  <div
+                    class="default-list__group"
+                  >
+                    A
+                  </div>
+                </div>
+              </div>
                
               <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    option 1
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <!---->
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="option-2"
-          tabindex="0"
-          title="option 2"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="option 2"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
+                class="default-list__item default-list__item--leaf"
+                data-item-id="1"
+                style="margin-left: 0px; height: 30px;"
+              >
+                <div
+                  class="default-list__item-content"
+                >
+                  <div
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+                      data-id="option-1"
+                      tabindex="-1"
+                      title="option 1"
+                    >
+                      <div
+                        class="checkbox-element__check-row"
+                        title="option 1"
+                      >
+                        <div
+                          class="checkbox-element__check-wrapper"
+                        >
+                          <div
+                            class="checkbox-element__square"
+                          />
+                           
+                          <div
+                            class="checkbox-element__check"
+                          />
+                        </div>
+                         
+                        <div
+                          class="checkbox-element__label-text"
+                        >
+                          <div
+                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
+                          >
+                            <p
+                              class="default-list-item__label"
+                            >
+                              
+            option 1
+        
+                            </p>
+                             
+                            <!---->
+                             
+                            <!---->
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <!---->
+                    </div>
+                  </div>
+                   
+                  <!---->
+                </div>
+              </div>
               <div
-                class="checkbox-element__square"
-              />
+                class="default-list__item default-list__item--leaf"
+                data-item-id="2"
+                style="margin-left: 0px; height: 30px;"
+              >
+                <div
+                  class="default-list__item-content"
+                >
+                  <div
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+                      data-id="option-2"
+                      tabindex="-1"
+                      title="option 2"
+                    >
+                      <div
+                        class="checkbox-element__check-row"
+                        title="option 2"
+                      >
+                        <div
+                          class="checkbox-element__check-wrapper"
+                        >
+                          <div
+                            class="checkbox-element__square"
+                          />
+                           
+                          <div
+                            class="checkbox-element__check"
+                          />
+                        </div>
+                         
+                        <div
+                          class="checkbox-element__label-text"
+                        >
+                          <div
+                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
+                          >
+                            <p
+                              class="default-list-item__label"
+                            >
+                              
+            option 2
+        
+                            </p>
+                             
+                            <!---->
+                             
+                            <!---->
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <!---->
+                    </div>
+                  </div>
+                   
+                  <!---->
+                </div>
+              </div>
+              <div
+                class="default-list__item default-list__item--leaf"
+                data-item-id="3"
+                style="margin-left: 0px; height: 30px;"
+              >
+                <div
+                  class="default-list__item-content"
+                >
+                  <div
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
+                      data-id="option-3"
+                      tabindex="-1"
+                      title="option 3"
+                    >
+                      <div
+                        class="checkbox-element__check-row"
+                        title="option 3"
+                      >
+                        <div
+                          class="checkbox-element__check-wrapper"
+                        >
+                          <div
+                            class="checkbox-element__square"
+                          />
+                           
+                          <div
+                            class="checkbox-element__check"
+                          />
+                        </div>
+                         
+                        <div
+                          class="checkbox-element__label-text"
+                        >
+                          <div
+                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
+                          >
+                            <p
+                              class="default-list-item__label"
+                            >
+                              
+            option 3
+        
+                            </p>
+                             
+                            <!---->
+                             
+                            <!---->
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <!---->
+                    </div>
+                  </div>
+                   
+                  <!---->
+                </div>
+              </div>
                
-              <div
-                class="checkbox-element__check"
-              />
+              <!---->
             </div>
              
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    option 2
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <!---->
-      </div>
-      <div
-        class="multiselect__option"
-      >
-        <div
-          class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-          data-id="option-3"
-          tabindex="0"
-          title="option 3"
-        >
-          <div
-            class="checkbox-element__check-row"
-            title="option 3"
-          >
-            <div
-              class="checkbox-element__check-wrapper"
-            >
-              <div
-                class="checkbox-element__square"
-              />
-               
-              <div
-                class="checkbox-element__check"
-              />
-            </div>
-             
-            <div
-              class="checkbox-element__label-text"
-            >
-              
-                    option 3
-                
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <!---->
-      </div>
-    </div>
-  </div>
-   
-  <div
-    class="multiselect__options"
-    style="visibility: hidden; position: absolute;"
-  >
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="option-1"
-        tabindex="0"
-        title="option 1"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="option 1"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                option 1
-            
           </div>
         </div>
-         
-        <!---->
       </div>
-       
-      <!---->
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="option-2"
-        tabindex="0"
-        title="option 2"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="option 2"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                option 2
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <!---->
-    </div>
-    <div
-      class="multiselect__option"
-    >
-      <div
-        class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-        data-id="option-3"
-        tabindex="0"
-        title="option 3"
-      >
-        <div
-          class="checkbox-element__check-row"
-          title="option 3"
-        >
-          <div
-            class="checkbox-element__check-wrapper"
-          >
-            <div
-              class="checkbox-element__square"
-            />
-             
-            <div
-              class="checkbox-element__check"
-            />
-          </div>
-           
-          <div
-            class="checkbox-element__label-text"
-          >
-            
-                option 3
-            
-          </div>
-        </div>
-         
-        <!---->
-      </div>
-       
-      <!---->
     </div>
   </div>
 </div>

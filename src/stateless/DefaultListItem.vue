@@ -18,17 +18,18 @@
             <icon v-if="icon" :name="icon" class="default-list-item__icon" />
         </p>
 
-        <div v-if="metadata" class="default-list-item__hidden-widths">
-            <p ref="labelContainer" class="default-list-item__label">{{ label }}</p>
-            <p ref="metadataContainer" class="default-list-item__metadata">
+        <template v-if="metadata">
+            <p ref="labelContainer" class="default-list-item__hidden-width default-list-item__label">{{ label }}</p>
+            <p ref="metadataContainer" class="default-list-item__hidden-width default-list-item__metadata">
                 {{ metadata }}
                 <icon v-if="icon" :name="icon" class="default-list-item__icon" />
             </p>
-        </div>
+        </template>
     </div>
 </template>
 
 <script>
+import { getTextHighlightParts } from './string_utils.js'
 import Icon from './icon.vue'
 
 export default {
@@ -77,10 +78,9 @@ export default {
         calculateWidths () {
             if (this.metadata) {
                 const THRESHOLD = 0.1
-                let totalWidth = this.$el.clientWidth - 5
-
-                let labelWidth = this.$refs.labelContainer.clientWidth
-                let metadataWidth = this.$refs.metadataContainer.clientWidth
+                const totalWidth = this.$el.clientWidth - 5
+                const labelWidth = this.$refs.labelContainer.clientWidth
+                const metadataWidth = this.$refs.metadataContainer.clientWidth
 
                 if (labelWidth + metadataWidth > totalWidth) {
                     let finalLabelWidth
@@ -104,46 +104,17 @@ export default {
             }
         },
         getParts (label) {
-            let index = this.highlightQuery && this.highlightQuery.length > 0 ? label.toLowerCase().indexOf(this.highlightQuery.toLowerCase()) : -1
-            if (index === -1) {
-                return [
-                    { text: label, bold: false },
-                ]
-            }
-            let beforeIndex = label.substring(0, index)
-            let atIndex = label.substring(index, index + this.highlightQuery.length)
-            let afterIndex = label.substring(index + this.highlightQuery.length)
-
-            let parts = []
-            if (beforeIndex.length > 0) {
-                parts.push({
-                    text: beforeIndex,
-                    bold: false,
-                })
-            }
-
-            parts.push({
-                text: atIndex,
-                bold: true,
-            })
-
-            if (afterIndex.length > 0) {
-                parts.push({
-                    text: afterIndex,
-                    bold: false,
-                })
-            }
-
-            return parts
+            return getTextHighlightParts(label, this.highlightQuery)
         },
     },
 }
 </script>
 
 <style lang="less">
-@import (reference) './variables';
+@import (reference) './common';
 
 .default-list-item {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,6 +122,10 @@ export default {
 
     &--disabled {
         cursor: auto;
+
+        .default-list-item__icon {
+            color: @gray-blue;
+        }
     }
 
     &__label {
@@ -161,7 +136,7 @@ export default {
         font-family: @regular-text-font;
         color: @very-light-gray;
         display: inline-block;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
 
         &--error { color: @pink-red; }
         &--with-metadata { padding-right: 5px; }
@@ -172,7 +147,7 @@ export default {
         align-items: center;
         margin: 0;
         white-space: nowrap;
-        text-align: right;
+        justify-content: flex-end;
         overflow: hidden;
         font-family: @regular-text-font;
         color: @gray-blue;
@@ -180,9 +155,10 @@ export default {
 
     &__icon {
         margin-left: 10px;
+        color: @gunpowder;
     }
 
-    &__hidden-widths {
+    &__hidden-width {
         visibility: hidden;
         position: absolute;
     }

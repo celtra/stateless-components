@@ -93,7 +93,7 @@ export default {
         toggle (ev) {
             if (!this.disabled) {
                 this.$emit('focus')
-                this.$emit('input', !this.value, ev)
+                this.$emit('input', !this.value)
                 this.focused = false
             }
         },
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
 
 * {
     box-sizing: border-box
@@ -161,7 +161,7 @@ export default {
         border-style: solid;
         border-radius: 2px;
         border-color: @bluish-gray;
-        transition: transform @form-element-transition-time ease-out;
+        transition: transform @default-transition-time ease-out;
         opacity: 1;
 
         &--checked {
@@ -182,7 +182,7 @@ export default {
         padding-top: 3px;
         display: flex;
         justify-content: center;
-        transition: transform @form-element-transition-time ease-out;
+        transition: transform @default-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
 
@@ -205,7 +205,7 @@ export default {
             &:after {
                 content: '';
                 width: 10px;
-                height: 11px;
+                height: 9px;
                 display: block;
                 border-bottom: 2px solid @royal-blue;
             }
@@ -228,7 +228,9 @@ export default {
         text-overflow: ellipsis;
         font-size: 18px;
         font-family: @regular-text-font;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
+        display: flex;
+        align-items: center;
 
         &--disabled {
             color: @gunpowder;
@@ -290,7 +292,7 @@ export default {
         min-width: 25px;
         border-radius: 8px;
         background-color: @very-light-gray;
-        transition: all @form-element-transition-time ease-out;
+        transition: all @default-transition-time ease-out;
 
         &--checked {
             background-color: @light-green;
@@ -302,7 +304,7 @@ export default {
         height: 15px;
         border-radius: 50%;
         background-color: @extremely-light-gray;
-        transition: all @form-element-transition-time ease-out;
+        transition: all @default-transition-time ease-out;
 
         &--checked {
             margin-left: 10px;
@@ -334,10 +336,17 @@ export default {
         height: 18px;
     }
 
-    .checkbox-element__check:after {
-        width: 6px;
-        height: 14px;
-        border-width: 0 4.5px 5px 0;
+    .checkbox-element__check {
+        &--checked:after {
+            width: 6px;
+            height: 14px;
+            border-width: 0 4.5px 5px 0;
+        }
+
+        &--some:after {
+            width: 12px;
+            height: 11px;
+        }
     }
 
     .checkbox-element__label-text {
@@ -403,6 +412,12 @@ export default {
 
     .checkbox-element__check {
         padding-top: 0;
+
+        &--some {
+            &:after {
+                height: 11px;
+            }
+        }
     }
 
     .checkbox-element__label-text {

@@ -159,7 +159,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../stateless/variables';
+@import (reference) '../stateless/common';
 
 .components-list {
     display: flex;

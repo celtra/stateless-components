@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) './variables';
+@import (reference) './common';
 
 .file-upload-requirements {
     color: @dolphin;
@@ -24,6 +24,8 @@ export default {
     margin-top: 15px;
     line-height: 15px;
     letter-spacing: 0.5px;
+    position: absolute;
+    z-index: @z-heaven;
 
     .file-upload-requirements__requirement-value {
         font-family: @medium-text-font;

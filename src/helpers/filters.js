@@ -28,7 +28,7 @@ export function prefix (value, prefix) {
 }
 
 export function slugify (value) {
-    return value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+    return value ? value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') : ''
 }
 
 export function middleEllipsis (value, totalCharacters) {

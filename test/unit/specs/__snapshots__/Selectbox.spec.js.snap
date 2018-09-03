@@ -19,17 +19,18 @@ exports[`Selectbox should match the snapshot 1`] = `
     class="selectbox__select-row selectbox__select-row--selected selectbox__select-row--with-search"
   >
     <div
-      class="selectbox__selected-text"
+      class="default-list-item selectbox__current-item default-list-item--dark default-list-item--normal"
+      title="Placeholder"
     >
-      <div
-        class="selectbox__label selectbox__label--selected selectbox__label--with-search"
-        style="width: 100%;"
-        title="Placeholder"
+      <p
+        class="default-list-item__label"
       >
         
-                Placeholder
-            
-      </div>
+            Placeholder
+        
+      </p>
+       
+      <!---->
        
       <!---->
     </div>
