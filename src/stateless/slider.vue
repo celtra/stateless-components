@@ -236,7 +236,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) 'variables';
+@import (reference) './common';
+
+@opening-animation-time-content: 0.2s;
 
 .slider {
     margin-bottom: 15px;
@@ -274,7 +276,7 @@ export default {
         height: 7px;
         margin-top: 3px;
         background-color: @gunpowder;
-        transition: background-color @form-element-transition-time ease-out;
+        transition: background-color @default-transition-time ease-out;
 
         &--hidden {
             visibility: hidden;
@@ -285,7 +287,7 @@ export default {
         color: @dolphin;
         font-size: 10px;
         font-family: @regular-text-font;
-        transition: color @form-element-transition-time ease-out;
+        transition: color @default-transition-time ease-out;
     }
 
     &__ticks {
@@ -308,7 +310,7 @@ export default {
     &--passive {
         background-color: @gunpowder;
         width: 100%;
-        transition: background-color @form-element-transition-time ease-out;
+        transition: background-color @default-transition-time ease-out;
     }
 
     &--exceeds {

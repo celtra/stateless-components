@@ -159,7 +159,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../stateless/variables';
+@import (reference) '../stateless/common';
 
 .components-list {
     display: flex;
@@ -184,6 +184,7 @@ export default {
     width: fit-content;
     margin-bottom: 40px;
     margin-top: 60px;
+    position: relative;
 }
 
 .props {
@@ -206,7 +207,7 @@ export default {
 }
 
 .dark-theme {
-    background-color: @dark-gray;
+    background-color: #161623; // Dark background from UI System on invision, don't need this in variables
     color: white;
 }
 </style>

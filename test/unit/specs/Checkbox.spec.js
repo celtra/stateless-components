@@ -25,6 +25,7 @@ describe('Checkbox', () => {
                     error: false,
                     warning: false,
                     checked: false,
+                    some: false,
                     disabled: false,
                     focused: false,
                 })
@@ -37,6 +38,7 @@ describe('Checkbox', () => {
                     error: true,
                     warning: false,
                     checked: false,
+                    some: false,
                     disabled: false,
                     focused: false,
                 })
@@ -49,6 +51,7 @@ describe('Checkbox', () => {
                     error: false,
                     warning: true,
                     checked: false,
+                    some: false,
                     disabled: false,
                     focused: false,
                 })
@@ -61,6 +64,7 @@ describe('Checkbox', () => {
                     error: false,
                     warning: false,
                     checked: false,
+                    some: false,
                     disabled: true,
                     focused: false,
                 })
@@ -73,6 +77,7 @@ describe('Checkbox', () => {
                     error: false,
                     warning: false,
                     checked: true,
+                    some: false,
                     disabled: false,
                     focused: false,
                 })
@@ -161,8 +166,8 @@ describe('Checkbox', () => {
                 vm.toggle()
 
                 expect(vm.focused).toBe(false)
-                expect(vm.$emit).toHaveBeenCalledWith('input', true)
                 expect(vm.$emit).toHaveBeenCalledWith('focus')
+                expect(vm.$emit).toHaveBeenCalledWith('input', true)
             })
         })
     })

@@ -1,213 +1,232 @@
 <template>
-    <div class="multiselect">
-        <div v-if="isSearchable" class="multiselect__search-with-icon">
-            <input-element v-model="searchQuery" :label="label" size="phat">
-                <img slot="before" src="/img/icons/search.svg" style="height: 16px; width: 16px;"/>
-            </input-element>
+    <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)" @click="$refs.list && $refs.list.focus()">
+        <div v-if="isSearchable" class="multiselect__search-with-icon" @click.stop>
+            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div class="multiselect__change-multiple">
-            <checkbox-element v-if="clearAllLength === 0" :value="false" size="condensed" class="multiselect__select-all" @input="selectAll">
-                <span class="multiselect__select-all-label">SELECT ALL</span>
-            </checkbox-element>
-            <div v-else class="multiselect__clear-all" @click="clearAll">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                    <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                </svg>
-                <span class="multiselect__clear-all-text">CLEAR ALL ({{ clearAllLength }})</span>
+        <div class="multiselect__options">
+            <div v-if="listItems.length === 0" class="multiselect__no-items">
+                No items
             </div>
-        </div>
+            <div v-else>
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
+                    <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
+                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
+                            <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
+                            <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
+                        </checkbox-element>
+                    </div>
+                    <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
+                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="clearAll" @keyup.space.prevent.stop="clearAll" @click="clearAll">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
+                                <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
+                            </svg>
+                            <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
+                        </div>
+                    </div>
+                    <div slot-scope="{ item }" style="width: 100%;">
+                        <checkbox-element
+                            :disabled="item.disabled"
+                            :title-text="item.label"
+                            :disabled-text="item.disabledText"
+                            :value="isChecked(item)"
+                            :size="size"
+                            :theme="theme"
+                            tabindex="-1"
+                            class="multiselect__checkbox">
 
-        <div ref="multiselectOptions" class="multiselect__options">
-            <transition-group name="multiselect__item" tag="div">
-                <div v-for="option in displayOptions" :key="option.id" :title="option.disabledText" class="multiselect__option">
-                    <checkbox-element
-                        :disabled="option.disabled"
-                        :disabled-text="option.disabledText"
-                        :value="isChecked(option.id)"
-                        :size="size"
-                        :style="{ width: `${option.checkboxWidth}px` }"
-                        class="multiselect__checkbox"
-                        @input="setChecked(option.id, $event)">
-                        {{ option.label }}
-                    </checkbox-element>
-
-                    <p v-if="option.metadata" :style="{ width: `${option.metadataWidth}px` }" class="multiselect__metadata">{{ option.metadata | middleEllipsis(option.metadataLength) }}</p>
-                </div>
-            </transition-group>
-        </div>
-
-        <div class="multiselect__options" style="visibility: hidden; position: absolute;">
-            <div v-for="option in displayOptions" ref="options" :key="option.id" class="multiselect__option">
-                <checkbox-element
-                    :value="false"
-                    :size="size"
-                    class="multiselect__checkbox">
-                    {{ option.label }}
-                </checkbox-element>
-
-                <p v-if="option.metadata" class="multiselect__metadata">{{ option.metadata }}</p>
+                            <slot :item="item">
+                                <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
+                            </slot>
+                        </checkbox-element>
+                    </div>
+                </scrollable-list>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Input from './input.vue'
+import SearchInput from './SearchInput.vue'
 import Checkbox from './checkbox.vue'
+import ScrollableList from './ScrollableList.vue'
+import DefaultListItem from './DefaultListItem.vue'
+import * as itemsUtils from './items_utils.js'
 import debounce from 'lodash.debounce'
 
 export default {
     components: {
-        inputElement: Input,
+        SearchInput,
         checkboxElement: Checkbox,
+        ScrollableList,
+        DefaultListItem,
     },
     props: {
-        value: { type: Array, required: true },
-        options: { type: Array, required: true },
+        value: { type: Array },
+        options: { type: Array },
+        autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        hasScrollTop: { type: Boolean, default: true },
+        canSelectAndClearAll: { type: Boolean, default: false },
+        canClearAll: { type: Boolean, default: false },
+        showListOverlay: { type: Boolean, default: false },
+        areGroupsSelectable: { type: Boolean, default: false },
+        getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
+        theme: { type: String, default: 'dark' },
         size: { type: String, default: 'normal' },
+        searchSize: { type: String, required: false },
+        numItems: { type: Number, default: 10 },
+        loadAsyncDebounce: { type: Number, default: 0 },
     },
     data () {
         return {
+            isLoading: false,
             searchQuery: null,
-            checked: this.value,
-            checkedForSorting: [],
-            checkboxWidthByIndex: {},
-            totalWidth: 500,
+            queryOptions: [],
         }
     },
     computed: {
-        filteredOptions () {
-            let query = (this.searchQuery || '').trim(' ').toLowerCase()
-            let options = this.options.filter(option => {
-                return query.length === 0 ||
-                    this.checked.includes(option.id) ||
-                    option.label.toLowerCase().indexOf(query) >= 0 ||
-                    (option.metadata && option.metadata.toLowerCase().indexOf(query) >= 0)
-            })
-            options.sort((x, y) => {
-                let checkedDiff = (this.checkedForSorting.includes(y.id) && ! y.disabled) - (this.checkedForSorting.includes(x.id) && ! x.disabled)
-                if (checkedDiff === 0) {
-                    if (x.label === y.label) {
-                        return x.id > y.id ? 1 : -1
+        allOptions () {
+            let result = this.queryOptions
+
+            let matchingOptions = itemsUtils.search(this.options, this.searchQuery)
+            matchingOptions.reverse()
+            for (let option of matchingOptions) {
+                if (!result.map(x => x.id).includes(option.id)) {
+                    result = [option].concat(result)
+                }
+            }
+            return result
+        },
+        allPossibleIds () {
+            return itemsUtils.getLeafIds(this.listItems)
+        },
+        changeMultipleState () {
+            return this.value.length === 0 ? false : this.value.length === this.allPossibleIds.length ? true : null
+        },
+        listItems () {
+            let result = this.allOptions
+
+            if (this.autoReorder) {
+                if (!this.areGroupsSelectable) {
+                    const selectedItems = this.value.map(itemId => {
+                        let item = itemsUtils.find(result, x => !x.items && x.id === itemId)
+                        if (!item) {
+                            return null
+                        }
+                        return {
+                            ...item,
+                            key: `S_${item.key || item.id}`,
+                        }
+                    }).filter(x => x)
+                    const unselectedItems = itemsUtils.filter(result, item => {
+                        return !item.items && !this.value.includes(item.id)
+                    })
+
+                    result = selectedItems.concat(unselectedItems)
+                }
+
+                result = itemsUtils.sortBy(result, item => {
+                    if (item.items) {
+                        if (item.items.every(x => x.disabled)) {
+                            return -1
+                        }
+                        if (!this.areGroupsSelectable) {
+                            return 0
+                        }
                     }
-                    return x.label > y.label ? 1 : -1
-                }
-                return checkedDiff
-            })
-            return options
-        },
-        displayOptions () {
-            return this.filteredOptions.map((option, index) => {
-                let checkboxWidth = this.checkboxWidthByIndex[index]
-                let metadataWidth = this.totalWidth - checkboxWidth
-                return {
-                    ...option,
-                    checkboxWidth: checkboxWidth,
-                    metadataWidth: metadataWidth,
-                    metadataLength: Math.floor(metadataWidth / 7),
-                }
-            })
-        },
-        clearAllLength () {
-            return this.options.filter(o => this.checked.includes(o.id) && !o.disabled).length
+
+                    const isChecked = this.isChecked(item)
+                    if (isChecked === true) {
+                        return 2
+                    } else if (isChecked === null) {
+                        return 1
+                    }
+                    return 0
+                })
+            }
+
+            return result
         },
     },
     watch: {
-        filteredOptions () {
-            this.$nextTick(this.updateWidths)
-        },
-        checked () {
-            this.$emit('input', this.checked)
+        searchQuery (v) {
+            this.debouncedLoadAsyncOptions()
         },
     },
     created () {
-        this.updateOptionsOrder()
+        this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     mounted () {
-        window.addEventListener('resize', () => this.updateWidths())
-        this.$refs.multiselectOptions.style.height = this.$refs.multiselectOptions.clientHeight + 'px'
-
-        this.$nextTick(this.updateWidths)
-    },
-    beforeDestroy () {
-        window.removeEventListener('resize', () => this.resize())
+        this.loadAsyncOptions()
     },
     methods: {
-        updateWidths () {
-            const THRESHOLD = 0.1
-            let totalWidth = this.$el.getElementsByClassName('multiselect__options')[0].clientWidth
-
-            let widthsByIndex = {}
-            this.$refs.options.forEach((el, index) => {
-                let children = Array.from(el.childNodes).filter(node => node.nodeType == Node.ELEMENT_NODE)
-                if (children.length === 2) {
-                    let checkboxWidth = children[0].clientWidth
-                    let metadataWidth = children[1].clientWidth
-
-                    if (checkboxWidth + metadataWidth > totalWidth) {
-                        let finalCheckboxWidth
-                        if (checkboxWidth > metadataWidth) {
-                            if (checkboxWidth <= (0.5 + THRESHOLD) * totalWidth) {
-                                finalCheckboxWidth = checkboxWidth
-                            } else {
-                                finalCheckboxWidth = Math.floor(0.5 * totalWidth)
-                            }
-                        } else {
-                            if (metadataWidth <= (0.5 + THRESHOLD) * totalWidth) {
-                                finalCheckboxWidth = totalWidth - metadataWidth
-                            } else {
-                                finalCheckboxWidth = Math.floor(0.5 * totalWidth)
-                            }
-                        }
-
-                        widthsByIndex[index] = finalCheckboxWidth
+        onSelect (item) {
+            this.setChecked(item, this.isChecked(item) ? false : true)
+            this.$refs.list.focus()
+        },
+        selectAll () {
+            this.$emit('input', this.allPossibleIds)
+        },
+        clearAll () {
+            this.$emit('input', [])
+            this.$refs.list.focus()
+        },
+        loadAsyncOptions () {
+            if (this.getOptions) {
+                this.isLoading = true
+                this.getOptions(this.searchQuery).then(result => {
+                    this.queryOptions = result
+                    this.isLoading = false
+                })
+            }
+        },
+        setChecked (option, isChecked) {
+            if (!option.disabled) {
+                if (option.isLeaf !== false) {
+                    const valueWithout = this.value.filter(id => id !== option.id)
+                    if (isChecked) {
+                        this.$emit('input', valueWithout.concat([option.id]))
+                    } else {
+                        this.$emit('input', valueWithout)
                     }
-                }
-            })
-
-            this.totalWidth = totalWidth
-            this.checkboxWidthByIndex = widthsByIndex
-        },
-        isChecked (optionId) {
-            return this.checked.includes(optionId)
-        },
-        setChecked (optionId, isChecked) {
-            if (!this.options.find(o => o.id === optionId).disabled) {
-                if (isChecked) {
-                    this.checked.push(optionId)
                 } else {
-                    let index = this.checked.indexOf(optionId)
-                    if (index >= 0){
-                        this.checked.splice(index, 1)
+                    const valueWithout = this.value.filter(id => !option.leafIds.includes(id))
+                    if (isChecked) {
+                        this.$emit('input', valueWithout.concat(option.leafIds))
+                    } else {
+                        this.$emit('input', valueWithout)
                     }
                 }
             }
-            this.updateOptionsOrder()
         },
-        selectAll () {
-            this.filteredOptions.forEach(option => {
-                this.setChecked(option.id, true)
-            })
+        isChecked (option) {
+            if (!option.items && option.isLeaf !== false) {
+                return this.value.includes(option.id)
+            } else {
+                let allChecked = true
+                let someChecked = false
+                const leafIds = option.leafIds || itemsUtils.getLeafIds(option)
+                for (let id of leafIds) {
+                    if (!this.value.includes(id)) {
+                        allChecked = false
+                    } else {
+                        someChecked = true
+                    }
+                }
+                return allChecked ? true : (!someChecked ? false : null)
+            }
         },
-        clearAll () {
-            this.options.forEach(option => {
-                this.setChecked(option.id, false)
-            })
-        },
-        updateOptionsOrder: debounce(function () {
-            this.checkedForSorting = this.checked.slice().filter(optionId => !this.options.find(o => o.id === optionId).disabled)
-        }, 350),
     },
 }
 </script>
 
 <style lang="less" scoped>
-@import (reference) './variables';
+@import (reference) './common';
+
 .multiselect {
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 
@@ -216,25 +235,29 @@ export default {
         display: flex;
     }
 
-    &__search-icon {
-        margin-right: 12px;
-    }
-
     &__options {
-        padding-bottom: 10px;
-        flex:auto;
-        max-height: 370px;
-        overflow-y: auto;
+        flex: auto;
+        overflow-x: hidden;
         margin-top: 5px;
+        padding-left: 5px;
         padding-right: 5px;
+        clip-path: inset(0px 0px 0px 0px);
     }
 
     &__change-multiple {
         flex: none;
+        z-index: @z-lowest;
+        position: relative;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
     }
 
-    &__select-all {
-        margin-left: 5px;
+    .multiselect__select-all.multiselect__select-all {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
     }
 
     &__select-all-label {
@@ -243,14 +266,16 @@ export default {
     }
 
     &__clear-all {
-        color: @bluish-gray;
         font-size: 11px;
-        margin-top: 10px;
-        height: 20px;
-        padding-left: 7px;
         cursor: pointer;
         display: flex;
         align-items: center;
+        margin-left: 10px;
+
+        &:focus {
+            outline: none;
+            color: black;
+        }
     }
 
     &__clear-all-text {
@@ -265,66 +290,87 @@ export default {
         fill: @bluish-gray;
     }
 
-    &__option {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-        width: 100%;
+    &__no-items {
+        text-align: center;
+        font-size: 18px;
     }
 
-    &__metadata {
-        white-space: nowrap;
-        font-size: 11px;
-        margin: 0;
-        text-align: right;
-        overflow: hidden;
+    &__checkbox {
+        width: 100%;
     }
 }
 
 .multiselect__option > .multiselect__checkbox {
     margin-top: 0px;
+    margin-left: -5px;
 }
 
-.multiselect__item-move {
-    transition : all 0.3s ease-in;
+.multiselect--light.multiselect--light {
+    .multiselect__no-items {
+        color: @gray-blue;
+    }
+
+    .multiselect__clear-all {
+        color: @gunpowder;
+
+        &:focus, &:hover {
+            color: black;
+        }
+    }
 }
 
-.multiselect__item-enter, .multiselect__item-leave-to {
-    opacity : 0;
-}
-.multiselect__item-leave-active {
-    position : absolute;
-}
+.multiselect--dark.multiselect--dark {
+  .multiselect__no-items {
+      color: @gunpowder;
+  }
 
-::-webkit-scrollbar {
-    width : 5px;
-}
+  .multiselect__clear-all {
+      color: @very-light-gray;
 
-::-webkit-scrollbar-track {
-    background-color : transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius    : 5px;
-    background-color : @very-light-gray;
-}
-
-::-webkit-scrollbar-corner {
-    background-color : transparent;
+      &:focus, &:hover {
+          color: white;
+      }
+  }
 }
 </style>
 
 <style lang="less">
-// custom code to override checkbox styles since the size here is ultra small
-.multiselect__select-all.checkbox-element.checkbox-element--condensed .checkbox-element__check-wrapper {
-    width: 10px;
-    height: 10px;
-}
+.multiselect__default-list {
+    .default-list__item.default-list__item.default-list__item {
+        padding: 0;
+    }
 
-.multiselect__select-all.checkbox-element.checkbox-element--condensed .checkbox-element__square {
-    width: 7px;
-    height: 7px;
-    margin-top: 3px;
+    .multiselect__checkbox.multiselect__checkbox {
+        margin-top: 0;
+        height: auto;
+
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .checkbox-element__check-row {
+            height: auto;
+        }
+    }
+
+    .multiselect__checkbox:hover {
+
+        &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: black;
+        }
+
+        &.checkbox-element--light .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+            color: black;
+        }
+
+        &.checkbox-element--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: white;
+        }
+
+        &.checkbox-element--dark .multiline-list-item__label:not(.multiline-list-item__label--disabled) {
+            color: white;
+        }
+    }
 }
 </style>

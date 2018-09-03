@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DialogButton should match the snapshot 1`] = `
-<div>
+<div
+  class="dialog-button"
+>
   <div
-    class="dialog-button"
+    class="dialog-button__container"
     tabindex="0"
   >
     <!---->

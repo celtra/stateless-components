@@ -30,18 +30,18 @@ describe('Multiselect', () => {
     })
 
     describe('computed', () => {
-        describe('filteredOptions', ()=>{
+        describe('allOptions', ()=>{
             it('should filter options', function () {
-                expect(vm.filteredOptions.length).toBe(3)
+                expect(vm.allOptions.length).toBe(3)
                 vm.searchQuery = "2"
-                expect(vm.filteredOptions.length).toBe(1)
-                expect(vm.filteredOptions[0].label).toBe("option 2")
+                expect(vm.allOptions.length).toBe(1)
+                expect(vm.allOptions[0].label).toBe("option 2")
 
                 vm.searchQuery = "option"
-                expect(vm.filteredOptions.length).toBe(3)
+                expect(vm.allOptions.length).toBe(3)
 
                 vm.searchQuery = "option "
-                expect(vm.filteredOptions.length).toBe(3)
+                expect(vm.allOptions.length).toBe(3)
             })
         })
     })
@@ -50,52 +50,39 @@ describe('Multiselect', () => {
         describe('isChecked', () => {
             it('should be checked if checked contains id', function () {
                 expect(vm.isChecked(1)).toBe(false)
-                vm.checked.push(1)
-                expect(vm.isChecked(1)).toBe(true)
+                vm.value.push(1)
+                expect(vm.isChecked({ id: 1 })).toBe(true)
             })
         })
 
         describe('setChecked', () => {
             it('should set checked', function () {
-                expect(vm.isChecked(1)).toBe(false)
-                vm.setChecked(1, true)
-                expect(vm.isChecked(1)).toBe(true)
-            })
-
-            it('should set checkedForSorting with 350ms delay', function (done) {
-                expect(vm.isChecked(1)).toBe(false)
-                vm.setChecked(1, true)
-                expect(vm.isChecked(1)).toBe(true)
-                expect(vm.checkedForSorting.includes(1)).toBe(false)
-                setTimeout(()=>{
-                    expect(vm.checkedForSorting.includes(1)).toBe(true)
-                    done()
-                }, 375)
+                spyOn(vm, '$emit')
+                expect(vm.isChecked({ id: 1 })).toBe(false)
+                vm.setChecked({ id: 1 }, true)
+                expect(vm.$emit).toHaveBeenCalledWith('input', [1])
             })
         })
 
         describe('selectAll', () => {
             it('should set all to checked', function () {
-                expect(vm.isChecked(1)).toBe(false)
-                expect(vm.isChecked(2)).toBe(false)
-                expect(vm.isChecked(3)).toBe(false)
+                spyOn(vm, '$emit')
+
+                expect(vm.isChecked({ id: 1 })).toBe(false)
+                expect(vm.isChecked({ id: 2 })).toBe(false)
+                expect(vm.isChecked({ id: 3 })).toBe(false)
                 vm.selectAll()
-                expect(vm.isChecked(1)).toBe(true)
-                expect(vm.isChecked(2)).toBe(true)
-                expect(vm.isChecked(3)).toBe(true)
+                expect(vm.$emit).toHaveBeenCalledWith('input', ['1', '2', '3'])
             })
         })
 
         describe('clearAll', () => {
             it('should set all to not checked', function () {
-                vm.selectAll()
-                expect(vm.isChecked(1)).toBe(true)
-                expect(vm.isChecked(2)).toBe(true)
-                expect(vm.isChecked(3)).toBe(true)
+                spyOn(vm, '$emit')
+
+                vm.value = ['1', '2', '3']
                 vm.clearAll()
-                expect(vm.isChecked(1)).toBe(false)
-                expect(vm.isChecked(2)).toBe(false)
-                expect(vm.isChecked(3)).toBe(false)
+                expect(vm.$emit).toHaveBeenCalledWith('input', [])
             })
         })
     })
