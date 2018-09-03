@@ -626,9 +626,7 @@ export default {
     &--dark {
         border-color: @gunpowder;
 
-        .input-row--focused { border-color: @royal-blue; }
-
-        &:hover {
+        &:hover:not(.input-row--disabled) {
             .input-row__placeholder-text::placeholder { color: white; }
         }
     }
@@ -636,11 +634,9 @@ export default {
     &--light {
         border-color: @very-light-gray;
 
-        &:hover {
+        &:hover:not(.input-row--disabled) {
             .input-row__placeholder-text::placeholder { color: @black; }
         }
-
-        .input-row--focused { border-color: @royal-blue; }
     }
 
     &--focused { border-color: @royal-blue; }
