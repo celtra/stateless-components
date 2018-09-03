@@ -14,7 +14,7 @@
                 </div>
             </template>
 
-            <div :class="cssStates | prefix('input-row--')" class="input-row">
+            <div :class="[cssStates, theme] | prefix('input-row--')" class="input-row">
                 <div v-if="$slots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
                     <slot name="left"></slot>
                 </div>
@@ -528,9 +528,6 @@ export default {
             to { visibility: visible; }
         }
     }
-
-    &--focused { color: @royal-blue; }
-
 }
 
 .input-row {
@@ -699,24 +696,25 @@ export default {
     &--error { color: @pink-red; }
 }
 
-.input--dark {
-    .input-row {
-        border-color: @gunpowder;
+// DARK theme
+.input-row--dark {
+    border-color: @gunpowder;
 
-        &__placeholder-text {
-            color: white;
-            &::placeholder {
-                color: @very-light-gray;
-            }
-        }
-
-        &--focused { border-color: @royal-blue; }
-
-        &:hover {
-            .input-row__placeholder-text::placeholder { color: white; }
+    &__placeholder-text {
+        color: white;
+        &::placeholder {
+            color: @very-light-gray;
         }
     }
 
+    &--focused { border-color: @royal-blue; }
+
+    &:hover {
+        .input-row__placeholder-text::placeholder { color: white; }
+    }
+}
+
+.input--dark {
     .input-field__label-text {
         color: @dolphin;
 
@@ -744,24 +742,25 @@ export default {
     }
 }
 
-.input--light {
-    .input-row {
-        border-color: @very-light-gray;
+// LIGHT theme
+.input-row--light {
+    border-color: @very-light-gray;
 
-        &__placeholder-text {
-            color: @black;
-            &::placeholder {
-                color: @gunpowder;
-            }
+    &__placeholder-text {
+        color: @black;
+        &::placeholder {
+            color: @gunpowder;
         }
-
-        &:hover {
-            .input-row__placeholder-text::placeholder { color: @black; }
-        }
-
-        &--focused { border-color: @royal-blue; }
     }
 
+    &:hover {
+        .input-row__placeholder-text::placeholder { color: @black; }
+    }
+
+    &--focused { border-color: @royal-blue; }
+}
+
+.input--light {
     .input-field__label-text {
         color: @bluish-gray;
 
