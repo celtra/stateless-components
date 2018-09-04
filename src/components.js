@@ -242,6 +242,7 @@ export default {
             items: largeItems,
             numItems: 10,
             label: 'Something',
+            showOverlay: true,
         },
     },
     Typeahead: {

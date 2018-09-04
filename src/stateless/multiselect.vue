@@ -9,7 +9,7 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                         <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
                             <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
@@ -152,10 +152,13 @@ export default {
     },
     watch: {
         searchQuery (v) {
+            this.getOptionsPage = 0
+            this.queryOptions = []
             this.debouncedLoadAsyncOptions()
         },
     },
     created () {
+        this.getOptionsPage = 0
         this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     mounted () {
@@ -176,10 +179,11 @@ export default {
         loadAsyncOptions () {
             if (this.getOptions) {
                 this.isLoading = true
-                this.getOptions(this.searchQuery).then(result => {
-                    this.queryOptions = result
+                this.getOptions(this.searchQuery, this.getOptionsPage).then(result => {
+                    this.queryOptions = this.queryOptions.concat(result)
                     this.isLoading = false
                 })
+                this.getOptionsPage += 1
             }
         },
         setChecked (option, isChecked) {

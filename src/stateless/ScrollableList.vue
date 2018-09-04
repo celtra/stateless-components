@@ -93,6 +93,9 @@ export default {
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
             }
+            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+                this.$emit('load-more')
+            }
         },
         scrollTop () {
             this.canScrollTop = false
@@ -156,6 +159,9 @@ export default {
 <style lang="less" scoped>
 @import (reference) './common';
 
+@overlay-height: 15px;
+@scrollbar-width: 5px;
+
 .scrollable-list {
     width: 100%;
 
@@ -168,7 +174,7 @@ export default {
         overflow-y: auto;
         // overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
-        padding: 10px 0;
+        padding: @overlay-height 0;
     }
 
     &__scroll-top {
@@ -189,8 +195,8 @@ export default {
 
     &__overlay {
         position: absolute;
-        height: 15px;
-        width: calc(100% - 6px);
+        height: @overlay-height;
+        width: calc(100% - @scrollbar-width - 1px);
         pointer-events: none;
         z-index: @z-middle;
 
@@ -240,11 +246,11 @@ export default {
 }
 
 ::-webkit-scrollbar {
-    width : 5px;
+    width: @scrollbar-width;
 }
 
 ::-webkit-scrollbar-track {
-    background-color : transparent;
+    background-color: transparent;
 }
 
 .scrollable-list--light .scrollable-list__list::-webkit-scrollbar-thumb {
@@ -258,6 +264,6 @@ export default {
 }
 
 ::-webkit-scrollbar-corner {
-    background-color : transparent;
+    background-color: transparent;
 }
 </style>
