@@ -291,13 +291,15 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
-        transition: background-color 250ms ease, height 250ms ease-out, opacity 250ms ease-out;
+        transition: background-color 100ms ease;
 
         &--with-tooltip:hover {
             position: relative;
         }
 
         &-enter-active, &-leave-active, &-move {
+            transition: background-color 100ms ease, height 250ms ease-out, opacity 250ms ease-out;
+            transition-delay: 350ms;
             pointer-events: none;
         }
 
