@@ -72,6 +72,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-items: center;
+        overflow: hidden;
     }
 
     &__label {
