@@ -153,6 +153,7 @@ export default {
     watch: {
         searchQuery (v) {
             this.getOptionsPage = 0
+            this.gotAllOptions = false
             this.queryOptions = []
             this.isLoading = false
             this.debouncedLoadAsyncOptions()
@@ -160,6 +161,7 @@ export default {
     },
     created () {
         this.getOptionsPage = 0
+        this.gotAllOptions = false
         this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     mounted () {
@@ -178,22 +180,25 @@ export default {
             this.$refs.list.focus()
         },
         loadAsyncOptions () {
-            if (this.getOptions) {
-                if (!this.isLoading) {
-                    this.isLoading = true
-                    let query = this.searchQuery
-                    this.getOptions(query, this.getOptionsPage).then(result => {
-                        if (this.searchQuery === query) {
+            if (this.getOptions && !this.isLoading && !this.gotAllOptions) {
+                this.isLoading = true
+                let query = this.searchQuery
+                this.getOptions(query, this.getOptionsPage).then(result => {
+                    if (this.searchQuery === query) {
+                        if (result.length === 0) {
+                            this.gotAllOptions = true
+                        } else {
                             for (let item of result) {
                                 if (!this.queryOptions.find(x => x.id === item.id)) {
                                     this.queryOptions.push(item)
                                 }
                             }
                             this.getOptionsPage += 1
-                            this.isLoading = false
                         }
-                    })
-                }
+
+                        this.isLoading = false
+                    }
+                })
             }
         },
         setChecked (option, isChecked) {
