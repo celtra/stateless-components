@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+    <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
@@ -344,7 +344,6 @@ export default {
     }
 
     &__group {
-        height: 30px;
         padding-top: 10px;
         display: flex;
         align-items: center;
@@ -364,6 +363,24 @@ export default {
 .default-list--light {
     .default-list__item--active {
         background-color: @very-light-gray;
+    }
+}
+
+.default-list--condensed {
+    .default-list__group {
+        height: 20px;
+    }
+}
+
+.default-list--normal {
+    .default-list__group {
+        height: 30px;
+    }
+}
+
+.default-list--phat {
+    .default-list__group {
+        height: 30px;
     }
 }
 </style>
