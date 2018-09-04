@@ -1,18 +1,5 @@
 <template>
     <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <div class="default-list__hidden-slots">
-            <div ref="hiddenSlot">
-                <slot :item="assumedItem">
-                    <default-list-item :size="size" v-bind="assumedItem" />
-                </slot>
-            </div>
-            <div ref="hiddenGroupSlot">
-                <slot :item="assumedItem" name="group">
-                    <div class="default-list__group">{{ assumedItem.label }}</div>
-                </slot>
-            </div>
-        </div>
-
         <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
@@ -59,6 +46,19 @@
                 </div>
             </div>
         </template>
+
+        <div class="default-list__hidden-slots">
+            <div ref="hiddenSlot">
+                <slot :item="assumedItem">
+                    <default-list-item :size="size" v-bind="assumedItem" />
+                </slot>
+            </div>
+            <div ref="hiddenGroupSlot">
+                <slot :item="assumedItem" name="group">
+                    <div class="default-list__group">{{ assumedItem.label }}</div>
+                </slot>
+            </div>
+        </div>
 
         <div v-if="hiddenHeight > 0" :style="{ height: `${hiddenHeight}px` }"></div>
     </div>
@@ -328,6 +328,12 @@ export default {
         &-enter, &-leave-to {
             height: 0 !important;
             opacity: 0;
+        }
+
+        &:first-child {
+            .default-list__group {
+                padding-top: 0;
+            }
         }
     }
 
