@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <transition-group v-if="transitionSorting" name="default-list__item" tag="div">
+        <transition-group v-if="transitionSorting && canTransition" key="container" name="default-list__item" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </transition-group>
-        <template v-else>
+        <div v-else key="container">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
@@ -45,7 +45,7 @@
                     </slot>
                 </div>
             </div>
-        </template>
+        </div>
 
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
@@ -92,6 +92,7 @@ export default {
             isHovered: false,
             activeId: null,
             renderAllItemsTimeout: false,
+            canTransition: false,
             transitionItems: this.items,
             itemHeight: null,
             groupHeight: null,
@@ -149,7 +150,7 @@ export default {
     },
     watch: {
         items (v, ov) {
-            /*const getCount = (items) => {
+            const getCount = (items) => {
                 let count = items.length
                 for (let item of items) {
                     if (item.items)
@@ -181,7 +182,7 @@ export default {
                 return count
             }
 
-            this.canTransition = getDeltaCount(v, ov) <= 5*/
+            this.canTransition = getDeltaCount(v, ov) <= 5
             this.$nextTick(() => {
                 this.$emit('before-update')
                 this.transitionItems = v
