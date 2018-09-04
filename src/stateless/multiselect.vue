@@ -154,6 +154,7 @@ export default {
         searchQuery (v) {
             this.getOptionsPage = 0
             this.queryOptions = []
+            this.isLoading = false
             this.debouncedLoadAsyncOptions()
         },
     },
@@ -178,12 +179,21 @@ export default {
         },
         loadAsyncOptions () {
             if (this.getOptions) {
-                this.isLoading = true
-                this.getOptions(this.searchQuery, this.getOptionsPage).then(result => {
-                    this.queryOptions = this.queryOptions.concat(result)
-                    this.isLoading = false
-                })
-                this.getOptionsPage += 1
+                if (!this.isLoading) {
+                    this.isLoading = true
+                    let query = this.searchQuery
+                    this.getOptions(query, this.getOptionsPage).then(result => {
+                        if (this.searchQuery === query) {
+                            for (let item of result) {
+                                if (!this.queryOptions.find(x => x.id === item.id)) {
+                                    this.queryOptions.push(item)
+                                }
+                            }
+                            this.getOptionsPage += 1
+                            this.isLoading = false
+                        }
+                    })
+                }
             }
         },
         setChecked (option, isChecked) {

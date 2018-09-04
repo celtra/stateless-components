@@ -9028,7 +9028,7 @@ module.exports = function (C, x) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__ = __webpack_require__(88);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f6ad90e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17d92eff_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(366);
 function injectStyle (ssrContext) {
   __webpack_require__(350)
   __webpack_require__(352)
@@ -9044,12 +9044,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3f6ad90e"
+var __vue_scopeId__ = "data-v-17d92eff"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f6ad90e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17d92eff_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -9265,6 +9265,7 @@ var Component = normalizeComponent(
         searchQuery: function searchQuery(v) {
             this.getOptionsPage = 0;
             this.queryOptions = [];
+            this.isLoading = false;
             this.debouncedLoadAsyncOptions();
         }
     },
@@ -9292,12 +9293,49 @@ var Component = normalizeComponent(
             var _this2 = this;
 
             if (this.getOptions) {
-                this.isLoading = true;
-                this.getOptions(this.searchQuery, this.getOptionsPage).then(function (result) {
-                    _this2.queryOptions = _this2.queryOptions.concat(result);
-                    _this2.isLoading = false;
-                });
-                this.getOptionsPage += 1;
+                if (!this.isLoading) {
+                    this.isLoading = true;
+                    var query = this.searchQuery;
+                    this.getOptions(query, this.getOptionsPage).then(function (result) {
+                        if (_this2.searchQuery === query) {
+                            var _loop = function _loop(item) {
+                                if (!_this2.queryOptions.find(function (x) {
+                                    return x.id === item.id;
+                                })) {
+                                    _this2.queryOptions.push(item);
+                                }
+                            };
+
+                            var _iteratorNormalCompletion2 = true;
+                            var _didIteratorError2 = false;
+                            var _iteratorError2 = undefined;
+
+                            try {
+                                for (var _iterator2 = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(result), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                    var item = _step2.value;
+
+                                    _loop(item);
+                                }
+                            } catch (err) {
+                                _didIteratorError2 = true;
+                                _iteratorError2 = err;
+                            } finally {
+                                try {
+                                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                        _iterator2.return();
+                                    }
+                                } finally {
+                                    if (_didIteratorError2) {
+                                        throw _iteratorError2;
+                                    }
+                                }
+                            }
+
+                            _this2.getOptionsPage += 1;
+                            _this2.isLoading = false;
+                        }
+                    });
+                }
             }
         },
         setChecked: function setChecked(option, isChecked) {
@@ -9330,13 +9368,13 @@ var Component = normalizeComponent(
                 var allChecked = true;
                 var someChecked = false;
                 var leafIds = option.leafIds || __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["getLeafIds"](option);
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
 
                 try {
-                    for (var _iterator2 = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(leafIds), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var id = _step2.value;
+                    for (var _iterator3 = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default()(leafIds), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var id = _step3.value;
 
                         if (!this.value.includes(id)) {
                             allChecked = false;
@@ -9345,16 +9383,16 @@ var Component = normalizeComponent(
                         }
                     }
                 } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
+                    _didIteratorError3 = true;
+                    _iteratorError3 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
+                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                            _iterator3.return();
                         }
                     } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
+                        if (_didIteratorError3) {
+                            throw _iteratorError3;
                         }
                     }
                 }
@@ -38327,7 +38365,7 @@ var content = __webpack_require__(351);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("95468cfc", content, true, {});
+var update = __webpack_require__(2)("50adca5c", content, true, {});
 
 /***/ }),
 /* 351 */
@@ -38338,7 +38376,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.multiselect[data-v-3f6ad90e] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-3f6ad90e] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-3f6ad90e] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-3f6ad90e] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-3f6ad90e] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-3f6ad90e] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-3f6ad90e] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-3f6ad90e]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-3f6ad90e] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-3f6ad90e] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-3f6ad90e] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-3f6ad90e] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-3f6ad90e] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-3f6ad90e] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-3f6ad90e] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e]:hover {\n  color: white;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,cAAc;EACd,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,mBAAmB;CACpB;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-3f6ad90e] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-3f6ad90e] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-3f6ad90e] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-3f6ad90e] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-3f6ad90e] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-3f6ad90e] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-3f6ad90e] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-3f6ad90e]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-3f6ad90e] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-3f6ad90e] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-3f6ad90e] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-3f6ad90e] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-3f6ad90e] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-3f6ad90e] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-3f6ad90e]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-3f6ad90e] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-3f6ad90e]:hover {\n  color: white;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.multiselect[data-v-17d92eff] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-17d92eff] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-17d92eff] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-17d92eff] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-17d92eff] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-17d92eff] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-17d92eff] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-17d92eff]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-17d92eff] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-17d92eff] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-17d92eff] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-17d92eff] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-17d92eff] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-17d92eff] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-17d92eff] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff]:hover {\n  color: white;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,cAAc;EACd,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,mBAAmB;CACpB;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,mBAAmB;EACnB,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-17d92eff] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-17d92eff] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-17d92eff] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-17d92eff] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-17d92eff] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-17d92eff] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-17d92eff] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-17d92eff]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-17d92eff] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-17d92eff] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-17d92eff] {\n  text-align: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-17d92eff] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-17d92eff] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-17d92eff] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-17d92eff]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-17d92eff] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-17d92eff]:hover {\n  color: white;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38354,7 +38392,7 @@ var content = __webpack_require__(353);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("5edd5ed0", content, true, {});
+var update = __webpack_require__(2)("c13b4a04", content, true, {});
 
 /***/ }),
 /* 353 */
