@@ -22,7 +22,7 @@
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
                     <div v-if="isSearchable" class="selectbox__search-wrapper" @click.stop>
-                        <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
+                        <search-input ref="search" v-model="searchText" :is-loading="isSearchLoading" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
                     <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
@@ -57,6 +57,7 @@ export default {
         warningText: { type: String, required: false, default: '' },
         options: { type: Array, required: true },
         value: { type: String, required: false, default: '' },
+        getOptions: { type: Function, required: false, default: null },
         isSearchable: { type: Boolean, required: false, default: false },
         isUnselectable: { type: Boolean, required: false, default: false },
         showSelectedMetadata: { type: Boolean, required: false, default: false },
@@ -69,6 +70,8 @@ export default {
             isOpen: false,
             focused: false,
             searchTextValue: '',
+            isSearchLoading: false,
+            asyncOptions: [],
         }
     },
     computed: {
@@ -125,6 +128,10 @@ export default {
             return this.disabled ? this.disabledText : ''
         },
         listItems () {
+            if (typeof this.getOptions === 'function'){
+                return this.asyncOptions
+            }
+
             let options = this.options
 
             if (this.isUnselectable) {
@@ -157,6 +164,11 @@ export default {
                 return 10
             }
             return 15
+        },
+    },
+    watch: {
+        searchText () {
+            this.loadAsyncOptions()
         },
     },
     methods: {
@@ -200,6 +212,7 @@ export default {
                 this.$nextTick(() => {
                     if (this.isSearchable) {
                         this.$refs.search.focus()
+                        this.loadAsyncOptions()
                     } else {
                         this.$refs.list.focus()
                     }
@@ -243,6 +256,16 @@ export default {
         setSearch: debounce(function (v) {
             this.searchTextValue = v
         }, 400),
+        loadAsyncOptions () {
+            if (typeof this.getOptions === 'function') {
+                this.isSearchLoading = true
+                this.getOptions(this.searchText || '')
+                    .then(options => {
+                        this.isSearchLoading = false
+                        this.asyncOptions = options
+                    }).catch(console.error)
+            }
+        },
         move (direction) {
             this.$refs.list.move(direction)
         },
