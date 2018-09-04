@@ -88,15 +88,14 @@ export default {
     },
     computed: {
         allOptions () {
-            let result = this.queryOptions
+            let result = itemsUtils.search(this.options, this.searchQuery)
 
-            let matchingOptions = itemsUtils.search(this.options, this.searchQuery)
-            matchingOptions.reverse()
-            for (let option of matchingOptions) {
-                if (!result.map(x => x.id).includes(option.id)) {
-                    result = [option].concat(result)
+            for (let queryItem of this.queryOptions) {
+                if (!result.find(x => x.id === queryItem.id)) {
+                    result.push(queryItem)
                 }
             }
+
             return result
         },
         allPossibleIds () {
