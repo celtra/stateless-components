@@ -72,6 +72,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-items: center;
+        overflow: hidden;
     }
 
     &__label {
@@ -79,7 +80,6 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        overflow: hidden;
         font-family: @regular-text-font;
         color: @very-light-gray;
 
