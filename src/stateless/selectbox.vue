@@ -104,7 +104,7 @@ export default {
             return this.label
         },
         selected () {
-            return itemsUtils.find(this.options, o => o.id == this.value)
+            return this.value && itemsUtils.find(this.options, o => o.id == this.value)
         },
         selectedLabelText () {
             return this.selected ? this.selected.label : this.placeholder
