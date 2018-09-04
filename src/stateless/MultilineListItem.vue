@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size, cssModifiers] | prefix('multiline-list-item--')" class="multiline-list-item">
-        <div :style="$slots.right ? { width: `calc(100% - ${slotWidth}px)` } : {}" class="multiline-list-item__content">
+        <div class="multiline-list-item__content">
             <p :class="cssModifiers | prefix('multiline-list-item__label--')" class="multiline-list-item__label">
                 <template v-if="highlightQuery">
                     <span v-for="(part, index) in getParts(label)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
@@ -19,7 +19,7 @@
             </p>
         </div>
 
-        <div class="multiline-list-item__slot">
+        <div v-if="$slots.right" class="multiline-list-item__slot">
             <slot name="right"></slot>
         </div>
     </div>
@@ -37,7 +37,6 @@ export default {
         selected: { type: Boolean },
         disabled: { type: Boolean },
         highlightQuery: { type: String },
-        slotWidth: { type: Number, default: 50 },
     },
     computed: {
         cssModifiers () {
@@ -93,6 +92,10 @@ export default {
         overflow: hidden;
         font-family: @regular-text-font;
         color: @gray-blue;
+    }
+
+    &__slot {
+        margin-left: 10px;
     }
 }
 
