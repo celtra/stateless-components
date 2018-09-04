@@ -1,29 +1,6 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <transition-group v-if="transitionSorting && canTransition" key="container" name="default-list__item" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
-                    <slot :item="item">
-                        <default-list-item
-                            :label="item.label"
-                            :metadata="item.metadata"
-                            :icon="item.icon"
-                            :disabled="item.disabled"
-                            :selected="item.id === value"
-                            :highlight-query="highlightQuery"
-                            :size="size"
-                            theme="light" />
-                    </slot>
-                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
-                </div>
-                <div v-else class="default-list__item-content">
-                    <slot :item="item" name="group">
-                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
-                    </slot>
-                </div>
-            </div>
-        </transition-group>
-        <div v-else key="container">
+        <transition-group :name="transitionSorting && canTransition ? 'default-list__item' : 'no-transition'" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
                 <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
                     <slot :item="item">
@@ -45,7 +22,7 @@
                     </slot>
                 </div>
             </div>
-        </div>
+        </transition-group>
 
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
