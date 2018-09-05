@@ -317,7 +317,7 @@ export default {
         display: flex;
 
         &--with-tooltip:hover {
-            // position: relative;
+            position: relative;
         }
     }
 

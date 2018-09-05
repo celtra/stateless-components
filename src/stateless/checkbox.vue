@@ -151,7 +151,7 @@ export default {
     }
 
     .checkbox-element__check-wrapper {
-        // position: relative;
+        position: relative;
         width: 26px;
         height: 26px;
         display: flex;
@@ -181,8 +181,8 @@ export default {
     }
 
     .checkbox-element__check {
-        // position: absolute;
-        // left: 0;
+        position: absolute;
+        left: 0;
         width: 100%;
         height: 100%;
         display: flex;
