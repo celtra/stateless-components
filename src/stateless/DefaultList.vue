@@ -2,7 +2,7 @@
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <transition-group :name="transitionSorting && canTransition ? 'default-list__item' : 'no-transition'" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
-                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
+                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
                             :label="item.label"
@@ -293,10 +293,6 @@ export default {
         align-items: center;
         transition: background-color 100ms ease;
 
-        &--with-tooltip:hover {
-            position: relative;
-        }
-
         &-enter-active, &-leave-active, &-move {
             transition: background-color 100ms ease, height 250ms ease-out, opacity 250ms ease-out;
             transition-delay: 350ms;
@@ -319,6 +315,10 @@ export default {
         width: 100%;
         height: 100%;
         display: flex;
+
+        &--with-tooltip:hover {
+            position: relative;
+        }
     }
 
     &__group {

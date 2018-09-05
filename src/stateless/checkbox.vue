@@ -4,8 +4,8 @@
             <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
                 <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
                 <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check">
-                    <icon v-if="states.checked" name="check" ></icon>
-                    <icon v-else-if="states.some" name="minus" ></icon>
+                    <icon v-if="states.checked" name="check"></icon>
+                    <icon v-else-if="states.some" name="minus"></icon>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@ export default {
     }
 
     .checkbox-element__check-wrapper {
-        position: relative;
+        // position: relative;
         width: 26px;
         height: 26px;
         display: flex;
@@ -181,8 +181,8 @@ export default {
     }
 
     .checkbox-element__check {
-        position: absolute;
-        left: 0;
+        // position: absolute;
+        // left: 0;
         width: 100%;
         height: 100%;
         display: flex;
