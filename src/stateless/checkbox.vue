@@ -2,8 +2,9 @@
     <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
         <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
-                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" transform-origin="center" x="6.5" y="6.5" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
+                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" transform-origin="center" x="7" y="7" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
                 <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" transform-origin="center" d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"/>
+                <rect :class="states | prefix('checkbox-element__check-some--')" class="checkbox-element__check-some" transform-origin="center" x="6" y="13" width="20" height="6"/>
             </svg>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
@@ -170,12 +171,28 @@ export default {
     }
 
     .checkbox-element__check {
-        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
-        opacity: 0;
-        transform: scale3d(0, 0, 1);
         fill: @royal-blue;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
+        transform: scale3d(0, 0, 1);
+        opacity: 0;
 
-        &--checked, &--some {
+        &--checked {
+            transform: scale3d(1, 1, 1);
+            opacity: 1;
+        }
+
+        &--disabled {
+            fill: @gunpowder;
+        }
+    }
+
+    .checkbox-element__check-some {
+        fill: @royal-blue;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
+        transform: scale3d(0, 0, 1);
+        opacity: 0;
+
+        &--some {
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
