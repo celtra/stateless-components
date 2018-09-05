@@ -9,7 +9,7 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                         <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
                             <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
@@ -71,6 +71,7 @@ export default {
         canClearAll: { type: Boolean, default: false },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
+        transitionSorting: { type: Boolean, default: true },
         getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         theme: { type: String, default: 'dark' },
