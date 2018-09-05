@@ -606,8 +606,6 @@ export default {
                 color: @very-light-gray;
             }
         }
-        &--dark,&--focused { color: @white }
-        &--dark,&--focused::placeholder { color: @gunpowder }
 
         &--light {
             color: @black;
@@ -617,7 +615,6 @@ export default {
         }
 
         &--error { color: @pink-red; }
-
         &--disabled { color: @gunpowder }
         &--disabled::placeholder { color: @gunpowder }
     }
