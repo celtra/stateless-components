@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <transition-group :name="transitionSorting && canTransition ? 'default-list__item' : 'no-transition'" tag="div">
+        <transition-group :name="transitionSorting ? 'default-list__item' : 'no-transition'" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
@@ -69,15 +69,13 @@ export default {
             isHovered: false,
             activeId: null,
             renderAllItemsTimeout: false,
-            canTransition: false,
-            transitionItems: this.items,
             itemHeight: null,
             groupHeight: null,
         }
     },
     computed: {
         flatItems () {
-            return flatten(this.transitionItems)
+            return flatten(this.items)
         },
         flatSelectableItems () {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
@@ -123,47 +121,6 @@ export default {
                 total += item.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
             }
             return total
-        },
-    },
-    watch: {
-        items (v, ov) {
-            const getCount = (items) => {
-                let count = items.length
-                for (let item of items) {
-                    if (item.items)
-                        count += getCount(item.items)
-                }
-                return count
-            }
-
-            const getDeltaCount = (a, b) => {
-                const aKeys = a.map(x => x.key || x.id)
-                const bKeys = b.map(x => x.key || x.id)
-                const onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
-                const onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
-                const intersection = a.filter(x => bKeys.includes(x.key || x.id))
-
-                let count = getCount(onlyA) + getCount(onlyB)
-                for (let aItem of intersection) {
-                    const bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
-
-                    if (aItem.items && bItem.items) {
-                        count += getDeltaCount(aItem.items, bItem.items)
-                    } else if (aItem.items) {
-                        count += getCount(aItem.items)
-                    } else if (bItem.items) {
-                        count += getCount(bItem.items)
-                    }
-                }
-
-                return count
-            }
-
-            this.canTransition = getDeltaCount(v, ov) <= 5
-            this.$nextTick(() => {
-                this.$emit('before-update')
-                this.transitionItems = v
-            })
         },
     },
     mounted () {

@@ -23,8 +23,7 @@
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
-                    @activate="onActivate"
-                    @before-update="onBeforeUpdate">
+                    @activate="onActivate">
                     <template v-if="$scopedSlots.default" slot-scope="{ item }">
                         <slot :item="item"></slot>
                     </template>
@@ -71,6 +70,14 @@ export default {
             return this.numItems * this.itemHeight
         },
     },
+    watch: {
+        items () {
+            const scrollTop = this.$refs.scrollable.scrollTop
+            this.$nextTick(() => {
+                //this.$refs.scrollable.scrollTop = scrollTop
+            })
+        },
+    },
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.positionSelectList)
@@ -82,12 +89,6 @@ export default {
         window.removeEventListener('resize', () => this.positionSelectList)
     },
     methods: {
-        onBeforeUpdate () {
-            const scrollTop = this.$refs.scrollable.scrollTop
-            this.$nextTick(() => {
-                //this.$refs.scrollable.scrollTop = scrollTop
-            })
-        },
         onScroll (e) {
             const canScrollTop = e.target.scrollTop > 0
             if (this.canScrollTop !== canScrollTop) {
