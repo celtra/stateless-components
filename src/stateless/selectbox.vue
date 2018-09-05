@@ -493,6 +493,12 @@ export default {
 
         .selectbox__arrow-down--focused { border-top-color: @royal-blue; }
     }
+
+    .selectbox__helper-text {
+        color: @bluish-gray;
+
+        &--disabled { color: @very-light-gray; }
+    }
 }
 
 .selectbox--condensed {
