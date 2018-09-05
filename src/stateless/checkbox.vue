@@ -1,13 +1,10 @@
 <template>
     <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
         <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
-            <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
-                <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
-                <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check">
-                    <icon v-if="states.checked" name="check"></icon>
-                    <icon v-else-if="states.some" name="minus"></icon>
-                </div>
-            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
+                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" transform-origin="center" x="7" y="7" width="16" height="16" stroke-width="1" fill="none" />
+                <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" transform-origin="center" d="M 23.94 7 L 13.125 17.958 L 8.059 13.211 L 4.5 16.732 L 13.125 25 L 27.5 10.519 Z"/>
+            </svg>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
                 <slot></slot>
@@ -151,22 +148,13 @@ export default {
     }
 
     .checkbox-element__check-wrapper {
-        position: relative;
         width: 26px;
         height: 26px;
-        display: flex;
         flex: none;
-        align-items: center;
-        justify-content: center;
     }
 
     .checkbox-element__square {
-        width: 16px;
-        height: 16px;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 2px;
-        border-color: @bluish-gray;
+        stroke: @bluish-gray;
         transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
         opacity: 1;
 
@@ -181,27 +169,18 @@ export default {
     }
 
     .checkbox-element__check {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
         opacity: 0;
         transform: scale3d(0, 0, 1);
-        color: @royal-blue;
+        fill: @royal-blue;
 
         &--checked, &--some {
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
-        &--checked > div { width: 16px; }
-        &--some > div { width: 12px; }
 
         &--disabled {
-            color: @gunpowder;
+            fill: @gunpowder;
         }
     }
 
@@ -317,16 +296,6 @@ export default {
         height: 30px;
     }
 
-    .checkbox-element__square {
-        width: 18px;
-        height: 18px;
-    }
-
-    .checkbox-element__check {
-        &--checked > div { width: 20px; }
-        &--some > div { width: 14px; }
-    }
-
     .checkbox-element__label-text {
         padding: 0 15px 0 9px;
         font-size: 22px;
@@ -381,18 +350,6 @@ export default {
     .checkbox-element__check-wrapper {
         width: 24px;
         height: 24px;
-    }
-
-    .checkbox-element__square {
-        width: 14px;
-        height: 14px;
-    }
-
-    .checkbox-element__check {
-        padding-top: 0;
-
-        &--checked > div { width: 14px; }
-        &--some > div { width: 10px; }
     }
 
     .checkbox-element__label-text {
@@ -455,10 +412,7 @@ export default {
 
 .checkbox-element--white {
     .checkbox-element__check {
-        color: @white;
-
-        &--checked > div { width: 14px; }
-        &--some > div { width: 10px; }
+        fill: @white;
     }
 
     .checkbox-element__label-text {
