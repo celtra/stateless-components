@@ -36,7 +36,7 @@ export default {
         disabled: { type: Boolean, default: false },
         size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
-        helperText: { type: String, required: false, default: 'Helper text' },
+        helperText: { type: String, required: false, default: '' },
         titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
