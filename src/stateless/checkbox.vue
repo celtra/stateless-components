@@ -2,8 +2,8 @@
     <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
         <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
-                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" transform-origin="center" x="7" y="7" width="16" height="16" stroke-width="1" fill="none" />
-                <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" transform-origin="center" d="M 23.94 7 L 13.125 17.958 L 8.059 13.211 L 4.5 16.732 L 13.125 25 L 27.5 10.519 Z"/>
+                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" transform-origin="center" x="6.5" y="6.5" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
+                <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" transform-origin="center" d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"/>
             </svg>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
@@ -35,7 +35,7 @@ export default {
         disabled: { type: Boolean, default: false },
         size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
-        helperText: { type: String, required: false, default: '' },
+        helperText: { type: String, required: false, default: 'Helper text' },
         titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
@@ -148,9 +148,10 @@ export default {
     }
 
     .checkbox-element__check-wrapper {
+        flex: none;
         width: 26px;
         height: 26px;
-        flex: none;
+        margin-top: 2px;
     }
 
     .checkbox-element__square {
@@ -187,7 +188,7 @@ export default {
     .checkbox-element__label-text {
         width: 100%;
         color: @very-light-gray;
-        padding: 0 15px 0 11px;
+        padding: 0 15px 0 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -208,7 +209,7 @@ export default {
 
     .checkbox-element__helper-text {
         height: 12px;
-        padding-left: 35px;
+        padding-left: 37px;
         display: flex;
         align-items: flex-start;
         font-size: 11px;
@@ -352,14 +353,18 @@ export default {
         height: 24px;
     }
 
+    .checkbox-element__check {
+        margin-top: 0;
+    }
+
     .checkbox-element__label-text {
-        padding: 0 10px 0 7px;
+        padding: 0 10px 0 5px;
         font-size: 14px;
     }
 
     .checkbox-element__helper-text {
         height: 15px;
-        padding-left: 27px;
+        padding-left: 29px;
         align-items: flex-end;
         font-size: 10px;
         letter-spacing: 0.5px;
