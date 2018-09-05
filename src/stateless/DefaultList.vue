@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <transition-group :name="transitionSorting ? 'default-list__item' : 'no-transition'" tag="div">
+        <transition-group :name="transitionSorting ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
@@ -36,8 +36,6 @@
                 </slot>
             </div>
         </div>
-
-        <div v-if="hiddenHeight > 0" :style="{ height: `${hiddenHeight}px` }"></div>
     </div>
 </template>
 
@@ -60,7 +58,6 @@ export default {
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
         listContainer: { type: HTMLElement, default: null },
-        renderAllItems: { type: Boolean, default: true },
         setActiveOnHover: { type: Boolean, default: true },
     },
     data () {
@@ -68,7 +65,6 @@ export default {
             isFocused: false,
             isHovered: false,
             activeId: null,
-            renderAllItemsTimeout: false,
             itemHeight: null,
             groupHeight: null,
         }
@@ -80,16 +76,10 @@ export default {
         flatSelectableItems () {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
-        shownItems () {
-            if (this.renderAllItems && this.renderAllItemsTimeout || this.flatItems.length <= this.minItemsCount) {
-                return this.flatItems
-            }
-            return this.flatItems.slice(0, this.minItemsCount)
-        },
         shownItemsWithData () {
             let activeId = this.isFocused || (this.setActiveOnHover && this.isHovered) ? this.activeId : null
 
-            return this.shownItems.map(item => {
+            return this.flatItems.map(item => {
                 let css = { marginLeft: `${this.getOffset(item)}px` }
                 if (this.transitionSorting) {
                     css.height = `${item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight}px`
@@ -108,32 +98,14 @@ export default {
         assumedGroupHeight () {
             return this.groupHeight || 30
         },
-        hiddenHeight () {
-            let total = 0
-            for (let hiddenItem of this.flatItems.slice(this.shownItems.length)) {
-                total += hiddenItem.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
-            }
-            return total
-        },
-        maxHeight () {
-            let total = 0
-            for (let item of this.flatItems) {
-                total += item.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
-            }
-            return total
-        },
     },
     mounted () {
-        setTimeout(() => {
-            this.renderAllItemsTimeout = true
-        }, 100)
         this.$nextTick(() => {
             this.itemHeight = this.$refs.hiddenSlot.clientHeight
             this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
         })
     },
     beforeCreate () {
-        this.minItemsCount = 50
         this.assumedItem = { label: 'A', metadata: 'A' }
     },
     methods: {
@@ -252,7 +224,6 @@ export default {
 
         &-enter-active, &-leave-active, &-move {
             transition: background-color 100ms ease, height 250ms ease-out, opacity 250ms ease-out;
-            transition-delay: 350ms;
             pointer-events: none;
         }
 
@@ -265,6 +236,12 @@ export default {
             .default-list__group {
                 padding-top: 0;
             }
+        }
+    }
+
+    &__item-transitionless {
+        &-leave-active {
+            display: none;
         }
     }
 
