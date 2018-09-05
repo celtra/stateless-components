@@ -58,6 +58,7 @@ export default {
         options: { type: Array, required: true },
         value: { type: String, required: false, default: '' },
         getOptions: { type: Function, required: false, default: null },
+        loadAsyncDebounce: { type: Number, default: 0 },
         isSearchable: { type: Boolean, required: false, default: false },
         isUnselectable: { type: Boolean, required: false, default: false },
         showSelectedMetadata: { type: Boolean, required: false, default: false },
@@ -168,8 +169,11 @@ export default {
     },
     watch: {
         searchText () {
-            this.loadAsyncOptions()
+            this.debouncedLoadAsyncOptions()
         },
+    },
+    created () {
+        this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     methods: {
         setFocus () {
