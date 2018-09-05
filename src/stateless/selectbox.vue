@@ -465,6 +465,10 @@ export default {
     .selectbox__label-text {
         color: @bluish-gray;
 
+        &--disabled {
+            color: @very-light-gray;
+        }
+
         &--focused {
             color: @royal-blue;
         }
