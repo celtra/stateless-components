@@ -1,12 +1,9 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
-            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top">
-                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
-            </div>
-            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--bottom"></div>
+            <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
 
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <slot name="before"></slot>
 
                 <default-list
@@ -176,72 +173,27 @@ export default {
         // overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
         padding: @overlay-height 0;
+
+        &--with-overlay {
+            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
+        }
     }
 
     &__scroll-top {
-        font-size: 11px;
-        color: @bluish-gray;
-        cursor: pointer;
-        pointer-events: all;
+        position: absolute;
+        top: 0;
+        right: @scrollbar-width + 1;
         padding: 1px 3px;
-        margin-right: 5px;
+        font-size: 11px;
         line-height: 12px;
         border-radius: 0 0 5px 5px;
+        color: @bluish-gray;
+        z-index: @z-middle;
+        cursor: pointer;
 
         &:focus {
             outline: none;
             color: black;
-        }
-    }
-
-    &__overlay {
-        position: absolute;
-        height: @overlay-height;
-        width: calc(100% - @scrollbar-width - 1px);
-        pointer-events: none;
-        z-index: @z-middle;
-
-        &--top {
-            top: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-        }
-
-        &--bottom {
-            bottom: 0;
-        }
-    }
-}
-
-.scrollable-list--dark {
-    .scrollable-list__scroll-top {
-        background-color: @extremely-dark-gray;
-    }
-
-    .scrollable-list__overlay {
-        &--top {
-            background: linear-gradient(180deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
-        }
-
-        &--bottom {
-            background: linear-gradient(0deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
-        }
-    }
-}
-
-.scrollable-list--light {
-    .scrollable-list__scroll-top {
-        background-color: @white;
-    }
-
-    .scrollable-list__overlay {
-        &--top {
-            background: linear-gradient(180deg, @white, fade(@white, 0%));
-        }
-
-        &--bottom {
-            background: linear-gradient(0deg, @white, fade(@white, 0%));
         }
     }
 }
