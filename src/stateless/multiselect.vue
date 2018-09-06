@@ -27,7 +27,7 @@
                     <div slot-scope="{ item }" style="width: 100%;">
                         <checkbox-element
                             :disabled="item.disabled"
-                            :title-text="item.label"
+                            :title-text="item.tooltipTitle ? '' : item.label"
                             :disabled-text="item.disabledText"
                             :value="isChecked(item)"
                             :size="size"

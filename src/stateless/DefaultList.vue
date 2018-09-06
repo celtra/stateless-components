@@ -14,7 +14,7 @@
                             :size="size"
                             theme="light" />
                     </slot>
-                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
+                    <tooltip v-if="item.tooltip" :title="item.tooltipTitle" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
                 <div v-else class="default-list__item-content">
                     <slot :item="item" name="group">

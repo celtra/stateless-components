@@ -76,7 +76,7 @@ export default {
     text-align: left;
     padding: 6px 20px;
     z-index: @z-highest;
-    max-width: 200px;
+    max-width: 460px;
     word-wrap: break-word;
 
     &__title {
