@@ -5632,7 +5632,7 @@ function search(items, query) {
 
     var cleanQuery = (query || '').trim(' ').toLowerCase();
     if (cleanQuery.length === 0) {
-        return items;
+        return [].concat(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray___default()(items));
     }
 
     var getMatchingPriority = function getMatchingPriority(value) {

@@ -135,7 +135,7 @@ export function flatten (items) {
 export function search (items, query, fields = ['label', 'metadata', 'tooltip']) {
     const cleanQuery = (query || '').trim(' ').toLowerCase()
     if (cleanQuery.length === 0) {
-        return items
+        return [...items]
     }
 
     const getMatchingPriority = (value) => {
