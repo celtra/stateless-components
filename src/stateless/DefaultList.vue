@@ -1,7 +1,7 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)" @mouseleave="onUnhover">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -14,7 +14,6 @@
                             :size="size"
                             theme="light" />
                     </slot>
-                    <tooltip v-if="item.tooltip" :title="item.tooltipTitle" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
                 </div>
                 <div v-else class="default-list__item-content">
                     <slot :item="item" name="group">
@@ -43,12 +42,14 @@
 import DefaultListItem from './DefaultListItem.vue'
 import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
+import TooltipMixin from '../helpers/tooltip_mixin'
 
 export default {
     components: {
         DefaultListItem,
         Tooltip,
     },
+    mixins: [TooltipMixin],
     props: {
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
@@ -149,6 +150,13 @@ export default {
             if (this.setActiveOnHover && item.isLeaf && (ev.movementX !== 0 || ev.movementY !== 0)) {
                 this.activeId = item.key || item.id
             }
+
+            if (item.tooltip) {
+                this.showTooltip(ev.target, item.tooltip, item.tooltipTitle)
+            }
+        },
+        onUnhover (ev) {
+            this.hideTooltip()
         },
         focus () {
             this.$el.focus()
