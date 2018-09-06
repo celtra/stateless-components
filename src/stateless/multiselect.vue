@@ -154,7 +154,6 @@ export default {
         searchQuery (v) {
             this.getOptionsPage = 0
             this.gotAllOptions = false
-            this.queryOptions = []
             this.isLoading = false
             this.debouncedLoadAsyncOptions()
         },
@@ -185,6 +184,10 @@ export default {
                 let query = this.searchQuery
                 this.getOptions(query, this.getOptionsPage).then(result => {
                     if (this.searchQuery === query) {
+                        if (this.getOptionsPage === 0) {
+                            this.queryOptions = []
+                        }
+
                         if (result.length === 0) {
                             this.gotAllOptions = true
                         } else {
