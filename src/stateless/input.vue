@@ -569,6 +569,7 @@ export default {
         border: 0;
         outline: none;
         margin: 4px 0px;
+        transition: color @default-transition-time;
 
         &.input-row__textarea {
             // we get 2 extra px because some weird textarea styling
@@ -579,6 +580,7 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis !important;
+            transition: color @default-transition-time;
         }
 
         &--overlay-open {
@@ -749,14 +751,14 @@ export default {
         border-color: @very-light-gray;
 
         &__placeholder-text {
-            color: @black;
+            color: @gunpowder;
             &::placeholder {
                 color: @gunpowder;
             }
         }
 
         &:hover {
-            .input-row__placeholder-text::placeholder { color: @black; }
+            .input-row__placeholder-text::placeholder, .input-row__placeholder-text { color: @black; }
         }
 
         &--focused { border-color: @royal-blue; }
