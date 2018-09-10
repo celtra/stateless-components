@@ -1,6 +1,6 @@
 <template>
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @wheel="hideTooltip" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-        <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
+        <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="350" tag="div">
             <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mousemove="onItemHover($event, item)" @mouseleave="hideTooltip">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
@@ -231,8 +231,15 @@ export default {
         transition: background-color 100ms ease;
 
         &-enter-active, &-leave-active, &-move {
-            transition: background-color 100ms ease, height 250ms ease-out, opacity 250ms ease-out;
             pointer-events: none;
+        }
+
+        &-enter-active {
+            transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;
+        }
+
+        &-leave-active {
+            transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;
         }
 
         &-enter, &-leave-to {
