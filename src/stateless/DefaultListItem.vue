@@ -1,34 +1,40 @@
 <template>
     <div :class="[theme, size, cssModifiers] | prefix('default-list-item--')" class="default-list-item">
-        <div :class="cssModifiers | prefix('default-list-item__label--')" class="default-list-item__label">
+        <p :style="labelWidth ? { width: `${labelWidth}px` } : {}" :class="cssModifiers | prefix('default-list-item__label--')" class="default-list-item__label">
             <template v-if="highlightQuery">
                 <span v-for="(part, index) in getParts(label)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
             </template>
             <template v-else>
-                <middle-ellipsis :text="label"></middle-ellipsis>
+                {{ label }}
             </template>
-        </div>
-        <div v-if="metadata" :class="cssModifiers | prefix('default-list-item__metadata--')" class="default-list-item__metadata">
+        </p>
+        <p v-if="metadata" :style="metadataWidth ? { width: `${metadataWidth}px` } : {}" :class="cssModifiers | prefix('default-list-item__metadata--')" class="default-list-item__metadata">
             <template v-if="highlightQuery">
                 <span v-for="(part, index) in getParts(metadata)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
             </template>
             <template v-else>
-                <middle-ellipsis :text="metadata"></middle-ellipsis>
+                {{ metadata | middleEllipsis(metadataLength) }}
             </template>
             <icon v-if="icon" :name="icon" class="default-list-item__icon" />
-        </div>
+        </p>
+
+        <template v-if="metadata">
+            <p ref="labelContainer" class="default-list-item__hidden-width default-list-item__label">{{ label }}</p>
+            <p ref="metadataContainer" class="default-list-item__hidden-width default-list-item__metadata">
+                {{ metadata }}
+                <icon v-if="icon" :name="icon" class="default-list-item__icon" />
+            </p>
+        </template>
     </div>
 </template>
 
 <script>
 import { getTextHighlightParts } from './string_utils.js'
 import Icon from './icon.vue'
-import MiddleEllipsis from './MiddleEllipsis.vue'
 
 export default {
     components: {
         Icon,
-        MiddleEllipsis,
     },
     props: {
         size: { type: String, required: false, default: 'normal' },
@@ -40,7 +46,19 @@ export default {
         disabled: { type: Boolean },
         highlightQuery: { type: String },
     },
+    data () {
+        return {
+            labelWidth: null,
+            metadataWidth: null,
+        }
+    },
     computed: {
+        metadataLength () {
+            if (!this.metadataWidth) {
+                return 100
+            }
+            return Math.floor(this.metadataWidth / 7)
+        },
         cssModifiers () {
             return {
                 selected: this.selected,
@@ -49,7 +67,42 @@ export default {
             }
         },
     },
+    mounted () {
+        window.addEventListener('resize', this.calculateWidths)
+        this.$nextTick(this.calculateWidths)
+    },
+    beforeDestroy () {
+        window.removeEventListener('resize', this.calculateWidths)
+    },
     methods: {
+        calculateWidths () {
+            if (this.metadata) {
+                const THRESHOLD = 0.1
+                const totalWidth = this.$el.clientWidth - 5
+                const labelWidth = this.$refs.labelContainer.clientWidth
+                const metadataWidth = this.$refs.metadataContainer.clientWidth
+
+                if (labelWidth + metadataWidth > totalWidth) {
+                    let finalLabelWidth
+                    if (labelWidth > metadataWidth) {
+                        if (labelWidth <= (0.5 + THRESHOLD) * totalWidth) {
+                            finalLabelWidth = labelWidth
+                        } else {
+                            finalLabelWidth = Math.floor(0.5 * totalWidth)
+                        }
+                    } else {
+                        if (metadataWidth <= (0.5 + THRESHOLD) * totalWidth) {
+                            finalLabelWidth = totalWidth - metadataWidth
+                        } else {
+                            finalLabelWidth = Math.floor(0.5 * totalWidth)
+                        }
+                    }
+
+                    this.labelWidth = finalLabelWidth
+                    this.metadataWidth = totalWidth - finalLabelWidth
+                }
+            }
+        },
         getParts (label) {
             return getTextHighlightParts(label, this.highlightQuery)
         },
@@ -103,6 +156,11 @@ export default {
     &__icon {
         margin-left: 10px;
         color: @gunpowder;
+    }
+
+    &__hidden-width {
+        visibility: hidden;
+        position: absolute;
     }
 }
 
