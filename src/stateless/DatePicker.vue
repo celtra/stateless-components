@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker" @keyup.esc.stop="isOpen = false">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="openCalendar">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
@@ -8,7 +8,7 @@
         <div :class="states | prefix('date-picker__border-overlay--')" class="date-picker__border-overlay"></div>
         <div :class="size | prefix('date-picker__error-message--')" class="date-picker__error-message">{{ error }}</div>
 
-        <div v-if="isOpen" class="date-picker__popup">
+        <div v-if="isOpen" ref="popup" tabindex="0" class="date-picker__popup" @keyup.esc.stop="isOpen = false">
             <template v-if="hasInput">
                 <date-range-input
                     v-if="isRange"
@@ -140,7 +140,7 @@ export default {
         },
         onInputBlur (ev) {
             if (ev.relatedTarget === null && this.isOpen) {
-                this.$refs.calendar.focus()
+                this.$refs.popup.focus()
             }
         },
     },
