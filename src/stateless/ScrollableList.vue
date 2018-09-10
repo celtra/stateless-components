@@ -181,7 +181,7 @@ export default {
 
     &__default-list {
         &--with-overlay {
-            margin: @overlay-height 0;
+            padding: @overlay-height 0;
         }
     }
 
