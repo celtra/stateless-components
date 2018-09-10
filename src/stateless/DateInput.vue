@@ -93,9 +93,10 @@ export default {
             this.textValue = null
             this.inFocus = true
         },
-        onBlur () {
+        onBlur (ev) {
             this.textValue = null
             this.inFocus = false
+            this.$emit('blur', ev)
         },
     },
 }

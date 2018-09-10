@@ -203,6 +203,7 @@ export default {
         component: DatePicker,
         rootCss: {
             width: '600px',
+            margin: '300px 100px',
         },
         defaultProps: {
 

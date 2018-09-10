@@ -8,7 +8,7 @@
         <div :class="states | prefix('date-picker__border-overlay--')" class="date-picker__border-overlay"></div>
         <div :class="size | prefix('date-picker__error-message--')" class="date-picker__error-message">{{ error }}</div>
 
-        <div v-if="isOpen" ref="popup" class="date-picker__popup" tabindex="0">
+        <div v-if="isOpen" class="date-picker__popup">
             <template v-if="hasInput">
                 <date-range-input
                     v-if="isRange"
@@ -22,7 +22,8 @@
                     :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     class="date-picker__date-input"
-                    @input="setValue">
+                    @input="$emit('input', $event)"
+                    @blur="onInputBlur">
                 </date-range-input>
                 <date-input
                     v-else
@@ -37,11 +38,13 @@
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     :label="label"
                     class="date-picker__date-input"
-                    @input="setValue">
+                    @input="$emit('input', $event)"
+                    @blur="onInputBlur">
                 </date-input>
             </template>
 
             <calendar
+                ref="calendar"
                 :theme="theme"
                 :size="size"
                 :value="value"
@@ -49,7 +52,8 @@
                 :min-date="minDate"
                 :max-date="maxDate"
                 class="date-picker__calendar"
-                @input="setCalendarValue"
+                @input="$emit('input', $event)"
+                @confirm="isOpen = false"
             ></calendar>
         </div>
     </div>
@@ -123,21 +127,6 @@ export default {
         },
     },
     methods: {
-        setCalendarValue (v) {
-            this.setValue(v)
-            if (this.isRange) {
-                if (v.from && v.to) {
-                    this.isOpen = false
-                }
-            } else {
-                if (v) {
-                    this.isOpen = false
-                }
-            }
-        },
-        setValue (v) {
-            this.$emit('input', v)
-        },
         clickOutside () {
             this.isOpen = false
         },
@@ -145,8 +134,13 @@ export default {
             if (!this.disabled) {
                 this.isOpen = true
                 this.$nextTick(() => {
-                    this.$refs.popup.focus()
+                    this.$refs.calendar.focus()
                 })
+            }
+        },
+        onInputBlur (ev) {
+            if (ev.relatedTarget === null && this.isOpen) {
+                this.$refs.calendar.focus()
             }
         },
     },

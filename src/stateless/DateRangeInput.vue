@@ -12,7 +12,8 @@
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
             label="Start date"
             @input="onFromInput"
-            @keyup="$emit('keyup', $event)">
+            @keyup="$emit('keyup', $event)"
+            @blur="$emit('blur', $event)">
         </date-input>
 
         <div :class="{'date-range-input__separator--with-margin': !!separator}" class="date-range-input__separator">{{ separator }}</div>
@@ -29,7 +30,8 @@
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
             label="End date"
             @input="onToInput"
-            @keyup="$emit('keyup', $event)">
+            @keyup="$emit('keyup', $event)"
+            @blur="$emit('blur', $event)">
         </date-input>
     </div>
 </template>
