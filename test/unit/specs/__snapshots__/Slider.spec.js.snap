@@ -35,7 +35,7 @@ exports[`Slider should match the snapshot 1`] = `
           <!---->
            
           <div
-            class="input-row"
+            class="input-row input-row--light"
           >
             <!---->
              
@@ -47,7 +47,7 @@ exports[`Slider should match the snapshot 1`] = `
               <!---->
                
               <input
-                class="input-row__placeholder-text"
+                class="input-row__placeholder-text input-row__placeholder-text--light"
                 placeholder="5.0"
                 style="text-align: right;"
                 type="text"
@@ -55,7 +55,7 @@ exports[`Slider should match the snapshot 1`] = `
             </div>
              
             <div
-              class="input-row__unit input-row__unit--right"
+              class="input-row__unit input-row__unit--right input-row__unit--light"
             >
               <span>
                 %
@@ -64,14 +64,14 @@ exports[`Slider should match the snapshot 1`] = `
           </div>
            
           <div
-            class="input-field__border-overlay"
+            class="input-field__border-overlay input-field__border-overlay--light"
           />
            
           <div
             class="input-field__message-wrap"
           >
             <div
-              class="input-field__helper-text"
+              class="input-field__helper-text input-field__helper-text--light"
             >
               
                     

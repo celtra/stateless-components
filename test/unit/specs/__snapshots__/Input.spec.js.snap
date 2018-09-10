@@ -12,7 +12,7 @@ exports[`Input should match the snapshot 1`] = `
     title=""
   >
     <div
-      class="input-field__overlay"
+      class="input-field__overlay input-field__overlay--dark"
     >
       
                 Label
@@ -20,7 +20,7 @@ exports[`Input should match the snapshot 1`] = `
     </div>
      
     <div
-      class="input-field__label-text"
+      class="input-field__label-text input-field__label-text--dark"
     >
       
                 
@@ -28,7 +28,7 @@ exports[`Input should match the snapshot 1`] = `
     </div>
      
     <div
-      class="input-row"
+      class="input-row input-row--dark"
     >
       <!---->
        
@@ -40,7 +40,7 @@ exports[`Input should match the snapshot 1`] = `
         <!---->
          
         <input
-          class="input-row__placeholder-text"
+          class="input-row__placeholder-text input-row__placeholder-text--dark"
           placeholder="Label"
           style="text-align: left;"
           type="text"
@@ -51,14 +51,14 @@ exports[`Input should match the snapshot 1`] = `
     </div>
      
     <div
-      class="input-field__border-overlay"
+      class="input-field__border-overlay input-field__border-overlay--dark"
     />
      
     <div
       class="input-field__message-wrap"
     >
       <div
-        class="input-field__helper-text"
+        class="input-field__helper-text input-field__helper-text--dark"
       >
         
                     
