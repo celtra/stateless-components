@@ -13,13 +13,13 @@
                 :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
-                :init-search-query="initSearchQuery"
+                :init-search-query="searchQuery"
                 :can-select-and-clear-all="canSelectAndClearAll"
                 :can-clear-all="canClearAll"
                 :options="options"
                 :size="size"
                 theme="light"
-                @search="searchQueryChange"
+                @search="searchChange"
                 @input="selectionChange">
                 <div slot-scope="{ item }" style="width: 100%;">
                     <slot :item="item">
@@ -40,6 +40,7 @@ import Chip from './Chip'
 import InlineDialog from './InlineDialog'
 import Multiselect from './multiselect'
 import MiddleEllipsisListItem from './MiddleEllipsisListItem.vue'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -55,13 +56,13 @@ export default {
         chipLabel: { type: String, required: true },
         searchLabel: { type: String, required: true },
         isSearchable: { type: Boolean, default: false },
-        initSearchQuery: { type: String, default: '' },
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
     },
     data () {
         return {
             isOpen: false,
+            searchQuery: '',
         }
     },
     methods: {
@@ -71,12 +72,12 @@ export default {
         close () {
             this.isOpen = false
         },
-        searchQueryChange (searchQuery) {
-            this.$emit('search', searchQuery)
-        },
         selectionChange (selected) {
             this.$emit('input', selected)
         },
+        searchChange: debounce(function (searchQuery) {
+            this.searchQuery = searchQuery
+        }, 300),
     },
 }
 </script>

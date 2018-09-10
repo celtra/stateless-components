@@ -153,6 +153,7 @@ export default {
     },
     watch: {
         searchQuery (v) {
+            this.$emit('search', v)
             this.debouncedLoadAsyncOptions()
         },
     },
