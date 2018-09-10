@@ -147,7 +147,7 @@ export default {
             }
         },
         onItemHover (ev, item) {
-            if (this.setActiveOnHover && item.isLeaf && (ev.movementX !== 0 || ev.movementY !== 0)) {
+            if (this.setActiveOnHover && item.isLeaf) {
                 this.activeId = item.key || item.id
             }
 
