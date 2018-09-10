@@ -15,6 +15,7 @@
                     :size="size"
                     :theme="theme"
                     :list-container="$refs.scrollable"
+                    :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
@@ -172,10 +173,15 @@ export default {
         overflow-y: auto;
         // overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
-        padding: @overlay-height 0;
 
         &--with-overlay {
             mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
+        }
+    }
+
+    &__default-list {
+        &--with-overlay {
+            margin: @overlay-height 0;
         }
     }
 
