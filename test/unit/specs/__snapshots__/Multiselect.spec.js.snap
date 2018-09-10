@@ -220,49 +220,39 @@ exports[`Multiselect should match the snapshot 1`] = `
                           <div
                             class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal default-list-item--with-metadata"
                           >
-                            <div
+                            <p
                               class="default-list-item__label default-list-item__label--with-metadata"
+                              style="width: -3px;"
                             >
-                              <div
-                                class="middle-ellipsis"
-                              >
-                                <div
-                                  class="middle-ellipsis__measurement"
-                                >
-                                  A
-                                </div>
-                                 
-                                <div
-                                  class="middle-ellipsis__text"
-                                  title="A"
-                                >
-                                  A
-                                </div>
-                              </div>
-                            </div>
+                              
+            A
+        
+                            </p>
                              
-                            <div
+                            <p
                               class="default-list-item__metadata default-list-item__metadata--with-metadata"
+                              style="width: -2px;"
                             >
-                              <div
-                                class="middle-ellipsis"
-                              >
-                                <div
-                                  class="middle-ellipsis__measurement"
-                                >
-                                  A
-                                </div>
-                                 
-                                <div
-                                  class="middle-ellipsis__text"
-                                  title="A"
-                                >
-                                  A
-                                </div>
-                              </div>
-                               
+                              
+            ...A
+         
                               <!---->
-                            </div>
+                            </p>
+                             
+                            <p
+                              class="default-list-item__hidden-width default-list-item__label"
+                            >
+                              A
+                            </p>
+                             
+                            <p
+                              class="default-list-item__hidden-width default-list-item__metadata"
+                            >
+                              
+            A
+            
+                              <!---->
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -320,26 +310,15 @@ exports[`Multiselect should match the snapshot 1`] = `
                           <div
                             class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
                           >
-                            <div
+                            <p
                               class="default-list-item__label"
                             >
-                              <div
-                                class="middle-ellipsis"
-                              >
-                                <div
-                                  class="middle-ellipsis__measurement"
-                                >
-                                  option 1
-                                </div>
-                                 
-                                <div
-                                  class="middle-ellipsis__text"
-                                  title="option 1"
-                                >
-                                  option 1
-                                </div>
-                              </div>
-                            </div>
+                              
+            option 1
+        
+                            </p>
+                             
+                            <!---->
                              
                             <!---->
                           </div>
@@ -392,26 +371,15 @@ exports[`Multiselect should match the snapshot 1`] = `
                           <div
                             class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
                           >
-                            <div
+                            <p
                               class="default-list-item__label"
                             >
-                              <div
-                                class="middle-ellipsis"
-                              >
-                                <div
-                                  class="middle-ellipsis__measurement"
-                                >
-                                  option 2
-                                </div>
-                                 
-                                <div
-                                  class="middle-ellipsis__text"
-                                  title="option 2"
-                                >
-                                  option 2
-                                </div>
-                              </div>
-                            </div>
+                              
+            option 2
+        
+                            </p>
+                             
+                            <!---->
                              
                             <!---->
                           </div>
@@ -464,26 +432,15 @@ exports[`Multiselect should match the snapshot 1`] = `
                           <div
                             class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
                           >
-                            <div
+                            <p
                               class="default-list-item__label"
                             >
-                              <div
-                                class="middle-ellipsis"
-                              >
-                                <div
-                                  class="middle-ellipsis__measurement"
-                                >
-                                  option 3
-                                </div>
-                                 
-                                <div
-                                  class="middle-ellipsis__text"
-                                  title="option 3"
-                                >
-                                  option 3
-                                </div>
-                              </div>
-                            </div>
+                              
+            option 3
+        
+                            </p>
+                             
+                            <!---->
                              
                             <!---->
                           </div>

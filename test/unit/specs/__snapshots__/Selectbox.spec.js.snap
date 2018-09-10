@@ -22,26 +22,15 @@ exports[`Selectbox should match the snapshot 1`] = `
       class="default-list-item selectbox__current-item default-list-item--dark default-list-item--normal"
       title="Placeholder"
     >
-      <div
+      <p
         class="default-list-item__label"
       >
-        <div
-          class="middle-ellipsis"
-        >
-          <div
-            class="middle-ellipsis__measurement"
-          >
+        
             Placeholder
-          </div>
-           
-          <div
-            class="middle-ellipsis__text"
-            title="Placeholder"
-          >
-            Placeholder
-          </div>
-        </div>
-      </div>
+        
+      </p>
+       
+      <!---->
        
       <!---->
     </div>
