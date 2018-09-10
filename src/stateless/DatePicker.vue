@@ -134,7 +134,7 @@ export default {
             if (!this.disabled) {
                 this.isOpen = true
                 this.$nextTick(() => {
-                    this.$refs.calendar.focus()
+                    this.$refs.popup.focus()
                 })
             }
         },
