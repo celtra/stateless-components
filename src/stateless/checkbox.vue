@@ -152,7 +152,6 @@ export default {
         flex: none;
         width: 26px;
         height: 26px;
-        margin-top: 2px;
     }
 
     .checkbox-element__square {
@@ -375,7 +374,6 @@ export default {
     .checkbox-element__check-wrapper {
         width: 24px;
         height: 24px;
-        margin-top: 0;
     }
 
     .checkbox-element__label-text {
