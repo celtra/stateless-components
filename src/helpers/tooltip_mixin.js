@@ -19,13 +19,17 @@ export default {
             mounted () {
                 const tooltipElement = this.$children[0].$el
                 tooltipElement.style.top = tooltipElement.style.left = '0'
-                this.intervalId = setInterval(this.updatePosition, 200)
+                this.intervalId = setInterval(this.updatePosition, 100)
             },
             beforeDestroy () {
                 clearInterval(this.intervalId)
             },
             methods: {
                 updatePosition () {
+                    if (this.target && !document.body.contains(this.target)) {
+                        this.target = null
+                    }
+
                     if (this.target) {
                         const tooltipElement = this.$children[0].$el
                         const targetRect = this.target.getBoundingClientRect()
