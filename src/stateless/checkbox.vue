@@ -158,6 +158,7 @@ export default {
         transform-origin: center;
         stroke: @bluish-gray;
         transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
+        transform: scale3d(1, 1, 1);
         opacity: 1;
 
         &--checked {
