@@ -121,7 +121,6 @@ export default {
             options: largeItems,
             value: [],
             isSearchable: true,
-            initSearchQuery: 'date',
             canSelectAndClearAll: true,
         },
     },
