@@ -4,8 +4,6 @@
             <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
 
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
-                <slot name="before"></slot>
-
                 <default-list
                     ref="list"
                     :items="items"
@@ -21,12 +19,14 @@
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
                     @activate="onActivate">
+
                     <template v-if="$scopedSlots.default" slot-scope="{ item }">
                         <slot :item="item"></slot>
                     </template>
-                </default-list>
 
-                <slot name="after"></slot>
+                    <slot slot="before" name="before"></slot>
+                    <slot slot="after" name="after"></slot>
+                </default-list>
             </div>
         </div>
     </div>
