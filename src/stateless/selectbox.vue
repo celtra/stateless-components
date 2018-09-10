@@ -168,7 +168,8 @@ export default {
         },
     },
     watch: {
-        searchText () {
+        searchText (search) {
+            this.$emit('update-search', search)
             this.debouncedLoadAsyncOptions()
         },
     },
