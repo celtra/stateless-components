@@ -152,7 +152,8 @@ export default {
             }
 
             if (item.tooltip) {
-                this.showTooltip(ev.target, item.tooltip, item.tooltipTitle)
+                const element = this.$el.querySelector(`[data-item-id="${item.key || item.id}"]`)
+                this.showTooltip(element, item.tooltip, item.tooltipTitle)
             }
         },
         focus () {
