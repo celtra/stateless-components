@@ -81,6 +81,7 @@ export default {
                 return this.searchTextValue
             },
             set (v) {
+                this.$emit('update-search', v)
                 if (!v) {
                     this.searchTextValue = ''
                 } else {
@@ -168,8 +169,7 @@ export default {
         },
     },
     watch: {
-        searchText (search) {
-            this.$emit('update-search', search)
+        searchText () {
             this.debouncedLoadAsyncOptions()
         },
     },
