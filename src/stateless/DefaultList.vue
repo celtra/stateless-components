@@ -101,6 +101,20 @@ export default {
             return this.groupHeight || 30
         },
     },
+    watch: {
+        flatSelectableItems (v) {
+            if (!this.activeId && v.length > 0) {
+                let activeItem = v[0]
+                if (this.value) {
+                    const currentItem = v.find(x => x.id === this.value)
+                    if (currentItem) {
+                        activeItem = currentItem
+                    }
+                }
+                this.activeId = activeItem.key || activeItem.id
+            }
+        },
+    },
     mounted () {
         this.$nextTick(() => {
             this.itemHeight = this.$refs.hiddenSlot.clientHeight
@@ -115,16 +129,6 @@ export default {
         onFocus (ev) {
             if (!this.isFocused) {
                 this.isFocused = true
-                if (this.flatSelectableItems.length > 0) {
-                    let activeItem = this.flatSelectableItems[0]
-                    if (this.value) {
-                        let currentItem = this.flatSelectableItems.find(x => x.id === this.value)
-                        if (currentItem) {
-                            activeItem = currentItem
-                        }
-                    }
-                    this.activeId = activeItem.key || activeItem.id
-                }
             }
         },
         onBlur (ev) {
