@@ -20583,7 +20583,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__ = __webpack_require__(92);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b8f2f40_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_066b18bb_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__ = __webpack_require__(365);
 function injectStyle (ssrContext) {
   __webpack_require__(357)
 }
@@ -20598,12 +20598,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-0b8f2f40"
+var __vue_scopeId__ = "data-v-066b18bb"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_DefaultList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b8f2f40_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_066b18bb_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_DefaultList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20733,37 +20733,50 @@ var Component = normalizeComponent(
         }
     },
     watch: {
-        flatSelectableItems: function flatSelectableItems(v) {
-            var _this2 = this;
-
-            if (!this.activeId && v.length > 0) {
-                var activeItem = v[0];
-                if (this.value) {
-                    var currentItem = v.find(function (x) {
-                        return x.id === _this2.value;
-                    });
-                    if (currentItem) {
-                        activeItem = currentItem;
-                    }
+        flatSelectableItems: function flatSelectableItems() {
+            if (!this.activeId) {
+                var defaultActiveId = this.getDefaultActiveId();
+                if (defaultActiveId) {
+                    this.activeId = defaultActiveId;
                 }
-                this.activeId = activeItem.key || activeItem.id;
             }
         }
     },
     mounted: function mounted() {
-        var _this3 = this;
+        var _this2 = this;
 
         this.$nextTick(function () {
-            _this3.itemHeight = _this3.$refs.hiddenSlot.clientHeight;
-            _this3.groupHeight = _this3.$refs.hiddenGroupSlot.clientHeight;
-            _this3.firstRender = false;
+            _this2.itemHeight = _this2.$refs.hiddenSlot.clientHeight;
+            _this2.groupHeight = _this2.$refs.hiddenGroupSlot.clientHeight;
+            _this2.firstRender = false;
         });
     },
     beforeCreate: function beforeCreate() {
         this.assumedItem = { label: 'A', metadata: 'A' };
     },
+    created: function created() {
+        this.activeId = this.getDefaultActiveId();
+    },
 
     methods: {
+        getDefaultActiveId: function getDefaultActiveId() {
+            var _this3 = this;
+
+            if (this.flatSelectableItems.length === 0) {
+                return null;
+            }
+
+            var activeItem = this.flatSelectableItems[0];
+            if (this.value) {
+                var currentItem = this.flatSelectableItems.find(function (x) {
+                    return x.id === _this3.value;
+                });
+                if (currentItem) {
+                    activeItem = currentItem;
+                }
+            }
+            return activeItem.key || activeItem.id;
+        },
         onFocus: function onFocus(ev) {
             if (!this.isFocused) {
                 this.isFocused = true;
@@ -38357,7 +38370,7 @@ var content = __webpack_require__(358);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("0486db8e", content, true, {});
+var update = __webpack_require__(2)("12701236", content, true, {});
 
 /***/ }),
 /* 358 */
@@ -38368,7 +38381,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n*[data-v-0b8f2f40] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-0b8f2f40] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-0b8f2f40] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-0b8f2f40] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: background-color 100ms ease;\n  transition: background-color 100ms ease;\n}\n.default-list__item-enter-active[data-v-0b8f2f40],\n.default-list__item-leave-active[data-v-0b8f2f40],\n.default-list__item-move[data-v-0b8f2f40] {\n  pointer-events: none;\n}\n.default-list__item-enter-active[data-v-0b8f2f40] {\n  -webkit-transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n  transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n}\n.default-list__item-leave-active[data-v-0b8f2f40] {\n  -webkit-transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n  transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n}\n.default-list__item-enter[data-v-0b8f2f40],\n.default-list__item-leave-to[data-v-0b8f2f40] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-transitionless-leave-active[data-v-0b8f2f40] {\n  display: none;\n}\n.default-list__item-content[data-v-0b8f2f40] {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.default-list__item-content--with-tooltip[data-v-0b8f2f40]:hover {\n  position: relative;\n}\n.default-list__group[data-v-0b8f2f40] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-0b8f2f40] {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-0b8f2f40] {\n  background-color: #d6d8dd;\n}\n.default-list--condensed .default-list__group[data-v-0b8f2f40] {\n  padding-top: 5px;\n  height: 20px;\n}\n.default-list--normal .default-list__group[data-v-0b8f2f40] {\n  padding-top: 10px;\n  height: 30px;\n}\n.default-list--phat .default-list__group[data-v-0b8f2f40] {\n  padding-top: 10px;\n  height: 30px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,mBAAmB;CACpB;AACD;EACE,kBAAkB;EAClB,YAAY;EACZ,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gDAAgD;EAChD,wCAAwC;CACzC;AACD;;;EAGE,qBAAqB;CACtB;AACD;EACE,6FAA6F;EAC7F,qFAAqF;CACtF;AACD;EACE,6FAA6F;EAC7F,qFAAqF;CACtF;AACD;;EAEE,qBAAqB;EACrB,WAAW;CACZ;AACD;EACE,cAAc;CACf;AACD;EACE,YAAY;EACZ,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,iBAAiB;EACjB,aAAa;CACd;AACD;EACE,kBAAkB;EAClB,aAAa;CACd;AACD;EACE,kBAAkB;EAClB,aAAa;CACd","file":"DefaultList.vue","sourcesContent":["\n*[data-v-0b8f2f40] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-0b8f2f40] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-0b8f2f40] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-0b8f2f40] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: background-color 100ms ease;\n  transition: background-color 100ms ease;\n}\n.default-list__item-enter-active[data-v-0b8f2f40],\n.default-list__item-leave-active[data-v-0b8f2f40],\n.default-list__item-move[data-v-0b8f2f40] {\n  pointer-events: none;\n}\n.default-list__item-enter-active[data-v-0b8f2f40] {\n  -webkit-transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n  transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n}\n.default-list__item-leave-active[data-v-0b8f2f40] {\n  -webkit-transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n  transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n}\n.default-list__item-enter[data-v-0b8f2f40],\n.default-list__item-leave-to[data-v-0b8f2f40] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-transitionless-leave-active[data-v-0b8f2f40] {\n  display: none;\n}\n.default-list__item-content[data-v-0b8f2f40] {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.default-list__item-content--with-tooltip[data-v-0b8f2f40]:hover {\n  position: relative;\n}\n.default-list__group[data-v-0b8f2f40] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-0b8f2f40] {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-0b8f2f40] {\n  background-color: #d6d8dd;\n}\n.default-list--condensed .default-list__group[data-v-0b8f2f40] {\n  padding-top: 5px;\n  height: 20px;\n}\n.default-list--normal .default-list__group[data-v-0b8f2f40] {\n  padding-top: 10px;\n  height: 30px;\n}\n.default-list--phat .default-list__group[data-v-0b8f2f40] {\n  padding-top: 10px;\n  height: 30px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n*[data-v-066b18bb] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-066b18bb] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-066b18bb] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-066b18bb] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: background-color 100ms ease;\n  transition: background-color 100ms ease;\n}\n.default-list__item-enter-active[data-v-066b18bb],\n.default-list__item-leave-active[data-v-066b18bb],\n.default-list__item-move[data-v-066b18bb] {\n  pointer-events: none;\n}\n.default-list__item-enter-active[data-v-066b18bb] {\n  -webkit-transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n  transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n}\n.default-list__item-leave-active[data-v-066b18bb] {\n  -webkit-transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n  transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n}\n.default-list__item-enter[data-v-066b18bb],\n.default-list__item-leave-to[data-v-066b18bb] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-transitionless-leave-active[data-v-066b18bb] {\n  display: none;\n}\n.default-list__item-content[data-v-066b18bb] {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.default-list__item-content--with-tooltip[data-v-066b18bb]:hover {\n  position: relative;\n}\n.default-list__group[data-v-066b18bb] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-066b18bb] {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-066b18bb] {\n  background-color: #d6d8dd;\n}\n.default-list--condensed .default-list__group[data-v-066b18bb] {\n  padding-top: 5px;\n  height: 20px;\n}\n.default-list--normal .default-list__group[data-v-066b18bb] {\n  padding-top: 10px;\n  height: 30px;\n}\n.default-list--phat .default-list__group[data-v-066b18bb] {\n  padding-top: 10px;\n  height: 30px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/DefaultList.vue"],"names":[],"mappings":";AACA;EACE,+BAA+B;UACvB,uBAAuB;CAChC;AACD;EACE,cAAc;EACd,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,mBAAmB;CACpB;AACD;EACE,kBAAkB;EAClB,YAAY;EACZ,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gDAAgD;EAChD,wCAAwC;CACzC;AACD;;;EAGE,qBAAqB;CACtB;AACD;EACE,6FAA6F;EAC7F,qFAAqF;CACtF;AACD;EACE,6FAA6F;EAC7F,qFAAqF;CACtF;AACD;;EAEE,qBAAqB;EACrB,WAAW;CACZ;AACD;EACE,cAAc;CACf;AACD;EACE,YAAY;EACZ,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,gBAAgB;EAChB,sBAAsB;EACtB,kCAAkC;EAClC,eAAe;CAChB;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,iBAAiB;EACjB,aAAa;CACd;AACD;EACE,kBAAkB;EAClB,aAAa;CACd;AACD;EACE,kBAAkB;EAClB,aAAa;CACd","file":"DefaultList.vue","sourcesContent":["\n*[data-v-066b18bb] {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.default-list[data-v-066b18bb] {\n  outline: none;\n  width: 100%;\n}\n.default-list__hidden-slots[data-v-066b18bb] {\n  visibility: hidden;\n  position: absolute;\n}\n.default-list__item[data-v-066b18bb] {\n  padding: 0px 15px;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-transition: background-color 100ms ease;\n  transition: background-color 100ms ease;\n}\n.default-list__item-enter-active[data-v-066b18bb],\n.default-list__item-leave-active[data-v-066b18bb],\n.default-list__item-move[data-v-066b18bb] {\n  pointer-events: none;\n}\n.default-list__item-enter-active[data-v-066b18bb] {\n  -webkit-transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n  transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;\n}\n.default-list__item-leave-active[data-v-066b18bb] {\n  -webkit-transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n  transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;\n}\n.default-list__item-enter[data-v-066b18bb],\n.default-list__item-leave-to[data-v-066b18bb] {\n  height: 0 !important;\n  opacity: 0;\n}\n.default-list__item-transitionless-leave-active[data-v-066b18bb] {\n  display: none;\n}\n.default-list__item-content[data-v-066b18bb] {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.default-list__item-content--with-tooltip[data-v-066b18bb]:hover {\n  position: relative;\n}\n.default-list__group[data-v-066b18bb] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 11px;\n  letter-spacing: 0.5px;\n  font-family: \"SF UI Text Regular\";\n  color: #aaaab0;\n}\n.default-list--dark .default-list__item--active[data-v-066b18bb] {\n  background-color: #2A2A36;\n}\n.default-list--light .default-list__item--active[data-v-066b18bb] {\n  background-color: #d6d8dd;\n}\n.default-list--condensed .default-list__group[data-v-066b18bb] {\n  padding-top: 5px;\n  height: 20px;\n}\n.default-list--normal .default-list__group[data-v-066b18bb] {\n  padding-top: 10px;\n  height: 30px;\n}\n.default-list--phat .default-list__group[data-v-066b18bb] {\n  padding-top: 10px;\n  height: 30px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 

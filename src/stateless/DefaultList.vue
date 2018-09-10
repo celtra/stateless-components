@@ -102,16 +102,12 @@ export default {
         },
     },
     watch: {
-        flatSelectableItems (v) {
-            if (!this.activeId && v.length > 0) {
-                let activeItem = v[0]
-                if (this.value) {
-                    const currentItem = v.find(x => x.id === this.value)
-                    if (currentItem) {
-                        activeItem = currentItem
-                    }
+        flatSelectableItems () {
+            if (!this.activeId) {
+                const defaultActiveId = this.getDefaultActiveId()
+                if (defaultActiveId) {
+                    this.activeId = defaultActiveId
                 }
-                this.activeId = activeItem.key || activeItem.id
             }
         },
     },
@@ -125,7 +121,24 @@ export default {
     beforeCreate () {
         this.assumedItem = { label: 'A', metadata: 'A' }
     },
+    created () {
+        this.activeId = this.getDefaultActiveId()
+    },
     methods: {
+        getDefaultActiveId () {
+            if (this.flatSelectableItems.length === 0) {
+                return null
+            }
+
+            let activeItem = this.flatSelectableItems[0]
+            if (this.value) {
+                const currentItem = this.flatSelectableItems.find(x => x.id === this.value)
+                if (currentItem) {
+                    activeItem = currentItem
+                }
+            }
+            return activeItem.key || activeItem.id
+        },
         onFocus (ev) {
             if (!this.isFocused) {
                 this.isFocused = true
