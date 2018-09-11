@@ -66,6 +66,7 @@ export default {
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         hasScrollTop: { type: Boolean, default: true },
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
@@ -82,7 +83,7 @@ export default {
     data () {
         return {
             isLoading: false,
-            searchQuery: null,
+            searchQuery: this.initSearchQuery,
             queryOptions: [],
         }
     },
@@ -152,6 +153,7 @@ export default {
     },
     watch: {
         searchQuery (v) {
+            this.$emit('search', v)
             this.debouncedLoadAsyncOptions()
         },
     },
