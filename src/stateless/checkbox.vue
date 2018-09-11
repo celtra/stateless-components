@@ -1,5 +1,5 @@
 <template>
-    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
+    <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme, {'checkbox-element--disabled': disabled}]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
         <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" class="checkbox-element__check-row">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
                 <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" x="7" y="7" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
@@ -117,6 +117,10 @@ export default {
     margin-top: 7px;
     font-family: @regular-text-font;
     cursor: pointer;
+
+    &--disabled {
+        cursor: auto;
+    }
 
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
@@ -261,7 +265,7 @@ export default {
         cursor: pointer;
 
         &--focused, &:hover {
-            .checkbox-element__toggle-circle {
+            .checkbox-element__toggle-circle:not(.checkbox-element__toggle-circle--disabled) {
                 background-color: white;
             }
         }
