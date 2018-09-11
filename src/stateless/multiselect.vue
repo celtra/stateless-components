@@ -98,6 +98,9 @@ export default {
 
             return result
         },
+        flatOptions () {
+            return itemsUtils.flatten(this.allOptions)
+        },
         allPossibleIds () {
             return itemsUtils.getLeafItems(this.listItems).filter(item => !item.disabled).map(item => item.id)
         },
@@ -116,11 +119,20 @@ export default {
                         }
                         return {
                             ...item,
-                            key: `S_${item.key || item.id}`,
+                            key: this.noTransitionKeys[item.id] || `S_${item.key || item.id}`,
                         }
                     }).filter(x => x)
-                    const unselectedItems = itemsUtils.filter(result, item => {
+                    const unselectedItems = itemsUtils.map(itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
+                    }), item => {
+                        if (this.noTransitionKeys[item.id]) {
+                            return {
+                                ...item,
+                                key: this.noTransitionKeys[item.id],
+                            }
+                        } else {
+                            return item
+                        }
                     })
 
                     result = selectedItems.concat(unselectedItems)
@@ -158,6 +170,7 @@ export default {
         },
     },
     created () {
+        this.noTransitionKeys = {}
         this.getOptionsPage = 0
         this.gotAllOptions = false
         this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
@@ -208,6 +221,25 @@ export default {
             if (!option.disabled) {
                 if (option.isLeaf !== false) {
                     const valueWithout = this.value.filter(id => id !== option.id)
+
+                    if (this.autoReorder) {
+                        const firstUnselectedItem = this.flatOptions.find(x => !valueWithout.includes(x.id))
+                        let disableTransition = false
+                        if (isChecked) {
+                            disableTransition = firstUnselectedItem && firstUnselectedItem.id === option.id
+                        } else {
+                            disableTransition = this.value.length > 0 && this.value[this.value.length - 1] === option.id && firstUnselectedItem && firstUnselectedItem.id === option.id
+                        }
+
+                        if (disableTransition) {
+                            this.noTransitionKeys[option.id] = this.noTransitionKeys[option.id] || (option.key || option.id)
+                        } else {
+                            if (this.noTransitionKeys[option.id]) {
+                                this.noTransitionKeys[option.id] = this.noTransitionKeys[option.id].startsWith('S_') ? option.id : 'S_' + option.id
+                            }
+                        }
+                    }
+
                     if (isChecked) {
                         this.$emit('input', valueWithout.concat([option.id]))
                     } else {

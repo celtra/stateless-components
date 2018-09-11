@@ -253,14 +253,7 @@ export default {
 
         &-enter-active, &-leave-active, &-move {
             pointer-events: none;
-        }
-
-        &-enter-active {
-            transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;
-        }
-
-        &-leave-active {
-            transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;
+            transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
         }
 
         &-enter, &-leave-to {
