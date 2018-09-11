@@ -118,7 +118,7 @@ export default {
             width: '450px',
         },
         defaultProps: {
-            options: defaultItems,
+            options: largeItems,
             value: [],
             isSearchable: true,
             canSelectAndClearAll: true,

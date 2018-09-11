@@ -21133,7 +21133,7 @@ function getTextHighlightParts(text, query) {
         var container = document.createElement('div');
         body.appendChild(container);
 
-        this.tooltipVm = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+        this._tooltipVm = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
             el: container,
             data: function data() {
                 return {
@@ -21182,15 +21182,19 @@ function getTextHighlightParts(text, query) {
 
             var title = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
+            this._tooltipVm.canShowTooltip = true;
             this.$nextTick(function () {
-                _this.tooltipVm.text = text;
-                _this.tooltipVm.title = title;
-                _this.tooltipVm.target = element;
-                _this.tooltipVm.updatePosition();
+                if (_this._tooltipVm.canShowTooltip) {
+                    _this._tooltipVm.text = text;
+                    _this._tooltipVm.title = title;
+                    _this._tooltipVm.target = element;
+                    _this._tooltipVm.updatePosition();
+                }
             });
         },
         hideTooltip: function hideTooltip() {
-            this.tooltipVm.target = null;
+            this._tooltipVm.target = null;
+            this._tooltipVm.canShowTooltip = false;
         }
     }
 });

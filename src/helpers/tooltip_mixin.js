@@ -7,7 +7,7 @@ export default {
         const container = document.createElement('div')
         body.appendChild(container)
 
-        this.tooltipVm = new Vue({
+        this._tooltipVm = new Vue({
             el: container,
             data () {
                 return {
@@ -50,15 +50,19 @@ export default {
     },
     methods: {
         showTooltip (element, text, title = null) {
+            this._tooltipVm.canShowTooltip = true
             this.$nextTick(() => {
-                this.tooltipVm.text = text
-                this.tooltipVm.title = title
-                this.tooltipVm.target = element
-                this.tooltipVm.updatePosition()
+                if (this._tooltipVm.canShowTooltip) {
+                    this._tooltipVm.text = text
+                    this._tooltipVm.title = title
+                    this._tooltipVm.target = element
+                    this._tooltipVm.updatePosition()
+                }
             })
         },
         hideTooltip () {
-            this.tooltipVm.target = null
+            this._tooltipVm.target = null
+            this._tooltipVm.canShowTooltip = false
         },
     },
 }
