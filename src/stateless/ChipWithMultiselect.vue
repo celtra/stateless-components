@@ -40,7 +40,6 @@ import Chip from './Chip'
 import InlineDialog from './InlineDialog'
 import Multiselect from './multiselect'
 import MiddleEllipsisListItem from './MiddleEllipsisListItem.vue'
-import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -75,9 +74,9 @@ export default {
         selectionChange (selected) {
             this.$emit('input', selected)
         },
-        searchChange: debounce(function (searchQuery) {
+        searchChange (searchQuery) {
             this.searchQuery = searchQuery
-        }, 300),
+        },
     },
 }
 </script>
