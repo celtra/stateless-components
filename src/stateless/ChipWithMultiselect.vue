@@ -19,6 +19,15 @@
                 :size="size"
                 theme="light"
                 @input="selectionChange">
+                <div slot-scope="{ item }" style="width: 100%;">
+                    <slot :item="item">
+                        <middle-ellipsis-list-item
+                            :label="item.label"
+                            :metadata="item.metadata"
+                            :size="size"
+                            theme="light" />
+                    </slot>
+                </div>
             </multiselect>
         </inline-dialog>
     </div>
@@ -28,12 +37,14 @@
 import Chip from './Chip'
 import InlineDialog from './InlineDialog'
 import Multiselect from './multiselect'
+import MiddleEllipsisListItem from './MiddleEllipsisListItem.vue'
 
 export default {
     components: {
         Chip,
         InlineDialog,
         Multiselect,
+        MiddleEllipsisListItem,
     },
     props: {
         size: { type: String, default: 'normal' }, // condensed | normal
