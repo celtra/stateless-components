@@ -4,44 +4,42 @@
             <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div class="multiselect__options">
-            <div v-if="listItems.length === 0" class="multiselect__no-items">
-                No items
-            </div>
-            <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableChangeMultipleTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
-                    <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
-                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
-                            <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
-                            <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
-                        </checkbox-element>
+        <div v-if="listItems.length === 0" class="multiselect__options multiselect__no-items">
+            No items
+        </div>
+        <div v-else class="multiselect__options">
+            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableChangeMultipleTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
+                <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
+                    <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
+                        <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
+                        <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
+                    </checkbox-element>
+                </div>
+                <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
+                    <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="setMultiple([])" @keyup.space.prevent.stop="setMultiple([])" @click="setMultiple([])">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
+                            <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
+                        </svg>
+                        <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
                     </div>
-                    <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
-                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="setMultiple([])" @keyup.space.prevent.stop="setMultiple([])" @click="setMultiple([])">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                                <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                            </svg>
-                            <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
-                        </div>
-                    </div>
-                    <div slot-scope="{ item }" style="width: 100%;">
-                        <checkbox-element
-                            :disabled="item.disabled"
-                            :title-text="item.tooltipTitle ? '' : item.label"
-                            :disabled-text="item.disabledText"
-                            :value="isChecked(item)"
-                            :size="size"
-                            :theme="theme"
-                            tabindex="-1"
-                            class="multiselect__checkbox">
+                </div>
+                <div slot-scope="{ item }" style="width: 100%;">
+                    <checkbox-element
+                        :disabled="item.disabled"
+                        :title-text="item.tooltipTitle ? '' : item.label"
+                        :disabled-text="item.disabledText"
+                        :value="isChecked(item)"
+                        :size="size"
+                        :theme="theme"
+                        tabindex="-1"
+                        class="multiselect__checkbox">
 
-                            <slot :item="item">
-                                <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
-                            </slot>
-                        </checkbox-element>
-                    </div>
-                </scrollable-list>
-            </div>
+                        <slot :item="item">
+                            <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
+                        </slot>
+                    </checkbox-element>
+                </div>
+            </scrollable-list>
         </div>
     </div>
 </template>
@@ -317,7 +315,9 @@ export default {
     }
 
     &__no-items {
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 18px;
     }
 
