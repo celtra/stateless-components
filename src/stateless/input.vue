@@ -146,6 +146,7 @@ export default {
                 'overlay-open': this.overlay.open,
                 'overlay-close': this.overlay.close,
                 'autogrow': this.autogrow,
+                [this.theme]: true,
             }
         },
         inputType () {
@@ -528,9 +529,6 @@ export default {
             to { visibility: visible; }
         }
     }
-
-    &--focused { color: @royal-blue; }
-
 }
 
 .input-row {
@@ -604,13 +602,39 @@ export default {
             }
         }
 
+        &--dark {
+            color: white;
+            &::placeholder {
+                color: @very-light-gray;
+            }
+        }
+
+        &--light {
+            color: @black;
+            &::placeholder {
+                color: @gunpowder;
+            }
+        }
+
         &--error { color: @pink-red; }
-
-        &--focused { color: @white }
-        &--focused::placeholder { color: @gunpowder }
-
         &--disabled { color: @gunpowder }
         &--disabled::placeholder { color: @gunpowder }
+    }
+
+    &--dark {
+        border-color: @gunpowder;
+
+        &:hover:not(.input-row--disabled) {
+            .input-row__placeholder-text::placeholder { color: white; }
+        }
+    }
+
+    &--light {
+        border-color: @very-light-gray;
+
+        &:hover:not(.input-row--disabled) {
+            .input-row__placeholder-text::placeholder { color: @black; }
+        }
     }
 
     &--focused { border-color: @royal-blue; }
@@ -702,23 +726,6 @@ export default {
 }
 
 .input--dark {
-    .input-row {
-        border-color: @gunpowder;
-
-        &__placeholder-text {
-            color: white;
-            &::placeholder {
-                color: @very-light-gray;
-            }
-        }
-
-        &--focused { border-color: @royal-blue; }
-
-        &:hover {
-            .input-row__placeholder-text::placeholder { color: white; }
-        }
-    }
-
     .input-field__label-text {
         color: @dolphin;
 
@@ -747,23 +754,6 @@ export default {
 }
 
 .input--light {
-    .input-row {
-        border-color: @very-light-gray;
-
-        &__placeholder-text {
-            color: @gunpowder;
-            &::placeholder {
-                color: @gunpowder;
-            }
-        }
-
-        &:hover {
-            .input-row__placeholder-text::placeholder, .input-row__placeholder-text { color: @black; }
-        }
-
-        &--focused { border-color: @royal-blue; }
-    }
-
     .input-field__label-text {
         color: @bluish-gray;
 

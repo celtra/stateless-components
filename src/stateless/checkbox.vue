@@ -1,16 +1,17 @@
 <template>
     <div :class="['checkbox-element--' + size, 'checkbox-element--' + theme]" :title="actualTitleText" :data-id="actualTitleText | slugify" class="checkbox-element" tabindex="0" @click="toggle" @keyup.enter.stop="toggle" @keyup.space.prevent.stop="toggle" @focus="setFocus(true)" @blur="setFocus(false)" @keyup.esc.stop="blur">
-        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" :title="actualTitleText" class="checkbox-element__check-row">
-            <div :class="states | prefix('checkbox-element__check-wrapper--')" class="checkbox-element__check-wrapper">
-                <div :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square"></div>
-                <div :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check"></div>
-            </div>
+        <div v-if="!isToggle" :class="states | prefix('checkbox-element__check-row--')" class="checkbox-element__check-row">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
+                <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" x="7" y="7" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
+                <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"/>
+                <rect :class="states | prefix('checkbox-element__check-some--')" class="checkbox-element__check-some" x="9" y="14" width="14" height="4"/>
+            </svg>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
                 <slot></slot>
             </div>
         </div>
-        <div v-else :class="states | prefix('checkbox-element__toggle--')" :title="actualTitleText" class="checkbox-element__toggle">
+        <div v-else :class="states | prefix('checkbox-element__toggle--')" class="checkbox-element__toggle">
             <div :class="states | prefix('checkbox-element__toggle-wrapper--')" class="checkbox-element__toggle-wrapper">
                 <div :class="states | prefix('checkbox-element__toggle-circle--')" class="checkbox-element__toggle-circle"></div>
             </div>
@@ -26,7 +27,10 @@
 </template>
 
 <script>
+import Icon from './icon.vue'
+
 export default {
+    components: { Icon },
     props: {
         value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -124,6 +128,10 @@ export default {
             transform: scale3d(1.375, 1.375, 1);
         }
 
+        .checkbox-element__check-some:not(.checkbox-element__check-some--disabled) {
+            transform: scale3d(1.375, 1.375, 1);
+        }
+
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
             color: @white;
         }
@@ -135,33 +143,22 @@ export default {
         display: flex;
         align-items: center;
 
-        .checkbox-element__check {
-            transform: scale3d(1, 1, 1);
-        }
-
         &--disabled {
             cursor: auto;
         }
     }
 
     .checkbox-element__check-wrapper {
-        position: relative;
+        flex: none;
         width: 26px;
         height: 26px;
-        display: flex;
-        flex: none;
-        align-items: center;
-        justify-content: center;
     }
 
     .checkbox-element__square {
-        width: 16px;
-        height: 16px;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 2px;
-        border-color: @bluish-gray;
-        transition: transform @default-transition-time ease-out;
+        transform-origin: center;
+        stroke: @bluish-gray;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
+        transform: scale3d(1, 1, 1);
         opacity: 1;
 
         &--checked {
@@ -175,54 +172,43 @@ export default {
     }
 
     .checkbox-element__check {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding-top: 3px;
-        display: flex;
-        justify-content: center;
-        transition: transform @default-transition-time ease-out;
-        opacity: 0;
+        transform-origin: center;
+        fill: @royal-blue;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
         transform: scale3d(0, 0, 1);
+        opacity: 0;
 
         &--checked {
-            &:after {
-                content: '';
-                width: 5px;
-                height: 11px;
-                display: block;
-                border: solid @royal-blue;
-                border-width: 0 3.5px 3.5px 0;
-                transform: rotate(45deg);
-            }
-
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
+
+        &--disabled {
+            fill: @gunpowder;
+        }
+    }
+
+    .checkbox-element__check-some {
+        transform-origin: center;
+        fill: @royal-blue;
+        transition: transform @default-transition-time ease-out, opacity @default-transition-time ease-out;
+        transform: scale3d(0, 0, 1);
+        opacity: 0;
 
         &--some {
-            &:after {
-                content: '';
-                width: 10px;
-                height: 9px;
-                display: block;
-                border-bottom: 2px solid @royal-blue;
-            }
-
             transform: scale3d(1, 1, 1);
             opacity: 1;
         }
 
-        &--disabled:after {
-            border-color: @gunpowder;
+        &--disabled {
+            fill: @gunpowder;
         }
     }
 
     .checkbox-element__label-text {
         width: 100%;
         color: @very-light-gray;
-        padding: 0 15px 0 11px;
+        padding: 0 15px 0 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -243,7 +229,7 @@ export default {
 
     .checkbox-element__helper-text {
         height: 12px;
-        padding-left: 35px;
+        padding-left: 37px;
         display: flex;
         align-items: flex-start;
         font-size: 11px;
@@ -331,24 +317,6 @@ export default {
         height: 30px;
     }
 
-    .checkbox-element__square {
-        width: 18px;
-        height: 18px;
-    }
-
-    .checkbox-element__check {
-        &--checked:after {
-            width: 6px;
-            height: 14px;
-            border-width: 0 4.5px 5px 0;
-        }
-
-        &--some:after {
-            width: 12px;
-            height: 11px;
-        }
-    }
-
     .checkbox-element__label-text {
         padding: 0 15px 0 9px;
         font-size: 22px;
@@ -394,6 +362,10 @@ export default {
         .checkbox-element__check:not(.checkbox-element__check--disabled) {
             transform: scale3d(1.25, 1.25, 1);
         }
+
+        .checkbox-element__check-some:not(.checkbox-element__check-some--disabled) {
+            transform: scale3d(1.25, 1.25, 1);
+        }
     }
 
     .checkbox-element__check-row {
@@ -405,29 +377,14 @@ export default {
         height: 24px;
     }
 
-    .checkbox-element__square {
-        width: 14px;
-        height: 14px;
-    }
-
-    .checkbox-element__check {
-        padding-top: 0;
-
-        &--some {
-            &:after {
-                height: 11px;
-            }
-        }
-    }
-
     .checkbox-element__label-text {
-        padding: 0 10px 0 7px;
+        padding: 0 10px 0 5px;
         font-size: 14px;
     }
 
     .checkbox-element__helper-text {
         height: 15px;
-        padding-left: 27px;
+        padding-left: 29px;
         align-items: flex-end;
         font-size: 10px;
         letter-spacing: 0.5px;
@@ -479,9 +436,8 @@ export default {
 }
 
 .checkbox-element--white {
-    .checkbox-element__check:after {
-        border: solid white;
-        border-width: 0 3.5px 3.5px 0;
+    .checkbox-element__check {
+        fill: @white;
     }
 
     .checkbox-element__label-text {

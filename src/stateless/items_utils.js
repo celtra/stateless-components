@@ -91,20 +91,20 @@ export function sortBy (items, fn) {
     })
 }
 
-export function getLeafIds (item) {
+export function getLeafItems (item) {
     const children = Array.isArray(item) ? item : item.items
 
     let ids = {}
     if (children) {
         for (let child of children) {
-            for (let id of getLeafIds(child)) {
-                ids[id] = true
+            for (let item of getLeafItems(child)) {
+                ids[item.id] = item
             }
         }
     } else {
-        ids[item.id] = true
+        ids[item.id] = item
     }
-    return Object.keys(ids)
+    return Object.values(ids)
 }
 
 export function flatten (items) {
@@ -119,7 +119,7 @@ export function flatten (items) {
                 key: item.key || item.id,
                 depth: path.length,
                 isLeaf: !item.items,
-                leafIds: getLeafIds(item),
+                leafItems: getLeafItems(item).map(x => x.id),
             })
             if (item.items) {
                 traverse(item.items, currentPath)
@@ -135,7 +135,7 @@ export function flatten (items) {
 export function search (items, query, fields = ['label', 'metadata', 'tooltip']) {
     const cleanQuery = (query || '').trim(' ').toLowerCase()
     if (cleanQuery.length === 0) {
-        return items
+        return [...items]
     }
 
     const getMatchingPriority = (value) => {

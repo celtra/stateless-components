@@ -9,15 +9,15 @@
                 No items
             </div>
             <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="true" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect">
+                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableChangeMultipleTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                     <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
-                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="changeMultipleState === false ? selectAll() : clearAll()">
+                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
                             <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
                             <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
                         </checkbox-element>
                     </div>
                     <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
-                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="clearAll" @keyup.space.prevent.stop="clearAll" @click="clearAll">
+                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="setMultiple([])" @keyup.space.prevent.stop="setMultiple([])" @click="setMultiple([])">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
                                 <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
                             </svg>
@@ -27,7 +27,7 @@
                     <div slot-scope="{ item }" style="width: 100%;">
                         <checkbox-element
                             :disabled="item.disabled"
-                            :title-text="item.label"
+                            :title-text="item.tooltipTitle ? '' : item.label"
                             :disabled-text="item.disabledText"
                             :value="isChecked(item)"
                             :size="size"
@@ -71,6 +71,7 @@ export default {
         canClearAll: { type: Boolean, default: false },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
+        transitionSorting: { type: Boolean, default: true },
         getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         theme: { type: String, default: 'dark' },
@@ -81,6 +82,7 @@ export default {
     },
     data () {
         return {
+            disableChangeMultipleTransition: false,
             isLoading: false,
             searchQuery: null,
             queryOptions: [],
@@ -88,19 +90,18 @@ export default {
     },
     computed: {
         allOptions () {
-            let result = this.queryOptions
+            let result = itemsUtils.search(this.options, this.searchQuery)
 
-            let matchingOptions = itemsUtils.search(this.options, this.searchQuery)
-            matchingOptions.reverse()
-            for (let option of matchingOptions) {
-                if (!result.map(x => x.id).includes(option.id)) {
-                    result = [option].concat(result)
+            for (let queryItem of this.queryOptions) {
+                if (!result.find(x => x.id === queryItem.id)) {
+                    result.push(queryItem)
                 }
             }
+
             return result
         },
         allPossibleIds () {
-            return itemsUtils.getLeafIds(this.listItems)
+            return itemsUtils.getLeafItems(this.listItems).filter(item => !item.disabled).map(item => item.id)
         },
         changeMultipleState () {
             return this.value.length === 0 ? false : this.value.length === this.allPossibleIds.length ? true : null
@@ -152,10 +153,15 @@ export default {
     },
     watch: {
         searchQuery (v) {
+            this.getOptionsPage = 0
+            this.gotAllOptions = false
+            this.isLoading = false
             this.debouncedLoadAsyncOptions()
         },
     },
     created () {
+        this.getOptionsPage = 0
+        this.gotAllOptions = false
         this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     mounted () {
@@ -166,19 +172,37 @@ export default {
             this.setChecked(item, this.isChecked(item) ? false : true)
             this.$refs.list.focus()
         },
-        selectAll () {
-            this.$emit('input', this.allPossibleIds)
-        },
-        clearAll () {
-            this.$emit('input', [])
+        setMultiple (ids) {
+            this.disableChangeMultipleTransition = true
+            this.$emit('input', ids)
             this.$refs.list.focus()
+            this.$nextTick(() => {
+                this.disableChangeMultipleTransition = false
+            })
         },
         loadAsyncOptions () {
-            if (this.getOptions) {
+            if (this.getOptions && !this.isLoading && !this.gotAllOptions) {
                 this.isLoading = true
-                this.getOptions(this.searchQuery).then(result => {
-                    this.queryOptions = result
-                    this.isLoading = false
+                let query = this.searchQuery
+                this.getOptions(query, this.getOptionsPage).then(result => {
+                    if (this.searchQuery === query) {
+                        if (this.getOptionsPage === 0) {
+                            this.queryOptions = []
+                        }
+
+                        if (result.length === 0) {
+                            this.gotAllOptions = true
+                        } else {
+                            for (let item of result) {
+                                if (!this.queryOptions.find(x => x.id === item.id)) {
+                                    this.queryOptions.push(item)
+                                }
+                            }
+                            this.getOptionsPage += 1
+                        }
+
+                        this.isLoading = false
+                    }
                 })
             }
         },
@@ -192,9 +216,10 @@ export default {
                         this.$emit('input', valueWithout)
                     }
                 } else {
-                    const valueWithout = this.value.filter(id => !option.leafIds.includes(id))
+                    const leafIds = option.leafItems.filter(item => !item.disabled).map(item => item.id)
+                    const valueWithout = this.value.filter(id => !leafIds.includes(id))
                     if (isChecked) {
-                        this.$emit('input', valueWithout.concat(option.leafIds))
+                        this.$emit('input', valueWithout.concat(leafIds))
                     } else {
                         this.$emit('input', valueWithout)
                     }
@@ -207,7 +232,8 @@ export default {
             } else {
                 let allChecked = true
                 let someChecked = false
-                const leafIds = option.leafIds || itemsUtils.getLeafIds(option)
+                const leafItems = option.leafItems || itemsUtils.getLeafItems(option)
+                const leafIds = leafItems.filter(item => !item.disabled).map(item => item.id)
                 for (let id of leafIds) {
                     if (!this.value.includes(id)) {
                         allChecked = false

@@ -58,7 +58,7 @@ export default {
             }
 
             let modelName = data.component.model ? data.component.value : 'value'
-            this.value = data.defaultProps[modelName]
+            this.value = data.defaultProps && data.defaultProps[modelName]
             this.name = name
         },
         updateValue (value) {

@@ -1,5 +1,6 @@
 <template>
-    <div ref="tooltip" :style="{transform: transform}" :class="{ 'hover-tooltip--visible': show }" class="hover-tooltip" @animationstart="handleAnimationStart">
+    <div ref="tooltip" :style="transform ? { transform: transform } : {}" :class="{ visible: show, hoverable: isRelative } | prefix('hover-tooltip--')" class="hover-tooltip" @animationstart="onAnimationStart">
+        <p v-if="title" class="hover-tooltip__title">{{ title }}</p>
         <slot></slot>
     </div>
 </template>
@@ -7,8 +8,10 @@
 <script>
 export default {
     props: {
+        theme: { type: String, default: 'dark' },
+        title: { type: String, required: false },
         show: { type: Boolean, default: false },
-        boundaryElement: { type: [HTMLElement, String], default: null },
+        isRelative: { type: Boolean, default: true },
     },
     data () {
         return {
@@ -24,34 +27,19 @@ export default {
         },
     },
     methods: {
-        handleAnimationStart () {
-            this.resetPosition()
-            this.$nextTick(this.positionTooltip)
-        },
-        positionTooltip () {
-            if (this.$refs.tooltip) {
-                if (this.boundaryElement === 'viewport') {
-                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                    if (tooltip.x + tooltip.width > window.innerWidth) {
-                        this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
+        onAnimationStart () {
+            if (this.isRelative) {
+                this.translateX = null
+                this.translateY = null
+                this.$nextTick(() => {
+                    if (this.$refs.tooltip) {
+                        const tooltip = this.$refs.tooltip.getBoundingClientRect()
+                        if (tooltip.x + tooltip.width > window.innerWidth) {
+                            this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
+                        }
                     }
-                } else if (this.boundaryElement instanceof HTMLElement) {
-                    const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                    const boundary = this.boundaryElement.getBoundingClientRect()
-
-                    if (tooltip.x + tooltip.width > boundary.x + boundary.width) {
-                        this.translateX = boundary.x + boundary.width - tooltip.x - tooltip.width - 10
-                    }
-
-                    if (tooltip.y + tooltip.height > boundary.y + boundary.height) {
-                        this.translateY = boundary.y + boundary.height - tooltip.y - tooltip.height - 10
-                    }
-                }
+                })
             }
-        },
-        resetPosition () {
-            this.translateX = null
-            this.translateY = null
         },
     },
 }
@@ -70,17 +58,26 @@ export default {
     background-color: @gunpowder;
     border-radius: 3px;
     font-size: 11px;
-    text-align: center;
+    text-align: left;
     padding: 6px 20px;
     z-index: @z-highest;
-    max-width: 200px;
+    max-width: 460px;
     word-wrap: break-word;
+    font-family: @regular-text-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: transform 200ms ease;
+
+    &__title {
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 5px;
+    }
 }
 
-:hover > .hover-tooltip,
-.hover-tooltip--visible {
+.hover-tooltip:hover, :hover > .hover-tooltip--hoverable, .hover-tooltip--visible {
     animation: 0.2s fadeIn;
-    animation-delay: 0.4s;
+    animation-delay: 0.8s;
     animation-fill-mode: forwards;
 }
 
