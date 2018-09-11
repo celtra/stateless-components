@@ -619,6 +619,9 @@ export default {
         &--error { color: @pink-red; }
         &--disabled { color: @gunpowder }
         &--disabled::placeholder { color: @gunpowder }
+
+        &--disabled&--light { color: @very-light-gray }
+        &--disabled&--light::placeholder { color: @very-light-gray }
     }
 
     &--dark {
@@ -631,6 +634,10 @@ export default {
 
     &--light {
         border-color: @very-light-gray;
+
+        &.input-row--disabled {
+            border-color: @very-light-gray;
+        }
 
         &:hover:not(.input-row--disabled) {
             .input-row__placeholder-text::placeholder { color: @black; }
@@ -771,9 +778,9 @@ export default {
     .input-row__unit {
         color: @bluish-gray;
 
-        &--warning {
-            color: @orange-yellow;
-        }
+        &--disabled { color: @very-light-gray; }
+
+        &--warning { color: @orange-yellow; }
     }
 
     .input__icon-prepend {
