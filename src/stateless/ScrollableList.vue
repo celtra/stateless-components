@@ -61,11 +61,14 @@ export default {
         }
     },
     computed: {
+        overlayHeight () {
+            return this.showOverlay ? 15 : 0
+        },
         itemHeight () {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0
         },
         maxHeight () {
-            return this.numItems * this.itemHeight
+            return this.numItems * this.itemHeight + 2 * this.overlayHeight
         },
     },
     mounted () {
@@ -120,9 +123,8 @@ export default {
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
-            const overlayHeight = this.showOverlay ? 15 : 0
-            const upTarget = currentScroll + itemY - rootY - overlayHeight
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + overlayHeight
+            const upTarget = currentScroll + itemY - rootY - this.overlayHeight
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + this.overlayHeight
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget

@@ -5797,7 +5797,7 @@ module.exports = function (it, tag, stat) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ScrollableList_vue__ = __webpack_require__(90);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_18c06a99_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__ = __webpack_require__(370);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_77838184_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__ = __webpack_require__(370);
 function injectStyle (ssrContext) {
   __webpack_require__(359)
 }
@@ -5812,12 +5812,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-18c06a99"
+var __vue_scopeId__ = "data-v-77838184"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ScrollableList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_18c06a99_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_77838184_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -6123,7 +6123,7 @@ module.exports.f = function (C) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__ = __webpack_require__(87);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_b582d2de_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5da86f8e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(354);
 function injectStyle (ssrContext) {
   __webpack_require__(350)
   __webpack_require__(352)
@@ -6139,12 +6139,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-b582d2de"
+var __vue_scopeId__ = "data-v-5da86f8e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_b582d2de_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5da86f8e_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20512,11 +20512,14 @@ var Component = normalizeComponent(
     },
 
     computed: {
+        overlayHeight: function overlayHeight() {
+            return this.showOverlay ? 15 : 0;
+        },
         itemHeight: function itemHeight() {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0;
         },
         maxHeight: function maxHeight() {
-            return this.numItems * this.itemHeight;
+            return this.numItems * this.itemHeight + 2 * this.overlayHeight;
         }
     },
     mounted: function mounted() {
@@ -20586,9 +20589,8 @@ var Component = normalizeComponent(
             var rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop;
             var itemY = this.$el.querySelector('[data-item-id="' + itemId + '"]').getBoundingClientRect().top;
 
-            var overlayHeight = this.showOverlay ? 15 : 0;
-            var upTarget = currentScroll + itemY - rootY - overlayHeight;
-            var downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + overlayHeight;
+            var upTarget = currentScroll + itemY - rootY - this.overlayHeight;
+            var downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + this.overlayHeight;
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget;
@@ -38472,7 +38474,7 @@ var content = __webpack_require__(351);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("a704b970", content, true, {});
+var update = __webpack_require__(2)("e12cbabe", content, true, {});
 
 /***/ }),
 /* 351 */
@@ -38483,7 +38485,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.search-input__clear-icon[data-v-b582d2de] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,gBAAgB;EAChB,iBAAiB;CAClB","file":"SearchInput.vue","sourcesContent":["\n.search-input__clear-icon[data-v-b582d2de] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.search-input__clear-icon[data-v-5da86f8e] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input--dark .search-input__clear-icon[data-v-5da86f8e] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-5da86f8e]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-5da86f8e] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-5da86f8e]:hover {\n  color: black;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd","file":"SearchInput.vue","sourcesContent":["\n.search-input__clear-icon[data-v-5da86f8e] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input--dark .search-input__clear-icon[data-v-5da86f8e] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-5da86f8e]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-5da86f8e] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-5da86f8e]:hover {\n  color: black;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38499,7 +38501,7 @@ var content = __webpack_require__(353);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("588b3306", content, true, {});
+var update = __webpack_require__(2)("59c1c266", content, true, {});
 
 /***/ }),
 /* 353 */
@@ -38520,7 +38522,7 @@ exports.push([module.i, "\n.search-input.search-input .input-field__message-wrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input-element',{ref:"input",staticClass:"search-input",attrs:{"value":_vm.value,"label":_vm.label,"theme":_vm.theme,"size":_vm.size},on:{"keyup":function($event){_vm.$emit('keyup', $event)},"input":function($event){_vm.$emit('input', $event)}}},[_c('icon',{attrs:{"slot":"before","name":"search"},slot:"before"}),_vm._v(" "),(_vm.isLoading)?_c('icon',{staticClass:"spin",attrs:{"slot":"right","name":"loading"},slot:"right"}):_vm._e(),_vm._v(" "),(_vm.value && _vm.value.length > 0)?_c('icon',{staticClass:"search-input__clear-icon",attrs:{"slot":"right","name":"clear"},on:{"click":function($event){_vm.$emit('input', null)}},slot:"right"}):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input-element',{ref:"input",staticClass:"search-input",class:_vm._f("prefix")([_vm.theme],'search-input--'),attrs:{"value":_vm.value,"label":_vm.label,"theme":_vm.theme,"size":_vm.size},on:{"keyup":function($event){_vm.$emit('keyup', $event)},"input":function($event){_vm.$emit('input', $event)}}},[_c('icon',{attrs:{"slot":"before","name":"search"},slot:"before"}),_vm._v(" "),(_vm.isLoading)?_c('icon',{staticClass:"spin",attrs:{"slot":"right","name":"loading"},slot:"right"}):_vm._e(),_vm._v(" "),(_vm.value && _vm.value.length > 0)?_c('icon',{staticClass:"search-input__clear-icon",attrs:{"slot":"right","name":"clear"},on:{"click":function($event){_vm.$emit('input', null)}},slot:"right"}):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -38590,7 +38592,7 @@ var content = __webpack_require__(360);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("7d98ff16", content, true, {});
+var update = __webpack_require__(2)("557799a4", content, true, {});
 
 /***/ }),
 /* 360 */
@@ -38601,7 +38603,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.scrollable-list[data-v-18c06a99] {\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-18c06a99] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__list[data-v-18c06a99] {\n  overflow-y: auto;\n  overscroll-behavior: contain;\n}\n.scrollable-list__list--with-overlay[data-v-18c06a99] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-18c06a99] {\n  padding: 15px 0;\n}\n.scrollable-list__scroll-top[data-v-18c06a99] {\n  position: absolute;\n  top: 0;\n  right: 6px;\n  padding: 1px 3px;\n  font-size: 11px;\n  line-height: 12px;\n  border-radius: 0 0 5px 5px;\n  color: #939399;\n  z-index: 2000;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-18c06a99]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-18c06a99]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-18c06a99]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-18c06a99]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-18c06a99]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-18c06a99]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ScrollableList.vue"],"names":[],"mappings":";AACA;EACE,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;CAClB;AACD;EACE,iBAAiB;EACjB,6BAA6B;CAC9B;AACD;EACE,2GAA2G;UACnG,mGAAmG;CAC5G;AACD;EACE,gBAAgB;CACjB;AACD;EACE,mBAAmB;EACnB,OAAO;EACP,WAAW;EACX,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,2BAA2B;EAC3B,eAAe;EACf,cAAc;EACd,gBAAgB;CACjB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,8BAA8B;CAC/B","file":"ScrollableList.vue","sourcesContent":["\n.scrollable-list[data-v-18c06a99] {\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-18c06a99] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__list[data-v-18c06a99] {\n  overflow-y: auto;\n  overscroll-behavior: contain;\n}\n.scrollable-list__list--with-overlay[data-v-18c06a99] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-18c06a99] {\n  padding: 15px 0;\n}\n.scrollable-list__scroll-top[data-v-18c06a99] {\n  position: absolute;\n  top: 0;\n  right: 6px;\n  padding: 1px 3px;\n  font-size: 11px;\n  line-height: 12px;\n  border-radius: 0 0 5px 5px;\n  color: #939399;\n  z-index: 2000;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-18c06a99]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-18c06a99]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-18c06a99]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-18c06a99]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-18c06a99]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-18c06a99]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.scrollable-list[data-v-77838184] {\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-77838184] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__list[data-v-77838184] {\n  overflow-y: auto;\n  overscroll-behavior: contain;\n}\n.scrollable-list__list--with-overlay[data-v-77838184] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-77838184] {\n  padding: 15px 0;\n}\n.scrollable-list__scroll-top[data-v-77838184] {\n  position: absolute;\n  top: 0;\n  right: 6px;\n  padding: 1px 3px;\n  font-size: 11px;\n  line-height: 12px;\n  border-radius: 0 0 5px 5px;\n  color: #939399;\n  z-index: 2000;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-77838184]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-77838184]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-77838184]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-77838184]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-77838184]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-77838184]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ScrollableList.vue"],"names":[],"mappings":";AACA;EACE,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;CAClB;AACD;EACE,iBAAiB;EACjB,6BAA6B;CAC9B;AACD;EACE,2GAA2G;UACnG,mGAAmG;CAC5G;AACD;EACE,gBAAgB;CACjB;AACD;EACE,mBAAmB;EACnB,OAAO;EACP,WAAW;EACX,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,2BAA2B;EAC3B,eAAe;EACf,cAAc;EACd,gBAAgB;CACjB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,8BAA8B;CAC/B","file":"ScrollableList.vue","sourcesContent":["\n.scrollable-list[data-v-77838184] {\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-77838184] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__list[data-v-77838184] {\n  overflow-y: auto;\n  overscroll-behavior: contain;\n}\n.scrollable-list__list--with-overlay[data-v-77838184] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-77838184] {\n  padding: 15px 0;\n}\n.scrollable-list__scroll-top[data-v-77838184] {\n  position: absolute;\n  top: 0;\n  right: 6px;\n  padding: 1px 3px;\n  font-size: 11px;\n  line-height: 12px;\n  border-radius: 0 0 5px 5px;\n  color: #939399;\n  z-index: 2000;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-77838184]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-77838184]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-77838184]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-77838184]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-77838184]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-77838184]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
 
 // exports
 

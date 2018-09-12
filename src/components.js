@@ -6,6 +6,7 @@ import FileUploadRequirements from '@/stateless/file_upload_requirements.vue'
 import FileUpload from '@/stateless/file_upload.vue'
 import ImageList from '@/stateless/image_list.vue'
 import Input from '@/stateless/input.vue'
+import SearchInput from '@/stateless/SearchInput.vue'
 import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
@@ -105,6 +106,15 @@ export default {
     },
     Input: {
         component: Input,
+        rootCss: {
+            width: '300px',
+        },
+        defaultProps: {
+            label: 'Something',
+        },
+    },
+    SearchInput: {
+        component: SearchInput,
         rootCss: {
             width: '300px',
         },
