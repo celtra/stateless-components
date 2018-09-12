@@ -48,6 +48,9 @@ export default {
             },
         })
     },
+    beforeDestroy () {
+        this._tooltipVm.$destroy()
+    },
     methods: {
         showTooltip (element, text, title = null) {
             this._tooltipVm.canShowTooltip = true

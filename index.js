@@ -21188,6 +21188,9 @@ function getTextHighlightParts(text, query) {
             }
         });
     },
+    beforeDestroy: function beforeDestroy() {
+        this._tooltipVm.$destroy();
+    },
 
     methods: {
         showTooltip: function showTooltip(element, text) {
