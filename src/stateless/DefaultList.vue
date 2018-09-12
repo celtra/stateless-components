@@ -3,7 +3,17 @@
         <slot name="before"></slot>
 
         <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.height ? { height: `${item.height}px` } : {}" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="clickItem(item.id)" @mousemove="onItemHover($event, item)" @mouseleave="hideTooltip">
+            <div
+                v-for="item in shownItemsWithData"
+                :key="item.key"
+                :data-item-id="item.key || item.id"
+                :style="item.height ? { height: `${item.height}px` } : {}"
+                :class="item.modifiers | prefix('default-list__item--')"
+                :title="item.nativeTitle"
+                class="default-list__item"
+                @click="clickItem(item.id)"
+                @mousemove="onItemHover($event, item)"
+                @mouseleave="hideTooltip">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" :style="{ paddingLeft: `${initialOffset + item.offset}px` }" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -244,6 +254,8 @@ export default {
 .default-list {
     outline: none;
     width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     &__hidden-slots {
         visibility: hidden;
@@ -302,27 +314,27 @@ export default {
 
 .default-list--light {
     .default-list__item--active {
-        background-color: @very-light-gray;
+        background-color: @white-smoke;
     }
 }
 
 .default-list--condensed {
     .default-list__group {
-        padding-top: 5px;
+        // padding-top: 5px;
         height: 20px;
     }
 }
 
 .default-list--normal {
     .default-list__group {
-        padding-top: 10px;
+        // padding-top: 10px;
         height: 30px;
     }
 }
 
 .default-list--phat {
     .default-list__group {
-        padding-top: 10px;
+        // padding-top: 10px;
         height: 30px;
     }
 }
