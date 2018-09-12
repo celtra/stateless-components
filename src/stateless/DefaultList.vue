@@ -3,7 +3,7 @@
         <slot name="before"></slot>
 
         <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="350" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mousemove="onItemHover($event, item)" @mouseleave="hideTooltip">
+            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="clickItem(item.id)" @mousemove="onItemHover($event, item)" @mouseleave="hideTooltip">
                 <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
@@ -69,6 +69,7 @@ export default {
         return {
             firstRender: true,
             isFocused: false,
+            isUsingKeyboard: false,
             isHovered: false,
             activeId: null,
             itemHeight: null,
@@ -83,7 +84,7 @@ export default {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
         shownItemsWithData () {
-            let activeId = this.isFocused || (this.setActiveOnHover && this.isHovered) ? this.activeId : null
+            let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
                 let css = { marginLeft: `${this.getOffset(item)}px` }
@@ -157,6 +158,10 @@ export default {
         blur () {
             this.$el.blur()
         },
+        clickItem (itemId) {
+            this.isUsingKeyboard = false
+            this.selectItem(itemId)
+        },
         selectItem (itemId) {
             if (itemId) {
                 const item = this.flatItems.find(x => x.key === itemId || x.id === itemId)
@@ -185,19 +190,23 @@ export default {
                 return
             }
 
-            const findId = this.activeId || this.value
-            let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
-            activeIndex += direction
-            if (activeIndex > this.flatSelectableItems.length - 1) {
-                activeIndex = 0
-            } else if (activeIndex < 0) {
-                activeIndex = this.flatSelectableItems.length - 1
+            if (!this.isUsingKeyboard) {
+                this.isUsingKeyboard = true
+            } else {
+                const findId = this.activeId || this.value
+                let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
+                activeIndex += direction
+                if (activeIndex > this.flatSelectableItems.length - 1) {
+                    activeIndex = 0
+                } else if (activeIndex < 0) {
+                    activeIndex = this.flatSelectableItems.length - 1
+                }
+                let nextItem = this.flatSelectableItems[activeIndex]
+
+                this.activeId = (nextItem.key || nextItem.id)
             }
-            let nextItem = this.flatSelectableItems[activeIndex]
 
-            this.activeId = (nextItem.key || nextItem.id)
-
-            this.$emit('activate', nextItem.key || nextItem.id)
+            this.$emit('activate', this.activeId)
         },
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
