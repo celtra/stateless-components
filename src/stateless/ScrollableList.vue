@@ -12,6 +12,7 @@
                     :transition-sorting="transitionSorting"
                     :no-group-rendering="noGroupRendering"
                     :set-active-on-hover="setActiveOnHover"
+                    :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
                     :list-container="$refs.scrollable"
@@ -53,6 +54,7 @@ export default {
         setActiveOnHover: { type: Boolean, default: true },
         enableScrollTop: { type: Boolean, default: false },
         showOverlay: { type: Boolean, default: false },
+        initialOffset: { type: Number, default: 0 },
     },
     data () {
         return {
