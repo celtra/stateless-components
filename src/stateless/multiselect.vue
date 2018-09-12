@@ -200,7 +200,7 @@ export default {
         loadAsyncOptions () {
             if (this.getOptions && !this.isLoading && !this.gotAllOptions) {
                 this.isLoading = true
-                let query = this.searchQuery
+                const query = this.searchQuery
                 this.getOptions(query, this.getOptionsPage).then(result => {
                     if (this.searchQuery === query) {
                         this.disableTransition = true

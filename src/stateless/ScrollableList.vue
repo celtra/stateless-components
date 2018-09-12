@@ -68,14 +68,6 @@ export default {
             return this.numItems * this.itemHeight
         },
     },
-    watch: {
-        items () {
-            const scrollTop = this.$refs.scrollable.scrollTop
-            this.$nextTick(() => {
-                //this.$refs.scrollable.scrollTop = scrollTop
-            })
-        },
-    },
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.positionSelectList)
@@ -171,7 +163,6 @@ export default {
 
     &__list {
         overflow-y: auto;
-        // overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
 
         &--with-overlay {
