@@ -8,7 +8,7 @@
             No items
         </div>
         <div v-else class="multiselect__options">
-            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableChangeMultipleTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
+            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                 <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                     <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
                         <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
@@ -80,7 +80,7 @@ export default {
     },
     data () {
         return {
-            disableChangeMultipleTransition: false,
+            disableTransition: false,
             isLoading: false,
             searchQuery: null,
             queryOptions: [],
@@ -184,11 +184,11 @@ export default {
             this.$refs.list.focus()
         },
         setMultiple (ids) {
-            this.disableChangeMultipleTransition = true
+            this.disableTransition = true
             this.$emit('input', ids)
             this.$refs.list.focus()
             this.$nextTick(() => {
-                this.disableChangeMultipleTransition = false
+                this.disableTransition = false
             })
         },
         loadAsyncOptions () {
@@ -197,6 +197,8 @@ export default {
                 let query = this.searchQuery
                 this.getOptions(query, this.getOptionsPage).then(result => {
                     if (this.searchQuery === query) {
+                        this.disableTransition = true
+
                         if (this.getOptionsPage === 0) {
                             this.queryOptions = []
                         }
@@ -213,6 +215,10 @@ export default {
                         }
 
                         this.isLoading = false
+
+                        this.$nextTick(() => {
+                            this.disableTransition = false
+                        })
                     }
                 })
             }
