@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme, { active: isActive }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
+    <div :class="[theme, { active: isActive, disabled: isDisabled }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
@@ -21,6 +21,7 @@ export default {
         metadata: { type: String, default: '' },
         isActive: { type: Boolean, default: false },
         isRemovable: { type: Boolean, default: false },
+        isDisabled: { type: Boolean, default: false },
     },
 }
 </script>
@@ -40,6 +41,10 @@ export default {
     transition: all @default-transition-time;
     outline: none;
     padding: 0 5px;
+
+    &--disabled {
+        cursor: default;
+    }
 }
 
 .chip__label {
@@ -77,6 +82,10 @@ export default {
         }
     }
 
+    &.chip--disabled {
+        color: @gray-blue;
+    }
+
     &:hover, &:focus {
         color: @white;
         background-color: @gunpowder;
@@ -106,6 +115,10 @@ export default {
         &:hover .chip__remove-btn:hover {
             color: @gunpowder;
         }
+    }
+
+    &.chip--disabled {
+        color: @gray-blue;
     }
 
     &:hover, &:focus {
