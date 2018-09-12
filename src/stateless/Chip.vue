@@ -82,10 +82,6 @@ export default {
         }
     }
 
-    &.chip--disabled {
-        color: @gray-blue;
-    }
-
     &:hover, &:focus {
         color: @white;
         background-color: @gunpowder;
@@ -93,6 +89,10 @@ export default {
         .chip__remove-btn {
             color: fade(@very-light-gray, 60%);
         }
+    }
+
+    &.chip--disabled {
+        color: @gray-blue;
     }
 }
 
@@ -117,10 +117,6 @@ export default {
         }
     }
 
-    &.chip--disabled {
-        color: @gray-blue;
-    }
-
     &:hover, &:focus {
         color: @black;
         background-color: @very-light-gray;
@@ -128,6 +124,10 @@ export default {
         .chip__remove-btn {
             color: fade(@gunpowder, 60%);
         }
+    }
+
+    &.chip--disabled {
+        color: @gray-blue;
     }
 }
 </style>
