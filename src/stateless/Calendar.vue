@@ -329,6 +329,10 @@ export default {
     &__navigation-icon {
         color: @gunpowder;
         cursor: pointer;
+
+        &:hover {
+            color: black;
+        }
     }
 
     &__wrap {
@@ -373,7 +377,7 @@ export default {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        font-size: 15px;
+        font-size: 14px;
         color: @gunpowder;
         background-color: white;
         text-align: center;
@@ -383,7 +387,7 @@ export default {
         box-sizing: border-box;
 
         &--different-month {
-            color: @very-light-gray;
+            color: @bluish-gray;
         }
 
         &--in-range {
