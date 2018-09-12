@@ -82,17 +82,19 @@ export default {
         }
     }
 
-    &:hover, &:focus {
-        color: @white;
-        background-color: @gunpowder;
-
-        .chip__remove-btn {
-            color: fade(@very-light-gray, 60%);
-        }
-    }
-
     &.chip--disabled {
         color: @gray-blue;
+    }
+
+    &:not(.chip--disabled) {
+        &:hover, &:focus {
+            color: @white;
+            background-color: @gunpowder;
+
+            .chip__remove-btn {
+                color: fade(@very-light-gray, 60%);
+            }
+        }
     }
 }
 
@@ -117,17 +119,19 @@ export default {
         }
     }
 
-    &:hover, &:focus {
-        color: @black;
-        background-color: @very-light-gray;
-
-        .chip__remove-btn {
-            color: fade(@gunpowder, 60%);
-        }
-    }
-
     &.chip--disabled {
         color: @gray-blue;
+    }
+
+    &:not(.chip--disabled) {
+        &:hover, &:focus {
+            color: @black;
+            background-color: @very-light-gray;
+
+            .chip__remove-btn {
+                color: fade(@gunpowder, 60%);
+            }
+        }
     }
 }
 </style>
