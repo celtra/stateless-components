@@ -19994,7 +19994,7 @@ module.exports = function (C, x) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__ = __webpack_require__(89);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_504921d2_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_42c6b6f8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(371);
 function injectStyle (ssrContext) {
   __webpack_require__(355)
   __webpack_require__(357)
@@ -20010,12 +20010,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-504921d2"
+var __vue_scopeId__ = "data-v-42c6b6f8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_504921d2_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_42c6b6f8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20109,6 +20109,7 @@ var Component = normalizeComponent(
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         hasScrollTop: { type: Boolean, default: true },
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
@@ -20127,12 +20128,25 @@ var Component = normalizeComponent(
         return {
             disableTransition: false,
             isLoading: false,
-            searchQuery: null,
+            searchQueryData: this.initSearchQuery,
             queryOptions: []
         };
     },
 
     computed: {
+        searchQuery: {
+            get: function get() {
+                return this.searchQueryData;
+            },
+            set: function set(v) {
+                this.searchQueryData = v;
+                this.getOptionsPage = 0;
+                this.gotAllOptions = false;
+                this.isLoading = false;
+                this.$emit('search', v);
+                this.debouncedLoadAsyncOptions();
+            }
+        },
         allOptions: function allOptions() {
             var result = __WEBPACK_IMPORTED_MODULE_6__items_utils_js__["search"](this.options, this.searchQuery);
 
@@ -20242,14 +20256,6 @@ var Component = normalizeComponent(
             }
 
             return result;
-        }
-    },
-    watch: {
-        searchQuery: function searchQuery(v) {
-            this.getOptionsPage = 0;
-            this.gotAllOptions = false;
-            this.isLoading = false;
-            this.debouncedLoadAsyncOptions();
         }
     },
     created: function created() {
@@ -35554,6 +35560,8 @@ var Component = normalizeComponent(
 //
 //
 //
+//
+//
 
 
 
@@ -35579,7 +35587,8 @@ var Component = normalizeComponent(
     },
     data: function data() {
         return {
-            isOpen: false
+            isOpen: false,
+            searchQuery: ''
         };
     },
 
@@ -35592,6 +35601,9 @@ var Component = normalizeComponent(
         },
         selectionChange: function selectionChange(selected) {
             this.$emit('input', selected);
+        },
+        searchChange: function searchChange(searchQuery) {
+            this.searchQuery = searchQuery;
         }
     }
 });
@@ -38518,7 +38530,7 @@ var content = __webpack_require__(356);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("7e21ea7d", content, true, {});
+var update = __webpack_require__(2)("82bc00da", content, true, {});
 
 /***/ }),
 /* 356 */
@@ -38529,7 +38541,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.multiselect[data-v-504921d2] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-504921d2] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-504921d2] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-504921d2] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-504921d2] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-504921d2] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-504921d2] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-504921d2]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-504921d2] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-504921d2] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-504921d2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-504921d2] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-504921d2] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-504921d2] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-504921d2] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2]:hover {\n  color: white;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,cAAc;EACd,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,mBAAmB;CACpB;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-504921d2] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-504921d2] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-504921d2] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-504921d2] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-504921d2] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-504921d2] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-504921d2] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-504921d2]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-504921d2] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-504921d2] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-504921d2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-504921d2] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-504921d2] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-504921d2] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-504921d2]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-504921d2] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-504921d2]:hover {\n  color: white;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.multiselect[data-v-42c6b6f8] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-42c6b6f8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-42c6b6f8] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-42c6b6f8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-42c6b6f8] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-42c6b6f8] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-42c6b6f8] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-42c6b6f8]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-42c6b6f8] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-42c6b6f8] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-42c6b6f8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-42c6b6f8] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-42c6b6f8] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-42c6b6f8] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-42c6b6f8] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8]:hover {\n  color: white;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,0CAA0C;UAClC,kCAAkC;CAC3C;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,cAAc;EACd,mBAAmB;EACnB,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,mBAAmB;CACpB;AACD;EACE,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,gBAAgB;EAChB,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,kBAAkB;CACnB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,cAAc;CACf;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,gBAAgB;EAChB,kBAAkB;CACnB;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,eAAe;CAChB;AACD;;EAEE,aAAa;CACd","file":"multiselect.vue","sourcesContent":["\n.multiselect[data-v-42c6b6f8] {\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-42c6b6f8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-42c6b6f8] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0px 0px 0px 0px);\n          clip-path: inset(0px 0px 0px 0px);\n}\n.multiselect__change-multiple[data-v-42c6b6f8] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  z-index: 1000;\n  position: relative;\n  height: 24px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 5px;\n}\n.multiselect .multiselect__select-all.multiselect__select-all[data-v-42c6b6f8] {\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__select-all-label[data-v-42c6b6f8] {\n  color: #939399;\n  font-size: 11px;\n}\n.multiselect__clear-all[data-v-42c6b6f8] {\n  font-size: 11px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-left: 10px;\n}\n.multiselect__clear-all[data-v-42c6b6f8]:focus {\n  outline: none;\n  color: black;\n}\n.multiselect__clear-all-text[data-v-42c6b6f8] {\n  margin-top: 3px;\n  margin-left: 6px;\n}\n.multiselect__clear-all-icon[data-v-42c6b6f8] {\n  width: 7px;\n  height: 7px;\n  margin-top: 3px;\n  fill: #939399;\n}\n.multiselect__no-items[data-v-42c6b6f8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-size: 18px;\n}\n.multiselect__checkbox[data-v-42c6b6f8] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-42c6b6f8] {\n  margin-top: 0px;\n  margin-left: -5px;\n}\n.multiselect--light.multiselect--light .multiselect__no-items[data-v-42c6b6f8] {\n  color: #aaaab0;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8] {\n  color: #444450;\n}\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8]:focus,\n.multiselect--light.multiselect--light .multiselect__clear-all[data-v-42c6b6f8]:hover {\n  color: black;\n}\n.multiselect--dark.multiselect--dark .multiselect__no-items[data-v-42c6b6f8] {\n  color: #444450;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8] {\n  color: #d6d8dd;\n}\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8]:focus,\n.multiselect--dark.multiselect--dark .multiselect__clear-all[data-v-42c6b6f8]:hover {\n  color: white;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38545,7 +38557,7 @@ var content = __webpack_require__(358);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("20723efd", content, true, {});
+var update = __webpack_require__(2)("201666b2", content, true, {});
 
 /***/ }),
 /* 358 */
@@ -40037,7 +40049,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ChipWithMultiselect_vue__ = __webpack_require__(243);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_87ca0418_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ChipWithMultiselect_vue__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7f361db0_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ChipWithMultiselect_vue__ = __webpack_require__(446);
 function injectStyle (ssrContext) {
   __webpack_require__(438)
 }
@@ -40052,12 +40064,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-87ca0418"
+var __vue_scopeId__ = "data-v-7f361db0"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ChipWithMultiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_87ca0418_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ChipWithMultiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7f361db0_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ChipWithMultiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -40078,7 +40090,7 @@ var content = __webpack_require__(439);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("e24a2644", content, true, {});
+var update = __webpack_require__(2)("0416d3b3", content, true, {});
 
 /***/ }),
 /* 439 */
@@ -40089,7 +40101,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.inline-dialog[data-v-87ca0418] {\n  margin-top: 10px;\n  padding: 15px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ChipWithMultiselect.vue"],"names":[],"mappings":";AACA;EACE,iBAAiB;EACjB,cAAc;CACf","file":"ChipWithMultiselect.vue","sourcesContent":["\n.inline-dialog[data-v-87ca0418] {\n  margin-top: 10px;\n  padding: 15px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.inline-dialog[data-v-7f361db0] {\n  margin-top: 10px;\n  padding: 15px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ChipWithMultiselect.vue"],"names":[],"mappings":";AACA;EACE,iBAAiB;EACjB,cAAc;CACf","file":"ChipWithMultiselect.vue","sourcesContent":["\n.inline-dialog[data-v-7f361db0] {\n  margin-top: 10px;\n  padding: 15px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -40173,7 +40185,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.close),expression:"close"}]},[_c('chip',{attrs:{"is-active":_vm.value.length > 0,"label":_vm.chipLabel,"metadata":((_vm.value.length) + "/" + (_vm.options.length)),"theme":"dark"},on:{"click":_vm.chipClick}}),_vm._v(" "),(_vm.isOpen)?_c('inline-dialog',[_c('multiselect',{attrs:{"value":_vm.value,"label":_vm.searchLabel,"auto-reorder":false,"is-searchable":_vm.isSearchable,"can-select-and-clear-all":_vm.canSelectAndClearAll,"can-clear-all":_vm.canClearAll,"options":_vm.options,"size":_vm.size,"theme":"light"},on:{"input":_vm.selectionChange},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.close),expression:"close"}]},[_c('chip',{attrs:{"is-active":_vm.value.length > 0,"label":_vm.chipLabel,"metadata":((_vm.value.length) + "/" + (_vm.options.length)),"theme":"dark"},on:{"click":_vm.chipClick}}),_vm._v(" "),(_vm.isOpen)?_c('inline-dialog',[_c('multiselect',{attrs:{"value":_vm.value,"label":_vm.searchLabel,"auto-reorder":false,"is-searchable":_vm.isSearchable,"init-search-query":_vm.searchQuery,"can-select-and-clear-all":_vm.canSelectAndClearAll,"can-clear-all":_vm.canClearAll,"options":_vm.options,"size":_vm.size,"theme":"light"},on:{"search":_vm.searchChange,"input":_vm.selectionChange},scopedSlots:_vm._u([{key:"default",fn:function(ref){
 var item = ref.item;
 return _c('div',{staticStyle:{"width":"100%"}},[_vm._t("default",[_c('middle-ellipsis-list-item',{attrs:{"label":item.label,"metadata":item.metadata,"size":_vm.size,"theme":"light"}})],{item:item})],2)}}])})],1):_vm._e()],1)}
 var staticRenderFns = []

@@ -13,11 +13,13 @@
                 :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
+                :init-search-query="searchQuery"
                 :can-select-and-clear-all="canSelectAndClearAll"
                 :can-clear-all="canClearAll"
                 :options="options"
                 :size="size"
                 theme="light"
+                @search="searchChange"
                 @input="selectionChange">
                 <div slot-scope="{ item }" style="width: 100%;">
                     <slot :item="item">
@@ -59,6 +61,7 @@ export default {
     data () {
         return {
             isOpen: false,
+            searchQuery: '',
         }
     },
     methods: {
@@ -70,6 +73,9 @@ export default {
         },
         selectionChange (selected) {
             this.$emit('input', selected)
+        },
+        searchChange (searchQuery) {
+            this.searchQuery = searchQuery
         },
     },
 }

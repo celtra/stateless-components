@@ -64,6 +64,7 @@ export default {
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         hasScrollTop: { type: Boolean, default: true },
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
@@ -82,11 +83,24 @@ export default {
         return {
             disableTransition: false,
             isLoading: false,
-            searchQuery: null,
+            searchQueryData: this.initSearchQuery,
             queryOptions: [],
         }
     },
     computed: {
+        searchQuery: {
+            get () {
+                return this.searchQueryData
+            },
+            set (v) {
+                this.searchQueryData = v
+                this.getOptionsPage = 0
+                this.gotAllOptions = false
+                this.isLoading = false
+                this.$emit('search', v)
+                this.debouncedLoadAsyncOptions()
+            },
+        },
         allOptions () {
             let result = itemsUtils.search(this.options, this.searchQuery)
 
@@ -159,14 +173,6 @@ export default {
             }
 
             return result
-        },
-    },
-    watch: {
-        searchQuery (v) {
-            this.getOptionsPage = 0
-            this.gotAllOptions = false
-            this.isLoading = false
-            this.debouncedLoadAsyncOptions()
         },
     },
     created () {
