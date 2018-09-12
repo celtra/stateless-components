@@ -300,7 +300,7 @@ export default {
         display: flex;
         align-items: center;
         font-size: 11px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.25px;
         font-family: @regular-text-font;
         color: @gray-blue;
     }
