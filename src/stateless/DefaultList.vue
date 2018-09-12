@@ -17,7 +17,7 @@
                             theme="light" />
                     </slot>
                 </div>
-                <div v-else class="default-list__item-content">
+                <div v-else :style="{ paddingLeft: `${initialOffset + item.offset}px` }" class="default-list__item-content">
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
