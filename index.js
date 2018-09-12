@@ -21189,6 +21189,7 @@ function getTextHighlightParts(text, query) {
         });
     },
     beforeDestroy: function beforeDestroy() {
+        this._tooltipVm.$el.remove();
         this._tooltipVm.$destroy();
     },
 

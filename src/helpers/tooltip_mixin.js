@@ -49,6 +49,7 @@ export default {
         })
     },
     beforeDestroy () {
+        this._tooltipVm.$el.remove()
         this._tooltipVm.$destroy()
     },
     methods: {
