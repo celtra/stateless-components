@@ -59,7 +59,7 @@ export default {
     border-radius: 3px;
     font-size: 11px;
     text-align: left;
-    padding: 6px 20px;
+    padding: 10px 15px;
     z-index: @z-highest;
     max-width: 460px;
     word-wrap: break-word;
