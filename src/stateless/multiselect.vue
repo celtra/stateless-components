@@ -4,44 +4,34 @@
             <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div class="multiselect__options">
-            <div v-if="listItems.length === 0" class="multiselect__no-items">
-                No items
-            </div>
-            <div v-else>
-                <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableChangeMultipleTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
-                    <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
-                        <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
-                            <span v-if="changeMultipleState === false" class="multiselect__select-all-label">SELECT ALL</span>
-                            <span v-else class="multiselect__select-all-label">CLEAR ALL ({{ value.length }})</span>
-                        </checkbox-element>
-                    </div>
-                    <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
-                        <div v-if="value.length > 0" class="multiselect__clear-all" tabindex="0" @keyup.enter.stop="setMultiple([])" @keyup.space.prevent.stop="setMultiple([])" @click="setMultiple([])">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
-                                <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
-                            </svg>
-                            <span class="multiselect__clear-all-text">CLEAR ALL ({{ value.length }})</span>
-                        </div>
-                    </div>
-                    <div slot-scope="{ item }" style="width: 100%;">
-                        <checkbox-element
-                            :disabled="item.disabled"
-                            :title-text="item.tooltipTitle ? '' : item.label"
-                            :disabled-text="item.disabledText"
-                            :value="isChecked(item)"
-                            :size="size"
-                            :theme="theme"
-                            tabindex="-1"
-                            class="multiselect__checkbox">
+        <div v-if="listItems.length === 0" class="multiselect__options multiselect__no-items">
+            No items
+        </div>
+        <div v-else class="multiselect__options">
+            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
+                <div v-if="canSelectAndClearAll || canClearAll" slot="before" class="multiselect__change-multiple">
+                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
+                        <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
+                        <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
+                    </checkbox-element>
+                </div>
+                <div slot-scope="{ item }" style="width: 100%;">
+                    <checkbox-element
+                        :disabled="item.disabled"
+                        :title-text="item.tooltipTitle ? '' : item.label"
+                        :disabled-text="item.disabledText"
+                        :value="isChecked(item)"
+                        :size="size"
+                        :theme="theme"
+                        tabindex="-1"
+                        class="multiselect__checkbox">
 
-                            <slot :item="item">
-                                <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
-                            </slot>
-                        </checkbox-element>
-                    </div>
-                </scrollable-list>
-            </div>
+                        <slot :item="item">
+                            <default-list-item :label="item.label" :metadata="item.metadata" :disabled="item.disabled" :size="size" :theme="theme" class="multiselect__default-list-item" />
+                        </slot>
+                    </checkbox-element>
+                </div>
+            </scrollable-list>
         </div>
     </div>
 </template>
@@ -66,12 +56,14 @@ export default {
         options: { type: Array },
         autoReorder: { type: Boolean, default: true },
         isSearchable: { type: Boolean, default: false },
+        initSearchQuery: { type: String, default: '' },
         hasScrollTop: { type: Boolean, default: true },
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
         transitionSorting: { type: Boolean, default: true },
+        initialOffset: { type: Number, default: 0 },
         getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         theme: { type: String, default: 'dark' },
@@ -82,13 +74,26 @@ export default {
     },
     data () {
         return {
-            disableChangeMultipleTransition: false,
+            disableTransition: false,
             isLoading: false,
-            searchQuery: null,
+            searchQueryData: this.initSearchQuery,
             queryOptions: [],
         }
     },
     computed: {
+        searchQuery: {
+            get () {
+                return this.searchQueryData
+            },
+            set (v) {
+                this.searchQueryData = v
+                this.getOptionsPage = 0
+                this.gotAllOptions = false
+                this.isLoading = false
+                this.$emit('search', v)
+                this.debouncedLoadAsyncOptions()
+            },
+        },
         allOptions () {
             let result = itemsUtils.search(this.options, this.searchQuery)
 
@@ -99,6 +104,9 @@ export default {
             }
 
             return result
+        },
+        flatOptions () {
+            return itemsUtils.flatten(this.allOptions)
         },
         allPossibleIds () {
             return itemsUtils.getLeafItems(this.listItems).filter(item => !item.disabled).map(item => item.id)
@@ -118,11 +126,20 @@ export default {
                         }
                         return {
                             ...item,
-                            key: `S_${item.key || item.id}`,
+                            key: this.noTransitionKeys[item.id] || `S_${item.key || item.id}`,
                         }
                     }).filter(x => x)
-                    const unselectedItems = itemsUtils.filter(result, item => {
+                    const unselectedItems = itemsUtils.map(itemsUtils.filter(result, item => {
                         return !item.items && !this.value.includes(item.id)
+                    }), item => {
+                        if (this.noTransitionKeys[item.id]) {
+                            return {
+                                ...item,
+                                key: this.noTransitionKeys[item.id],
+                            }
+                        } else {
+                            return item
+                        }
                     })
 
                     result = selectedItems.concat(unselectedItems)
@@ -151,15 +168,8 @@ export default {
             return result
         },
     },
-    watch: {
-        searchQuery (v) {
-            this.getOptionsPage = 0
-            this.gotAllOptions = false
-            this.isLoading = false
-            this.debouncedLoadAsyncOptions()
-        },
-    },
     created () {
+        this.noTransitionKeys = {}
         this.getOptionsPage = 0
         this.gotAllOptions = false
         this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
@@ -173,19 +183,21 @@ export default {
             this.$refs.list.focus()
         },
         setMultiple (ids) {
-            this.disableChangeMultipleTransition = true
+            this.disableTransition = true
             this.$emit('input', ids)
             this.$refs.list.focus()
             this.$nextTick(() => {
-                this.disableChangeMultipleTransition = false
+                this.disableTransition = false
             })
         },
         loadAsyncOptions () {
             if (this.getOptions && !this.isLoading && !this.gotAllOptions) {
                 this.isLoading = true
-                let query = this.searchQuery
+                const query = this.searchQuery
                 this.getOptions(query, this.getOptionsPage).then(result => {
                     if (this.searchQuery === query) {
+                        this.disableTransition = true
+
                         if (this.getOptionsPage === 0) {
                             this.queryOptions = []
                         }
@@ -202,6 +214,10 @@ export default {
                         }
 
                         this.isLoading = false
+
+                        this.$nextTick(() => {
+                            this.disableTransition = false
+                        })
                     }
                 })
             }
@@ -210,6 +226,25 @@ export default {
             if (!option.disabled) {
                 if (option.isLeaf !== false) {
                     const valueWithout = this.value.filter(id => id !== option.id)
+
+                    if (this.autoReorder) {
+                        const firstUnselectedItem = this.flatOptions.find(x => !valueWithout.includes(x.id))
+                        let disableTransition = false
+                        if (isChecked) {
+                            disableTransition = firstUnselectedItem && firstUnselectedItem.id === option.id
+                        } else {
+                            disableTransition = this.value.length > 0 && this.value[this.value.length - 1] === option.id && firstUnselectedItem && firstUnselectedItem.id === option.id
+                        }
+
+                        if (disableTransition) {
+                            this.noTransitionKeys[option.id] = this.noTransitionKeys[option.id] || (option.key || option.id)
+                        } else {
+                            if (this.noTransitionKeys[option.id]) {
+                                this.noTransitionKeys[option.id] = this.noTransitionKeys[option.id].startsWith('S_') ? option.id : 'S_' + option.id
+                            }
+                        }
+                    }
+
                     if (isChecked) {
                         this.$emit('input', valueWithout.concat([option.id]))
                     } else {
@@ -288,36 +323,13 @@ export default {
 
     &__select-all-label {
         color: @bluish-gray;
-        font-size: 11px;
-    }
-
-    &__clear-all {
-        font-size: 11px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-
-        &:focus {
-            outline: none;
-            color: black;
-        }
-    }
-
-    &__clear-all-text {
-        margin-top: 3px;
-        margin-left: 6px;
-    }
-
-    &__clear-all-icon {
-        width: 7px;
-        height: 7px;
-        margin-top: 3px;
-        fill: @bluish-gray;
+        font-size: 12px;
     }
 
     &__no-items {
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 18px;
     }
 
@@ -335,27 +347,11 @@ export default {
     .multiselect__no-items {
         color: @gray-blue;
     }
-
-    .multiselect__clear-all {
-        color: @gunpowder;
-
-        &:focus, &:hover {
-            color: black;
-        }
-    }
 }
 
 .multiselect--dark.multiselect--dark {
   .multiselect__no-items {
       color: @gunpowder;
-  }
-
-  .multiselect__clear-all {
-      color: @very-light-gray;
-
-      &:focus, &:hover {
-          color: white;
-      }
   }
 }
 </style>

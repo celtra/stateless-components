@@ -132,7 +132,7 @@ export function flatten (items) {
     return flat
 }
 
-export function search (items, query, fields = ['label', 'metadata', 'tooltip']) {
+export function search (items, query, fields = ['label', 'metadata', 'tooltipTitle', 'tooltip']) {
     const cleanQuery = (query || '').trim(' ').toLowerCase()
     if (cleanQuery.length === 0) {
         return [...items]

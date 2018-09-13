@@ -4,7 +4,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="checkbox-element__check-wrapper">
                 <rect :class="states | prefix('checkbox-element__square--')" class="checkbox-element__square" x="7" y="7" width="18" height="18" stroke-width="1" fill="none" rx="2" ry="2" />
                 <path :class="states | prefix('checkbox-element__check--')" class="checkbox-element__check" d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"/>
-                <rect :class="states | prefix('checkbox-element__check-some--')" class="checkbox-element__check-some" x="9" y="14" width="14" height="4"/>
+                <rect :class="states | prefix('checkbox-element__check-some--')" class="checkbox-element__check-some" x="10.5" y="14.5" width="11" height="3"/>
             </svg>
 
             <div :class="states | prefix('checkbox-element__label-text--')" class="checkbox-element__label-text">
@@ -97,7 +97,7 @@ export default {
         toggle (ev) {
             if (!this.disabled) {
                 this.$emit('focus')
-                this.$emit('input', !this.value)
+                this.$emit('input', this.value === true || this.value === null ? false : true)
                 this.focused = false
             }
         },
@@ -125,7 +125,7 @@ export default {
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             transform: scale3d(1.25, 1.25, 1);
-            border-color: @very-light-gray;
+            stroke: @very-light-gray;
         }
 
         .checkbox-element__check:not(.checkbox-element__check--disabled) {
@@ -171,7 +171,7 @@ export default {
         }
 
         &--disabled {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
     }
 
@@ -425,12 +425,12 @@ export default {
     }
 
     .checkbox-element__square--disabled {
-        border-color: @very-light-gray;
+        stroke: @very-light-gray;
     }
 
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
 
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
@@ -450,7 +450,7 @@ export default {
 
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
 
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {

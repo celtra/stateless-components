@@ -6,6 +6,7 @@ import FileUploadRequirements from '@/stateless/file_upload_requirements.vue'
 import FileUpload from '@/stateless/file_upload.vue'
 import ImageList from '@/stateless/image_list.vue'
 import Input from '@/stateless/input.vue'
+import SearchInput from '@/stateless/SearchInput.vue'
 import Multiselect from '@/stateless/multiselect.vue'
 import RadioButton from '@/stateless/radiobutton.vue'
 import Selectbox from '@/stateless/selectbox.vue'
@@ -105,6 +106,15 @@ export default {
     },
     Input: {
         component: Input,
+        rootCss: {
+            width: '300px',
+        },
+        defaultProps: {
+            label: 'Something',
+        },
+    },
+    SearchInput: {
+        component: SearchInput,
         rootCss: {
             width: '300px',
         },
@@ -296,15 +306,16 @@ export default {
         component: ChipWithMultiselect,
         defaultProps: {
             options: [
-                { id: '1', label: '1', metadata: '1' },
-                { id: '2', label: '2', metadata: '2' },
-                { id: '3', label: '3', metadata: '3' },
-                { id: '4', label: '4', metadata: '4' },
+                { id: '1', label: 'This is really long creative name that needs to work well', metadata: '100000' },
+                { id: '2', label: '2', metadata: 'zan.kusterle@gmail.com' },
+                { id: '3', label: 'zan.kusterle@gmail.com', metadata: '3' },
+                { id: '4', label: 'zan.kusterle@gmail.com', metadata: 'zan.kusterle@gmail.com' },
                 { id: '5', label: '5', metadata: '5' },
-                { id: '6', label: '6', metadata: '6' },
-                { id: '7', label: '7', metadata: '7' },
-                { id: '8', label: '8', metadata: '8' },
-                { id: '9', label: '9', metadata: '9' },
+                {
+                    id: '6',
+                    label: 'This is really long creative name that needs to work well',
+                    metadata: '700',
+                },
             ],
             value: [ '1', '2' ],
             isSearchable: true,

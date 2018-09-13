@@ -36,6 +36,8 @@ import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 import TooltipComponent from '@/stateless/Tooltip.vue'
 import ChipComponent from '@/stateless/Chip.vue'
 import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
+import MiddleEllipsisComponent from '@/stateless/MiddleEllipsis.vue'
+import MiddleEllipsisListItemComponent from '@/stateless/MiddleEllipsisListItem.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -73,3 +75,5 @@ export const TypeaheadMultiselect = TypeaheadMultiselectComponent
 export const Tooltip = TooltipComponent
 export const Chip = ChipComponent
 export const ChipWithMultiselect = ChipWithMultiselectComponent
+export const MiddleEllipsis = MiddleEllipsisComponent
+export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent

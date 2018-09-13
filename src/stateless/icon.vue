@@ -41,7 +41,7 @@
         </svg>
 
         <!-- 'back': left angle icon -->
-        <svg v-if="name === 'back'" viewBox="0 0 8 17" xmlns="http://www.w3.org/2000/svg">
+        <svg v-if="name === 'back'" viewBox="-3 0 14 17" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <path class="path" d="M6.555 17L.23 9.157a1.058 1.058 0 0 1 0-1.314L6.555 0 8 1.316 2.204 8.5l5.795 7.183L6.555 17z"/>
         </svg>
 
@@ -103,9 +103,14 @@
             <path class="path" d="M6.4 0L4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6z"/>
         </svg>
 
+        <!-- 'close-bolder': X sign, thin -->
+        <svg v-if="name === 'close-bolder'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path class="path stroke-path" stroke-width="1" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero" />
+        </svg>
+
         <!-- 'close': X sign, thin -->
         <svg v-if="name === 'close'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero"/>
+            <path class="path" d="M13.4 12L23.7 1.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L12 10.6 1.7.3C1.3-.1.7-.1.3.3c-.4.4-.4 1 0 1.4L10.6 12 .3 22.3c-.4.4-.4 1 0 1.4.2.2.4.3.7.3.3 0 .5-.1.7-.3L12 13.4l10.3 10.3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4L13.4 12z" fill-rule="nonzero" />
         </svg>
 
         <!-- 'mail': envelope icon -->

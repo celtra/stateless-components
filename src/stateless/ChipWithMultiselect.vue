@@ -13,12 +13,23 @@
                 :label="searchLabel"
                 :auto-reorder="false"
                 :is-searchable="isSearchable"
+                :init-search-query="searchQuery"
                 :can-select-and-clear-all="canSelectAndClearAll"
                 :can-clear-all="canClearAll"
                 :options="options"
                 :size="size"
                 theme="light"
+                @search="searchChange"
                 @input="selectionChange">
+                <div slot-scope="{ item }" style="width: 100%;">
+                    <slot :item="item">
+                        <middle-ellipsis-list-item
+                            :label="item.label"
+                            :metadata="item.metadata"
+                            :size="size"
+                            theme="light" />
+                    </slot>
+                </div>
             </multiselect>
         </inline-dialog>
     </div>
@@ -28,12 +39,14 @@
 import Chip from './Chip'
 import InlineDialog from './InlineDialog'
 import Multiselect from './multiselect'
+import MiddleEllipsisListItem from './MiddleEllipsisListItem.vue'
 
 export default {
     components: {
         Chip,
         InlineDialog,
         Multiselect,
+        MiddleEllipsisListItem,
     },
     props: {
         size: { type: String, default: 'normal' }, // condensed | normal
@@ -48,6 +61,7 @@ export default {
     data () {
         return {
             isOpen: false,
+            searchQuery: '',
         }
     },
     methods: {
@@ -59,6 +73,9 @@ export default {
         },
         selectionChange (selected) {
             this.$emit('input', selected)
+        },
+        searchChange (searchQuery) {
+            this.searchQuery = searchQuery
         },
     },
 }

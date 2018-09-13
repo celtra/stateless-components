@@ -99,6 +99,8 @@ exports[`DialogHeader should match the snapshot 1`] = `
         <!---->
          
         <!---->
+         
+        <!---->
       </div>
     </div>
      
@@ -133,6 +135,8 @@ exports[`DialogHeader should match the snapshot 1`] = `
       <div
         class="icon-wrapper dialog-header__close-svg"
       >
+        <!---->
+         
         <!---->
          
         <!---->

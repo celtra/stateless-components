@@ -2,9 +2,19 @@
     <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @wheel="hideTooltip" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <slot name="before"></slot>
 
-        <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="350" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mousemove="onItemHover($event, item)" @mouseleave="hideTooltip">
-                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" class="default-list__item-content">
+        <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
+            <div
+                v-for="item in shownItemsWithData"
+                :key="item.key"
+                :data-item-id="item.key || item.id"
+                :style="item.height ? { height: `${item.height}px` } : {}"
+                :class="item.modifiers | prefix('default-list__item--')"
+                :title="item.nativeTitle"
+                class="default-list__item"
+                @click="clickItem(item.id)"
+                @mousemove="onItemHover($event, item)"
+                @mouseleave="hideTooltip">
+                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
                             :label="item.label"
@@ -17,7 +27,7 @@
                             theme="light" />
                     </slot>
                 </div>
-                <div v-else class="default-list__item-content">
+                <div v-else :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
@@ -64,11 +74,13 @@ export default {
         noGroupRendering: { type: Boolean, default: false },
         listContainer: { type: HTMLElement, default: null },
         setActiveOnHover: { type: Boolean, default: true },
+        initialOffset: { type: Number, default: 0 },
     },
     data () {
         return {
             firstRender: true,
             isFocused: false,
+            isUsingKeyboard: false,
             isHovered: false,
             activeId: null,
             itemHeight: null,
@@ -83,17 +95,13 @@ export default {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
         shownItemsWithData () {
-            let activeId = this.isFocused || (this.setActiveOnHover && this.isHovered) ? this.activeId : null
+            let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
-                let css = { marginLeft: `${this.getOffset(item)}px` }
-                if (this.transitionSorting) {
-                    css.height = `${item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight}px`
-                }
-
                 return {
                     ...item,
-                    css: css,
+                    offset: this.initialOffset + this.getOffset(item),
+                    height: this.transitionSorting ? (item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight) : null,
                     modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
                 }
             })
@@ -157,6 +165,10 @@ export default {
         blur () {
             this.$el.blur()
         },
+        clickItem (itemId) {
+            this.isUsingKeyboard = false
+            this.selectItem(itemId)
+        },
         selectItem (itemId) {
             if (itemId) {
                 const item = this.flatItems.find(x => x.key === itemId || x.id === itemId)
@@ -179,25 +191,38 @@ export default {
         },
         focus () {
             this.$el.focus()
+            this.startUsingKeyboard()
         },
         move (direction) {
             if (this.flatSelectableItems.length === 0) {
                 return
             }
 
-            const findId = this.activeId || this.value
-            let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
-            activeIndex += direction
-            if (activeIndex > this.flatSelectableItems.length - 1) {
-                activeIndex = 0
-            } else if (activeIndex < 0) {
-                activeIndex = this.flatSelectableItems.length - 1
+            if (!this.isUsingKeyboard) {
+                this.startUsingKeyboard()
+            } else {
+                const findId = this.activeId || this.value
+                let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
+                activeIndex += direction
+                if (activeIndex > this.flatSelectableItems.length - 1) {
+                    activeIndex = 0
+                } else if (activeIndex < 0) {
+                    activeIndex = this.flatSelectableItems.length - 1
+                }
+                let nextItem = this.flatSelectableItems[activeIndex]
+
+                this.activeId = (nextItem.key || nextItem.id)
             }
-            let nextItem = this.flatSelectableItems[activeIndex]
 
-            this.activeId = (nextItem.key || nextItem.id)
+            this.$emit('activate', this.activeId)
+        },
+        startUsingKeyboard () {
+            this.isUsingKeyboard = true
 
-            this.$emit('activate', nextItem.key || nextItem.id)
+            let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+            if (!activeItem) {
+                this.activeId = this.getDefaultActiveId()
+            }
         },
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
@@ -238,6 +263,8 @@ export default {
 .default-list {
     outline: none;
     width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     &__hidden-slots {
         visibility: hidden;
@@ -253,14 +280,7 @@ export default {
 
         &-enter-active, &-leave-active, &-move {
             pointer-events: none;
-        }
-
-        &-enter-active {
-            transition: background-color 100ms ease, height 200ms ease-in, opacity 350ms ease-in;
-        }
-
-        &-leave-active {
-            transition: background-color 100ms ease, height 350ms ease-in, opacity 200ms ease-in;
+            transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
         }
 
         &-enter, &-leave-to {
@@ -289,7 +309,7 @@ export default {
         display: flex;
         align-items: center;
         font-size: 11px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.25px;
         font-family: @regular-text-font;
         color: @gray-blue;
     }
@@ -303,27 +323,24 @@ export default {
 
 .default-list--light {
     .default-list__item--active {
-        background-color: @very-light-gray;
+        background-color: @white-smoke;
     }
 }
 
 .default-list--condensed {
     .default-list__group {
-        padding-top: 5px;
         height: 20px;
     }
 }
 
 .default-list--normal {
     .default-list__group {
-        padding-top: 10px;
         height: 30px;
     }
 }
 
 .default-list--phat {
     .default-list__group {
-        padding-top: 10px;
         height: 30px;
     }
 }
