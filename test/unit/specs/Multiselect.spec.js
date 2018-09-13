@@ -64,24 +64,22 @@ describe('Multiselect', () => {
             })
         })
 
-        describe('selectAll', () => {
-            it('should set all to checked', function () {
+        describe('setMultiple', () => {
+            it('should select all', function () {
                 spyOn(vm, '$emit')
 
                 expect(vm.isChecked({ id: 1 })).toBe(false)
                 expect(vm.isChecked({ id: 2 })).toBe(false)
                 expect(vm.isChecked({ id: 3 })).toBe(false)
-                vm.selectAll()
-                expect(vm.$emit).toHaveBeenCalledWith('input', ['1', '2', '3'])
+                vm.setMultiple(vm.allPossibleIds)
+                expect(vm.$emit).toHaveBeenCalledWith('input', [1, 2, 3])
             })
-        })
 
-        describe('clearAll', () => {
-            it('should set all to not checked', function () {
+            it('should clear all', function () {
                 spyOn(vm, '$emit')
 
                 vm.value = ['1', '2', '3']
-                vm.clearAll()
+                vm.setMultiple([])
                 expect(vm.$emit).toHaveBeenCalledWith('input', [])
             })
         })

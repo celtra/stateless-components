@@ -1,14 +1,9 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
-            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--top">
-                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
-            </div>
-            <div v-if="showOverlay" class="scrollable-list__overlay scrollable-list__overlay--bottom"></div>
+            <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
 
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
-                <slot name="before"></slot>
-
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     ref="list"
                     :items="items"
@@ -17,20 +12,23 @@
                     :transition-sorting="transitionSorting"
                     :no-group-rendering="noGroupRendering"
                     :set-active-on-hover="setActiveOnHover"
+                    :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
                     :list-container="$refs.scrollable"
+                    :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
-                    @activate="onActivate"
-                    @before-update="onBeforeUpdate">
+                    @activate="onActivate">
+
                     <template v-if="$scopedSlots.default" slot-scope="{ item }">
                         <slot :item="item"></slot>
                     </template>
-                </default-list>
 
-                <slot name="after"></slot>
+                    <slot slot="before" name="before"></slot>
+                    <slot slot="after" name="after"></slot>
+                </default-list>
             </div>
         </div>
     </div>
@@ -56,6 +54,7 @@ export default {
         setActiveOnHover: { type: Boolean, default: true },
         enableScrollTop: { type: Boolean, default: false },
         showOverlay: { type: Boolean, default: false },
+        initialOffset: { type: Number, default: 0 },
     },
     data () {
         return {
@@ -64,11 +63,14 @@ export default {
         }
     },
     computed: {
+        overlayHeight () {
+            return this.showOverlay ? 15 : 0
+        },
         itemHeight () {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0
         },
         maxHeight () {
-            return this.numItems * this.itemHeight
+            return this.numItems * this.itemHeight + 2 * this.overlayHeight
         },
     },
     mounted () {
@@ -82,16 +84,13 @@ export default {
         window.removeEventListener('resize', () => this.positionSelectList)
     },
     methods: {
-        onBeforeUpdate () {
-            const scrollTop = this.$refs.scrollable.scrollTop
-            this.$nextTick(() => {
-                //this.$refs.scrollable.scrollTop = scrollTop
-            })
-        },
         onScroll (e) {
             const canScrollTop = e.target.scrollTop > 0
             if (this.canScrollTop !== canScrollTop) {
                 this.canScrollTop = canScrollTop
+            }
+            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+                this.$emit('load-more')
             }
         },
         scrollTop () {
@@ -126,9 +125,8 @@ export default {
             const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
-            const overlayHeight = this.showOverlay ? 15 : 0
-            const upTarget = currentScroll + itemY - rootY - overlayHeight
-            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + overlayHeight
+            const upTarget = currentScroll + itemY - rootY - this.overlayHeight
+            const downTarget = currentScroll + itemY - rootY - this.maxHeight + this.itemHeight - verticalPadding + this.overlayHeight
 
             if (currentScroll > upTarget) {
                 this.$refs.scrollable.scrollTop = upTarget
@@ -156,6 +154,9 @@ export default {
 <style lang="less" scoped>
 @import (reference) './common';
 
+@overlay-height: 15px;
+@scrollbar-width: 5px;
+
 .scrollable-list {
     width: 100%;
 
@@ -166,85 +167,44 @@ export default {
 
     &__list {
         overflow-y: auto;
-        // overflow: -moz-scrollbars-none;
         overscroll-behavior: contain;
-        padding: 10px 0;
+
+        &--with-overlay {
+            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
+        }
+    }
+
+    &__default-list {
+        &--with-overlay {
+            padding: @overlay-height 0;
+        }
     }
 
     &__scroll-top {
-        font-size: 11px;
-        color: @bluish-gray;
-        cursor: pointer;
-        pointer-events: all;
+        position: absolute;
+        top: 0;
+        right: @scrollbar-width + 1;
         padding: 1px 3px;
-        margin-right: 5px;
+        font-size: 11px;
         line-height: 12px;
         border-radius: 0 0 5px 5px;
+        color: @bluish-gray;
+        z-index: @z-middle;
+        cursor: pointer;
 
         &:focus {
             outline: none;
             color: black;
         }
     }
-
-    &__overlay {
-        position: absolute;
-        height: 15px;
-        width: calc(100% - 6px);
-        pointer-events: none;
-        z-index: @z-middle;
-
-        &--top {
-            top: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-        }
-
-        &--bottom {
-            bottom: 0;
-        }
-    }
-}
-
-.scrollable-list--dark {
-    .scrollable-list__scroll-top {
-        background-color: @extremely-dark-gray;
-    }
-
-    .scrollable-list__overlay {
-        &--top {
-            background: linear-gradient(180deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
-        }
-
-        &--bottom {
-            background: linear-gradient(0deg, @extremely-dark-gray, fade(@extremely-dark-gray, 0%));
-        }
-    }
-}
-
-.scrollable-list--light {
-    .scrollable-list__scroll-top {
-        background-color: @white;
-    }
-
-    .scrollable-list__overlay {
-        &--top {
-            background: linear-gradient(180deg, @white, fade(@white, 0%));
-        }
-
-        &--bottom {
-            background: linear-gradient(0deg, @white, fade(@white, 0%));
-        }
-    }
 }
 
 ::-webkit-scrollbar {
-    width : 5px;
+    width: @scrollbar-width;
 }
 
 ::-webkit-scrollbar-track {
-    background-color : transparent;
+    background-color: transparent;
 }
 
 .scrollable-list--light .scrollable-list__list::-webkit-scrollbar-thumb {
@@ -258,6 +218,6 @@ export default {
 }
 
 ::-webkit-scrollbar-corner {
-    background-color : transparent;
+    background-color: transparent;
 }
 </style>

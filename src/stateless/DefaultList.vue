@@ -1,5 +1,42 @@
 <template>
-    <div :class="[theme] | prefix('default-list--')" class="default-list" tabindex="0" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+    <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @wheel="hideTooltip" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+        <slot name="before"></slot>
+
+        <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
+            <div
+                v-for="item in shownItemsWithData"
+                :key="item.key"
+                :data-item-id="item.key || item.id"
+                :style="item.height ? { height: `${item.height}px` } : {}"
+                :class="item.modifiers | prefix('default-list__item--')"
+                :title="item.nativeTitle"
+                class="default-list__item"
+                @click="clickItem(item.id)"
+                @mousemove="onItemHover($event, item)"
+                @mouseleave="hideTooltip">
+                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
+                    <slot :item="item">
+                        <default-list-item
+                            :label="item.label"
+                            :metadata="item.metadata"
+                            :icon="item.icon"
+                            :disabled="item.disabled"
+                            :selected="item.id === value"
+                            :highlight-query="highlightQuery"
+                            :size="size"
+                            theme="light" />
+                    </slot>
+                </div>
+                <div v-else :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
+                    <slot :item="item" name="group">
+                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
+                    </slot>
+                </div>
+            </div>
+        </transition-group>
+
+        <slot name="after"></slot>
+
         <div class="default-list__hidden-slots">
             <div ref="hiddenSlot">
                 <slot :item="assumedItem">
@@ -12,55 +49,6 @@
                 </slot>
             </div>
         </div>
-
-        <transition-group v-if="transitionSorting && canTransition" name="default-list__item" tag="div">
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)">
-                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
-                    <slot :item="item">
-                        <default-list-item
-                            :label="item.label"
-                            :metadata="item.metadata"
-                            :icon="item.icon"
-                            :disabled="item.disabled"
-                            :selected="item.id === value"
-                            :highlight-query="highlightQuery"
-                            :size="size"
-                            theme="light" />
-                    </slot>
-                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
-                </div>
-                <div v-else class="default-list__item-content">
-                    <slot :item="item" name="group">
-                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
-                    </slot>
-                </div>
-            </div>
-        </transition-group>
-        <template v-else>
-            <div v-for="item in shownItemsWithData" :key="item.key" :data-item-id="item.key || item.id" :style="item.css" :class="item.modifiers | prefix('default-list__item--')" class="default-list__item" @click="selectItem(item.id)" @mouseenter="onItemHover($event, item)">
-                <div v-if="item.isLeaf || noGroupRendering" class="default-list__item-content">
-                    <slot :item="item">
-                        <default-list-item
-                            :label="item.label"
-                            :metadata="item.metadata"
-                            :icon="item.icon"
-                            :disabled="item.disabled"
-                            :selected="item.id === value"
-                            :highlight-query="highlightQuery"
-                            :size="size"
-                            theme="light" />
-                    </slot>
-                    <tooltip v-if="item.tooltip" :boundary-element="listContainer">{{ item.tooltip }}</tooltip>
-                </div>
-                <div v-else class="default-list__item-content">
-                    <slot :item="item" name="group">
-                        <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
-                    </slot>
-                </div>
-            </div>
-        </template>
-
-        <div v-if="hiddenHeight > 0" :style="{ height: `${hiddenHeight}px` }"></div>
     </div>
 </template>
 
@@ -68,12 +56,14 @@
 import DefaultListItem from './DefaultListItem.vue'
 import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
+import TooltipMixin from '../helpers/tooltip_mixin'
 
 export default {
     components: {
         DefaultListItem,
         Tooltip,
     },
+    mixins: [TooltipMixin],
     props: {
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
@@ -83,46 +73,35 @@ export default {
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
         listContainer: { type: HTMLElement, default: null },
-        renderAllItems: { type: Boolean, default: true },
         setActiveOnHover: { type: Boolean, default: true },
+        initialOffset: { type: Number, default: 0 },
     },
     data () {
         return {
+            firstRender: true,
             isFocused: false,
+            isUsingKeyboard: false,
             isHovered: false,
             activeId: null,
-            renderAllItemsTimeout: false,
-            canTransition: false,
-            transitionItems: this.items,
             itemHeight: null,
             groupHeight: null,
         }
     },
     computed: {
         flatItems () {
-            return flatten(this.transitionItems)
+            return flatten(this.items)
         },
         flatSelectableItems () {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
-        shownItems () {
-            if (this.renderAllItems && this.renderAllItemsTimeout || this.flatItems.length <= this.minItemsCount) {
-                return this.flatItems
-            }
-            return this.flatItems.slice(0, this.minItemsCount)
-        },
         shownItemsWithData () {
-            let activeId = this.isFocused || (this.setActiveOnHover && this.isHovered) ? this.activeId : null
+            let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
-            return this.shownItems.map(item => {
-                let css = { marginLeft: `${this.getOffset(item)}px` }
-                if (this.transitionSorting) {
-                    css.height = `${item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight}px`
-                }
-
+            return this.flatItems.map(item => {
                 return {
                     ...item,
-                    css: css,
+                    offset: this.initialOffset + this.getOffset(item),
+                    height: this.transitionSorting ? (item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight) : null,
                     modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
                 }
             })
@@ -133,89 +112,48 @@ export default {
         assumedGroupHeight () {
             return this.groupHeight || 30
         },
-        hiddenHeight () {
-            let total = 0
-            for (let hiddenItem of this.flatItems.slice(this.shownItems.length)) {
-                total += hiddenItem.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
-            }
-            return total
-        },
-        maxHeight () {
-            let total = 0
-            for (let item of this.flatItems) {
-                total += item.isLeaf ? this.assumedItemHeight : this.assumedGroupHeight
-            }
-            return total
-        },
     },
     watch: {
-        items (v, ov) {
-            const getCount = (items) => {
-                let count = items.length
-                for (let item of items) {
-                    if (item.items)
-                        count += getCount(item.items)
+        flatSelectableItems () {
+            if (!this.activeId) {
+                const defaultActiveId = this.getDefaultActiveId()
+                if (defaultActiveId) {
+                    this.activeId = defaultActiveId
                 }
-                return count
             }
-
-            const getDeltaCount = (a, b) => {
-                const aKeys = a.map(x => x.key || x.id)
-                const bKeys = b.map(x => x.key || x.id)
-                const onlyA = a.filter(x => !bKeys.includes(x.key || x.id))
-                const onlyB = b.filter(x => !aKeys.includes(x.key || x.id))
-                const intersection = a.filter(x => bKeys.includes(x.key || x.id))
-
-                let count = getCount(onlyA) + getCount(onlyB)
-                for (let aItem of intersection) {
-                    const bItem = b.find(item => (item.key || item.id) === (aItem.key || aItem.id))
-
-                    if (aItem.items && bItem.items) {
-                        count += getDeltaCount(aItem.items, bItem.items)
-                    } else if (aItem.items) {
-                        count += getCount(aItem.items)
-                    } else if (bItem.items) {
-                        count += getCount(bItem.items)
-                    }
-                }
-
-                return count
-            }
-
-            this.canTransition = getDeltaCount(v, ov) <= 5
-            this.$nextTick(() => {
-                this.$emit('before-update')
-                this.transitionItems = v
-            })
         },
     },
     mounted () {
-        setTimeout(() => {
-            this.renderAllItemsTimeout = true
-        }, 100)
         this.$nextTick(() => {
             this.itemHeight = this.$refs.hiddenSlot.clientHeight
             this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
+            this.firstRender = false
         })
     },
     beforeCreate () {
-        this.minItemsCount = 50
         this.assumedItem = { label: 'A', metadata: 'A' }
     },
+    created () {
+        this.activeId = this.getDefaultActiveId()
+    },
     methods: {
+        getDefaultActiveId () {
+            if (this.flatSelectableItems.length === 0) {
+                return null
+            }
+
+            let activeItem = this.flatSelectableItems[0]
+            if (this.value) {
+                const currentItem = this.flatSelectableItems.find(x => x.id === this.value)
+                if (currentItem) {
+                    activeItem = currentItem
+                }
+            }
+            return activeItem.key || activeItem.id
+        },
         onFocus (ev) {
             if (!this.isFocused) {
                 this.isFocused = true
-                if (this.flatSelectableItems.length > 0) {
-                    let activeItem = this.flatSelectableItems[0]
-                    if (this.value) {
-                        let currentItem = this.flatSelectableItems.find(x => x.id === this.value)
-                        if (currentItem) {
-                            activeItem = currentItem
-                        }
-                    }
-                    this.activeId = activeItem.key || activeItem.id
-                }
             }
         },
         onBlur (ev) {
@@ -226,6 +164,10 @@ export default {
         },
         blur () {
             this.$el.blur()
+        },
+        clickItem (itemId) {
+            this.isUsingKeyboard = false
+            this.selectItem(itemId)
         },
         selectItem (itemId) {
             if (itemId) {
@@ -241,28 +183,46 @@ export default {
             if (this.setActiveOnHover && item.isLeaf && (ev.movementX !== 0 || ev.movementY !== 0)) {
                 this.activeId = item.key || item.id
             }
+
+            if (item.tooltip) {
+                const element = this.$el.querySelector(`[data-item-id="${item.key || item.id}"]`)
+                this.showTooltip(element, item.tooltip, item.tooltipTitle)
+            }
         },
         focus () {
             this.$el.focus()
+            this.startUsingKeyboard()
         },
         move (direction) {
             if (this.flatSelectableItems.length === 0) {
                 return
             }
 
-            const findId = this.activeId || this.value
-            let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
-            activeIndex += direction
-            if (activeIndex > this.flatSelectableItems.length - 1) {
-                activeIndex = 0
-            } else if (activeIndex < 0) {
-                activeIndex = this.flatSelectableItems.length - 1
+            if (!this.isUsingKeyboard) {
+                this.startUsingKeyboard()
+            } else {
+                const findId = this.activeId || this.value
+                let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
+                activeIndex += direction
+                if (activeIndex > this.flatSelectableItems.length - 1) {
+                    activeIndex = 0
+                } else if (activeIndex < 0) {
+                    activeIndex = this.flatSelectableItems.length - 1
+                }
+                let nextItem = this.flatSelectableItems[activeIndex]
+
+                this.activeId = (nextItem.key || nextItem.id)
             }
-            let nextItem = this.flatSelectableItems[activeIndex]
 
-            this.activeId = (nextItem.key || nextItem.id)
+            this.$emit('activate', this.activeId)
+        },
+        startUsingKeyboard () {
+            this.isUsingKeyboard = true
 
-            this.$emit('activate', nextItem.key || nextItem.id)
+            let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+            if (!activeItem) {
+                this.activeId = this.getDefaultActiveId()
+            }
         },
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
@@ -303,6 +263,8 @@ export default {
 .default-list {
     outline: none;
     width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     &__hidden-slots {
         visibility: hidden;
@@ -316,13 +278,9 @@ export default {
         align-items: center;
         transition: background-color 100ms ease;
 
-        &--with-tooltip:hover {
-            position: relative;
-        }
-
         &-enter-active, &-leave-active, &-move {
-            transition: all 250ms ease-out;
             pointer-events: none;
+            transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
         }
 
         &-enter, &-leave-to {
@@ -331,19 +289,27 @@ export default {
         }
     }
 
+    &__item-transitionless {
+        &-leave-active {
+            display: none;
+        }
+    }
+
     &__item-content {
         width: 100%;
         height: 100%;
         display: flex;
+
+        &--with-tooltip:hover {
+            position: relative;
+        }
     }
 
     &__group {
-        height: 30px;
-        padding-top: 10px;
         display: flex;
         align-items: center;
         font-size: 11px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.25px;
         font-family: @regular-text-font;
         color: @gray-blue;
     }
@@ -357,7 +323,25 @@ export default {
 
 .default-list--light {
     .default-list__item--active {
-        background-color: @very-light-gray;
+        background-color: @white-smoke;
+    }
+}
+
+.default-list--condensed {
+    .default-list__group {
+        height: 20px;
+    }
+}
+
+.default-list--normal {
+    .default-list__group {
+        height: 30px;
+    }
+}
+
+.default-list--phat {
+    .default-list__group {
+        height: 30px;
     }
 }
 </style>

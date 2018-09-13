@@ -1,5 +1,5 @@
 <template>
-    <div class="calendar" tabindex="0" @click="focus" @focus="focus">
+    <div class="calendar" tabindex="0" @focus="onFocus">
         <div class="calendar__header">
             <icon name="left-arrow" class="calendar__navigation-icon" @click="previousMonth()"></icon>
             <div class="calendar__current">{{ monthNames[month - 1] }} {{ year }}</div>
@@ -159,6 +159,9 @@ export default {
             }, 100)
         },
         focus () {
+            this.$el.focus()
+        },
+        onFocus () {
             this.$root.$emit('tracking-event', { type: 'action', label: 'calendar', trigger: 'click' })
             this.$emit('focus')
         },
@@ -172,9 +175,11 @@ export default {
                     } else {
                         this.$emit('input', { from: day.date, to: this.value.from })
                     }
+                    this.$emit('confirm')
                 }
             } else {
                 this.$emit('input', day.date)
+                this.$emit('confirm')
             }
         },
         previousMonth () {
@@ -256,23 +261,27 @@ export default {
             }
         },
         onKeyUp (e) {
-            if (this.isRange) {
-                if (e.keyCode == 13) {
-                    if (this.value && this.value.from && !this.value.to) {
-                        this.setValue({ from: this.value.from, to: this.value.from })
-                        e.preventDefault()
-                        e.stopPropagation()
+            if (this.value) {
+                if (this.isRange) {
+                    if (e.keyCode == 13) {
+                        if (this.value.from && this.value.to) {
+                            this.$emit('confirm')
+                        } else if (!this.value.to) {
+                            this.setValue({ from: this.value.from, to: this.value.from })
+                            e.preventDefault()
+                            e.stopPropagation()
+                        }
+                    } else if (e.keyCode === 27) {
+                        if (this.value.from) {
+                            this.setValue(this.value.from && this.value.to ? { from: this.value.from } : null)
+                            e.preventDefault()
+                            e.stopPropagation()
+                        }
                     }
-                } else if (e.keyCode === 27) {
-                    if (this.value && this.value.from) {
-                        this.setValue(this.value && this.value.from && this.value.to ? { from: this.value.from } : null)
-                        e.preventDefault()
-                        e.stopPropagation()
-                    }
-                }
-            } else {
-                if (e.keyCode === 27) {
-                    if (this.value) {
+                } else {
+                    if (e.keyCode === 13) {
+                        this.$emit('confirm')
+                    } else if (e.keyCode === 27) {
                         this.setValue(null)
                         e.preventDefault()
                         e.stopPropagation()
@@ -320,6 +329,10 @@ export default {
     &__navigation-icon {
         color: @gunpowder;
         cursor: pointer;
+
+        &:hover {
+            color: black;
+        }
     }
 
     &__wrap {
@@ -364,7 +377,7 @@ export default {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        font-size: 15px;
+        font-size: 14px;
         color: @gunpowder;
         background-color: white;
         text-align: center;
@@ -374,7 +387,7 @@ export default {
         box-sizing: border-box;
 
         &--different-month {
-            color: @very-light-gray;
+            color: @bluish-gray;
         }
 
         &--in-range {

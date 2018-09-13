@@ -4,17 +4,11 @@
 
         <div ref="list" :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
             <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
-                <div class="typeahead-multiselect__tooltip-wrap">
-                    <div class="typeahead-multiselect__item-label">{{ textEllipsis(item.label) }}</div>
-                    <tooltip v-if="item.label.length > maxLength" :boundary-element="$refs.list">{{ item.label }}</tooltip>
-                </div>
+                <div class="typeahead-multiselect__item-label" @mouseenter="onHoverText($event, item.label)" @mouseleave="hideTooltip()">{{ textEllipsis(item.label) }}</div>
 
-                <div class="typeahead-multiselect__tooltip-wrap">
-                    <div class="typeahead-multiselect__item-metadata">
-                        <span class="typeahead-multiselect__item-metadata-text">{{ textEllipsis(item.metadata) }}</span>
-                        <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
-                    </div>
-                    <tooltip v-if="item.metadata.length > maxLength" :boundary-element="$refs.list">{{ item.metadata }}</tooltip>
+                <div class="typeahead-multiselect__item-metadata" @mouseenter="onHoverText($event, item.metadata)" @mouseleave="hideTooltip()">
+                    <span class="typeahead-multiselect__item-metadata-text">{{ textEllipsis(item.metadata) }}</span>
+                    <icon name="remove" class="typeahead-multiselect__item-remove" @click="removeItem(item)" />
                 </div>
             </div>
         </div>
@@ -25,6 +19,7 @@
 import Icon from './icon.vue'
 import Typeahead from './Typeahead.vue'
 import Tooltip from './Tooltip.vue'
+import TooltipMixin from '../helpers/tooltip_mixin'
 
 export default {
     components: {
@@ -32,6 +27,7 @@ export default {
         Typeahead,
         Tooltip,
     },
+    mixins: [TooltipMixin],
     props: {
         label: { type: String, required: true },
         value: { type: Array, required: true },
@@ -48,6 +44,11 @@ export default {
         }
     },
     methods: {
+        onHoverText (ev, text) {
+            if (text.length > this.maxLength) {
+                this.showTooltip(ev.target, text)
+            }
+        },
         selectItem (item) {
             this.$emit('input', this.value.concat([item]))
             this.text = ''

@@ -25,8 +25,8 @@
                         <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
-                    <div :style="{ marginTop: `${scrollableListBottomPadding}px` }" class="selectbox__scrollable-list-wrap">
-                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :bottom-padding="scrollableListBottomPadding" :size="size" theme="light" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
+                    <div class="selectbox__scrollable-list-wrap">
+                        <scrollable-list ref="list" :value="value" :items="listItems" :num-items="isSearchable ? 6 : 8" :size="size" theme="light" class="selectbox__scrollable-list" @select="selectValue" @scroll="onScroll"></scrollable-list>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@ export default {
             return this.label
         },
         selected () {
-            return itemsUtils.find(this.options, o => o.id == this.value)
+            return this.value && itemsUtils.find(this.options, o => o.id == this.value)
         },
         selectedLabelText () {
             return this.selected ? this.selected.label : this.placeholder
@@ -151,12 +151,6 @@ export default {
             })
 
             return options
-        },
-        scrollableListBottomPadding () {
-            if (this.size === 'normal') {
-                return 10
-            }
-            return 15
         },
     },
     methods: {
@@ -430,7 +424,6 @@ export default {
 
     &__scrollable-list-wrap {
         width: 100%;
-        margin-top: 10px;
     }
 }
 
@@ -501,10 +494,6 @@ export default {
         &__search-wrapper {
             margin: 10px 10px 12px 6px;
         }
-
-        &__scrollable-list-wrap {
-            margin-top: 15px;
-        }
     }
 }
 
@@ -526,10 +515,6 @@ export default {
 
         &__select-list-wrap {
             &--with-search { top: -18px; }
-        }
-
-        &__scrollable-list-wrap {
-            margin-top: 15px;
         }
     }
 }
@@ -556,6 +541,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 15px;
+
         .scrollable-list__list {
             padding-bottom: 15px;
         }
@@ -570,6 +557,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 10px;
+
         .scrollable-list__list {
             padding-bottom: 10px;
         }
@@ -584,6 +573,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 15px;
+
         .scrollable-list__list {
             padding-bottom: 15px;
         }
