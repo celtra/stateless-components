@@ -191,6 +191,7 @@ export default {
         },
         focus () {
             this.$el.focus()
+            this.isUsingKeyboard = true
         },
         move (direction) {
             if (this.flatSelectableItems.length === 0) {
