@@ -14,7 +14,7 @@
                 @click="clickItem(item.id)"
                 @mousemove="onItemHover($event, item)"
                 @mouseleave="hideTooltip">
-                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" :style="{ marginLeft: `${initialOffset + item.offset}px` }" class="default-list__item-content">
+                <div v-if="item.isLeaf || noGroupRendering" :class="item.modifiers | prefix('default-list__item-content--')" :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
                     <slot :item="item">
                         <default-list-item
                             :label="item.label"
@@ -27,7 +27,7 @@
                             theme="light" />
                     </slot>
                 </div>
-                <div v-else :style="{ marginLeft: `${initialOffset + item.offset}px` }" class="default-list__item-content">
+                <div v-else :style="item.offset > 0 ? { paddingLeft: `${item.offset}px` } : {}" class="default-list__item-content">
                     <slot :item="item" name="group">
                         <div v-if="item.label" class="default-list__group">{{ item.label }}</div>
                     </slot>
@@ -100,7 +100,7 @@ export default {
             return this.flatItems.map(item => {
                 return {
                     ...item,
-                    offset: this.getOffset(item),
+                    offset: this.initialOffset + this.getOffset(item),
                     height: this.transitionSorting ? (item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight) : null,
                     modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
                 }

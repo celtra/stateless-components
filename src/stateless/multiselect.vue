@@ -8,7 +8,7 @@
             No items
         </div>
         <div v-else class="multiselect__options">
-            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
+            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                 <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                     <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
                         <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
@@ -71,6 +71,7 @@ export default {
         showListOverlay: { type: Boolean, default: false },
         areGroupsSelectable: { type: Boolean, default: false },
         transitionSorting: { type: Boolean, default: true },
+        initialOffset: { type: Number, default: 0 },
         getOptions: { type: Function, required: false },
         label: { type: String, default: 'Search' },
         theme: { type: String, default: 'dark' },
