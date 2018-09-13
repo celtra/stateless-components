@@ -320,21 +320,18 @@ export default {
 
 .default-list--condensed {
     .default-list__group {
-        // padding-top: 5px;
         height: 20px;
     }
 }
 
 .default-list--normal {
     .default-list__group {
-        // padding-top: 10px;
         height: 30px;
     }
 }
 
 .default-list--phat {
     .default-list__group {
-        // padding-top: 10px;
         height: 30px;
     }
 }
