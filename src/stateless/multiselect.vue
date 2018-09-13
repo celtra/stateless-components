@@ -12,7 +12,7 @@
                 <div v-if="canSelectAndClearAll" slot="before" class="multiselect__change-multiple">
                     <checkbox-element :value="changeMultipleState" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
                         <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
-                        <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
+                        <span v-else class="multiselect__select-all-label">Clear all</span>
                     </checkbox-element>
                 </div>
                 <div v-else-if="canClearAll" slot="before" class="multiselect__change-multiple">
@@ -20,7 +20,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" class="multiselect__clear-all-icon">
                             <polygon points="6.4 0 4 2.4 1.6 0 0 1.6 2.4 4 0 6.4 1.6 8 4 5.6 6.4 8 8 6.4 5.6 4 8 1.6"/>
                         </svg>
-                        <span class="multiselect__clear-all-text">Clear all ({{ value.length }})</span>
+                        <span class="multiselect__clear-all-text">Clear all</span>
                     </div>
                 </div>
                 <div slot-scope="{ item }" style="width: 100%;">
@@ -330,11 +330,11 @@ export default {
 
     &__select-all-label {
         color: @bluish-gray;
-        font-size: 11px;
+        font-size: 12px;
     }
 
     &__clear-all {
-        font-size: 11px;
+        font-size: 12px;
         cursor: pointer;
         display: flex;
         align-items: center;
