@@ -10,7 +10,7 @@
         <div v-else class="multiselect__options">
             <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                 <div v-if="canSelectAndClearAll || canClearAll" slot="before" class="multiselect__change-multiple">
-                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
+                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
                         <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
                         <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
                     </checkbox-element>
@@ -326,31 +326,6 @@ export default {
         font-size: 12px;
     }
 
-    &__clear-all {
-        font-size: 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-
-        &:focus {
-            outline: none;
-            color: black;
-        }
-    }
-
-    &__clear-all-text {
-        margin-top: 3px;
-        margin-left: 6px;
-    }
-
-    &__clear-all-icon {
-        width: 7px;
-        height: 7px;
-        margin-top: 3px;
-        fill: @bluish-gray;
-    }
-
     &__no-items {
         display: flex;
         align-items: center;
@@ -372,27 +347,11 @@ export default {
     .multiselect__no-items {
         color: @gray-blue;
     }
-
-    .multiselect__clear-all {
-        color: @gunpowder;
-
-        &:focus, &:hover {
-            color: black;
-        }
-    }
 }
 
 .multiselect--dark.multiselect--dark {
   .multiselect__no-items {
       color: @gunpowder;
-  }
-
-  .multiselect__clear-all {
-      color: @very-light-gray;
-
-      &:focus, &:hover {
-          color: white;
-      }
   }
 }
 </style>
