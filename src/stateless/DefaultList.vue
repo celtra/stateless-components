@@ -191,7 +191,7 @@ export default {
         },
         focus () {
             this.$el.focus()
-            this.isUsingKeyboard = true
+            this.startUsingKeyboard()
         },
         move (direction) {
             if (this.flatSelectableItems.length === 0) {
@@ -199,12 +199,7 @@ export default {
             }
 
             if (!this.isUsingKeyboard) {
-                this.isUsingKeyboard = true
-
-                let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
-                if (!activeItem) {
-                    this.activeId = this.getDefaultActiveId()
-                }
+                this.startUsingKeyboard()
             } else {
                 const findId = this.activeId || this.value
                 let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
@@ -220,6 +215,14 @@ export default {
             }
 
             this.$emit('activate', this.activeId)
+        },
+        startUsingKeyboard () {
+            this.isUsingKeyboard = true
+
+            let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+            if (!activeItem) {
+                this.activeId = this.getDefaultActiveId()
+            }
         },
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
