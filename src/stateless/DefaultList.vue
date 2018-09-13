@@ -308,7 +308,7 @@ export default {
 
 .default-list--dark {
     .default-list__item--active {
-        background-color: @very-dark-gray;
+        background-color: @white-smoke;
     }
 }
 
