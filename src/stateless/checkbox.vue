@@ -97,7 +97,7 @@ export default {
         toggle (ev) {
             if (!this.disabled) {
                 this.$emit('focus')
-                this.$emit('input', !this.value)
+                this.$emit('input', this.value === true || this.value === null ? false : true)
                 this.focused = false
             }
         },
