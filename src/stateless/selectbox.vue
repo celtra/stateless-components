@@ -424,7 +424,6 @@ export default {
 
     &__scrollable-list-wrap {
         width: 100%;
-        margin-top: 15px;
     }
 }
 
@@ -542,6 +541,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 15px;
+
         .scrollable-list__list {
             padding-bottom: 15px;
         }
@@ -556,6 +557,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 10px;
+
         .scrollable-list__list {
             padding-bottom: 10px;
         }
@@ -570,6 +573,8 @@ export default {
     }
 
     .selectbox__scrollable-list {
+        margin-top: 15px;
+
         .scrollable-list__list {
             padding-bottom: 15px;
         }
