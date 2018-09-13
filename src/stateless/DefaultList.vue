@@ -200,6 +200,11 @@ export default {
 
             if (!this.isUsingKeyboard) {
                 this.isUsingKeyboard = true
+
+                let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+                if (!activeItem) {
+                    this.activeId = this.getDefaultActiveId()
+                }
             } else {
                 const findId = this.activeId || this.value
                 let activeIndex = this.flatSelectableItems.findIndex(x => x.key === findId || x.key === 'S_' + findId || x.id === findId)
