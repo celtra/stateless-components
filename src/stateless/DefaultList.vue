@@ -317,7 +317,7 @@ export default {
 
 .default-list--dark {
     .default-list__item--active {
-        background-color: @white-smoke;
+        background-color: @very-dark-gray;
     }
 }
 

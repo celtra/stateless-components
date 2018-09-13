@@ -121,7 +121,7 @@ export default {
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             transform: scale3d(1.25, 1.25, 1);
-            border-color: @very-light-gray;
+            stroke: @very-light-gray;
         }
 
         .checkbox-element__check:not(.checkbox-element__check--disabled) {
@@ -167,7 +167,7 @@ export default {
         }
 
         &--disabled {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
     }
 
@@ -421,12 +421,12 @@ export default {
     }
 
     .checkbox-element__square--disabled {
-        border-color: @very-light-gray;
+        stroke: @very-light-gray;
     }
 
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
 
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
@@ -446,7 +446,7 @@ export default {
 
     .checkbox-element--focused, &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
-            border-color: @gunpowder;
+            stroke: @gunpowder;
         }
 
         .checkbox-element__label-text:not(.checkbox-element__label-text--disabled) {
