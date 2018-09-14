@@ -1,17 +1,47 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)" @click="$refs.list && $refs.list.focus()">
         <div v-if="isSearchable" class="multiselect__search-with-icon" @click.stop>
-            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
+            <search-input
+                v-model="searchQuery"
+                :label="label"
+                :is-loading="isLoading"
+                :theme="theme"
+                :size="searchSize || size"
+                @keyup.down="$refs.list && $refs.list.focus()"
+                @keyup="$emit('keyup', $event)" />
         </div>
 
         <div v-if="listItems.length === 0" class="multiselect__options multiselect__no-items">
             No items
         </div>
         <div v-else class="multiselect__options">
-            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
-                <checkbox-element v-if="canSelectAndClearAll || canClearAll" slot="sticky" :value="changeMultipleState" :disabled="!canSelectAndClearAll && enabledValueLength.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple">
-                    <span v-if="changeMultipleState === false" class="multiselect__change-multiple-label">Select all</span>
-                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ value.length }})</span>
+            <scrollable-list
+                ref="list"
+                :items="listItems"
+                :num-items="numItems"
+                :theme="theme"
+                :transition-sorting="transitionSorting && !disableTransition"
+                :no-group-rendering="areGroupsSelectable"
+                :initial-offset="initialOffset"
+                :set-active-on-hover="false"
+                :enable-scroll-top="true"
+                :show-overlay="true || showListOverlay"
+                class="multiselect__default-list"
+                @select="onSelect"
+                @load-more="loadAsyncOptions">
+
+                <checkbox-element
+                    v-if="canSelectAndClearAll || canClearAll"
+                    slot="sticky"
+                    :value="enabledValueLength === 0 ? false : enabledValueLength === allPossibleIds.length ? true : null"
+                    :disabled="!canSelectAndClearAll && enabledValueLength.length === 0"
+                    :size="size"
+                    :theme="theme"
+                    class="multiselect__select-all"
+                    @input="setMultiple">
+
+                    <span v-if="enabledValueLength === 0" class="multiselect__change-multiple-label">Select all</span>
+                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ enabledValueLength.length }})</span>
                 </checkbox-element>
 
                 <div slot-scope="{ item }" style="width: 100%;">
@@ -118,9 +148,6 @@ export default {
         },
         enabledValueLength () {
             return this.value.length - this.disabledValueIds.length
-        },
-        changeMultipleState () {
-            return this.enabledValueLength === 0 ? false : this.enabledValueLength === this.allPossibleIds.length ? true : null
         },
         listItems () {
             let result = this.allOptions
