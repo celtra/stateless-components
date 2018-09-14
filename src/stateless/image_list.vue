@@ -367,6 +367,8 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
+
 .image-list {
     &__items {
         pointer-events: none;

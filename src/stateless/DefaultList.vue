@@ -254,6 +254,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 * {
     box-sizing: border-box;
