@@ -47,6 +47,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 .hover-tooltip {
     position: absolute;

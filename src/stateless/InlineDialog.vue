@@ -9,6 +9,8 @@
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
+
 .inline-dialog {
     position: absolute;
     width: 340px;

@@ -300,6 +300,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 @day-size: 46px;
 @width: @day-size * 7;
