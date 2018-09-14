@@ -190,7 +190,7 @@ export default {
             this.$refs.list.focus()
         },
         setMultiple (value) {
-            let ids = value ? this.disabledValueIds.concat(this.allPossibleIds) : this.disabledValueIds
+            const ids = value ? this.disabledValueIds.concat(this.allPossibleIds) : this.disabledValueIds
             this.disableTransition = true
             this.$emit('input', ids)
             this.$refs.list.focus()
