@@ -291,7 +291,7 @@ export default {
 
 .new-dialog--light {
     .new-dialog__overlay {
-        background-color: @pale-white;
+        background-color: @opacity-white;
     }
 }
 </style>
