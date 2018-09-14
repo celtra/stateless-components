@@ -9,12 +9,11 @@
         </div>
         <div v-else class="multiselect__options">
             <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
-                <div v-if="canSelectAndClearAll || canClearAll" slot="before" class="multiselect__change-multiple">
-                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
-                        <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
-                        <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
-                    </checkbox-element>
-                </div>
+                <checkbox-element v-if="canSelectAndClearAll || canClearAll" slot="sticky" :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__change-multiple" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
+                    <span v-if="changeMultipleState === false" class="multiselect__change-multiple-label">Select all</span>
+                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ value.length }})</span>
+                </checkbox-element>
+
                 <div slot-scope="{ item }" style="width: 100%;">
                     <checkbox-element
                         :disabled="item.disabled"
@@ -305,23 +304,14 @@ export default {
         clip-path: inset(0px 0px 0px 0px);
     }
 
-    &__change-multiple {
-        flex: none;
-        z-index: @z-lowest;
-        position: relative;
+    .multiselect__change-multiple.multiselect__change-multiple {
         height: 24px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .multiselect__select-all.multiselect__select-all {
         margin-top: 0;
         display: flex;
         align-items: center;
     }
 
-    &__select-all-label {
+    &__change-multiple-label {
         color: @bluish-gray;
         font-size: 12px;
     }

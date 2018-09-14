@@ -72,7 +72,6 @@ export default {
         highlightQuery: { type: String },
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
-        listContainer: { type: HTMLElement, default: null },
         setActiveOnHover: { type: Boolean, default: true },
         initialOffset: { type: Number, default: 0 },
     },

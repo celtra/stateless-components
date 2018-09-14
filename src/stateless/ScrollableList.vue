@@ -1,8 +1,12 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
-            <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
-
+            <div class="scrollable-list__sticky">
+                <div class="scrollable-list__sticky-slot">
+                    <slot name="sticky"></slot>
+                </div>
+                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
+            </div>
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     ref="list"
@@ -15,7 +19,6 @@
                     :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
-                    :list-container="$refs.scrollable"
                     :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
@@ -165,6 +168,13 @@ export default {
         overflow: hidden;
     }
 
+    &__sticky {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: calc(100% - @scrollbar-width - 1px);
+    }
+
     &__list {
         overflow-y: auto;
         overscroll-behavior: contain;
@@ -181,15 +191,8 @@ export default {
     }
 
     &__scroll-top {
-        position: absolute;
-        top: 0;
-        right: @scrollbar-width + 1;
-        padding: 1px 3px;
         font-size: 11px;
-        line-height: 12px;
-        border-radius: 0 0 5px 5px;
         color: @bluish-gray;
-        z-index: @z-middle;
         cursor: pointer;
 
         &:focus {
