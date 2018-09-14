@@ -147,22 +147,9 @@ export default {
 }
 </script>
 
-<style lang="less">
-.date-picker {
-    &__popup {
-        .input-field__overlay {
-            display: none;
-        }
-
-        .input-field__label-text {
-            visibility: hidden;
-        }
-    }
-}
-</style>
-
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 .date-picker {
     width: 100%;
@@ -291,6 +278,20 @@ export default {
     .date-picker__date {
         color: @gunpowder;
         border-bottom: 2px solid @very-light-gray;
+    }
+}
+</style>
+
+<style lang="less">
+.date-picker {
+    &__popup {
+        .input-field__overlay {
+            display: none;
+        }
+
+        .input-field__label-text {
+            visibility: hidden;
+        }
     }
 }
 </style>
