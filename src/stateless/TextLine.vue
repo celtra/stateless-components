@@ -14,7 +14,6 @@
 
 <script>
 import { getTextHighlightParts } from './string_utils.js'
-import Tooltip from './Tooltip.vue'
 import TooltipMixin from '../helpers/tooltip_mixin'
 
 function endEllipsis (value, length) {
@@ -35,9 +34,6 @@ function middleEllipsis (value, breakAt, middle = breakAt / 2) {
 }
 
 export default {
-    components: {
-        Tooltip,
-    },
     mixins: [TooltipMixin],
     props: {
         theme: { type: String, default: 'dark' },
