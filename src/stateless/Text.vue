@@ -1,7 +1,14 @@
 <template>
     <div ref="middle-ellipsis" class="middle-ellipsis">
         <div ref="measurement-width" class="middle-ellipsis__measurement">{{ text }}</div>
-        <div :title="text" class="middle-ellipsis__text">{{ truncatedText }}</div>
+        <div :title="text" class="middle-ellipsis__text">
+            <template v-if="highlightQuery">
+                <span v-for="(part, index) in getParts(text)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
+            </template>
+            <template v-else>
+                {{ truncatedText }}
+            </template>
+        </div>
     </div>
 </template>
 
