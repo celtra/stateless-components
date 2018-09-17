@@ -15,9 +15,7 @@
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
 
-            <slot slot="before" name="before" />
-            <slot slot="left" name="left" />
-            <slot slot="right" name="right" />
+            <icon slot="before" name="calendar" />
         </date-input>
 
         <div :class="{'date-range-input__separator--with-margin': !!separator}" class="date-range-input__separator">{{ separator }}</div>
@@ -37,9 +35,7 @@
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
 
-            <slot slot="before" name="before" />
-            <slot slot="left" name="left" />
-            <slot slot="right" name="right" />
+            <icon slot="before" name="calendar" />
         </date-input>
     </div>
 </template>
