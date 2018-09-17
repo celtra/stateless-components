@@ -1,6 +1,6 @@
 <template>
     <div ref="tooltip" :style="transform ? { transform: transform } : {}" :class="[theme, { visible: show, hoverable: isRelative }] | prefix('hover-tooltip--')" class="hover-tooltip" @animationstart="onAnimationStart">
-        <p v-if="title" class="hover-tooltip__title">{{ title }}</p>
+        <p v-if="title" :class="{ 'hover-tooltip__title--no-slot': !$slots.default }" class="hover-tooltip__title">{{ title }}</p>
         <slot></slot>
     </div>
 </template>
@@ -73,6 +73,10 @@ export default {
         font-weight: bold;
         margin: 0;
         margin-bottom: 5px;
+
+        &--no-slot {
+            margin-bottom: 0;
+        }
     }
 
     &--dark {
