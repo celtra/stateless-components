@@ -115,12 +115,22 @@ export default {
                 return this.searchQueryData
             },
             set (v) {
+                const canDisableTransition = this.allOptions.length > this.numItems
+                if (canDisableTransition) {
+                    this.disableTransition = true
+                }
                 this.searchQueryData = v
                 this.getOptionsPage = 0
                 this.gotAllOptions = false
                 this.isLoading = false
                 this.$emit('search', v)
                 this.debouncedLoadAsyncOptions()
+
+                if (canDisableTransition) {
+                    this.$nextTick(() => {
+                        this.disableTransition = false
+                    })
+                }
             },
         },
         allOptions () {
