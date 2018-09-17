@@ -14,6 +14,10 @@
             @input="onFromInput"
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
+
+            <slot slot="before" name="before" />
+            <slot slot="left" name="left" />
+            <slot slot="right" name="right" />
         </date-input>
 
         <div :class="{'date-range-input__separator--with-margin': !!separator}" class="date-range-input__separator">{{ separator }}</div>
@@ -32,16 +36,22 @@
             @input="onToInput"
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
+
+            <slot slot="before" name="before" />
+            <slot slot="left" name="left" />
+            <slot slot="right" name="right" />
         </date-input>
     </div>
 </template>
 
 <script>
 import DateInput from './DateInput.vue'
+import Icon from './icon.vue'
 
 export default {
     components: {
         DateInput,
+        Icon,
     },
     props: {
         theme: { type: String, default: 'dark' },
