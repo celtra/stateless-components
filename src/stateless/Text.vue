@@ -1,8 +1,8 @@
 <template>
-    <div ref="middle-ellipsis" class="middle-ellipsis">
+    <div ref="middle-ellipsis" class="middle-ellipsis" @mousemove="onHover" @mouseleave="hideTooltip">
         <div ref="measurement-width" class="middle-ellipsis__measurement">{{ text }}</div>
         <div :title="text" class="middle-ellipsis__text">
-            <template v-if="highlightQuery">
+            <template v-if="highlightText">
                 <span v-for="(part, index) in getParts(text)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
             </template>
             <template v-else>
@@ -13,6 +13,15 @@
 </template>
 
 <script>
+import { getTextHighlightParts } from './string_utils.js'
+import Tooltip from './Tooltip.vue'
+import TooltipMixin from '../helpers/tooltip_mixin'
+
+function endEllipsis (value, length) {
+    const ellipsisLength = 3
+    return value.substring(0, length - ellipsisLength) + '…'
+}
+
 function middleEllipsis (value, breakAt, middle = breakAt / 2) {
     if (value.length > breakAt) {
         const ellipsisLength = 4
@@ -26,35 +35,60 @@ function middleEllipsis (value, breakAt, middle = breakAt / 2) {
 }
 
 export default {
+    components: {
+        Tooltip,
+    },
+    mixins: [TooltipMixin],
     props: {
+        theme: { type: String, default: 'dark' },
         text: { type: String },
-        truncate: { type: Boolean, default: false },
+        tooltipText: { type: String, required: false },
+        tooltipTitle: { type: String, required: false },
+        truncate: { type: Boolean, default: true },
         truncateMiddle: { type: Boolean, default: false },
         highlightText: { type: String, required: false },
     },
     data () {
         return {
+            width: 0,
             actualWidth: 0,
         }
     },
     computed: {
+        maximumLength () {
+            if (this.actualWidth > 0 && this.width < this.actualWidth) {
+                const ratio = this.width / this.actualWidth
+                return Math.floor(this.text.length * ratio)
+            }
+            return this.text.length
+        },
         truncatedText () {
-            const length = this.text.length
-            if (this.actualWidth > 0 && length > 4) {
-                const percent = this.width / this.actualWidth
-                const breakAt = Math.floor(length * percent)
-
-                if (percent < 1) {
-                    return middleEllipsis(this.text, breakAt)
+            if (this.maximumLength < this.text.length) {
+                if (this.truncateMiddle) {
+                    return middleEllipsis(this.text, this.maximumLength)
+                } else if (this.truncate) {
+                    return endEllipsis(this.text, this.maximumLength)
                 }
             }
-
             return this.text
+        },
+        isTooltipAvailable () {
+            return this.tooltipText || this.tooltipTitle || this.maximumLength < this.text.length
         },
     },
     mounted () {
         this.width = parseInt(window.getComputedStyle(this.$refs['middle-ellipsis']).width, 10)
         this.actualWidth = parseInt(window.getComputedStyle(this.$refs['measurement-width']).width, 10)
+    },
+    methods: {
+        onHover () {
+            if (this.isTooltipAvailable) {
+                this.showTooltip(this.$el, this.tooltipText, this.tooltipTitle || this.text)
+            }
+        },
+        getParts (text) {
+            return getTextHighlightParts(text, this.highlightText)
+        },
     },
 }
 </script>
@@ -62,6 +96,7 @@ export default {
 <style lang="less" scoped>
 .middle-ellipsis {
     width: 100%;
+    position: relative;
 
     &__measurement {
         position: absolute;
@@ -74,6 +109,7 @@ export default {
     &__text {
         white-space: nowrap;
         overflow: hidden;
+        cursor: default;
     }
 }
 </style>
