@@ -1,7 +1,7 @@
 <template>
-    <div ref="middle-ellipsis" class="middle-ellipsis" @mousemove="onHover" @mouseleave="hideTooltip">
-        <div ref="measurement-width" class="middle-ellipsis__measurement">{{ text }}</div>
-        <div :title="text" class="middle-ellipsis__text">
+    <div class="text-line" @mousemove="onHover" @mouseleave="hideTooltip">
+        <div ref="measurement" class="text-line__measurement">{{ text }}</div>
+        <div class="text-line__text">
             <template v-if="highlightText">
                 <span v-for="(part, index) in getParts(text)" :key="index" :style="part.bold ? { fontWeight: 'bold' } : {}">{{ part.text }}</span>
             </template>
@@ -77,8 +77,8 @@ export default {
         },
     },
     mounted () {
-        this.width = parseInt(window.getComputedStyle(this.$refs['middle-ellipsis']).width, 10)
-        this.actualWidth = parseInt(window.getComputedStyle(this.$refs['measurement-width']).width, 10)
+        this.width = parseInt(window.getComputedStyle(this.$el).width, 10)
+        this.actualWidth = parseInt(window.getComputedStyle(this.$refs.measurement).width, 10)
     },
     methods: {
         onHover () {
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.middle-ellipsis {
+.text-line {
     width: 100%;
     position: relative;
 
