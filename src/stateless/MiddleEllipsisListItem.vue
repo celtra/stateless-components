@@ -27,6 +27,7 @@ export default {
 
 <style lang="less">
 @import (reference) './common';
+@import './typography';
 
 .middle-ellipsis-list-item {
     width: 100%;

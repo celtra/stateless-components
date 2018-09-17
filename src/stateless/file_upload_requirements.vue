@@ -17,6 +17,7 @@ export default {
 
 <style scoped lang="less">
 @import (reference) './common';
+@import './typography';
 
 .file-upload-requirements {
     color: @dolphin;

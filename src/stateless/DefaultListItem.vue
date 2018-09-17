@@ -112,6 +112,7 @@ export default {
 
 <style lang="less">
 @import (reference) './common';
+@import './typography';
 
 .default-list-item {
     width: 100%;

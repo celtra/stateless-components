@@ -148,6 +148,7 @@ export default {
 
 <style scoped lang="less">
 @import (reference) './common';
+@import './typography';
 
 @open-close-animation-time-background: 0.27s;
 @close-animation-time-background-delay: 0.27s;

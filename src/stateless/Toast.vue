@@ -52,6 +52,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 @slide-in-out-animation-time: 0.4s;
 

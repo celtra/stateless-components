@@ -99,6 +99,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 .support-text {
     position: relative;

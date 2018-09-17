@@ -80,6 +80,7 @@ export default {
 
 <style scoped lang="less">
 @import (reference) './common';
+@import './typography';
 
 .drop-area__overlay {
     position: absolute;

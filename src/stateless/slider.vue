@@ -237,6 +237,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 @opening-animation-time-content: 0.2s;
 
