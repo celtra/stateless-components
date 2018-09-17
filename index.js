@@ -5871,7 +5871,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Tooltip_vue__ = __webpack_require__(95);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_80b2afe0_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_900214f8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__ = __webpack_require__(368);
 function injectStyle (ssrContext) {
   __webpack_require__(366)
 }
@@ -5886,12 +5886,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-80b2afe0"
+var __vue_scopeId__ = "data-v-900214f8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Tooltip_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_80b2afe0_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_900214f8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tooltip_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -21226,6 +21226,7 @@ function getTextHighlightParts(text, query) {
             el: container,
             data: function data() {
                 return {
+                    theme: 'dark',
                     target: null,
                     text: null,
                     title: null
@@ -21256,6 +21257,7 @@ function getTextHighlightParts(text, query) {
             },
             render: function render(h) {
                 var props = {
+                    theme: this.theme,
                     isRelative: false,
                     title: this.title,
                     show: !!this.target
@@ -21263,6 +21265,17 @@ function getTextHighlightParts(text, query) {
                 return h(__WEBPACK_IMPORTED_MODULE_1__stateless_Tooltip_vue__["a" /* default */], { props: props }, [this._v(this.text || '')]);
             }
         });
+    },
+    created: function created() {
+        if (this.theme) {
+            this._tooltipVm.theme = this.theme;
+        }
+    },
+
+    watch: {
+        theme: function theme(v) {
+            this._tooltipVm.theme = v;
+        }
     },
     beforeDestroy: function beforeDestroy() {
         this._tooltipVm.$el.remove();
@@ -38757,7 +38770,7 @@ var content = __webpack_require__(367);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("adb93ee4", content, true, {});
+var update = __webpack_require__(2)("5ee63bd8", content, true, {});
 
 /***/ }),
 /* 367 */
@@ -38768,7 +38781,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.hover-tooltip[data-v-80b2afe0] {\n  position: absolute;\n  visibility: hidden;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: left;\n  padding: 10px 15px;\n  z-index: 6000;\n  max-width: 460px;\n  word-wrap: break-word;\n  font-family: \"SF UI Text Regular\";\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-transition: -webkit-transform 200ms ease;\n  transition: -webkit-transform 200ms ease;\n  transition: transform 200ms ease;\n  transition: transform 200ms ease, -webkit-transform 200ms ease;\n}\n.hover-tooltip__title[data-v-80b2afe0] {\n  font-weight: bold;\n  margin: 0;\n  margin-bottom: 5px;\n}\n.hover-tooltip[data-v-80b2afe0]:hover,\n:hover > .hover-tooltip--hoverable[data-v-80b2afe0],\n.hover-tooltip--visible[data-v-80b2afe0] {\n  -webkit-animation: 0.2s fadeIn-data-v-80b2afe0;\n          animation: 0.2s fadeIn-data-v-80b2afe0;\n  -webkit-animation-delay: 0.8s;\n          animation-delay: 0.8s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-80b2afe0 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-80b2afe0 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Tooltip.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,6DAA6D;CAC9D;AACD;EACE,oCAAoC;EACpC,4DAA4D;CAC7D;AACD;EACE,kCAAkC;EAClC,0DAA0D;CAC3D;AACD;EACE,iCAAiC;EACjC,yDAAyD;CAC1D;AACD;EACE,mCAAmC;EACnC,2DAA2D;CAC5D;AACD;EACE,mBAAmB;EACnB,mBAAmB;EACnB,WAAW;EACX,UAAU;EACV,UAAU;EACV,eAAe;EACf,0BAA0B;EAC1B,mBAAmB;EACnB,gBAAgB;EAChB,iBAAiB;EACjB,mBAAmB;EACnB,cAAc;EACd,iBAAiB;EACjB,sBAAsB;EACtB,kCAAkC;EAClC,oCAAoC;EACpC,mCAAmC;EACnC,iDAAiD;EACjD,yCAAyC;EACzC,iCAAiC;EACjC,+DAA+D;CAChE;AACD;EACE,kBAAkB;EAClB,UAAU;EACV,mBAAmB;CACpB;AACD;;;EAGE,+CAA+C;UACvC,uCAAuC;EAC/C,8BAA8B;UACtB,sBAAsB;EAC9B,sCAAsC;UAC9B,8BAA8B;CACvC;AACD;AACA;IACI,mBAAmB;IACnB,WAAW;CACd;AACD;IACI,oBAAoB;IACpB,WAAW;CACd;CACA;AACD;AACA;IACI,mBAAmB;IACnB,WAAW;CACd;AACD;IACI,oBAAoB;IACpB,WAAW;CACd;CACA","file":"Tooltip.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.hover-tooltip[data-v-80b2afe0] {\n  position: absolute;\n  visibility: hidden;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: left;\n  padding: 10px 15px;\n  z-index: 6000;\n  max-width: 460px;\n  word-wrap: break-word;\n  font-family: \"SF UI Text Regular\";\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-transition: -webkit-transform 200ms ease;\n  transition: -webkit-transform 200ms ease;\n  transition: transform 200ms ease;\n  transition: transform 200ms ease, -webkit-transform 200ms ease;\n}\n.hover-tooltip__title[data-v-80b2afe0] {\n  font-weight: bold;\n  margin: 0;\n  margin-bottom: 5px;\n}\n.hover-tooltip[data-v-80b2afe0]:hover,\n:hover > .hover-tooltip--hoverable[data-v-80b2afe0],\n.hover-tooltip--visible[data-v-80b2afe0] {\n  -webkit-animation: 0.2s fadeIn-data-v-80b2afe0;\n          animation: 0.2s fadeIn-data-v-80b2afe0;\n  -webkit-animation-delay: 0.8s;\n          animation-delay: 0.8s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-80b2afe0 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-80b2afe0 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.hover-tooltip[data-v-900214f8] {\n  position: absolute;\n  visibility: hidden;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: left;\n  padding: 10px 15px;\n  z-index: 6000;\n  max-width: 460px;\n  word-wrap: break-word;\n  font-family: \"SF UI Text Regular\";\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-transition: -webkit-transform 200ms ease;\n  transition: -webkit-transform 200ms ease;\n  transition: transform 200ms ease;\n  transition: transform 200ms ease, -webkit-transform 200ms ease;\n}\n.hover-tooltip__title[data-v-900214f8] {\n  font-weight: bold;\n  margin: 0;\n  margin-bottom: 5px;\n}\n.hover-tooltip--dark[data-v-900214f8] {\n  color: #444450;\n  background-color: white;\n}\n.hover-tooltip[data-v-900214f8]:hover,\n:hover > .hover-tooltip--hoverable[data-v-900214f8],\n.hover-tooltip--visible[data-v-900214f8] {\n  -webkit-animation: 0.2s fadeIn-data-v-900214f8;\n          animation: 0.2s fadeIn-data-v-900214f8;\n  -webkit-animation-delay: 0.8s;\n          animation-delay: 0.8s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-900214f8 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-900214f8 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Tooltip.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,6DAA6D;CAC9D;AACD;EACE,oCAAoC;EACpC,4DAA4D;CAC7D;AACD;EACE,kCAAkC;EAClC,0DAA0D;CAC3D;AACD;EACE,iCAAiC;EACjC,yDAAyD;CAC1D;AACD;EACE,mCAAmC;EACnC,2DAA2D;CAC5D;AACD;EACE,mBAAmB;EACnB,mBAAmB;EACnB,WAAW;EACX,UAAU;EACV,UAAU;EACV,eAAe;EACf,0BAA0B;EAC1B,mBAAmB;EACnB,gBAAgB;EAChB,iBAAiB;EACjB,mBAAmB;EACnB,cAAc;EACd,iBAAiB;EACjB,sBAAsB;EACtB,kCAAkC;EAClC,oCAAoC;EACpC,mCAAmC;EACnC,iDAAiD;EACjD,yCAAyC;EACzC,iCAAiC;EACjC,+DAA+D;CAChE;AACD;EACE,kBAAkB;EAClB,UAAU;EACV,mBAAmB;CACpB;AACD;EACE,eAAe;EACf,wBAAwB;CACzB;AACD;;;EAGE,+CAA+C;UACvC,uCAAuC;EAC/C,8BAA8B;UACtB,sBAAsB;EAC9B,sCAAsC;UAC9B,8BAA8B;CACvC;AACD;AACA;IACI,mBAAmB;IACnB,WAAW;CACd;AACD;IACI,oBAAoB;IACpB,WAAW;CACd;CACA;AACD;AACA;IACI,mBAAmB;IACnB,WAAW;CACd;AACD;IACI,oBAAoB;IACpB,WAAW;CACd;CACA","file":"Tooltip.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.hover-tooltip[data-v-900214f8] {\n  position: absolute;\n  visibility: hidden;\n  opacity: 0;\n  top: 100%;\n  left: 0px;\n  color: #ffffff;\n  background-color: #444450;\n  border-radius: 3px;\n  font-size: 11px;\n  text-align: left;\n  padding: 10px 15px;\n  z-index: 6000;\n  max-width: 460px;\n  word-wrap: break-word;\n  font-family: \"SF UI Text Regular\";\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-transition: -webkit-transform 200ms ease;\n  transition: -webkit-transform 200ms ease;\n  transition: transform 200ms ease;\n  transition: transform 200ms ease, -webkit-transform 200ms ease;\n}\n.hover-tooltip__title[data-v-900214f8] {\n  font-weight: bold;\n  margin: 0;\n  margin-bottom: 5px;\n}\n.hover-tooltip--dark[data-v-900214f8] {\n  color: #444450;\n  background-color: white;\n}\n.hover-tooltip[data-v-900214f8]:hover,\n:hover > .hover-tooltip--hoverable[data-v-900214f8],\n.hover-tooltip--visible[data-v-900214f8] {\n  -webkit-animation: 0.2s fadeIn-data-v-900214f8;\n          animation: 0.2s fadeIn-data-v-900214f8;\n  -webkit-animation-delay: 0.8s;\n          animation-delay: 0.8s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n@-webkit-keyframes fadeIn-data-v-900214f8 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-900214f8 {\n0% {\n    visibility: hidden;\n    opacity: 0;\n}\n100% {\n    visibility: visible;\n    opacity: 1;\n}\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38778,7 +38791,7 @@ exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"tooltip",staticClass:"hover-tooltip",class:_vm._f("prefix")({ visible: _vm.show, hoverable: _vm.isRelative },'hover-tooltip--'),style:(_vm.transform ? { transform: _vm.transform } : {}),on:{"animationstart":_vm.onAnimationStart}},[(_vm.title)?_c('p',{staticClass:"hover-tooltip__title"},[_vm._v(_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),_vm._t("default")],2)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"tooltip",staticClass:"hover-tooltip",class:_vm._f("prefix")([_vm.theme, { visible: _vm.show, hoverable: _vm.isRelative }],'hover-tooltip--'),style:(_vm.transform ? { transform: _vm.transform } : {}),on:{"animationstart":_vm.onAnimationStart}},[(_vm.title)?_c('p',{staticClass:"hover-tooltip__title"},[_vm._v(_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),_vm._t("default")],2)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

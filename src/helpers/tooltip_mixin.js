@@ -11,6 +11,7 @@ export default {
             el: container,
             data () {
                 return {
+                    theme: 'dark',
                     target: null,
                     text: null,
                     title: null,
@@ -40,6 +41,7 @@ export default {
             },
             render (h) {
                 const props = {
+                    theme: this.theme,
                     isRelative: false,
                     title: this.title,
                     show: !!this.target,
@@ -47,6 +49,16 @@ export default {
                 return h(Tooltip, { props }, [this._v(this.text || '')])
             },
         })
+    },
+    created () {
+        if (this.theme) {
+            this._tooltipVm.theme = this.theme
+        }
+    },
+    watch: {
+        theme (v) {
+            this._tooltipVm.theme = v
+        },
     },
     beforeDestroy () {
         this._tooltipVm.$el.remove()
