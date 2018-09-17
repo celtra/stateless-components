@@ -178,6 +178,7 @@ export default {
 
     &__list {
         overflow-y: auto;
+        overflow-x: hidden;
         overscroll-behavior: contain;
 
         &--with-overlay {
