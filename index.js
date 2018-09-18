@@ -6255,91 +6255,79 @@ function getTextHighlightParts(text, query) {
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({
-    beforeCreate: function beforeCreate() {
-        var body = document.getElementsByTagName('body')[0];
-        var container = document.createElement('div');
-        body.appendChild(container);
-
-        this._tooltipVm = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
-            el: container,
-            data: function data() {
-                return {
-                    theme: 'dark',
-                    target: null,
-                    text: null,
-                    title: null
-                };
-            },
-            mounted: function mounted() {
-                var tooltipElement = this.$children[0].$el;
-                tooltipElement.style.top = tooltipElement.style.left = '0';
-                this.intervalId = setInterval(this.updatePosition, 100);
-            },
-            beforeDestroy: function beforeDestroy() {
-                clearInterval(this.intervalId);
-            },
-
-            methods: {
-                updatePosition: function updatePosition() {
-                    if (this.target && !document.body.contains(this.target)) {
-                        this.target = null;
-                    }
-
-                    if (this.target) {
-                        var tooltipElement = this.$children[0].$el;
-                        var targetRect = this.target.getBoundingClientRect();
-
-                        tooltipElement.style.transform = 'translate(' + targetRect.left + 'px, ' + targetRect.bottom + 'px)';
-                    }
-                }
-            },
-            render: function render(h) {
-                var props = {
-                    theme: this.theme,
-                    isRelative: false,
-                    title: this.title,
-                    show: !!this.target
-                };
-                return h(__WEBPACK_IMPORTED_MODULE_1__stateless_Tooltip_vue__["a" /* default */], { props: {} }, [this._v(this.text || '')]);
-            }
-        });
+var tooltipVm = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+    data: function data() {
+        return {
+            theme: 'dark',
+            target: null,
+            text: null,
+            title: null
+        };
     },
-    created: function created() {
-        if (this.theme) {
-            this._tooltipVm.theme = this.theme;
-        }
-    },
-
-    watch: {
-        theme: function theme(v) {
-            this._tooltipVm.theme = v;
-        }
+    mounted: function mounted() {
+        var tooltipElement = this.$children[0].$el;
+        tooltipElement.style.top = tooltipElement.style.left = '0';
+        this.intervalId = setInterval(this.updatePosition, 100);
     },
     beforeDestroy: function beforeDestroy() {
-        this._tooltipVm.$el.remove();
-        this._tooltipVm.$destroy();
+        clearInterval(this.intervalId);
+    },
+
+    methods: {
+        updatePosition: function updatePosition() {
+            if (this.target && !document.body.contains(this.target)) {
+                this.target = null;
+            }
+
+            if (this.target) {
+                var tooltipElement = this.$children[0].$el;
+                var targetRect = this.target.getBoundingClientRect();
+
+                tooltipElement.style.transform = 'translate(' + targetRect.left + 'px, ' + targetRect.bottom + 'px)';
+            }
+        }
+    },
+    render: function render(h) {
+        var props = {
+            theme: this.theme,
+            isRelative: false,
+            title: this.title,
+            show: !!this.target
+        };
+        return h(__WEBPACK_IMPORTED_MODULE_1__stateless_Tooltip_vue__["a" /* default */], { props: props }, [this._v(this.text || '')]);
+    }
+});
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    beforeCreate: function beforeCreate() {
+        if (!tooltipVm.$el) {
+            var body = document.getElementsByTagName('body')[0];
+            var container = document.createElement('div');
+            body.appendChild(container);
+            tooltipVm.$mount(container);
+        }
     },
 
     methods: {
         showTooltip: function showTooltip(element, text) {
-            var _this = this;
-
             var title = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-            this._tooltipVm.canShowTooltip = true;
+            if (this.theme) {
+                tooltipVm.theme = this.theme;
+            }
+            tooltipVm.canShowTooltip = true;
             this.$nextTick(function () {
-                if (_this._tooltipVm.canShowTooltip) {
-                    _this._tooltipVm.text = text;
-                    _this._tooltipVm.title = title;
-                    _this._tooltipVm.target = element;
-                    _this._tooltipVm.updatePosition();
+                if (tooltipVm.canShowTooltip) {
+                    tooltipVm.text = text;
+                    tooltipVm.title = title;
+                    tooltipVm.target = element;
+                    tooltipVm.updatePosition();
                 }
             });
         },
         hideTooltip: function hideTooltip() {
-            this._tooltipVm.target = null;
-            this._tooltipVm.canShowTooltip = false;
+            tooltipVm.target = null;
+            tooltipVm.canShowTooltip = false;
         }
     }
 });
