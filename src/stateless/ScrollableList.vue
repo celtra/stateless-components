@@ -9,6 +9,7 @@
             </div>
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
+                    v-if="items.length > 0"
                     ref="list"
                     :items="items"
                     :value="value"
@@ -19,7 +20,7 @@
                     :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
-                    :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
+                    :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
@@ -74,7 +75,7 @@ export default {
             return this.showOverlay ? 15 : 0
         },
         itemHeight () {
-            return this.isListReady ? this.$refs.list.assumedItemHeight : 0
+            return this.isListReady && this.$refs.list ? this.$refs.list.assumedItemHeight : 0
         },
         maxHeight () {
             return this.numItems * this.itemHeight + 2 * this.overlayHeight
@@ -164,6 +165,7 @@ export default {
 
 @overlay-height: 15px;
 @scrollbar-width: 5px;
+@sticky-bottom-height: 50px;
 
 .scrollable-list {
     font-family: @regular-text-font;
@@ -197,14 +199,18 @@ export default {
         }
 
         &--with-bottom-slot {
-            @bottom-slot-height: 60px;
-            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @bottom-slot-height - @overlay-height), transparent calc(100% - @bottom-slot-height), transparent 100%);
+            min-height: @sticky-bottom-height;
+            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @sticky-bottom-height - @overlay-height), transparent calc(100% - @sticky-bottom-height), transparent 100%);
         }
     }
 
     &__default-list {
         &--with-overlay {
             padding: @overlay-height 0;
+        }
+
+        &--with-bottom-slot {
+            padding: @overlay-height 0 @sticky-bottom-height 0;
         }
     }
 

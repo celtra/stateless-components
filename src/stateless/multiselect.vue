@@ -10,7 +10,7 @@
                 @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div v-if="listItems.length > 0" class="multiselect__options">
+        <div class="multiselect__options">
             <scrollable-list
                 ref="list"
                 :items="listItems"
@@ -27,7 +27,7 @@
                 @load-more="loadAsyncOptions">
 
                 <checkbox-element
-                    v-if="canSelectAndClearAll || canClearAll"
+                    v-if="listItems.length > 0 && (canSelectAndClearAll || canClearAll)"
                     slot="sticky"
                     :value="enabledValueLength === 0 ? false : enabledValueLength === allPossibleIds.length ? true : null"
                     :disabled="!canSelectAndClearAll && enabledValueLength === 0"
@@ -57,7 +57,7 @@
                     </checkbox-element>
                 </div>
 
-                <search-status slot="sticky-bottom" :theme="theme" :is-loading="true || isLoading" :is-empty="listItems.length === 0" />
+                <search-status v-if="isLoading || listItems.length === 0" slot="sticky-bottom" :theme="theme" :is-loading="isLoading" :is-empty="listItems.length === 0" />
             </scrollable-list>
         </div>
     </div>

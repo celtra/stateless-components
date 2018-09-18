@@ -37,7 +37,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 60px;
+        min-height: 50px;
     }
 
     &__loading-text {
