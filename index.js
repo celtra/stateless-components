@@ -6175,7 +6175,7 @@ module.exports.f = function (C) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__ = __webpack_require__(95);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d38a6118_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ca2164c8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__ = __webpack_require__(361);
 function injectStyle (ssrContext) {
   __webpack_require__(357)
   __webpack_require__(359)
@@ -6191,12 +6191,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-d38a6118"
+var __vue_scopeId__ = "data-v-ca2164c8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SearchInput_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d38a6118_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ca2164c8_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SearchInput_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20147,6 +20147,13 @@ module.exports = function (C, x) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20160,6 +20167,7 @@ module.exports = function (C, x) {
         value: { type: String, default: '' },
         label: { type: String, default: 'Search' },
         isLoading: { type: Boolean, default: false },
+        isLoadingBottom: { type: Boolean, default: false },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' }
     },
@@ -38722,7 +38730,7 @@ var content = __webpack_require__(358);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("37e91d6c", content, true, {});
+var update = __webpack_require__(2)("b3ed8658", content, true, {});
 
 /***/ }),
 /* 358 */
@@ -38734,7 +38742,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.search-input[data-v-d38a6118] {\n  font-family: \"SF UI Text Regular\";\n}\n.search-input__clear-icon[data-v-d38a6118] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input--dark .search-input__clear-icon[data-v-d38a6118] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-d38a6118]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-d38a6118] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-d38a6118]:hover {\n  color: black;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;CACnC;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd","file":"SearchInput.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.search-input[data-v-d38a6118] {\n  font-family: \"SF UI Text Regular\";\n}\n.search-input__clear-icon[data-v-d38a6118] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input--dark .search-input__clear-icon[data-v-d38a6118] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-d38a6118]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-d38a6118] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-d38a6118]:hover {\n  color: black;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.search-input[data-v-ca2164c8] {\n  font-family: \"SF UI Text Regular\";\n}\n.search-input__clear-icon[data-v-ca2164c8] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input__loading-wrap[data-v-ca2164c8] {\n  font-size: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  min-height: 60px;\n  font-size: 12px;\n  color: #939399;\n}\n.search-input__loading-icon[data-v-ca2164c8] {\n  margin-right: 10px;\n  color: #3366ff;\n}\n.search-input__loading-icon.search-input__loading-icon[data-v-ca2164c8] {\n  width: 24px;\n  height: 24px;\n}\n.search-input--dark .search-input__clear-icon[data-v-ca2164c8] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-ca2164c8]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-ca2164c8] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-ca2164c8]:hover {\n  color: black;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/SearchInput.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;CACnC;AACD;EACE,gBAAgB;EAChB,iBAAiB;CAClB;AACD;EACE,gBAAgB;EAChB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,yBAAyB;MACrB,sBAAsB;UAClB,wBAAwB;EAChC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,iBAAiB;EACjB,gBAAgB;EAChB,eAAe;CAChB;AACD;EACE,mBAAmB;EACnB,eAAe;CAChB;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;EACE,aAAa;CACd","file":"SearchInput.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.search-input[data-v-ca2164c8] {\n  font-family: \"SF UI Text Regular\";\n}\n.search-input__clear-icon[data-v-ca2164c8] {\n  cursor: pointer;\n  margin-left: 6px;\n}\n.search-input__loading-wrap[data-v-ca2164c8] {\n  font-size: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  min-height: 60px;\n  font-size: 12px;\n  color: #939399;\n}\n.search-input__loading-icon[data-v-ca2164c8] {\n  margin-right: 10px;\n  color: #3366ff;\n}\n.search-input__loading-icon.search-input__loading-icon[data-v-ca2164c8] {\n  width: 24px;\n  height: 24px;\n}\n.search-input--dark .search-input__clear-icon[data-v-ca2164c8] {\n  color: #d6d8dd;\n}\n.search-input--dark .search-input__clear-icon[data-v-ca2164c8]:hover {\n  color: white;\n}\n.search-input--light .search-input__clear-icon[data-v-ca2164c8] {\n  color: #444450;\n}\n.search-input--light .search-input__clear-icon[data-v-ca2164c8]:hover {\n  color: black;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38750,7 +38758,7 @@ var content = __webpack_require__(360);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("12b72544", content, true, {});
+var update = __webpack_require__(2)("df1a6a0c", content, true, {});
 
 /***/ }),
 /* 360 */
@@ -38771,7 +38779,7 @@ exports.push([module.i, "\n.search-input.search-input .input-field__message-wrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input-element',{ref:"input",staticClass:"search-input",class:_vm._f("prefix")([_vm.theme],'search-input--'),attrs:{"value":_vm.value,"label":_vm.label,"theme":_vm.theme,"size":_vm.size},on:{"keyup":function($event){_vm.$emit('keyup', $event)},"input":function($event){_vm.$emit('input', $event)}}},[_c('icon',{attrs:{"slot":"before","name":"search"},slot:"before"}),_vm._v(" "),(_vm.isLoading)?_c('icon',{staticClass:"spin",attrs:{"slot":"right","name":"loading"},slot:"right"}):_vm._e(),_vm._v(" "),(_vm.value && _vm.value.length > 0)?_c('icon',{staticClass:"search-input__clear-icon",attrs:{"slot":"right","name":"clear"},on:{"click":function($event){_vm.$emit('input', null)}},slot:"right"}):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search-input"},[_c('input-element',{ref:"input",staticClass:"search-input",class:_vm._f("prefix")([_vm.theme],'search-input--'),attrs:{"value":_vm.value,"label":_vm.label,"theme":_vm.theme,"size":_vm.size},on:{"keyup":function($event){_vm.$emit('keyup', $event)},"input":function($event){_vm.$emit('input', $event)}}},[_c('icon',{attrs:{"slot":"before","name":"search"},slot:"before"}),_vm._v(" "),(_vm.isLoading)?_c('icon',{staticClass:"spin",attrs:{"slot":"right","name":"loading"},slot:"right"}):_vm._e(),_vm._v(" "),(_vm.value && _vm.value.length > 0)?_c('icon',{staticClass:"search-input__clear-icon",attrs:{"slot":"right","name":"clear"},on:{"click":function($event){_vm.$emit('input', null)}},slot:"right"}):_vm._e()],1),_vm._v(" "),(_vm.isLoadingBottom)?_c('div',{staticClass:"search-input__loading-wrap"},[_c('icon',{staticClass:"search-input__loading-icon spin",attrs:{"name":"loading"}}),_vm._v("\n        Loading\n    ")],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
