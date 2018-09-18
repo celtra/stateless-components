@@ -30,14 +30,14 @@
                     v-if="canSelectAndClearAll || canClearAll"
                     slot="sticky"
                     :value="enabledValueLength === 0 ? false : enabledValueLength === allPossibleIds.length ? true : null"
-                    :disabled="!canSelectAndClearAll && enabledValueLength.length === 0"
+                    :disabled="!canSelectAndClearAll && enabledValueLength === 0"
                     :size="size"
                     :theme="theme"
                     class="multiselect__select-all"
                     @input="setMultiple">
 
                     <span v-if="enabledValueLength === 0" class="multiselect__change-multiple-label">Select all</span>
-                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ enabledValueLength.length }})</span>
+                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ enabledValueLength }})</span>
                 </checkbox-element>
 
                 <div slot-scope="{ item }" style="width: 100%;">
