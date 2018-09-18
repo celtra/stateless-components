@@ -128,6 +128,16 @@ export default {
             this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
             this.firstRender = false
         })
+
+        const checkSlotHeights = () => {
+            if (this.itemHeight > 0 || this.groupHeight > 0) {
+                clearInterval(intervalId)
+            } else {
+                this.itemHeight = this.$refs.hiddenSlot.clientHeight
+                this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
+            }
+        }
+        const intervalId = setInterval(checkSlotHeights, 100)
     },
     beforeCreate () {
         this.assumedItem = { label: 'A', metadata: 'A' }
