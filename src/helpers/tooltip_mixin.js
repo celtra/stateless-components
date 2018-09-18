@@ -40,13 +40,13 @@ export default {
                 },
             },
             render (h) {
-                const props = JSON.parse(JSON.stringify({
+                const props = {
                     theme: this.theme,
                     isRelative: false,
                     title: this.title,
                     show: !!this.target,
-                }))
-                return h(Tooltip, { props: props }, [this._v(this.text || '')])
+                }
+                return h(Tooltip, { props: {} }, [this._v(this.text || '')])
             },
         })
     },
