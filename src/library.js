@@ -29,7 +29,6 @@ import PieChartComponent from '@/stateless/PieChart.vue'
 import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 import DefaultListComponent from '@/stateless/DefaultList.vue'
 import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
-import MultilineListItemComponent from '@/stateless/MultilineListItem.vue'
 import ScrollableListComponent from '@/stateless/ScrollableList.vue'
 import TypeaheadComponent from '@/stateless/Typeahead.vue'
 import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
@@ -69,7 +68,6 @@ export const PieChart = PieChartComponent
 export const InlineDialog = InlineDialogComponent
 export const DefaultList = DefaultListComponent
 export const DefaultListItem = DefaultListItemComponent
-export const MultilineListItem = MultilineListItemComponent
 export const ScrollableList = ScrollableListComponent
 export const Typeahead = TypeaheadComponent
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent

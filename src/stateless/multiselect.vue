@@ -248,16 +248,17 @@ export default {
                             this.queryOptions = []
                         }
 
-                        if (result.length === 0) {
-                            this.gotAllOptions = true
-                        } else {
-                            for (let item of result) {
-                                if (!this.queryOptions.find(x => x.id === item.id)) {
-                                    this.queryOptions.push(item)
-                                }
+                        let usedOption = false
+                        for (let item of result) {
+                            if (!this.queryOptions.find(x => x.id === item.id)) {
+                                this.queryOptions.push(item)
+                                usedOption = true
                             }
-                            this.getOptionsPage += 1
                         }
+                        if (!usedOption) {
+                            this.gotAllOptions = true
+                        }
+                        this.getOptionsPage += 1
 
                         this.isLoading = false
 
