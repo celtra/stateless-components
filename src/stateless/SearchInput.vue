@@ -1,16 +1,9 @@
 <template>
-    <div class="search-input">
-        <input-element ref="input" :value="value" :label="label" :theme="theme" :size="size" :class="[theme] | prefix('search-input--')" class="search-input" @keyup="$emit('keyup', $event)" @input="$emit('input', $event)">
-            <icon slot="before" name="search" />
-            <icon v-if="isLoading" slot="right" name="loading" class="spin" />
-            <icon v-if="value && value.length > 0" slot="right" name="clear" class="search-input__clear-icon" @click="$emit('input', null)" />
-        </input-element>
-
-        <div v-if="isLoadingBottom" class="search-input__loading-wrap">
-            <icon name="loading" class="search-input__loading-icon spin" />
-            Loading
-        </div>
-    </div>
+    <input-element ref="input" :value="value" :label="label" :theme="theme" :size="size" :class="[theme] | prefix('search-input--')" class="search-input" @keyup="$emit('keyup', $event)" @input="$emit('input', $event)">
+        <icon slot="before" name="search" />
+        <icon v-if="isLoading" slot="right" name="loading" class="spin" />
+        <icon v-if="value && value.length > 0" slot="right" name="clear" class="search-input__clear-icon" @click="$emit('input', null)" />
+    </input-element>
 </template>
 
 <script>
@@ -26,7 +19,6 @@ export default {
         value: { type: String, default: '' },
         label: { type: String, default: 'Search' },
         isLoading: { type: Boolean, default: false },
-        isLoadingBottom: { type: Boolean, default: false },
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
     },
@@ -48,21 +40,6 @@ export default {
     &__clear-icon {
         cursor: pointer;
         margin-left: 6px;
-    }
-
-    &__loading-wrap {
-        font-size: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 60px;
-        font-size: 12px;
-        color: @bluish-gray;
-    }
-
-    &__loading-icon {
-        margin-right: 10px;
-        color: @royal-blue;
     }
 }
 

@@ -4,17 +4,13 @@
             <search-input
                 v-model="searchQuery"
                 :label="label"
-                :is-loading="isLoading"
                 :theme="theme"
                 :size="searchSize || size"
                 @keyup.down="$refs.list && $refs.list.focus()"
                 @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div v-if="listItems.length === 0" class="multiselect__options multiselect__no-items">
-            No items
-        </div>
-        <div v-else class="multiselect__options">
+        <div v-if="listItems.length > 0" class="multiselect__options">
             <scrollable-list
                 ref="list"
                 :items="listItems"
@@ -62,11 +58,14 @@
                 </div>
             </scrollable-list>
         </div>
+
+        <search-status :theme="theme" :is-loading="isLoading" :is-empty="listItems.length === 0" />
     </div>
 </template>
 
 <script>
 import SearchInput from './SearchInput.vue'
+import SearchStatus from './SearchStatus.vue'
 import Checkbox from './checkbox.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
@@ -76,6 +75,7 @@ import debounce from 'lodash.debounce'
 export default {
     components: {
         SearchInput,
+        SearchStatus,
         checkboxElement: Checkbox,
         ScrollableList,
         DefaultListItem,
@@ -365,13 +365,6 @@ export default {
         font-size: 12px;
     }
 
-    &__no-items {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-    }
-
     &__checkbox {
         width: 100%;
     }
@@ -380,18 +373,6 @@ export default {
 .multiselect__option > .multiselect__checkbox {
     margin-top: 0px;
     margin-left: -5px;
-}
-
-.multiselect--light.multiselect--light {
-    .multiselect__no-items {
-        color: @gray-blue;
-    }
-}
-
-.multiselect--dark.multiselect--dark {
-  .multiselect__no-items {
-      color: @gunpowder;
-  }
 }
 </style>
 

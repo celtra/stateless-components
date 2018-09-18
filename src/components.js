@@ -130,7 +130,7 @@ export default {
         },
         defaultProps: {
             options: largeItems,
-            value: ['1', '2'],
+            value: [],
             isSearchable: true,
             canSelectAndClearAll: true,
         },
