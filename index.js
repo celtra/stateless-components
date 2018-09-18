@@ -5031,31 +5031,31 @@ module.exports = function escape(url) {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/fonts/SF-UI-Display-Regular.57c563c.woff";
+module.exports = __webpack_require__.p + "fonts/SF-UI-Display-Regular.57c563c.woff";
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/fonts/SF-UI-Display-Medium.c9d8593.woff";
+module.exports = __webpack_require__.p + "fonts/SF-UI-Display-Medium.c9d8593.woff";
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/fonts/SF-UI-Text-Regular.f64c686.woff";
+module.exports = __webpack_require__.p + "fonts/SF-UI-Text-Regular.f64c686.woff";
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/fonts/SF-UI-Text-Medium.c3910ef.woff";
+module.exports = __webpack_require__.p + "fonts/SF-UI-Text-Medium.c3910ef.woff";
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/fonts/SF-UI-Text-Semibold.a7ea424.woff";
+module.exports = __webpack_require__.p + "fonts/SF-UI-Text-Semibold.a7ea424.woff";
 
 /***/ }),
 /* 10 */
