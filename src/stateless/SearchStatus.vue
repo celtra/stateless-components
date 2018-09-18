@@ -42,10 +42,10 @@ export default {
 
     &__loading-text {
         font-size: 12px;
+        margin-left: 10px;
     }
 
     &__loading-icon {
-        margin-right: 10px;
         color: @royal-blue;
     }
 

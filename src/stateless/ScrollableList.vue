@@ -7,7 +7,7 @@
                 </div>
                 <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
             </div>
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     ref="list"
                     :items="items"
@@ -32,6 +32,10 @@
                     <slot slot="before" name="before"></slot>
                     <slot slot="after" name="after"></slot>
                 </default-list>
+            </div>
+
+            <div class="scrollable-list__sticky-bottom">
+                <slot name="sticky-bottom"></slot>
             </div>
         </div>
     </div>
@@ -177,6 +181,12 @@ export default {
         width: calc(100% - @scrollbar-width - 1px);
     }
 
+    &__sticky-bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
     &__list {
         overflow-y: auto;
         overflow-x: hidden;
@@ -184,6 +194,11 @@ export default {
 
         &--with-overlay {
             mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
+        }
+
+        &--with-bottom-slot {
+            @bottom-slot-height: 60px;
+            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @bottom-slot-height - @overlay-height), transparent calc(100% - @bottom-slot-height), transparent 100%);
         }
     }
 

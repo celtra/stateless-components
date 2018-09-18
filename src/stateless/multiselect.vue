@@ -56,10 +56,10 @@
                         </slot>
                     </checkbox-element>
                 </div>
+
+                <search-status slot="sticky-bottom" :theme="theme" :is-loading="true || isLoading" :is-empty="listItems.length === 0" />
             </scrollable-list>
         </div>
-
-        <search-status :theme="theme" :is-loading="isLoading" :is-empty="listItems.length === 0" />
     </div>
 </template>
 
