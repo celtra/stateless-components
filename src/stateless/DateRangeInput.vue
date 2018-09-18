@@ -10,6 +10,7 @@
             :date-format-focus="dateFormatFocus"
             :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
+            :track-name="trackName"
             label="Start date"
             @input="onFromInput"
             @keyup="$emit('keyup', $event)"
@@ -28,6 +29,7 @@
             :date-format-focus="dateFormatFocus"
             :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
+            :track-name="trackName"
             label="End date"
             @input="onToInput"
             @keyup="$emit('keyup', $event)"
@@ -54,13 +56,17 @@ export default {
         separator: { type: String },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
+        label: { type: String },
+        trackName: { type: String, default: 'dateRangeInput' },
     },
     methods: {
         onFromInput (value) {
             this.$emit('input', { from: value, to: this.value && this.value.to })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input-from' })
         },
         onToInput (value) {
             this.$emit('input', { from: this.value && this.value.from, to: value })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input-to' })
         },
     },
 }

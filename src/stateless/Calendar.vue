@@ -49,6 +49,8 @@ export default {
         maxDate: { type: Date },
         selectAllTime: { type: Boolean, default: false },
         locale: { type: String, default: 'en-US' },
+        label: { type: String },
+        trackName: { type: String, default: 'calendar' },
     },
     data () {
         return {
@@ -162,22 +164,26 @@ export default {
             this.$el.focus()
         },
         onFocus () {
-            this.$root.$emit('tracking-event', { type: 'action', label: 'calendar', trigger: 'click' })
+            this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'focus' })
             this.$emit('focus')
         },
         select (day) {
             if (this.isRange) {
                 if (!this.value || !this.value.from || this.value.to) {
+                    this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: day.date } })
                     this.$emit('input', { from: day.date })
                 } else {
                     if (compareDate(day.date, this.value.from) > 0) {
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: this.value.from, to: day.date } })
                         this.$emit('input', { from: this.value.from, to: day.date })
                     } else {
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: day.date, to: this.value.from } })
                         this.$emit('input', { from: day.date, to: this.value.from })
                     }
                     this.$emit('confirm')
                 }
             } else {
+                this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: day.date })
                 this.$emit('input', day.date)
                 this.$emit('confirm')
             }
