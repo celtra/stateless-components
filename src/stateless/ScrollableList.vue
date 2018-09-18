@@ -72,7 +72,7 @@ export default {
     },
     computed: {
         overlayHeight () {
-            return this.showOverlay ? 15 : 0
+            return this.showOverlay ? 10 : 0
         },
         itemHeight () {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0
@@ -163,7 +163,7 @@ export default {
 @import (reference) './common';
 @import './typography';
 
-@overlay-height: 15px;
+@overlay-height: 10px;
 @scrollbar-width: 5px;
 @sticky-bottom-height: 50px;
 
