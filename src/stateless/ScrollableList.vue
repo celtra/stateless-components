@@ -112,14 +112,14 @@ export default {
             }
         },
         scrollTo (itemId) {
-            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const rootY = this.$refs.scrollable.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top + this.$refs.scrollable.scrollTop
 
             const scrollY = itemY - rootY - (this.maxHeight - this.itemHeight) / 2
             this.$refs.scrollable.scrollTop = scrollY
 
             this.$nextTick(() => {
-                const rootY = this.$el.getBoundingClientRect().top
+                const rootY = this.$refs.scrollable.getBoundingClientRect().top
                 const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
                 const shownY = itemY - rootY + this.itemHeight / 2
 
@@ -130,7 +130,7 @@ export default {
             const currentScroll = this.$refs.scrollable.scrollTop
             const computedScrollableStyle = getComputedStyle(this.$refs.scrollable)
             const verticalPadding = parseFloat(computedScrollableStyle.paddingTop) + parseFloat(computedScrollableStyle.paddingBottom)
-            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const rootY = this.$refs.scrollable.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
             const upTarget = currentScroll + itemY - rootY - this.overlayHeight
