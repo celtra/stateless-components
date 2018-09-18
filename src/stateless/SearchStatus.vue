@@ -1,12 +1,12 @@
 <template>
     <div :class="[theme] | prefix('search-status--')" class="search-status">
-        <template v-if="isLoading">
+        <div v-if="isLoading" class="search-status__content">
             <icon name="loading" class="search-status__loading-icon spin" />
             <span class="search-status__loading-text">Loading</span>
-        </template>
-        <template v-else-if="isEmpty">
+        </div>
+        <div v-else-if="isEmpty" class="search-status__content">
             <span class="search-status__empty-text">No items</span>
-        </template>
+        </div>
     </div>
 </template>
 
@@ -31,11 +31,14 @@ export default {
 
 .search-status {
     font-family: @regular-text-font;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 60px;
+
+    &__content {
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60px;
+    }
 
     &__loading-text {
         font-size: 12px;
