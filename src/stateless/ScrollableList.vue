@@ -5,11 +5,11 @@
                 <div :style="{ marginLeft: `${initialOffset}px` }" class="scrollable-list__sticky-slot">
                     <slot name="sticky"></slot>
                 </div>
-                <div v-if="enableScrollTop && hasList && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
+                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
             </div>
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
-                    v-if="hasList"
+                    v-show="items.length > 0"
                     ref="list"
                     :items="items"
                     :value="value"
@@ -71,14 +71,11 @@ export default {
         }
     },
     computed: {
-        hasList () {
-            return this.items.length > 0
-        },
         overlayHeight () {
             return this.showOverlay ? 15 : 0
         },
         itemHeight () {
-            return this.isListReady && this.hasList ? this.$refs.list.assumedItemHeight : 0
+            return this.isListReady ? this.$refs.list.assumedItemHeight : 0
         },
         maxHeight () {
             return this.numItems * this.itemHeight + 2 * this.overlayHeight
@@ -149,20 +146,14 @@ export default {
         },
         focus () {
             let scrollTop = this.$refs.scrollable.scrollTop
-            if (this.hasList) {
-                this.$refs.list.focus()
-            }
+            this.$refs.list.focus()
             this.$refs.scrollable.scrollTop = scrollTop
         },
         move (direction) {
-            if (this.hasList) {
-                this.$refs.list.move(direction)
-            }
+            this.$refs.list.move(direction)
         },
         highlightItem (index) {
-            if (this.hasList) {
-                this.$refs.list.highlightItem(index)
-            }
+            this.$refs.list.highlightItem(index)
         },
     },
 }
