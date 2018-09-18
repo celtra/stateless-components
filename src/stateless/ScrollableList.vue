@@ -2,7 +2,7 @@
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
             <div class="scrollable-list__sticky">
-                <div class="scrollable-list__sticky-slot">
+                <div :style="{ marginLeft: `${initialOffset}px` }" class="scrollable-list__sticky-slot">
                     <slot name="sticky"></slot>
                 </div>
                 <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
