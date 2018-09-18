@@ -334,6 +334,7 @@ export default {
 @import './typography';
 
 .multiselect {
+    font-family: @regular-text-font;
     height: fit-content;
     display: flex;
     flex-direction: column;

@@ -452,6 +452,7 @@ export default {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    font-family: @regular-text-font;
 
     &__icon-prepend {
         margin-right: 15px;

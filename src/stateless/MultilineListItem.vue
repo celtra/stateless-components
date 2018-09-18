@@ -59,6 +59,7 @@ export default {
 @import './typography';
 
 .multiline-list-item {
+    font-family: @regular-text-font;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -135,15 +136,11 @@ export default {
     .multiline-list-item {
         &__label {
             font-size: 14px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         &__metadata {
             font-size: 11px;
             letter-spacing: 0.5px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
     }
 }

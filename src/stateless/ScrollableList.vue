@@ -162,6 +162,7 @@ export default {
 @scrollbar-width: 5px;
 
 .scrollable-list {
+    font-family: @regular-text-font;
     width: 100%;
 
     &__list-wrap {

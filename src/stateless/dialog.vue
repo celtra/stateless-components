@@ -158,16 +158,12 @@ export default {
 @closing-animation-time-content: 0.2s;
 
 .new-dialog {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-
     z-index: @z-high;
 
     &--closed {

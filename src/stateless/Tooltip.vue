@@ -65,8 +65,6 @@ export default {
     max-width: 460px;
     word-wrap: break-word;
     font-family: @regular-text-font;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     transition: transform 200ms ease;
 
     &__title {

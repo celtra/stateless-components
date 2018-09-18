@@ -90,7 +90,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import './typography';
+
 .text-line {
+    font-family: @regular-text-font;
     width: 100%;
     position: relative;
 

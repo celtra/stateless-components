@@ -35,6 +35,8 @@ export default {
 @import './typography';
 
 .search-input {
+    font-family: @regular-text-font;
+
     &__clear-icon {
         cursor: pointer;
         margin-left: 6px;

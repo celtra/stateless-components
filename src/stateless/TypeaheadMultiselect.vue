@@ -74,6 +74,8 @@ export default {
 @import './typography';
 
 .typeahead-multiselect {
+    font-family: @regular-text-font;
+
     &__item-list {
         overflow-y: auto;
         overflow-x: hidden;

@@ -130,6 +130,7 @@ export default {
 @import './typography';
 
 .typeahead {
+    font-family: @regular-text-font;
     position: relative;
 
     &__suggestions {

@@ -57,6 +57,7 @@ export default {
 @slide-in-out-animation-time: 0.4s;
 
 .toast-element {
+    font-family: @regular-text-font;
     width: 320px;
     height: 60px;
     display: flex;

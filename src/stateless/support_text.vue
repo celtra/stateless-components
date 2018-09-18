@@ -102,6 +102,7 @@ export default {
 @import './typography';
 
 .support-text {
+    font-family: @regular-text-font;
     position: relative;
 
     &__main {

@@ -263,8 +263,7 @@ export default {
 .default-list {
     outline: none;
     width: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: @regular-text-font;
 
     &__hidden-slots {
         visibility: hidden;
