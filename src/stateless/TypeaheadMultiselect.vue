@@ -1,6 +1,6 @@
 <template>
     <div class="typeahead-multiselect">
-        <typeahead ref="typeahead" v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
+        <typeahead ref="typeahead" v-model="text" :get-suggestions="getAvailableSuggestions" :num-items="numSuggestionItems" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
 
         <div ref="list" :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
             <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
@@ -35,7 +35,8 @@ export default {
         noItemsText: { type: String, default: 'No items' },
         theme: { type: String, default: 'dark' },
         isValid: { type: Function, required: false },
-        numItems: { type: Number, default: 8 },
+        numSuggestionItems: { type: Number, default: 10 },
+        numItems: { type: Number, default: 10 },
         maxLength: { type: Number, default: 30 },
     },
     data () {

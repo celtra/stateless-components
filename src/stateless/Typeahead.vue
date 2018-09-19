@@ -3,7 +3,7 @@
         <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
         <template v-if="showSuggestions">
-            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
+            <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="numItems" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
             <div v-else-if="noItemsText" class="typeahead__no-items-text">{{ noItemsText }}</div>
         </template>
     </div>
@@ -23,6 +23,7 @@ export default {
         getSuggestions: { type: Function, required: true },
         noItemsText: { type: String, default: 'No items' },
         isValid: { type: Function, required: false },
+        numItems: { type: Number, default: 10 },
     },
     data () {
         return {
