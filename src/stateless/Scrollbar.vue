@@ -51,7 +51,7 @@ export default {
 .scrollbar {
     width: 5px;
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 0;
     height: 100%;
 

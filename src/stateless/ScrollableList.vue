@@ -8,7 +8,7 @@
         </div>
 
         <div class="scrollable-list__list-wrap">
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px`, paddingRight: `${scrollbarWidth}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px`, width: `calc(100% + ${scrollbarWidth}px)` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     v-show="items.length > 0"
                     ref="list"
