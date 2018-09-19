@@ -250,6 +250,9 @@ export default {
     },
     ScrollableList: {
         component: ScrollableList,
+        rootCss: {
+            width: '400px',
+        },
         defaultProps: {
             items: largeItems,
             numItems: 10,
