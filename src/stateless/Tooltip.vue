@@ -29,16 +29,11 @@ export default {
     methods: {
         onAnimationStart () {
             if (this.isRelative) {
-                this.translateX = null
-                this.translateY = null
-                this.$nextTick(() => {
-                    if (this.$refs.tooltip) {
-                        const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                        if (tooltip.x + tooltip.width > window.innerWidth) {
-                            this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
-                        }
-                    }
-                })
+                if (this.$refs.tooltip) {
+                    const tooltipBox = this.$refs.tooltip.getBoundingClientRect()
+                    const delta = window.innerWidth - (tooltipBox.x - this.translateX + tooltipBox.width + 10)
+                    this.translateX = delta < 0 ? delta : null
+                }
             }
         },
     },
