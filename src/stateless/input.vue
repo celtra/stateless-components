@@ -201,6 +201,7 @@ export default {
             if (this.value !== this.lastEmittedValue) {
                 this.runValidations(this.value)
                 this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
+                this.transitionLabel()
             }
         },
         disabled (v) {
@@ -424,7 +425,10 @@ export default {
             this.focused = false
             this.$emit('blur', ev)
 
-            if ((this.text === '' || this.text === null) && this.label) {
+            this.transitionLabel()
+        },
+        transitionLabel () {
+            if (this.label && !this.focused && (this.text === '' || this.text === null)) {
                 this.$refs.labelOverlay.style.transform = ''
 
                 this.overlay.open = false
