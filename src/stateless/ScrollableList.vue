@@ -37,9 +37,8 @@
             </div>
 
             <scrollbar
-                :offset="scrollTop"
-                :height="maxHeight"
-                :total-height="scrollHeight"
+                :theme="theme"
+                :container="$refs.scrollable"
                 @set="$refs.scrollable.scrollTop = $event">
             </scrollbar>
         </div>
@@ -78,7 +77,6 @@ export default {
         return {
             isListReady: false,
             scrollTop: 0,
-            scrollHeight: 0,
             scrollbarWidth: 5,
         }
     },
@@ -93,14 +91,39 @@ export default {
             return this.numItems * this.itemHeight + 2 * this.overlayHeight
         },
     },
+    created () {
+        const inner = document.createElement('p')
+        inner.style.width = "100%"
+        inner.style.height = "200px"
+
+        const outer = document.createElement('div')
+        outer.style.position = "absolute"
+        outer.style.top = "0px"
+        outer.style.left = "0px"
+        outer.style.visibility = "hidden"
+        outer.style.width = "200px"
+        outer.style.height = "150px"
+        outer.style.overflow = "hidden"
+        outer.appendChild(inner)
+
+        document.body.appendChild(outer)
+        const w1 = inner.offsetWidth
+        outer.style.overflow = 'scroll'
+        let w2 = inner.offsetWidth
+
+        if (w1 == w2) {
+            w2 = outer.clientWidth
+        }
+
+        document.body.removeChild(outer)
+
+        this.scrollbarWidth = w1 - w2
+    },
     mounted () {
         this.$nextTick(() => {
             window.addEventListener('resize', () => this.positionSelectList)
             this.positionSelectList()
             this.isListReady = true
-
-            this.scrollHeight = this.$refs.scrollable.scrollHeight
-            this.scrollbarWidth = this.$refs.scrollable.offsetWidth - this.$refs.scrollable.clientWidth
         })
     },
     beforeDestroy () {
@@ -110,7 +133,6 @@ export default {
         onScroll (e) {
             const scrollable = this.$refs.scrollable
             this.scrollTop = scrollable.scrollTop
-            this.scrollHeight = scrollable.scrollHeight
             if (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight) {
                 this.$emit('load-more')
             }
@@ -241,27 +263,5 @@ export default {
         }
     }
 
-}
-
-::-webkit-scrollbar {
-    width: @scrollbar-width;
-}
-
-::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.scrollable-list--light .scrollable-list__list::-webkit-scrollbar-thumb {
-    background-color: @very-light-gray;
-    border-radius: 5px;
-}
-
-.scrollable-list--dark .scrollable-list__list::-webkit-scrollbar-thumb {
-    background-color: @gunpowder;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-corner {
-    background-color: transparent;
 }
 </style>
