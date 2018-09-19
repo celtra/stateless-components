@@ -5849,7 +5849,7 @@ module.exports = function (it, tag, stat) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ScrollableList_vue__ = __webpack_require__(98);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_126a0302_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1691d33a_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__ = __webpack_require__(386);
 function injectStyle (ssrContext) {
   __webpack_require__(371)
 }
@@ -5864,12 +5864,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-126a0302"
+var __vue_scopeId__ = "data-v-1691d33a"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ScrollableList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_126a0302_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1691d33a_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ScrollableList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20779,6 +20779,7 @@ var Component = normalizeComponent(
             _this.positionSelectList();
             _this.isListReady = true;
 
+            _this.scrollHeight = _this.$refs.scrollable.scrollHeight;
             _this.scrollbarWidth = _this.$refs.scrollable.offsetWidth - _this.$refs.scrollable.clientWidth;
         });
     },
@@ -20792,9 +20793,10 @@ var Component = normalizeComponent(
 
     methods: {
         onScroll: function onScroll(e) {
-            this.scrollTop = e.target.scrollTop;
-            this.scrollHeight = e.target.scrollHeight;
-            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+            var scrollable = this.$refs.scrollable;
+            this.scrollTop = scrollable.scrollTop;
+            this.scrollHeight = scrollable.scrollHeight;
+            if (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight) {
                 this.$emit('load-more');
             }
         },
@@ -21430,6 +21432,14 @@ function getTextHighlightParts(text, query) {
         totalHeight: { type: Number },
         offset: { type: Number }
     },
+    computed: {
+        handleY: function handleY() {
+            return this.offset * this.height / this.totalHeight;
+        },
+        handleHeight: function handleHeight() {
+            return this.height * this.height / this.totalHeight;
+        }
+    },
     created: function created() {
         window.addEventListener('mousemove', this.onDrag);
         window.addEventListener('mouseup', this.stopDrag);
@@ -21440,16 +21450,24 @@ function getTextHighlightParts(text, query) {
     },
 
     methods: {
-        click: function click() {},
-        startDrag: function startDrag() {
+        click: function click(ev) {
+            var elementBox = this.$el.getBoundingClientRect();
+            var currentRatio = (ev.pageY - elementBox.top) / elementBox.height;
+
+            this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.height / 2)));
+        },
+        startDrag: function startDrag(ev) {
             this.isDragging = true;
+
+            var elementBox = this.$el.getBoundingClientRect();
+            this.handleDragRatio = (ev.pageY - (elementBox.top + this.handleY)) / this.handleHeight;
         },
         onDrag: function onDrag(ev) {
             if (this.isDragging) {
                 var elementBox = this.$el.getBoundingClientRect();
                 var currentRatio = (ev.pageY - elementBox.top) / elementBox.height;
 
-                this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.height / 2)));
+                this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.handleDragRatio * this.height)));
             }
         },
         stopDrag: function stopDrag() {
@@ -38965,7 +38983,7 @@ var content = __webpack_require__(372);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("8ccbb5fa", content, true, {});
+var update = __webpack_require__(2)("f0ec224c", content, true, {});
 
 /***/ }),
 /* 372 */
@@ -38977,7 +38995,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.scrollable-list[data-v-126a0302] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-126a0302] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__sticky[data-v-126a0302] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  width: calc(100% - 5px - 1px);\n}\n.scrollable-list__sticky-bottom[data-v-126a0302] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.scrollable-list__list[data-v-126a0302] {\n  overflow-x: hidden;\n  overflow-y: auto;\n  overscroll-behavior: contain;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n  width: 100%;\n}\n.scrollable-list__list--with-overlay[data-v-126a0302] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n}\n.scrollable-list__list--with-bottom-slot[data-v-126a0302] {\n  min-height: 50px;\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-126a0302] {\n  padding: 10px 0;\n}\n.scrollable-list__default-list--with-bottom-slot[data-v-126a0302] {\n  padding: 10px 0 50px 0;\n}\n.scrollable-list__scroll-top[data-v-126a0302] {\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-126a0302]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-126a0302]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-126a0302]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-126a0302]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-126a0302]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-126a0302]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ScrollableList.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;CAClB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,UAAU;EACV,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,6BAA6B;EAC7B,gCAAgC;UACxB,wBAAwB;EAChC,YAAY;CACb;AACD;EACE,2GAA2G;UACnG,mGAAmG;CAC5G;AACD;EACE,iBAAiB;EACjB,iJAAiJ;UACzI,yIAAyI;CAClJ;AACD;EACE,gBAAgB;CACjB;AACD;EACE,uBAAuB;CACxB;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,8BAA8B;CAC/B","file":"ScrollableList.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.scrollable-list[data-v-126a0302] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-126a0302] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__sticky[data-v-126a0302] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  width: calc(100% - 5px - 1px);\n}\n.scrollable-list__sticky-bottom[data-v-126a0302] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.scrollable-list__list[data-v-126a0302] {\n  overflow-x: hidden;\n  overflow-y: auto;\n  overscroll-behavior: contain;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n  width: 100%;\n}\n.scrollable-list__list--with-overlay[data-v-126a0302] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n}\n.scrollable-list__list--with-bottom-slot[data-v-126a0302] {\n  min-height: 50px;\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-126a0302] {\n  padding: 10px 0;\n}\n.scrollable-list__default-list--with-bottom-slot[data-v-126a0302] {\n  padding: 10px 0 50px 0;\n}\n.scrollable-list__scroll-top[data-v-126a0302] {\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-126a0302]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-126a0302]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-126a0302]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-126a0302]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-126a0302]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-126a0302]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.scrollable-list[data-v-1691d33a] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-1691d33a] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__sticky[data-v-1691d33a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  width: calc(100% - 5px - 1px);\n}\n.scrollable-list__sticky-bottom[data-v-1691d33a] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.scrollable-list__list[data-v-1691d33a] {\n  overflow-x: hidden;\n  overflow-y: auto;\n  overscroll-behavior: contain;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n  width: 100%;\n}\n.scrollable-list__list--with-overlay[data-v-1691d33a] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n}\n.scrollable-list__list--with-bottom-slot[data-v-1691d33a] {\n  min-height: 50px;\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-1691d33a] {\n  padding: 10px 0;\n}\n.scrollable-list__default-list--with-bottom-slot[data-v-1691d33a] {\n  padding: 10px 0 50px 0;\n}\n.scrollable-list__scroll-top[data-v-1691d33a] {\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-1691d33a]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-1691d33a]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-1691d33a]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-1691d33a]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-1691d33a]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-1691d33a]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/ScrollableList.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;CAClB;AACD;EACE,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,8BAA8B;CAC/B;AACD;EACE,mBAAmB;EACnB,UAAU;EACV,YAAY;CACb;AACD;EACE,mBAAmB;EACnB,iBAAiB;EACjB,6BAA6B;EAC7B,gCAAgC;UACxB,wBAAwB;EAChC,YAAY;CACb;AACD;EACE,2GAA2G;UACnG,mGAAmG;CAC5G;AACD;EACE,iBAAiB;EACjB,iJAAiJ;UACzI,yIAAyI;CAClJ;AACD;EACE,gBAAgB;CACjB;AACD;EACE,uBAAuB;CACxB;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,cAAc;EACd,aAAa;CACd;AACD;EACE,WAAW;CACZ;AACD;EACE,8BAA8B;CAC/B;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,0BAA0B;EAC1B,mBAAmB;CACpB;AACD;EACE,8BAA8B;CAC/B","file":"ScrollableList.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.scrollable-list[data-v-1691d33a] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n}\n.scrollable-list__list-wrap[data-v-1691d33a] {\n  position: relative;\n  overflow: hidden;\n}\n.scrollable-list__sticky[data-v-1691d33a] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  width: calc(100% - 5px - 1px);\n}\n.scrollable-list__sticky-bottom[data-v-1691d33a] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.scrollable-list__list[data-v-1691d33a] {\n  overflow-x: hidden;\n  overflow-y: auto;\n  overscroll-behavior: contain;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n  width: 100%;\n}\n.scrollable-list__list--with-overlay[data-v-1691d33a] {\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 10px), transparent 100%);\n}\n.scrollable-list__list--with-bottom-slot[data-v-1691d33a] {\n  min-height: 50px;\n  -webkit-mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n          mask-image: linear-gradient(transparent 0%, black 10px, black calc(100% - 50px - 10px), transparent calc(100% - 50px), transparent 100%);\n}\n.scrollable-list__default-list--with-overlay[data-v-1691d33a] {\n  padding: 10px 0;\n}\n.scrollable-list__default-list--with-bottom-slot[data-v-1691d33a] {\n  padding: 10px 0 50px 0;\n}\n.scrollable-list__scroll-top[data-v-1691d33a] {\n  font-size: 11px;\n  color: #939399;\n  cursor: pointer;\n}\n.scrollable-list__scroll-top[data-v-1691d33a]:focus {\n  outline: none;\n  color: black;\n}\n[data-v-1691d33a]::-webkit-scrollbar {\n  width: 5px;\n}\n[data-v-1691d33a]::-webkit-scrollbar-track {\n  background-color: transparent;\n}\n.scrollable-list--light .scrollable-list__list[data-v-1691d33a]::-webkit-scrollbar-thumb {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n}\n.scrollable-list--dark .scrollable-list__list[data-v-1691d33a]::-webkit-scrollbar-thumb {\n  background-color: #444450;\n  border-radius: 5px;\n}\n[data-v-1691d33a]::-webkit-scrollbar-corner {\n  background-color: transparent;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -39103,7 +39121,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Scrollbar_vue__ = __webpack_require__(104);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24212940_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a90184b4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__ = __webpack_require__(385);
 function injectStyle (ssrContext) {
   __webpack_require__(383)
 }
@@ -39118,12 +39136,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-24212940"
+var __vue_scopeId__ = "data-v-a90184b4"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Scrollbar_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24212940_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a90184b4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -39144,7 +39162,7 @@ var content = __webpack_require__(384);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("7683ad28", content, true, {});
+var update = __webpack_require__(2)("71878085", content, true, {});
 
 /***/ }),
 /* 384 */
@@ -39155,7 +39173,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.scrollbar[data-v-24212940] {\n  width: 5px;\n  position: absolute;\n  right: 5px;\n  top: 0;\n  height: 100%;\n}\n.scrollbar__handle[data-v-24212940] {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n  -webkit-transition: -webkit-transform 0ms linear;\n  transition: -webkit-transform 0ms linear;\n  transition: transform 0ms linear;\n  transition: transform 0ms linear, -webkit-transform 0ms linear;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Scrollbar.vue"],"names":[],"mappings":";AACA;EACE,WAAW;EACX,mBAAmB;EACnB,WAAW;EACX,OAAO;EACP,aAAa;CACd;AACD;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,iDAAiD;EACjD,yCAAyC;EACzC,iCAAiC;EACjC,+DAA+D;CAChE","file":"Scrollbar.vue","sourcesContent":["\n.scrollbar[data-v-24212940] {\n  width: 5px;\n  position: absolute;\n  right: 5px;\n  top: 0;\n  height: 100%;\n}\n.scrollbar__handle[data-v-24212940] {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n  -webkit-transition: -webkit-transform 0ms linear;\n  transition: -webkit-transform 0ms linear;\n  transition: transform 0ms linear;\n  transition: transform 0ms linear, -webkit-transform 0ms linear;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.scrollbar[data-v-a90184b4] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-a90184b4] {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n  -webkit-transition: -webkit-transform 0ms linear;\n  transition: -webkit-transform 0ms linear;\n  transition: transform 0ms linear;\n  transition: transform 0ms linear, -webkit-transform 0ms linear;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Scrollbar.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,WAAW;EACX,OAAO;EACP,WAAW;EACX,aAAa;EACb,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;CAC3B;AACD;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,iDAAiD;EACjD,yCAAyC;EACzC,iCAAiC;EACjC,+DAA+D;CAChE","file":"Scrollbar.vue","sourcesContent":["\n.scrollbar[data-v-a90184b4] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-a90184b4] {\n  background-color: #d6d8dd;\n  border-radius: 5px;\n  -webkit-transition: -webkit-transform 0ms linear;\n  transition: -webkit-transform 0ms linear;\n  transition: transform 0ms linear;\n  transition: transform 0ms linear, -webkit-transform 0ms linear;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -39165,7 +39183,7 @@ exports.push([module.i, "\n.scrollbar[data-v-24212940] {\n  width: 5px;\n  posit
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"scrollbar",on:{"click":_vm.click}},[_c('div',{staticClass:"scrollbar__handle",style:({ transform: ("translateY(" + (_vm.offset * _vm.height / _vm.totalHeight) + "px)"), height: ((_vm.height / _vm.totalHeight * 100) + "%") }),on:{"mousedown":_vm.startDrag}})])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"scrollbar",on:{"click":_vm.click}},[_c('div',{staticClass:"scrollbar__handle",style:({ transform: ("translateY(" + _vm.handleY + "px)"), height: (_vm.handleHeight + "px") }),on:{"mousedown":_vm.startDrag}})])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

@@ -99,6 +99,7 @@ export default {
             this.positionSelectList()
             this.isListReady = true
 
+            this.scrollHeight = this.$refs.scrollable.scrollHeight
             this.scrollbarWidth = this.$refs.scrollable.offsetWidth - this.$refs.scrollable.clientWidth
         })
     },
@@ -107,9 +108,10 @@ export default {
     },
     methods: {
         onScroll (e) {
-            this.scrollTop = e.target.scrollTop
-            this.scrollHeight = e.target.scrollHeight
-            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+            const scrollable = this.$refs.scrollable
+            this.scrollTop = scrollable.scrollTop
+            this.scrollHeight = scrollable.scrollHeight
+            if (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight) {
                 this.$emit('load-more')
             }
         },

@@ -1,7 +1,7 @@
 <template>
     <div class="scrollbar" @click="click">
         <div
-            :style="{ transform: `translateY(${offset * height / totalHeight}px)`, height: `${height / totalHeight * 100}%` }"
+            :style="{ transform: `translateY(${handleY}px)`, height: `${handleHeight}px` }"
             class="scrollbar__handle"
             @mousedown="startDrag">
         </div>
@@ -15,6 +15,14 @@ export default {
         totalHeight: { type: Number },
         offset: { type: Number },
     },
+    computed: {
+        handleY () {
+            return this.offset * this.height / this.totalHeight
+        },
+        handleHeight () {
+            return this.height * this.height / this.totalHeight
+        },
+    },
     created () {
         window.addEventListener('mousemove', this.onDrag)
         window.addEventListener('mouseup', this.stopDrag)
@@ -24,18 +32,24 @@ export default {
         window.removeEventListener('mouseup', this.stopDrag)
     },
     methods: {
-        click () {
+        click (ev) {
+            const elementBox = this.$el.getBoundingClientRect()
+            const currentRatio = (ev.pageY - elementBox.top) / elementBox.height
 
+            this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.height / 2)))
         },
-        startDrag () {
+        startDrag (ev) {
             this.isDragging = true
+
+            const elementBox = this.$el.getBoundingClientRect()
+            this.handleDragRatio = (ev.pageY - (elementBox.top + this.handleY)) / this.handleHeight
         },
         onDrag (ev) {
             if (this.isDragging) {
                 const elementBox = this.$el.getBoundingClientRect()
                 const currentRatio = (ev.pageY - elementBox.top) / elementBox.height
 
-                this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.height / 2)))
+                this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, this.totalHeight * currentRatio - this.handleDragRatio * this.height)))
             }
         },
         stopDrag () {
@@ -49,11 +63,12 @@ export default {
 @import (reference) './common';
 
 .scrollbar {
-    width: 5px;
     position: absolute;
     right: 5px;
     top: 0;
+    width: 5px;
     height: 100%;
+    user-select: none;
 
     &__handle {
         background-color: @very-light-gray;
