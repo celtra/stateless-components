@@ -10,7 +10,7 @@
         <div v-else class="multiselect__options">
             <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
                 <div v-if="canSelectAndClearAll || canClearAll" slot="before" class="multiselect__change-multiple">
-                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple(changeMultipleState === false ? allPossibleIds : [])">
+                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple">
                         <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
                         <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
                     </checkbox-element>
@@ -109,10 +109,17 @@ export default {
             return itemsUtils.flatten(this.allOptions)
         },
         allPossibleIds () {
-            return itemsUtils.getLeafItems(this.listItems).filter(item => !item.disabled).map(item => item.id)
+            return this.flatOptions.filter(item => item.isLeaf && !item.disabled).map(item => item.id)
+        },
+        disabledValueIds () {
+            return this.value.filter(id => {
+                const item = this.flatOptions.find(x => x.id === id)
+                return item && item.disabled
+            })
         },
         changeMultipleState () {
-            return this.value.length === 0 ? false : this.value.length === this.allPossibleIds.length ? true : null
+            const enabledValueLength = this.value.length - this.disabledValueIds.length
+            return enabledValueLength === 0 ? false : enabledValueLength === this.allPossibleIds.length ? true : null
         },
         listItems () {
             let result = this.allOptions
@@ -182,7 +189,8 @@ export default {
             this.setChecked(item, this.isChecked(item) ? false : true)
             this.$refs.list.focus()
         },
-        setMultiple (ids) {
+        setMultiple (value) {
+            const ids = value ? this.disabledValueIds.concat(this.allPossibleIds) : this.disabledValueIds
             this.disableTransition = true
             this.$emit('input', ids)
             this.$refs.list.focus()
@@ -285,6 +293,7 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) './common';
+@import './typography';
 
 .multiselect {
     height: fit-content;

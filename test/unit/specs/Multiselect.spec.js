@@ -71,7 +71,7 @@ describe('Multiselect', () => {
                 expect(vm.isChecked({ id: 1 })).toBe(false)
                 expect(vm.isChecked({ id: 2 })).toBe(false)
                 expect(vm.isChecked({ id: 3 })).toBe(false)
-                vm.setMultiple(vm.allPossibleIds)
+                vm.setMultiple(true)
                 expect(vm.$emit).toHaveBeenCalledWith('input', [1, 2, 3])
             })
 
@@ -79,7 +79,7 @@ describe('Multiselect', () => {
                 spyOn(vm, '$emit')
 
                 vm.value = ['1', '2', '3']
-                vm.setMultiple([])
+                vm.setMultiple(false)
                 expect(vm.$emit).toHaveBeenCalledWith('input', [])
             })
         })
