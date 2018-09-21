@@ -252,7 +252,7 @@ export default {
             this.searchTextValue = v
         }, 400),
         loadAsyncOptions () {
-            if (typeof this.getOptions === 'function') {
+            if (this.getOptions !== null) {
                 this.isSearchLoading = true
                 this.getOptions(this.searchText || '')
                     .then(options => {
