@@ -58,7 +58,6 @@ export default {
         options: { type: Array, required: true },
         value: { type: String, required: false, default: '' },
         getOptions: { type: Function, required: false, default: null },
-        loadAsyncDebounce: { type: Number, default: 0 },
         isSearchable: { type: Boolean, required: false, default: false },
         isUnselectable: { type: Boolean, required: false, default: false },
         showSelectedMetadata: { type: Boolean, required: false, default: false },
@@ -130,7 +129,7 @@ export default {
             return this.disabled ? this.disabledText : ''
         },
         listItems () {
-            if (typeof this.getOptions === 'function'){
+            if (this.getOptions !== null) {
                 return this.asyncOptions
             }
 
@@ -166,9 +165,6 @@ export default {
         searchText () {
             this.debouncedLoadAsyncOptions()
         },
-    },
-    created () {
-        this.debouncedLoadAsyncOptions = debounce(this.loadAsyncOptions, this.loadAsyncDebounce)
     },
     methods: {
         setFocus () {
@@ -265,6 +261,7 @@ export default {
                     }).catch(console.error)
             }
         },
+        debouncedLoadAsyncOptions: debounce(() => this.loadAsyncOptions(), 400),
         move (direction) {
             this.$refs.list.move(direction)
         },
@@ -273,19 +270,24 @@ export default {
 </script>
 
 <style lang="less">
-    .selectbox {
+@import (reference) './common';
+.selectbox {
 
-        &__select-row:hover {
+    &__select-row .default-list-item--light .default-list-item__label--disabled {
+        color: @very-light-gray;
+    }
 
-            .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
-                color: black;
-            }
+    &__select-row:hover {
 
-            .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
-                color: white;
-            }
+        .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: black;
+        }
+
+        .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: white;
         }
     }
+}
 </style>
 
 <style lang="less" scoped>

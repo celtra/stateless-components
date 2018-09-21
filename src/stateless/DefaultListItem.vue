@@ -185,7 +185,7 @@ export default {
         &__label {
             color: @gunpowder;
             &--selected { color: @royal-blue; }
-            &--disabled { color: @very-light-gray; }
+            &--disabled { color: @gray-blue; }
             &:hover {
                 &:not(.default-list-item--disabled)&:not(.default-list-item--selected) {
                     .default-list-item__label { color: @black; }

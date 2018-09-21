@@ -77,7 +77,7 @@
             <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm4 9H9v3H7V9H4V7h3V4h2v3h3v2z" fill-rule="nonzero"/>
         </svg>
 
-        <svg v-if="name === 'plus-v2'" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <svg v-if="name === 'plus-square'" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 0H6v6H0v4h6v6h4v-6h6V6h-6z" fill="#444450" fill-rule="nonzero"/>
         </svg>
 

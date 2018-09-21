@@ -568,7 +568,6 @@ export default {
         border: 0;
         outline: none;
         margin: 4px 0px;
-        transition: color @default-transition-time;
 
         &.input-row__textarea {
             // we get 2 extra px because some weird textarea styling
