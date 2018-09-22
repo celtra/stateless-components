@@ -170,20 +170,20 @@ export default {
         select (day) {
             if (this.isRange) {
                 if (!this.value || !this.value.from || this.value.to) {
-                    this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: day.date } })
+                    this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: day.date } })
                     this.$emit('input', { from: day.date })
                 } else {
                     if (compareDate(day.date, this.value.from) > 0) {
-                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: this.value.from, to: day.date } })
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: this.value.from, to: day.date } })
                         this.$emit('input', { from: this.value.from, to: day.date })
                     } else {
-                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: { from: day.date, to: this.value.from } })
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: day.date, to: this.value.from } })
                         this.$emit('input', { from: day.date, to: this.value.from })
                     }
                     this.$emit('confirm')
                 }
             } else {
-                this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', value: day.date })
+                this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: day.date })
                 this.$emit('input', day.date)
                 this.$emit('confirm')
             }
