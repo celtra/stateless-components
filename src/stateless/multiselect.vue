@@ -261,7 +261,7 @@ export default {
                     } else {
                         this.$emit('input', valueWithout)
                     }
-                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select', data: { isChecked } })
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select', data: { id: option.id, isChecked } })
                 } else {
                     const leafIds = option.leafItems.filter(item => !item.disabled).map(item => item.id)
                     const valueWithout = this.value.filter(id => !leafIds.includes(id))
@@ -270,7 +270,7 @@ export default {
                     } else {
                         this.$emit('input', valueWithout)
                     }
-                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-group', data: { isChecked } })
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-group', data: { id: option.id, isChecked } })
                 }
             }
         },
