@@ -100,7 +100,7 @@ export default {
             if (!this.disabled) {
                 this.$emit('focus')
                 this.$emit('input', this.value === true || this.value === null ? false : true)
-                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'click', data: { states: this.states } })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'click', data: { value: this.value } })
                 this.focused = false
             }
         },

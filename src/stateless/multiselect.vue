@@ -195,7 +195,7 @@ export default {
             const ids = value ? this.disabledValueIds.concat(this.allPossibleIds) : this.disabledValueIds
             this.disableTransition = true
             this.$emit('input', ids)
-            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-clear-bulk', data: { isSelectAll: value ? value : null, isClearAll: !value ? !value : null } })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-bulk', data: { isSelectAll: value, isClearAll: !value } })
             this.$refs.list.focus()
             this.$nextTick(() => {
                 this.disableTransition = false
