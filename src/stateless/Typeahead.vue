@@ -96,7 +96,7 @@ export default {
         onInput (v) {
             this.isOpen = true
             this.$emit('input', v)
-            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'change' })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
         },
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)

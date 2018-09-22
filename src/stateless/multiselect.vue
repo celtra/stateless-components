@@ -71,6 +71,7 @@ export default {
         searchSize: { type: String, required: false },
         numItems: { type: Number, default: 10 },
         loadAsyncDebounce: { type: Number, default: 0 },
+        trackName: { type: String, default: 'multiselect' },
     },
     data () {
         return {
@@ -91,6 +92,7 @@ export default {
                 this.gotAllOptions = false
                 this.isLoading = false
                 this.$emit('search', v)
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
                 this.debouncedLoadAsyncOptions()
             },
         },
@@ -193,6 +195,7 @@ export default {
             const ids = value ? this.disabledValueIds.concat(this.allPossibleIds) : this.disabledValueIds
             this.disableTransition = true
             this.$emit('input', ids)
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-clear-bulk', data: { isSelectAll: value ? value : null, isClearAll: !value ? !value : null } })
             this.$refs.list.focus()
             this.$nextTick(() => {
                 this.disableTransition = false
@@ -258,6 +261,7 @@ export default {
                     } else {
                         this.$emit('input', valueWithout)
                     }
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select', data: { isChecked } })
                 } else {
                     const leafIds = option.leafItems.filter(item => !item.disabled).map(item => item.id)
                     const valueWithout = this.value.filter(id => !leafIds.includes(id))
@@ -266,6 +270,7 @@ export default {
                     } else {
                         this.$emit('input', valueWithout)
                     }
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-group', data: { isChecked } })
                 }
             }
         },
