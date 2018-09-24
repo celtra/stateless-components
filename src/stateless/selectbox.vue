@@ -518,7 +518,7 @@ export default {
         &__arrow-down { border-width: 3px 3.5px 0 3.5px; }
 
         &__select-row {
-            height: 20px;
+            height: 22px;
         }
 
         &__select-list-wrap {

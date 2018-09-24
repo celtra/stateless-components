@@ -864,7 +864,8 @@ export default {
     .input-row__unit { font-size: 14px; }
 
     .input-field__helper-text {
-        min-height: 16px;
+        min-height: 12px;
+        height: 12px;
         font-size: 10px;
     }
 
