@@ -171,11 +171,20 @@ exports[`Multiselect should match the snapshot 1`] = `
       <div
         class="scrollable-list__list-wrap"
       >
-        <!---->
+        <div
+          class="scrollable-list__sticky"
+        >
+          <div
+            class="scrollable-list__sticky-slot"
+            style="margin-left: 0px;"
+          />
+           
+          <!---->
+        </div>
          
         <div
           class="scrollable-list__list scrollable-list__list--with-overlay"
-          style="max-height: 330px;"
+          style="max-height: 320px;"
         >
           <div
             class="default-list scrollable-list__default-list default-list--dark default-list--normal scrollable-list__default-list--with-overlay"
@@ -525,6 +534,10 @@ exports[`Multiselect should match the snapshot 1`] = `
             </div>
           </div>
         </div>
+         
+        <div
+          class="scrollable-list__sticky-bottom"
+        />
       </div>
     </div>
   </div>

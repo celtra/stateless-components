@@ -8,7 +8,7 @@ exports[`ImageList should match the snapshot 1`] = `
   xmlns="http://www.w3.org/2000/svg"
 >
   <clippath
-    id="images-mask-0"
+    id="images-mask-1"
   >
     <rect
       fill="#fff"
@@ -29,7 +29,7 @@ exports[`ImageList should match the snapshot 1`] = `
    
   <g
     class="image-list__items"
-    clip-path="url(#images-mask-0)"
+    clip-path="url(#images-mask-1)"
   >
     <g
       class="image-list__item"
