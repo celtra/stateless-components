@@ -261,7 +261,9 @@ export default {
                     }).catch(console.error)
             }
         },
-        debouncedLoadAsyncOptions: debounce(() => this.loadAsyncOptions(), 400),
+        debouncedLoadAsyncOptions: debounce(function () {
+            return this.loadAsyncOptions()
+        }, 400),
         move (direction) {
             this.$refs.list.move(direction)
         },
