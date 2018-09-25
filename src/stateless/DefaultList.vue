@@ -332,14 +332,26 @@ export default {
 }
 
 .default-list--dark {
-    .default-list__item--active {
+    .default-list__item:hover {
         background-color: @very-dark-gray;
+    }
+
+    &:not(:hover) {
+        .default-list__item--active {
+            background-color: @very-dark-gray;
+        }
     }
 }
 
 .default-list--light {
-    .default-list__item--active {
+    .default-list__item:hover {
         background-color: @white-smoke;
+    }
+
+    &:not(:hover) {
+        .default-list__item--active {
+            background-color: @white-smoke;
+        }
     }
 }
 
