@@ -17,7 +17,7 @@
             {{ mappedHelperText }}
         </div>
 
-        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap" @click="$refs.list.focus()">
+        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap selectbox__select-list-wrap--override" @click="$refs.list.focus()">
             <div class="selectbox__list-frame"></div>
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
