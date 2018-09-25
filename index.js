@@ -5426,6 +5426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["sortBy"] = sortBy;
 /* harmony export (immutable) */ __webpack_exports__["getLeafItems"] = getLeafItems;
 /* harmony export (immutable) */ __webpack_exports__["flatten"] = flatten;
+/* harmony export (immutable) */ __webpack_exports__["unique"] = unique;
 /* harmony export (immutable) */ __webpack_exports__["search"] = search;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_values__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_values___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_values__);
@@ -5688,6 +5689,40 @@ function flatten(items) {
     return flat;
 }
 
+function unique(items) {
+    var ids = {};
+    var list = [];
+    var _iteratorNormalCompletion6 = true;
+    var _didIteratorError6 = false;
+    var _iteratorError6 = undefined;
+
+    try {
+        for (var _iterator6 = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_get_iterator___default()(items), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var item = _step6.value;
+
+            if (!ids[item.id]) {
+                ids[item.id] = true;
+                list.push(item);
+            }
+        }
+    } catch (err) {
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                _iterator6.return();
+            }
+        } finally {
+            if (_didIteratorError6) {
+                throw _iteratorError6;
+            }
+        }
+    }
+
+    return list;
+}
+
 function search(items, query) {
     var fields = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['label', 'metadata', 'tooltipTitle', 'tooltip'];
 
@@ -5715,9 +5750,9 @@ function search(items, query) {
         return 0;
     };
 
-    return sortBy(flatten(items).filter(function (x) {
+    return sortBy(unique(flatten(items).filter(function (x) {
         return x.isLeaf && searchFn(x) > 0;
-    }), searchFn);
+    })), searchFn);
 }
 
 /***/ }),

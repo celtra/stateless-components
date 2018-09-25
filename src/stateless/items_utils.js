@@ -132,6 +132,18 @@ export function flatten (items) {
     return flat
 }
 
+export function unique (items) {
+    let ids = {}
+    let list = []
+    for (let item of items) {
+        if (!ids[item.id]) {
+            ids[item.id] = true
+            list.push(item)
+        }
+    }
+    return list
+}
+
 export function search (items, query, fields = ['label', 'metadata', 'tooltipTitle', 'tooltip']) {
     const cleanQuery = (query || '').trim(' ').toLowerCase()
     if (cleanQuery.length === 0) {
@@ -160,5 +172,5 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltipTit
         return 0
     }
 
-    return sortBy(flatten(items).filter(x => x.isLeaf && searchFn(x) > 0), searchFn)
+    return sortBy(unique(flatten(items).filter(x => x.isLeaf && searchFn(x) > 0)), searchFn)
 }
