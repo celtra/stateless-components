@@ -256,9 +256,12 @@ export default {
                 this.isSearchLoading = true
                 this.getOptions(this.searchText || '')
                     .then(options => {
-                        this.isSearchLoading = false
                         this.asyncOptions = options
-                    }).catch(console.error)
+                    })
+                    .catch(console.error)
+                    .finally(() => {
+                        this.isSearchLoading = false
+                    })
             }
         },
         debouncedLoadAsyncOptions: debounce(function () {
