@@ -22,7 +22,7 @@ export default {
     computed: {
         transform () {
             if (this.translateX || this.translateY) {
-                return `translate(${this.translateX || 0}px, ${this.translateY || 0}px)`
+                return `translate(${Math.round(this.translateX || 0)}px, ${Math.round(this.translateY || 0)}px)`
             }
         },
     },
