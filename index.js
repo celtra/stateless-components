@@ -6355,7 +6355,7 @@ var tooltipVm = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
                 var tooltipElement = this.$children[0].$el;
                 var targetRect = this.target.getBoundingClientRect();
 
-                tooltipElement.style.transform = 'translate(' + targetRect.left + 'px, ' + targetRect.bottom + 'px)';
+                tooltipElement.style.transform = 'translate(' + (targetRect.left + window.scrollX) + 'px, ' + (targetRect.bottom + window.scrollY) + 'px)';
             }
         }
     },

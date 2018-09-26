@@ -28,7 +28,7 @@ const tooltipVm = new Vue({
                 const tooltipElement = this.$children[0].$el
                 const targetRect = this.target.getBoundingClientRect()
 
-                tooltipElement.style.transform = `translate(${targetRect.left}px, ${targetRect.bottom}px)`
+                tooltipElement.style.transform = `translate(${targetRect.left + window.scrollX}px, ${targetRect.bottom + window.scrollY}px)`
             }
         },
     },
