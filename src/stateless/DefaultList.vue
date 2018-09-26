@@ -97,11 +97,17 @@ export default {
             let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
+                const isLeaf = item.isLeaf || this.noGroupRendering
                 return {
                     ...item,
                     offset: this.initialOffset + this.getOffset(item),
-                    height: this.transitionSorting ? (item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight) : null,
-                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
+                    height: this.transitionSorting ? (isLeaf ? this.assumedItemHeight : this.assumedGroupHeight) : null,
+                    modifiers: {
+                        leaf: isLeaf,
+                        hoverable: isLeaf && this.setActiveOnHover,
+                        active: (item.key || item.id) === activeId,
+                        'with-tooltip': !!item.tooltip,
+                    },
                 }
             })
         },
@@ -332,7 +338,7 @@ export default {
 }
 
 .default-list--dark {
-    .default-list__item:hover {
+    .default-list__item--hoverable:hover {
         background-color: @very-dark-gray;
     }
 
@@ -344,7 +350,7 @@ export default {
 }
 
 .default-list--light {
-    .default-list__item:hover {
+    .default-list__item--hoverable:hover {
         background-color: @white-smoke;
     }
 
