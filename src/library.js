@@ -38,6 +38,7 @@ import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 import MiddleEllipsisComponent from '@/stateless/MiddleEllipsis.vue'
 import MiddleEllipsisListItemComponent from '@/stateless/MiddleEllipsisListItem.vue'
 import TextLineComponent from '@/stateless/TextLine.vue'
+import WindowEventsComponent from '@/stateless/WindowEvents.vue'
 
 export const filters = filtersObject
 export const directives = directivesObject
@@ -77,3 +78,4 @@ export const ChipWithMultiselect = ChipWithMultiselectComponent
 export const MiddleEllipsis = MiddleEllipsisComponent
 export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent
 export const TextLine = TextLineComponent
+export const WindowEvents = WindowEventsComponent
