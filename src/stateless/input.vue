@@ -583,6 +583,7 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis !important;
+            transition: color @default-transition-time;
         }
 
         &--overlay-open {
@@ -623,6 +624,9 @@ export default {
         &--error { color: @pink-red; }
         &--disabled { color: @gunpowder }
         &--disabled::placeholder { color: @gunpowder }
+
+        &--disabled&--light { color: @very-light-gray }
+        &--disabled&--light::placeholder { color: @very-light-gray }
     }
 
     &--dark {
@@ -635,6 +639,10 @@ export default {
 
     &--light {
         border-color: @very-light-gray;
+
+        &.input-row--disabled {
+            border-color: @very-light-gray;
+        }
 
         &:hover:not(.input-row--disabled) {
             .input-row__placeholder-text::placeholder { color: @black; }
@@ -775,9 +783,9 @@ export default {
     .input-row__unit {
         color: @bluish-gray;
 
-        &--warning {
-            color: @orange-yellow;
-        }
+        &--disabled { color: @very-light-gray; }
+
+        &--warning { color: @orange-yellow; }
     }
 
     .input__icon-prepend {
@@ -861,7 +869,8 @@ export default {
     .input-row__unit { font-size: 14px; }
 
     .input-field__helper-text {
-        min-height: 16px;
+        min-height: 12px;
+        height: 12px;
         font-size: 10px;
     }
 
