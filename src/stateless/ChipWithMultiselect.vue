@@ -76,6 +76,7 @@ export default {
         },
         searchChange (searchQuery) {
             this.searchQuery = searchQuery
+            this.$emit('search', searchQuery)
         },
     },
 }
