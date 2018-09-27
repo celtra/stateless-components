@@ -40,6 +40,7 @@ import SearchInput from './SearchInput.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
+import { defaultItems } from './demo_data'
 
 export default {
     components: {
@@ -65,6 +66,14 @@ export default {
         theme: { type: String, required: false, default: 'dark' },
         trackName: { type: String, required: false },
     },
+    usecases: [
+        {
+            options: defaultItems,
+            isSearchable: true,
+            isUnselectable: true,
+            label: 'Something',
+        },
+    ],
     data () {
         return {
             isOpen: false,

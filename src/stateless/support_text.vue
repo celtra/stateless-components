@@ -46,6 +46,11 @@ export default {
         theme: { type: String, default: 'dark' },
         trackName: { type: String, required: false },
     },
+    usecases: [
+        {
+            text: 'Lorem Ipsum<br>And a new line',
+        },
+    ],
     data () {
         return {
             isMultiline: false,

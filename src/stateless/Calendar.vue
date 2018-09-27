@@ -50,6 +50,11 @@ export default {
         selectAllTime: { type: Boolean, default: false },
         locale: { type: String, default: 'en-US' },
     },
+    usecases: [
+        {
+            isRange: true,
+        },
+    ],
     data () {
         return {
             year: 0,

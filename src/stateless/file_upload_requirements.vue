@@ -12,6 +12,14 @@ export default {
     props: {
         requirements: { type: Array, required: true },
     },
+    usecases: [
+        {
+            requirements: [
+                { name: 'Format', value: 'PNG, JPG' },
+                { name: 'Size', value: 'max. 3MB' },
+            ],
+        },
+    ],
 }
 </script>
 

@@ -43,6 +43,16 @@ export default {
         errorText: { type: String, required: false, default: '' },
         theme: { type: String, required: false, default: 'dark' },
     },
+    usecases: [
+        {
+            value: false,
+            slot (h) {
+                return h('div', 'Something')
+            },
+        }, {
+            value: true,
+        },
+    ],
     data () {
         return {
             focused: false,

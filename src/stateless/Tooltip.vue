@@ -13,6 +13,12 @@ export default {
         show: { type: Boolean, default: false },
         isRelative: { type: Boolean, default: true },
     },
+    usecases: [
+        {
+            title: 'Some',
+            show: true,
+        },
+    ],
     data () {
         return {
             translateX: null,

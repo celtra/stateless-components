@@ -22,6 +22,15 @@ export default {
         description: { type: String, required: false },
         theme: { type: String, default: 'dark' },
     },
+    usecases: [
+        {
+            label: 'Modeling',
+            theme: 'light',
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+    ],
 }
 </script>
 

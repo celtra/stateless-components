@@ -1,18 +1,13 @@
-<template>
-    <div>
-        <component v-if="componentData" :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
-    </div>
-</template>
-
 <script>
 import '@/stateless/define_helpers'
-import components from '../components.js'
+import * as library from '../library.js'
 
 export default {
     data () {
         return {
             name: null,
             value: null,
+            query: {},
         }
     },
     computed: {
@@ -20,19 +15,53 @@ export default {
             if (this.name === null)
                 return null
 
-            let data = components[this.name]
+            let component = library[this.name]
 
-            let modelName = data.component.model ? data.component.value : 'value'
-            let modelEvent = data.component.model ? data.component.event : 'input'
+            let modelName = component.model ? component.value : 'value'
+            let modelEvent = component.model ? component.event : 'input'
+
+            let data = {
+                [modelName]: this.value,
+                theme: 'light',
+                size: 'normal',
+            }
+
+            let slotFn = null
+            if (component.usecases) {
+                data = { ...data, ...component.usecases[0] }
+                slotFn = component.usecases[0].slot || null
+            }
+
+            for (let key in this.query) {
+                let propConfig = component.props[key]
+
+                let value = this.query[key]
+                if (!propConfig) {
+                    data[key] = value
+                } else if (propConfig.type === Boolean) {
+                    if (value === 'true') {
+                        data[key] = true
+                    } else if (value === 'false') {
+                        data[key] = false
+                    }
+                } else if (propConfig.type === Number) {
+                    const numberValue = parseFloat(value)
+                    if (!isNaN(numberValue)) {
+                        data[key] = numberValue
+                    }
+                } else if (propConfig.type === String) {
+                    data[key] = value
+                } else if (propConfig.type === Object || propConfig.type === Array) {
+                    try {
+                        data[key] = JSON.parse(value)
+                    } catch (e) { }
+                }
+            }
 
             return {
-                ...data,
-                data: {
-                    ...data.defaultProps,
-                    [modelName]: this.value,
-                    theme: 'light',
-                    size: 'normal',
-                },
+                component: component,
+                data: data,
+                slotFn: slotFn,
                 listeners: {
                     [modelEvent]: (value) => {
                         this.updateValue(value)
@@ -45,25 +74,45 @@ export default {
         '$route.params.component' (name) {
             this.setupComponent()
         },
+        '$route.query': {
+            handler (name) {
+                this.updateQuery()
+            },
+            deep: true,
+        },
     },
     created () {
         this.setupComponent()
+        this.updateQuery()
     },
     methods: {
         setupComponent () {
             let name = this.$route.params.component
-            let data = components[name]
-            if (!data) {
+            let component = library[name]
+            if (!component) {
                 throw `Component ${name} does not exist!`
             }
 
-            let modelName = data.component.model ? data.component.value : 'value'
-            this.value = data.defaultProps && data.defaultProps[modelName]
+            let modelName = component.model ? component.value : 'value'
+            this.value = component.props[modelName] ? component.props[modelName].default : null
             this.name = name
+        },
+        updateQuery () {
+            this.query = { ...this.$route.query }
         },
         updateValue (value) {
             this.value = value
         },
+    },
+    render (h) {
+        if (!this.componentData) {
+            return h()
+        }
+        let slot = this.componentData.slotFn ? this.componentData.slotFn(h) : []
+        if (typeof slot === 'string') {
+            slot = this._v(slot)
+        }
+        return h(this.componentData.component, { props: this.componentData.data, class: 'instance', listeners: this.componentData.listeners }, [slot])
     },
 }
 </script>

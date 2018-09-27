@@ -78,6 +78,20 @@ export default {
         disabled: { type: Boolean, default: false },
         trackName: { type: String, required: false },
     },
+    usecases: [
+        {
+            min: 1,
+            max: 100,
+            limit: 20,
+            step: 1,
+            theme: 'light',
+            size: 'normal',
+            label: 'Basic slider',
+            value: 5,
+            unit: '%',
+            alignment: 'right',
+        },
+    ],
     data () {
         return {
             isDomReady: false,

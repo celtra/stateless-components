@@ -68,7 +68,7 @@ export default {
             return this.headerOffset !== null
         },
         headerStyle () {
-            return `left: ${this.headerOffset}px`
+            return `left: ${Math.floor(this.headerOffset)}px`
         },
     },
     watch: {

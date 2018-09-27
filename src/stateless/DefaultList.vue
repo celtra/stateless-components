@@ -57,6 +57,7 @@ import DefaultListItem from './DefaultListItem.vue'
 import Tooltip from './Tooltip.vue'
 import { flatten } from './items_utils'
 import TooltipMixin from '../helpers/tooltip_mixin'
+import { defaultNestedItems } from './demo_data'
 
 export default {
     components: {
@@ -76,6 +77,9 @@ export default {
         setActiveOnHover: { type: Boolean, default: true },
         initialOffset: { type: Number, default: 0 },
     },
+    usecases: [
+        { items: defaultNestedItems },
+    ],
     data () {
         return {
             firstRender: true,

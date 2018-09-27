@@ -1,10 +1,9 @@
 import Group from '@/stateless/group.vue'
 import Vue from 'vue'
-import components from '@/components'
 
 const Constructor = Vue.extend(Group)
 const vm = new Constructor({
-    propsData: components.Group.defaultProps,
+    propsData: Group.usecases[0],
 }).$mount()
 
 describe('Group', () => {

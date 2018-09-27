@@ -90,6 +90,14 @@ export default {
         maxCount: { type: Number, required: false },
         enableAdd: { type: Boolean, default: true },
     },
+    usecases: [
+        {
+            images: [
+                {},
+                {},
+            ],
+        },
+    ],
     data () {
         return {
             currentImages: [],

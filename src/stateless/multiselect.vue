@@ -43,6 +43,7 @@ import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 import debounce from 'lodash.debounce'
+import { defaultItems } from './demo_data'
 
 export default {
     components: {
@@ -72,6 +73,14 @@ export default {
         numItems: { type: Number, default: 10 },
         loadAsyncDebounce: { type: Number, default: 0 },
     },
+    usecases: [
+        {
+            options: defaultItems,
+            value: ['1', '2'],
+            isSearchable: true,
+            canSelectAndClearAll: true,
+        },
+    ],
     data () {
         return {
             disableTransition: false,

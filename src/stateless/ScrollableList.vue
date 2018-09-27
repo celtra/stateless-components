@@ -37,6 +37,7 @@
 <script>
 import { find } from './items_utils'
 import DefaultList from './DefaultList.vue'
+import { largeItems } from './demo_data'
 
 export default {
     components: {
@@ -56,6 +57,14 @@ export default {
         showOverlay: { type: Boolean, default: false },
         initialOffset: { type: Number, default: 0 },
     },
+    usecases: [
+        {
+            items: largeItems,
+            numItems: 10,
+            label: 'Something',
+            showOverlay: true,
+        },
+    ],
     data () {
         return {
             isListReady: false,

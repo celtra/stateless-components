@@ -1,6 +1,5 @@
 import DialogButton from '@/stateless/dialog_button.vue'
 import Vue from 'vue'
-import components from '@/components'
 
 const Constructor = Vue.extend(DialogButton)
 let vm = null

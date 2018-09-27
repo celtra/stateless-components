@@ -164,6 +164,12 @@ export default {
         width: { type: Number, default: 280 },
         inputName: { type: String, required: false, default: 'video-file' },
     },
+    usecases: [
+        {
+            file: {},
+            uploadUrl: 'https://example.com',
+        },
+    ],
     data () {
         return {
             progress: 0,

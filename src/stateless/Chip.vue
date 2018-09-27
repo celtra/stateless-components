@@ -23,6 +23,13 @@ export default {
         isRemovable: { type: Boolean, default: false },
         isDisabled: { type: Boolean, default: false },
     },
+    usecases: [
+        {
+            label: 'Label',
+            metadata: '3/9',
+            theme: 'light',
+        },
+    ],
 }
 </script>
 

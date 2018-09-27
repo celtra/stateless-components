@@ -1,6 +1,5 @@
 import RadioButton from '@/stateless/radiobutton.vue'
 import Vue from 'vue'
-import components from '@/components'
 
 const Constructor = Vue.extend(RadioButton)
 let vm = null

@@ -59,17 +59,19 @@
 
 <script>
 import '@/stateless/define_helpers'
-import components from '../components.js'
+import * as library from '../library.js'
+
+const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
 let getComponents = () => {
-    return Object.keys(components).map(componentId => {
-        let componentData = components[componentId]
+    return componentNames.map(componentName => {
+        let component = library[componentName]
 
-        let modelName = componentData.component.model ? componentData.component.value : 'value'
-        let modelEvent = componentData.component.model ? componentData.component.event : 'input'
+        let modelName = component.model ? component.value : 'value'
+        let modelEvent = component.model ? component.event : 'input'
 
-        let componentProps = componentData.component.props
-        let defaultProps = componentData.defaultProps || {}
+        let componentProps = component.props
+        let defaultProps = component.usecases ? component.usecases[0] : {}
 
         let allProps = {}
         for (let key in componentProps)
@@ -79,8 +81,8 @@ let getComponents = () => {
         allProps = Object.keys(allProps)
 
         return {
-            ...componentData,
-            id: componentId,
+            component: component,
+            id: componentName,
             modelName: modelName,
             modelEvent: modelEvent,
             props: allProps.map(propName => {
@@ -88,7 +90,7 @@ let getComponents = () => {
                     name: propName,
                     type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
                     default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
-                    availableValues: componentData.availableProps && componentData.availableProps[propName] || null,
+                    availableValues: component.variations && component.variations[propName] || null,
                 }
             }),
         }
@@ -99,7 +101,7 @@ export default {
     name: 'components-list',
     data () {
         let vars = {
-            componentId: Object.keys(components)[0],
+            componentId: componentNames[0],
             theme: 'light',
             size: 'normal',
         }

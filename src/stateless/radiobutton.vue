@@ -36,6 +36,15 @@ export default {
         errorText: { type: String, required: false, default: '' },
         trackName: { type: String, required: false },
     },
+    usecases: [
+        {
+            value: 'something',
+            selectedValue: 'something',
+            slot (h) {
+                return 'Something'
+            },
+        },
+    ],
     data () {
         return {
             focused: false,

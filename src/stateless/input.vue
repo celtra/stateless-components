@@ -113,6 +113,11 @@ export default {
         locale: { type: String, default: 'en-US' },
         trackName: { type: String, required: false },
     },
+    usecases: [
+        {
+            label: 'Something',
+        },
+    ],
     data () {
         return {
             warningMessage: null,

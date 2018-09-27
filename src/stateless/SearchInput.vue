@@ -22,6 +22,11 @@ export default {
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
     },
+    usecases: [
+        {
+            label: 'Something',
+        },
+    ],
     methods: {
         focus () {
             this.$refs.input.focus()

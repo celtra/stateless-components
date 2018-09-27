@@ -47,6 +47,27 @@ export default {
         isClosingAllowed: { type: Boolean, default: true },
         closed: { type: Boolean, default: false },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        hasBackButton: [true, false],
+        hasCloseButton: [true, false],
+        stepId: [null, 'a'],
+        steps: [
+            [
+                { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
+                { id: 'b', passiveLabel: 'B', activeLabel: 'B' },
+            ],
+        ],
+    },
+    usecases: [
+        {
+            setup () {
+                return new Promise((resolve, reject) => {
+                    setTimeout(resolve, 500)
+                })
+            },
+        },
+    ],
     data () {
         return {
             dialogViewState: 'opening',
