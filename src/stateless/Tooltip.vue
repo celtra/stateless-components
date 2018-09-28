@@ -17,6 +17,13 @@ export default {
         {
             title: 'Some',
             show: true,
+            slot (h) {
+                return 'Something'
+            },
+            setup () {
+                // Wait for tooltip animation to finish
+                return new Promise(resolve => setTimeout(resolve, 1200))
+            },
         },
     ],
     data () {

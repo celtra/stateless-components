@@ -1,8 +1,13 @@
 <script>
 import '@/stateless/define_helpers'
+import SelectProps from './SelectProps.vue'
 import * as library from '../library.js'
+import { getFlatUsecases, getProps } from '../component_utils'
 
 export default {
+    components: {
+        SelectProps,
+    },
     data () {
         return {
             name: null,
@@ -26,10 +31,11 @@ export default {
                 size: 'normal',
             }
 
+            const usecases = getFlatUsecases(component)
             let slotFn = null
-            if (component.usecases) {
-                data = { ...data, ...component.usecases[0] }
-                slotFn = component.usecases[0].slot || null
+            if (usecases.length > 0) {
+                data = { ...data, ...usecases[0] }
+                slotFn = usecases[0].slot || null
             }
 
             for (let key in this.query) {
@@ -108,12 +114,23 @@ export default {
         if (!this.componentData) {
             return h()
         }
-        let slot = this.componentData.slotFn ? this.componentData.slotFn(h) : []
+        let slot = this.componentData.slotFn ? this.componentData.slotFn.bind(this.componentData.data)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
-        return h(this.componentData.component, { props: this.componentData.data, class: 'instance', listeners: this.componentData.listeners }, [slot])
+
+        const propsList = getProps(this.componentData.component).map(prop => {
+            return {
+                ...prop,
+                value: this.componentData.data[prop.name],
+            }
+        })
+
+        // h(SelectProps, { style: { marginRight: '55px' }, props: { propsList } })
+
+        return h('div', { style: { display: 'flex', position: 'relative', width: '50%' } }, [
+            h(this.componentData.component, { props: this.componentData.data, listeners: this.componentData.listeners }, slot ? [slot] : []),
+        ])
     },
 }
 </script>
-

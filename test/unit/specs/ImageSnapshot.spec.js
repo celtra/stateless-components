@@ -12,6 +12,7 @@ const runServer = () => {
         const server = new DevServer(compiler, { ...devServerOptions, noInfo: true })
         const port = devServerOptions.port
         const host = devServerOptions.host
+        server.url = `http://${host}:${port}`
 
         const compilePromise = new Promise((resolve, reject) => {
             compiler.plugin('done', resolve)
@@ -23,7 +24,7 @@ const runServer = () => {
             })
         })
 
-        return Promise.all([compilePromise, serverPromise]).then(() => `http://${host}:${port}`)
+        return Promise.all([compilePromise, serverPromise]).then(() => server)
     })
 }
 
@@ -33,73 +34,78 @@ expect.extend({ toMatchImageSnapshot })
 const puppeteer = require('puppeteer')
 
 const library = require('../../../src/library.js')
+import { getFlatUsecases } from '../../../src/component_utils'
 
-jest.setTimeout(1000000000)
+jest.setTimeout(30 * 1000)
 
-const flatVariations = (variations) => {
-    let flat = [{}]
-
-    for (let key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {
-        let newFlat = []
-        for (let value of variations[key]) {
-            newFlat = newFlat.concat(flat.map(item => {
-                return { ...item, [key]: value }
-            }))
-        }
-        flat = newFlat
-    }
-
-    return flat
-}
-
-const encodeVariation = (variation) => {
-    return Object.keys(variation)
+const encodeUsecase = (usecase) => {
+    return Object.keys(usecase)
         .sort((a, b) => a.localeCompare(b))
-        .filter(key => typeof variation[key] !== 'function')
+        .filter(key => typeof usecase[key] !== 'function')
         .map(key => {
-            const value = typeof variation[key] === 'object' ? JSON.stringify(variation[key]).trim('"') : variation[key]
+            const value = typeof usecase[key] === 'object' ? JSON.stringify(usecase[key]).trim('"') : usecase[key]
             return `${key}=${value}`
         })
         .join('&')
 }
 
+const formatUsecase = (usecase) => {
+    return Object.keys(usecase)
+        .sort((a, b) => a.localeCompare(b))
+        .map(key => {
+            const value = typeof usecase[key] === 'object' ? JSON.stringify(usecase[key]).trim('"') : usecase[key]
+            return `${key}: ${value}`
+        }).join('\n')
+}
+
+const getHash = (s) => {
+    var a = 1, c = 0, h, o
+    if (s) {
+        a = 0
+        for (h = s.length - 1; h >= 0; h--) {
+            o = s.charCodeAt(h)
+            a = (a<<6&268435455) + o + (o<<14)
+            c = a & 266338304
+            a = c!==0?a^c>>21:a
+        }
+    }
+    return String(a)
+}
+
 describe('ImageSnapshot', () => {
-    let browser, url
+    let browser, server
     beforeAll(async () => {
         browser = await puppeteer.launch()
-        url = await runServer()
+        server = await runServer()
     })
 
     for (let componentName in library) {
         const component = library[componentName]
-        if (component.usecases) {
-            let usecases = []
-            const variations = component.variations ? flatVariations(component.variations) : [{}]
-            for (let variation of variations) {
-                for (let usecase of component.usecases) {
-                    usecases.push({ ...variation, ...usecase })
-                }
-            }
-
-            for (let i = 0; i < usecases.length; i++) {
-                const usecase = usecases[i]
-                const params = encodeVariation(usecase)
-                describe(`${componentName}: usecase ${i}`, () => {
-                    it('matches existing snapshot', async () => {
-                        const page = await browser.newPage()
-                        await page.goto(`${url}/#/${componentName}?${params}`)
-                        if (usecase.setup) {
-                            await usecase.setup()
-                        }
-                        const image = await page.screenshot()
-                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${componentName}-${i}` })
-                    })
+        const usecases = getFlatUsecases(component)
+        for (let usecase of usecases) {
+            const queryString = encodeUsecase(usecase)
+            const queryHash = getHash(queryString)
+            describe(`${componentName}: usecase ${queryHash}`, () => {
+                it('matches existing snapshot', async () => {
+                    const page = await browser.newPage()
+                    await page.goto(`${server.url}/#/${componentName}?${queryString}`)
+                    if (usecase.setup) {
+                        await usecase.setup()
+                    }
+                    const image = await page.screenshot()
+                    try {
+                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${componentName}-${queryHash}` })
+                    } catch (error) {
+                        error.message += `\n${formatUsecase(usecase)}`
+                        throw error
+                    }
                 })
-            }
+            })
         }
     }
 
     afterAll(async () => {
         await browser.close()
+        await server.close()
     })
 })

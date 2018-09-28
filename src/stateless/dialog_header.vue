@@ -94,12 +94,11 @@ export default {
             this.$emit('close-dialog')
         },
         transitionHeader () {
-            let stepElements = this.$refs.calculationSteps
-            let header = this.$refs.headerContent
+            let headerStart = 0
 
-            if (stepElements && header) {
+            let stepElements = this.$refs.calculationSteps
+            if (stepElements) {
                 let stepSpacing = 30
-                let headerStart = 0
                 for (let stepElement of stepElements) {
                     if (stepElement.className.indexOf('dialog-header__element--active') == -1) {
                         headerStart += stepElement.clientWidth + stepSpacing
@@ -108,9 +107,9 @@ export default {
                         break
                     }
                 }
-
-                this.headerOffset = (document.body.clientWidth / 2) - headerStart
             }
+
+            this.headerOffset = (document.body.clientWidth / 2) - headerStart
         },
         focus () {
             if (this.stepIndex > 0 && this.hasBackButton) {

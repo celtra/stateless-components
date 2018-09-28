@@ -1,9 +1,10 @@
 import SupportText from '@/stateless/support_text.vue'
 import Vue from 'vue'
+import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(SupportText)
 const vm = new Constructor({
-    propsData: SupportText.usecases[0],
+    propsData: getFlatUsecases(SupportText)[0],
 }).$mount()
 
 describe('SupportText', () => {

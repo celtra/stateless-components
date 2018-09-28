@@ -27,29 +27,7 @@
             </div>
             <div class="component-container">
                 <div class="props">
-                    <table>
-                        <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
-                            <td class="prop-name">{{ prop.name }}</td>
-                            <td class="prop-value">
-                                <div v-if="prop.availableValues">
-                                    <select @change="updateProp(componentData.id, prop.name, $event.target.value)">
-                                        <option v-for="value in prop.availableValues" :key="value">{{ value }}</option>
-                                    </select>
-                                </div>
-                                <div v-else-if="typeof(prop.default) == typeof(true)">
-                                    <input :value="prop.value"
-                                           type="checkbox"
-                                           @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
-                                </div>
-                                <div v-else>
-                                    <input :value="prop.value"
-                                           :disabled="prop.name === 'theme' || prop.name === 'size'"
-                                           type="text"
-                                           @input="updateProp(componentData.id, prop.name, $event.target.value)" />
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <select-props :props-list="componentData.props" @change="updateProp(componentData.id, $event.name, $event.value)" />
                 </div>
                 <component :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
             </div>
@@ -59,7 +37,9 @@
 
 <script>
 import '@/stateless/define_helpers'
+import SelectProps from './SelectProps.vue'
 import * as library from '../library.js'
+import { getFlatUsecases, getProps } from '../component_utils'
 
 const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
@@ -70,35 +50,20 @@ let getComponents = () => {
         let modelName = component.model ? component.value : 'value'
         let modelEvent = component.model ? component.event : 'input'
 
-        let componentProps = component.props
-        let defaultProps = component.usecases ? component.usecases[0] : {}
-
-        let allProps = {}
-        for (let key in componentProps)
-            allProps[key] = true
-        for (let key in defaultProps)
-            allProps[key] = true
-        allProps = Object.keys(allProps)
-
         return {
             component: component,
             id: componentName,
             modelName: modelName,
             modelEvent: modelEvent,
-            props: allProps.map(propName => {
-                return {
-                    name: propName,
-                    type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
-                    default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
-                    availableValues: component.variations && component.variations[propName] || null,
-                }
-            }),
+            props: getProps(component),
         }
     })
 }
 
 export default {
-    name: 'components-list',
+    components: {
+        SelectProps,
+    },
     data () {
         let vars = {
             componentId: componentNames[0],
@@ -191,17 +156,6 @@ export default {
 
 .props {
     min-width: 400px;
-}
-
-.prop {
-    .prop-name {
-        padding-right: 10px;
-        text-align: right;
-        font-size: 12px;
-    }
-    .prop-value {
-        padding-left: 10px;
-    }
 }
 
 .flex {

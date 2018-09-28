@@ -1,9 +1,10 @@
 import FileUploadRequirements from '@/stateless/file_upload_requirements.vue'
 import Vue from 'vue'
+import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(FileUploadRequirements)
 const vm = new Constructor({
-    propsData: FileUploadRequirements.usecases[0],
+    propsData: getFlatUsecases(FileUploadRequirements)[0],
 }).$mount()
 
 describe('FileUploadRequirements', () => {

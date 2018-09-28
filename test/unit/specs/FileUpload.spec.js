@@ -1,5 +1,6 @@
 import FileUpload from '@/stateless/file_upload.vue'
 import Vue from 'vue'
+import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(FileUpload)
 let vm = null
@@ -7,7 +8,7 @@ let vm = null
 describe('FileUpload', () => {
     beforeEach(() => {
         vm = new Constructor({
-            propsData: FileUpload.usecases[0],
+            propsData: getFlatUsecases(FileUpload)[0],
         }).$mount()
     })
 

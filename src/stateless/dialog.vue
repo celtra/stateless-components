@@ -51,16 +51,18 @@ export default {
         theme: ['dark', 'light'],
         hasBackButton: [true, false],
         hasCloseButton: [true, false],
-        stepId: [null, 'a'],
-        steps: [
-            [
-                { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
-                { id: 'b', passiveLabel: 'B', activeLabel: 'B' },
-            ],
-        ],
+        stepId: ['a', null],
     },
     usecases: [
         {
+            steps: [
+                { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
+                { id: 'b', passiveLabel: 'B', activeLabel: 'B' },
+            ],
+            slot (h) {
+                const style = { textAlign: 'center', color: this.theme === 'dark' ? 'white' : 'black' }
+                return h('div', { style }, 'Dialog content goes here')
+            },
             setup () {
                 return new Promise((resolve, reject) => {
                     setTimeout(resolve, 500)

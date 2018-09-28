@@ -1,10 +1,11 @@
 import DropArea from '@/stateless/drop_area.vue'
 import Vue from 'vue'
+import { getFlatUsecases } from '@/component_utils'
 
 const vm = new Vue({
     render (h) {
         return h('div', {}, [
-            h(DropArea, { props: DropArea.usecases[0] }),
+            h(DropArea, { props: getFlatUsecases(DropArea)[0] }),
         ])
     },
 }).$mount()
