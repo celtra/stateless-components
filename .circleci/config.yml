@@ -13,7 +13,7 @@ jobs:
       - run: docker-compose up test-circle
 
       - store_artifacts:
-          path: /home/circleci/project/test/unit/specs/__image_snapshots__/__diff_output__
+          path: /app/test/unit/specs/__image_snapshots__/__diff_output__
           destination: image-diff
 
 workflows:
