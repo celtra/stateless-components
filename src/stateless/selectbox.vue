@@ -17,12 +17,12 @@
             {{ mappedHelperText }}
         </div>
 
-        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap" @click="$refs.list.focus()">
+        <div v-click-outside="closeSelectList" v-if="isOpen" ref="menu" class="selectbox__select-list-wrap selectbox__select-list-wrap--override" @click="$refs.list.focus()">
             <div class="selectbox__list-frame"></div>
             <div :class="{ 'with-search': isSearchable } | prefix('selectbox__select-list--')" class="selectbox__select-list">
                 <div class="selectbox__select-list-content">
                     <div v-if="isSearchable" class="selectbox__search-wrapper" @click.stop>
-                        <search-input ref="search" v-model="searchText" :size="size" label="Search" theme="light" @input="setSearch" />
+                        <search-input ref="search" v-model="searchText" :is-loading="isSearchLoading" :size="size" label="Search" theme="light" @input="setSearch" />
                     </div>
 
                     <div class="selectbox__scrollable-list-wrap">
@@ -57,6 +57,7 @@ export default {
         warningText: { type: String, required: false, default: '' },
         options: { type: Array, required: true },
         value: { type: String, required: false, default: '' },
+        getOptions: { type: Function, required: false, default: null },
         isSearchable: { type: Boolean, required: false, default: false },
         isUnselectable: { type: Boolean, required: false, default: false },
         showSelectedMetadata: { type: Boolean, required: false, default: false },
@@ -69,6 +70,8 @@ export default {
             isOpen: false,
             focused: false,
             searchTextValue: '',
+            isSearchLoading: false,
+            asyncOptions: [],
         }
     },
     computed: {
@@ -77,6 +80,7 @@ export default {
                 return this.searchTextValue
             },
             set (v) {
+                this.$emit('update-search', v)
                 if (!v) {
                     this.searchTextValue = ''
                 } else {
@@ -125,6 +129,10 @@ export default {
             return this.disabled ? this.disabledText : ''
         },
         listItems () {
+            if (this.getOptions !== null) {
+                return this.asyncOptions
+            }
+
             let options = this.options
 
             if (this.isUnselectable) {
@@ -151,6 +159,11 @@ export default {
             })
 
             return options
+        },
+    },
+    watch: {
+        searchText () {
+            this.debouncedLoadAsyncOptions()
         },
     },
     methods: {
@@ -194,6 +207,7 @@ export default {
                 this.$nextTick(() => {
                     if (this.isSearchable) {
                         this.$refs.search.focus()
+                        this.loadAsyncOptions()
                     } else {
                         this.$refs.list.focus()
                     }
@@ -237,6 +251,22 @@ export default {
         setSearch: debounce(function (v) {
             this.searchTextValue = v
         }, 400),
+        loadAsyncOptions () {
+            if (this.getOptions !== null) {
+                this.isSearchLoading = true
+                this.getOptions(this.searchText || '')
+                    .then(options => {
+                        this.asyncOptions = options
+                    })
+                    .catch(console.error)
+                    .finally(() => {
+                        this.isSearchLoading = false
+                    })
+            }
+        },
+        debouncedLoadAsyncOptions: debounce(function () {
+            return this.loadAsyncOptions()
+        }, 400),
         move (direction) {
             this.$refs.list.move(direction)
         },
@@ -245,19 +275,24 @@ export default {
 </script>
 
 <style lang="less">
-    .selectbox {
+@import (reference) './common';
+.selectbox {
 
-        &__select-row:hover {
+    &__select-row .default-list-item--light .default-list-item__label--disabled {
+        color: @very-light-gray;
+    }
 
-            .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
-                color: black;
-            }
+    &__select-row:hover {
 
-            .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
-                color: white;
-            }
+        .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: black;
+        }
+
+        .default-list-item--dark .default-list-item__label:not(.default-list-item__label--disabled) {
+            color: white;
         }
     }
+}
 </style>
 
 <style lang="less" scoped>
@@ -432,6 +467,10 @@ export default {
     .selectbox__label-text {
         color: @bluish-gray;
 
+        &--disabled {
+            color: @very-light-gray;
+        }
+
         &--focused {
             color: @royal-blue;
         }
@@ -460,6 +499,12 @@ export default {
 
         .selectbox__arrow-down--focused { border-top-color: @royal-blue; }
     }
+
+    .selectbox__helper-text {
+        color: @bluish-gray;
+
+        &--disabled { color: @very-light-gray; }
+    }
 }
 
 .selectbox--condensed {
@@ -478,7 +523,7 @@ export default {
         &__arrow-down { border-width: 3px 3.5px 0 3.5px; }
 
         &__select-row {
-            height: 20px;
+            height: 22px;
         }
 
         &__select-list-wrap {

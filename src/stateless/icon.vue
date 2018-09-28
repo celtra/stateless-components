@@ -77,6 +77,10 @@
             <path class="path" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm4 9H9v3H7V9H4V7h3V4h2v3h3v2z" fill-rule="nonzero"/>
         </svg>
 
+        <svg v-if="name === 'plus-square'" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 0H6v6H0v4h6v6h4v-6h6V6h-6z" fill="#444450" fill-rule="nonzero"/>
+        </svg>
+
         <svg v-if="name === 'left-arrow'" viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg">
             <path class="path" d="M.293 7.707L8 0l1.414 1.414-6 6H21a1 1 0 1 1 0 2H3.414l6 6L8 16.828.293 9.121a.999.999 0 0 1 0-1.414z" fill-rule="nonzero"/>
         </svg>
