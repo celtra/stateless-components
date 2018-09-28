@@ -14,3 +14,7 @@ services:
     volumes:
       - .:/app
     command: yarn unit
+
+  test-circle:
+    build: .
+    command: yarn unit
