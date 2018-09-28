@@ -17,14 +17,9 @@ exports[`Dialog should match the snapshot 1`] = `
       >
         <div>
           <div
-            class="dialog-header__element dialog-header__element--calculation"
-          >
-            A
-          </div>
-          <div
             class="dialog-header__element dialog-header__element--calculation dialog-header__element--active"
           >
-            B
+            A
           </div>
            
           <div
@@ -32,6 +27,7 @@ exports[`Dialog should match the snapshot 1`] = `
           >
             <div
               class="dialog-header__back"
+              style="display: none;"
               tabindex="0"
             >
               <div
@@ -122,16 +118,16 @@ exports[`Dialog should match the snapshot 1`] = `
              
             <div
               class="dialog-header__content"
-              style="left: -30px;"
+              style="left: 0px;"
             >
               <div
-                class="dialog-header__element"
+                class="dialog-header__element dialog-header__element--active"
                 id="a"
               >
                 A
               </div>
               <div
-                class="dialog-header__element dialog-header__element--active"
+                class="dialog-header__element"
                 id="b"
               >
                 B
