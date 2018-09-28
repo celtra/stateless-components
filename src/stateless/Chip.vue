@@ -55,6 +55,7 @@ export default {
 .chip__metadata {
     font-family: @regular-text-font;
     padding-right: 5px;
+    font-variant-numeric: tabular-nums;
 }
 
 .chip__remove-btn {
