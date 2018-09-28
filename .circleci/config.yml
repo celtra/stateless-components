@@ -10,7 +10,7 @@ jobs:
       - run: npm run unit
 
       - store_artifacts:
-        path: /home/circleci/project/test/unit/specs/__image_snapshots__/__diff_output__
+          path: /home/circleci/project/test/unit/specs/__image_snapshots__/__diff_output__
 
 workflows:
   version: 2
