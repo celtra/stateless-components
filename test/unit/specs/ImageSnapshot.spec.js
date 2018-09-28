@@ -75,7 +75,7 @@ const getHash = (s) => {
 describe('ImageSnapshot', () => {
     let browser, server
     beforeAll(async () => {
-        browser = await puppeteer.launch()
+        browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
         server = await runServer()
     })
 
