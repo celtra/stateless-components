@@ -2,7 +2,7 @@
     <div :class="[theme, { active: isActive, disabled: isDisabled }] | prefix('chip--')" class="chip" tabindex="0" @click="$emit('click')">
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
-        <span v-if="isRemovable" @click.stop="$emit('remove')">
+        <span v-if="isRemovable" @click.stop="$emit('remove')">asd
             <icon style="width: 8px; height: 8px" class="chip__remove-btn" name="x-bold"></icon>
         </span>
     </div>

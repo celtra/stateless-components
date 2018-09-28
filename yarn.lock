@@ -6087,9 +6087,9 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "http://npm.celtra.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
-puppeteer@^1.8.0:
+puppeteer-core@^1.8.0:
   version "1.8.0"
-  resolved "http://npm.celtra.com/puppeteer/-/puppeteer-1.8.0.tgz#9e8bbd2f5448cc19cac220efc0512837104877ad"
+  resolved "http://npm.celtra.com/puppeteer-core/-/puppeteer-core-1.8.0.tgz#d847b2889af516a8eeac63c91bba5304652f0d0b"
   dependencies:
     debug "^3.1.0"
     extract-zip "^1.6.6"

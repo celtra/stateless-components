@@ -31,12 +31,12 @@ const runServer = () => {
 const { toMatchImageSnapshot } = require('jest-image-snapshot')
 expect.extend({ toMatchImageSnapshot })
 
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 
 const library = require('../../../src/library.js')
 import { getFlatUsecases } from '../../../src/component_utils'
 
-jest.setTimeout(30 * 1000)
+jest.setTimeout(60 * 1000)
 
 const encodeUsecase = (usecase) => {
     return Object.keys(usecase)
@@ -75,7 +75,10 @@ const getHash = (s) => {
 describe('ImageSnapshot', () => {
     let browser, server
     beforeAll(async () => {
-        browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+        browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser',
+            args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-setuid-sandbox'],
+        })
         server = await runServer()
     })
 
@@ -96,8 +99,7 @@ describe('ImageSnapshot', () => {
                     try {
                         expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${componentName}-${queryHash}` })
                     } catch (error) {
-                        error.message += `\n${formatUsecase(usecase)}`
-                        throw error
+                        throw new Error(error.message + `\n${formatUsecase(usecase)}`)
                     }
                 })
             })
