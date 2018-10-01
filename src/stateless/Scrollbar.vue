@@ -61,11 +61,6 @@ export default {
                 if (totalHeight !== this.totalHeight) {
                     this.totalHeight = totalHeight
                 }
-
-                /*const scrollTop = this.container.scrollTop
-                if (scrollTop !== this.scrollTop) {
-                    this.scrollTop = scrollTop
-                }*/
             }
 
             if (!this._isDestroyed) {
@@ -137,7 +132,7 @@ export default {
 
     &__handle {
         border-radius: 5px;
-        transition: transform 20ms linear, height 100ms ease;
+        // transition: transform 20ms linear, height 100ms ease;
 
         &--dark {
             background-color: @gunpowder;

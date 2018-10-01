@@ -198,7 +198,6 @@ export default {
 
     &__list {
         overflow: hidden;
-        overscroll-behavior: contain;
         box-sizing: content-box;
         width: 100%;
 
