@@ -86,6 +86,9 @@ export default {
                     const newScrollTop = this.container.scrollTop + e.deltaY
                     this.container.scrollTop = newScrollTop
                     this.scrollTop = newScrollTop
+
+                    e.preventDefault()
+                    e.stopPropagation()
                 })
             }
         },

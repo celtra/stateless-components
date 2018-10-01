@@ -21557,6 +21557,9 @@ function getTextHighlightParts(text, query) {
                     var newScrollTop = _this2.container.scrollTop + e.deltaY;
                     _this2.container.scrollTop = newScrollTop;
                     _this2.scrollTop = newScrollTop;
+
+                    e.preventDefault();
+                    e.stopPropagation();
                 });
             }
         },
@@ -39367,7 +39370,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Scrollbar_vue__ = __webpack_require__(104);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_27d84eac_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_60b8e481_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__ = __webpack_require__(386);
 function injectStyle (ssrContext) {
   __webpack_require__(384)
 }
@@ -39382,12 +39385,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-27d84eac"
+var __vue_scopeId__ = "data-v-60b8e481"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Scrollbar_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_27d84eac_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_60b8e481_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Scrollbar_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -39408,7 +39411,7 @@ var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("0064f140", content, true, {});
+var update = __webpack_require__(2)("74703398", content, true, {});
 
 /***/ }),
 /* 385 */
@@ -39419,7 +39422,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.scrollbar[data-v-27d84eac] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-27d84eac] {\n  border-radius: 5px;\n  -webkit-transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: transform 20ms linear, height 100ms ease;\n  transition: transform 20ms linear, height 100ms ease, -webkit-transform 20ms linear;\n}\n.scrollbar__handle--dark[data-v-27d84eac] {\n  background-color: #444450;\n}\n.scrollbar__handle--light[data-v-27d84eac] {\n  background-color: #d6d8dd;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Scrollbar.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,WAAW;EACX,OAAO;EACP,WAAW;EACX,aAAa;EACb,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;CAC3B;AACD;EACE,mBAAmB;EACnB,qEAAqE;EACrE,6DAA6D;EAC7D,qDAAqD;EACrD,oFAAoF;CACrF;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B","file":"Scrollbar.vue","sourcesContent":["\n.scrollbar[data-v-27d84eac] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-27d84eac] {\n  border-radius: 5px;\n  -webkit-transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: transform 20ms linear, height 100ms ease;\n  transition: transform 20ms linear, height 100ms ease, -webkit-transform 20ms linear;\n}\n.scrollbar__handle--dark[data-v-27d84eac] {\n  background-color: #444450;\n}\n.scrollbar__handle--light[data-v-27d84eac] {\n  background-color: #d6d8dd;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.scrollbar[data-v-60b8e481] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-60b8e481] {\n  border-radius: 5px;\n  -webkit-transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: transform 20ms linear, height 100ms ease;\n  transition: transform 20ms linear, height 100ms ease, -webkit-transform 20ms linear;\n}\n.scrollbar__handle--dark[data-v-60b8e481] {\n  background-color: #444450;\n}\n.scrollbar__handle--light[data-v-60b8e481] {\n  background-color: #d6d8dd;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Scrollbar.vue"],"names":[],"mappings":";AACA;EACE,mBAAmB;EACnB,WAAW;EACX,OAAO;EACP,WAAW;EACX,aAAa;EACb,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;CAC3B;AACD;EACE,mBAAmB;EACnB,qEAAqE;EACrE,6DAA6D;EAC7D,qDAAqD;EACrD,oFAAoF;CACrF;AACD;EACE,0BAA0B;CAC3B;AACD;EACE,0BAA0B;CAC3B","file":"Scrollbar.vue","sourcesContent":["\n.scrollbar[data-v-60b8e481] {\n  position: absolute;\n  right: 5px;\n  top: 0;\n  width: 5px;\n  height: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.scrollbar__handle[data-v-60b8e481] {\n  border-radius: 5px;\n  -webkit-transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: height 100ms ease, -webkit-transform 20ms linear;\n  transition: transform 20ms linear, height 100ms ease;\n  transition: transform 20ms linear, height 100ms ease, -webkit-transform 20ms linear;\n}\n.scrollbar__handle--dark[data-v-60b8e481] {\n  background-color: #444450;\n}\n.scrollbar__handle--light[data-v-60b8e481] {\n  background-color: #d6d8dd;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
