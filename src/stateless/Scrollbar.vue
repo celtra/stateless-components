@@ -62,10 +62,10 @@ export default {
                     this.totalHeight = totalHeight
                 }
 
-                const scrollTop = this.container.scrollTop
+                /*const scrollTop = this.container.scrollTop
                 if (scrollTop !== this.scrollTop) {
                     this.scrollTop = scrollTop
-                }
+                }*/
             }
 
             if (!this._isDestroyed) {
@@ -83,7 +83,7 @@ export default {
         setupContainer () {
             if (this.container) {
                 this.container.addEventListener('wheel', (e) => {
-                    const newScrollTop = this.container.scrollTop + e.deltaY
+                    const newScrollTop = Math.max(0, Math.min(this.container.scrollHeight - this.container.clientHeight, this.container.scrollTop + e.deltaY))
                     this.container.scrollTop = newScrollTop
                     this.scrollTop = newScrollTop
 
