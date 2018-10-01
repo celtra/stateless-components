@@ -77,20 +77,17 @@ export default {
     methods: {
         setupContainer () {
             if (this.container) {
-                this.container.addEventListener('wheel', (e) => {
-                    const newScrollTop = Math.max(0, Math.min(this.container.scrollHeight - this.container.clientHeight, this.container.scrollTop + e.deltaY))
-                    this.container.scrollTop = newScrollTop
-                    this.scrollTop = newScrollTop
-
-                    e.preventDefault()
-                    e.stopPropagation()
+                this.container.addEventListener('wheel', (ev) => {
+                    this.set(this.scrollTop + ev.deltaY)
+                    ev.preventDefault()
+                    ev.stopPropagation()
                 })
             }
         },
         click (ev) {
             if (this.canClick) {
                 const elementBox = this.$el.getBoundingClientRect()
-                this.set((ev.pageY - elementBox.top) / elementBox.height, 0.5)
+                this.setHandle((ev.pageY - elementBox.top) / elementBox.height, 0.5)
             }
         },
         startDrag (ev) {
@@ -103,7 +100,7 @@ export default {
         onDrag (ev) {
             if (this.isDragging) {
                 const elementBox = this.$el.getBoundingClientRect()
-                this.set((ev.pageY - elementBox.top) / elementBox.height, this.handleDragRatio)
+                this.setHandle((ev.pageY - elementBox.top) / elementBox.height, this.handleDragRatio)
             }
         },
         stopDrag (ev) {
@@ -112,8 +109,12 @@ export default {
                 this.canClick = true
             })
         },
-        set (ratio, handleRatio) {
-            this.$emit('set', Math.max(0, Math.min(this.totalHeight - this.height, ratio * this.totalHeight - handleRatio * this.height)))
+        setHandle (ratio, handleRatio) {
+            this.set(ratio * this.totalHeight - handleRatio * this.height)
+        },
+        set (value) {
+            this.scrollTop = Math.max(0, Math.min(this.totalHeight - this.height, value))
+            this.container.scrollTop = this.scrollTop
         },
     },
 }
@@ -132,7 +133,6 @@ export default {
 
     &__handle {
         border-radius: 5px;
-        // transition: transform 20ms linear, height 100ms ease;
 
         &--dark {
             background-color: @gunpowder;

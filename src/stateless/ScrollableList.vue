@@ -38,8 +38,7 @@
 
             <scrollbar
                 :theme="theme"
-                :container="$refs.scrollable"
-                @set="$refs.scrollable.scrollTop = $event">
+                :container="$refs.scrollable">
             </scrollbar>
         </div>
 
