@@ -353,9 +353,11 @@ export default {
 
     &:focus {
         outline: none;
+
         .file-upload__trigger {
             color: white;
         }
+
         .file-upload__square-prepend svg {
             fill: white;
         }
@@ -380,7 +382,6 @@ export default {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 
     &--empty { background-color: @gunpowder; }
 
@@ -479,6 +480,7 @@ export default {
 
     &__text {
         &--white { color: @very-light-gray; }
+
         &--dropping {
             color: white;
             position: absolute;
@@ -500,8 +502,8 @@ export default {
     &__border-container {
         position: absolute;
         pointer-events: none;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         height: 100%;
         width: 100%;
     }
@@ -529,7 +531,6 @@ export default {
 }
 
 .file-upload--light {
-
     .file-upload__square-prepend {
         background-color: @very-light-gray;
 
@@ -543,7 +544,7 @@ export default {
         }
 
         &__progress-circle {
-            stroke: #00CBD6;
+            stroke: #00cbd6;
         }
 
         &__background-circle {
@@ -553,7 +554,7 @@ export default {
 
         &__progress-percent {
             position: absolute;
-            color: #00CBD6;
+            color: #00cbd6;
         }
     }
 

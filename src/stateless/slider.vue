@@ -346,9 +346,9 @@ export default {
             background-color: @extremely-dark-gray;
             position: absolute;
             bottom: 0;
-            top: 0px;
-            right: 0px;
-            left: 0px;
+            top: 0;
+            right: 0;
+            left: 0;
             margin: auto;
             opacity: 0;
             transition: opacity @opening-animation-time-content ease-out;

@@ -273,18 +273,21 @@ export default {
     }
 
     &__item {
-        padding: 0px 15px;
+        padding: 0 15px;
         width: 100%;
         display: flex;
         align-items: center;
         transition: background-color 100ms ease;
 
-        &-enter-active, &-leave-active, &-move {
+        &-enter-active,
+        &-leave-active,
+        &-move {
             pointer-events: none;
             transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
         }
 
-        &-enter, &-leave-to {
+        &-enter,
+        &-leave-to {
             height: 0 !important;
             opacity: 0;
         }

@@ -311,7 +311,7 @@ export default {
         margin-top: 5px;
         padding-left: 5px;
         padding-right: 5px;
-        clip-path: inset(0px 0px 0px 0px);
+        clip-path: inset(0 0 0 0);
     }
 
     &__change-multiple {
@@ -348,7 +348,7 @@ export default {
 }
 
 .multiselect__option > .multiselect__checkbox {
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: -5px;
 }
 
@@ -359,9 +359,9 @@ export default {
 }
 
 .multiselect--dark.multiselect--dark {
-  .multiselect__no-items {
-      color: @gunpowder;
-  }
+    .multiselect__no-items {
+        color: @gunpowder;
+    }
 }
 </style>
 
@@ -374,7 +374,6 @@ export default {
     .multiselect__checkbox.multiselect__checkbox {
         margin-top: 0;
         height: auto;
-
         height: 100%;
         width: 100%;
         display: flex;
@@ -386,7 +385,6 @@ export default {
     }
 
     .multiselect__checkbox:hover {
-
         &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
             color: black;
         }

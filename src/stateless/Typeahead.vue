@@ -137,7 +137,7 @@ export default {
         margin-top: -7px;
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        padding: 15px 0px;
+        padding: 15px 0;
         z-index: @z-heaven;
     }
 

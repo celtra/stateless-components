@@ -22,12 +22,12 @@
                 <div class="input-row__input-flex">
                     <textarea v-if="autogrow" ref="inputHiddenOneLine"
                               class="input-row__placeholder-text input-row__textarea"
-                              style="height: 0px; position: absolute; visibility: hidden;">
+                              style="height: 0; position: absolute; visibility: hidden;">
                     </textarea>
                     <textarea v-if="autogrow" ref="inputHidden"
                               :value="maxLengthNumber === null ? text : text ? text.substring(0, maxLengthNumber) : null"
                               class="input-row__placeholder-text input-row__textarea"
-                              style="height: 0px; position: absolute; visibility: hidden;">
+                              style="height: 0; position: absolute; visibility: hidden;">
                     </textarea>
 
                     <textarea v-if="autogrow" ref="input" :class="textareaClasses" :value="text"
@@ -450,7 +450,7 @@ export default {
 @import (reference) './common';
 @import './typography';
 
-* { box-sizing: border-box }
+* { box-sizing: border-box; }
 
 .input {
     width: 100%;
@@ -487,9 +487,10 @@ export default {
     visibility: hidden;
     z-index: -1;
     user-select: none;
-    transition: transform @default-transition-time ease-out,
-                color @default-transition-time ease-out,
-                letter-spacing @default-transition-time ease-out;
+    transition:
+        transform @default-transition-time ease-out,
+        color @default-transition-time ease-out,
+        letter-spacing @default-transition-time ease-out;
 
     &--overlay-open {
         color: @royal-blue;
@@ -501,6 +502,7 @@ export default {
                 visibility: hidden;
                 z-index: @z-default;
             }
+
             to {
                 visibility: visible;
                 z-index: @z-default;
@@ -514,7 +516,6 @@ export default {
         color: @gunpowder;
         letter-spacing: normal;
     }
-
 }
 
 .input-field__label-text {
@@ -571,7 +572,7 @@ export default {
         background-color: transparent;
         border: 0;
         outline: none;
-        margin: 4px 0px;
+        margin: 4px 0;
 
         &.input-row__textarea {
             // we get 2 extra px because some weird textarea styling
@@ -608,6 +609,7 @@ export default {
 
         &--dark {
             color: white;
+
             &::placeholder {
                 color: @very-light-gray;
             }
@@ -615,17 +617,18 @@ export default {
 
         &--light {
             color: @black;
+
             &::placeholder {
                 color: @gunpowder;
             }
         }
 
         &--error { color: @pink-red; }
-        &--disabled { color: @gunpowder }
-        &--disabled::placeholder { color: @gunpowder }
+        &--disabled { color: @gunpowder; }
+        &--disabled::placeholder { color: @gunpowder; }
 
-        &--disabled&--light { color: @very-light-gray }
-        &--disabled&--light::placeholder { color: @very-light-gray }
+        &--disabled&--light { color: @very-light-gray; }
+        &--disabled&--light::placeholder { color: @very-light-gray; }
     }
 
     &--dark {
@@ -807,7 +810,7 @@ export default {
     }
 
     .input-row__placeholder-text {
-        margin: 9px 0px;
+        margin: 9px 0;
         font-size: 22px;
 
         &.input-row__textarea {
@@ -819,9 +822,9 @@ export default {
     .input-row__unit {
         font-size: 22px;
 
-        &--left { margin-right: 10px }
+        &--left { margin-right: 10px; }
 
-        &--right { margin-left: 10px }
+        &--right { margin-left: 10px; }
     }
 
     .input-field__helper-text {
@@ -832,7 +835,7 @@ export default {
 }
 
 .input--condensed {
-    .input-field--with-icon { width: ~"calc(100% - 30px)" }
+    .input-field--with-icon { width: ~"calc(100% - 30px)"; }
 
     .input-field__border-overlay {
         margin-bottom: -2px;
@@ -855,7 +858,7 @@ export default {
     }
 
     .input-row__placeholder-text {
-        margin: 2px 0px;
+        margin: 2px 0;
         font-size: 14px;
         border-width: 0 0 1px 0;
 

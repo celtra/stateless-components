@@ -199,6 +199,7 @@ export default {
         text-align: right;
         font-size: 12px;
     }
+
     .prop-value {
         padding-left: 10px;
     }

@@ -143,7 +143,8 @@ export default {
     opacity: 0;
     font-family: @regular-text-font;
 
-    &--opening, &--open {
+    &--opening,
+    &--open {
         animation: open-header-animation @open-close-animation-time-header ease-out @open-animation-time-header-delay;
         animation-fill-mode: forwards;
     }
@@ -153,6 +154,7 @@ export default {
             transform: translate3d(0, -60px, 0);
             opacity: 0;
         }
+
         to {
             transform: translate3d(0, 0, 0);
             opacity: 1;
@@ -169,6 +171,7 @@ export default {
             transform: translate3d(0, 0, 0);
             opacity: 1;
         }
+
         to {
             transform: translate3d(0, -60px, 0);
             opacity: 0;
@@ -182,7 +185,7 @@ export default {
 
     @keyframes closing-header-animation {
         from { opacity: 1; }
-        to   { opacity: 0; }
+        to { opacity: 0; }
     }
 
     &__content {
@@ -226,7 +229,8 @@ export default {
 
         .breakpoint-height-lte-870({ top: 25px; });
 
-        &:hover, &:focus { filter: brightness(150%); }
+        &:hover,
+        &:focus { filter: brightness(150%); }
         &:focus { outline: none; }
     }
 
@@ -242,7 +246,9 @@ export default {
 
         .breakpoint-height-lte-870({ top: 10px; });
 
-        &:hover:not(&--light), &:focus:not(&--light) { filter: brightness(150%); }
+        &:hover:not(&--light),
+        &:focus:not(&--light) { filter: brightness(150%); }
+
         &:focus { outline: none; }
     }
 

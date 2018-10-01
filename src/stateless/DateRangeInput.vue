@@ -72,10 +72,10 @@ export default {
     min-width: 475px;
 
     &__separator {
-        margin: 17px 7.5px 0px 7.5px;
+        margin: 17px 7.5px 0 7.5px;
 
         &--with-margin {
-            margin: 17px 20px 0px 20px;
+            margin: 17px 20px 0 20px;
         }
     }
 }

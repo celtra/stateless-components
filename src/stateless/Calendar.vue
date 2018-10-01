@@ -417,8 +417,8 @@ export default {
 
 @step-animation-time: 500ms;
 
-.next-month-leave-active     { animation: next-month-leave-animation @step-animation-time ease; }
-.next-month-enter-active     { animation: next-month-enter-animation @step-animation-time ease; }
+.next-month-leave-active { animation: next-month-leave-animation @step-animation-time ease; }
+.next-month-enter-active { animation: next-month-enter-animation @step-animation-time ease; }
 .previous-month-leave-active { animation: previous-month-leave-animation @step-animation-time ease; }
 .previous-month-enter-active { animation: previous-month-enter-animation @step-animation-time ease; }
 
@@ -427,6 +427,7 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     100% {
         transform: translate3d(-@width, 0, 0);
         opacity: 0;
@@ -450,6 +451,7 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     to {
         transform: translate3d(@width, 0, 0);
         opacity: 0;
@@ -461,6 +463,7 @@ export default {
         transform: translate3d(-@width, 0, 0);
         opacity: 0;
     }
+
     to {
         transform: translate3d(0, 0, 0);
         opacity: 1;
