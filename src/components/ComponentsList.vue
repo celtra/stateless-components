@@ -61,21 +61,21 @@
 import '@/stateless/define_helpers'
 import components from '../components.js'
 
-let getComponents = () => {
+const getComponents = () => {
     return Object.keys(components).map(componentId => {
-        let componentData = components[componentId]
+        const componentData = components[componentId]
 
-        let modelName = componentData.component.model ? componentData.component.value : 'value'
-        let modelEvent = componentData.component.model ? componentData.component.event : 'input'
+        const modelName = componentData.component.model ? componentData.component.value : 'value'
+        const modelEvent = componentData.component.model ? componentData.component.event : 'input'
 
-        let componentProps = componentData.component.props
-        let defaultProps = componentData.defaultProps || {}
+        const componentProps = componentData.component.props
+        const defaultProps = componentData.defaultProps || {}
 
         let allProps = {}
-        for (let key in componentProps)
-            allProps[key] = true
-        for (let key in defaultProps)
-            allProps[key] = true
+        for (const key in componentProps)
+        {allProps[key] = true}
+        for (const key in defaultProps)
+        {allProps[key] = true}
         allProps = Object.keys(allProps)
 
         return {
@@ -98,14 +98,14 @@ let getComponents = () => {
 export default {
     name: 'components-list',
     data () {
-        let vars = {
+        const vars = {
             componentId: Object.keys(components)[0],
             theme: 'light',
             size: 'normal',
         }
-        for (let component of getComponents()) {
-            let componentData = {}
-            for (let prop of component.props) {
+        for (const component of getComponents()) {
+            const componentData = {}
+            for (const prop of component.props) {
                 componentData[prop.name] = prop.name === 'theme' ? vars.theme : prop.name === 'size' ?  vars.size : prop.default
             }
             vars[component.id] = componentData
@@ -114,7 +114,7 @@ export default {
     },
     computed: {
         components () {
-            let updateProp = this.updateProp
+            const updateProp = this.updateProp
 
             return getComponents().map(componentData => {
                 return {

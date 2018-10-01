@@ -95,7 +95,7 @@ export default {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
         shownItemsWithData () {
-            let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
+            const activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
                 return {
@@ -209,7 +209,7 @@ export default {
                 } else if (activeIndex < 0) {
                     activeIndex = this.flatSelectableItems.length - 1
                 }
-                let nextItem = this.flatSelectableItems[activeIndex]
+                const nextItem = this.flatSelectableItems[activeIndex]
 
                 this.activeId = (nextItem.key || nextItem.id)
             }
@@ -219,7 +219,7 @@ export default {
         startUsingKeyboard () {
             this.isUsingKeyboard = true
 
-            let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+            const activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
             if (!activeItem) {
                 this.activeId = this.getDefaultActiveId()
             }
@@ -227,7 +227,7 @@ export default {
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
             this.isFocused = true
-            let item = this.flatItems[index]
+            const item = this.flatItems[index]
             if (item) {
                 this.activeId = (item.key || item.id)
                 this.$emit('activate', item.key || item.id)

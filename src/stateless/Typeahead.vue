@@ -101,7 +101,7 @@ export default {
         },
         highlightFirstItem () {
             if (this.showSuggestions) {
-                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                const firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
                 if (firstEnabledIndex > -1 ) {
                     this.$refs.list.highlightItem(firstEnabledIndex)
                 }
@@ -109,14 +109,14 @@ export default {
         },
         selectFirstItem () {
             if (this.showSuggestions) {
-                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                const firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
                 if (firstEnabledIndex > -1 ) {
                     this.onSelect(this.suggestions[0])
                 }
             }
         },
         onDown () {
-            if (this.$refs.list){
+            if (this.$refs.list) {
                 this.$refs.list.focus()
                 this.$refs.list.move(1)
             }

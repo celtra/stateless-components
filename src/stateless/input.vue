@@ -129,8 +129,8 @@ export default {
     },
     computed: {
         states () {
-            let isError = this.errorMessage !== null && this.errorMessage !== true
-            let isWarning = this.warningMessage !== null && this.warningMessage !== true
+            const isError = this.errorMessage !== null && this.errorMessage !== true
+            const isWarning = this.warningMessage !== null && this.warningMessage !== true
 
             return {
                 focused: this.focused,
@@ -164,7 +164,7 @@ export default {
         },
         mappedHelperText () {
             if (this.states.disabled)
-                return ''
+            {return ''}
             if (this.states.error) {
                 return this.errorMessage
             } else if (this.states.warning) {
@@ -214,7 +214,7 @@ export default {
     },
     created () {
         if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
-            throw new Error('Only type text is compatible with autogrow and input length props.')
+        {throw new Error('Only type text is compatible with autogrow and input length props.')}
 
         this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
     },
@@ -233,18 +233,18 @@ export default {
     },
     methods: {
         runValidations (value) {
-            let self = this
-            let onError = (e) => self.errorMessage = e
-            let onWarning = (w) => self.warningMessage = w
+            const self = this
+            const onError = (e) => self.errorMessage = e
+            const onWarning = (w) => self.warningMessage = w
 
             if (this.isValid)
-                this.errorMessage = this.isValid(value, onError)
+            {this.errorMessage = this.isValid(value, onError)}
 
             if (this.errorMessage && this.errorMessage !== true) {
                 return false
             } else {
                 if (this.hasWarning)
-                    this.warningMessage = this.hasWarning(value, onWarning)
+                {this.warningMessage = this.hasWarning(value, onWarning)}
 
                 if (this.warningMessage && this.warningMessage !== true) {
                     return false
@@ -270,14 +270,14 @@ export default {
                 value = value.replace(/\n/g, '')
             }
 
-            let trimLeadingZeros = (value) => {
-                let parts = value.split(this.decimalSeperator)
+            const trimLeadingZeros = (value) => {
+                const parts = value.split(this.decimalSeperator)
                 let wholeNumber = parts[0].replace(/^0*/, '')
                 wholeNumber = wholeNumber.length === 0 ? '0' : wholeNumber
                 return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
             }
 
-            let capNumber = (numberValue) => {
+            const capNumber = (numberValue) => {
                 if (this.maxNumberCap && numberValue > this.maxNumberCap) {
                     numberValue = this.maxNumberCap
                 } else if (this.minNumberCap && numberValue < this.minNumberCap) {
@@ -287,17 +287,17 @@ export default {
             }
 
             if (this.type === 'number') {
-                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
+                const isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
                 let numberValue = parseInt(value)
 
                 if (isNumeric && !isNaN(numberValue)) {
-                    let cappedNumberValue = capNumber(numberValue)
+                    const cappedNumberValue = capNumber(numberValue)
                     if (cappedNumberValue !== numberValue) {
                         numberValue = cappedNumberValue
                         value = numberValue.toString()
                     }
 
-                    let trimmedValue = trimLeadingZeros(value)
+                    const trimmedValue = trimLeadingZeros(value)
                     if (trimmedValue !== value) {
                         value = trimmedValue
                     }
@@ -317,19 +317,19 @@ export default {
                     event.target.value = this.text
                 }
             } else if (this.type === 'float') {
-                let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
+                const isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
                 let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
-                let decimals = value.split(this.decimalSeperator)[1]
+                const decimals = value.split(this.decimalSeperator)[1]
 
                 if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
-                    let cappedNumberValue = capNumber(numberValue)
+                    const cappedNumberValue = capNumber(numberValue)
                     if (cappedNumberValue !== numberValue) {
                         numberValue = cappedNumberValue
                         value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
                         this.$refs.input.value = value
                     }
 
-                    let trimmedValue = trimLeadingZeros(value)
+                    const trimmedValue = trimLeadingZeros(value)
                     if (trimmedValue !== value) {
                         value = trimmedValue
                         this.$refs.input.value = value
@@ -376,7 +376,7 @@ export default {
         },
         updateHeight () {
             if (this.autogrow) {
-                let newValue = `${Math.min(this.maxHeight, this.$refs.inputHidden.scrollHeight)}px`
+                const newValue = `${Math.min(this.maxHeight, this.$refs.inputHidden.scrollHeight)}px`
                 if (newValue !== this.$refs.input.style.height) {
                     this.$refs.input.style.height = newValue
                 }
@@ -394,7 +394,7 @@ export default {
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
-                let translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
+                const translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
                 let translateY = -18.5
                 let scale = 0.63
 

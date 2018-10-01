@@ -18,12 +18,12 @@ export default {
     computed: {
         componentData () {
             if (this.name === null)
-                return null
+            {return null}
 
-            let data = components[this.name]
+            const data = components[this.name]
 
-            let modelName = data.component.model ? data.component.value : 'value'
-            let modelEvent = data.component.model ? data.component.event : 'input'
+            const modelName = data.component.model ? data.component.value : 'value'
+            const modelEvent = data.component.model ? data.component.event : 'input'
 
             return {
                 ...data,
@@ -51,13 +51,13 @@ export default {
     },
     methods: {
         setupComponent () {
-            let name = this.$route.params.component
-            let data = components[name]
+            const name = this.$route.params.component
+            const data = components[name]
             if (!data) {
                 throw `Component ${name} does not exist!`
             }
 
-            let modelName = data.component.model ? data.component.value : 'value'
+            const modelName = data.component.model ? data.component.value : 'value'
             this.value = data.defaultProps && data.defaultProps[modelName]
             this.name = name
         },

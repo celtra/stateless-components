@@ -2,13 +2,13 @@ export const focus = {
     inserted: (el) => {
         el.focus()
         if (el === document.activeElement)
-            el.focusDone = true
+        {el.focusDone = true}
     },
     update: (el) => {
         if (!el.focusDone) {
             el.focus()
             if (el === document.activeElement)
-                el.focusDone = true
+            {el.focusDone = true}
         }
     },
 }

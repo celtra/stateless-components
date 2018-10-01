@@ -67,7 +67,7 @@ export default {
                 this.blurElement.style['-webkit-transition'] = '-webkit-filter 250ms ease-out'
             }
 
-            let onAnimationEnd = (e) => {
+            const onAnimationEnd = (e) => {
                 this.$refs.overlay.removeEventListener('animationend', onAnimationEnd)
 
                 if (this.dialogViewState === 'opening') {
@@ -102,7 +102,7 @@ export default {
                 this.blurElement.style.filter = ''
             }
 
-            let onAnimationEnd = (e) => {
+            const onAnimationEnd = (e) => {
                 this.$refs.overlay.removeEventListener('animationend', onAnimationEnd)
 
                 if (this.blurElement) {

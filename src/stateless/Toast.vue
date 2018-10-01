@@ -40,7 +40,7 @@ export default {
         },
         close () {
             if (this.leaving)
-                this.$emit('close')
+            {this.$emit('close')}
         },
         action () {
             this.$emit('action')

@@ -68,7 +68,7 @@ export default {
         open (ev) {
             this.showText = true
             this.$nextTick(() => {
-                let expandedHeight = this.$refs.content.scrollHeight
+                const expandedHeight = this.$refs.content.scrollHeight
 
                 this.isMultiline = expandedHeight > this.$refs.content.clientHeight + 1
 

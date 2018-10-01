@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 const Constructor = Vue.extend(Slider)
 let vm = null
-let dragEvent = { clientX: 300, preventDefault: () => {} }
+const dragEvent = { clientX: 300, preventDefault: () => {} }
 
 describe('Slider', () => {
     beforeEach(() => {

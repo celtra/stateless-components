@@ -66,7 +66,7 @@ export default {
             return names.slice(firstDay).concat(names.slice(0, firstDay))
         },
         days () {
-            let dates = []
+            const dates = []
 
             const firstDay = new Date(this.year, this.month - 1, 1)
             const numPreviousMonth = firstDay.getDay()
@@ -106,7 +106,7 @@ export default {
             })
         },
         weeks () {
-            let weeks = []
+            const weeks = []
             for (let i = 0; i < 6; i++) {
                 weeks.push(this.days.slice(i * 7, (i + 1) * 7))
             }
@@ -230,7 +230,7 @@ export default {
                 40: 7,
             }
             const delta = deltaByKeyCode[e.keyCode]
-            let addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
+            const addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
             const now = new Date()
 
             if (this.isRange) {

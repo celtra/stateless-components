@@ -1,5 +1,5 @@
 export function find (items, fn) {
-    for (let item of items) {
+    for (const item of items) {
         if (fn(item)) {
             return item
         }
@@ -65,7 +65,7 @@ export function sortBy (items, fn) {
 
             const sortBy = ['max', 'sum', 'avg']
 
-            for (let sortFn of sortBy) {
+            for (const sortFn of sortBy) {
                 const result = sorts[sortFn](y.items) - sorts[sortFn](x.items)
                 if (result !== 0) {
                     fnValue = result
@@ -94,10 +94,10 @@ export function sortBy (items, fn) {
 export function getLeafItems (item) {
     const children = Array.isArray(item) ? item : item.items
 
-    let ids = {}
+    const ids = {}
     if (children) {
-        for (let child of children) {
-            for (let item of getLeafItems(child)) {
+        for (const child of children) {
+            for (const item of getLeafItems(child)) {
                 ids[item.id] = item
             }
         }
@@ -108,10 +108,10 @@ export function getLeafItems (item) {
 }
 
 export function flatten (items) {
-    let flat = []
+    const flat = []
 
     const traverse = (items, path) => {
-        for (let item of items) {
+        for (const item of items) {
             const currentPath = path.concat([item.id])
             flat.push({
                 ...item,
@@ -140,10 +140,10 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltipTit
 
     const getMatchingPriority = (value) => {
         if (!value)
-            return 0
+        {return 0}
         const cleanValue = value.trim().toLowerCase()
         if (cleanValue === cleanQuery)
-            return 3
+        {return 3}
         const index = value.toLowerCase().indexOf(cleanQuery)
         if (index >= 0) {
             return index === 0 ? 2 : 1
@@ -153,9 +153,9 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltipTit
 
     const searchFn = option => {
         for (let i = 0; i < fields.length; i++) {
-            let priority = getMatchingPriority(option[fields[i]])
+            const priority = getMatchingPriority(option[fields[i]])
             if (priority > 0)
-                return (option.items ? 0: 100) + 10 * (fields.length - i) + priority
+            {return (option.items ? 0: 100) + 10 * (fields.length - i) + priority}
         }
         return 0
     }

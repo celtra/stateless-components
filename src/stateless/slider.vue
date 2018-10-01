@@ -99,25 +99,25 @@ export default {
             return (this.limitValue - this.min) / this.step
         },
         position () {
-            let index = (this.value - this.min) / this.step
+            const index = (this.value - this.min) / this.step
             return Math.max(0, Math.min(index, this.stepsCount)) / this.stepsCount * this.sliderWidth
         },
         sliderWidth () {
             return this.isDomReady ? this.$refs.bar.clientWidth : 0
         },
         decimalPlacesCount () {
-            let decimals = this.step.toString().split('.')[1]
+            const decimals = this.step.toString().split('.')[1]
             return decimals ? decimals.length : 0
         },
         isWholeNumber () {
             return this.decimalPlacesCount === 0
         },
         lastActiveIndex () {
-            let valueRatio = (this.value - this.min) / (this.limitValue - this.min)
+            const valueRatio = (this.value - this.min) / (this.limitValue - this.min)
             return valueRatio * (this.ticksCount - 1)
         },
         labelsActiveClass () {
-            let isNormalSize = this.size === 'normal'
+            const isNormalSize = this.size === 'normal'
             return {
                 min: { active: this.lastActiveIndex >= 0 && isNormalSize },
                 max: { active: this.lastActiveIndex >= this.ticksCount - 1 && isNormalSize },
@@ -129,24 +129,24 @@ export default {
     },
     created () {
         if (this.decimalPlacesCount > 1)
-            throw new Error('Max one decimal place is supported.')
+        {throw new Error('Max one decimal place is supported.')}
 
-        let isStepValid = (this.max - this.min) / this.step % 1 === 0
+        const isStepValid = (this.max - this.min) / this.step % 1 === 0
         if (!isStepValid)
-            throw new Error('Difference between max and min is not divisible by step.')
+        {throw new Error('Difference between max and min is not divisible by step.')}
 
-        let isValueValid = ((this.value - this.min) % this.step).toFixed(0) === '0'
+        const isValueValid = ((this.value - this.min) % this.step).toFixed(0) === '0'
         if (!isValueValid)
-            throw new Error('Value is not a valid step.')
+        {throw new Error('Value is not a valid step.')}
 
         if (this.min < 0 || this.min > 998)
-            throw new Error('Min must be between 0 and 998.')
+        {throw new Error('Min must be between 0 and 998.')}
 
         if (this.max > 999 || this.max <= this.min)
-            throw new Error('Max must be between min+1 and 999.')
+        {throw new Error('Max must be between min+1 and 999.')}
 
         if (this.value < this.min || this.value > this.max)
-            throw new Error('Value must be between min and max.')
+        {throw new Error('Value must be between min and max.')}
 
         this.decimalPrecision = 1
     },
@@ -155,7 +155,7 @@ export default {
     },
     methods: {
         startDrag (e) {
-            if (this.disabled) return
+            if (this.disabled) {return}
 
             this.isChanged = true
             this.isDragging = true
@@ -166,15 +166,15 @@ export default {
             this.$refs.bar.focus()
         },
         setPosition (e) {
-            let sliderOffset = this.$refs.bar.getBoundingClientRect().x
+            const sliderOffset = this.$refs.bar.getBoundingClientRect().x
             let ratio = (e.clientX - sliderOffset) / this.sliderWidth
             ratio = Math.min(Math.max(0, ratio), 1)
-            let edgeStepOffset = 0.5 / this.stepsCount
+            const edgeStepOffset = 0.5 / this.stepsCount
 
-            let value = (Math.floor((ratio - edgeStepOffset) * this.stepsCount) + 1) * this.step + this.min
+            const value = (Math.floor((ratio - edgeStepOffset) * this.stepsCount) + 1) * this.step + this.min
 
-            let roundingFactor = Math.pow(10, this.decimalPlacesCount)
-            let roundedValue = Math.round(value * roundingFactor) / roundingFactor
+            const roundingFactor = Math.pow(10, this.decimalPlacesCount)
+            const roundedValue = Math.round(value * roundingFactor) / roundingFactor
 
             this.$emit('input', roundedValue)
 
@@ -218,11 +218,11 @@ export default {
         tickClass (index) {
             let hidden = false
             if (this.isDomReady) {
-                let labelPadding = 6
-                let position = (index - 1) / (this.ticksCount - 1) * this.sliderWidth
+                const labelPadding = 6
+                const position = (index - 1) / (this.ticksCount - 1) * this.sliderWidth
                 // threshold for ticks disappearing under labels
-                let minThreshold = this.$refs.min.clientWidth + labelPadding
-                let maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - labelPadding
+                const minThreshold = this.$refs.min.clientWidth + labelPadding
+                const maxThreshold = this.sliderWidth - this.$refs.max.clientWidth - labelPadding
                 hidden = position <= minThreshold || position >= maxThreshold
             }
 

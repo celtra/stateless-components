@@ -46,7 +46,7 @@ export default {
                 if (step.id === this.currentStepId) {
                     isBeforeCurrent = false
                 }
-                let label = isBeforeCurrent ? step.activeLabel : step.passiveLabel
+                const label = isBeforeCurrent ? step.activeLabel : step.passiveLabel
 
                 return {
                     id: step.id,
@@ -94,13 +94,13 @@ export default {
             this.$emit('close-dialog')
         },
         transitionHeader () {
-            let stepElements = this.$refs.calculationSteps
-            let header = this.$refs.headerContent
+            const stepElements = this.$refs.calculationSteps
+            const header = this.$refs.headerContent
 
             if (stepElements && header) {
-                let stepSpacing = 30
+                const stepSpacing = 30
                 let headerStart = 0
-                for (let stepElement of stepElements) {
+                for (const stepElement of stepElements) {
                     if (stepElement.className.indexOf('dialog-header__element--active') == -1) {
                         headerStart += stepElement.clientWidth + stepSpacing
                     } else {

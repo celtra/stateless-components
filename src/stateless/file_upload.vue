@@ -83,22 +83,22 @@
 <script>
 function loadVideo (file) {
     return new Promise((resolve, reject) => {
-        let reader = new FileReader()
+        const reader = new FileReader()
         reader.onloadend = () => {
-            let blob = new Blob([reader.result], { type: file.type })
-            let url = URL.createObjectURL(blob)
-            let video = document.createElement('video')
+            const blob = new Blob([reader.result], { type: file.type })
+            const url = URL.createObjectURL(blob)
+            const video = document.createElement('video')
             video.preload = 'auto'
 
-            let errorCallback = (e) => {
+            const errorCallback = (e) => {
                 reject()
                 cleanVideo()
             }
 
-            let loadedCallback = () => {
-                let mozAudio = video.mozHasAudio
-                let safariAudio = video.audioTracks && video.audioTracks.length !== 0
-                let chromeAudio = video.webkitAudioDecodedByteCount > 0
+            const loadedCallback = () => {
+                const mozAudio = video.mozHasAudio
+                const safariAudio = video.audioTracks && video.audioTracks.length !== 0
+                const chromeAudio = video.webkitAudioDecodedByteCount > 0
 
                 resolve({
                     width: video.videoWidth,
@@ -110,7 +110,7 @@ function loadVideo (file) {
                 cleanVideo()
             }
 
-            let cleanVideo = () => {
+            const cleanVideo = () => {
                 video.removeEventListener('error', errorCallback)
                 video.removeEventListener('loadeddata', loadedCallback)
                 video.src = ''
@@ -128,9 +128,9 @@ function loadVideo (file) {
 
 function loadImage (file) {
     return new Promise ((resolve, reject) => {
-        let reader = new FileReader()
+        const reader = new FileReader()
         reader.onloadend = () => {
-            let image = new Image()
+            const image = new Image()
             image.onerror = () => {
                 reject()
                 image.src = ''
@@ -209,15 +209,15 @@ export default {
             }
         },
         maxFilenameLength () {
-            let squareWidth = 90, padding = 15, iconWidth = 30
-            let textWidth = this.width - squareWidth - 2 * padding - iconWidth
-            let averageCharacterWidth = 7
+            const squareWidth = 90, padding = 15, iconWidth = 30
+            const textWidth = this.width - squareWidth - 2 * padding - iconWidth
+            const averageCharacterWidth = 7
             return Math.floor(textWidth / averageCharacterWidth)
         },
     },
     watch: {
-        file (newFile, oldFile){
-            if (newFile.thumbnailUrl && oldFile.thumbnailUrl !== newFile.thumbnailUrl){
+        file (newFile, oldFile) {
+            if (newFile.thumbnailUrl && oldFile.thumbnailUrl !== newFile.thumbnailUrl) {
                 this.finishUpload()
             }
         },
@@ -271,7 +271,7 @@ export default {
             }
         },
         uploadFile (file) {
-            let self = this
+            const self = this
 
             this.activeXhr = new XMLHttpRequest()
             this.activeXhr.open('POST', this.uploadUrl, true)
@@ -284,7 +284,7 @@ export default {
             this.activeXhr.onload = function () {
                 if (this.status == 201) {
                     if (self.file && !self.error) {
-                        let resp = JSON.parse(this.response)
+                        const resp = JSON.parse(this.response)
                         self.$emit('upload', {
                             file: file,
                             hash: resp.hash,

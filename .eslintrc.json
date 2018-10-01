@@ -21,6 +21,9 @@
       "keyword-spacing": "error",
       "max-len": 0,
       "comma-dangle": ["error", "always-multiline"],
+      "curly": "error",
+      "space-before-blocks": "error",
+      "prefer-const": "error",
       "vue/html-indent": [
           "error", 4,
           {
