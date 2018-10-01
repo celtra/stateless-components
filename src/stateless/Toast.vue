@@ -39,8 +39,9 @@ export default {
             this.leaving = true
         },
         close () {
-            if (this.leaving)
-            {this.$emit('close')}
+            if (this.leaving) {
+                this.$emit('close')
+            }
         },
         action () {
             this.$emit('action')

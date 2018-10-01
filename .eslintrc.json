@@ -24,6 +24,7 @@
       "curly": "error",
       "space-before-blocks": "error",
       "prefer-const": "error",
+      "brace-style": "error",
       "vue/html-indent": [
           "error", 4,
           {

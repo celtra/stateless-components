@@ -22,7 +22,9 @@ describe('Slider', () => {
         }).$mount()
 
         vm.isDomReady = false
-        vm.$refs.bar = { clientWidth: 300, getBoundingClientRect: () => { return { x: 160 } }, focus: () => {} }
+        vm.$refs.bar = { clientWidth: 300, getBoundingClientRect: () => {
+            return { x: 160 }
+        }, focus: () => {} }
     })
 
     it('should match the snapshot', () => {

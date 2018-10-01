@@ -128,25 +128,31 @@ export default {
         this.ticksCount = 20
     },
     created () {
-        if (this.decimalPlacesCount > 1)
-        {throw new Error('Max one decimal place is supported.')}
+        if (this.decimalPlacesCount > 1) {
+            throw new Error('Max one decimal place is supported.')
+        }
 
         const isStepValid = (this.max - this.min) / this.step % 1 === 0
-        if (!isStepValid)
-        {throw new Error('Difference between max and min is not divisible by step.')}
+        if (!isStepValid) {
+            throw new Error('Difference between max and min is not divisible by step.')
+        }
 
         const isValueValid = ((this.value - this.min) % this.step).toFixed(0) === '0'
-        if (!isValueValid)
-        {throw new Error('Value is not a valid step.')}
+        if (!isValueValid) {
+            throw new Error('Value is not a valid step.')
+        }
 
-        if (this.min < 0 || this.min > 998)
-        {throw new Error('Min must be between 0 and 998.')}
+        if (this.min < 0 || this.min > 998) {
+            throw new Error('Min must be between 0 and 998.')
+        }
 
-        if (this.max > 999 || this.max <= this.min)
-        {throw new Error('Max must be between min+1 and 999.')}
+        if (this.max > 999 || this.max <= this.min) {
+            throw new Error('Max must be between min+1 and 999.')
+        }
 
-        if (this.value < this.min || this.value > this.max)
-        {throw new Error('Value must be between min and max.')}
+        if (this.value < this.min || this.value > this.max) {
+            throw new Error('Value must be between min and max.')
+        }
 
         this.decimalPrecision = 1
     },
@@ -155,7 +161,9 @@ export default {
     },
     methods: {
         startDrag (e) {
-            if (this.disabled) {return}
+            if (this.disabled) {
+                return
+            }
 
             this.isChanged = true
             this.isDragging = true

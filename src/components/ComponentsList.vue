@@ -72,10 +72,12 @@ const getComponents = () => {
         const defaultProps = componentData.defaultProps || {}
 
         let allProps = {}
-        for (const key in componentProps)
-        {allProps[key] = true}
-        for (const key in defaultProps)
-        {allProps[key] = true}
+        for (const key in componentProps) {
+            allProps[key] = true
+        }
+        for (const key in defaultProps) {
+            allProps[key] = true
+        }
         allProps = Object.keys(allProps)
 
         return {

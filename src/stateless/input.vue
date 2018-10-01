@@ -163,8 +163,9 @@ export default {
             }
         },
         mappedHelperText () {
-            if (this.states.disabled)
-            {return ''}
+            if (this.states.disabled) {
+                return ''
+            }
             if (this.states.error) {
                 return this.errorMessage
             } else if (this.states.warning) {
@@ -213,8 +214,9 @@ export default {
         },
     },
     created () {
-        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
-        {throw new Error('Only type text is compatible with autogrow and input length props.')}
+        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow)) {
+            throw new Error('Only type text is compatible with autogrow and input length props.')
+        }
 
         this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
     },
@@ -237,14 +239,16 @@ export default {
             const onError = (e) => self.errorMessage = e
             const onWarning = (w) => self.warningMessage = w
 
-            if (this.isValid)
-            {this.errorMessage = this.isValid(value, onError)}
+            if (this.isValid) {
+                this.errorMessage = this.isValid(value, onError)
+            }
 
             if (this.errorMessage && this.errorMessage !== true) {
                 return false
             } else {
-                if (this.hasWarning)
-                {this.warningMessage = this.hasWarning(value, onWarning)}
+                if (this.hasWarning) {
+                    this.warningMessage = this.hasWarning(value, onWarning)
+                }
 
                 if (this.warningMessage && this.warningMessage !== true) {
                     return false

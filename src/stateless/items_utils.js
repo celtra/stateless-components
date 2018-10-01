@@ -139,11 +139,13 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltipTit
     }
 
     const getMatchingPriority = (value) => {
-        if (!value)
-        {return 0}
+        if (!value) {
+            return 0
+        }
         const cleanValue = value.trim().toLowerCase()
-        if (cleanValue === cleanQuery)
-        {return 3}
+        if (cleanValue === cleanQuery) {
+            return 3
+        }
         const index = value.toLowerCase().indexOf(cleanQuery)
         if (index >= 0) {
             return index === 0 ? 2 : 1
@@ -154,8 +156,9 @@ export function search (items, query, fields = ['label', 'metadata', 'tooltipTit
     const searchFn = option => {
         for (let i = 0; i < fields.length; i++) {
             const priority = getMatchingPriority(option[fields[i]])
-            if (priority > 0)
-            {return (option.items ? 0: 100) + 10 * (fields.length - i) + priority}
+            if (priority > 0) {
+                return (option.items ? 0: 100) + 10 * (fields.length - i) + priority
+            }
         }
         return 0
     }

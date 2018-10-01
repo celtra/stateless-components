@@ -17,8 +17,9 @@ export default {
     },
     computed: {
         componentData () {
-            if (this.name === null)
-            {return null}
+            if (this.name === null) {
+                return null
+            }
 
             const data = components[this.name]
 

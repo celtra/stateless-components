@@ -41,17 +41,21 @@ export default {
     },
     computed: {
         formattedValue () {
-            if (this.textValue)
-            {return this.textValue}
-            if (!this.value)
-            {return null}
-            if (this.inFocus)
-            {return moment(this.value).format(this.dateFormatFocus || this.dateFormat)}
+            if (this.textValue) {
+                return this.textValue
+            }
+            if (!this.value) {
+                return null
+            }
+            if (this.inFocus) {
+                return moment(this.value).format(this.dateFormatFocus || this.dateFormat)
+            }
             return moment(this.value).format(this.dateFormat)
         },
         momentDate () {
-            if (!this.textValue)
-            {return null}
+            if (!this.textValue) {
+                return null
+            }
             return moment(this.textValue, this.dateFormatFocus || this.dateFormat)
         },
         errorText () {
