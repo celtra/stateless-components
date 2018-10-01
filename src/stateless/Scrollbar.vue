@@ -34,12 +34,19 @@ export default {
             return this.height * this.height / this.totalHeight
         },
     },
+    watch: {
+        container () {
+            this.setupContainer()
+        },
+    },
     beforeCreate () {
         this.isDragging = false
         this.handleDragRatio = 0.5
         this.canClick = true
     },
     created () {
+        this.setupContainer()
+
         window.addEventListener('mousemove', this.onDrag)
         window.addEventListener('mouseup', this.stopDrag)
 
@@ -73,6 +80,15 @@ export default {
         window.removeEventListener('mouseup', this.stopDrag)
     },
     methods: {
+        setupContainer () {
+            if (this.container) {
+                this.container.addEventListener('wheel', (e) => {
+                    const newScrollTop = this.container.scrollTop + e.deltaY
+                    this.container.scrollTop = newScrollTop
+                    this.scrollTop = newScrollTop
+                })
+            }
+        },
         click (ev) {
             if (this.canClick) {
                 const elementBox = this.$el.getBoundingClientRect()

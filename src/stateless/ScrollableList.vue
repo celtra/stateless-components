@@ -8,7 +8,7 @@
         </div>
 
         <div class="scrollable-list__list-wrap">
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px`, width: `calc(100% + ${scrollbarWidth + 1}px)` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     v-show="items.length > 0"
                     ref="list"
@@ -77,7 +77,6 @@ export default {
         return {
             isListReady: false,
             scrollTop: 0,
-            scrollbarWidth: 5,
         }
     },
     computed: {
@@ -90,34 +89,6 @@ export default {
         maxHeight () {
             return this.numItems * this.itemHeight + 2 * this.overlayHeight
         },
-    },
-    created () {
-        const inner = document.createElement('p')
-        inner.style.width = "100%"
-        inner.style.height = "200px"
-
-        const outer = document.createElement('div')
-        outer.style.position = "absolute"
-        outer.style.top = "0px"
-        outer.style.left = "0px"
-        outer.style.visibility = "hidden"
-        outer.style.width = "200px"
-        outer.style.height = "150px"
-        outer.style.overflow = "hidden"
-        outer.appendChild(inner)
-
-        document.body.appendChild(outer)
-        const w1 = inner.offsetWidth
-        outer.style.overflow = 'scroll'
-        let w2 = inner.offsetWidth
-
-        if (w1 == w2) {
-            w2 = outer.clientWidth
-        }
-
-        document.body.removeChild(outer)
-
-        this.scrollbarWidth = w1 - w2
     },
     mounted () {
         this.$nextTick(() => {
@@ -226,8 +197,7 @@ export default {
     }
 
     &__list {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
         overscroll-behavior: contain;
         box-sizing: content-box;
         width: 100%;
