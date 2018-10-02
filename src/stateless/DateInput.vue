@@ -1,5 +1,6 @@
 <template>
     <input-element
+        ref="input"
         :theme="theme"
         :size="size"
         :value="formattedValue"
@@ -101,6 +102,9 @@ export default {
             this.textValue = null
             this.inFocus = false
             this.$emit('blur', ev)
+        },
+        focus () {
+            this.$refs.input.focus()
         },
     },
 }

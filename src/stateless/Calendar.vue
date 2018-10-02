@@ -1,5 +1,5 @@
 <template>
-    <div class="calendar" tabindex="0" @focus="onFocus">
+    <div class="calendar" tabindex="0" @focus="onFocus" @blur="$emit('blur', $event)">
         <div class="calendar__header">
             <icon name="left-arrow" class="calendar__navigation-icon" @click="previousMonth()"></icon>
             <div class="calendar__current">{{ monthNames[month - 1] }} {{ year }}</div>

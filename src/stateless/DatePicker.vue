@@ -12,6 +12,7 @@
             <template v-if="hasInput">
                 <date-range-input
                     v-if="isRange"
+                    ref="input"
                     :theme="theme"
                     :size="size"
                     :value="value"
@@ -22,11 +23,11 @@
                     :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     class="date-picker__date-input"
-                    @input="$emit('input', $event)"
-                    @blur="onInputBlur">
+                    @input="$emit('input', $event)">
                 </date-range-input>
                 <date-input
                     v-else
+                    ref="input"
                     :theme="theme"
                     :size="size"
                     :value="value"
@@ -38,13 +39,11 @@
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     :label="label"
                     class="date-picker__date-input"
-                    @input="$emit('input', $event)"
-                    @blur="onInputBlur">
+                    @input="$emit('input', $event)">
                 </date-input>
             </template>
 
             <calendar
-                ref="calendar"
                 :theme="theme"
                 :size="size"
                 :value="value"
@@ -54,6 +53,7 @@
                 class="date-picker__calendar"
                 @input="$emit('input', $event)"
                 @confirm="isOpen = false"
+                @blur="onBlur"
             ></calendar>
         </div>
     </div>
@@ -131,16 +131,16 @@ export default {
             this.isOpen = false
         },
         openCalendar () {
-            if (!this.disabled) {
+            if (!this.disabled && !this.isOpen) {
                 this.isOpen = true
                 this.$nextTick(() => {
-                    this.$refs.calendar.focus()
+                    this.$refs.input.focus()
                 })
             }
         },
-        onInputBlur (ev) {
+        onBlur (ev) {
             if (ev.relatedTarget === null && this.isOpen) {
-                this.$refs.calendar.focus()
+                this.isOpen = false
             }
         },
     },
