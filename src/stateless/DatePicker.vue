@@ -23,7 +23,8 @@
                     :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     class="date-picker__date-input"
-                    @input="$emit('input', $event)">
+                    @input="$emit('input', $event)"
+                    @blur="onBlur">
                 </date-range-input>
                 <date-input
                     v-else
@@ -39,7 +40,8 @@
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     :label="label"
                     class="date-picker__date-input"
-                    @input="$emit('input', $event)">
+                    @input="$emit('input', $event)"
+                    @blur="onBlur">
                 </date-input>
             </template>
 
@@ -139,8 +141,10 @@ export default {
             }
         },
         onBlur (ev) {
-            if (ev.relatedTarget === null && this.isOpen) {
-                this.isOpen = false
+            if ((ev.relatedTarget === null || !this.$el.contains(ev.relatedTarget) || ev.relatedTarget === this.$el) && this.isOpen) {
+                this.$nextTick(() => {
+                    this.isOpen = false
+                })
             }
         },
     },
