@@ -56,7 +56,6 @@ export default {
         separator: { type: String },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
-        label: { type: String },
         trackName: { type: String, default: 'dateRangeInput' },
     },
     methods: {

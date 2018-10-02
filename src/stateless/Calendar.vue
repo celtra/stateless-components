@@ -49,7 +49,6 @@ export default {
         maxDate: { type: Date },
         selectAllTime: { type: Boolean, default: false },
         locale: { type: String, default: 'en-US' },
-        label: { type: String },
         trackName: { type: String, default: 'calendar' },
     },
     data () {
