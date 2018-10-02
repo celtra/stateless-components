@@ -28,7 +28,7 @@ export default {
     methods: {
         show (timeout = 5000) {
             this.isShown = true
-            if (!this.timeoutId) {
+            if (this.timeoutId) {
                 clearTimeout(this.timeoutId)
             }
             this.timeoutId = setTimeout(this.hide, timeout)
