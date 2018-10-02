@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker">
+    <div v-click-outside="clickOutside" :class="[states, theme] | prefix('date-picker--')" class="date-picker" tabindex="0" @focus="openCalendar()">
         <div v-if="label" :class="size | prefix('date-picker__label--')" class="date-picker__label">{{ isEmpty ? '' : label }}</div>
         <div :class="[size, { disabled: disabled }] | prefix('date-picker__date--')" class="date-picker__date" @click="openCalendar">
             <span class="date-picker__date-text">{{ formattedDate }}</span>
@@ -8,7 +8,7 @@
         <div :class="states | prefix('date-picker__border-overlay--')" class="date-picker__border-overlay"></div>
         <div :class="size | prefix('date-picker__error-message--')" class="date-picker__error-message">{{ error }}</div>
 
-        <div v-if="isOpen" ref="popup" tabindex="0" class="date-picker__popup" @keyup.esc.stop="isOpen = false">
+        <div v-if="isOpen" class="date-picker__popup" @keyup.esc.stop="isOpen = false">
             <template v-if="hasInput">
                 <date-range-input
                     v-if="isRange"
@@ -134,13 +134,13 @@ export default {
             if (!this.disabled) {
                 this.isOpen = true
                 this.$nextTick(() => {
-                    this.$refs.popup.focus()
+                    this.$refs.calendar.focus()
                 })
             }
         },
         onInputBlur (ev) {
             if (ev.relatedTarget === null && this.isOpen) {
-                this.$refs.popup.focus()
+                this.$refs.calendar.focus()
             }
         },
     },
@@ -155,6 +155,7 @@ export default {
     width: 100%;
     position: relative;
     font-family: @regular-text-font;
+    outline: none;
 
     &__label {
         color: @bluish-gray;

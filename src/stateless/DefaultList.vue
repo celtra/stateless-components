@@ -303,11 +303,10 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
-        transition: background-color 100ms ease;
 
         &-enter-active, &-leave-active, &-move {
             pointer-events: none;
-            transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
+            transition: height 250ms ease-in, opacity 250ms ease-in;
         }
 
         &-enter, &-leave-to {
