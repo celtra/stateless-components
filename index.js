@@ -35429,18 +35429,12 @@ var Component = normalizeComponent(
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
-        label: { type: String },
-        actionLabel: { type: String },
-        theme: { type: String, default: 'dark' },
-        timeout: { type: Number, default: 5000 }
+        theme: { type: String, default: 'dark' }
     },
     data: function data() {
         return {
-            leaving: false
+            isShown: false
         };
-    },
-    mounted: function mounted() {
-        this.timeoutId = setTimeout(this.leave, this.timeout);
     },
     beforeDestroy: function beforeDestroy() {
         if (this.timeoutId) {
@@ -35449,18 +35443,17 @@ var Component = normalizeComponent(
     },
 
     methods: {
-        leave: function leave() {
-            if (this.timeoutId) {
+        show: function show() {
+            var timeout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5000;
+
+            this.isShown = true;
+            if (!this.timeoutId) {
                 clearTimeout(this.timeoutId);
             }
-            this.leaving = true;
+            this.timeoutId = setTimeout(this.hide, timeout);
         },
-        close: function close() {
-            if (this.leaving) this.$emit('close');
-        },
-        action: function action() {
-            this.$emit('action');
-            this.leave();
+        hide: function hide() {
+            this.isShown = false;
         }
     }
 });
@@ -40380,7 +40373,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Toast_vue__ = __webpack_require__(242);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6433e560_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Toast_vue__ = __webpack_require__(432);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_639d5f91_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Toast_vue__ = __webpack_require__(432);
 function injectStyle (ssrContext) {
   __webpack_require__(430)
 }
@@ -40395,12 +40388,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6433e560"
+var __vue_scopeId__ = "data-v-639d5f91"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Toast_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6433e560_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Toast_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_639d5f91_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Toast_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -40421,7 +40414,7 @@ var content = __webpack_require__(431);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("422e3cb4", content, true, {});
+var update = __webpack_require__(2)("d28ec9c6", content, true, {});
 
 /***/ }),
 /* 431 */
@@ -40433,7 +40426,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.toast-element[data-v-6433e560] {\n  font-family: \"SF UI Text Regular\";\n  width: 320px;\n  height: 60px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: white;\n  position: fixed;\n  padding: 0 30px;\n  bottom: 70px;\n  -webkit-box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n          box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n  -webkit-animation: slide-in-data-v-6433e560 0.4s ease-out;\n          animation: slide-in-data-v-6433e560 0.4s ease-out;\n  z-index: 1000;\n}\n.toast-element--leave[data-v-6433e560] {\n  -webkit-animation: slide-out-data-v-6433e560 0.4s ease-in forwards;\n          animation: slide-out-data-v-6433e560 0.4s ease-in forwards;\n}\n.toast-element__label[data-v-6433e560] {\n  font-size: 14px;\n  color: #818087;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.toast-element__action-label[data-v-6433e560] {\n  font-size: 12px;\n  color: #444450;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.toast-element--dark[data-v-6433e560] {\n  background-color: #444450;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n}\n.toast-element--dark .toast-element__label[data-v-6433e560] {\n  color: white;\n}\n.toast-element--dark .toast-element__action-label[data-v-6433e560] {\n  color: #d6d8dd;\n}\n@-webkit-keyframes slide-in-data-v-6433e560 {\nfrom {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@keyframes slide-in-data-v-6433e560 {\nfrom {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@-webkit-keyframes slide-out-data-v-6433e560 {\nto {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@keyframes slide-out-data-v-6433e560 {\nto {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Toast.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,aAAa;EACb,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,wBAAwB;EACxB,gBAAgB;EAChB,gBAAgB;EAChB,aAAa;EACb,qDAAqD;UAC7C,6CAA6C;EACrD,0DAA0D;UAClD,kDAAkD;EAC1D,cAAc;CACf;AACD;EACE,mEAAmE;UAC3D,2DAA2D;CACpE;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,kCAAkC;EAClC,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;CAC3B;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,kCAAkC;EAClC,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,0BAA0B;EAC1B,gBAAgB;CACjB;AACD;EACE,0BAA0B;EAC1B,oDAAoD;UAC5C,4CAA4C;CACrD;AACD;EACE,aAAa;CACd;AACD;EACE,eAAe;CAChB;AACD;AACA;IACI,qCAAqC;YAC7B,6BAA6B;CACxC;CACA;AACD;AACA;IACI,qCAAqC;YAC7B,6BAA6B;CACxC;CACA;AACD;AACA;IACI,qCAAqC;YAC7B,6BAA6B;CACxC;CACA;AACD;AACA;IACI,qCAAqC;YAC7B,6BAA6B;CACxC;CACA","file":"Toast.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.toast-element[data-v-6433e560] {\n  font-family: \"SF UI Text Regular\";\n  width: 320px;\n  height: 60px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: white;\n  position: fixed;\n  padding: 0 30px;\n  bottom: 70px;\n  -webkit-box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n          box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n  -webkit-animation: slide-in-data-v-6433e560 0.4s ease-out;\n          animation: slide-in-data-v-6433e560 0.4s ease-out;\n  z-index: 1000;\n}\n.toast-element--leave[data-v-6433e560] {\n  -webkit-animation: slide-out-data-v-6433e560 0.4s ease-in forwards;\n          animation: slide-out-data-v-6433e560 0.4s ease-in forwards;\n}\n.toast-element__label[data-v-6433e560] {\n  font-size: 14px;\n  color: #818087;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.toast-element__action-label[data-v-6433e560] {\n  font-size: 12px;\n  color: #444450;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.toast-element--dark[data-v-6433e560] {\n  background-color: #444450;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n}\n.toast-element--dark .toast-element__label[data-v-6433e560] {\n  color: white;\n}\n.toast-element--dark .toast-element__action-label[data-v-6433e560] {\n  color: #d6d8dd;\n}\n@-webkit-keyframes slide-in-data-v-6433e560 {\nfrom {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@keyframes slide-in-data-v-6433e560 {\nfrom {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@-webkit-keyframes slide-out-data-v-6433e560 {\nto {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n@keyframes slide-out-data-v-6433e560 {\nto {\n    -webkit-transform: translateY(120px);\n            transform: translateY(120px);\n}\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.toast-element[data-v-639d5f91] {\n  font-family: \"SF UI Text Regular\";\n  width: 320px;\n  height: 60px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: white;\n  position: fixed;\n  padding: 0 30px;\n  bottom: 70px;\n  -webkit-box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n          box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n  z-index: 1000;\n  -webkit-transition: -webkit-transform 0.4s ease;\n  transition: -webkit-transform 0.4s ease;\n  transition: transform 0.4s ease;\n  transition: transform 0.4s ease, -webkit-transform 0.4s ease;\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n.toast-element--hidden[data-v-639d5f91] {\n  -webkit-transform: translateY(135px);\n          transform: translateY(135px);\n}\n.toast-element__label[data-v-639d5f91] {\n  font-size: 14px;\n  color: #818087;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.toast-element__action-label[data-v-639d5f91] {\n  font-size: 12px;\n  color: #444450;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.toast-element--dark[data-v-639d5f91] {\n  background-color: #444450;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n}\n.toast-element--dark .toast-element__label[data-v-639d5f91] {\n  color: white;\n}\n.toast-element--dark .toast-element__action-label[data-v-639d5f91] {\n  color: #d6d8dd;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/Toast.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,aAAa;EACb,aAAa;EACb,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,+BAA+B;EACvC,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;EAC5B,wBAAwB;EACxB,gBAAgB;EAChB,gBAAgB;EAChB,aAAa;EACb,qDAAqD;UAC7C,6CAA6C;EACrD,cAAc;EACd,gDAAgD;EAChD,wCAAwC;EACxC,gCAAgC;EAChC,6DAA6D;EAC7D,iCAAiC;UACzB,yBAAyB;CAClC;AACD;EACE,qCAAqC;UAC7B,6BAA6B;CACtC;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,kCAAkC;EAClC,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;CAC3B;AACD;EACE,gBAAgB;EAChB,eAAe;EACf,kCAAkC;EAClC,0BAA0B;KACvB,uBAAuB;MACtB,sBAAsB;UAClB,kBAAkB;EAC1B,0BAA0B;EAC1B,gBAAgB;CACjB;AACD;EACE,0BAA0B;EAC1B,oDAAoD;UAC5C,4CAA4C;CACrD;AACD;EACE,aAAa;CACd;AACD;EACE,eAAe;CAChB","file":"Toast.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.toast-element[data-v-639d5f91] {\n  font-family: \"SF UI Text Regular\";\n  width: 320px;\n  height: 60px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: white;\n  position: fixed;\n  padding: 0 30px;\n  bottom: 70px;\n  -webkit-box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n          box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);\n  z-index: 1000;\n  -webkit-transition: -webkit-transform 0.4s ease;\n  transition: -webkit-transform 0.4s ease;\n  transition: transform 0.4s ease;\n  transition: transform 0.4s ease, -webkit-transform 0.4s ease;\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n.toast-element--hidden[data-v-639d5f91] {\n  -webkit-transform: translateY(135px);\n          transform: translateY(135px);\n}\n.toast-element__label[data-v-639d5f91] {\n  font-size: 14px;\n  color: #818087;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.toast-element__action-label[data-v-639d5f91] {\n  font-size: 12px;\n  color: #444450;\n  font-family: \"SF UI Text Regular\";\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n.toast-element--dark[data-v-639d5f91] {\n  background-color: #444450;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);\n}\n.toast-element--dark .toast-element__label[data-v-639d5f91] {\n  color: white;\n}\n.toast-element--dark .toast-element__action-label[data-v-639d5f91] {\n  color: #d6d8dd;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -40443,7 +40436,7 @@ exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"toast-element",class:{'toast-element--leave' : _vm.leaving, 'toast-element--dark': _vm.theme === 'dark'},on:{"animationend":_vm.close}},[_c('div',{staticClass:"toast-element__label"},[_vm._t("label",[_vm._v(_vm._s(_vm.label))])],2),_vm._v(" "),_c('div',{staticClass:"toast-element__action-label",on:{"click":_vm.action}},[_vm._t("action-label",[_vm._v(_vm._s(_vm.actionLabel))])],2)])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"toast-element",class:{'toast-element--hidden' : !_vm.isShown, 'toast-element--dark': _vm.theme === 'dark'}},[_c('div',{staticClass:"toast-element__label"},[_vm._t("default")],2),_vm._v(" "),_c('div',{staticClass:"toast-element__action-label",on:{"click":function($event){_vm.$emit('action')}}},[_vm._t("action")],2)])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
