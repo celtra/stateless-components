@@ -65,7 +65,7 @@ export default {
             },
             setup () {
                 return new Promise((resolve, reject) => {
-                    setTimeout(resolve, 500)
+                    setTimeout(resolve, 1000)
                 })
             },
         },

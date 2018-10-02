@@ -10,7 +10,7 @@ jobs:
 
       - setup_remote_docker
 
-      - run: docker-compose up test-circle
+      - run: docker-compose run --rm test-circle
 
       - store_artifacts:
           path: /app/test/unit/specs/__image_snapshots__/__diff_output__

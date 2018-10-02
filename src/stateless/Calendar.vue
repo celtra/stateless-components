@@ -52,6 +52,7 @@ export default {
     },
     usecases: [
         {
+            value: { from: new Date(2018, 0, 1) },
             isRange: true,
         },
     ],
