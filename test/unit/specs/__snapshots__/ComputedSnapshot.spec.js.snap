@@ -1,0 +1,2501 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComputedSnapshot Calendar 180204092 dayNames 1`] = `
+Array [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+]
+`;
+
+exports[`ComputedSnapshot Calendar 180204092 days 1`] = `
+Array [
+  Object {
+    "date": 2017-12-30T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 31,
+  },
+  Object {
+    "date": 2017-12-31T23:00:00.000Z,
+    "isCurrent": true,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 1,
+  },
+  Object {
+    "date": 2018-01-01T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 2,
+  },
+  Object {
+    "date": 2018-01-02T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 3,
+  },
+  Object {
+    "date": 2018-01-03T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 4,
+  },
+  Object {
+    "date": 2018-01-04T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 5,
+  },
+  Object {
+    "date": 2018-01-05T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 6,
+  },
+  Object {
+    "date": 2018-01-06T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 7,
+  },
+  Object {
+    "date": 2018-01-07T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 8,
+  },
+  Object {
+    "date": 2018-01-08T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 9,
+  },
+  Object {
+    "date": 2018-01-09T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 10,
+  },
+  Object {
+    "date": 2018-01-10T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 11,
+  },
+  Object {
+    "date": 2018-01-11T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 12,
+  },
+  Object {
+    "date": 2018-01-12T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 13,
+  },
+  Object {
+    "date": 2018-01-13T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 14,
+  },
+  Object {
+    "date": 2018-01-14T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 15,
+  },
+  Object {
+    "date": 2018-01-15T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 16,
+  },
+  Object {
+    "date": 2018-01-16T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 17,
+  },
+  Object {
+    "date": 2018-01-17T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 18,
+  },
+  Object {
+    "date": 2018-01-18T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 19,
+  },
+  Object {
+    "date": 2018-01-19T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 20,
+  },
+  Object {
+    "date": 2018-01-20T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 21,
+  },
+  Object {
+    "date": 2018-01-21T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 22,
+  },
+  Object {
+    "date": 2018-01-22T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 23,
+  },
+  Object {
+    "date": 2018-01-23T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 24,
+  },
+  Object {
+    "date": 2018-01-24T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 25,
+  },
+  Object {
+    "date": 2018-01-25T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 26,
+  },
+  Object {
+    "date": 2018-01-26T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 27,
+  },
+  Object {
+    "date": 2018-01-27T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 28,
+  },
+  Object {
+    "date": 2018-01-28T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 29,
+  },
+  Object {
+    "date": 2018-01-29T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 30,
+  },
+  Object {
+    "date": 2018-01-30T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": false,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 31,
+  },
+  Object {
+    "date": 2018-01-31T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 1,
+  },
+  Object {
+    "date": 2018-02-01T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 2,
+  },
+  Object {
+    "date": 2018-02-02T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 3,
+  },
+  Object {
+    "date": 2018-02-03T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 4,
+  },
+  Object {
+    "date": 2018-02-04T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 5,
+  },
+  Object {
+    "date": 2018-02-05T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 6,
+  },
+  Object {
+    "date": 2018-02-06T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 7,
+  },
+  Object {
+    "date": 2018-02-07T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 8,
+  },
+  Object {
+    "date": 2018-02-08T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 9,
+  },
+  Object {
+    "date": 2018-02-09T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 10,
+  },
+  Object {
+    "date": 2018-02-10T23:00:00.000Z,
+    "isCurrent": undefined,
+    "isDifferentMonth": true,
+    "isDisabled": false,
+    "isInRange": false,
+    "number": 11,
+  },
+]
+`;
+
+exports[`ComputedSnapshot Calendar 180204092 weeks 1`] = `
+Array [
+  Array [
+    Object {
+      "date": 2017-12-30T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 31,
+    },
+    Object {
+      "date": 2017-12-31T23:00:00.000Z,
+      "isCurrent": true,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 1,
+    },
+    Object {
+      "date": 2018-01-01T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 2,
+    },
+    Object {
+      "date": 2018-01-02T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 3,
+    },
+    Object {
+      "date": 2018-01-03T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 4,
+    },
+    Object {
+      "date": 2018-01-04T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 5,
+    },
+    Object {
+      "date": 2018-01-05T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 6,
+    },
+  ],
+  Array [
+    Object {
+      "date": 2018-01-06T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 7,
+    },
+    Object {
+      "date": 2018-01-07T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 8,
+    },
+    Object {
+      "date": 2018-01-08T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 9,
+    },
+    Object {
+      "date": 2018-01-09T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 10,
+    },
+    Object {
+      "date": 2018-01-10T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 11,
+    },
+    Object {
+      "date": 2018-01-11T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 12,
+    },
+    Object {
+      "date": 2018-01-12T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 13,
+    },
+  ],
+  Array [
+    Object {
+      "date": 2018-01-13T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 14,
+    },
+    Object {
+      "date": 2018-01-14T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 15,
+    },
+    Object {
+      "date": 2018-01-15T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 16,
+    },
+    Object {
+      "date": 2018-01-16T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 17,
+    },
+    Object {
+      "date": 2018-01-17T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 18,
+    },
+    Object {
+      "date": 2018-01-18T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 19,
+    },
+    Object {
+      "date": 2018-01-19T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 20,
+    },
+  ],
+  Array [
+    Object {
+      "date": 2018-01-20T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 21,
+    },
+    Object {
+      "date": 2018-01-21T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 22,
+    },
+    Object {
+      "date": 2018-01-22T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 23,
+    },
+    Object {
+      "date": 2018-01-23T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 24,
+    },
+    Object {
+      "date": 2018-01-24T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 25,
+    },
+    Object {
+      "date": 2018-01-25T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 26,
+    },
+    Object {
+      "date": 2018-01-26T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 27,
+    },
+  ],
+  Array [
+    Object {
+      "date": 2018-01-27T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 28,
+    },
+    Object {
+      "date": 2018-01-28T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 29,
+    },
+    Object {
+      "date": 2018-01-29T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 30,
+    },
+    Object {
+      "date": 2018-01-30T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": false,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 31,
+    },
+    Object {
+      "date": 2018-01-31T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 1,
+    },
+    Object {
+      "date": 2018-02-01T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 2,
+    },
+    Object {
+      "date": 2018-02-02T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 3,
+    },
+  ],
+  Array [
+    Object {
+      "date": 2018-02-03T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 4,
+    },
+    Object {
+      "date": 2018-02-04T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 5,
+    },
+    Object {
+      "date": 2018-02-05T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 6,
+    },
+    Object {
+      "date": 2018-02-06T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 7,
+    },
+    Object {
+      "date": 2018-02-07T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 8,
+    },
+    Object {
+      "date": 2018-02-08T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 9,
+    },
+    Object {
+      "date": 2018-02-09T23:00:00.000Z,
+      "isCurrent": undefined,
+      "isDifferentMonth": true,
+      "isDisabled": false,
+      "isInRange": false,
+      "number": 10,
+    },
+  ],
+]
+`;
+
+exports[`ComputedSnapshot Checkbox 6898727 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 6898727 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 6898727 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": true,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 6981543 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 6981543 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 6981543 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 7456935 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 7456935 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 7456935 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": true,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 9752480 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 9752480 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 9752480 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 10207392 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 10207392 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 10207392 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 10258464 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 10258464 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 10258464 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 29976490 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 29976490 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 29976490 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 32688427 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 32688427 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 32688427 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 68888580 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 68888580 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 68888580 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": true,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 170680373 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 170680373 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 170680373 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": true,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 174678967 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 174678967 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 174678967 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 176775216 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 176775216 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 176775216 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": true,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 178373681 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 178373681 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 178373681 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": true,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 203146116 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 203146116 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 203146116 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": true,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 203190148 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 203190148 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 203190148 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 207193094 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 207193094 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 207193094 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 207324934 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 207324934 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 207324934 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 210911232 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 210911232 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 210911232 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 210987648 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 210987648 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 210987648 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 236553236 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 236553236 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 236553236 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 236768276 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 236768276 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 236768276 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 237144725 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 237144725 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 237144725 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": true,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 242446231 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 242446231 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 242446231 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 245063696 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 245063696 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 245063696 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 245131152 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 245131152 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 245131152 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 245575313 actualTitleText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 245575313 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 245575313 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 267677339 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 267677339 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 267677339 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Checkbox 269034212 actualTitleText 1`] = `""`;
+
+exports[`ComputedSnapshot Checkbox 269034212 infoText 1`] = `"A"`;
+
+exports[`ComputedSnapshot Checkbox 269034212 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot DefaultList 194031733 assumedGroupHeight 1`] = `30`;
+
+exports[`ComputedSnapshot DefaultList 194031733 assumedItemHeight 1`] = `30`;
+
+exports[`ComputedSnapshot DefaultList 194031733 flatItems 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "id": "a",
+    "isLeaf": false,
+    "items": null,
+    "key": "a",
+    "label": "G1",
+    "leafItems": Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+    ],
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "b",
+    "isLeaf": false,
+    "items": null,
+    "key": "b",
+    "label": "G2",
+    "leafItems": Array [
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+    ],
+  },
+  Object {
+    "depth": 1,
+    "id": "11",
+    "isLeaf": true,
+    "items": null,
+    "key": "G2/1",
+    "label": "Something",
+    "leafItems": Array [
+      "11",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "tooltip": "Test tooltip",
+  },
+  Object {
+    "depth": 1,
+    "id": "12",
+    "isLeaf": true,
+    "items": null,
+    "key": "12",
+    "label": "D",
+    "leafItems": Array [
+      "12",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "13",
+    "isLeaf": true,
+    "items": null,
+    "key": "13",
+    "label": "E",
+    "leafItems": Array [
+      "13",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "14",
+    "isLeaf": true,
+    "items": null,
+    "key": "14",
+    "label": "F",
+    "leafItems": Array [
+      "14",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "15",
+    "isLeaf": true,
+    "items": null,
+    "key": "15",
+    "label": "G",
+    "leafItems": Array [
+      "15",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "tooltip": "Something else",
+  },
+]
+`;
+
+exports[`ComputedSnapshot DefaultList 194031733 flatSelectableItems 1`] = `
+Array [
+  Object {
+    "depth": 1,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "11",
+    "isLeaf": true,
+    "items": null,
+    "key": "G2/1",
+    "label": "Something",
+    "leafItems": Array [
+      "11",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "tooltip": "Test tooltip",
+  },
+  Object {
+    "depth": 1,
+    "id": "12",
+    "isLeaf": true,
+    "items": null,
+    "key": "12",
+    "label": "D",
+    "leafItems": Array [
+      "12",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "13",
+    "isLeaf": true,
+    "items": null,
+    "key": "13",
+    "label": "E",
+    "leafItems": Array [
+      "13",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "14",
+    "isLeaf": true,
+    "items": null,
+    "key": "14",
+    "label": "F",
+    "leafItems": Array [
+      "14",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 1,
+    "id": "15",
+    "isLeaf": true,
+    "items": null,
+    "key": "15",
+    "label": "G",
+    "leafItems": Array [
+      "15",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "tooltip": "Something else",
+  },
+]
+`;
+
+exports[`ComputedSnapshot DefaultList 194031733 shownItemsWithData 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "height": null,
+    "id": "a",
+    "isLeaf": false,
+    "items": null,
+    "key": "a",
+    "label": "G1",
+    "leafItems": Array [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+    ],
+    "modifiers": Object {
+      "active": false,
+      "leaf": false,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "height": null,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "height": null,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "disabled": true,
+    "height": null,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 0,
+    "height": null,
+    "id": "b",
+    "isLeaf": false,
+    "items": null,
+    "key": "b",
+    "label": "G2",
+    "leafItems": Array [
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+    ],
+    "modifiers": Object {
+      "active": false,
+      "leaf": false,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "11",
+    "isLeaf": true,
+    "items": null,
+    "key": "G2/1",
+    "label": "Something",
+    "leafItems": Array [
+      "11",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": true,
+    },
+    "offset": 0,
+    "tooltip": "Test tooltip",
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "12",
+    "isLeaf": true,
+    "items": null,
+    "key": "12",
+    "label": "D",
+    "leafItems": Array [
+      "12",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "13",
+    "isLeaf": true,
+    "items": null,
+    "key": "13",
+    "label": "E",
+    "leafItems": Array [
+      "13",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "14",
+    "isLeaf": true,
+    "items": null,
+    "key": "14",
+    "label": "F",
+    "leafItems": Array [
+      "14",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": false,
+    },
+    "offset": 0,
+  },
+  Object {
+    "depth": 1,
+    "height": null,
+    "id": "15",
+    "isLeaf": true,
+    "items": null,
+    "key": "15",
+    "label": "G",
+    "leafItems": Array [
+      "15",
+    ],
+    "metadata": "someone@lorem.ipsum",
+    "modifiers": Object {
+      "active": false,
+      "leaf": true,
+      "with-tooltip": true,
+    },
+    "offset": 0,
+    "tooltip": "Something else",
+  },
+]
+`;
+
+exports[`ComputedSnapshot FileUpload 222966412 errorMessage 1`] = `null`;
+
+exports[`ComputedSnapshot FileUpload 222966412 fileInputSquareModifiers 1`] = `
+Object {
+  "clickable": true,
+  "empty": true,
+  "error": false,
+}
+`;
+
+exports[`ComputedSnapshot FileUpload 222966412 maxFilenameLength 1`] = `18`;
+
+exports[`ComputedSnapshot FileUpload 222966412 progressDashoffset 1`] = `240`;
+
+exports[`ComputedSnapshot FileUpload 222966412 states 1`] = `
+Object {
+  "error": false,
+  "normal": true,
+  "uploaded": false,
+  "uploading": false,
+}
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 animationRatio 1`] = `0`;
+
+exports[`ComputedSnapshot ImageList 126134677 buttons 1`] = `
+Array [
+  Object {
+    "borderSpacing": 5,
+    "isHovered": false,
+    "size": 60,
+  },
+]
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 buttonsData 1`] = `
+Array [
+  Object {},
+]
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 buttonsWidth 1`] = `61`;
+
+exports[`ComputedSnapshot ImageList 126134677 computedImages 1`] = `
+Array [
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 0,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 61,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 122,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+]
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 count 1`] = `2`;
+
+exports[`ComputedSnapshot ImageList 126134677 displayWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 fullHeight 1`] = `67`;
+
+exports[`ComputedSnapshot ImageList 126134677 hasArrows 1`] = `
+Object {
+  "left": false,
+  "right": false,
+}
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 hoverIndex 1`] = `null`;
+
+exports[`ComputedSnapshot ImageList 126134677 imagesWidth 1`] = `121`;
+
+exports[`ComputedSnapshot ImageList 126134677 maxVisible 1`] = `7`;
+
+exports[`ComputedSnapshot ImageList 126134677 movingDirection 1`] = `null`;
+
+exports[`ComputedSnapshot ImageList 126134677 numVisible 1`] = `2`;
+
+exports[`ComputedSnapshot ImageList 126134677 targetWidth 1`] = `182`;
+
+exports[`ComputedSnapshot ImageList 126134677 targetWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;
+
+exports[`ComputedSnapshot ImageList 126134677 targetXOffset 1`] = `0`;
+
+exports[`ComputedSnapshot ImageList 126134677 visibleWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;
+
+exports[`ComputedSnapshot Input 224335110 cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Input 224335110 currentLength 1`] = `0`;
+
+exports[`ComputedSnapshot Input 224335110 decimalSeperator 1`] = `"."`;
+
+exports[`ComputedSnapshot Input 224335110 inputType 1`] = `"text"`;
+
+exports[`ComputedSnapshot Input 224335110 mappedDisabledText 1`] = `""`;
+
+exports[`ComputedSnapshot Input 224335110 mappedHelperText 1`] = `""`;
+
+exports[`ComputedSnapshot Input 224335110 mappedLabelText 1`] = `""`;
+
+exports[`ComputedSnapshot Input 224335110 mappedPlaceholderText 1`] = `"Something"`;
+
+exports[`ComputedSnapshot Input 224335110 maxLengthCap 1`] = `null`;
+
+exports[`ComputedSnapshot Input 224335110 maxLengthNumber 1`] = `null`;
+
+exports[`ComputedSnapshot Input 224335110 states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Input 224335110 textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 changeMultipleState 1`] = `false`;
+
+exports[`ComputedSnapshot Multiselect 114612757 disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`ComputedSnapshot Multiselect 114612757 searchQuery 1`] = `""`;
+
+exports[`ComputedSnapshot RadioButton 13595957 infoText 1`] = `""`;
+
+exports[`ComputedSnapshot RadioButton 13595957 labelText 1`] = `""`;
+
+exports[`ComputedSnapshot RadioButton 13595957 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot ScrollableList 27963364 itemHeight 1`] = `0`;
+
+exports[`ComputedSnapshot ScrollableList 27963364 maxHeight 1`] = `30`;
+
+exports[`ComputedSnapshot ScrollableList 27963364 overlayHeight 1`] = `15`;
+
+exports[`ComputedSnapshot Selectbox 57314738 cssStates 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+  "with-metadata": false,
+  "with-search": true,
+}
+`;
+
+exports[`ComputedSnapshot Selectbox 57314738 listItems 1`] = `
+Array [
+  Object {
+    "id": "CLEAR_SELECTION",
+    "label": "Please select",
+  },
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`ComputedSnapshot Selectbox 57314738 mappedDisabledText 1`] = `""`;
+
+exports[`ComputedSnapshot Selectbox 57314738 mappedHelperText 1`] = `""`;
+
+exports[`ComputedSnapshot Selectbox 57314738 mappedLabelText 1`] = `"Something"`;
+
+exports[`ComputedSnapshot Selectbox 57314738 searchText 1`] = `""`;
+
+exports[`ComputedSnapshot Selectbox 57314738 selected 1`] = `""`;
+
+exports[`ComputedSnapshot Selectbox 57314738 selectedLabelText 1`] = `"Please select"`;
+
+exports[`ComputedSnapshot Selectbox 57314738 selectedMetadataText 1`] = `""`;
+
+exports[`ComputedSnapshot Selectbox 57314738 states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+}
+`;
+
+exports[`ComputedSnapshot Slider 10625380 decimalPlacesCount 1`] = `0`;
+
+exports[`ComputedSnapshot Slider 10625380 isWholeNumber 1`] = `true`;
+
+exports[`ComputedSnapshot Slider 10625380 labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": true,
+  },
+}
+`;
+
+exports[`ComputedSnapshot Slider 10625380 lastActiveIndex 1`] = `4`;
+
+exports[`ComputedSnapshot Slider 10625380 limitValue 1`] = `20`;
+
+exports[`ComputedSnapshot Slider 10625380 maxLabelValue 1`] = `"20"`;
+
+exports[`ComputedSnapshot Slider 10625380 minLabelValue 1`] = `"1"`;
+
+exports[`ComputedSnapshot Slider 10625380 position 1`] = `0`;
+
+exports[`ComputedSnapshot Slider 10625380 sliderWidth 1`] = `0`;
+
+exports[`ComputedSnapshot Slider 10625380 stepsCount 1`] = `19`;
+
+exports[`ComputedSnapshot Tooltip 20334970 transform 1`] = `undefined`;
+
+exports[`ComputedSnapshot Typeahead 269229292 inputData 1`] = `
+Object {
+  "error": null,
+  "value": "Lorem",
+}
+`;
+
+exports[`ComputedSnapshot Typeahead 269229292 inputError 1`] = `null`;
+
+exports[`ComputedSnapshot Typeahead 269229292 isValueValid 1`] = `true`;
+
+exports[`ComputedSnapshot Typeahead 269229292 showSuggestions 1`] = `false`;
+
+exports[`ComputedSnapshot Typeahead 269229292 suggestions 1`] = `
+Array [
+  Object {
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;

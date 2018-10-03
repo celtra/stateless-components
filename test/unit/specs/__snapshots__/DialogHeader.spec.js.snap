@@ -105,7 +105,11 @@ exports[`DialogHeader should match the snapshot 1`] = `
         <!---->
       </div>
     </div>
-     
+    
+
+        -30
+
+        
     <div
       class="dialog-header__content"
       style="left: -30px;"

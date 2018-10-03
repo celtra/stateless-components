@@ -4,7 +4,7 @@ import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(Group)
 const vm = new Constructor({
-    propsData: getFlatUsecases(Group)[0],
+    propsData: getFlatUsecases(Group)[0].data,
 }).$mount()
 
 describe('Group', () => {

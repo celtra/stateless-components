@@ -4,7 +4,7 @@ import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(SupportText)
 const vm = new Constructor({
-    propsData: getFlatUsecases(SupportText)[0],
+    propsData: getFlatUsecases(SupportText)[0].data,
 }).$mount()
 
 describe('SupportText', () => {

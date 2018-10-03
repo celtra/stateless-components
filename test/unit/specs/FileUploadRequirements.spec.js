@@ -4,7 +4,7 @@ import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(FileUploadRequirements)
 const vm = new Constructor({
-    propsData: getFlatUsecases(FileUploadRequirements)[0],
+    propsData: getFlatUsecases(FileUploadRequirements)[0].data,
 }).$mount()
 
 describe('FileUploadRequirements', () => {

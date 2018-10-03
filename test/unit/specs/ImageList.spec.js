@@ -4,7 +4,7 @@ import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(ImageList)
 const vm = new Constructor({
-    propsData: getFlatUsecases(ImageList)[0],
+    propsData: getFlatUsecases(ImageList)[0].data,
 }).$mount()
 
 describe('ImageList', () => {

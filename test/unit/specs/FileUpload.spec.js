@@ -8,7 +8,7 @@ let vm = null
 describe('FileUpload', () => {
     beforeEach(() => {
         vm = new Constructor({
-            propsData: getFlatUsecases(FileUpload)[0],
+            propsData: getFlatUsecases(FileUpload)[0].data,
         }).$mount()
     })
 

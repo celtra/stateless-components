@@ -169,13 +169,13 @@ export default {
         &--left {
             padding-left: 20px;
             padding-right: 10px;
-            transform: translateX(-100%);
+            transform: translateX(-105%);
         }
 
         &--right {
             padding-left: 10px;
             padding-right: 20px;
-            transform: translateX(100%);
+            transform: translateX(105%);
         }
     }
 

@@ -32,25 +32,64 @@ import Icon from './icon.vue'
 export default {
     components: { Icon },
     props: {
+        theme: { type: String, required: false, default: 'dark' },
+        size: { type: String, required: false, default: 'normal' },
         value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
-        size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
         helperText: { type: String, required: false, default: '' },
         titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
-        theme: { type: String, required: false, default: 'dark' },
+    },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+        value: [true, false],
+        disabled: [false, true],
     },
     usecases: [
         {
-            value: false,
             slot (h) {
                 return h('div', 'Something')
             },
-        }, {
-            value: true,
+        },
+        {
+            isToggle: true,
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+        {
+            helperText: 'A',
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+        {
+            titleText: 'A',
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+        {
+            disabledText: 'A',
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+        {
+            warningText: 'A',
+            slot (h) {
+                return h('div', 'Something')
+            },
+        },
+        {
+            errorText: 'A',
+            slot (h) {
+                return h('div', 'Something')
+            },
         },
     ],
     data () {

@@ -5,7 +5,7 @@ import { getFlatUsecases } from '@/component_utils'
 const vm = new Vue({
     render (h) {
         return h('div', {}, [
-            h(DropArea, { props: getFlatUsecases(DropArea)[0] }),
+            h(DropArea, { props: getFlatUsecases(DropArea)[0].data }),
         ])
     },
 }).$mount()

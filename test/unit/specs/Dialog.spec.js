@@ -4,7 +4,7 @@ import { getFlatUsecases } from '@/component_utils'
 
 const Constructor = Vue.extend(Dialog)
 const vm = new Constructor({
-    propsData: getFlatUsecases(Dialog)[0],
+    propsData: getFlatUsecases(Dialog)[0].data,
 }).$mount()
 
 describe('Dialog', () => {

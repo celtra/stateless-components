@@ -39,7 +39,7 @@
 import '@/stateless/define_helpers'
 import SelectProps from './SelectProps.vue'
 import * as library from '../library.js'
-import { getFlatUsecases, getProps } from '../component_utils'
+import { getProps } from '../component_utils'
 
 const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 

@@ -34,8 +34,8 @@ export default {
             const usecases = getFlatUsecases(component)
             let slotFn = null
             if (usecases.length > 0) {
-                data = { ...data, ...usecases[0] }
-                slotFn = usecases[0].slot || null
+                data = { ...data, ...usecases[0].data }
+                slotFn = usecases[0].data.slot || null
             }
 
             for (let key in this.query) {

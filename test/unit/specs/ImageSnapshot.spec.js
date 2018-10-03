@@ -36,7 +36,7 @@ const puppeteer = require('puppeteer-core')
 const library = require('../../../src/library.js')
 import { getFlatUsecases } from '../../../src/component_utils'
 
-jest.setTimeout(60 * 1000)
+jest.setTimeout(10 * 60 * 1000)
 
 const encodeUsecase = (usecase) => {
     return Object.keys(usecase)
@@ -58,20 +58,6 @@ const formatUsecase = (usecase) => {
         }).join('\n')
 }
 
-const getHash = (s) => {
-    var a = 1, c = 0, h, o
-    if (s) {
-        a = 0
-        for (h = s.length - 1; h >= 0; h--) {
-            o = s.charCodeAt(h)
-            a = (a<<6&268435455) + o + (o<<14)
-            c = a & 266338304
-            a = c!==0?a^c>>21:a
-        }
-    }
-    return String(a)
-}
-
 describe('ImageSnapshot', () => {
     let browser, server
     beforeAll(async () => {
@@ -86,20 +72,19 @@ describe('ImageSnapshot', () => {
         const component = library[componentName]
         const usecases = getFlatUsecases(component)
         for (let usecase of usecases) {
-            const queryString = encodeUsecase(usecase)
-            const queryHash = getHash(queryString)
-            describe(`${componentName}: usecase ${queryHash}`, () => {
+            const queryString = encodeUsecase(usecase.data)
+            describe(`${componentName}: usecase ${usecase.uniqueID}`, () => {
                 it('matches existing snapshot', async () => {
                     const page = await browser.newPage()
                     await page.goto(`${server.url}/#/${componentName}?${queryString}`)
-                    if (usecase.setup) {
-                        await usecase.setup()
+                    if (usecase.data.setup) {
+                        await usecase.data.setup()
                     }
                     const image = await page.screenshot()
                     try {
-                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${componentName}-${queryHash}` })
+                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${componentName}-${usecase.uniqueID}` })
                     } catch (error) {
-                        throw new Error(error.message + `\n${formatUsecase(usecase)}`)
+                        throw new Error(error.message + `\n${formatUsecase(usecase.data)}`)
                     }
                 })
             })
