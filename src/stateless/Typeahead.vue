@@ -12,6 +12,7 @@
 <script>
 import Input from './input.vue'
 import ScrollableList from './ScrollableList.vue'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -81,7 +82,6 @@ export default {
         },
         onInputFocus () {
             this.isOpen = true
-            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'focus' })
             this.$emit('focus')
         },
         close () {
@@ -96,7 +96,12 @@ export default {
         onInput (v) {
             this.isOpen = true
             this.$emit('input', v)
-            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
+            if (!this.onInputTrackingDebounced) {
+                this.onInputTrackingDebounced = debounce(() => {
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
+                }, 1000)
+            }
+            this.onInputTrackingDebounced()
         },
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
