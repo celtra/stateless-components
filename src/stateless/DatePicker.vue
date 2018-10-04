@@ -21,6 +21,8 @@
                     :date-format-focus="dateFormatFocus"
                     :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
+                    :label="label"
+                    :track-name="trackName"
                     class="date-picker__date-input"
                     @input="$emit('input', $event)"
                     @blur="onInputBlur">
@@ -37,6 +39,7 @@
                     :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
                     :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
                     :label="label"
+                    :track-name="trackName"
                     class="date-picker__date-input"
                     @input="$emit('input', $event)"
                     @blur="onInputBlur">
@@ -51,6 +54,8 @@
                 :is-range="isRange"
                 :min-date="minDate"
                 :max-date="maxDate"
+                :label="label"
+                :track-name="trackName"
                 class="date-picker__calendar"
                 @input="$emit('input', $event)"
                 @confirm="isOpen = false"
@@ -90,6 +95,7 @@ export default {
         dateFormatFocus: { type: String, required: false },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
+        trackName: { type: String, default: 'datePicker' },
     },
     variations: {
         theme: ['dark', 'light'],
@@ -153,6 +159,7 @@ export default {
                 this.$nextTick(() => {
                     this.$refs.popup.focus()
                 })
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'open-calendar' })
             }
         },
         onInputBlur (ev) {

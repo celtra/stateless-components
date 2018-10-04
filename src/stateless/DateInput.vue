@@ -33,6 +33,7 @@ export default {
         dateFormatFocus: { type: String, required: false },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
+        trackName: { type: String, default: 'dateInput' },
     },
     variations: {
         theme: ['dark', 'light'],
@@ -95,14 +96,17 @@ export default {
                 let date = this.momentDate.toDate()
                 if (this.isDateValid(date)) {
                     this.$emit('input', date)
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input' })
                 }
             } else {
                 this.$emit('input', null)
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input' })
             }
         },
         onFocus () {
             this.textValue = null
             this.inFocus = true
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'focus' })
         },
         onBlur (ev) {
             this.textValue = null

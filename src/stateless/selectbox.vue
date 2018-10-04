@@ -293,11 +293,15 @@ export default {
 @import (reference) './common';
 .selectbox {
 
+    &__select-row--error .default-list-item .default-list-item__label {
+        color: @pink-red;
+    }
+
     &__select-row .default-list-item--light .default-list-item__label--disabled {
         color: @very-light-gray;
     }
 
-    &__select-row:hover {
+    &__select-row:hover:not(&__select-row--error) {
 
         .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
             color: black;
@@ -518,6 +522,8 @@ export default {
     .selectbox__helper-text {
         color: @bluish-gray;
 
+        &--error { color: @pink-red; }
+        &--warning { color: @pale-yellow; }
         &--disabled { color: @very-light-gray; }
     }
 }
