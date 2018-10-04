@@ -19,6 +19,4 @@ services:
     build: .
     environment:
       - CI=true
-    volumes:
-      - ./test/unit/specs/__image_snapshots__/__diff_output__:/app/test/unit/specs/__image_snapshots__/__diff_output__
     command: yarn unit --maxWorkers=8
