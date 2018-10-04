@@ -1,14 +1,6 @@
 import Dialog from '@/stateless/dialog.vue'
-import Vue from 'vue'
-import { getFlatUsecases } from '@/component_utils'
-
-const Constructor = Vue.extend(Dialog)
-const vm = new Constructor({
-    propsData: getFlatUsecases(Dialog)[0].data,
-}).$mount()
+import snapshotMixin from '../component_snapshot_mixin'
 
 describe('Dialog', () => {
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Dialog)
 })

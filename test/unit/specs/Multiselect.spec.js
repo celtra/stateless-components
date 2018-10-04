@@ -1,5 +1,6 @@
 import Multiselect from '@/stateless/multiselect.vue'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Multiselect)
 let vm = null
@@ -25,9 +26,7 @@ describe('Multiselect', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Multiselect)
 
     describe('computed', () => {
         describe('allOptions', ()=>{

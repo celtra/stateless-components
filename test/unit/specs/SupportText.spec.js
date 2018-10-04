@@ -1,14 +1,6 @@
 import SupportText from '@/stateless/support_text.vue'
-import Vue from 'vue'
-import { getFlatUsecases } from '@/component_utils'
-
-const Constructor = Vue.extend(SupportText)
-const vm = new Constructor({
-    propsData: getFlatUsecases(SupportText)[0].data,
-}).$mount()
+import snapshotMixin from '../component_snapshot_mixin'
 
 describe('SupportText', () => {
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(SupportText)
 })

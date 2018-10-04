@@ -1,6 +1,7 @@
 import FileUpload from '@/stateless/file_upload.vue'
 import Vue from 'vue'
 import { getFlatUsecases } from '@/component_utils'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(FileUpload)
 let vm = null
@@ -12,9 +13,7 @@ describe('FileUpload', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(FileUpload)
 
     describe('computed', () => {
         describe('states', () => {

@@ -1,5 +1,6 @@
 import Selectbox from '@/stateless/selectbox.vue'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Selectbox)
 let vm = null
@@ -18,9 +19,7 @@ describe('Selectbox', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Selectbox)
 
     describe('computed', function () {
         describe('states', function () {

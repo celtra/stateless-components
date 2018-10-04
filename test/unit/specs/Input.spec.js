@@ -1,5 +1,6 @@
 import Input from '@/stateless/input.vue'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Input)
 let vm = null
@@ -15,9 +16,7 @@ describe('Input', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Input)
 
     describe('computed', () => {
         describe('states', () => {

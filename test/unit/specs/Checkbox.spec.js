@@ -1,5 +1,6 @@
 import Checkbox from '@/stateless/checkbox.vue'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Checkbox)
 let vm
@@ -14,9 +15,7 @@ describe('Checkbox', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Checkbox)
 
     describe('computed', () => {
         /*describe('labelText', () => {

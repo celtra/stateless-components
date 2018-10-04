@@ -10,7 +10,7 @@ const vm = new Vue({
     },
 }).$mount()
 
-fdescribe('DropArea', () => {
+describe('DropArea', () => {
     it('should match the snapshot', () => {
         expect(vm.$el).toMatchSnapshot()
     })

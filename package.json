@@ -12,6 +12,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build-library.js",
+    "build-view": "node build/build-view.js",
     "heroku-postbuild": "node build/build.js",
     "start": "node server.js",
     "git-add": "git add index.js index.js.map"

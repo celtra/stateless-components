@@ -1,5 +1,6 @@
 import RadioButton from '@/stateless/radiobutton.vue'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(RadioButton)
 let vm = null
@@ -15,9 +16,7 @@ describe('RadioButton', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(RadioButton)
 
     describe('computed', () => {
         describe('states', () => {
