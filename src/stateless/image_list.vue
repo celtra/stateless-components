@@ -81,6 +81,7 @@
 import * as utils from './image_list_utils.js'
 
 export default {
+    name: 'image-list',
     props: {
         images: { type: Array, required: true },
         currentIndex: { type: Number, required: false },

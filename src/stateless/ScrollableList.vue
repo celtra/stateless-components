@@ -15,7 +15,6 @@
                     :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
-                    :list-container="$refs.scrollable"
                     :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
@@ -40,6 +39,7 @@ import DefaultList from './DefaultList.vue'
 import { largeItems } from './demo_data'
 
 export default {
+    name: 'scrollable-list',
     components: {
         DefaultList,
     },
@@ -56,6 +56,10 @@ export default {
         enableScrollTop: { type: Boolean, default: false },
         showOverlay: { type: Boolean, default: false },
         initialOffset: { type: Number, default: 0 },
+    },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
     },
     usecases: [
         {

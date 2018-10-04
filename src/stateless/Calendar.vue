@@ -39,6 +39,7 @@ import Icon from './icon.vue'
 import { compareDate } from './date_utils'
 
 export default {
+    name: 'calendar',
     components: { Icon },
     props: {
         theme: { type: String, default: 'dark' },
@@ -50,9 +51,21 @@ export default {
         selectAllTime: { type: Boolean, default: false },
         locale: { type: String, default: 'en-US' },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+    },
     usecases: [
         {
-            value: { from: new Date(2018, 0, 1) },
+            value: new Date(2018, 0, 10),
+            isRange: false,
+        },
+        {
+            value: { from: new Date(2018, 0, 10) },
+            isRange: true,
+        },
+        {
+            value: { from: new Date(2018, 0, 10), to: new Date(2018, 1, 10) },
             isRange: true,
         },
     ],

@@ -10,6 +10,7 @@
 <script>
 
 export default {
+    name: 'pie-chart',
     props: {
         ratio: { type: Number },
         tooltip: { type: String, default: null },

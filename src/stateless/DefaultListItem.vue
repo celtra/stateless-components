@@ -33,6 +33,7 @@ import { getTextHighlightParts } from './string_utils.js'
 import Icon from './icon.vue'
 
 export default {
+    name: 'default-list-item',
     components: {
         Icon,
     },

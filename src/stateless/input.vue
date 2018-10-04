@@ -87,6 +87,7 @@
 
 <script>
 export default {
+    name: 'input',
     props: {
         value: { type: [String, Number], default: '' },
         label: { type: String, required: false },
@@ -112,6 +113,11 @@ export default {
         decimalPrecision: { type: Number, default: 1 },
         locale: { type: String, default: 'en-US' },
         trackName: { type: String, required: false },
+    },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+        disabled: [false, true],
     },
     usecases: [
         {

@@ -67,6 +67,7 @@ import DateRangeInput from './DateRangeInput.vue'
 import Icon from './icon.vue'
 
 export default {
+    name: 'date-picker',
     components: {
         Calendar,
         DateInput,
@@ -90,6 +91,22 @@ export default {
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+        disabled: [false, true],
+    },
+    usecases: [
+        {
+            label: 'Enter date',
+            value: new Date(2018, 0, 10),
+        },
+        {
+            label: 'Enter date',
+            value: new Date(2018, 0, 10),
+            error: 'Something went wrong',
+        },
+    ],
     data () {
         return {
             isOpen: false,

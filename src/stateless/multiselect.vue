@@ -46,6 +46,7 @@ import debounce from 'lodash.debounce'
 import { defaultItems } from './demo_data'
 
 export default {
+    name: 'multiselect',
     components: {
         SearchInput,
         checkboxElement: Checkbox,
@@ -73,12 +74,16 @@ export default {
         numItems: { type: Number, default: 10 },
         loadAsyncDebounce: { type: Number, default: 0 },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+        isSearchable: [false, true],
+        canSelectAndClearAll: [false, true],
+    },
     usecases: [
         {
             options: defaultItems,
             value: ['1', '2'],
-            isSearchable: true,
-            canSelectAndClearAll: true,
         },
     ],
     data () {

@@ -149,6 +149,7 @@ function loadImage (file) {
 }
 
 export default {
+    name: 'file-upload',
     model: {
         prop: 'file',
         event: 'update',
@@ -163,6 +164,10 @@ export default {
         theme: { type: String, required: false, default: 'dark' },
         width: { type: Number, default: 280 },
         inputName: { type: String, required: false, default: 'video-file' },
+    },
+    variations: {
+        theme: ['dark', 'light'],
+        disabled: [false, true],
     },
     usecases: [
         {

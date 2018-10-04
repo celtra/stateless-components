@@ -32,6 +32,7 @@
 import DialogHeader from './dialog_header.vue'
 
 export default {
+    name: 'dialog',
     components: {
         dialogHeader: DialogHeader,
     },

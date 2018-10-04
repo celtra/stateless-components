@@ -60,6 +60,7 @@ import TooltipMixin from '../helpers/tooltip_mixin'
 import { defaultNestedItems } from './demo_data'
 
 export default {
+    name: 'default-list',
     components: {
         DefaultListItem,
         Tooltip,
@@ -73,12 +74,25 @@ export default {
         highlightQuery: { type: String },
         transitionSorting: { type: Boolean, default: false },
         noGroupRendering: { type: Boolean, default: false },
-        listContainer: { type: HTMLElement, default: null },
         setActiveOnHover: { type: Boolean, default: true },
         initialOffset: { type: Number, default: 0 },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+    },
     usecases: [
-        { items: defaultNestedItems },
+        {
+            items: defaultNestedItems,
+        },
+        {
+            items: defaultNestedItems,
+            initialOffset: 50,
+        },
+        {
+            items: defaultNestedItems,
+            value: '12',
+        },
     ],
     data () {
         return {

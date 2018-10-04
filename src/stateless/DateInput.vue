@@ -18,6 +18,7 @@ import Input from './input.vue'
 import { compareDate } from './date_utils'
 
 export default {
+    name: 'date-input',
     components: {
         inputElement: Input,
     },
@@ -33,6 +34,16 @@ export default {
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+    },
+    usecases: [
+        {
+            label: 'Enter date',
+            value: new Date(2018, 0, 10),
+        },
+    ],
     data () {
         return {
             inFocus: false,

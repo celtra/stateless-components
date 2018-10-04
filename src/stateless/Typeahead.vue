@@ -14,6 +14,7 @@ import Input from './input.vue'
 import ScrollableList from './ScrollableList.vue'
 
 export default {
+    name: 'typeahead',
     components: {
         inputElement: Input,
         ScrollableList,

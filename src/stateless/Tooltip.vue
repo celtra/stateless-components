@@ -7,11 +7,15 @@
 
 <script>
 export default {
+    name: 'tooltip',
     props: {
         theme: { type: String, default: 'dark' },
         title: { type: String, required: false },
         show: { type: Boolean, default: false },
         isRelative: { type: Boolean, default: true },
+    },
+    variations: {
+        theme: ['dark', 'light'],
     },
     usecases: [
         {

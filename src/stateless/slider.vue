@@ -58,6 +58,7 @@
 import Input from './input.vue'
 
 export default {
+    name: 'slider',
     components: {
         inputElement: Input,
     },
@@ -77,6 +78,10 @@ export default {
         unit: { type: String, required: false },
         disabled: { type: Boolean, default: false },
         trackName: { type: String, required: false },
+    },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
     },
     usecases: [
         {

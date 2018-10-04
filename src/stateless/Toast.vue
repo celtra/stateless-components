@@ -12,12 +12,25 @@
 <script>
 
 export default {
+    name: 'toast',
     props: {
         label: { type: String },
         actionLabel: { type: String },
         theme: { type: String, default: 'dark' },
         timeout: { type: Number, default: 5000 },
     },
+    variations: {
+        theme: ['dark', 'light'],
+    },
+    usecases: [
+        {
+            label: 'Label',
+        },
+        {
+            label: 'Label',
+            actionLabel: 'Action',
+        },
+    ],
     data () {
         return {
             leaving: false,

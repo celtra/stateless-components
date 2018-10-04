@@ -11,6 +11,7 @@ import InputElement from './input.vue'
 import Icon from './icon.vue'
 
 export default {
+    name: 'search-input',
     components: {
         InputElement,
         Icon,

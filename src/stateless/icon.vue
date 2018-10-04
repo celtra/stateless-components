@@ -194,6 +194,7 @@
 
 <script>
 export default {
+    name: 'icon',
     props: {
         name: { type: String, required: true },
     },
@@ -207,6 +208,9 @@ export default {
             'alpha', 'beta', 'caret', 'list-search', 'bars', 'check',
         ],
     },
+    usecases: [
+        {},
+    ],
 }
 </script>
 
@@ -236,6 +240,4 @@ export default {
 
 @keyframes SPIN {
     0%   { transform: rotate(0); }
-    100% { transform: rotate(720deg); }
-}
-</style>
+    100% { trans

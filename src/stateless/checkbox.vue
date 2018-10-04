@@ -30,6 +30,7 @@
 import Icon from './icon.vue'
 
 export default {
+    name: 'checkbox',
     components: { Icon },
     props: {
         theme: { type: String, required: false, default: 'dark' },
@@ -43,6 +44,9 @@ export default {
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
     },
+    slot (h) {
+        return h('div', 'Something')
+    },
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -50,46 +54,9 @@ export default {
         disabled: [false, true],
     },
     usecases: [
-        {
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
+        {},
         {
             isToggle: true,
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
-        {
-            helperText: 'A',
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
-        {
-            titleText: 'A',
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
-        {
-            disabledText: 'A',
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
-        {
-            warningText: 'A',
-            slot (h) {
-                return h('div', 'Something')
-            },
-        },
-        {
-            errorText: 'A',
-            slot (h) {
-                return h('div', 'Something')
-            },
         },
     ],
     data () {

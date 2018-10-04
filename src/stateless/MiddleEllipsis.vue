@@ -19,6 +19,7 @@ function middleEllipsis (value, breakAt, middle = breakAt / 2) {
 }
 
 export default {
+    name: 'middle-ellipsis',
     props: {
         text: {
             required: true,

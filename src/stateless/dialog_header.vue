@@ -22,6 +22,7 @@
 import Icon from './icon.vue'
 
 export default {
+    name: 'dialog-header',
     components: {
         Icon,
     },

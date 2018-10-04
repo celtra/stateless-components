@@ -8,6 +8,7 @@
 
 <script>
 export default {
+    name: 'drop-area',
     model: {
         prop: 'dragActive',
         event: 'drag-change',

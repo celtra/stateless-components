@@ -42,6 +42,7 @@ import Multiselect from './multiselect'
 import MiddleEllipsisListItem from './MiddleEllipsisListItem.vue'
 
 export default {
+    name: 'chip-with-multiselect',
     components: {
         Chip,
         InlineDialog,

@@ -14,6 +14,7 @@
 import SupportText from './support_text.vue'
 
 export default {
+    name: 'group',
     components: {
         supportText: SupportText,
     },
@@ -21,6 +22,9 @@ export default {
         label: { type: String },
         description: { type: String, required: false },
         theme: { type: String, default: 'dark' },
+    },
+    variations: {
+        theme: ['dark', 'light'],
     },
     usecases: [
         {

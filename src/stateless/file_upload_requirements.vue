@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    name: 'file-upload-requirements',
     props: {
         requirements: { type: Array, required: true },
     },

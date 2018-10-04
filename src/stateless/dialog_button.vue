@@ -31,6 +31,19 @@ export default {
         target: { type: String, default: '_self' },
         trackName: { type: String, required: false },
     },
+    variations: {
+        disabled: [false, true],
+        // loading: [false, true], We would have to disable animation to test this
+        error: [false, true],
+        warning: [false, true],
+    },
+    usecases: [
+        {
+            slot (h) {
+                return 'Something'
+            },
+        },
+    ],
     methods: {
         click () {
             this.$root.$emit('tracking-event', { type: 'button', label: this.trackName || ((this.$slots && this.$slots.default && this.$slots.default[0].text) ? this.$slots.default[0].text : 'dialog-button'), trigger: 'click' })

@@ -22,6 +22,7 @@ import Tooltip from './Tooltip.vue'
 import TooltipMixin from '../helpers/tooltip_mixin'
 
 export default {
+    name: 'typeahead-multiselect',
     components: {
         Icon,
         Typeahead,
