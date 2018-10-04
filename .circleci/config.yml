@@ -10,10 +10,16 @@ jobs:
 
       - setup_remote_docker
 
+      - run:
+         name: Code Has Arrived
+         command: |
+           ls -al
+           echo '^^^That should look familiar^^^'
+
       - run: docker-compose run test-circle
 
       - run:
-         name: Code Has Arrived
+         name: Test done
          command: |
            ls -al
            echo '^^^That should look familiar^^^'
