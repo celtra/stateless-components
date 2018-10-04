@@ -11,19 +11,13 @@ jobs:
       - setup_remote_docker
 
       - run:
-         name: Code Has Arrived
-         command: |
-           ls -al test/unit/specs/__image_snapshots__
-           echo '^^^That should look familiar^^^'
-
-      - run:
           name: Run tests
-          command: docker-compose run test-circle
+          command: docker-compose run circle
 
       - run:
           name: Copy image diffs
           when: on_fail
-          command: docker cp test-circle:/app/test/unit/specs/__image_snapshots__/__diff_output__ /image-diff 
+          command: docker cp circle:/app/test/unit/specs/__image_snapshots__ /image-diff 
 
       - store_artifacts:
           path: /image-diff
