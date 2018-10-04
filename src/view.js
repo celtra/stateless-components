@@ -27,7 +27,7 @@ const vm = new Vue({
             slot = this._v(slot)
         }
 
-        return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box' }, attrs: { id: 'container' } }, [
+        return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
             h(component, { props: this.props }, slot ? [slot] : []),
         ])
     },
