@@ -12,10 +12,14 @@ jobs:
 
       - run: docker-compose run test-circle
 
-      - run: ls
+      - run:
+         name: Code Has Arrived
+         command: |
+           ls -al
+           echo '^^^That should look familiar^^^'
 
       - store_artifacts:
-          path: test/unit/specs/__image_snapshots__/__diff_output__
+          path: app/test/unit/specs/__image_snapshots__/__diff_output__
           destination: image-diff
 
 workflows:
