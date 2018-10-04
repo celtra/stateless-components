@@ -20,12 +20,17 @@ export default function testSnapshots (component) {
 
         const usecases = getFlatUsecases(component)
 
-        jest.setTimeout(usecases.length * 10 * 1000) // 10 seconds per usecase
+        jest.setTimeout(usecases.length * 20 * 1000) // 10 seconds per usecase
 
         for (let usecase of usecases) {
             describe(`usecase ${usecase.uniqueID}`, () => {
                 it('matches existing snapshot', async () => {
                     const page = await browser.newPage()
+
+                    let errors = []
+                    page.on('error', e => errors.push(e))
+                    page.on('pageerror', e => errors.push(e))
+
                     page.setContent(`
                         <!DOCTYPE html>
                         <html>
@@ -40,10 +45,24 @@ export default function testSnapshots (component) {
                         </body>
                         </html>
                     `)
-                    if (usecase.data.setup) {
-                        await usecase.data.setup()
+
+                    if (component.setup) {
+                        await page.screenshot()
+                        await component.setup()
                     }
-                    const image = await page.screenshot()
+
+                    let image
+                    if (component.hasAbsolutePosition) {
+                        image = await page.screenshot()
+                    } else {
+                        const containerElement = await page.$('#container')
+                        image = await containerElement.screenshot()
+                    }
+
+                    for (let error of errors) {
+                        console.log(error)
+                    }
+
                     try {
                         expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.name}-${usecase.uniqueID}` })
                     } catch (error) {

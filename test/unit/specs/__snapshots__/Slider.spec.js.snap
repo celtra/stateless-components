@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider computed 237178576 decimalPlacesCount 1`] = `0`;
+
+exports[`Slider computed 237178576 isWholeNumber 1`] = `true`;
+
+exports[`Slider computed 237178576 labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": true,
+  },
+}
+`;
+
+exports[`Slider computed 237178576 lastActiveIndex 1`] = `4`;
+
+exports[`Slider computed 237178576 limitValue 1`] = `20`;
+
+exports[`Slider computed 237178576 maxLabelValue 1`] = `"20"`;
+
+exports[`Slider computed 237178576 minLabelValue 1`] = `"1"`;
+
+exports[`Slider computed 237178576 position 1`] = `0`;
+
+exports[`Slider computed 237178576 sliderWidth 1`] = `0`;
+
+exports[`Slider computed 237178576 stepsCount 1`] = `19`;

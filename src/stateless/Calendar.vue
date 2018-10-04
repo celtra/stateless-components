@@ -55,7 +55,7 @@ export default {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
     },
-    usecases: [
+    /*usecases: [
         {
             value: new Date(2018, 0, 10),
             isRange: false,
@@ -68,7 +68,7 @@ export default {
             value: { from: new Date(2018, 0, 10), to: new Date(2018, 1, 10) },
             isRange: true,
         },
-    ],
+    ],*/
     data () {
         return {
             year: 0,

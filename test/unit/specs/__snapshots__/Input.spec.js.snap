@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input computed 6007846 cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed 6007846 currentLength 1`] = `0`;
+
+exports[`Input computed 6007846 decimalSeperator 1`] = `"."`;
+
+exports[`Input computed 6007846 inputType 1`] = `"text"`;
+
+exports[`Input computed 6007846 mappedDisabledText 1`] = `""`;
+
+exports[`Input computed 6007846 mappedHelperText 1`] = `""`;
+
+exports[`Input computed 6007846 mappedLabelText 1`] = `""`;
+
+exports[`Input computed 6007846 mappedPlaceholderText 1`] = `"Something"`;
+
+exports[`Input computed 6007846 maxLengthCap 1`] = `null`;
+
+exports[`Input computed 6007846 maxLengthNumber 1`] = `null`;
+
+exports[`Input computed 6007846 states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed 6007846 textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed 195726009 cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed 195726009 currentLength 1`] = `0`;
+
+exports[`Input computed 195726009 decimalSeperator 1`] = `"."`;
+
+exports[`Input computed 195726009 inputType 1`] = `"text"`;
+
+exports[`Input computed 195726009 mappedDisabledText 1`] = `""`;
+
+exports[`Input computed 195726009 mappedHelperText 1`] = `""`;
+
+exports[`Input computed 195726009 mappedLabelText 1`] = `""`;
+
+exports[`Input computed 195726009 mappedPlaceholderText 1`] = `"Something"`;
+
+exports[`Input computed 195726009 maxLengthCap 1`] = `null`;
+
+exports[`Input computed 195726009 maxLengthNumber 1`] = `null`;
+
+exports[`Input computed 195726009 states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed 195726009 textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;

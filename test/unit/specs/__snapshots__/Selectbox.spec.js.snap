@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selectbox computed 69298181 cssStates 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+  "with-metadata": false,
+  "with-search": true,
+}
+`;
+
+exports[`Selectbox computed 69298181 listItems 1`] = `
+Array [
+  Object {
+    "id": "CLEAR_SELECTION",
+    "label": "Please select",
+  },
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Selectbox computed 69298181 mappedDisabledText 1`] = `""`;
+
+exports[`Selectbox computed 69298181 mappedHelperText 1`] = `""`;
+
+exports[`Selectbox computed 69298181 mappedLabelText 1`] = `"Something"`;
+
+exports[`Selectbox computed 69298181 searchText 1`] = `""`;
+
+exports[`Selectbox computed 69298181 selected 1`] = `""`;
+
+exports[`Selectbox computed 69298181 selectedLabelText 1`] = `"Please select"`;
+
+exports[`Selectbox computed 69298181 selectedMetadataText 1`] = `""`;
+
+exports[`Selectbox computed 69298181 states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+}
+`;
+
+exports[`Selectbox computed 110732048 cssStates 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+  "with-metadata": false,
+  "with-search": true,
+}
+`;
+
+exports[`Selectbox computed 110732048 listItems 1`] = `
+Array [
+  Object {
+    "id": "CLEAR_SELECTION",
+    "label": "Please select",
+  },
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Selectbox computed 110732048 mappedDisabledText 1`] = `""`;
+
+exports[`Selectbox computed 110732048 mappedHelperText 1`] = `""`;
+
+exports[`Selectbox computed 110732048 mappedLabelText 1`] = `"Something"`;
+
+exports[`Selectbox computed 110732048 searchText 1`] = `""`;
+
+exports[`Selectbox computed 110732048 selected 1`] = `""`;
+
+exports[`Selectbox computed 110732048 selectedLabelText 1`] = `"Please select"`;
+
+exports[`Selectbox computed 110732048 selectedMetadataText 1`] = `""`;
+
+exports[`Selectbox computed 110732048 states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "selected": true,
+  "warning": false,
+}
+`;

@@ -57,6 +57,10 @@ export default {
         showOverlay: { type: Boolean, default: false },
         initialOffset: { type: Number, default: 0 },
     },
+    setup () {
+        // Wait for large items to render
+        return new Promise(resolve => setTimeout(resolve, 200))
+    },
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -67,10 +71,6 @@ export default {
             numItems: 10,
             label: 'Something',
             showOverlay: true,
-            setup () {
-                // Wait for large items to render
-                return new Promise(resolve => setTimeout(resolve, 200))
-            },
         },
     ],
     data () {

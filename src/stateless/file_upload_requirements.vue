@@ -13,6 +13,7 @@ export default {
     props: {
         requirements: { type: Array, required: true },
     },
+    hasAbsolutePosition: true,
     usecases: [
         {
             requirements: [

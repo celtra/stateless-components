@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    name: 'radiobutton',
+    name: 'radio-button',
     model: {
         prop: 'selectedValue',
     },
@@ -37,6 +37,9 @@ export default {
         errorText: { type: String, required: false, default: '' },
         trackName: { type: String, required: false },
     },
+    slot (h) {
+        return 'Something'
+    },
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -46,38 +49,7 @@ export default {
     usecases: [
         {
             value: 'something',
-            slot (h) {
-                return 'Something'
-            },
         },
-        /*{
-            value: 'something',
-            helperText: 'Helper',
-            slot (h) {
-                return 'Something'
-            },
-        },
-        {
-            value: 'something',
-            disabledText: 'Disabled',
-            slot (h) {
-                return 'Something'
-            },
-        },
-        {
-            value: 'something',
-            warningText: 'Warning',
-            slot (h) {
-                return 'Something'
-            },
-        },
-        {
-            value: 'something',
-            errorText: 'Error',
-            slot (h) {
-                return 'Something'
-            },
-        },*/
     ],
     data () {
         return {

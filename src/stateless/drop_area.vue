@@ -18,6 +18,14 @@ export default {
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'full' },
     },
+    variations: {
+        theme: ['dark', 'light'],
+        size: ['condensed', 'normal', 'phat'],
+        dragActive: [false, true],
+    },
+    usecases: [
+        {},
+    ],
     data () {
         return {
             width: null,

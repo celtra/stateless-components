@@ -17,7 +17,19 @@ const vm = new Vue({
         if (!component) {
             component = Object.values(library).find(x => x.name === this.componentName)
         }
-        return component ? h(component, { props: this.props }, component.slot ? [component.slot(h)] : []) : h()
+
+        if (!component) {
+            return h()
+        }
+
+        let slot = component.slot ? component.slot.bind(this.props)(h) : null
+        if (typeof slot === 'string') {
+            slot = this._v(slot)
+        }
+
+        return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box' }, attrs: { id: 'container' } }, [
+            h(component, { props: this.props }, slot ? [slot] : []),
+        ])
     },
 })
 

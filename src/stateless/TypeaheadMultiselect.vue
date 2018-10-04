@@ -39,7 +39,7 @@ export default {
         numItems: { type: Number, default: 8 },
         maxLength: { type: Number, default: 30 },
     },
-    usecases: [
+    /*usecases: [
         {
             label: 'Something',
             value: [],
@@ -57,7 +57,7 @@ export default {
                 return null
             },
         },
-    ],
+    ],*/
     data () {
         return {
             text: '',

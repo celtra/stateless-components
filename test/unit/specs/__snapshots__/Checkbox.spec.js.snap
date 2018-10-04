@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox computed 6981543 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 6981543 infoText 1`] = `""`;
+
+exports[`Checkbox computed 6981543 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 9752480 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 9752480 infoText 1`] = `""`;
+
+exports[`Checkbox computed 9752480 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 32688427 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 32688427 infoText 1`] = `""`;
+
+exports[`Checkbox computed 32688427 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 207193094 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 207193094 infoText 1`] = `""`;
+
+exports[`Checkbox computed 207193094 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 210987648 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 210987648 infoText 1`] = `""`;
+
+exports[`Checkbox computed 210987648 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 236553236 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 236553236 infoText 1`] = `""`;
+
+exports[`Checkbox computed 236553236 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 245131152 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 245131152 infoText 1`] = `""`;
+
+exports[`Checkbox computed 245131152 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed 267677339 actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed 267677339 infoText 1`] = `""`;
+
+exports[`Checkbox computed 267677339 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;

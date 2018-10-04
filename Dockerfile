@@ -12,4 +12,6 @@ WORKDIR /app
 COPY yarn.lock package.json ./
 RUN yarn
 
+RUN yarn build-view
+
 COPY . .

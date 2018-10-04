@@ -25,7 +25,7 @@ export default {
         noItemsText: { type: String, default: 'No items' },
         isValid: { type: Function, required: false },
     },
-    usecases: [
+    /*usecases: [
         {
             label: 'Something',
             value: 'Lorem',
@@ -35,7 +35,7 @@ export default {
                 { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
             ],
         },
-    ],
+    ],*/
     data () {
         return {
             isOpen: false,

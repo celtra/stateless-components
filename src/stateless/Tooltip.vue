@@ -14,6 +14,14 @@ export default {
         show: { type: Boolean, default: false },
         isRelative: { type: Boolean, default: true },
     },
+    hasAbsolutePosition: true,
+    setup () {
+        // Wait for tooltip animation to finish
+        return new Promise(resolve => setTimeout(resolve, 1200))
+    },
+    slot (h) {
+        return 'Something'
+    },
     variations: {
         theme: ['dark', 'light'],
     },
@@ -21,13 +29,6 @@ export default {
         {
             title: 'Some',
             show: true,
-            slot (h) {
-                return 'Something'
-            },
-            setup () {
-                // Wait for tooltip animation to finish
-                return new Promise(resolve => setTimeout(resolve, 1200))
-            },
         },
     ],
     data () {

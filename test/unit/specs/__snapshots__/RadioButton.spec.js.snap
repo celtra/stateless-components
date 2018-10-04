@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton computed 35964213 infoText 1`] = `""`;
+
+exports[`RadioButton computed 35964213 labelText 1`] = `""`;
+
+exports[`RadioButton computed 35964213 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed 174738359 infoText 1`] = `""`;
+
+exports[`RadioButton computed 174738359 labelText 1`] = `""`;
+
+exports[`RadioButton computed 174738359 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed 233055115 infoText 1`] = `""`;
+
+exports[`RadioButton computed 233055115 labelText 1`] = `""`;
+
+exports[`RadioButton computed 233055115 states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed 266504091 infoText 1`] = `""`;
+
+exports[`RadioButton computed 266504091 labelText 1`] = `""`;
+
+exports[`RadioButton computed 266504091 states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;

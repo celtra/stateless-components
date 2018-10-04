@@ -19,6 +19,12 @@ export default {
         theme: { type: String, default: 'dark' },
         timeout: { type: Number, default: 5000 },
     },
+    hasAbsolutePosition: true,
+    setup () {
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, 1000)
+        })
+    },
     variations: {
         theme: ['dark', 'light'],
     },

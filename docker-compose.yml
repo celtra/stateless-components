@@ -13,8 +13,8 @@ services:
     build: .
     volumes:
       - .:/app
-    command: yarn unit
+    command: yarn unit --maxWorkers=4
 
   test-circle:
     build: .
-    command: yarn unit
+    command: yarn unit --maxWorkers=4

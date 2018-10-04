@@ -96,7 +96,7 @@ export default {
         size: ['condensed', 'normal', 'phat'],
         disabled: [false, true],
     },
-    usecases: [
+    /*usecases: [
         {
             label: 'Enter date',
             value: new Date(2018, 0, 10),
@@ -106,7 +106,7 @@ export default {
             value: new Date(2018, 0, 10),
             error: 'Something went wrong',
         },
-    ],
+    ],*/
     data () {
         return {
             isOpen: false,

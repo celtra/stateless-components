@@ -31,6 +31,9 @@ export default {
         target: { type: String, default: '_self' },
         trackName: { type: String, required: false },
     },
+    slot (h) {
+        return 'Something'
+    },
     variations: {
         disabled: [false, true],
         // loading: [false, true], We would have to disable animation to test this
@@ -38,11 +41,7 @@ export default {
         warning: [false, true],
     },
     usecases: [
-        {
-            slot (h) {
-                return 'Something'
-            },
-        },
+        {},
     ],
     methods: {
         click () {

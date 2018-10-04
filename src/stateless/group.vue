@@ -23,16 +23,19 @@ export default {
         description: { type: String, required: false },
         theme: { type: String, default: 'dark' },
     },
+    slot (h) {
+        return h('div', 'Something')
+    },
     variations: {
         theme: ['dark', 'light'],
     },
     usecases: [
         {
             label: 'Modeling',
-            theme: 'light',
-            slot (h) {
-                return h('div', 'Something')
-            },
+        },
+        {
+            label: 'Modeling',
+            description: 'Loooooooong descriptiooooooooon',
         },
     ],
 }

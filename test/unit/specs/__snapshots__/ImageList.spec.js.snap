@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageList computed 126134677 animationRatio 1`] = `0`;
+
+exports[`ImageList computed 126134677 buttons 1`] = `
+Array [
+  Object {
+    "borderSpacing": 5,
+    "isHovered": false,
+    "size": 60,
+  },
+]
+`;
+
+exports[`ImageList computed 126134677 buttonsData 1`] = `
+Array [
+  Object {},
+]
+`;
+
+exports[`ImageList computed 126134677 buttonsWidth 1`] = `61`;
+
+exports[`ImageList computed 126134677 computedImages 1`] = `
+Array [
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 0,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 61,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+  Object {
+    "borderSpacing": 5,
+    "hasWarning": undefined,
+    "isCurrent": false,
+    "isHovered": false,
+    "loadingProgress": null,
+    "offsetX": 122,
+    "opacity": 0.8,
+    "size": 60,
+    "url": null,
+  },
+]
+`;
+
+exports[`ImageList computed 126134677 count 1`] = `2`;
+
+exports[`ImageList computed 126134677 displayWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;
+
+exports[`ImageList computed 126134677 fullHeight 1`] = `67`;
+
+exports[`ImageList computed 126134677 hasArrows 1`] = `
+Object {
+  "left": false,
+  "right": false,
+}
+`;
+
+exports[`ImageList computed 126134677 hoverIndex 1`] = `null`;
+
+exports[`ImageList computed 126134677 imagesWidth 1`] = `121`;
+
+exports[`ImageList computed 126134677 maxVisible 1`] = `7`;
+
+exports[`ImageList computed 126134677 movingDirection 1`] = `null`;
+
+exports[`ImageList computed 126134677 numVisible 1`] = `2`;
+
+exports[`ImageList computed 126134677 targetWidth 1`] = `182`;
+
+exports[`ImageList computed 126134677 targetWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;
+
+exports[`ImageList computed 126134677 targetXOffset 1`] = `0`;
+
+exports[`ImageList computed 126134677 visibleWidths 1`] = `
+Array [
+  60,
+  60,
+  60,
+]
+`;

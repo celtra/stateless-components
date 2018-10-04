@@ -59,6 +59,9 @@ export default {
         canSelectAndClearAll: { type: Boolean, default: false },
         canClearAll: { type: Boolean, default: false },
     },
+    variations: {
+        size: ['condensed', 'normal', 'phat'],
+    },
     usecases: [
         {
             options: [

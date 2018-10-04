@@ -87,7 +87,7 @@
 
 <script>
 export default {
-    name: 'input',
+    name: 'input-element',
     props: {
         value: { type: [String, Number], default: '' },
         label: { type: String, required: false },

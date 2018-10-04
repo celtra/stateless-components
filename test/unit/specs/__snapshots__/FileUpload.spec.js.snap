@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileUpload computed 32188459 errorMessage 1`] = `null`;
+
+exports[`FileUpload computed 32188459 fileInputSquareModifiers 1`] = `
+Object {
+  "clickable": true,
+  "empty": true,
+  "error": false,
+}
+`;
+
+exports[`FileUpload computed 32188459 maxFilenameLength 1`] = `18`;
+
+exports[`FileUpload computed 32188459 progressDashoffset 1`] = `240`;
+
+exports[`FileUpload computed 32188459 states 1`] = `
+Object {
+  "error": false,
+  "normal": true,
+  "uploaded": false,
+  "uploading": false,
+}
+`;
+
+exports[`FileUpload computed 173679542 errorMessage 1`] = `null`;
+
+exports[`FileUpload computed 173679542 fileInputSquareModifiers 1`] = `
+Object {
+  "clickable": true,
+  "empty": true,
+  "error": false,
+}
+`;
+
+exports[`FileUpload computed 173679542 maxFilenameLength 1`] = `18`;
+
+exports[`FileUpload computed 173679542 progressDashoffset 1`] = `240`;
+
+exports[`FileUpload computed 173679542 states 1`] = `
+Object {
+  "error": false,
+  "normal": true,
+  "uploaded": false,
+  "uploading": false,
+}
+`;

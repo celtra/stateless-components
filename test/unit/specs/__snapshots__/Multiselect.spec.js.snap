@@ -1,0 +1,1077 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Multiselect computed 85440779 allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 85440779 allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed 85440779 changeMultipleState 1`] = `false`;
+
+exports[`Multiselect computed 85440779 disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed 85440779 flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 85440779 listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 85440779 searchQuery 1`] = `""`;
+
+exports[`Multiselect computed 114612757 allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 114612757 allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed 114612757 changeMultipleState 1`] = `false`;
+
+exports[`Multiselect computed 114612757 disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed 114612757 flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 114612757 listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 114612757 searchQuery 1`] = `""`;
+
+exports[`Multiselect computed 152313259 allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 152313259 allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed 152313259 changeMultipleState 1`] = `false`;
+
+exports[`Multiselect computed 152313259 disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed 152313259 flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 152313259 listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 152313259 searchQuery 1`] = `""`;
+
+exports[`Multiselect computed 252819483 allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 252819483 allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed 252819483 changeMultipleState 1`] = `false`;
+
+exports[`Multiselect computed 252819483 disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed 252819483 flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 252819483 listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed 252819483 searchQuery 1`] = `""`;

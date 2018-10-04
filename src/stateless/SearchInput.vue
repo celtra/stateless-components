@@ -27,6 +27,10 @@ export default {
         {
             label: 'Something',
         },
+        {
+            label: 'Something',
+            value: 'Value',
+        },
     ],
     methods: {
         focus () {

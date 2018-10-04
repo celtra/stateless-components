@@ -89,8 +89,6 @@ export default {
             max: 100,
             limit: 20,
             step: 1,
-            theme: 'light',
-            size: 'normal',
             label: 'Basic slider',
             value: 5,
             unit: '%',
