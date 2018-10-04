@@ -13,19 +13,13 @@ jobs:
       - run:
          name: Code Has Arrived
          command: |
-           ls -al
+           ls -al test/unit/specs/__image_snapshots__
            echo '^^^That should look familiar^^^'
 
       - run: docker-compose run test-circle
 
-      - run:
-         name: Test done
-         command: |
-           ls -al
-           echo '^^^That should look familiar^^^'
-
       - store_artifacts:
-          path: app/test/unit/specs/__image_snapshots__/__diff_output__
+          path: test/unit/specs/__image_snapshots__/__diff_output__
           destination: image-diff
 
 workflows:
