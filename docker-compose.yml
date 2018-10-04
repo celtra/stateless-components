@@ -17,4 +17,6 @@ services:
 
   test-circle:
     build: .
+    volumes:
+      - .:/app
     command: yarn unit --maxWorkers=4
