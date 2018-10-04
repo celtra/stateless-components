@@ -42,6 +42,7 @@ export default {
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, default: 'checkbox' },
     },
     data () {
         return {
@@ -89,6 +90,7 @@ export default {
             this.focused = isFocused
             if (isFocused) {
                 this.$emit('focus')
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'focus' })
             }
         },
         blur () {
@@ -96,8 +98,10 @@ export default {
         },
         toggle (ev) {
             if (!this.disabled) {
+                const emitValue = this.value === true || this.value === null ? false : true
                 this.$emit('focus')
-                this.$emit('input', this.value === true || this.value === null ? false : true)
+                this.$emit('input', emitValue)
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'click', data: { value: emitValue } })
                 this.focused = false
             }
         },
