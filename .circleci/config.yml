@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: docker-compose run circle
+          command: docker-compose run --name circle test-ci
 
       - run:
           name: Docker ps
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Copy image diffs
           when: on_fail
-          command: docker cp project_circle_run_1:test/unit/specs/__image_snapshots__ /image-diff 
+          command: docker cp circle:/app/test/unit/specs/__image_snapshots__ /image-diff 
 
       - store_artifacts:
           path: /image-diff
