@@ -13,5 +13,3 @@ COPY yarn.lock package.json ./
 RUN yarn
 
 COPY . .
-
-RUN yarn build-view

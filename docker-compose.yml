@@ -1,22 +1,20 @@
 version: '3.4'
 
 services:
-  dev:
-    build: .
-    volumes:
-      - .:/app
-    command: yarn dev
-    ports:
-      - "8080:8080"
-
   test:
     build: .
     volumes:
       - .:/app
-    command: yarn unit --maxWorkers=4
+    command: [sh, -c, "yarn build-view && yarn unit --maxWorkers=4"]
+
+  test-update:
+    build: .
+    volumes:
+      - .:/app
+    command: [sh, -c, "yarn build-view && yarn unit --maxWorkers=4 -u"]
 
   test-ci:
     build: .
     environment:
       - CI=true
-    command: yarn unit --maxWorkers=4
+    command: [sh, -c, "yarn build-view && yarn unit --maxWorkers=4"]
