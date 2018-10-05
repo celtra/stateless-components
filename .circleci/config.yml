@@ -20,7 +20,9 @@ jobs:
       - run:
           name: Copy artifacts
           when: on_fail
-          command: docker cp circle:/app/test/unit/specs/__image_snapshots__/__diff_output__ /tmp/image-diff
+          command: |
+            docker cp circle:/app/test/unit/specs/__image_snapshots__/__diff_output__ /tmp/image-diff
+            docker cp circle:/app/junit.xml /tmp/test-results/junit.xml
 
       - store_test_results:
           path: /tmp/test-results

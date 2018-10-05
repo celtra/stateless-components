@@ -19,7 +19,7 @@ const vm = new Vue({
         }
 
         if (!component) {
-            return h()
+            throw `Component ${this.componentName} does not exist!`
         }
 
         let slot = component.slot ? component.slot.bind(this.props)(h) : null
