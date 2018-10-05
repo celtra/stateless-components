@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Docker ps
           when: on_fail
-          command: docker ps
+          command: docker ps -a
 
 
       - run:
