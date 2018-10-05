@@ -47,7 +47,7 @@ export default {
 
 .group {
     position: relative;
-    padding: 50px 30px 30px 30px;
+    padding: 40px 30px 30px 30px;
     margin-top: 10px;
     border: 1px solid @gunpowder;
 
