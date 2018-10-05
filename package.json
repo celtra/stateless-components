@@ -10,7 +10,7 @@
     "coverage": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs && stylelint '**/*.vue'",
+    "lint": "eslint --ext .js,.vue config build src test/unit test/e2e/specs && stylelint '**/*.vue'",
     "build": "node build/build-library.js",
     "build-view": "node build/build-view.js",
     "heroku-postbuild": "node build/build.js",
