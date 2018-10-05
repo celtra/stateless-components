@@ -46,8 +46,9 @@ export default function testSnapshots (component) {
                         </html>
                     `)
 
+                    await page.waitForSelector('#container')
+
                     if (component.setup) {
-                        await page.screenshot()
                         await component.setup()
                     }
 
