@@ -5150,7 +5150,7 @@ module.exports = function (it) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__ = __webpack_require__(76);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_981f80aa_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_112cc637_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(296);
 function injectStyle (ssrContext) {
   __webpack_require__(294)
 }
@@ -5165,12 +5165,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-981f80aa"
+var __vue_scopeId__ = "data-v-112cc637"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_981f80aa_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_112cc637_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -37680,7 +37680,7 @@ var content = __webpack_require__(295);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("720b3528", content, true, {});
+var update = __webpack_require__(2)("e72fa6e8", content, true, {});
 
 /***/ }),
 /* 295 */
@@ -37691,7 +37691,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"icon.vue","sourceRoot":""}]);
+exports.push([module.i, "\n.icon-wrapper[data-v-112cc637] {\n  font-size: 0px;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-112cc637] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-112cc637] {\n  fill: currentColor;\n}\n.stroke-path[data-v-112cc637] {\n  stroke: currentColor;\n}\n.spin[data-v-112cc637] {\n  -webkit-animation: SPIN-data-v-112cc637 1s ease-out infinite;\n          animation: SPIN-data-v-112cc637 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-112cc637 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-112cc637 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/icon.vue"],"names":[],"mappings":";AACA;EACE,eAAe;EACf,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;CACtB;AACD;EACE,6DAA6D;UACrD,qDAAqD;CAC9D;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA","file":"icon.vue","sourcesContent":["\n.icon-wrapper[data-v-112cc637] {\n  font-size: 0px;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-112cc637] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-112cc637] {\n  fill: currentColor;\n}\n.stroke-path[data-v-112cc637] {\n  stroke: currentColor;\n}\n.spin[data-v-112cc637] {\n  -webkit-animation: SPIN-data-v-112cc637 1s ease-out infinite;\n          animation: SPIN-data-v-112cc637 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-112cc637 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-112cc637 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n"],"sourceRoot":""}]);
 
 // exports
 

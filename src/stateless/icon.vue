@@ -240,4 +240,6 @@ export default {
 
 @keyframes SPIN {
     0%   { transform: rotate(0); }
-    100% { trans
+    100% { transform: rotate(720deg); }
+}
+</style>
