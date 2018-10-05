@@ -27,7 +27,29 @@
             </div>
             <div class="component-container">
                 <div class="props">
-                    <select-props :props-list="componentData.props" @change="updateProp(componentData.id, $event.name, $event.value)" />
+                    <table>
+                        <tr v-for="prop in componentData.props" :key="prop.name" class="prop">
+                            <td class="prop-name">{{ prop.name }}</td>
+                            <td class="prop-value">
+                                <div v-if="prop.availableValues">
+                                    <select @change="updateProp(componentData.id, prop.name, $event.target.value)">
+                                        <option v-for="value in prop.availableValues" :key="value">{{ value }}</option>
+                                    </select>
+                                </div>
+                                <div v-else-if="typeof(prop.default) == typeof(true)">
+                                    <input :value="prop.value"
+                                           type="checkbox"
+                                           @change="updateProp(componentData.id, prop.name, $event.target.checked)" />
+                                </div>
+                                <div v-else>
+                                    <input :value="prop.value"
+                                           :disabled="prop.name === 'theme' || prop.name === 'size'"
+                                           type="text"
+                                           @input="updateProp(componentData.id, prop.name, $event.target.value)" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <component :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
             </div>
@@ -37,33 +59,51 @@
 
 <script>
 import '@/stateless/define_helpers'
-import SelectProps from './SelectProps.vue'
 import * as library from '../library.js'
-import { getProps } from '../component_utils'
+import { getFlatUsecases } from '../component_utils'
 
 const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
 const getComponents = () => {
-    return componentNames.map(componentName => {
-        const component = library[componentName]
+    return componentNames.map(componentId => {
+        const component = library[componentId]
 
         const modelName = component.model ? component.value : 'value'
         const modelEvent = component.model ? component.event : 'input'
 
+        const componentProps = component.props
+        const usecases = getFlatUsecases(component)
+        const defaultProps = usecases.length > 0 ? usecases[0].data : {}
+
+        // Transparent wrapper components might use props even if they are not explicitly defined
+        let allProps = {}
+        for (const key in componentProps) {
+            allProps[key] = true
+        }
+        for (const key in defaultProps) {
+            allProps[key] = true
+        }
+        allProps = Object.keys(allProps)
+
         return {
             component: component,
-            id: componentName,
+            id: componentId,
             modelName: modelName,
             modelEvent: modelEvent,
-            props: getProps(component),
+            props: allProps.map(propName => {
+                return {
+                    name: propName,
+                    type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
+                    default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
+                    availableValues: null,
+                }
+            }),
         }
     })
 }
 
 export default {
-    components: {
-        SelectProps,
-    },
+    name: 'components-list',
     data () {
         const vars = {
             componentId: componentNames[0],
@@ -156,6 +196,18 @@ export default {
 
 .props {
     min-width: 400px;
+}
+
+.prop {
+    .prop-name {
+        padding-right: 10px;
+        text-align: right;
+        font-size: 12px;
+    }
+
+    .prop-value {
+        padding-left: 10px;
+    }
 }
 
 .flex {
