@@ -35,6 +35,7 @@
 
 <script>
 export default {
+    name: 'support-text',
     components: {
         supportText: this,
     },

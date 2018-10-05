@@ -20,6 +20,7 @@
 import DialogButton from './dialog_button.vue'
 
 export default {
+    name: 'dialog-button',
     components: { dialogButton: DialogButton },
     props: {
         disabled: { type: Boolean, default: false },

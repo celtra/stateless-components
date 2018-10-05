@@ -17,6 +17,12 @@ export default {
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'full' },
     },
+    data () {
+        return {
+            width: null,
+            height: null,
+        }
+    },
     computed: {
         outlinePath () {
             return `
