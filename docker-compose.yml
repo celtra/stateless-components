@@ -19,4 +19,4 @@ services:
     build: .
     environment:
       - CI=true
-    command: yarn unit --maxWorkers=8
+    command: yarn unit --maxWorkers=4
