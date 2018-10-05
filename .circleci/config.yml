@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Copy image diffs
           when: on_fail
-          command: docker cp circle:test/unit/specs/__image_snapshots__ /image-diff 
+          command: docker cp project_circle_run_1:test/unit/specs/__image_snapshots__ /image-diff 
 
       - store_artifacts:
           path: /image-diff
