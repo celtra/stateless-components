@@ -27,5 +27,4 @@ module.exports = {
         '!src/router/index.js',
         '!**/node_modules/**',
     ],
-    reporters: ['default', 'jest-junit'],
 }

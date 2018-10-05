@@ -14,16 +14,13 @@ const flatVariations = (variations) => {
     return flat
 }
 
-const getHash = (usecase) => {
-    const s = Object.keys(usecase)
-        .sort((a, b) => a.localeCompare(b))
-        .filter(key => typeof usecase[key] !== 'function')
-        .map(key => {
-            const value = typeof usecase[key] === 'object' ? JSON.stringify(usecase[key]).trim('"') : usecase[key]
-            return `${key}=${value}`
-        })
-        .join('&')
+const getUsecaseName = (variation, usecaseIndex) => {
+    const variationKeys = Object.keys(variation).sort((a, b) => a.localeCompare(b))
+    const variationNames = variationKeys.map(key => `${key}-${variation[key]}`)
+    return `usecase-${usecaseIndex}__${variationNames.join('_')}`
+}
 
+const getHash = (s) => {
     var a = 1, c = 0, h, o
     if (s) {
         a = 0
@@ -49,9 +46,11 @@ export function getFlatUsecases (component, ignoreVariations = []) {
         }
 
         for (const variation of flatVariations(filterVariations)) {
-            for (const usecase of component.usecases) {
+            for (var i = 0; i < component.usecases.length; i++) {
+                const usecase = component.usecases[i]
                 const usecaseData = { ...variation, ...usecase }
-                usecases.push({ data: usecaseData, uniqueID: getHash(usecaseData) })
+                const name = getUsecaseName(variation, i)
+                usecases.push({ data: usecaseData, name: name, uniqueID: getHash(name) })
             }
         }
     }

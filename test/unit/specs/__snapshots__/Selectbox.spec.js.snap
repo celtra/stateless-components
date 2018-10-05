@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Selectbox computed 69298181 cssStates 1`] = `
+exports[`Selectbox computed usecase-0__disabled-false cssStates 1`] = `
 Object {
   "disabled": false,
   "error": false,
@@ -12,7 +12,7 @@ Object {
 }
 `;
 
-exports[`Selectbox computed 69298181 listItems 1`] = `
+exports[`Selectbox computed usecase-0__disabled-false listItems 1`] = `
 Array [
   Object {
     "id": "CLEAR_SELECTION",
@@ -74,21 +74,21 @@ Array [
 ]
 `;
 
-exports[`Selectbox computed 69298181 mappedDisabledText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-false mappedDisabledText 1`] = `""`;
 
-exports[`Selectbox computed 69298181 mappedHelperText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-false mappedHelperText 1`] = `""`;
 
-exports[`Selectbox computed 69298181 mappedLabelText 1`] = `"Something"`;
+exports[`Selectbox computed usecase-0__disabled-false mappedLabelText 1`] = `"Something"`;
 
-exports[`Selectbox computed 69298181 searchText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-false searchText 1`] = `""`;
 
-exports[`Selectbox computed 69298181 selected 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-false selected 1`] = `""`;
 
-exports[`Selectbox computed 69298181 selectedLabelText 1`] = `"Please select"`;
+exports[`Selectbox computed usecase-0__disabled-false selectedLabelText 1`] = `"Please select"`;
 
-exports[`Selectbox computed 69298181 selectedMetadataText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-false selectedMetadataText 1`] = `""`;
 
-exports[`Selectbox computed 69298181 states 1`] = `
+exports[`Selectbox computed usecase-0__disabled-false states 1`] = `
 Object {
   "disabled": false,
   "error": false,
@@ -98,7 +98,7 @@ Object {
 }
 `;
 
-exports[`Selectbox computed 110732048 cssStates 1`] = `
+exports[`Selectbox computed usecase-0__disabled-true cssStates 1`] = `
 Object {
   "disabled": true,
   "error": false,
@@ -110,7 +110,7 @@ Object {
 }
 `;
 
-exports[`Selectbox computed 110732048 listItems 1`] = `
+exports[`Selectbox computed usecase-0__disabled-true listItems 1`] = `
 Array [
   Object {
     "id": "CLEAR_SELECTION",
@@ -172,21 +172,21 @@ Array [
 ]
 `;
 
-exports[`Selectbox computed 110732048 mappedDisabledText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-true mappedDisabledText 1`] = `""`;
 
-exports[`Selectbox computed 110732048 mappedHelperText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-true mappedHelperText 1`] = `""`;
 
-exports[`Selectbox computed 110732048 mappedLabelText 1`] = `"Something"`;
+exports[`Selectbox computed usecase-0__disabled-true mappedLabelText 1`] = `"Something"`;
 
-exports[`Selectbox computed 110732048 searchText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-true searchText 1`] = `""`;
 
-exports[`Selectbox computed 110732048 selected 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-true selected 1`] = `""`;
 
-exports[`Selectbox computed 110732048 selectedLabelText 1`] = `"Please select"`;
+exports[`Selectbox computed usecase-0__disabled-true selectedLabelText 1`] = `"Please select"`;
 
-exports[`Selectbox computed 110732048 selectedMetadataText 1`] = `""`;
+exports[`Selectbox computed usecase-0__disabled-true selectedMetadataText 1`] = `""`;
 
-exports[`Selectbox computed 110732048 states 1`] = `
+exports[`Selectbox computed usecase-0__disabled-true states 1`] = `
 Object {
   "disabled": true,
   "error": false,

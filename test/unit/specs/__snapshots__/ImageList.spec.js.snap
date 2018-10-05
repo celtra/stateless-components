@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImageList computed 126134677 animationRatio 1`] = `0`;
+exports[`ImageList computed usecase-0__ animationRatio 1`] = `0`;
 
-exports[`ImageList computed 126134677 buttons 1`] = `
+exports[`ImageList computed usecase-0__ buttons 1`] = `
 Array [
   Object {
     "borderSpacing": 5,
@@ -12,15 +12,15 @@ Array [
 ]
 `;
 
-exports[`ImageList computed 126134677 buttonsData 1`] = `
+exports[`ImageList computed usecase-0__ buttonsData 1`] = `
 Array [
   Object {},
 ]
 `;
 
-exports[`ImageList computed 126134677 buttonsWidth 1`] = `61`;
+exports[`ImageList computed usecase-0__ buttonsWidth 1`] = `61`;
 
-exports[`ImageList computed 126134677 computedImages 1`] = `
+exports[`ImageList computed usecase-0__ computedImages 1`] = `
 Array [
   Object {
     "borderSpacing": 5,
@@ -58,9 +58,9 @@ Array [
 ]
 `;
 
-exports[`ImageList computed 126134677 count 1`] = `2`;
+exports[`ImageList computed usecase-0__ count 1`] = `2`;
 
-exports[`ImageList computed 126134677 displayWidths 1`] = `
+exports[`ImageList computed usecase-0__ displayWidths 1`] = `
 Array [
   60,
   60,
@@ -68,28 +68,28 @@ Array [
 ]
 `;
 
-exports[`ImageList computed 126134677 fullHeight 1`] = `67`;
+exports[`ImageList computed usecase-0__ fullHeight 1`] = `67`;
 
-exports[`ImageList computed 126134677 hasArrows 1`] = `
+exports[`ImageList computed usecase-0__ hasArrows 1`] = `
 Object {
   "left": false,
   "right": false,
 }
 `;
 
-exports[`ImageList computed 126134677 hoverIndex 1`] = `null`;
+exports[`ImageList computed usecase-0__ hoverIndex 1`] = `null`;
 
-exports[`ImageList computed 126134677 imagesWidth 1`] = `121`;
+exports[`ImageList computed usecase-0__ imagesWidth 1`] = `121`;
 
-exports[`ImageList computed 126134677 maxVisible 1`] = `7`;
+exports[`ImageList computed usecase-0__ maxVisible 1`] = `7`;
 
-exports[`ImageList computed 126134677 movingDirection 1`] = `null`;
+exports[`ImageList computed usecase-0__ movingDirection 1`] = `null`;
 
-exports[`ImageList computed 126134677 numVisible 1`] = `2`;
+exports[`ImageList computed usecase-0__ numVisible 1`] = `2`;
 
-exports[`ImageList computed 126134677 targetWidth 1`] = `182`;
+exports[`ImageList computed usecase-0__ targetWidth 1`] = `182`;
 
-exports[`ImageList computed 126134677 targetWidths 1`] = `
+exports[`ImageList computed usecase-0__ targetWidths 1`] = `
 Array [
   60,
   60,
@@ -97,9 +97,9 @@ Array [
 ]
 `;
 
-exports[`ImageList computed 126134677 targetXOffset 1`] = `0`;
+exports[`ImageList computed usecase-0__ targetXOffset 1`] = `0`;
 
-exports[`ImageList computed 126134677 visibleWidths 1`] = `
+exports[`ImageList computed usecase-0__ visibleWidths 1`] = `
 Array [
   60,
   60,

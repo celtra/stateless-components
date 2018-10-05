@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Multiselect computed 85440779 allOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false allOptions 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -58,7 +58,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 85440779 allPossibleIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false allPossibleIds 1`] = `
 Array [
   "4",
   "5",
@@ -70,16 +70,16 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 85440779 changeMultipleState 1`] = `false`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false changeMultipleState 1`] = `false`;
 
-exports[`Multiselect computed 85440779 disabledValueIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
 
-exports[`Multiselect computed 85440779 flatOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false flatOptions 1`] = `
 Array [
   Object {
     "depth": 0,
@@ -207,7 +207,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 85440779 listItems 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false listItems 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -267,9 +267,9 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 85440779 searchQuery 1`] = `""`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false searchQuery 1`] = `""`;
 
-exports[`Multiselect computed 114612757 allOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true allOptions 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -327,7 +327,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 114612757 allPossibleIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true allPossibleIds 1`] = `
 Array [
   "4",
   "5",
@@ -339,16 +339,16 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 114612757 changeMultipleState 1`] = `false`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true changeMultipleState 1`] = `false`;
 
-exports[`Multiselect computed 114612757 disabledValueIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
 
-exports[`Multiselect computed 114612757 flatOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true flatOptions 1`] = `
 Array [
   Object {
     "depth": 0,
@@ -476,7 +476,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 114612757 listItems 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true listItems 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -536,9 +536,9 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 114612757 searchQuery 1`] = `""`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true searchQuery 1`] = `""`;
 
-exports[`Multiselect computed 152313259 allOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false allOptions 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -596,7 +596,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 152313259 allPossibleIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false allPossibleIds 1`] = `
 Array [
   "4",
   "5",
@@ -608,16 +608,16 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 152313259 changeMultipleState 1`] = `false`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false changeMultipleState 1`] = `false`;
 
-exports[`Multiselect computed 152313259 disabledValueIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
 
-exports[`Multiselect computed 152313259 flatOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false flatOptions 1`] = `
 Array [
   Object {
     "depth": 0,
@@ -745,7 +745,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 152313259 listItems 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false listItems 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -805,9 +805,9 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 152313259 searchQuery 1`] = `""`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false searchQuery 1`] = `""`;
 
-exports[`Multiselect computed 252819483 allOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true allOptions 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -865,7 +865,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 252819483 allPossibleIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true allPossibleIds 1`] = `
 Array [
   "4",
   "5",
@@ -877,16 +877,16 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 252819483 changeMultipleState 1`] = `false`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true changeMultipleState 1`] = `false`;
 
-exports[`Multiselect computed 252819483 disabledValueIds 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
 
-exports[`Multiselect computed 252819483 flatOptions 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true flatOptions 1`] = `
 Array [
   Object {
     "depth": 0,
@@ -1014,7 +1014,7 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 252819483 listItems 1`] = `
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true listItems 1`] = `
 Array [
   Object {
     "disabled": true,
@@ -1074,4 +1074,4 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed 252819483 searchQuery 1`] = `""`;
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true searchQuery 1`] = `""`;

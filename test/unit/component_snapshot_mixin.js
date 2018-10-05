@@ -23,7 +23,7 @@ export default function testSnapshots (component) {
         jest.setTimeout(usecases.length * 20 * 1000)
 
         for (const usecase of usecases) {
-            describe(`usecase ${usecase.uniqueID}`, () => {
+            describe(usecase.name, () => {
                 it('matches existing snapshot', async () => {
                     const page = await browser.newPage()
 
@@ -65,7 +65,7 @@ export default function testSnapshots (component) {
                     }
 
                     try {
-                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.name}-${usecase.uniqueID}` })
+                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.name}__${usecase.name}` })
                     } catch (error) {
                         const formattedUsecase = Object.keys(usecase.data)
                             .sort((a, b) => a.localeCompare(b))
@@ -91,7 +91,7 @@ export default function testSnapshots (component) {
             const vm = new Constructor({
                 propsData: usecase.data,
             })
-            describe(usecase.uniqueID, () => {
+            describe(usecase.name, () => {
                 for (const computedName in component.computed) {
                     it (computedName, () => {
                         expect(vm[computedName]).toMatchSnapshot()
