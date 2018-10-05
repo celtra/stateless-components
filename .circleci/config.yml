@@ -22,7 +22,7 @@ jobs:
           when: always
           command: |
             mkdir /tmp/test-results
-            docker cp circle:/app/junit.xml /tmp/test-results/jest.xml
+            docker cp circle:/app/junit.xml /tmp/test-results/jest/results.xml
 
       - run:
           name: Copy artifacts
