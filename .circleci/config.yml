@@ -21,7 +21,7 @@ jobs:
           name: Copy test results
           when: always
           command: |
-            mkdir /tmp/test-results
+            mkdir -p /tmp/test-results/jest
             docker cp circle:/app/junit.xml /tmp/test-results/jest/results.xml
 
       - run:
