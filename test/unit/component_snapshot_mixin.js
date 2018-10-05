@@ -22,12 +22,12 @@ export default function testSnapshots (component) {
 
         jest.setTimeout(usecases.length * 20 * 1000)
 
-        for (let usecase of usecases) {
+        for (const usecase of usecases) {
             describe(`usecase ${usecase.uniqueID}`, () => {
                 it('matches existing snapshot', async () => {
                     const page = await browser.newPage()
 
-                    let errors = []
+                    const errors = []
                     page.on('error', e => errors.push(e))
                     page.on('pageerror', e => errors.push(e))
 
@@ -60,7 +60,7 @@ export default function testSnapshots (component) {
                         image = await containerElement.screenshot()
                     }
 
-                    for (let error of errors) {
+                    for (const error of errors) {
                         console.log(error)
                     }
 
@@ -86,13 +86,13 @@ export default function testSnapshots (component) {
 
     describe('computed', () => {
         const usecases = getFlatUsecases(component, ['theme', 'size'])
-        for (let usecase of usecases) {
+        for (const usecase of usecases) {
             const Constructor = Vue.extend(component)
             const vm = new Constructor({
                 propsData: usecase.data,
             })
             describe(usecase.uniqueID, () => {
-                for (let computedName in component.computed) {
+                for (const computedName in component.computed) {
                     it (computedName, () => {
                         expect(vm[computedName]).toMatchSnapshot()
                     })

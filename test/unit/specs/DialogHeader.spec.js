@@ -71,7 +71,7 @@ describe.only('DialogHeader', () => {
 
     describe('watch', ()=>{
         describe('stepIndex', ()=>{
-            it('should transition header on stepIndex change', function (done){
+            it('should transition header on stepIndex change', function (done) {
                 spyOn(vm, 'transitionHeader')
 
                 vm.currentStepId = 'finalize'

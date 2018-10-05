@@ -172,6 +172,7 @@ export default {
             color: @very-light-gray;
             &--selected { color: @black; }
             &--disabled { color: @gunpowder; }
+
             &:hover {
                 &:not(.default-list-item--disabled)&:not(.default-list-item--selected) {
                     .default-list-item__label { color: @white; }
@@ -187,6 +188,7 @@ export default {
             color: @gunpowder;
             &--selected { color: @royal-blue; }
             &--disabled { color: @gray-blue; }
+
             &:hover {
                 &:not(.default-list-item--disabled)&:not(.default-list-item--selected) {
                     .default-list-item__label { color: @black; }

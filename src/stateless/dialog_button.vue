@@ -79,7 +79,8 @@ export default {
     text-align: center;
     box-sizing: border-box;
 
-    &:hover, &:focus { background-color : @light-green; }
+    &:hover,
+    &:focus { background-color: @light-green; }
 
     &:focus { outline: none; }
 }
@@ -103,7 +104,8 @@ export default {
     background-color: @pink-red;
     opacity: 0.8;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         background-color: @pink-red;
         opacity: 1;
     }
@@ -116,7 +118,8 @@ export default {
     background-color: @gray-blue;
     opacity: 0.8;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         background-color: @gray-blue;
         opacity: 1;
     }
@@ -131,7 +134,8 @@ export default {
     min-width: 36px;
     pointer-events: none;
 
-    &:hover, &:focus { background-color : @extremly-light-green; }
+    &:hover,
+    &:focus { background-color: @extremly-light-green; }
 
     &:focus { outline: none; }
 
@@ -153,7 +157,7 @@ export default {
 }
 
 @keyframes BUTTON_LOADER {
-    0%   { transform: rotate(0); }
+    0% { transform: rotate(0); }
     100% { transform: rotate(720deg); }
 }
 </style>

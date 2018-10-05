@@ -137,25 +137,25 @@ export default {
         transition: color @default-transition-time;
 
         &:hover {
-            color: black
+            color: black;
         }
     }
 }
 
 ::-webkit-scrollbar {
-    width : 5px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color : transparent;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius    : 5px;
-    background-color : @very-light-gray;
+    border-radius: 5px;
+    background-color: @very-light-gray;
 }
 
 ::-webkit-scrollbar-corner {
-    background-color : transparent;
+    background-color: transparent;
 }
 </style>

@@ -3,7 +3,7 @@
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" @click.stop="$emit('remove')">
-            <icon style="width: 8px; height: 8px" class="chip__remove-btn" name="x-bold"></icon>
+            <icon style="width: 8px; height: 8px;" class="chip__remove-btn" name="x-bold"></icon>
         </span>
     </div>
 </template>
@@ -104,7 +104,8 @@ export default {
     }
 
     &:not(.chip--disabled) {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: @white;
             background-color: @gunpowder;
 
@@ -141,7 +142,8 @@ export default {
     }
 
     &:not(.chip--disabled) {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: @black;
             background-color: @very-light-gray;
 

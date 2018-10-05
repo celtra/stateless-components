@@ -128,7 +128,7 @@ export default {
             return Math.floor(this.maxWidth / (this.minSize + (this.maxSize - this.minSize) * 0.2)) - this.buttonsData.length
         },
         buttonsData () {
-            let buttons = []
+            const buttons = []
 
             if (!this.maxCount || this.targetCount < this.maxCount) {
                 buttons.push({})
@@ -140,7 +140,7 @@ export default {
             return Math.min(this.targetCount, this.maxVisible)
         },
         targetWidth () {
-            let count = this.targetCount + this.buttonsData.length
+            const count = this.targetCount + this.buttonsData.length
             return count === 0 ? 0 : Math.min(this.maxWidth, count * this.maxSize + (count - 1) * this.spacing)
         },
         imagesWidth () {
@@ -150,15 +150,15 @@ export default {
             return this.displayWidths.slice(this.count).reduce((s, acc) => s + acc, 0) + this.buttonsData.length * this.spacing
         },
         computedImages () {
-            let images = []
+            const images = []
             let currentX = 0
 
             return this.displayWidths.map((size, index) => {
-                let image = this.currentImages[index] || {}
-                let isDim = index <= this.startIndex && this.hasArrows.left || index >= this.startIndex + this.numVisible - 1 && this.hasArrows.right
-                let isCurrent = index === this.currentIndex
-                let isHovered = isCurrent || this.hoverIndex === index - this.startIndex
-                let data = {
+                const image = this.currentImages[index] || {}
+                const isDim = index <= this.startIndex && this.hasArrows.left || index >= this.startIndex + this.numVisible - 1 && this.hasArrows.right
+                const isCurrent = index === this.currentIndex
+                const isHovered = isCurrent || this.hoverIndex === index - this.startIndex
+                const data = {
                     size: size,
                     isCurrent: isCurrent,
                     isHovered: isHovered,
@@ -175,14 +175,14 @@ export default {
             })
         },
         targetWidths () {
-            let before = []
-            let numBefore = this.startIndex
+            const before = []
+            const numBefore = this.startIndex
             for (var i = 0; i < numBefore; i++) {
                 before.push(this.minSize)
             }
 
-            let after = []
-            let numAfter = this.count - this.startIndex - this.numVisible
+            const after = []
+            const numAfter = this.count - this.startIndex - this.numVisible
             for (var i = 0; i < numAfter; i++) {
                 after.push(this.minSize)
             }
@@ -191,7 +191,7 @@ export default {
         },
         buttons () {
             return this.buttonsData.map((button, index) => {
-                let size = this.displayWidths[this.count + index] || this.minSize
+                const size = this.displayWidths[this.count + index] || this.minSize
                 return {
                     ...button,
                     size: size,
@@ -201,7 +201,7 @@ export default {
             })
         },
         visibleWidths () {
-            let count = this.numVisible + this.buttonsData.length
+            const count = this.numVisible + this.buttonsData.length
             return utils.calculateWidths(count, this.hoverIndex, this.targetWidth - (count - 1) * this.spacing, this.maxSize, this.minSize)
         },
         movingDirection () {
@@ -218,14 +218,14 @@ export default {
                 return null
             }
 
-            let itemCount = this.numVisible + this.buttonsData.length
-            let averageWidth = this.currentWidth / itemCount
+            const itemCount = this.numVisible + this.buttonsData.length
+            const averageWidth = this.currentWidth / itemCount
             return Math.floor(this.pointerX / averageWidth)
         },
         animationRatio () {
-            let ease = (t) => 1+(--t)*t*t*t*t
+            const ease = (t) => 1+(--t)*t*t*t*t
 
-            let totalAnimationTime = 0.5
+            const totalAnimationTime = 0.5
             return ease(Math.min(1, this.animationTime / totalAnimationTime))
         },
         displayWidths () {
@@ -251,7 +251,7 @@ export default {
             }
         },
         targetWidths (newValue, oldValue) {
-            let oldValueAligned = oldValue.slice(0, newValue.length - this.buttonsData.length).concat(oldValue.slice(oldValue.length - this.buttonsData.length))
+            const oldValueAligned = oldValue.slice(0, newValue.length - this.buttonsData.length).concat(oldValue.slice(oldValue.length - this.buttonsData.length))
             let equal = true
             for (var i = 0; i < newValue.length; i++) {
                 if (Math.abs(newValue[i] - oldValueAligned[i]) > 0.1) {
@@ -260,8 +260,8 @@ export default {
                 }
             }
             if (!equal) {
-                let previousAnimated = utils.transitionWidths(this.previousWidths, oldValueAligned, this.animationRatio)
-                let previous = []
+                const previousAnimated = utils.transitionWidths(this.previousWidths, oldValueAligned, this.animationRatio)
+                const previous = []
                 for (var i = 0; i < newValue.length; i++) {
                     previous.push(previousAnimated[i] || newValue[i])
                 }
@@ -307,8 +307,8 @@ export default {
     },
     mounted () {
         let previousTime = Date.now()
-        let update = () => {
-            let now = Date.now()
+        const update = () => {
+            const now = Date.now()
             this.update((now - previousTime) / 1000)
             previousTime = now
             this.animationFrameId = requestAnimationFrame(update)
@@ -323,24 +323,24 @@ export default {
     },
     methods: {
         update (elapsed) {
-            let elapsedFactor = elapsed * 80
+            const elapsedFactor = elapsed * 80
 
             this.animationTime += elapsed
 
-            let delta = this.targetXOffset - this.currentXOffset
+            const delta = this.targetXOffset - this.currentXOffset
             if (Math.abs(delta) < 5 && this.movingDirection !== null) {
                 this.move(this.movingDirection)
             }
 
-            let minSpeed = 0.5
-            let freshDelta = this.targetXOffset - this.currentXOffset
+            const minSpeed = 0.5
+            const freshDelta = this.targetXOffset - this.currentXOffset
             if (Math.abs(freshDelta) <= minSpeed) {
                 this.currentXOffset = this.targetXOffset
             } else {
                 this.currentXOffset += elapsedFactor * (0.05 * freshDelta + minSpeed * Math.sign(freshDelta))
             }
 
-            let widthDelta = this.targetWidth - this.currentWidth
+            const widthDelta = this.targetWidth - this.currentWidth
             if (Math.abs(widthDelta) <= minSpeed) {
                 this.currentWidth = this.targetWidth
             } else {
@@ -355,7 +355,7 @@ export default {
             this.$emit('select', this.hoverIndex)
         },
         move (direction) {
-            let newPosition = this.startIndex + direction
+            const newPosition = this.startIndex + direction
             if (newPosition >= 0 && newPosition < this.targetCount - this.numVisible + 1) {
                 this.startIndex = newPosition
             }
@@ -407,6 +407,7 @@ export default {
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }

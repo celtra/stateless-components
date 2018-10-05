@@ -111,9 +111,9 @@ export default {
             },
         },
         allOptions () {
-            let result = itemsUtils.search(this.options, this.searchQuery)
+            const result = itemsUtils.search(this.options, this.searchQuery)
 
-            for (let queryItem of this.queryOptions) {
+            for (const queryItem of this.queryOptions) {
                 if (!result.find(x => x.id === queryItem.id)) {
                     result.push(queryItem)
                 }
@@ -143,7 +143,7 @@ export default {
             if (this.autoReorder) {
                 if (!this.areGroupsSelectable) {
                     const selectedItems = this.value.map(itemId => {
-                        let item = itemsUtils.find(result, x => !x.items && x.id === itemId)
+                        const item = itemsUtils.find(result, x => !x.items && x.id === itemId)
                         if (!item) {
                             return null
                         }
@@ -230,7 +230,7 @@ export default {
                         if (result.length === 0) {
                             this.gotAllOptions = true
                         } else {
-                            for (let item of result) {
+                            for (const item of result) {
                                 if (!this.queryOptions.find(x => x.id === item.id)) {
                                     this.queryOptions.push(item)
                                 }
@@ -296,7 +296,7 @@ export default {
                 let someChecked = false
                 const leafItems = option.leafItems || itemsUtils.getLeafItems(option)
                 const leafIds = leafItems.filter(item => !item.disabled).map(item => item.id)
-                for (let id of leafIds) {
+                for (const id of leafIds) {
                     if (!this.value.includes(id)) {
                         allChecked = false
                     } else {
@@ -330,7 +330,7 @@ export default {
         margin-top: 5px;
         padding-left: 5px;
         padding-right: 5px;
-        clip-path: inset(0px 0px 0px 0px);
+        clip-path: inset(0 0 0 0);
     }
 
     &__change-multiple {
@@ -367,7 +367,7 @@ export default {
 }
 
 .multiselect__option > .multiselect__checkbox {
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: -5px;
 }
 
@@ -378,9 +378,9 @@ export default {
 }
 
 .multiselect--dark.multiselect--dark {
-  .multiselect__no-items {
-      color: @gunpowder;
-  }
+    .multiselect__no-items {
+        color: @gunpowder;
+    }
 }
 </style>
 
@@ -393,7 +393,6 @@ export default {
     .multiselect__checkbox.multiselect__checkbox {
         margin-top: 0;
         height: auto;
-
         height: 100%;
         width: 100%;
         display: flex;
@@ -405,7 +404,6 @@ export default {
     }
 
     .multiselect__checkbox:hover {
-
         &.checkbox-element--light .default-list-item__label:not(.default-list-item__label--disabled) {
             color: black;
         }

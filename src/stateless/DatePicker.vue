@@ -138,8 +138,8 @@ export default {
             }
 
             if (this.isRange) {
-                let from = this.value && this.value.from ? moment(this.value.from).format(this.dateFormat) : '?'
-                let to = this.value && this.value.to ? moment(this.value.to).format(this.dateFormat) : '?'
+                const from = this.value && this.value.from ? moment(this.value.from).format(this.dateFormat) : '?'
+                const to = this.value && this.value.to ? moment(this.value.to).format(this.dateFormat) : '?'
                 return `${from} - ${to}`
             }
 

@@ -115,7 +115,7 @@ describe('Selectbox', () => {
 
         describe('listItems', function () {
             it('should not filter if empty search query', function () {
-                let options = [
+                const options = [
                     { label : "GROUP A", items : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
                     { label : "GROUP B", items : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
                     { label : "GROUP C", items : [{ id : 5, label : "Option D" }] },

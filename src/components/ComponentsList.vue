@@ -43,12 +43,12 @@ import { getProps } from '../component_utils'
 
 const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
-let getComponents = () => {
+const getComponents = () => {
     return componentNames.map(componentName => {
-        let component = library[componentName]
+        const component = library[componentName]
 
-        let modelName = component.model ? component.value : 'value'
-        let modelEvent = component.model ? component.event : 'input'
+        const modelName = component.model ? component.value : 'value'
+        const modelEvent = component.model ? component.event : 'input'
 
         return {
             component: component,
@@ -65,14 +65,14 @@ export default {
         SelectProps,
     },
     data () {
-        let vars = {
+        const vars = {
             componentId: componentNames[0],
             theme: 'light',
             size: 'normal',
         }
-        for (let component of getComponents()) {
-            let componentData = {}
-            for (let prop of component.props) {
+        for (const component of getComponents()) {
+            const componentData = {}
+            for (const prop of component.props) {
                 componentData[prop.name] = prop.name === 'theme' ? vars.theme : prop.name === 'size' ?  vars.size : prop.default
             }
             vars[component.id] = componentData
@@ -81,7 +81,7 @@ export default {
     },
     computed: {
         components () {
-            let updateProp = this.updateProp
+            const updateProp = this.updateProp
 
             return getComponents().map(componentData => {
                 return {

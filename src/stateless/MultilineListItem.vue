@@ -107,6 +107,7 @@ export default {
         &__label {
             color: @very-light-gray;
             &--selected { color: @black; }
+
             &:hover {
                 &:not(.multiline-list-item--disabled)&:not(.multiline-list-item--selected) {
                     .multiline-list-item__label { color: @white; }
@@ -121,6 +122,7 @@ export default {
         &__label {
             color: @gunpowder;
             &--selected { color: @royal-blue; }
+
             &:hover {
                 &:not(.multiline-list-item--disabled)&:not(.multiline-list-item--selected) {
                     .multiline-list-item__label { color: @black; }
@@ -131,7 +133,7 @@ export default {
 }
 
 .multiline-list-item--condensed {
-    padding: 3px 0px;
+    padding: 3px 0;
 
     .multiline-list-item {
         &__label {
@@ -150,7 +152,7 @@ export default {
 }
 
 .multiline-list-item--normal {
-    padding: 5px 0px;
+    padding: 5px 0;
 
     .multiline-list-item {
         &__label {
@@ -164,7 +166,7 @@ export default {
 }
 
 .multiline-list-item--phat {
-    padding: 10px 0px;
+    padding: 10px 0;
 
     .multiline-list-item {
         &__label {

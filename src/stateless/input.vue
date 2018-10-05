@@ -22,12 +22,12 @@
                 <div class="input-row__input-flex">
                     <textarea v-if="autogrow" ref="inputHiddenOneLine"
                               class="input-row__placeholder-text input-row__textarea"
-                              style="height: 0px; position: absolute; visibility: hidden;">
+                              style="height: 0; position: absolute; visibility: hidden;">
                     </textarea>
                     <textarea v-if="autogrow" ref="inputHidden"
                               :value="maxLengthNumber === null ? text : text ? text.substring(0, maxLengthNumber) : null"
                               class="input-row__placeholder-text input-row__textarea"
-                              style="height: 0px; position: absolute; visibility: hidden;">
+                              style="height: 0; position: absolute; visibility: hidden;">
                     </textarea>
 
                     <textarea v-if="autogrow" ref="input" :class="textareaClasses" :value="text"
@@ -140,8 +140,8 @@ export default {
     },
     computed: {
         states () {
-            let isError = this.errorMessage !== null && this.errorMessage !== true
-            let isWarning = this.warningMessage !== null && this.warningMessage !== true
+            const isError = this.errorMessage !== null && this.errorMessage !== true
+            const isWarning = this.warningMessage !== null && this.warningMessage !== true
 
             return {
                 focused: this.focused,
@@ -174,8 +174,9 @@ export default {
             }
         },
         mappedHelperText () {
-            if (this.states.disabled)
+            if (this.states.disabled) {
                 return ''
+            }
             if (this.states.error) {
                 return this.errorMessage
             } else if (this.states.warning) {
@@ -224,8 +225,9 @@ export default {
         },
     },
     created () {
-        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow))
+        if (this.type !== 'text' && (this.maxLength || this.recommendedMaxLength || this.autogrow)) {
             throw new Error('Only type text is compatible with autogrow and input length props.')
+        }
 
         this.text = this.type === 'float' ? this.value.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false }) : this.value
     },
@@ -244,18 +246,20 @@ export default {
     },
     methods: {
         runValidations (value) {
-            let self = this
-            let onError = (e) => self.errorMessage = e
-            let onWarning = (w) => self.warningMessage = w
+            const self = this
+            const onError = (e) => self.errorMessage = e
+            const onWarning = (w) => self.warningMessage = w
 
-            if (this.isValid)
+            if (this.isValid) {
                 this.errorMessage = this.isValid(value, onError)
+            }
 
             if (this.errorMessage && this.errorMessage !== true) {
                 return false
             } else {
-                if (this.hasWarning)
+                if (this.hasWarning) {
                     this.warningMessage = this.hasWarning(value, onWarning)
+                }
 
                 if (this.warningMessage && this.warningMessage !== true) {
                     return false
@@ -281,14 +285,14 @@ export default {
                 value = value.replace(/\n/g, '')
             }
 
-            let trimLeadingZeros = (value) => {
-                let parts = value.split(this.decimalSeperator)
+            const trimLeadingZeros = (value) => {
+                const parts = value.split(this.decimalSeperator)
                 let wholeNumber = parts[0].replace(/^0*/, '')
                 wholeNumber = wholeNumber.length === 0 ? '0' : wholeNumber
                 return parts.length === 1 ? wholeNumber : wholeNumber + this.decimalSeperator + parts[1]
             }
 
-            let capNumber = (numberValue) => {
+            const capNumber = (numberValue) => {
                 if (this.maxNumberCap && numberValue > this.maxNumberCap) {
                     numberValue = this.maxNumberCap
                 } else if (this.minNumberCap && numberValue < this.minNumberCap) {
@@ -298,17 +302,17 @@ export default {
             }
 
             if (this.type === 'number') {
-                let isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
+                const isNumeric = value.split('').map((c) => c >= '0' && c <= '9').every(v => !!v)
                 let numberValue = parseInt(value)
 
                 if (isNumeric && !isNaN(numberValue)) {
-                    let cappedNumberValue = capNumber(numberValue)
+                    const cappedNumberValue = capNumber(numberValue)
                     if (cappedNumberValue !== numberValue) {
                         numberValue = cappedNumberValue
                         value = numberValue.toString()
                     }
 
-                    let trimmedValue = trimLeadingZeros(value)
+                    const trimmedValue = trimLeadingZeros(value)
                     if (trimmedValue !== value) {
                         value = trimmedValue
                     }
@@ -328,19 +332,19 @@ export default {
                     event.target.value = this.text
                 }
             } else if (this.type === 'float') {
-                let isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
+                const isFloat = value.split(this.decimalSeperator).length <= 2 && value.split('').map((c) => c >= '0' && c <= '9' || c === this.decimalSeperator).every(v => !!v)
                 let numberValue = parseFloat(value.replace(this.decimalSeperator, '.'))
-                let decimals = value.split(this.decimalSeperator)[1]
+                const decimals = value.split(this.decimalSeperator)[1]
 
                 if (isFloat && !isNaN(numberValue) && (!decimals || decimals.length <= this.decimalPrecision)) {
-                    let cappedNumberValue = capNumber(numberValue)
+                    const cappedNumberValue = capNumber(numberValue)
                     if (cappedNumberValue !== numberValue) {
                         numberValue = cappedNumberValue
                         value = numberValue.toLocaleString(this.locale, { minimumFractionDigits: this.decimalPrecision, useGrouping: false })
                         this.$refs.input.value = value
                     }
 
-                    let trimmedValue = trimLeadingZeros(value)
+                    const trimmedValue = trimLeadingZeros(value)
                     if (trimmedValue !== value) {
                         value = trimmedValue
                         this.$refs.input.value = value
@@ -387,7 +391,7 @@ export default {
         },
         updateHeight () {
             if (this.autogrow) {
-                let newValue = `${Math.min(this.maxHeight, this.$refs.inputHidden.scrollHeight)}px`
+                const newValue = `${Math.min(this.maxHeight, this.$refs.inputHidden.scrollHeight)}px`
                 if (newValue !== this.$refs.input.style.height) {
                     this.$refs.input.style.height = newValue
                 }
@@ -405,7 +409,7 @@ export default {
             this.$emit('focus')
 
             if ((this.text === '' || !this.text) && this.label) {
-                let translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
+                const translateX = this.$refs.inputWrap.getBoundingClientRect().left - this.$refs.input.getBoundingClientRect().left
                 let translateY = -18.5
                 let scale = 0.63
 
@@ -457,7 +461,7 @@ export default {
 @import (reference) './common';
 @import './typography';
 
-* { box-sizing: border-box }
+* { box-sizing: border-box; }
 
 .input {
     width: 100%;
@@ -494,9 +498,10 @@ export default {
     visibility: hidden;
     z-index: -1;
     user-select: none;
-    transition: transform @default-transition-time ease-out,
-                color @default-transition-time ease-out,
-                letter-spacing @default-transition-time ease-out;
+    transition:
+        transform @default-transition-time ease-out,
+        color @default-transition-time ease-out,
+        letter-spacing @default-transition-time ease-out;
 
     &--overlay-open {
         color: @royal-blue;
@@ -508,6 +513,7 @@ export default {
                 visibility: hidden;
                 z-index: @z-default;
             }
+
             to {
                 visibility: visible;
                 z-index: @z-default;
@@ -521,7 +527,6 @@ export default {
         color: @gunpowder;
         letter-spacing: normal;
     }
-
 }
 
 .input-field__label-text {
@@ -578,7 +583,7 @@ export default {
         background-color: transparent;
         border: 0;
         outline: none;
-        margin: 4px 0px;
+        margin: 4px 0;
 
         &.input-row__textarea {
             // we get 2 extra px because some weird textarea styling
@@ -615,6 +620,7 @@ export default {
 
         &--dark {
             color: white;
+
             &::placeholder {
                 color: @very-light-gray;
             }
@@ -622,17 +628,18 @@ export default {
 
         &--light {
             color: @black;
+
             &::placeholder {
                 color: @gunpowder;
             }
         }
 
         &--error { color: @pink-red; }
-        &--disabled { color: @gunpowder }
-        &--disabled::placeholder { color: @gunpowder }
+        &--disabled { color: @gunpowder; }
+        &--disabled::placeholder { color: @gunpowder; }
 
-        &--disabled&--light { color: @very-light-gray }
-        &--disabled&--light::placeholder { color: @very-light-gray }
+        &--disabled&--light { color: @very-light-gray; }
+        &--disabled&--light::placeholder { color: @very-light-gray; }
     }
 
     &--dark {
@@ -814,7 +821,7 @@ export default {
     }
 
     .input-row__placeholder-text {
-        margin: 9px 0px;
+        margin: 9px 0;
         font-size: 22px;
 
         &.input-row__textarea {
@@ -826,9 +833,9 @@ export default {
     .input-row__unit {
         font-size: 22px;
 
-        &--left { margin-right: 10px }
+        &--left { margin-right: 10px; }
 
-        &--right { margin-left: 10px }
+        &--right { margin-left: 10px; }
     }
 
     .input-field__helper-text {
@@ -839,7 +846,7 @@ export default {
 }
 
 .input--condensed {
-    .input-field--with-icon { width: ~"calc(100% - 30px)" }
+    .input-field--with-icon { width: ~"calc(100% - 30px)"; }
 
     .input-field__border-overlay {
         margin-bottom: -2px;
@@ -862,7 +869,7 @@ export default {
     }
 
     .input-row__placeholder-text {
-        margin: 2px 0px;
+        margin: 2px 0;
         font-size: 14px;
         border-width: 0 0 1px 0;
 

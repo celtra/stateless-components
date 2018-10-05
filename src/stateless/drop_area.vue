@@ -100,8 +100,8 @@ export default {
 
     svg {
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         height: 100%;
         width: 100%;
     }
@@ -122,7 +122,7 @@ export default {
 }
 
 .drop-area__overlay--light {
-    background-color: fade(#002DB8, 80);
+    background-color: fade(#002db8, 80);
 
     path {
         stroke: fade(black, 20);

@@ -125,7 +125,8 @@ export default {
             cursor: auto;
         }
 
-        &--focused, &:hover {
+        &--focused,
+        &:hover {
             .radio-element__oval-wrapper:not(.radio-element__oval-wrapper--checked):not(.radio-element__oval-wrapper--disabled) {
                 svg > * {
                     stroke: @very-light-gray;
@@ -292,7 +293,8 @@ export default {
     .radio-element__radio-row {
         height: 34px;
 
-        &--focused, &:hover {
+        &--focused,
+        &:hover {
             .radio-element__oval:not(.radio-element__oval--disabled) {
                 transform: scale3d(1.333, 1.333, 1);
             }
@@ -348,7 +350,8 @@ export default {
     .radio-element__radio-row {
         height: 20px;
 
-        &--focused, &:hover {
+        &--focused,
+        &:hover {
             .radio-element__oval:not(.radio-element__oval--disabled) {
                 transform: translateY(-1px) scale3d(1.286, 1.286, 1);
             }
@@ -394,8 +397,9 @@ export default {
             }
         }
 
-        &--focused, &:hover {
-             .radio-element__oval:not(.radio-element__oval--checked):not(.radio-element__oval--disabled) {
+        &--focused,
+        &:hover {
+            .radio-element__oval:not(.radio-element__oval--checked):not(.radio-element__oval--disabled) {
                 border-color: @gray-blue;
             }
 

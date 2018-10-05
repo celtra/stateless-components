@@ -1,9 +1,9 @@
 const flatVariations = (variations) => {
     let flat = [{}]
 
-    for (let key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {
+    for (const key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {
         let newFlat = []
-        for (let value of variations[key]) {
+        for (const value of variations[key]) {
             newFlat = newFlat.concat(flat.map(item => {
                 return { ...item, [key]: value }
             }))
@@ -38,18 +38,18 @@ const getHash = (usecase) => {
 }
 
 export function getFlatUsecases (component, ignoreVariations = []) {
-    let usecases = []
+    const usecases = []
     if (component.usecases) {
         const variations = component.variations && component.variations || {}
-        let filterVariations = {}
-        for (let k in variations) {
+        const filterVariations = {}
+        for (const k in variations) {
             if (!ignoreVariations.includes(k)) {
                 filterVariations[k] = variations[k]
             }
         }
 
-        for (let variation of flatVariations(filterVariations)) {
-            for (let usecase of component.usecases) {
+        for (const variation of flatVariations(filterVariations)) {
+            for (const usecase of component.usecases) {
                 const usecaseData = { ...variation, ...usecase }
                 usecases.push({ data: usecaseData, uniqueID: getHash(usecaseData) })
             }
@@ -59,15 +59,17 @@ export function getFlatUsecases (component, ignoreVariations = []) {
 }
 
 export function getProps (component) {
-    let componentProps = component.props
+    const componentProps = component.props
     const usecases = getFlatUsecases(component)
-    let defaultProps = usecases.length > 0 ? usecases[0].data : {}
+    const defaultProps = usecases.length > 0 ? usecases[0].data : {}
 
     let allProps = {}
-    for (let key in componentProps)
+    for (const key in componentProps) {
         allProps[key] = true
-    for (let key in defaultProps)
+    }
+    for (const key in defaultProps) {
         allProps[key] = true
+    }
     allProps = Object.keys(allProps)
 
     return allProps.map(propName => {

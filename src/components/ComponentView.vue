@@ -17,13 +17,14 @@ export default {
     },
     computed: {
         componentData () {
-            if (this.name === null)
+            if (this.name === null) {
                 return null
+            }
 
-            let component = library[this.name]
+            const component = library[this.name]
 
-            let modelName = component.model ? component.value : 'value'
-            let modelEvent = component.model ? component.event : 'input'
+            const modelName = component.model ? component.value : 'value'
+            const modelEvent = component.model ? component.event : 'input'
 
             let data = {
                 [modelName]: this.value,
@@ -38,10 +39,10 @@ export default {
                 slotFn = usecases[0].data.slot || null
             }
 
-            for (let key in this.query) {
-                let propConfig = component.props[key]
+            for (const key in this.query) {
+                const propConfig = component.props[key]
 
-                let value = this.query[key]
+                const value = this.query[key]
                 if (!propConfig) {
                     data[key] = value
                 } else if (propConfig.type === Boolean) {
@@ -93,14 +94,14 @@ export default {
     },
     methods: {
         setupComponent () {
-            let name = this.$route.params.component
-            let component = library[name]
-            if (!component) {
+            const name = this.$route.params.component
+            const data = components[name]
+            if (!data) {
                 throw `Component ${name} does not exist!`
             }
 
-            let modelName = component.model ? component.value : 'value'
-            this.value = component.props[modelName] ? component.props[modelName].default : null
+            const modelName = data.component.model ? data.component.value : 'value'
+            this.value = data.defaultProps && data.defaultProps[modelName]
             this.name = name
         },
         updateQuery () {
