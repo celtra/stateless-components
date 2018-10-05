@@ -1,5 +1,5 @@
 export function getTextHighlightParts (text, query) {
-    let simpleQuery = query.toLowerCase().trim()
+    const simpleQuery = query.toLowerCase().trim()
     const index = simpleQuery && simpleQuery.length > 0 ? text.toLowerCase().indexOf(simpleQuery) : -1
     if (index === -1) {
         return [
@@ -10,7 +10,7 @@ export function getTextHighlightParts (text, query) {
     const atIndex = text.substring(index, index + simpleQuery.length)
     const afterIndex = text.substring(index + simpleQuery.length)
 
-    let parts = []
+    const parts = []
     if (beforeIndex.length > 0) {
         parts.push({
             text: beforeIndex,

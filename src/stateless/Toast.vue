@@ -39,8 +39,9 @@ export default {
             this.leaving = true
         },
         close () {
-            if (this.leaving)
+            if (this.leaving) {
                 this.$emit('close')
+            }
         },
         action () {
             this.$emit('action')
@@ -66,7 +67,7 @@ export default {
     position: fixed;
     padding: 0 30px;
     bottom: 70px;
-    box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);
     animation: slide-in @slide-in-out-animation-time ease-out;
     z-index: @z-lowest;
 
@@ -92,7 +93,7 @@ export default {
 
     &--dark {
         background-color: @gunpowder;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 
         .toast-element__label {
             color: white;
@@ -106,13 +107,13 @@ export default {
 
 @keyframes slide-in {
     from {
-        transform: translateY(120px)
+        transform: translateY(120px);
     }
 }
 
 @keyframes slide-out {
     to {
-        transform: translateY(120px)
+        transform: translateY(120px);
     }
 }
 </style>

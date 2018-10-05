@@ -68,7 +68,7 @@ export default {
         open (ev) {
             this.showText = true
             this.$nextTick(() => {
-                let expandedHeight = this.$refs.content.scrollHeight
+                const expandedHeight = this.$refs.content.scrollHeight
 
                 this.isMultiline = expandedHeight > this.$refs.content.clientHeight + 1
 
@@ -144,20 +144,20 @@ export default {
         color: white;
         background-color: @gunpowder;
         font-size: 11px;
-        padding: 1px 0px;
+        padding: 1px 0;
         border-radius: 7px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
         line-height: 14px;
         white-space: pre;
         transition: transform @default-transition-time ease-out;
 
         &--light {
-            background-color: #F7F7F7;
-            color: #7A7982;
+            background-color: #f7f7f7;
+            color: #7a7982;
         }
 
         &--multiline {
-            padding: 3px 0px;
+            padding: 3px 0;
             transition: transform 100ms ease-out, height 80ms ease-out;
         }
 

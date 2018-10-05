@@ -202,7 +202,7 @@ export default {
 
 <style lang="less" scoped>
 .icon-wrapper {
-    font-size: 0px;
+    font-size: 0;
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -216,6 +216,7 @@ export default {
 .path {
     fill: currentColor;
 }
+
 .stroke-path {
     stroke: currentColor;
 }
@@ -225,7 +226,7 @@ export default {
 }
 
 @keyframes SPIN {
-    0%   { transform: rotate(0); }
+    0% { transform: rotate(0); }
     100% { transform: rotate(720deg); }
 }
 </style>

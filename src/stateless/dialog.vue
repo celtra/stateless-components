@@ -67,7 +67,7 @@ export default {
                 this.blurElement.style['-webkit-transition'] = '-webkit-filter 250ms ease-out'
             }
 
-            let onAnimationEnd = (e) => {
+            const onAnimationEnd = (e) => {
                 this.$refs.overlay.removeEventListener('animationend', onAnimationEnd)
 
                 if (this.dialogViewState === 'opening') {
@@ -102,7 +102,7 @@ export default {
                 this.blurElement.style.filter = ''
             }
 
-            let onAnimationEnd = (e) => {
+            const onAnimationEnd = (e) => {
                 this.$refs.overlay.removeEventListener('animationend', onAnimationEnd)
 
                 if (this.blurElement) {
@@ -160,14 +160,12 @@ export default {
 .new-dialog {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-
     z-index: @z-high;
 
     &--closed {
@@ -185,7 +183,8 @@ export default {
         transform: scaleY(0); // Revert to scale3d after switching to webpack (https://celtra.atlassian.net/browse/MAB-10812)
         opacity: 0;
 
-        &--opening, &--open {
+        &--opening,
+        &--open {
             animation-duration: @open-close-animation-time-background;
             animation-timing-function: ease-out;
             animation-fill-mode: forwards;
@@ -220,6 +219,7 @@ export default {
                 opacity: 1;
                 transform: scaleY(1); // Revert to scale3d after switching to webpack (https://celtra.atlassian.net/browse/MAB-10812)
             }
+
             to {
                 transform: scaleY(0); // Revert to scale3d after switching to webpack (https://celtra.atlassian.net/browse/MAB-10812)
                 opacity: 0;
@@ -275,12 +275,12 @@ export default {
 
         @keyframes opening-content-animation {
             from { opacity: 0; }
-            to   { opacity: 1; }
+            to { opacity: 1; }
         }
 
         @keyframes closing-content-animation {
             from { opacity: 1; }
-            to   { opacity: 0; }
+            to { opacity: 0; }
         }
     }
 
@@ -302,8 +302,8 @@ export default {
 
 @step-animation-time: 0.2s;
 
-.step-next-leave-active     { animation: step-next-leave-animation @step-animation-time ease-in; }
-.step-next-enter-active     { animation: step-next-enter-animation @step-animation-time ease-out; }
+.step-next-leave-active { animation: step-next-leave-animation @step-animation-time ease-in; }
+.step-next-enter-active { animation: step-next-enter-animation @step-animation-time ease-out; }
 .step-previous-leave-active { animation: step-previous-leave-animation @step-animation-time ease-in; }
 .step-previous-enter-active { animation: step-previous-enter-animation @step-animation-time ease-out; }
 
@@ -312,10 +312,12 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     50% {
         transform: translate3d(-150px, 0, 0);
         opacity: 0.7;
     }
+
     100% {
         transform: translate3d(-300px, 0, 0);
         opacity: 0;
@@ -327,14 +329,17 @@ export default {
         transform: translate3d(1000px, 0, 0);
         opacity: 0;
     }
+
     5% {
         transform: translate3d(950px, 0, 0);
         opacity: 0.05;
     }
+
     10% {
         transform: translate3d(300px, 0, 0);
         opacity: 0.1;
     }
+
     100% {
         transform: translate3d(0, 0, 0);
         opacity: 1;
@@ -346,6 +351,7 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     to {
         transform: translate3d(300px, 0, 0);
         opacity: 0;
@@ -357,6 +363,7 @@ export default {
         transform: translate3d(-300px, 0, 0);
         opacity: 0;
     }
+
     to {
         transform: translate3d(0, 0, 0);
         opacity: 1;

@@ -71,7 +71,7 @@ describe('FileUpload', () => {
 
         describe('fileInputSquareModifiers', function () {
             it('should set empty to true if hash is empty', function () {
-                let fileInputSquareModifiers = vm.fileInputSquareModifiers
+                const fileInputSquareModifiers = vm.fileInputSquareModifiers
 
                 expect(fileInputSquareModifiers['empty']).toBe(true)
                 expect(fileInputSquareModifiers['error']).toBe(false)
@@ -82,7 +82,7 @@ describe('FileUpload', () => {
                 vm.file = { name: 'a', thumbnailUrl: 'b' }
                 vm.uploadFinished = true
 
-                let fileInputSquareModifiers = vm.fileInputSquareModifiers
+                const fileInputSquareModifiers = vm.fileInputSquareModifiers
                 expect(fileInputSquareModifiers['empty']).toBe(false)
                 expect(fileInputSquareModifiers['error']).toBe(false)
                 expect(fileInputSquareModifiers['clickable']).toBe(false)
@@ -125,7 +125,7 @@ describe('FileUpload', () => {
             })
 
             it('should emit file selected', function () {
-                let mockFile = { mock: 'file', type: 'text/plain' }
+                const mockFile = { mock: 'file', type: 'text/plain' }
 
                 vm.$refs.fileInput = { value: 'mock value' }
 
