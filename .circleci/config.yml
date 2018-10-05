@@ -18,18 +18,22 @@ jobs:
           command: docker-compose run --name circle test-ci
 
       - run:
-          name: Copy artifacts
+          name: Copy test results
           when: always
           command: |
+            docker cp circle:/app/junit.xml /tmp/test-results/jest.xml
+
+      - run:
+          name: Copy artifacts
+          when: on_fail
+          command: |
             docker cp circle:/app/test/unit/specs/__image_snapshots__/__diff_output__ /tmp/image-diff
-            docker cp circle:/app/junit.xml /tmp/test-results/junit.xml
 
       - store_test_results:
           path: /tmp/test-results
 
       - store_artifacts:
           path: /tmp/image-diff
-          destination: image-diff
 
 workflows:
   version: 2
