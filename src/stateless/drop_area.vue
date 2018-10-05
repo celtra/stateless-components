@@ -8,7 +8,6 @@
 
 <script>
 export default {
-    name: 'drop-area',
     model: {
         prop: 'dragActive',
         event: 'drag-change',
@@ -17,20 +16,6 @@ export default {
         dragActive: { type: Boolean, default: false },
         theme: { type: String, default: 'dark' },
         size: { type: String, default: 'full' },
-    },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-        dragActive: [false, true],
-    },
-    usecases: [
-        {},
-    ],
-    data () {
-        return {
-            width: null,
-            height: null,
-        }
     },
     computed: {
         outlinePath () {

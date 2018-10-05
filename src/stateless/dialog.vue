@@ -32,7 +32,6 @@
 import DialogHeader from './dialog_header.vue'
 
 export default {
-    name: 'custom-dialog',
     components: {
         dialogHeader: DialogHeader,
     },
@@ -48,30 +47,6 @@ export default {
         isClosingAllowed: { type: Boolean, default: true },
         closed: { type: Boolean, default: false },
     },
-    hasAbsolutePosition: true,
-    setup () {
-        return new Promise((resolve, reject) => {
-            setTimeout(resolve, 1000)
-        })
-    },
-    slot (h) {
-        const style = { textAlign: 'center', color: this.theme === 'dark' ? 'white' : 'black' }
-        return h('div', { style }, 'Dialog content goes here')
-    },
-    variations: {
-        theme: ['dark', 'light'],
-        hasBackButton: [true, false],
-        hasCloseButton: [true, false],
-        stepId: ['a', null],
-    },
-    usecases: [
-        {
-            steps: [
-                { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
-                { id: 'b', passiveLabel: 'B', activeLabel: 'B' },
-            ],
-        },
-    ],
     data () {
         return {
             dialogViewState: 'opening',

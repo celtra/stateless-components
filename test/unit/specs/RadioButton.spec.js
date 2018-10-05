@@ -1,4 +1,4 @@
-import RadioButton from '@/stateless/radiobutton.vue'
+import { RadioButton } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

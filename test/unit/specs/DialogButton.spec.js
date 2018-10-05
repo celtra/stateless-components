@@ -1,4 +1,4 @@
-import DialogButton from '@/stateless/dialog_button.vue'
+import { DialogButton } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

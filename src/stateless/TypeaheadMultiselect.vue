@@ -22,7 +22,6 @@ import Tooltip from './Tooltip.vue'
 import TooltipMixin from '../helpers/tooltip_mixin'
 
 export default {
-    name: 'typeahead-multiselect',
     components: {
         Icon,
         Typeahead,
@@ -40,25 +39,6 @@ export default {
         maxLength: { type: Number, default: 30 },
         trackName: { type: String, default: 'typeaheadMultiselect' },
     },
-    /*usecases: [
-        {
-            label: 'Something',
-            value: [],
-            getSuggestions: (text) => {
-                return [
-                    { id: '1', label: "Something Something Something Something Something Something Something Something Something", metadata: 'zan.kusterle@gmail.comzan.kusterle@gmail.comzan.kusterle@gmail.com', icon: 'plus' },
-                    { id: '2', label: "Lorem" },
-                    { id: '3', label: "Ipsum", metadata: 'someone@lorem.ipsum' },
-                ]
-            },
-            isValid: (text) => {
-                if (text && text.length > 0 && text.indexOf('@') === -1) {
-                    return 'Not a valid email address'
-                }
-                return null
-            },
-        },
-    ],*/
     data () {
         return {
             text: '',

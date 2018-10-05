@@ -1,4 +1,4 @@
-import Checkbox from '@/stateless/checkbox.vue'
+import { Checkbox } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

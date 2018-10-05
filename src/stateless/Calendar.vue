@@ -39,7 +39,6 @@ import Icon from './icon.vue'
 import { compareDate } from './date_utils'
 
 export default {
-    name: 'calendar',
     components: { Icon },
     props: {
         theme: { type: String, default: 'dark' },
@@ -52,24 +51,6 @@ export default {
         locale: { type: String, default: 'en-US' },
         trackName: { type: String, default: 'calendar' },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-    },
-    /*usecases: [
-        {
-            value: new Date(2018, 0, 10),
-            isRange: false,
-        },
-        {
-            value: { from: new Date(2018, 0, 10) },
-            isRange: true,
-        },
-        {
-            value: { from: new Date(2018, 0, 10), to: new Date(2018, 1, 10) },
-            isRange: true,
-        },
-    ],*/
     data () {
         return {
             year: 0,

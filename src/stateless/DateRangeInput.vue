@@ -42,7 +42,6 @@
 import DateInput from './DateInput.vue'
 
 export default {
-    name: 'date-range-input',
     components: {
         DateInput,
     },

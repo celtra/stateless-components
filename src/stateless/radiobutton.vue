@@ -21,7 +21,6 @@
 
 <script>
 export default {
-    name: 'radio-button',
     model: {
         prop: 'selectedValue',
     },
@@ -37,20 +36,6 @@ export default {
         errorText: { type: String, required: false, default: '' },
         trackName: { type: String, required: false },
     },
-    slot (h) {
-        return 'Something'
-    },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-        disabled: [false, true],
-        selectedValue: ['none', 'something'],
-    },
-    usecases: [
-        {
-            value: 'something',
-        },
-    ],
     data () {
         return {
             focused: false,

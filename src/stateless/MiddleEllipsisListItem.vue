@@ -13,7 +13,6 @@
 import MiddleEllipsis from './MiddleEllipsis.vue'
 
 export default {
-    name: 'middle-ellipsis-list-item',
     components: {
         MiddleEllipsis,
     },

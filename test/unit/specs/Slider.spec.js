@@ -1,4 +1,4 @@
-import Slider from '@/stateless/slider.vue'
+import { Slider } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

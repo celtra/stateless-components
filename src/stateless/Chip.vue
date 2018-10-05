@@ -12,7 +12,6 @@
 import Icon from './icon.vue'
 
 export default {
-    name: 'chip',
     components: {
         Icon,
     },
@@ -24,21 +23,6 @@ export default {
         isRemovable: { type: Boolean, default: false },
         isDisabled: { type: Boolean, default: false },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        isActive: [false, true],
-        isRemovable: [false, true],
-        isDisabled: [false, true],
-    },
-    usecases: [
-        {
-            label: 'Label',
-        },
-        {
-            label: 'Label',
-            metadata: '3/9',
-        },
-    ],
 }
 </script>
 

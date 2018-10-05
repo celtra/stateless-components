@@ -7,12 +7,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'inline-dialog',
-}
-</script>
-
 <style lang="less" scoped>
 @import (reference) './common';
 @import './typography';

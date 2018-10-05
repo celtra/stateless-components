@@ -149,7 +149,6 @@ function loadImage (file) {
 }
 
 export default {
-    name: 'file-upload',
     model: {
         prop: 'file',
         event: 'update',
@@ -165,16 +164,6 @@ export default {
         width: { type: Number, default: 280 },
         inputName: { type: String, required: false, default: 'video-file' },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        disabled: [false, true],
-    },
-    usecases: [
-        {
-            file: {},
-            uploadUrl: 'https://example.com',
-        },
-    ],
     data () {
         return {
             progress: 0,

@@ -20,7 +20,6 @@
 import DialogButton from './dialog_button.vue'
 
 export default {
-    name: 'dialog-button',
     components: { dialogButton: DialogButton },
     props: {
         disabled: { type: Boolean, default: false },
@@ -31,18 +30,6 @@ export default {
         target: { type: String, default: '_self' },
         trackName: { type: String, required: false },
     },
-    slot (h) {
-        return 'Something'
-    },
-    variations: {
-        disabled: [false, true],
-        // loading: [false, true], We would have to disable animation to test this
-        error: [false, true],
-        warning: [false, true],
-    },
-    usecases: [
-        {},
-    ],
     methods: {
         click () {
             this.$root.$emit('tracking-event', { type: 'button', label: this.trackName || ((this.$slots && this.$slots.default && this.$slots.default[0].text) ? this.$slots.default[0].text : 'dialog-button'), trigger: 'click' })

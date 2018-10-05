@@ -11,7 +11,6 @@ import InputElement from './input.vue'
 import Icon from './icon.vue'
 
 export default {
-    name: 'search-input',
     components: {
         InputElement,
         Icon,
@@ -23,15 +22,6 @@ export default {
         size: { type: String, default: 'normal' },
         theme: { type: String, default: 'dark' },
     },
-    usecases: [
-        {
-            label: 'Something',
-        },
-        {
-            label: 'Something',
-            value: 'Value',
-        },
-    ],
     methods: {
         focus () {
             this.$refs.input.focus()

@@ -1,4 +1,4 @@
-import Icon from '@/stateless/icon.vue'
+import { Icon } from '@/library.js'
 import snapshotMixin from '../component_snapshot_mixin'
 
 describe('Icon', () => {

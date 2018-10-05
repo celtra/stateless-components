@@ -35,7 +35,6 @@
 
 <script>
 export default {
-    name: 'support-text',
     components: {
         supportText: this,
     },
@@ -46,15 +45,6 @@ export default {
         theme: { type: String, default: 'dark' },
         trackName: { type: String, required: false },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        isRight: [false, true],
-    },
-    usecases: [
-        {
-            text: 'Lorem Ipsum<br>And a new line',
-        },
-    ],
     data () {
         return {
             isMultiline: false,

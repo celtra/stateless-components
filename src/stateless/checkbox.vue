@@ -30,7 +30,6 @@
 import Icon from './icon.vue'
 
 export default {
-    name: 'checkbox',
     components: { Icon },
     props: {
         theme: { type: String, required: false, default: 'dark' },
@@ -45,21 +44,6 @@ export default {
         errorText: { type: String, required: false, default: '' },
         trackName: { type: String, default: 'checkbox' },
     },
-    slot (h) {
-        return h('div', 'Something')
-    },
-    variations: {
-        theme: ['dark', 'light', 'white'],
-        size: ['condensed', 'normal', 'phat'],
-        value: [true, false],
-        disabled: [false, true],
-    },
-    usecases: [
-        {},
-        {
-            isToggle: true,
-        },
-    ],
     data () {
         return {
             focused: false,

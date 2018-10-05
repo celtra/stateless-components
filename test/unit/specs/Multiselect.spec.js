@@ -1,4 +1,4 @@
-import Multiselect from '@/stateless/multiselect.vue'
+import { Multiselect } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

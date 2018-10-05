@@ -9,19 +9,9 @@
 
 <script>
 export default {
-    name: 'file-upload-requirements',
     props: {
         requirements: { type: Array, required: true },
     },
-    hasAbsolutePosition: true,
-    usecases: [
-        {
-            requirements: [
-                { name: 'Format', value: 'PNG, JPG' },
-                { name: 'Size', value: 'max. 3MB' },
-            ],
-        },
-    ],
 }
 </script>
 

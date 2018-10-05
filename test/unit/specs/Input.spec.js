@@ -1,4 +1,4 @@
-import Input from '@/stateless/input.vue'
+import { Input } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

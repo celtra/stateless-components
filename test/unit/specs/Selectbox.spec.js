@@ -1,4 +1,4 @@
-import Selectbox from '@/stateless/selectbox.vue'
+import { Selectbox } from '@/library.js'
 import Vue from 'vue'
 import snapshotMixin from '../component_snapshot_mixin'
 

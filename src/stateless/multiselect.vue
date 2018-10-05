@@ -43,10 +43,8 @@ import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
 import * as itemsUtils from './items_utils.js'
 import debounce from 'lodash.debounce'
-import { defaultItems } from './demo_data'
 
 export default {
-    name: 'multiselect',
     components: {
         SearchInput,
         checkboxElement: Checkbox,
@@ -75,18 +73,6 @@ export default {
         loadAsyncDebounce: { type: Number, default: 0 },
         trackName: { type: String, default: 'multiselect' },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-        isSearchable: [false, true],
-        canSelectAndClearAll: [false, true],
-    },
-    usecases: [
-        {
-            options: defaultItems,
-            value: ['1', '2'],
-        },
-    ],
     data () {
         return {
             disableTransition: false,

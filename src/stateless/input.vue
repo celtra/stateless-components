@@ -87,7 +87,6 @@
 
 <script>
 export default {
-    name: 'input-element',
     props: {
         value: { type: [String, Number], default: '' },
         label: { type: String, required: false },
@@ -114,16 +113,6 @@ export default {
         locale: { type: String, default: 'en-US' },
         trackName: { type: String, required: false },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-        disabled: [false, true],
-    },
-    usecases: [
-        {
-            label: 'Something',
-        },
-    ],
     data () {
         return {
             warningMessage: null,

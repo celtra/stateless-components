@@ -1,4 +1,4 @@
-import SupportText from '@/stateless/support_text.vue'
+import { SupportText } from '@/library.js'
 import snapshotMixin from '../component_snapshot_mixin'
 
 describe('SupportText', () => {

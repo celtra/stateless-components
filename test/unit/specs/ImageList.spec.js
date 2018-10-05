@@ -1,4 +1,4 @@
-import ImageList from '@/stateless/image_list.vue'
+import { ImageList } from '@/library.js'
 import snapshotMixin from '../component_snapshot_mixin'
 
 describe('ImageList', () => {

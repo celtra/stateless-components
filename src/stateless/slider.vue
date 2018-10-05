@@ -58,7 +58,6 @@
 import Input from './input.vue'
 
 export default {
-    name: 'slider',
     components: {
         inputElement: Input,
     },
@@ -79,22 +78,6 @@ export default {
         disabled: { type: Boolean, default: false },
         trackName: { type: String, required: false },
     },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-    },
-    usecases: [
-        {
-            min: 1,
-            max: 100,
-            limit: 20,
-            step: 1,
-            label: 'Basic slider',
-            value: 5,
-            unit: '%',
-            alignment: 'right',
-        },
-    ],
     data () {
         return {
             isDomReady: false,

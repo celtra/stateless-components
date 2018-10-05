@@ -7,30 +7,12 @@
 
 <script>
 export default {
-    name: 'tooltip',
     props: {
         theme: { type: String, default: 'dark' },
         title: { type: String, required: false },
         show: { type: Boolean, default: false },
         isRelative: { type: Boolean, default: true },
     },
-    hasAbsolutePosition: true,
-    setup () {
-        // Wait for tooltip animation to finish
-        return new Promise(resolve => setTimeout(resolve, 1200))
-    },
-    slot (h) {
-        return 'Something'
-    },
-    variations: {
-        theme: ['dark', 'light'],
-    },
-    usecases: [
-        {
-            title: 'Some',
-            show: true,
-        },
-    ],
     data () {
         return {
             translateX: null,

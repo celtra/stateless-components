@@ -1,4 +1,4 @@
-import FileUploadRequirements from '@/stateless/file_upload_requirements.vue'
+import { FileUploadRequirements } from '@/library.js'
 import snapshotMixin from '../component_snapshot_mixin'
 
 describe('FileUploadRequirements', () => {

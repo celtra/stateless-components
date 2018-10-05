@@ -14,7 +14,6 @@
 import SupportText from './support_text.vue'
 
 export default {
-    name: 'group',
     components: {
         supportText: SupportText,
     },
@@ -23,21 +22,6 @@ export default {
         description: { type: String, required: false },
         theme: { type: String, default: 'dark' },
     },
-    slot (h) {
-        return h('div', 'Something')
-    },
-    variations: {
-        theme: ['dark', 'light'],
-    },
-    usecases: [
-        {
-            label: 'Modeling',
-        },
-        {
-            label: 'Modeling',
-            description: 'Loooooooong descriptiooooooooon',
-        },
-    ],
 }
 </script>
 

@@ -29,7 +29,6 @@
 import { getTextHighlightParts } from './string_utils.js'
 
 export default {
-    name: 'multiline-list-item',
     props: {
         size: { type: String, required: false, default: 'normal' },
         theme: { type: String, required: false, default: 'dark' },

@@ -1,4 +1,4 @@
-import FileUpload from '@/stateless/file_upload.vue'
+import { FileUpload } from '@/library.js'
 import Vue from 'vue'
 import { getFlatUsecases } from '@/component_utils'
 import snapshotMixin from '../component_snapshot_mixin'

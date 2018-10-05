@@ -36,10 +36,8 @@
 <script>
 import { find } from './items_utils'
 import DefaultList from './DefaultList.vue'
-import { largeItems } from './demo_data'
 
 export default {
-    name: 'scrollable-list',
     components: {
         DefaultList,
     },
@@ -57,22 +55,6 @@ export default {
         showOverlay: { type: Boolean, default: false },
         initialOffset: { type: Number, default: 0 },
     },
-    setup () {
-        // Wait for large items to render
-        return new Promise(resolve => setTimeout(resolve, 200))
-    },
-    variations: {
-        theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
-    },
-    usecases: [
-        {
-            items: largeItems,
-            numItems: 10,
-            label: 'Something',
-            showOverlay: true,
-        },
-    ],
     data () {
         return {
             isListReady: false,

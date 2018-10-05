@@ -73,7 +73,7 @@ export default {
             slot = this._v(slot)
         }
 
-        return h('div', { style: { display: 'flex', position: 'relative', width: '50%' } }, [
+        return h('div', { style: { display: 'flex', position: 'relative', width: '50%', height: '100%' } }, [
             h(this.componentData.component, { props: this.componentData.data, listeners: this.componentData.listeners }, slot ? [slot] : []),
         ])
     },

@@ -12,31 +12,12 @@
 <script>
 
 export default {
-    name: 'toast',
     props: {
         label: { type: String },
         actionLabel: { type: String },
         theme: { type: String, default: 'dark' },
         timeout: { type: Number, default: 5000 },
     },
-    hasAbsolutePosition: true,
-    setup () {
-        return new Promise((resolve, reject) => {
-            setTimeout(resolve, 1000)
-        })
-    },
-    variations: {
-        theme: ['dark', 'light'],
-    },
-    usecases: [
-        {
-            label: 'Label',
-        },
-        {
-            label: 'Label',
-            actionLabel: 'Action',
-        },
-    ],
     data () {
         return {
             leaving: false,

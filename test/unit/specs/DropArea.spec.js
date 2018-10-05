@@ -1,4 +1,4 @@
-import DropArea from '@/stateless/drop_area.vue'
+import { DropArea } from '@/library.js'
 import Vue from 'vue'
 import { getFlatUsecases } from '@/component_utils'
 
