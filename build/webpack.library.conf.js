@@ -20,14 +20,14 @@ module.exports = {
         filename: 'index.js',
         library: 'index',
         libraryTarget: 'umd',
-        umdNamedDefine: true
+        umdNamedDefine: true,
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
-        }
+        },
     },
     module: {
         rules: [
@@ -37,7 +37,7 @@ module.exports = {
                 options: {
                     loaders: utils.cssLoaders({
                         sourceMap: sourceMapEnabled,
-                        extract: false
+                        extract: false,
                     }),
                     cssSourceMap: sourceMapEnabled,
                     cacheBusting: config.dev.cacheBusting,
@@ -45,39 +45,39 @@ module.exports = {
                         video: ['src', 'poster'],
                         source: 'src',
                         img: 'src',
-                        image: 'xlink:href'
-                    }
-                }
+                        image: 'xlink:href',
+                    },
+                },
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+                include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')],
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('img/[name].[hash:7].[ext]')
-                }
+                    name: utils.assetsPath('img/[name].[hash:7].[ext]'),
+                },
             },
             {
                 test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('media/[name].[hash:7].[ext]')
-                }
+                    name: utils.assetsPath('media/[name].[hash:7].[ext]'),
+                },
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-                }
-            }
-        ]
-    }
-};
+                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
+                },
+            },
+        ],
+    },
+}
