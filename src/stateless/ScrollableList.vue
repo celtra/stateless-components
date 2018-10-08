@@ -113,7 +113,7 @@ export default {
         },
         positionSelectList () {
             if (this.value) {
-                let item = find(this.items, x => x.id === this.value)
+                const item = find(this.items, x => x.id === this.value)
                 this.scrollTo(item ? item.key || item.id : this.value)
             }
         },
@@ -151,7 +151,7 @@ export default {
             this.$emit('activate', itemId)
         },
         focus () {
-            let scrollTop = this.$refs.scrollable.scrollTop
+            const scrollTop = this.$refs.scrollable.scrollTop
             this.$refs.list.focus()
             this.$refs.scrollable.scrollTop = scrollTop
         },

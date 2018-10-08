@@ -84,7 +84,7 @@ export default {
 
     &--dark {
         background-color: @gunpowder;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 
         .toast-element__label {
             color: white;

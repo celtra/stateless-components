@@ -194,14 +194,14 @@ describe('Input', () => {
 
     describe('methods', () => {
         describe('runValidations', () => {
-            let alwaysInvalid = (v) => 'no'
-            let alwaysValid = (v) => true
+            const alwaysInvalid = (v) => 'no'
+            const alwaysValid = (v) => true
 
             it('should save error', function () {
                 vm.isValid = alwaysInvalid
                 vm.hasWarning = alwaysInvalid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe('no')
                 expect(vm.warningMessage).toBe(null)
                 expect(isValid).toBe(false)
@@ -211,7 +211,7 @@ describe('Input', () => {
                 vm.isValid = alwaysValid
                 vm.hasWarning = alwaysInvalid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe(true)
                 expect(vm.warningMessage).toBe('no')
                 expect(isValid).toBe(false)
@@ -221,7 +221,7 @@ describe('Input', () => {
                 vm.isValid = alwaysValid
                 vm.hasWarning = alwaysValid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe(true)
                 expect(vm.warningMessage).toBe(true)
                 expect(isValid).toBe(true)
@@ -229,7 +229,7 @@ describe('Input', () => {
         })
 
         describe('togglePasswordVisibility', () => {
-            it('should toggle', function (){
+            it('should toggle', function () {
                 vm.type = 'password'
 
                 expect(vm.passwordVisible).toBe(false)

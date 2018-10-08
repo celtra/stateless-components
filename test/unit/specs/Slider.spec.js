@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 const Constructor = Vue.extend(Slider)
 let vm = null
-let dragEvent = { clientX: 300, preventDefault: () => {} }
+const dragEvent = { clientX: 300, preventDefault: () => {} }
 
 describe('Slider', () => {
     beforeEach(() => {
@@ -22,7 +22,9 @@ describe('Slider', () => {
         }).$mount()
 
         vm.isDomReady = false
-        vm.$refs.bar = { clientWidth: 300, getBoundingClientRect: () => { return { x: 160 } }, focus: () => {} }
+        vm.$refs.bar = { clientWidth: 300, getBoundingClientRect: () => {
+            return { x: 160 }
+        }, focus: () => {} }
     })
 
     it('should match the snapshot', () => {

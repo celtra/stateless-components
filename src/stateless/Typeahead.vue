@@ -1,6 +1,6 @@
 <template>
     <div v-click-outside="close" class="typeahead">
-        <input-element ref="input" v-bind="inputData" :error="inputError" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
+        <input-element ref="input" v-bind="inputData" :error="inputError" :label="label" :track-name="trackName" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
         <template v-if="showSuggestions">
             <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="numItems" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
@@ -12,6 +12,7 @@
 <script>
 import Input from './input.vue'
 import ScrollableList from './ScrollableList.vue'
+import debounce from 'lodash.debounce'
 
 export default {
     components: {
@@ -19,11 +20,13 @@ export default {
         ScrollableList,
     },
     props: {
+        label: { type: String },
         value: { type: [String, Number], default: '' },
         getSuggestions: { type: Function, required: true },
         noItemsText: { type: String, default: 'No items' },
         isValid: { type: Function, required: false },
         numItems: { type: Number, default: 10 },
+        trackName: { type: String, default: 'typeahead' },
     },
     data () {
         return {
@@ -94,6 +97,12 @@ export default {
         onInput (v) {
             this.isOpen = true
             this.$emit('input', v)
+            if (!this.onInputTrackingDebounced) {
+                this.onInputTrackingDebounced = debounce(() => {
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
+                }, 1000)
+            }
+            this.onInputTrackingDebounced()
         },
         onSelect (suggestion) {
             this.$emit('input', suggestion.label)
@@ -102,7 +111,7 @@ export default {
         },
         highlightFirstItem () {
             if (this.showSuggestions) {
-                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                const firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
                 if (firstEnabledIndex > -1 ) {
                     this.$refs.list.highlightItem(firstEnabledIndex)
                 }
@@ -110,14 +119,14 @@ export default {
         },
         selectFirstItem () {
             if (this.showSuggestions) {
-                let firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
+                const firstEnabledIndex = this.suggestions.findIndex(item => !item.disabled)
                 if (firstEnabledIndex > -1 ) {
                     this.onSelect(this.suggestions[0])
                 }
             }
         },
         onDown () {
-            if (this.$refs.list){
+            if (this.$refs.list) {
                 this.$refs.list.focus()
                 this.$refs.list.move(1)
             }
@@ -139,7 +148,7 @@ export default {
         margin-top: -7px;
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        padding: 15px 0px;
+        padding: 15px 0;
         z-index: @z-heaven;
     }
 

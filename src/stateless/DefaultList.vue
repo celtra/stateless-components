@@ -95,7 +95,7 @@ export default {
             return this.flatItems.filter(x => x.isLeaf && !x.disabled)
         },
         shownItemsWithData () {
-            let activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
+            const activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
                 const isLeaf = item.isLeaf || this.noGroupRendering
@@ -236,7 +236,7 @@ export default {
                 } else if (activeIndex < 0) {
                     activeIndex = this.flatSelectableItems.length - 1
                 }
-                let nextItem = this.flatSelectableItems[activeIndex]
+                const nextItem = this.flatSelectableItems[activeIndex]
 
                 this.activeId = (nextItem.key || nextItem.id)
             }
@@ -246,7 +246,7 @@ export default {
         startUsingKeyboard () {
             this.isUsingKeyboard = true
 
-            let activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
+            const activeItem = this.flatSelectableItems.find(x => x.key === this.activeId || x.key === 'S_' + this.activeId || x.id === this.activeId)
             if (!activeItem) {
                 this.activeId = this.getDefaultActiveId()
             }
@@ -254,7 +254,7 @@ export default {
         highlightItem (index) {
             // This is only used in Typeahead to fake highlight first item and select it on enter
             this.isFocused = true
-            let item = this.flatItems[index]
+            const item = this.flatItems[index]
             if (item) {
                 this.activeId = (item.key || item.id)
                 this.$emit('activate', item.key || item.id)
@@ -299,17 +299,20 @@ export default {
     }
 
     &__item {
-        padding: 0px 15px;
+        padding: 0 15px;
         width: 100%;
         display: flex;
         align-items: center;
 
-        &-enter-active, &-leave-active, &-move {
+        &-enter-active,
+        &-leave-active,
+        &-move {
             pointer-events: none;
             transition: height 250ms ease-in, opacity 250ms ease-in;
         }
 
-        &-enter, &-leave-to {
+        &-enter,
+        &-leave-to {
             height: 0 !important;
             opacity: 0;
         }

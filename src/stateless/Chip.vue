@@ -89,7 +89,8 @@ export default {
     }
 
     &:not(.chip--disabled) {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: @white;
             background-color: @gunpowder;
 
@@ -126,7 +127,8 @@ export default {
     }
 
     &:not(.chip--disabled) {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: @black;
             background-color: @very-light-gray;
 
