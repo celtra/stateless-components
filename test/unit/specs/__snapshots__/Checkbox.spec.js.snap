@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox computed usecase-0__disabled-false_value-false actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-false_value-false infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-false_value-false states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-0__disabled-false_value-true actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-false_value-true infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-false_value-true states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-false actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-false infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-false states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-true actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-true infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-0__disabled-true_value-true states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-false actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-false infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-false states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-true actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-true infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-false_value-true states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-false actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-false infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-false states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-true actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-true infoText 1`] = `""`;
+
+exports[`Checkbox computed usecase-1__disabled-true_value-true states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
