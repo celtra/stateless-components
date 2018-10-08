@@ -25,7 +25,7 @@ import DropAreaMetadata from '@/stateless/DropArea.metadata.js'
 export const DropArea = { ...DropAreaComponent, ...DropAreaMetadata }
 
 import FileUploadRequirementsComponent from '@/stateless/file_upload_requirements.vue'
-import FileUploadRequirementsMetadata from '@/stateless/FileUpload.metadata.js'
+import FileUploadRequirementsMetadata from '@/stateless/FileUploadRequirements.metadata.js'
 export const FileUploadRequirements = { ...FileUploadRequirementsComponent, ...FileUploadRequirementsMetadata }
 
 import FileUploadComponent from '@/stateless/file_upload.vue'
