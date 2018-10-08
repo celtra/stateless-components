@@ -8,7 +8,7 @@ export default function testSnapshots (component) {
     describe('rendered image', () => {
         const fs = require('fs')
         const path = require('path')
-        const compiledScript = fs.readFileSync(path.join(__dirname, '../../dist/view.js'))
+        const compiledScript = fs.readFileSync(path.join(__dirname, '../../dist/component_view.js'))
 
         let browser
         beforeAll(async () => {

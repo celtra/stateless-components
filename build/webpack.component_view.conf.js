@@ -13,11 +13,11 @@ function resolve (dir) {
 
 module.exports = {
     context: path.resolve(__dirname, '../'),
-    entry: './src/view.js',
+    entry: './src/component_view.js',
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'view.js',
+        filename: 'component_view.js',
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
