@@ -7,12 +7,12 @@ export function uppercase (value) {
 }
 
 export function prefix (value, prefix) {
-    let prefixValue = (x) => {
+    const prefixValue = (x) => {
         if (Array.isArray(x)) {
             return x.map(prefixValue)
         } else if (typeof (x) === 'object') {
-            let prefixed = {}
-            for (let key in x) {
+            const prefixed = {}
+            for (const key in x) {
                 prefixed[prefix + key] = x[key]
             }
             return prefixed
@@ -32,7 +32,7 @@ export function slugify (value) {
 }
 
 export function middleEllipsis (value, totalCharacters) {
-    if (totalCharacters && value.length > totalCharacters){
+    if (totalCharacters && value.length > totalCharacters) {
         return value.substring(0, totalCharacters - 11) + '...' + value.substring(value.length - 10, value.length)
     }
     return value

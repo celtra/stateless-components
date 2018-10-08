@@ -276,14 +276,17 @@ export default {
 
 <style lang="less">
 @import (reference) './common';
+
 .selectbox {
+    &__select-row--error .default-list-item .default-list-item__label {
+        color: @pink-red;
+    }
 
     &__select-row .default-list-item--light .default-list-item__label--disabled {
         color: @very-light-gray;
     }
 
-    &__select-row:hover {
-
+    &__select-row:hover:not(&__select-row--error) {
         .default-list-item--light .default-list-item__label:not(.default-list-item__label--disabled) {
             color: black;
         }
@@ -425,13 +428,16 @@ export default {
                 background-color: transparent;
                 transform: scale3d(1, 0.8, 1);
             }
+
             66.67% {
                 transform: scale3d(1, 1.025, 1);
                 background-color: @white;
             }
+
             90% {
                 background-color: @white;
             }
+
             to {
                 transform: scale3d(1, 1, 1);
                 background-color: @white;
@@ -455,7 +461,7 @@ export default {
     }
 
     &__search-wrapper {
-        margin: 15px 15px 0px 15px;
+        margin: 15px 15px 0 15px;
     }
 
     &__scrollable-list-wrap {
@@ -503,6 +509,8 @@ export default {
     .selectbox__helper-text {
         color: @bluish-gray;
 
+        &--error { color: @pink-red; }
+        &--warning { color: @pale-yellow; }
         &--disabled { color: @very-light-gray; }
     }
 }

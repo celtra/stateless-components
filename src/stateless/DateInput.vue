@@ -36,6 +36,7 @@ export default {
         dateFormatFocus: { type: String, required: false },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
+        trackName: { type: String, default: 'dateInput' },
     },
     data () {
         return {
@@ -45,17 +46,21 @@ export default {
     },
     computed: {
         formattedValue () {
-            if (this.textValue)
+            if (this.textValue) {
                 return this.textValue
-            if (!this.value)
+            }
+            if (!this.value) {
                 return null
-            if (this.inFocus)
+            }
+            if (this.inFocus) {
                 return moment(this.value).format(this.dateFormatFocus || this.dateFormat)
+            }
             return moment(this.value).format(this.dateFormat)
         },
         momentDate () {
-            if (!this.textValue)
+            if (!this.textValue) {
                 return null
+            }
             return moment(this.textValue, this.dateFormatFocus || this.dateFormat)
         },
         errorText () {
@@ -85,17 +90,20 @@ export default {
             this.textValue = value
 
             if (this.momentDate && this.momentDate.isValid()) {
-                let date = this.momentDate.toDate()
+                const date = this.momentDate.toDate()
                 if (this.isDateValid(date)) {
                     this.$emit('input', date)
+                    this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input' })
                 }
             } else {
                 this.$emit('input', null)
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input' })
             }
         },
         onFocus () {
             this.textValue = null
             this.inFocus = true
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'focus' })
         },
         onBlur (ev) {
             this.textValue = null

@@ -42,6 +42,7 @@ export default {
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
         theme: { type: String, required: false, default: 'dark' },
+        trackName: { type: String, default: 'checkbox' },
     },
     data () {
         return {
@@ -89,6 +90,7 @@ export default {
             this.focused = isFocused
             if (isFocused) {
                 this.$emit('focus')
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'focus' })
             }
         },
         blur () {
@@ -96,8 +98,10 @@ export default {
         },
         toggle (ev) {
             if (!this.disabled) {
+                const emitValue = this.value === true || this.value === null ? false : true
                 this.$emit('focus')
-                this.$emit('input', this.value === true || this.value === null ? false : true)
+                this.$emit('input', emitValue)
+                this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'click', data: { value: emitValue } })
                 this.focused = false
             }
         },
@@ -110,7 +114,7 @@ export default {
 @import './typography';
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .checkbox-element {
@@ -123,7 +127,8 @@ export default {
         cursor: auto;
     }
 
-    .checkbox-element--focused, &:hover {
+    .checkbox-element--focused,
+    &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             transform: scale3d(1.25, 1.25, 1);
             stroke: @very-light-gray;
@@ -265,7 +270,8 @@ export default {
         align-items: center;
         cursor: pointer;
 
-        &--focused, &:hover {
+        &--focused,
+        &:hover {
             .checkbox-element__toggle-circle:not(.checkbox-element__toggle-circle--disabled) {
                 background-color: white;
             }
@@ -307,7 +313,8 @@ export default {
     height: 34px + 17px;
     margin-top: 9px;
 
-    .checkbox-element--focused, &:hover {
+    .checkbox-element--focused,
+    &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             transform: scale3d(1.2, 1.2, 1);
         }
@@ -359,7 +366,8 @@ export default {
     height: 20px;
     margin-top: 10px;
 
-    .checkbox-element--focused, &:hover {
+    .checkbox-element--focused,
+    &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             transform: scale3d(1.286, 1.286, 1);
         }
@@ -421,7 +429,7 @@ export default {
         color: @gunpowder;
 
         &--disabled {
-          color: @very-light-gray;
+            color: @very-light-gray;
         }
     }
 
@@ -429,7 +437,8 @@ export default {
         stroke: @very-light-gray;
     }
 
-    .checkbox-element--focused, &:hover {
+    .checkbox-element--focused,
+    &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             stroke: @gunpowder;
         }
@@ -449,7 +458,8 @@ export default {
         color: @gunpowder;
     }
 
-    .checkbox-element--focused, &:hover {
+    .checkbox-element--focused,
+    &:hover {
         .checkbox-element__square:not(.checkbox-element__square--disabled) {
             stroke: @gunpowder;
         }

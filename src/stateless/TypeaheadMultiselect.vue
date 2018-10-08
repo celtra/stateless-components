@@ -1,6 +1,6 @@
 <template>
     <div class="typeahead-multiselect">
-        <typeahead ref="typeahead" v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" @select="selectItem"></typeahead>
+        <typeahead ref="typeahead" v-model="text" :get-suggestions="getAvailableSuggestions" :no-items-text="noItemsText" :label="label" :is-valid="isValid" :theme="theme" :track-name="trackName" @select="selectItem"></typeahead>
 
         <div ref="list" :style="{ maxHeight: `${numItems * 35}px` }" class="typeahead-multiselect__item-list">
             <div v-for="item in value" :key="item.id" class="typeahead-multiselect__item">
@@ -37,6 +37,7 @@ export default {
         isValid: { type: Function, required: false },
         numItems: { type: Number, default: 8 },
         maxLength: { type: Number, default: 30 },
+        trackName: { type: String, default: 'typeaheadMultiselect' },
     },
     data () {
         return {
@@ -50,11 +51,13 @@ export default {
             }
         },
         selectItem (item) {
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'select-item' })
             this.$emit('input', this.value.concat([item]))
             this.text = ''
             this.$refs.typeahead.focus()
         },
         removeItem (item) {
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'remove-item' })
             this.$emit('input', this.value.filter(x => x.id !== item.id))
         },
         getAvailableSuggestions (v) {
@@ -116,25 +119,25 @@ export default {
         transition: color @default-transition-time;
 
         &:hover {
-            color: black
+            color: black;
         }
     }
 }
 
 ::-webkit-scrollbar {
-    width : 5px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color : transparent;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius    : 5px;
-    background-color : @very-light-gray;
+    border-radius: 5px;
+    background-color: @very-light-gray;
 }
 
 ::-webkit-scrollbar-corner {
-    background-color : transparent;
+    background-color: transparent;
 }
 </style>

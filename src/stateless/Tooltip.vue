@@ -54,7 +54,7 @@ export default {
     visibility: hidden;
     opacity: 0;
     top: 100%;
-    left: 0px;
+    left: 0;
     color: @white;
     background-color: @gunpowder;
     border-radius: 3px;
@@ -82,7 +82,9 @@ export default {
     }
 }
 
-.hover-tooltip:hover, :hover > .hover-tooltip--hoverable, .hover-tooltip--visible {
+.hover-tooltip:hover,
+:hover > .hover-tooltip--hoverable,
+.hover-tooltip--visible {
     animation: 0.2s fadeIn;
     animation-delay: 0.8s;
     animation-fill-mode: forwards;
@@ -93,6 +95,7 @@ export default {
         visibility: hidden;
         opacity: 0;
     }
+
     100% {
         visibility: visible;
         opacity: 1;

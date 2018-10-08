@@ -49,6 +49,7 @@ export default {
         maxDate: { type: Date },
         selectAllTime: { type: Boolean, default: false },
         locale: { type: String, default: 'en-US' },
+        trackName: { type: String, default: 'calendar' },
     },
     data () {
         return {
@@ -66,7 +67,7 @@ export default {
             return names.slice(firstDay).concat(names.slice(0, firstDay))
         },
         days () {
-            let dates = []
+            const dates = []
 
             const firstDay = new Date(this.year, this.month - 1, 1)
             const numPreviousMonth = firstDay.getDay()
@@ -106,7 +107,7 @@ export default {
             })
         },
         weeks () {
-            let weeks = []
+            const weeks = []
             for (let i = 0; i < 6; i++) {
                 weeks.push(this.days.slice(i * 7, (i + 1) * 7))
             }
@@ -162,22 +163,26 @@ export default {
             this.$el.focus()
         },
         onFocus () {
-            this.$root.$emit('tracking-event', { type: 'action', label: 'calendar', trigger: 'click' })
+            this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'focus' })
             this.$emit('focus')
         },
         select (day) {
             if (this.isRange) {
                 if (!this.value || !this.value.from || this.value.to) {
+                    this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: day.date } })
                     this.$emit('input', { from: day.date })
                 } else {
                     if (compareDate(day.date, this.value.from) > 0) {
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: this.value.from, to: day.date } })
                         this.$emit('input', { from: this.value.from, to: day.date })
                     } else {
+                        this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: { from: day.date, to: this.value.from } })
                         this.$emit('input', { from: day.date, to: this.value.from })
                     }
                     this.$emit('confirm')
                 }
             } else {
+                this.$root.$emit('tracking-event', { type: 'calendar', label: this.trackName, trigger: 'select', data: day.date })
                 this.$emit('input', day.date)
                 this.$emit('confirm')
             }
@@ -230,7 +235,7 @@ export default {
                 40: 7,
             }
             const delta = deltaByKeyCode[e.keyCode]
-            let addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
+            const addDaysToDate = date => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta)
             const now = new Date()
 
             if (this.isRange) {
@@ -417,8 +422,8 @@ export default {
 
 @step-animation-time: 500ms;
 
-.next-month-leave-active     { animation: next-month-leave-animation @step-animation-time ease; }
-.next-month-enter-active     { animation: next-month-enter-animation @step-animation-time ease; }
+.next-month-leave-active { animation: next-month-leave-animation @step-animation-time ease; }
+.next-month-enter-active { animation: next-month-enter-animation @step-animation-time ease; }
 .previous-month-leave-active { animation: previous-month-leave-animation @step-animation-time ease; }
 .previous-month-enter-active { animation: previous-month-enter-animation @step-animation-time ease; }
 
@@ -427,6 +432,7 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     100% {
         transform: translate3d(-@width, 0, 0);
         opacity: 0;
@@ -450,6 +456,7 @@ export default {
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+
     to {
         transform: translate3d(@width, 0, 0);
         opacity: 0;
@@ -461,6 +468,7 @@ export default {
         transform: translate3d(-@width, 0, 0);
         opacity: 0;
     }
+
     to {
         transform: translate3d(0, 0, 0);
         opacity: 1;
