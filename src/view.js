@@ -12,23 +12,36 @@ const vm = new Vue({
             props: {},
         }
     },
+    computed: {
+        component () {
+            let component = library[this.componentName]
+            if (!component) {
+                component = Object.values(library).find(x => x.name === this.componentName)
+            }
+            return component
+        },
+    },
+    methods: {
+        setup () {
+            if (this.component && this.component.setup) {
+                return this.component.setup.bind(this.$children[0])()
+            }
+        },
+    },
     render (h) {
-        let component = library[this.componentName]
-        if (!component) {
-            component = Object.values(library).find(x => x.name === this.componentName)
-        }
-
-        if (!component) {
+        if (!this.component) {
             throw `Component ${this.componentName} does not exist!`
         }
 
-        let slot = component.slot ? component.slot.bind(this.props)(h) : null
+        let slot = this.component.slot ? this.component.slot.bind(this.props)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
 
+        const scopedSlots = this.component.scopedSlots ? this.component.scopedSlots.bind(this.props)(h) : {}
+
         return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
-            h(component, { props: this.props }, slot ? [slot] : []),
+            h(this.component, { props: this.props, scopedSlots: scopedSlots }, slot ? [slot] : []),
         ])
     },
 })
@@ -39,4 +52,15 @@ window.setComponent = (componentName, props) => {
 
     const bgColor = props.theme === 'dark' ? '#1f1f2c' : '#f2f2f3'
     document.body.style.backgroundColor = bgColor
+
+    setTimeout(() => {
+        const setupResult = vm.setup()
+        if (setupResult) {
+            setupResult.then(() => {
+                const readyDomElement = document.createElement('div')
+                readyDomElement.id = 'setup-done'
+                document.body.appendChild(readyDomElement)
+            })
+        }
+    }, 0)
 }

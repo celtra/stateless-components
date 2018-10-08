@@ -49,7 +49,7 @@ export default function testSnapshots (component) {
                     await page.waitForSelector('#container')
 
                     if (component.setup) {
-                        await component.setup()
+                        await page.waitForSelector('#setup-done')
                     }
 
                     let image
