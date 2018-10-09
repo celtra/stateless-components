@@ -37449,19 +37449,22 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var defaultSlot = function defaultSlot(h) {
+    return h('div', 'Something');
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Checkbox',
-    slot: function slot(h) {
-        return h('div', 'Something');
-    },
-
     variations: {
         theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],
         value: [true, false],
         disabled: [false, true]
     },
-    usecases: [{}, {
+    usecases: [{
+        slot: defaultSlot
+    }, {
+        slot: defaultSlot,
         isToggle: true
     }]
 });
@@ -37508,19 +37511,21 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var defaultSlot = function defaultSlot(h) {
+    return h('div', 'Something');
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'DialogButton',
-    slot: function slot(h) {
-        return 'Something';
-    },
-
     variations: {
         disabled: [false, true],
         // loading: [false, true], We would have to disable animation to test this
         error: [false, true],
         warning: [false, true]
     },
-    usecases: [{}]
+    usecases: [{
+        slot: defaultSlot
+    }]
 });
 
 /***/ }),
@@ -37735,19 +37740,23 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
+
+var _this = this;
+
+var setup = function setup() {
+    return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        setTimeout(resolve, 1000);
+    });
+};
+
+var defaultSlot = function defaultSlot(h) {
+    var style = { textAlign: 'center', color: _this.theme === 'dark' ? 'white' : 'black' };
+    return h('div', { style: style }, 'Dialog content goes here');
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Dialog',
     hasAbsolutePosition: true,
-    setup: function setup() {
-        return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
-            setTimeout(resolve, 1000);
-        });
-    },
-    slot: function slot(h) {
-        var style = { textAlign: 'center', color: this.theme === 'dark' ? 'white' : 'black' };
-        return h('div', { style: style }, 'Dialog content goes here');
-    },
-
     variations: {
         theme: ['dark', 'light'],
         hasBackButton: [true, false],
@@ -37755,6 +37764,8 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         stepId: ['a', null]
     },
     usecases: [{
+        setup: setup,
+        slot: defaultSlot,
         steps: [{ id: 'a', passiveLabel: 'A', activeLabel: 'A' }, { id: 'b', passiveLabel: 'B', activeLabel: 'B' }]
     }]
 });
@@ -39256,12 +39267,12 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var defaultSlot = function defaultSlot(h) {
+    return 'Something';
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'RadioButton',
-    slot: function slot(h) {
-        return 'Something';
-    },
-
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -39269,6 +39280,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         selectedValue: ['none', 'something']
     },
     usecases: [{
+        slot: defaultSlot,
         value: 'something'
     }]
 });
@@ -39697,18 +39709,20 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var defaultSlot = function defaultSlot(h) {
+    return h('div', 'Something');
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Group',
-    slot: function slot(h) {
-        return h('div', 'Something');
-    },
-
     variations: {
         theme: ['dark', 'light']
     },
     usecases: [{
+        slot: defaultSlot,
         label: 'Modeling'
     }, {
+        slot: defaultSlot,
         label: 'Modeling',
         description: 'Loooooooong descriptiooooooooon'
     }]
@@ -40649,23 +40663,26 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
+var setup = function setup() {
+    // Wait for tooltip animation to finish
+    return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve) {
+        return setTimeout(resolve, 1200);
+    });
+};
+
+var defaultSlot = function defaultSlot(h) {
+    return 'Something';
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Tooltip',
     hasAbsolutePosition: true,
-    setup: function setup() {
-        // Wait for tooltip animation to finish
-        return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve) {
-            return setTimeout(resolve, 1200);
-        });
-    },
-    slot: function slot(h) {
-        return 'Something';
-    },
-
     variations: {
         theme: ['dark', 'light']
     },
     usecases: [{
+        setup: setup,
+        slot: defaultSlot,
         title: 'Some',
         show: true
     }]

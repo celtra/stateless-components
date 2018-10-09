@@ -1,16 +1,19 @@
+const defaultSlot = (h) => {
+    return h('div', 'Something')
+}
+
 export default {
     name: 'Group',
-    slot (h) {
-        return h('div', 'Something')
-    },
     variations: {
         theme: ['dark', 'light'],
     },
     usecases: [
         {
+            slot: defaultSlot,
             label: 'Modeling',
         },
         {
+            slot: defaultSlot,
             label: 'Modeling',
             description: 'Loooooooong descriptiooooooooon',
         },

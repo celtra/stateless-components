@@ -10,6 +10,7 @@ const vm = new Vue({
         return {
             componentName: null,
             props: {},
+            usecaseIndex: 0,
         }
     },
     computed: {
@@ -20,11 +21,17 @@ const vm = new Vue({
             }
             return component
         },
+        usecase () {
+            if (!this.component || !this.component.usecases) {
+                return null
+            }
+            return this.component.usecases[this.usecaseIndex]
+        },
     },
     methods: {
         setup () {
-            if (this.component && this.component.setup) {
-                return this.component.setup.bind(this.$children[0])()
+            if (this.usecase && this.usecase.setup) {
+                return this.usecase.setup.bind(this.$children[0])()
             }
         },
     },
@@ -33,12 +40,12 @@ const vm = new Vue({
             throw `Component ${this.componentName} does not exist!`
         }
 
-        let slot = this.component.slot ? this.component.slot.bind(this.props)(h) : null
+        let slot = this.usecase && this.usecase.slot ? this.usecase.slot.bind(this.props)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
 
-        const scopedSlots = this.component.scopedSlots ? this.component.scopedSlots.bind(this.props)(h) : {}
+        const scopedSlots = this.usecase && this.usecase.scopedSlots ? this.usecase.scopedSlots.bind(this.props)(h) : {}
 
         return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
             h(this.component, { props: this.props, scopedSlots: scopedSlots }, slot ? [slot] : []),
@@ -46,13 +53,16 @@ const vm = new Vue({
     },
 })
 
-window.setComponent = (componentName, props) => {
+window.setComponent = (componentName, props, usecaseIndex) => {
     vm.componentName = componentName
     vm.props = props
+    vm.usecaseIndex = usecaseIndex
 
     const bgColor = props.theme === 'dark' ? '#1f1f2c' : '#f2f2f3'
     document.body.style.backgroundColor = bgColor
 
+    const readyDomElement = document.createElement('div')
+    readyDomElement.id = 'setup-done'
     setTimeout(() => {
         const setupResult = vm.setup()
         if (setupResult) {
@@ -61,6 +71,8 @@ window.setComponent = (componentName, props) => {
                 readyDomElement.id = 'setup-done'
                 document.body.appendChild(readyDomElement)
             })
+        } else {
+            document.body.appendChild(readyDomElement)
         }
     }, 0)
 }

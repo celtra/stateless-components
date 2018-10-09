@@ -1,8 +1,9 @@
+const defaultSlot = (h) => {
+    return 'Something'
+}
+
 export default {
     name: 'RadioButton',
-    slot (h) {
-        return 'Something'
-    },
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -11,6 +12,7 @@ export default {
     },
     usecases: [
         {
+            slot: defaultSlot,
             value: 'something',
         },
     ],

@@ -1,8 +1,9 @@
+const defaultSlot = (h) => {
+    return h('div', 'Something')
+}
+
 export default {
     name: 'Checkbox',
-    slot (h) {
-        return h('div', 'Something')
-    },
     variations: {
         theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],
@@ -10,8 +11,11 @@ export default {
         disabled: [false, true],
     },
     usecases: [
-        {},
         {
+            slot: defaultSlot,
+        },
+        {
+            slot: defaultSlot,
             isToggle: true,
         },
     ],

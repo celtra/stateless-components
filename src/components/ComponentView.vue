@@ -68,7 +68,8 @@ export default {
         if (!this.componentData) {
             return h()
         }
-        let slot = this.componentData.component.slot ? this.componentData.component.slot.bind(this.componentData.data)(h) : null
+        const firstUsecase = this.componentData.component.usecases && this.componentData.component.usecases[0]
+        let slot = firstUsecase.slot ? firstUsecase.slot.bind(this.componentData.data)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }

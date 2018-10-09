@@ -50,7 +50,7 @@ export function getFlatUsecases (component, ignoreVariations = []) {
                 const usecase = component.usecases[i]
                 const usecaseData = { ...variation, ...usecase }
                 const name = getUsecaseName(variation, i)
-                usecases.push({ data: usecaseData, name: name, uniqueID: getHash(name) })
+                usecases.push({ data: usecaseData, usecaseIndex: i, name: name, uniqueID: getHash(name) })
             }
         }
     }

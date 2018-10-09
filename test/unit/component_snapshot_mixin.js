@@ -41,16 +41,13 @@ export default function testSnapshots (component) {
                         <body>
                             <div id="app"></div>
                             <script>${compiledScript}</script>
-                            <script>setComponent('${component.name}', ${JSON.stringify(usecase.data)})</script>
+                            <script>setComponent('${component.name}', ${JSON.stringify(usecase.data)}, ${usecase.usecaseIndex})</script>
                         </body>
                         </html>
                     `)
 
                     await page.waitForSelector('#container')
-
-                    if (component.setup) {
-                        await page.waitForSelector('#setup-done')
-                    }
+                    await page.waitForSelector('#setup-done')
 
                     let image
                     if (component.hasAbsolutePosition) {
