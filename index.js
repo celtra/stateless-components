@@ -40292,21 +40292,23 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
+var setup = function setup() {
+    return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        setTimeout(resolve, 1000);
+    });
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Toast',
     hasAbsolutePosition: true,
-    setup: function setup() {
-        return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
-            setTimeout(resolve, 1000);
-        });
-    },
-
     variations: {
         theme: ['dark', 'light']
     },
     usecases: [{
+        setup: setup,
         label: 'Label'
     }, {
+        setup: setup,
         label: 'Label',
         actionLabel: 'Action'
     }]
