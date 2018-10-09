@@ -1,4 +1,4 @@
-const defaultSlot = (h) => {
+function defaultSlot (h) {
     return 'Something'
 }
 

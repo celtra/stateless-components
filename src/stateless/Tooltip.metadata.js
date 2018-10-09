@@ -1,9 +1,9 @@
-const setup = () => {
+function setup () {
     // Wait for tooltip animation to finish
     return new Promise(resolve => setTimeout(resolve, 1200))
 }
 
-const defaultSlot = (h) => {
+function defaultSlot (h) {
     return 'Something'
 }
 

@@ -1,10 +1,10 @@
-const setup = () => {
+function setup () {
     return new Promise((resolve, reject) => {
         setTimeout(resolve, 1000)
     })
 }
 
-const defaultSlot = (h) => {
+function defaultSlot (h) {
     const style = { textAlign: 'center', color: this.theme === 'dark' ? 'white' : 'black' }
     return h('div', { style }, 'Dialog content goes here')
 }

@@ -37449,9 +37449,9 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var defaultSlot = function defaultSlot(h) {
+function defaultSlot(h) {
     return h('div', 'Something');
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Checkbox',
@@ -37511,9 +37511,9 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var defaultSlot = function defaultSlot(h) {
+function defaultSlot(h) {
     return h('div', 'Something');
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'DialogButton',
@@ -37740,19 +37740,16 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
-
-var _this = this;
-
-var setup = function setup() {
+function setup() {
     return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
         setTimeout(resolve, 1000);
     });
-};
+}
 
-var defaultSlot = function defaultSlot(h) {
-    var style = { textAlign: 'center', color: _this.theme === 'dark' ? 'white' : 'black' };
+function defaultSlot(h) {
+    var style = { textAlign: 'center', color: this.theme === 'dark' ? 'white' : 'black' };
     return h('div', { style: style }, 'Dialog content goes here');
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Dialog',
@@ -39267,9 +39264,9 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var defaultSlot = function defaultSlot(h) {
+function defaultSlot(h) {
     return 'Something';
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'RadioButton',
@@ -39709,9 +39706,9 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var defaultSlot = function defaultSlot(h) {
+function defaultSlot(h) {
     return h('div', 'Something');
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Group',
@@ -40292,11 +40289,11 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
-var setup = function setup() {
+function setup() {
     return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
         setTimeout(resolve, 1000);
     });
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Toast',
@@ -40665,16 +40662,16 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
-var setup = function setup() {
+function setup() {
     // Wait for tooltip animation to finish
     return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve) {
         return setTimeout(resolve, 1200);
     });
-};
+}
 
-var defaultSlot = function defaultSlot(h) {
+function defaultSlot(h) {
     return 'Something';
-};
+}
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'Tooltip',
