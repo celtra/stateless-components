@@ -5,16 +5,16 @@ services:
     build: .
     volumes:
       - .:/app
-    command: [sh, -c, "yarn build-component-view && yarn unit --maxWorkers=4"]
+    entrypoint: [sh, /app/test-entrypoint.sh, --maxWorkers=4]
 
   test-update:
     build: .
     volumes:
       - .:/app
-    command: [sh, -c, "yarn build-component-view && yarn unit --maxWorkers=4 -u"]
+    entrypoint: [sh, /app/test-entrypoint.sh, --maxWorkers=4, -u]
 
   test-ci:
     build: .
     environment:
       - CI=true
-    command: [sh, -c, "yarn build-component-view && yarn unit --maxWorkers=4 --reporters=default --reporters=jest-junit"]
+    entrypoint: [sh, /app/test-entrypoint.sh, --maxWorkers=4, -u, --reporters=default, --reporters=jest-junit]
