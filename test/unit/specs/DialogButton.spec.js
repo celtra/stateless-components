@@ -1,6 +1,6 @@
-import DialogButton from '@/stateless/dialog_button.vue'
+import { DialogButton } from '@/library.js'
 import Vue from 'vue'
-import components from '@/components'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(DialogButton)
 let vm = null
@@ -12,9 +12,7 @@ describe('DialogButton', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(DialogButton)
 
     describe('methods', () => {
         describe('click', () => {

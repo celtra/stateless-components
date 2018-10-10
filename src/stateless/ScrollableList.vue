@@ -15,7 +15,6 @@
                     :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
-                    :list-container="$refs.scrollable"
                     :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"

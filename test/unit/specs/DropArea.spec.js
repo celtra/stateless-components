@@ -1,16 +1,16 @@
-import DropArea from '@/stateless/drop_area.vue'
+import { DropArea } from '@/library.js'
 import Vue from 'vue'
-import components from '@/components'
+import { getFlatUsecases } from '@/component_utils'
 
 const vm = new Vue({
     render (h) {
         return h('div', {}, [
-            h(DropArea, { props: components.DropArea.defaultProps }),
+            h(DropArea, { props: getFlatUsecases(DropArea)[0].data }),
         ])
     },
 }).$mount()
 
-fdescribe('DropArea', () => {
+describe('DropArea', () => {
     it('should match the snapshot', () => {
         expect(vm.$el).toMatchSnapshot()
     })
