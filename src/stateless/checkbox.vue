@@ -32,16 +32,16 @@ import Icon from './icon.vue'
 export default {
     components: { Icon },
     props: {
+        theme: { type: String, required: false, default: 'dark' },
+        size: { type: String, required: false, default: 'normal' },
         value: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
-        size: { type: String, required: false, default: 'normal' },
         isToggle: { type: Boolean, required: false, default: false },
         helperText: { type: String, required: false, default: '' },
         titleText: { type: String, required: false, default: '' },
         disabledText: { type: String, required: false, default: '' },
         warningText: { type: String, required: false, default: '' },
         errorText: { type: String, required: false, default: '' },
-        theme: { type: String, required: false, default: 'dark' },
         trackName: { type: String, default: 'checkbox' },
     },
     data () {

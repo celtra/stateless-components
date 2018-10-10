@@ -1,12 +1,7 @@
-<template>
-    <div>
-        <component v-if="componentData" :is="componentData.component" v-bind="componentData.data" :style="componentData.rootCss" class="instance" v-on="componentData.listeners"></component>
-    </div>
-</template>
-
 <script>
 import '@/stateless/define_helpers'
-import components from '../components.js'
+import * as library from '../library.js'
+import { getFlatUsecases } from '../component_utils'
 
 export default {
     data () {
@@ -21,15 +16,18 @@ export default {
                 return null
             }
 
-            const data = components[this.name]
+            const component = library[this.name]
 
-            const modelName = data.component.model ? data.component.value : 'value'
-            const modelEvent = data.component.model ? data.component.event : 'input'
+            const modelName = component.model ? component.value : 'value'
+            const modelEvent = component.model ? component.event : 'input'
+
+            const usecases = getFlatUsecases(component)
+            const defaultProps = usecases.length > 0 ? usecases[0].data : {}
 
             return {
-                ...data,
+                component: component,
                 data: {
-                    ...data.defaultProps,
+                    ...defaultProps,
                     [modelName]: this.value,
                     theme: 'light',
                     size: 'normal',
@@ -53,18 +51,32 @@ export default {
     methods: {
         setupComponent () {
             const name = this.$route.params.component
-            const data = components[name]
-            if (!data) {
+            const component = library[name]
+            if (!component) {
                 throw `Component ${name} does not exist!`
             }
 
-            const modelName = data.component.model ? data.component.value : 'value'
-            this.value = data.defaultProps && data.defaultProps[modelName]
+            const modelName = component.model ? component.value : 'value'
+            this.value = component.props && component.props[modelName] && component.props[modelName].default || null
             this.name = name
         },
         updateValue (value) {
             this.value = value
         },
+    },
+    render (h) {
+        if (!this.componentData) {
+            return h()
+        }
+        const firstUsecase = this.componentData.component.usecases && this.componentData.component.usecases[0]
+        let slot = firstUsecase.slot ? firstUsecase.slot.bind(this.componentData.data)(h) : null
+        if (typeof slot === 'string') {
+            slot = this._v(slot)
+        }
+
+        return h('div', { style: { display: 'flex', position: 'relative', width: '50%', height: '100%' } }, [
+            h(this.componentData.component, { props: this.componentData.data, listeners: this.componentData.listeners }, slot ? [slot] : []),
+        ])
     },
 }
 </script>

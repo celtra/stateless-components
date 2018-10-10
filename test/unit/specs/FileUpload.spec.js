@@ -1,6 +1,7 @@
-import FileUpload from '@/stateless/file_upload.vue'
+import { FileUpload } from '@/library.js'
 import Vue from 'vue'
-import components from '@/components'
+import { getFlatUsecases } from '@/component_utils'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(FileUpload)
 let vm = null
@@ -8,13 +9,11 @@ let vm = null
 describe('FileUpload', () => {
     beforeEach(() => {
         vm = new Constructor({
-            propsData: components.FileUpload.defaultProps,
+            propsData: getFlatUsecases(FileUpload)[0].data,
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(FileUpload)
 
     describe('computed', () => {
         describe('states', () => {

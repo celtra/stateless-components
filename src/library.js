@@ -4,78 +4,135 @@ import * as filtersObject from '@/helpers/filters.js'
 import * as directivesObject from '@/helpers/directives.js'
 import * as itemsUtilsObject from '@/stateless/items_utils.js'
 
-import CheckboxComponent from '@/stateless/checkbox.vue'
-import DialogButtonComponent from '@/stateless/dialog_button.vue'
-import DialogComponent from '@/stateless/dialog.vue'
-import DropAreaComponent from '@/stateless/drop_area.vue'
-import FileUploadRequirementsComponent from '@/stateless/file_upload_requirements.vue'
-import FileUploadComponent from '@/stateless/file_upload.vue'
-import ImageListComponent from '@/stateless/image_list.vue'
-import InputComponent from '@/stateless/input.vue'
-import SearchInputComponent from '@/stateless/SearchInput.vue'
-import MultiselectComponent from '@/stateless/multiselect.vue'
-import RadioButtonComponent from '@/stateless/radiobutton.vue'
-import SelectboxComponent from '@/stateless/selectbox.vue'
-import SupportTextComponent from '@/stateless/support_text.vue'
-import IconComponent from '@/stateless/icon.vue'
-import SliderComponent from '@/stateless/slider.vue'
-import GroupComponent from '@/stateless/group.vue'
-import CalendarComponent from '@/stateless/Calendar.vue'
-import DateInputComponent from '@/stateless/DateInput.vue'
-import DateRangeInputComponent from '@/stateless/DateRangeInput.vue'
-import DatePickerComponent from '@/stateless/DatePicker.vue'
-import ToastComponent from '@/stateless/Toast.vue'
-import PieChartComponent from '@/stateless/PieChart.vue'
-import InlineDialogComponent from '@/stateless/InlineDialog.vue'
-import DefaultListComponent from '@/stateless/DefaultList.vue'
-import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
-import ScrollableListComponent from '@/stateless/ScrollableList.vue'
-import TypeaheadComponent from '@/stateless/Typeahead.vue'
-import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
-import TooltipComponent from '@/stateless/Tooltip.vue'
-import ChipComponent from '@/stateless/Chip.vue'
-import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
-import MiddleEllipsisComponent from '@/stateless/MiddleEllipsis.vue'
-import MiddleEllipsisListItemComponent from '@/stateless/MiddleEllipsisListItem.vue'
-import TextLineComponent from '@/stateless/TextLine.vue'
-import WindowEventsComponent from '@/stateless/WindowEvents.vue'
-
 export const filters = filtersObject
 export const directives = directivesObject
 export const itemsUtils = itemsUtilsObject
 
-export const Checkbox = CheckboxComponent
-export const DialogButton = DialogButtonComponent
-export const Dialog = DialogComponent
-export const DropArea = DropAreaComponent
-export const FileUploadRequirements = FileUploadRequirementsComponent
-export const FileUpload = FileUploadComponent
-export const ImageList = ImageListComponent
-export const Input = InputComponent
-export const SearchInput = SearchInputComponent
-export const Multiselect = MultiselectComponent
-export const RadioButton = RadioButtonComponent
-export const Selectbox = SelectboxComponent
-export const SupportText = SupportTextComponent
-export const Icon = IconComponent
-export const Slider = SliderComponent
-export const Group = GroupComponent
+import CheckboxComponent from '@/stateless/checkbox.vue'
+import CheckboxMetadata from '@/stateless/Checkbox.metadata.js'
+export const Checkbox = { ...CheckboxComponent, ...CheckboxMetadata }
+
+import DialogButtonComponent from '@/stateless/dialog_button.vue'
+import DialogButtonMetadata from '@/stateless/DialogButton.metadata.js'
+export const DialogButton = { ...DialogButtonComponent, ...DialogButtonMetadata }
+
+import DialogComponent from '@/stateless/dialog.vue'
+import DialogMetadata from '@/stateless/Dialog.metadata.js'
+export const Dialog = { ...DialogComponent, ...DialogMetadata }
+
+import DropAreaComponent from '@/stateless/drop_area.vue'
+import DropAreaMetadata from '@/stateless/DropArea.metadata.js'
+export const DropArea = { ...DropAreaComponent, ...DropAreaMetadata }
+
+import FileUploadRequirementsComponent from '@/stateless/file_upload_requirements.vue'
+import FileUploadRequirementsMetadata from '@/stateless/FileUploadRequirements.metadata.js'
+export const FileUploadRequirements = { ...FileUploadRequirementsComponent, ...FileUploadRequirementsMetadata }
+
+import FileUploadComponent from '@/stateless/file_upload.vue'
+import FileUploadMetadata from '@/stateless/FileUpload.metadata.js'
+export const FileUpload = { ...FileUploadComponent, ...FileUploadMetadata }
+
+import ImageListComponent from '@/stateless/image_list.vue'
+import ImageListMetadata from '@/stateless/ImageList.metadata.js'
+export const ImageList = { ...ImageListComponent, ...ImageListMetadata }
+
+import InputComponent from '@/stateless/input.vue'
+import InputMetadata from '@/stateless/Input.metadata.js'
+export const Input = { ...InputComponent, ...InputMetadata }
+
+import SearchInputComponent from '@/stateless/SearchInput.vue'
+import SearchInputMetadata from '@/stateless/SearchInput.metadata.js'
+export const SearchInput = { ...SearchInputComponent, ...SearchInputMetadata }
+
+import MultiselectComponent from '@/stateless/multiselect.vue'
+import MultiselectMetadata from '@/stateless/Multiselect.metadata.js'
+export const Multiselect = { ...MultiselectComponent, ...MultiselectMetadata }
+
+import RadioButtonComponent from '@/stateless/radiobutton.vue'
+import RadioButtonMetadata from '@/stateless/RadioButton.metadata.js'
+export const RadioButton = { ...RadioButtonComponent, ...RadioButtonMetadata }
+
+import SelectboxComponent from '@/stateless/selectbox.vue'
+import SelectboxMetadata from '@/stateless/Selectbox.metadata.js'
+export const Selectbox = { ...SelectboxComponent, ...SelectboxMetadata }
+
+import SupportTextComponent from '@/stateless/support_text.vue'
+import SupportTextMetadata from '@/stateless/SupportText.metadata.js'
+export const SupportText = { ...SupportTextComponent, ...SupportTextMetadata }
+
+import IconComponent from '@/stateless/icon.vue'
+import IconMetadata from '@/stateless/Icon.metadata.js'
+export const Icon = { ...IconComponent, ...IconMetadata }
+
+import SliderComponent from '@/stateless/slider.vue'
+import SliderMetadata from '@/stateless/Slider.metadata.js'
+export const Slider = { ...SliderComponent, ...SliderMetadata }
+
+import GroupComponent from '@/stateless/group.vue'
+import GroupMetadata from '@/stateless/Group.metadata.js'
+export const Group = { ...GroupComponent, ...GroupMetadata }
+
+import CalendarComponent from '@/stateless/Calendar.vue'
 export const Calendar = CalendarComponent
+
+import DateInputComponent from '@/stateless/DateInput.vue'
 export const DateInput = DateInputComponent
+
+import DateRangeInputComponent from '@/stateless/DateRangeInput.vue'
 export const DateRangeInput = DateRangeInputComponent
+
+import DatePickerComponent from '@/stateless/DatePicker.vue'
 export const DatePicker = DatePickerComponent
-export const Toast = ToastComponent
+
+import ToastComponent from '@/stateless/Toast.vue'
+import ToastMetadata from '@/stateless/Toast.metadata.js'
+export const Toast = { ...ToastComponent, ...ToastMetadata }
+
+import PieChartComponent from '@/stateless/PieChart.vue'
 export const PieChart = PieChartComponent
+
+import InlineDialogComponent from '@/stateless/InlineDialog.vue'
 export const InlineDialog = InlineDialogComponent
-export const DefaultList = DefaultListComponent
+
+import DefaultListComponent from '@/stateless/DefaultList.vue'
+import DefaultListMetadata from '@/stateless/DefaultList.metadata.js'
+export const DefaultList = { ...DefaultListComponent, ...DefaultListMetadata }
+
+import DefaultListItemComponent from '@/stateless/DefaultListItem.vue'
 export const DefaultListItem = DefaultListItemComponent
-export const ScrollableList = ScrollableListComponent
+
+import MultilineListItemComponent from '@/stateless/MultilineListItem.vue'
+export const MultilineListItem = MultilineListItemComponent
+
+import ScrollableListComponent from '@/stateless/ScrollableList.vue'
+import ScrollableListMetadata from '@/stateless/ScrollableList.metadata.js'
+export const ScrollableList = { ...ScrollableListComponent, ...ScrollableListMetadata }
+
+import TypeaheadComponent from '@/stateless/Typeahead.vue'
 export const Typeahead = TypeaheadComponent
+
+import TypeaheadMultiselectComponent from '@/stateless/TypeaheadMultiselect.vue'
 export const TypeaheadMultiselect = TypeaheadMultiselectComponent
-export const Tooltip = TooltipComponent
-export const Chip = ChipComponent
+
+import TooltipComponent from '@/stateless/Tooltip.vue'
+import TooltipMetadata from '@/stateless/Tooltip.metadata.js'
+export const Tooltip = { ...TooltipComponent, ...TooltipMetadata }
+
+import ChipComponent from '@/stateless/Chip.vue'
+import ChipMetadata from '@/stateless/Chip.metadata.js'
+export const Chip = { ...ChipComponent, ...ChipMetadata }
+
+import ChipWithMultiselectComponent from '@/stateless/ChipWithMultiselect.vue'
 export const ChipWithMultiselect = ChipWithMultiselectComponent
+
+import MiddleEllipsisComponent from '@/stateless/MiddleEllipsis.vue'
 export const MiddleEllipsis = MiddleEllipsisComponent
+
+import MiddleEllipsisListItemComponent from '@/stateless/MiddleEllipsisListItem.vue'
 export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent
+
+import TextLineComponent from '@/stateless/TextLine.vue'
 export const TextLine = TextLineComponent
+
+import WindowEventsComponent from '@/stateless/WindowEvents.vue'
 export const WindowEvents = WindowEventsComponent

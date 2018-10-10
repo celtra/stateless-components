@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  test:
+    build: .
+    volumes:
+      - .:/app
+    entrypoint: [sh, /app/test-entrypoint.sh, --maxWorkers=4]
+
+  test-ci:
+    build: .
+    environment:
+      - CI=true
+    entrypoint: [sh, /app/test-entrypoint.sh, --maxWorkers=4, --reporters=default, --reporters=jest-junit]
