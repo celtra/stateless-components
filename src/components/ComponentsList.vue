@@ -59,18 +59,23 @@
 
 <script>
 import '@/stateless/define_helpers'
-import components from '../components.js'
+import * as library from '../library.js'
+import { getFlatUsecases } from '../component_utils'
+
+const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
 const getComponents = () => {
-    return Object.keys(components).map(componentId => {
-        const componentData = components[componentId]
+    return componentNames.map(componentId => {
+        const component = library[componentId]
 
-        const modelName = componentData.component.model ? componentData.component.value : 'value'
-        const modelEvent = componentData.component.model ? componentData.component.event : 'input'
+        const modelName = component.model ? component.value : 'value'
+        const modelEvent = component.model ? component.event : 'input'
 
-        const componentProps = componentData.component.props
-        const defaultProps = componentData.defaultProps || {}
+        const componentProps = component.props
+        const usecases = getFlatUsecases(component)
+        const defaultProps = usecases.length > 0 ? usecases[0].data : {}
 
+        // Transparent wrapper components might use props even if they are not explicitly defined
         let allProps = {}
         for (const key in componentProps) {
             allProps[key] = true
@@ -81,7 +86,7 @@ const getComponents = () => {
         allProps = Object.keys(allProps)
 
         return {
-            ...componentData,
+            component: component,
             id: componentId,
             modelName: modelName,
             modelEvent: modelEvent,
@@ -90,7 +95,7 @@ const getComponents = () => {
                     name: propName,
                     type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
                     default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
-                    availableValues: componentData.availableProps && componentData.availableProps[propName] || null,
+                    availableValues: null,
                 }
             }),
         }
@@ -101,7 +106,7 @@ export default {
     name: 'components-list',
     data () {
         const vars = {
-            componentId: Object.keys(components)[0],
+            componentId: componentNames[0],
             theme: 'light',
             size: 'normal',
         }

@@ -68,7 +68,7 @@ export default {
             return this.headerOffset !== null
         },
         headerStyle () {
-            return `left: ${this.headerOffset}px`
+            return `left: ${Math.floor(this.headerOffset)}px`
         },
     },
     watch: {
@@ -94,12 +94,11 @@ export default {
             this.$emit('close-dialog')
         },
         transitionHeader () {
-            const stepElements = this.$refs.calculationSteps
-            const header = this.$refs.headerContent
+            let headerStart = 0
 
-            if (stepElements && header) {
+            const stepElements = this.$refs.calculationSteps
+            if (stepElements) {
                 const stepSpacing = 30
-                let headerStart = 0
                 for (const stepElement of stepElements) {
                     if (stepElement.className.indexOf('dialog-header__element--active') == -1) {
                         headerStart += stepElement.clientWidth + stepSpacing
@@ -108,9 +107,9 @@ export default {
                         break
                     }
                 }
-
-                this.headerOffset = (document.body.clientWidth / 2) - headerStart
             }
+
+            this.headerOffset = (document.body.clientWidth / 2) - headerStart
         },
         focus () {
             if (this.stepIndex > 0 && this.hasBackButton) {

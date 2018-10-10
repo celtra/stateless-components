@@ -1,43 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RadioButton should match the snapshot 1`] = `
-<div
-  class="radio-element radio-element--normal radio-element--dark"
-  data-id=""
-  tabindex="0"
-  title=""
->
-  <div
-    class="radio-element__radio-row"
-    title=""
-  >
-    <div
-      class="radio-element__oval-wrapper"
-    >
-      <div
-        class="radio-element__oval"
-      />
-       
-      <div
-        class="radio-element__inner-oval"
-      />
-    </div>
-     
-    <div
-      class="radio-element__label-text"
-    >
-      
-            
-        
-    </div>
-  </div>
-   
-  <div
-    class="radio-element__helper-text"
-  >
-    
-        help
-    
-  </div>
-</div>
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none infoText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none labelText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something infoText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something labelText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none infoText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none labelText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something infoText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something labelText 1`] = `""`;
+
+exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
 `;

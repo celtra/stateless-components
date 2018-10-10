@@ -1,5 +1,6 @@
-import Slider from '@/stateless/slider.vue'
+import { Slider } from '@/library.js'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Slider)
 let vm = null
@@ -27,9 +28,7 @@ describe('Slider', () => {
         }, focus: () => {} }
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Slider)
 
     describe('computed', () => {
         describe('limitValue', () => {

@@ -1,6 +1,5 @@
 import DialogHeader from '@/stateless/dialog_header.vue'
 import Vue from 'vue'
-import components from '@/components'
 
 const Constructor = Vue.extend(DialogHeader)
 let vm = null
