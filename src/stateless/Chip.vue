@@ -3,7 +3,7 @@
         <div class="chip__label">{{ label }}</div>
         <div v-if="metadata" class="chip__metadata">{{ metadata }}</div>
         <span v-if="isRemovable" class="chip__remove-btn" @click.stop="$emit('remove')">
-            <icon style="width: 8px; height: 8px" name="x-bold"></icon>
+            <icon style="width: 8px; height: 8px;" name="x-bold"></icon>
         </span>
     </div>
 </template>
