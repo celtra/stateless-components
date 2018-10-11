@@ -48,6 +48,8 @@ export default {
                 const type = component.props && component.props[modelName] && component.props[modelName].type
                 if (type === Array) {
                     defaultValue = []
+                } else if (type === Object) {
+                    defaultValue = {}
                 } else if (type === String) {
                     defaultValue = ''
                 } else {
@@ -122,12 +124,50 @@ export default {
             }
         }
 
-        return h('div', { style: { display: 'flex', position: 'relative', width: '100%', height: '100%' } }, mapByTheme(this.usecases))
+        const sidebar = h('div', { class: 'sidebar' }, Object.values(library).filter(c => c.name).map(component => {
+            return h('div', { class: 'sidebar-item', on: { click: () => {
+                this.$router.push({ name: 'ComponentVariations', params: { component: component.name } })
+            } } }, component.name)
+        }))
+
+        return h('div', { class: 'main' }, [
+            sidebar,
+            h('div', { style: { display: 'flex', position: 'relative', width: '100%', height: '100%' } }, mapByTheme(this.usecases)),
+        ])
     },
 }
 </script>
 
 <style lang="less" scoped>
+.main {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    border-right: 1px solid #ccc;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 1px 0 0 20px;
+    color: #333;
+    font-size: 15px;
+    cursor: pointer;
+    width: 250px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+        border: none;
+    }
+}
+
 h2 {
     font-weight: bold;
     font-size: 18px;
