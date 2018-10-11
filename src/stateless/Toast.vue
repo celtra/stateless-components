@@ -57,7 +57,7 @@ export default {
     position: fixed;
     padding: 0 30px;
     bottom: 70px;
-    box-shadow: 0 1px 10px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);
     z-index: @z-lowest;
     transition: transform @slide-in-out-animation-time ease;
     transform: translateY(0);
