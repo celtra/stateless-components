@@ -1,4 +1,4 @@
-const flatVariations = (variations) => {
+const getFlatVariations = (variations) => {
     let flat = [{}]
 
     for (const key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {
@@ -45,8 +45,9 @@ export function getFlatUsecases (component, ignoreVariations = []) {
             }
         }
 
-        for (const variation of flatVariations(filterVariations)) {
-            for (var i = 0; i < component.usecases.length; i++) {
+        const flatVariations = getFlatVariations(filterVariations)
+        for (var i = 0; i < component.usecases.length; i++) {
+            for (const variation of flatVariations) {
                 const usecase = component.usecases[i]
                 const usecaseData = { ...variation, ...usecase }
                 const name = getUsecaseName(variation, i)
