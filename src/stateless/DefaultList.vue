@@ -1,5 +1,5 @@
 <template>
-    <div :class="[theme, size, { 'native-hover': useNativeHover }] | prefix('default-list--')" class="default-list" tabindex="0" @wheel="hideTooltip" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+    <div :class="[theme, size] | prefix('default-list--')" class="default-list" tabindex="0" @wheel="hideTooltip" @focus="onFocus" @blur="onBlur" @keydown.up.prevent.stop="move(-1)" @keydown.down.prevent.stop="move(1)" @keyup.enter.stop="selectItem(activeId)" @keyup.space.stop="selectItem(activeId)" @keyup.esc.stop="blur" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <slot name="before"></slot>
 
         <transition-group :name="transitionSorting && !firstRender ? 'default-list__item' : 'default-list__item-transitionless'" :duration="250" tag="div">
@@ -84,7 +84,6 @@ export default {
             activeId: null,
             itemHeight: null,
             groupHeight: null,
-            useNativeHover: true,
         }
     },
     computed: {
@@ -105,7 +104,6 @@ export default {
                     height: this.transitionSorting ? (isLeaf ? this.assumedItemHeight : this.assumedGroupHeight) : null,
                     modifiers: {
                         leaf: isLeaf,
-                        hoverable: isLeaf && !item.disabled && this.setActiveOnHover,
                         active: (item.key || item.id) === activeId,
                         'with-tooltip': !!item.tooltip,
                     },
@@ -190,7 +188,6 @@ export default {
         },
         clickItem (itemId) {
             this.isUsingKeyboard = false
-            this.useNativeHover = true
             this.selectItem(itemId)
         },
         selectItem (itemId) {
@@ -205,7 +202,6 @@ export default {
         },
         onItemHover (ev, item) {
             if (this.setActiveOnHover && item.isLeaf && (ev.movementX !== 0 || ev.movementY !== 0)) {
-                this.useNativeHover = true
                 this.activeId = item.key || item.id
             }
 
@@ -222,8 +218,6 @@ export default {
             if (this.flatSelectableItems.length === 0) {
                 return
             }
-
-            this.useNativeHover = false
 
             if (!this.isUsingKeyboard) {
                 this.startUsingKeyboard()
@@ -345,30 +339,14 @@ export default {
 }
 
 .default-list--dark {
-    &.default-list--native-hover {
-        .default-list__item--hoverable:hover {
-            background-color: @very-dark-gray;
-        }
-    }
-
-    &:not(:hover), &:not(.default-list--native-hover) {
-        .default-list__item--active {
-            background-color: @very-dark-gray;
-        }
+    .default-list__item--active {
+        background-color: @very-dark-gray;
     }
 }
 
 .default-list--light {
-    &.default-list--native-hover {
-        .default-list__item--hoverable:hover {
-            background-color: @white-smoke;
-        }
-    }
-
-    &:not(:hover), &:not(.default-list--native-hover) {
-        .default-list__item--active {
-            background-color: @white-smoke;
-        }
+    .default-list__item--active {
+        background-color: @white-smoke;
     }
 }
 

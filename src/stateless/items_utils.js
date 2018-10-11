@@ -133,9 +133,9 @@ export function flatten (items) {
 }
 
 export function unique (items) {
-    let ids = {}
-    let list = []
-    for (let item of items) {
+    const ids = {}
+    const list = []
+    for (const item of items) {
         if (!ids[item.id]) {
             ids[item.id] = true
             list.push(item)
