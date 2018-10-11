@@ -41015,9 +41015,20 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 
 function setup() {
+    this.show();
     return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
         setTimeout(resolve, 1000);
     });
+}
+
+function slot(h) {
+    return h('div', 'Label');
+}
+
+function actionSlot(h) {
+    return function () {
+        return h('div', 'Action');
+    };
 }
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -41028,11 +41039,13 @@ function setup() {
     },
     usecases: [{
         setup: setup,
-        label: 'Label'
+        slot: slot
     }, {
         setup: setup,
-        label: 'Label',
-        actionLabel: 'Action'
+        slot: slot,
+        scopedSlots: {
+            action: actionSlot
+        }
     }]
 });
 

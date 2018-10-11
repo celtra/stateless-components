@@ -45,7 +45,12 @@ const vm = new Vue({
             slot = this._v(slot)
         }
 
-        const scopedSlots = this.usecase && this.usecase.scopedSlots ? this.usecase.scopedSlots.bind(this.props)(h) : {}
+        const scopedSlots = {}
+        if (this.usecase && this.usecase.scopedSlots) {
+            for (const name in this.usecase.scopedSlots) {
+                scopedSlots[name] = this.usecase.scopedSlots[name].bind(this.props)(h)
+            }
+        }
 
         return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
             h(this.component, { props: this.props, scopedSlots: scopedSlots }, slot ? [slot] : []),
