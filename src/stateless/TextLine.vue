@@ -37,7 +37,7 @@ export default {
     mixins: [TooltipMixin],
     props: {
         theme: { type: String, default: 'dark' },
-        text: { type: String },
+        text: { type: String, required: true },
         tooltipText: { type: String, required: false },
         tooltipTitle: { type: String, required: false },
         truncate: { type: Boolean, default: true },

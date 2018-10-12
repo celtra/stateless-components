@@ -23,3 +23,12 @@ export const defaultNestedItems = [
         { id: '15', label: "G", metadata: 'someone@lorem.ipsum', tooltip: 'Something else' },
     ] },
 ]
+
+export const defaultSimpleItems = [
+    { id: 'a', label: 'A' },
+    { id: 'b', label: 'B' },
+    { id: 'c', label: 'C' },
+    { id: 'd', label: 'D' },
+    { id: 'e', label: 'E' },
+    { id: 'f', label: 'F' },
+]
