@@ -42,7 +42,6 @@ export default {
     components: { Icon },
     props: {
         theme: { type: String, default: 'dark' },
-        size: { type: String, default: 'normal' },
         value: { type: [Date, Object] },
         isRange: { type: Boolean, default: false },
         minDate: { type: Date },

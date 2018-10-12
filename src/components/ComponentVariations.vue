@@ -1,66 +1,40 @@
 <script>
-import '@/stateless/define_helpers'
-import * as library from '../library.js'
 import { getFlatUsecases } from '../component_utils'
-
-const getModelName = component => component.model && component.model.prop || 'value'
-const getModelEvent = component => component.model && component.model.event || 'input'
+import ComponentUsecase from './ComponentUsecase.vue'
 
 export default {
-    data () {
-        return {
-            name: null,
-            value: null,
-        }
+    components: {
+        ComponentUsecase,
+    },
+    props: {
+        component: { type: Object, required: true },
     },
     computed: {
-        component () {
-            if (this.name === null) {
-                return null
-            }
-            return library[this.name]
+        modelName () {
+            return this.component.model && this.component.model.prop || 'value'
         },
         usecases () {
             if (this.component === null) {
                 return null
             }
-            return getFlatUsecases(this.component, [getModelName(this.component)])
+            return getFlatUsecases(this.component, [this.modelName])
         },
-    },
-    watch: {
-        '$route.params.component' (name) {
-            this.setupComponent()
+        themes () {
+            return this.component.variations && this.component.variations.theme || []
         },
-    },
-    created () {
-        this.setupComponent()
-    },
-    methods: {
-        setupComponent () {
-            const name = this.$route.params.component
-            const component = library[name]
-            if (!component) {
-                throw `Component ${name} does not exist!`
+        sizes () {
+            return this.component.variations && this.component.variations.size || []
+        },
+        groupBy () {
+            const props = this.component.variations ? Object.keys(this.component.variations) : []
+            const relevance = {
+                size: 10,
             }
-            const modelName = getModelName(component)
-            let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
-            if (typeof defaultValue === 'undefined') {
-                const type = component.props && component.props[modelName] && component.props[modelName].type
-                if (type === Array) {
-                    defaultValue = []
-                } else if (type === Object) {
-                    defaultValue = {}
-                } else if (type === String) {
-                    defaultValue = ''
-                } else {
-                    defaultValue = null
-                }
-            }
-            this.value = defaultValue
-            this.name = name
-        },
-        updateValue (value) {
-            this.value = value
+            return props.filter(x => !['theme', this.modelName].includes(x)).sort((a, b) => {
+                const relevanceA = relevance[a] || 0
+                const relevanceB = relevance[b] || 0
+                return relevanceB - relevanceA
+            })
         },
     },
     render (h) {
@@ -68,128 +42,77 @@ export default {
             return h()
         }
 
-        const mapUsecase = usecase => {
-            const props = {
-                ...usecase.data,
-                [getModelName(this.component)]: this.value,
+        const groupByProps = (usecases, depth = 0) => {
+            if (depth >= this.groupBy.length) {
+                return usecases.map(usecase => h(ComponentUsecase, { key: usecase.uniqueID, class: 'component', props: { component: this.component, usecase: usecase } }))
             }
+            const splitByProp = this.groupBy[depth]
+            const propData = this.component.props[splitByProp]
+            const MAX = 26, MIN = 10
+            const titleSize = (MAX - MIN) * Math.pow(1.2, -4 * depth) + MIN
+            return this.component.variations[splitByProp].map(availableValue => {
+                let displayTitle = availableValue
+                if (propData.type === Boolean) {
+                    displayTitle = availableValue ? splitByProp : null
+                }
 
-            let slot = usecase.data.slot ? usecase.data.slot.bind(props)(h) : null
-            if (typeof slot === 'string') {
-                slot = this._v(slot)
-            }
+                if (!displayTitle) {
+                    return groupByProps(usecases.filter(x => x.data[splitByProp] === availableValue), depth + 1)
+                }
 
-            return h(this.component, {
-                props: props,
-                on: {
-                    [getModelEvent(this.component)]: (value) => {
-                        this.updateValue(value)
-                    },
-                },
-            }, slot ? [slot] : [])
+                return h('div', { class: 'group-container' }, [
+                    h('p', { class: 'group-title', style: { fontSize: `${titleSize}px`, lineHeight: `${titleSize}px` } }, displayTitle.toUpperCase()),
+                    h('div', { class: 'group-content' }, groupByProps(usecases.filter(x => x.data[splitByProp] === availableValue), depth + 1)),
+                ])
+            })
         }
 
-        const bySize = (usecases, mapChildren) => {
-            return [
-                h('div', { class: 'size-container' }, [
-                    h('h2', 'CONDENSED'),
-                    ...mapChildren(usecases.filter(x => x.data.size === 'condensed')),
-                ]),
-                h('div', { class: 'size-container' }, [
-                    h('h2', 'NORMAL'),
-                    ...mapChildren(usecases.filter(x => x.data.size === 'normal')),
-                ]),
-                h('div', { class: 'size-container' }, [
-                    h('h2', 'PHAT'),
-                    ...mapChildren(usecases.filter(x => x.data.size === 'phat')),
-                ]),
-            ]
-        }
-
-        const byTheme = (usecases, mapChildren) => {
-            return [
-                h('div', { class: 'theme-container', style: { backgroundColor: '#f2f2f3', color: 'black' } }, mapChildren(usecases.filter(x => x.data.theme === 'light'))),
-                h('div', { class: 'theme-container', style: { backgroundColor: '#1f1f2c', color: 'white' } }, mapChildren(usecases.filter(x => x.data.theme === 'dark'))),
-            ]
-        }
-
-        const mapByTheme = usecases => {
-            const mapBySize = usecases => {
-                return this.component.props.size ? bySize(usecases, x => x.map(mapUsecase)) : usecases.map(mapUsecase)
-            }
-            if (this.component.props.theme) {
-                return byTheme(usecases, mapBySize)
+        const groupByTheme = usecases => {
+            if (this.component.variations && this.component.variations.theme) {
+                return h('div', { class: 'themes-wrap' }, [
+                    h('div', { class: 'theme-container', style: { backgroundColor: '#f2f2f3', color: 'black' } }, groupByProps(usecases.filter(x => x.data.theme === 'light'))),
+                    h('div', { class: 'theme-container', style: { backgroundColor: '#1f1f2c', color: 'white' } }, groupByProps(usecases.filter(x => x.data.theme === 'dark'))),
+                ])
             } else {
-                return mapBySize(usecases)
+                return groupByProps(usecases)
             }
         }
 
-        const sidebar = h('div', { class: 'sidebar' }, Object.values(library).filter(c => c.name).map(component => {
-            return h('div', { class: 'sidebar-item', on: { click: () => {
-                this.$router.push({ name: 'ComponentVariations', params: { component: component.name } })
-            } } }, component.name)
-        }))
-
-        return h('div', { class: 'main' }, [
-            sidebar,
-            h('div', { style: { display: 'flex', position: 'relative', width: '100%', height: '100%' } }, mapByTheme(this.usecases)),
-        ])
+        return h('div', [groupByTheme(this.usecases)])
     },
 }
 </script>
 
 <style lang="less" scoped>
-.main {
+.themes-wrap {
     display: flex;
     height: 100%;
-}
-
-.sidebar {
-    border-right: 1px solid #ccc;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-item {
-    background-color: #eee;
-    border-bottom: 1px solid #ccc;
-    padding: 1px 0 0 20px;
-    color: #333;
-    font-size: 15px;
-    cursor: pointer;
-    width: 250px;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-
-    &:last-child {
-        border: none;
-    }
-}
-
-h2 {
-    font-weight: bold;
-    font-size: 18px;
-    margin: 0;
-    margin-bottom: 10px;
-    margin-left: 5px;
 }
 
 .theme-container {
     width: 50%;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
-.size-container {
+.group-container {
     flex: 1;
-    padding: 20px;
-    border-bottom: 1px solid currentColor;
-    box-sizing: border-box;
+    margin-top: 20px;
+}
 
-    &:last-child {
-        border-bottom: none;
-    }
+.group-content {
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+.group-title {
+    margin: 0;
+    margin-left: 4px;
+}
+
+.component {
+    position: relative;
+    margin-bottom: 10px;
 }
 </style>

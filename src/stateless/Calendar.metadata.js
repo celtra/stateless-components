@@ -2,7 +2,6 @@ export default {
     name: 'Calendar',
     variations: {
         theme: ['dark', 'light'],
-        size: ['condensed', 'normal', 'phat'],
     },
     usecases: [
         {
