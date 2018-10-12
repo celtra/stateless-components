@@ -70,14 +70,14 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false changeMultipleState 1`] = `false`;
-
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false enabledValueLength 1`] = `0`;
 
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false flatOptions 1`] = `
 Array [
@@ -339,14 +339,14 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true changeMultipleState 1`] = `false`;
-
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true enabledValueLength 1`] = `0`;
 
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true flatOptions 1`] = `
 Array [
@@ -608,14 +608,14 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false changeMultipleState 1`] = `false`;
-
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false enabledValueLength 1`] = `0`;
 
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false flatOptions 1`] = `
 Array [
@@ -877,14 +877,14 @@ Array [
 ]
 `;
 
-exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true changeMultipleState 1`] = `false`;
-
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true disabledValueIds 1`] = `
 Array [
   "1",
   "2",
 ]
 `;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true enabledValueLength 1`] = `0`;
 
 exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true flatOptions 1`] = `
 Array [

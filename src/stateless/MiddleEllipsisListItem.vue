@@ -30,6 +30,7 @@ export default {
 @import './typography';
 
 .middle-ellipsis-list-item {
+    font-family: @regular-text-font;
     width: 100%;
     display: flex;
     justify-content: space-between;

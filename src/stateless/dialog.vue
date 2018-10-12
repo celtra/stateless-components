@@ -158,8 +158,6 @@ export default {
 @closing-animation-time-content: 0.2s;
 
 .new-dialog {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     position: fixed;
     top: 0;
     left: 0;
@@ -292,7 +290,7 @@ export default {
 
 .new-dialog--light {
     .new-dialog__overlay {
-        background-color: @pale-white;
+        background-color: @opacity-white;
     }
 }
 </style>

@@ -133,3 +133,6 @@ export const MiddleEllipsis = MiddleEllipsisComponent
 
 import MiddleEllipsisListItemComponent from '@/stateless/MiddleEllipsisListItem.vue'
 export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent
+
+import TextLineComponent from '@/stateless/TextLine.vue'
+export const TextLine = TextLineComponent
