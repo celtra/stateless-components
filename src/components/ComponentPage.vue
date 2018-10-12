@@ -30,7 +30,7 @@ export default {
     },
     computed: {
         componentNames () {
-            return Object.values(library).map(x => x.name).filter(x => x)
+            return Object.values(library).map(x => x.name).filter(x => x).sort()
         },
         component () {
             if (this.name === null) {
