@@ -19,8 +19,21 @@ export default {
                 return null
             }
             const flatUsecases = getFlatUsecases(this.component)
-            // TODO filter usecases that are identical except for value (take only the first one)
-            return flatUsecases
+
+            // Ignore usecase if it only has a different model prop
+            const filteredUsecases = []
+            const existingUsecaseIds = {}
+            for (const usecase of flatUsecases) {
+                const keys = Object.keys(usecase.data).filter(x => x !== this.modelName)
+                const id = keys.map(k => `${k}-${usecase.data[k]}`).join('__')
+
+                if (!existingUsecaseIds[id]) {
+                    existingUsecaseIds[id] = true
+                    filteredUsecases.push(usecase)
+                }
+            }
+
+            return filteredUsecases
         },
         themes () {
             return this.component.variations && this.component.variations.theme || []

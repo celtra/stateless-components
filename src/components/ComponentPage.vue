@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         componentNames () {
-            return Object.values(library).filter(x => x.name && !x.hasAbsolutePosition).map(x => x.name).sort()
+            return Object.values(library).filter(x => x.usecases && !x.hasAbsolutePosition).map(x => x.name).sort()
         },
         component () {
             if (this.name === null) {
