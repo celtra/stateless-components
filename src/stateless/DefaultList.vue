@@ -131,19 +131,25 @@ export default {
 
         const checkSlotHeights = () => {
             if (this.itemHeight > 0 || this.groupHeight > 0) {
-                clearInterval(intervalId)
+                clearInterval(this.intervalId)
+                this.intervalId = null
             } else {
                 this.itemHeight = this.$refs.hiddenSlot.clientHeight
                 this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
             }
         }
-        const intervalId = setInterval(checkSlotHeights, 100)
+        this.intervalId = setInterval(checkSlotHeights, 100)
     },
     beforeCreate () {
         this.assumedItem = { label: 'A', metadata: 'A' }
     },
     created () {
         this.activeId = this.getDefaultActiveId()
+    },
+    beforeDestroy () {
+        if (this.intervalId) {
+            clearInterval(this.intervalId)
+        }
     },
     methods: {
         getDefaultActiveId () {
