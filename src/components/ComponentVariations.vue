@@ -18,7 +18,9 @@ export default {
             if (this.component === null) {
                 return null
             }
-            return getFlatUsecases(this.component, [this.modelName])
+            const flatUsecases = getFlatUsecases(this.component)
+            // TODO filter usecases that are identical except for value (take only the first one)
+            return flatUsecases
         },
         themes () {
             return this.component.variations && this.component.variations.theme || []
@@ -45,7 +47,7 @@ export default {
 
         const groupByProps = (usecases, depth = 0) => {
             if (depth >= this.groupBy.length) {
-                return usecases.map(usecase => h(ComponentUsecase, { key: usecase.uniqueID, class: 'component', props: { component: this.component, usecase: usecase } }))
+                return usecases.map(usecase => h('div', { key: usecase.uniqueID, class: 'component' }, [h(ComponentUsecase, { props: { component: this.component, usecase: usecase } })]))
             }
             const splitByProp = this.groupBy[depth]
             const propData = this.component.props[splitByProp]
@@ -75,7 +77,7 @@ export default {
                     h('div', { class: 'theme-container', style: { backgroundColor: '#1f1f2c', color: 'white' } }, groupByProps(usecases.filter(x => x.data.theme === 'dark'))),
                 ])
             } else {
-                return groupByProps(usecases)
+                return h('div', { class: 'groups-wrap' }, groupByProps(usecases))
             }
         }
 
@@ -97,11 +99,19 @@ export default {
     overflow-y: auto;
 }
 
+.groups-wrap {
+    padding: 20px;
+}
+
 .group-container {
     flex: 1;
     margin-top: 20px;
-    background-color: rgba(122, 122, 122, 0.1);
+    border: 1px solid rgba(122, 122, 122, 0.25);
     padding: 15px 10px;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 .group-content {
@@ -116,5 +126,9 @@ export default {
 .component {
     position: relative;
     margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 </style>

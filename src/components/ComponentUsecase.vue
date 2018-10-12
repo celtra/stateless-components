@@ -15,20 +15,24 @@ export default {
     created () {
         const component = this.component
         const modelName = getModelName(component)
-        let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
-        if (typeof defaultValue === 'undefined') {
-            const type = component.props && component.props[modelName] && component.props[modelName].type
-            if (type === Array) {
-                defaultValue = []
-            } else if (type === Object) {
-                defaultValue = {}
-            } else if (type === String) {
-                defaultValue = ''
-            } else {
-                defaultValue = null
+        if (typeof this.usecase.data.value !== 'undefined') {
+            this.value = this.usecase.data.value
+        } else {
+            let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
+            if (typeof defaultValue === 'undefined') {
+                const type = component.props && component.props[modelName] && component.props[modelName].type
+                if (type === Array) {
+                    defaultValue = []
+                } else if (type === Object) {
+                    defaultValue = {}
+                } else if (type === String) {
+                    defaultValue = ''
+                } else {
+                    defaultValue = null
+                }
             }
+            this.value = defaultValue
         }
-        this.value = defaultValue
     },
     methods: {
         updateValue (value) {

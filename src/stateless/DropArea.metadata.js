@@ -1,5 +1,6 @@
 export default {
     name: 'DropArea',
+    hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

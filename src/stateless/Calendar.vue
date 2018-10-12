@@ -41,7 +41,6 @@ import { compareDate } from './date_utils'
 export default {
     components: { Icon },
     props: {
-        theme: { type: String, default: 'dark' },
         value: { type: [Date, Object] },
         isRange: { type: Boolean, default: false },
         minDate: { type: Date },
