@@ -1,6 +1,7 @@
 <script>
 import { getFlatUsecases } from '../component_utils'
 import ComponentUsecase from './ComponentUsecase.vue'
+import { kebabCase } from 'lodash'
 
 export default {
     components: {
@@ -53,7 +54,7 @@ export default {
             return this.component.variations[splitByProp].map(availableValue => {
                 let displayTitle = availableValue
                 if (propData.type === Boolean) {
-                    displayTitle = availableValue ? splitByProp : null
+                    displayTitle = availableValue ? kebabCase(splitByProp) : null
                 }
 
                 if (!displayTitle) {
@@ -99,16 +100,17 @@ export default {
 .group-container {
     flex: 1;
     margin-top: 20px;
+    background-color: rgba(122, 122, 122, 0.1);
+    padding: 15px 10px;
 }
 
 .group-content {
-    padding: 5px 10px;
     box-sizing: border-box;
 }
 
 .group-title {
     margin: 0;
-    margin-left: 4px;
+    margin-bottom: 10px;
 }
 
 .component {
