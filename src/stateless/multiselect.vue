@@ -251,14 +251,14 @@ export default {
                             this.queryOptions = []
                         }
 
-                        let usedOption = false
+                        let gotAnyNewOptions = false
                         for (const item of result) {
                             if (!this.queryOptions.find(x => x.id === item.id)) {
                                 this.queryOptions.push(item)
-                                usedOption = true
+                                gotAnyNewOptions = true
                             }
                         }
-                        if (!usedOption) {
+                        if (!gotAnyNewOptions) {
                             this.gotAllOptions = true
                         }
                         this.getOptionsPage += 1

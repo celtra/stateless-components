@@ -20610,7 +20610,7 @@ function loadImage(file) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__ = __webpack_require__(100);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_020243bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(393);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d75c7060_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__ = __webpack_require__(393);
 function injectStyle (ssrContext) {
   __webpack_require__(373)
   __webpack_require__(375)
@@ -20626,12 +20626,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-020243bc"
+var __vue_scopeId__ = "data-v-d75c7060"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_multiselect_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_020243bc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d75c7060_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_multiselect_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -20962,14 +20962,14 @@ var Component = normalizeComponent(
                             _this5.queryOptions = [];
                         }
 
-                        var usedOption = false;
+                        var gotAnyNewOptions = false;
 
                         var _loop2 = function _loop2(item) {
                             if (!_this5.queryOptions.find(function (x) {
                                 return x.id === item.id;
                             })) {
                                 _this5.queryOptions.push(item);
-                                usedOption = true;
+                                gotAnyNewOptions = true;
                             }
                         };
 
@@ -20998,7 +20998,7 @@ var Component = normalizeComponent(
                             }
                         }
 
-                        if (!usedOption) {
+                        if (!gotAnyNewOptions) {
                             _this5.gotAllOptions = true;
                         }
                         _this5.getOptionsPage += 1;
@@ -36155,7 +36155,7 @@ function middleEllipsis(value, breakAt) {
     mixins: [__WEBPACK_IMPORTED_MODULE_1__helpers_tooltip_mixin__["a" /* default */]],
     props: {
         theme: { type: String, default: 'dark' },
-        text: { type: String },
+        text: { type: String, required: true },
         tooltipText: { type: String, required: false },
         tooltipTitle: { type: String, required: false },
         truncate: { type: Boolean, default: true },
@@ -39231,7 +39231,7 @@ var content = __webpack_require__(374);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("3b40ad86", content, true, {});
+var update = __webpack_require__(2)("de07e254", content, true, {});
 
 /***/ }),
 /* 374 */
@@ -39243,7 +39243,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.multiselect[data-v-020243bc] {\n  font-family: \"SF UI Text Regular\";\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-020243bc] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-020243bc] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0 0 0 0);\n          clip-path: inset(0 0 0 0);\n}\n.multiselect .multiselect__change-multiple.multiselect__change-multiple[data-v-020243bc] {\n  height: 24px;\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__change-multiple-label[data-v-020243bc] {\n  color: #939399;\n  font-size: 12px;\n}\n.multiselect__checkbox[data-v-020243bc] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-020243bc] {\n  margin-top: 0;\n  margin-left: -5px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,kCAAkC;UAC1B,0BAA0B;CACnC;AACD;EACE,aAAa;EACb,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,cAAc;EACd,kBAAkB;CACnB","file":"multiselect.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.multiselect[data-v-020243bc] {\n  font-family: \"SF UI Text Regular\";\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-020243bc] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-020243bc] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0 0 0 0);\n          clip-path: inset(0 0 0 0);\n}\n.multiselect .multiselect__change-multiple.multiselect__change-multiple[data-v-020243bc] {\n  height: 24px;\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__change-multiple-label[data-v-020243bc] {\n  color: #939399;\n  font-size: 12px;\n}\n.multiselect__checkbox[data-v-020243bc] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-020243bc] {\n  margin-top: 0;\n  margin-left: -5px;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.multiselect[data-v-d75c7060] {\n  font-family: \"SF UI Text Regular\";\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-d75c7060] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-d75c7060] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0 0 0 0);\n          clip-path: inset(0 0 0 0);\n}\n.multiselect .multiselect__change-multiple.multiselect__change-multiple[data-v-d75c7060] {\n  height: 24px;\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__change-multiple-label[data-v-d75c7060] {\n  color: #939399;\n  font-size: 12px;\n}\n.multiselect__checkbox[data-v-d75c7060] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-d75c7060] {\n  margin-top: 0;\n  margin-left: -5px;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/multiselect.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,4BAA4B;EAC5B,yBAAyB;EACzB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,6BAA6B;EAC7B,8BAA8B;MAC1B,2BAA2B;UACvB,uBAAuB;CAChC;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;CACf;AACD;EACE,oBAAoB;MAChB,eAAe;UACX,WAAW;EACnB,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,kCAAkC;UAC1B,0BAA0B;CACnC;AACD;EACE,aAAa;EACb,cAAc;EACd,qBAAqB;EACrB,qBAAqB;EACrB,cAAc;EACd,0BAA0B;MACtB,uBAAuB;UACnB,oBAAoB;CAC7B;AACD;EACE,eAAe;EACf,gBAAgB;CACjB;AACD;EACE,YAAY;CACb;AACD;EACE,cAAc;EACd,kBAAkB;CACnB","file":"multiselect.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.multiselect[data-v-d75c7060] {\n  font-family: \"SF UI Text Regular\";\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.multiselect__search-with-icon[data-v-d75c7060] {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.multiselect__options[data-v-d75c7060] {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n  overflow-x: hidden;\n  margin-top: 5px;\n  padding-left: 5px;\n  padding-right: 5px;\n  -webkit-clip-path: inset(0 0 0 0);\n          clip-path: inset(0 0 0 0);\n}\n.multiselect .multiselect__change-multiple.multiselect__change-multiple[data-v-d75c7060] {\n  height: 24px;\n  margin-top: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.multiselect__change-multiple-label[data-v-d75c7060] {\n  color: #939399;\n  font-size: 12px;\n}\n.multiselect__checkbox[data-v-d75c7060] {\n  width: 100%;\n}\n.multiselect__option > .multiselect__checkbox[data-v-d75c7060] {\n  margin-top: 0;\n  margin-left: -5px;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -39259,7 +39259,7 @@ var content = __webpack_require__(376);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("072bdd14", content, true, {});
+var update = __webpack_require__(2)("68dca5c4", content, true, {});
 
 /***/ }),
 /* 376 */
@@ -41281,7 +41281,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TextLine_vue__ = __webpack_require__(257);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5ca980fc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TextLine_vue__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_284e6603_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TextLine_vue__ = __webpack_require__(484);
 function injectStyle (ssrContext) {
   __webpack_require__(482)
 }
@@ -41296,12 +41296,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5ca980fc"
+var __vue_scopeId__ = "data-v-284e6603"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TextLine_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5ca980fc_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TextLine_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_284e6603_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TextLine_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -41322,7 +41322,7 @@ var content = __webpack_require__(483);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("4f5e5899", content, true, {});
+var update = __webpack_require__(2)("1dc585fa", content, true, {});
 
 /***/ }),
 /* 483 */
@@ -41334,7 +41334,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.text-line[data-v-5ca980fc] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n  position: relative;\n}\n.text-line__measurement[data-v-5ca980fc] {\n  position: absolute;\n  visibility: hidden;\n  height: auto;\n  width: auto;\n  white-space: nowrap;\n}\n.text-line__text[data-v-5ca980fc] {\n  white-space: nowrap;\n  overflow: hidden;\n  cursor: default;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/TextLine.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,YAAY;EACZ,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,oBAAoB;CACrB;AACD;EACE,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACjB","file":"TextLine.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.text-line[data-v-5ca980fc] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n  position: relative;\n}\n.text-line__measurement[data-v-5ca980fc] {\n  position: absolute;\n  visibility: hidden;\n  height: auto;\n  width: auto;\n  white-space: nowrap;\n}\n.text-line__text[data-v-5ca980fc] {\n  white-space: nowrap;\n  overflow: hidden;\n  cursor: default;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(" + escape(__webpack_require__(5)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(" + escape(__webpack_require__(6)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(" + escape(__webpack_require__(7)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(" + escape(__webpack_require__(8)) + ") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(" + escape(__webpack_require__(9)) + ") format(\"woff\");\n}\n.text-line[data-v-284e6603] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n  position: relative;\n}\n.text-line__measurement[data-v-284e6603] {\n  position: absolute;\n  visibility: hidden;\n  height: auto;\n  width: auto;\n  white-space: nowrap;\n}\n.text-line__text[data-v-284e6603] {\n  white-space: nowrap;\n  overflow: hidden;\n  cursor: default;\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/TextLine.vue"],"names":[],"mappings":";AACA;EACE,qCAAqC;EACrC,kDAAsE;CACvE;AACD;EACE,oCAAoC;EACpC,kDAAqE;CACtE;AACD;EACE,kCAAkC;EAClC,kDAAmE;CACpE;AACD;EACE,iCAAiC;EACjC,kDAAkE;CACnE;AACD;EACE,mCAAmC;EACnC,kDAAoE;CACrE;AACD;EACE,kCAAkC;EAClC,YAAY;EACZ,mBAAmB;CACpB;AACD;EACE,mBAAmB;EACnB,mBAAmB;EACnB,aAAa;EACb,YAAY;EACZ,oBAAoB;CACrB;AACD;EACE,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACjB","file":"TextLine.vue","sourcesContent":["\n@font-face {\n  font-family: \"SF UI Display Regular\";\n  src: url(\"../assets/fonts/SF-UI-Display-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Display Medium\";\n  src: url(\"../assets/fonts/SF-UI-Display-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Regular\";\n  src: url(\"../assets/fonts/SF-UI-Text-Regular.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Medium\";\n  src: url(\"../assets/fonts/SF-UI-Text-Medium.woff\") format(\"woff\");\n}\n@font-face {\n  font-family: \"SF UI Text Semibold\";\n  src: url(\"../assets/fonts/SF-UI-Text-Semibold.woff\") format(\"woff\");\n}\n.text-line[data-v-284e6603] {\n  font-family: \"SF UI Text Regular\";\n  width: 100%;\n  position: relative;\n}\n.text-line__measurement[data-v-284e6603] {\n  position: absolute;\n  visibility: hidden;\n  height: auto;\n  width: auto;\n  white-space: nowrap;\n}\n.text-line__text[data-v-284e6603] {\n  white-space: nowrap;\n  overflow: hidden;\n  cursor: default;\n}\n"],"sourceRoot":""}]);
 
 // exports
 
