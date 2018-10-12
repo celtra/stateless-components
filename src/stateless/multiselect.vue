@@ -1,20 +1,45 @@
 <template>
     <div :class="[theme] | prefix('multiselect--')" class="multiselect" @keyup="$emit('keyup', $event)" @click="$refs.list && $refs.list.focus()">
         <div v-if="isSearchable" class="multiselect__search-with-icon" @click.stop>
-            <search-input v-model="searchQuery" :label="label" :is-loading="isLoading" :theme="theme" :size="searchSize || size" @keyup.down="$refs.list && $refs.list.focus()" @keyup="$emit('keyup', $event)" />
+            <search-input
+                v-model="searchQuery"
+                :label="label"
+                :theme="theme"
+                :size="searchSize || size"
+                @keyup.down="$refs.list && $refs.list.focus()"
+                @keyup="$emit('keyup', $event)" />
         </div>
 
-        <div v-if="listItems.length === 0" class="multiselect__options multiselect__no-items">
-            No items
-        </div>
-        <div v-else class="multiselect__options">
-            <scrollable-list ref="list" :items="listItems" :num-items="numItems" :theme="theme" :transition-sorting="transitionSorting && !disableTransition" :no-group-rendering="areGroupsSelectable" :initial-offset="initialOffset" :set-active-on-hover="false" :enable-scroll-top="true" :show-overlay="true || showListOverlay" class="multiselect__default-list" @select="onSelect" @load-more="loadAsyncOptions">
-                <div v-if="canSelectAndClearAll || canClearAll" slot="before" class="multiselect__change-multiple">
-                    <checkbox-element :value="changeMultipleState" :disabled="!canSelectAndClearAll && value.length === 0" :size="size" :theme="theme" class="multiselect__select-all" @input="setMultiple">
-                        <span v-if="changeMultipleState === false" class="multiselect__select-all-label">Select all</span>
-                        <span v-else class="multiselect__select-all-label">Clear all ({{ value.length }})</span>
-                    </checkbox-element>
-                </div>
+        <div class="multiselect__options">
+            <scrollable-list
+                ref="list"
+                :items="listItems"
+                :num-items="numItems"
+                :theme="theme"
+                :transition-sorting="transitionSorting && !disableTransition"
+                :no-group-rendering="areGroupsSelectable"
+                :initial-offset="initialOffset"
+                :set-active-on-hover="false"
+                :enable-scroll-top="true"
+                :show-overlay="true || showListOverlay"
+                class="multiselect__default-list"
+                @select="onSelect"
+                @load-more="loadAsyncOptions">
+
+                <checkbox-element
+                    v-if="listItems.length > 0 && (canSelectAndClearAll || canClearAll)"
+                    slot="sticky"
+                    :value="enabledValueLength === 0 ? false : enabledValueLength === allPossibleIds.length ? true : null"
+                    :disabled="!canSelectAndClearAll && enabledValueLength === 0"
+                    :size="size"
+                    :theme="theme"
+                    class="multiselect__select-all"
+                    @input="setMultiple">
+
+                    <span v-if="enabledValueLength === 0" class="multiselect__change-multiple-label">Select all</span>
+                    <span v-else class="multiselect__change-multiple-label">Clear all ({{ enabledValueLength }})</span>
+                </checkbox-element>
+
                 <div slot-scope="{ item }" style="width: 100%;">
                     <checkbox-element
                         :disabled="item.disabled"
@@ -31,6 +56,8 @@
                         </slot>
                     </checkbox-element>
                 </div>
+
+                <search-status v-if="isLoading || listItems.length === 0" slot="sticky-bottom" :theme="theme" :is-loading="isLoading" :is-empty="listItems.length === 0" />
             </scrollable-list>
         </div>
     </div>
@@ -38,6 +65,7 @@
 
 <script>
 import SearchInput from './SearchInput.vue'
+import SearchStatus from './SearchStatus.vue'
 import Checkbox from './checkbox.vue'
 import ScrollableList from './ScrollableList.vue'
 import DefaultListItem from './DefaultListItem.vue'
@@ -47,6 +75,7 @@ import debounce from 'lodash.debounce'
 export default {
     components: {
         SearchInput,
+        SearchStatus,
         checkboxElement: Checkbox,
         ScrollableList,
         DefaultListItem,
@@ -87,6 +116,10 @@ export default {
                 return this.searchQueryData
             },
             set (v) {
+                const canDisableTransition = this.allOptions.length > this.numItems
+                if (canDisableTransition) {
+                    this.disableTransition = true
+                }
                 this.searchQueryData = v
                 this.getOptionsPage = 0
                 this.gotAllOptions = false
@@ -94,6 +127,12 @@ export default {
                 this.$emit('search', v)
                 this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'search' })
                 this.debouncedLoadAsyncOptions()
+
+                if (canDisableTransition) {
+                    this.$nextTick(() => {
+                        this.disableTransition = false
+                    })
+                }
             },
         },
         allOptions () {
@@ -119,9 +158,8 @@ export default {
                 return item && item.disabled
             })
         },
-        changeMultipleState () {
-            const enabledValueLength = this.value.length - this.disabledValueIds.length
-            return enabledValueLength === 0 ? false : enabledValueLength === this.allPossibleIds.length ? true : null
+        enabledValueLength () {
+            return this.value.length - this.disabledValueIds.length
         },
         listItems () {
             let result = this.allOptions
@@ -213,16 +251,17 @@ export default {
                             this.queryOptions = []
                         }
 
-                        if (result.length === 0) {
-                            this.gotAllOptions = true
-                        } else {
-                            for (const item of result) {
-                                if (!this.queryOptions.find(x => x.id === item.id)) {
-                                    this.queryOptions.push(item)
-                                }
+                        let gotAnyNewOptions = false
+                        for (const item of result) {
+                            if (!this.queryOptions.find(x => x.id === item.id)) {
+                                this.queryOptions.push(item)
+                                gotAnyNewOptions = true
                             }
-                            this.getOptionsPage += 1
                         }
+                        if (!gotAnyNewOptions) {
+                            this.gotAllOptions = true
+                        }
+                        this.getOptionsPage += 1
 
                         this.isLoading = false
 
@@ -301,6 +340,7 @@ export default {
 @import './typography';
 
 .multiselect {
+    font-family: @regular-text-font;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -319,32 +359,16 @@ export default {
         clip-path: inset(0 0 0 0);
     }
 
-    &__change-multiple {
-        flex: none;
-        z-index: @z-lowest;
-        position: relative;
+    .multiselect__change-multiple.multiselect__change-multiple {
         height: 24px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .multiselect__select-all.multiselect__select-all {
         margin-top: 0;
         display: flex;
         align-items: center;
     }
 
-    &__select-all-label {
+    &__change-multiple-label {
         color: @bluish-gray;
         font-size: 12px;
-    }
-
-    &__no-items {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
     }
 
     &__checkbox {
@@ -355,18 +379,6 @@ export default {
 .multiselect__option > .multiselect__checkbox {
     margin-top: 0;
     margin-left: -5px;
-}
-
-.multiselect--light.multiselect--light {
-    .multiselect__no-items {
-        color: @gray-blue;
-    }
-}
-
-.multiselect--dark.multiselect--dark {
-    .multiselect__no-items {
-        color: @gunpowder;
-    }
 }
 </style>
 

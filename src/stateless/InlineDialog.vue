@@ -18,6 +18,7 @@
     box-shadow: 1px 2px 5px 0 @shadow-default;
     font-size: 14px;
     z-index: @z-default;
+    font-family: @regular-text-font;
 
     &__header {
         padding: 10px 15px;

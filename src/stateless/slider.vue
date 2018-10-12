@@ -243,13 +243,14 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import (reference) './common';
 @import './typography';
 
 @opening-animation-time-content: 0.2s;
 
 .slider {
+    font-family: @regular-text-font;
     margin-bottom: 15px;
     height: 60px;
 

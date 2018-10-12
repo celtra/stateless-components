@@ -1,10 +1,15 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
         <div class="scrollable-list__list-wrap">
-            <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL TO TOP</div>
-
-            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
+            <div class="scrollable-list__sticky">
+                <div :style="{ marginLeft: `${initialOffset}px` }" class="scrollable-list__sticky-slot">
+                    <slot name="sticky"></slot>
+                </div>
+                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL UP</div>
+            </div>
+            <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
+                    v-show="items.length > 0"
                     ref="list"
                     :items="items"
                     :value="value"
@@ -15,7 +20,7 @@
                     :initial-offset="initialOffset"
                     :size="size"
                     :theme="theme"
-                    :class="{ 'with-overlay': showOverlay } | prefix('scrollable-list__default-list--')"
+                    :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__default-list--')"
                     class="scrollable-list__default-list"
                     @select="$emit('select', $event)"
                     @blur="$emit('blur', $event)"
@@ -28,6 +33,10 @@
                     <slot slot="before" name="before"></slot>
                     <slot slot="after" name="after"></slot>
                 </default-list>
+            </div>
+
+            <div class="scrollable-list__sticky-bottom">
+                <slot name="sticky-bottom"></slot>
             </div>
         </div>
     </div>
@@ -63,7 +72,7 @@ export default {
     },
     computed: {
         overlayHeight () {
-            return this.showOverlay ? 15 : 0
+            return this.showOverlay ? 10 : 0
         },
         itemHeight () {
             return this.isListReady ? this.$refs.list.assumedItemHeight : 0
@@ -103,14 +112,14 @@ export default {
             }
         },
         scrollTo (itemId) {
-            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const rootY = this.$refs.scrollable.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top + this.$refs.scrollable.scrollTop
 
             const scrollY = itemY - rootY - (this.maxHeight - this.itemHeight) / 2
             this.$refs.scrollable.scrollTop = scrollY
 
             this.$nextTick(() => {
-                const rootY = this.$el.getBoundingClientRect().top
+                const rootY = this.$refs.scrollable.getBoundingClientRect().top
                 const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
                 const shownY = itemY - rootY + this.itemHeight / 2
 
@@ -121,7 +130,7 @@ export default {
             const currentScroll = this.$refs.scrollable.scrollTop
             const computedScrollableStyle = getComputedStyle(this.$refs.scrollable)
             const verticalPadding = parseFloat(computedScrollableStyle.paddingTop) + parseFloat(computedScrollableStyle.paddingBottom)
-            const rootY = this.$el.getBoundingClientRect().top + document.documentElement.scrollTop
+            const rootY = this.$refs.scrollable.getBoundingClientRect().top + document.documentElement.scrollTop
             const itemY = this.$el.querySelector(`[data-item-id="${itemId}"]`).getBoundingClientRect().top
 
             const upTarget = currentScroll + itemY - rootY - this.overlayHeight
@@ -154,10 +163,12 @@ export default {
 @import (reference) './common';
 @import './typography';
 
-@overlay-height: 15px;
+@overlay-height: 10px;
 @scrollbar-width: 5px;
+@sticky-bottom-height: 50px;
 
 .scrollable-list {
+    font-family: @regular-text-font;
     width: 100%;
 
     &__list-wrap {
@@ -165,12 +176,31 @@ export default {
         overflow: hidden;
     }
 
+    &__sticky {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: calc(100% - @scrollbar-width - 1px);
+    }
+
+    &__sticky-bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
     &__list {
         overflow-y: auto;
+        overflow-x: hidden;
         overscroll-behavior: contain;
 
         &--with-overlay {
             mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
+        }
+
+        &--with-bottom-slot {
+            min-height: @sticky-bottom-height;
+            mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @sticky-bottom-height - @overlay-height), transparent calc(100% - @sticky-bottom-height), transparent 100%);
         }
     }
 
@@ -178,18 +208,15 @@ export default {
         &--with-overlay {
             padding: @overlay-height 0;
         }
+
+        &--with-bottom-slot {
+            padding: @overlay-height 0 @sticky-bottom-height 0;
+        }
     }
 
     &__scroll-top {
-        position: absolute;
-        top: 0;
-        right: @scrollbar-width + 1;
-        padding: 1px 3px;
         font-size: 11px;
-        line-height: 12px;
-        border-radius: 0 0 5px 5px;
         color: @bluish-gray;
-        z-index: @z-middle;
         cursor: pointer;
 
         &:focus {

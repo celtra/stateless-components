@@ -1,4 +1,13 @@
-import { defaultNestedItems } from './demo_data'
+import { defaultNestedItems, defaultSimpleItems } from './demo_data'
+
+function multilineSlot (h) {
+    return ({ item }) => {
+        return h('div', [
+            h('div', item.label),
+            h('div', item.metadata),
+        ])
+    }
+}
 
 export default {
     name: 'DefaultList',
@@ -11,7 +20,9 @@ export default {
             items: defaultNestedItems,
         },
         {
-            items: defaultNestedItems,
+            scopedSlots: { default: multilineSlot },
+            items: defaultSimpleItems,
+            transitionSorting: true,
             initialOffset: 50,
         },
         {

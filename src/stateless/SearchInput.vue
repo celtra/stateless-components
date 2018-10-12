@@ -35,10 +35,17 @@ export default {
 @import './typography';
 
 .search-input {
+    font-family: @regular-text-font;
+
     &__clear-icon {
         cursor: pointer;
         margin-left: 6px;
     }
+}
+
+.search-input__loading-icon.search-input__loading-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .search-input--dark {

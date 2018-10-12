@@ -9,6 +9,10 @@
         @focus="onFocus"
         @blur="onBlur"
         @keyup="$emit('keyup', $event)">
+
+        <slot slot="before" name="before" />
+        <slot slot="left" name="left" />
+        <slot slot="right" name="right" />
     </input-element>
 </template>
 

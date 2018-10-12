@@ -120,6 +120,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    font-family: @regular-text-font;
 
     &--disabled {
         cursor: auto;
