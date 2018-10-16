@@ -143,7 +143,6 @@ export default {
                 this.groupHeight = this.$refs.hiddenGroupSlot.clientHeight
             }
         }
-
         this.intervalId = setInterval(checkSlotHeights, 100)
     },
     beforeCreate () {

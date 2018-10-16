@@ -86,6 +86,7 @@ export default {
     },
     beforeDestroy () {
         window.removeEventListener('keyup', this.keyUpEventListener)
+        this.removeBlur()
     },
     methods: {
         closeDialog () {
@@ -96,7 +97,9 @@ export default {
         },
         closeDialogWithoutEmit () {
             this.dialogViewState = 'closing'
-
+            this.removeBlur()
+        },
+        removeBlur () {
             if (this.blurElement) {
                 this.blurElement.style['-webkit-filter'] = ''
                 this.blurElement.style.filter = ''
