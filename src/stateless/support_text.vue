@@ -35,9 +35,9 @@
 
 <script>
 export default {
-    name: 'support-text',
+    name: 'SupportText', // eslint-disable-line vue/name-property-casing
     components: {
-        supportText: this,
+        SupportText: this,
     },
     props: {
         text: { type: String, required: true },
