@@ -16,10 +16,31 @@
             </div>
             <component-variations :component="component" class="variations" />
         </div>
+
+        <div class="events-view">
+            <div v-for="(event, index) in events.slice().reverse()" :key="index" :class="{ 'event-item--active': currentEventIndex === index }" class="event-item" @click="currentEventIndex = index">
+                <p class="event-name">{{ event.componentName }}/{{ event.name }}</p>
+                <div v-if="currentEventIndex === index" class="event-payload">
+                    <template v-if="event.payload.length > 0">
+                        <template v-if="typeof event.payload[0] === 'object'">
+                            <p v-for="(value, key) in event.payload[0]" :key="key"><b>{{ key }}:</b> {{ value }}</p>
+                        </template>
+                        <template v-else>
+                            {{ event.payload[0] }}
+                        </template>
+                    </template>
+                    <template v-else>
+                        <p><b>no data</b></p>
+                    </template>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import { kebabCase } from 'lodash'
 import '@/stateless/define_helpers'
 import * as library from '../library.js'
 import Chip from '@/stateless/Chip.vue'
@@ -33,6 +54,8 @@ export default {
     data () {
         return {
             name: null,
+            events: [],
+            currentEventIndex: null,
         }
     },
     computed: {
@@ -64,6 +87,14 @@ export default {
         },
     },
     created () {
+        const original = Vue.prototype.$emit
+        const logEvent = this.logEvent
+        Vue.prototype.$emit = function (...args) {
+            const componentName = this.$options.name || this.$options._componentTag || 'Root'
+            const res = original.apply(this, args)
+            logEvent(kebabCase(componentName), args[0], args.slice(1))
+            return res
+        }
         this.setupComponent()
     },
     methods: {
@@ -74,6 +105,12 @@ export default {
                 throw `Component ${name} does not exist!`
             }
             this.name = name
+        },
+        logEvent (componentName, eventName, payload) {
+            if (this.currentEventIndex !== null) {
+                this.currentEventIndex ++
+            }
+            this.events.push({ componentName: componentName, name: eventName, payload: payload })
         },
     },
 }
@@ -116,7 +153,7 @@ export default {
 
 .component-view {
     margin-left: 250px;
-    width: calc(~'100% - 250px');
+    width: calc(~'100% - 450px');
     height: 100%;
     display: flex;
     flex-flow: column;
@@ -136,5 +173,52 @@ export default {
     flex: 1;
     // padding-top: 76px;
     // height: calc(100% - 76px);
+}
+
+.events-view {
+    position: fixed;
+    right: 0;
+    top: 0;
+    border-left: 1px solid #ddd;
+    height: 100%;
+    width: 199px;
+}
+
+.event-item {
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+    color: #333;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0;
+
+    &:hover, &--active {
+        background-color: #ddd;
+    }
+}
+
+.event-name {
+    font-size: 18px;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.event-payload {
+    margin-top: 5px;
+    border-top: 1px solid #e7e7e7;
+    padding-left: 20px;
+    padding-top: 5px;
+
+    > p {
+        margin: 0;
+        font-size: 15px;
+
+        > b {
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+    }
 }
 </style>
