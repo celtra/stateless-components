@@ -1,7 +1,7 @@
 import { defaultItems } from './demo_data'
 
 export default {
-    name: 'Multiselect',
+    metaName: 'Multiselect',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

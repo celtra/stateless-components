@@ -1,5 +1,5 @@
 export default {
-    name: 'Input',
+    metaName: 'Input',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

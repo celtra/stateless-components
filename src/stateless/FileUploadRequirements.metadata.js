@@ -1,5 +1,5 @@
 export default {
-    name: 'FileUploadRequirements',
+    metaName: 'FileUploadRequirements',
     hasAbsolutePosition: true,
     usecases: [
         {

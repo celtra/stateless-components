@@ -3,7 +3,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Checkbox',
+    metaName: 'Checkbox',
     variations: {
         theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],

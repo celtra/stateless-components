@@ -10,7 +10,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Dialog',
+    metaName: 'Dialog',
     hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],

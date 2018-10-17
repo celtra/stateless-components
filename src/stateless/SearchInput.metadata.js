@@ -1,5 +1,5 @@
 export default {
-    name: 'SearchInput',
+    metaName: 'SearchInput',
     usecases: [
         {
             label: 'Something',
