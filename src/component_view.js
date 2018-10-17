@@ -17,7 +17,7 @@ const vm = new Vue({
         component () {
             let component = library[this.componentName]
             if (!component) {
-                component = Object.values(library).find(x => x.name === this.componentName)
+                component = Object.values(library).find(x => x.metaName === this.componentName)
             }
             return component
         },
