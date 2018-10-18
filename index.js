@@ -37734,7 +37734,7 @@ function defaultSlot(h) {
     variations: {
         theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],
-        value: [true, false],
+        value: [true, false, null],
         disabled: [false, true]
     },
     usecases: [{
