@@ -40,7 +40,9 @@ const vm = new Vue({
             throw `Component ${this.componentName} does not exist!`
         }
 
-        let slot = this.usecase && this.usecase.slot ? this.usecase.slot.bind(this.props)(h) : null
+        const props = { ...this.props, ...this.usecase }
+
+        let slot = this.usecase && this.usecase.slot ? this.usecase.slot.bind(props)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
@@ -48,12 +50,12 @@ const vm = new Vue({
         const scopedSlots = {}
         if (this.usecase && this.usecase.scopedSlots) {
             for (const name in this.usecase.scopedSlots) {
-                scopedSlots[name] = this.usecase.scopedSlots[name].bind(this.props)(h)
+                scopedSlots[name] = this.usecase.scopedSlots[name].bind(props)(h)
             }
         }
 
         return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
-            h(this.component, { props: this.props, scopedSlots: scopedSlots }, slot ? [slot] : []),
+            h(this.component, { props: props, scopedSlots: scopedSlots }, slot ? [slot] : []),
         ])
     },
 })
