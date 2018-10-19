@@ -146,9 +146,9 @@ export default {
         })
 
         const getPropTitle = (name, value) => {
-            let title = kebabCase(value).toString().toUpperCase()
-            if (this.component.props[name].type === Boolean && value) {
-                title = 'NOT ' + title
+            let title = value.toString().toUpperCase()
+            if (this.component.props[name].type === Boolean) {
+                title = (value ? 'NOT ' : '') + kebabCase(name).toUpperCase()
             }
             return title
         }
@@ -248,7 +248,7 @@ export default {
 }
 
 .column-container--first {
-    width: 200px;
+    width: fit-content;
     flex: initial;
     font-weight: bold;
 
@@ -258,7 +258,7 @@ export default {
 
     .column-item {
         justify-content: flex-end;
-        padding: 10px @column-padding;
+        padding: @column-padding;
     }
 }
 
