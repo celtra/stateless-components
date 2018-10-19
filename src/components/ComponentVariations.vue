@@ -28,12 +28,13 @@ export default {
 
             const flatUsecases = getFlatUsecases(this.component)
 
-            const defaultModelValue = this.component.variations[this.modelName] && this.component.variations[this.modelName][0] || null
-
             const relevantUsecases = flatUsecases.filter(usecase => {
-                if (!this.filters[this.modelName] && usecase.data[this.modelName] !== defaultModelValue) {
-                    return false
+                if (this.component.variations[this.modelName]) {
+                    if (!this.filters[this.modelName] && this.component.variations[this.modelName][0] !== defaultModelValue) {
+                        return false
+                    }
                 }
+
                 for (const prop in this.filters) {
                     if (usecase.data[prop] !== this.filters[prop]) {
                         return false
@@ -141,7 +142,7 @@ export default {
 
         const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
             const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
-            return createItem([slot], prefixIndex ? `${prefixIndex}-${index}` : index)
+            return createItem([slot], typeof prefixIndex !== 'undefined' ? `${prefixIndex}-${index}` : index)
         })
 
         const getPropTitle = (name, value) => {
@@ -249,15 +250,15 @@ export default {
 .column-container--first {
     width: 200px;
     flex: initial;
+    font-weight: bold;
 
-        font-weight: bold;
     .column-title {
         text-align: right;
     }
 
     .column-item {
         justify-content: flex-end;
-        padding: 10px;
+        padding: 10px @column-padding;
     }
 }
 
