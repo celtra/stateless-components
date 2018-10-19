@@ -11,7 +11,7 @@ export default {
             limit: 20,
             step: 1,
             label: 'Basic slider',
-            value: 5,
+            valueArray: [5,10],
             unit: '%',
             alignment: 'right',
         },
