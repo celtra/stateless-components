@@ -24,12 +24,9 @@ export default {
             const filteredUsecases = []
             const existingUsecaseIds = {}
             for (const usecase of flatUsecases) {
-                const keys = Object.keys(usecase.data).filter(x => x !== this.modelName)
-                const id = keys.map(k => `${k}-${usecase.data[k]}`).join('__')
-
-                if (!existingUsecaseIds[id]) {
-                    existingUsecaseIds[id] = true
-                    filteredUsecases.push(usecase)
+                if (!existingUsecaseIds[usecase.name]) {
+                    existingUsecaseIds[usecase.name] = true
+                    filteredUsecases.push(usecase.data)
                 }
             }
 
@@ -60,7 +57,7 @@ export default {
 
         const groupByProps = (usecases, depth = 0) => {
             if (depth >= this.groupBy.length) {
-                return usecases.map(usecase => h('div', { key: usecase.uniqueID, class: 'component' }, [h(ComponentUsecase, { props: { component: this.component, usecase: usecase } })]))
+                return usecases.map((usecase, index) => h('div', { key: index, class: 'component' }, [h(ComponentUsecase, { props: { component: this.component, usecase: usecase } })]))
             }
             const splitByProp = this.groupBy[depth]
             const propData = this.component.props[splitByProp]
@@ -73,12 +70,12 @@ export default {
                 }
 
                 if (!displayTitle) {
-                    return groupByProps(usecases.filter(x => x.data[splitByProp] === availableValue), depth + 1)
+                    return groupByProps(usecases.filter(x => x[splitByProp] === availableValue), depth + 1)
                 }
 
                 return h('div', { class: 'group-container' }, [
                     h('p', { class: 'group-title', style: { fontSize: `${titleSize}px`, lineHeight: `${titleSize}px` } }, displayTitle.toUpperCase()),
-                    h('div', { class: 'group-content' }, groupByProps(usecases.filter(x => x.data[splitByProp] === availableValue), depth + 1)),
+                    h('div', { class: 'group-content' }, groupByProps(usecases.filter(x => x[splitByProp] === availableValue), depth + 1)),
                 ])
             })
         }
@@ -86,8 +83,8 @@ export default {
         const groupByTheme = usecases => {
             if (this.component.variations && this.component.variations.theme) {
                 return h('div', { class: 'themes-wrap' }, [
-                    h('div', { class: 'theme-container', style: { backgroundColor: '#f2f2f3', color: 'black' } }, groupByProps(usecases.filter(x => x.data.theme === 'light'))),
-                    h('div', { class: 'theme-container', style: { backgroundColor: '#1f1f2c', color: 'white' } }, groupByProps(usecases.filter(x => x.data.theme === 'dark'))),
+                    h('div', { class: 'theme-container', style: { backgroundColor: '#f2f2f3', color: 'black' } }, groupByProps(usecases.filter(x => x.theme === 'light'))),
+                    h('div', { class: 'theme-container', style: { backgroundColor: '#1f1f2c', color: 'white' } }, groupByProps(usecases.filter(x => x.theme === 'dark'))),
                 ])
             } else {
                 return h('div', { class: 'groups-wrap' }, groupByProps(usecases))

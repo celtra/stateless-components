@@ -15,8 +15,8 @@ export default {
     created () {
         const component = this.component
         const modelName = getModelName(component)
-        if (typeof this.usecase.data.value !== 'undefined') {
-            this.value = this.usecase.data.value
+        if (typeof this.usecase.value !== 'undefined') {
+            this.value = this.usecase.value
         } else {
             let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
             if (typeof defaultValue === 'undefined') {
@@ -34,6 +34,11 @@ export default {
             this.value = defaultValue
         }
     },
+    mounted () {
+        if (this.usecase.setup) {
+            this.usecase.setup(this.$children[0])
+        }
+    },
     methods: {
         updateValue (value) {
             this.value = value
@@ -41,17 +46,25 @@ export default {
     },
     render (h) {
         const props = {
-            ...this.usecase.data,
+            ...this.usecase,
             [getModelName(this.component)]: this.value,
         }
 
-        let slot = this.usecase.data.slot ? this.usecase.data.slot.bind(props)(h) : null
+        let slot = this.usecase.slot ? this.usecase.slot.bind(props)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
 
+        const scopedSlots = {}
+        if (this.usecase && this.usecase.scopedSlots) {
+            for (const name in this.usecase.scopedSlots) {
+                scopedSlots[name] = () => this.usecase.scopedSlots[name](h)
+            }
+        }
+
         return h(this.component, {
             props: props,
+            scopedSlots: scopedSlots,
             on: {
                 [getModelEvent(this.component)]: (value) => {
                     this.updateValue(value)
