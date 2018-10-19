@@ -9,13 +9,12 @@ export default {
     },
     props: {
         component: { type: Object, required: true },
-        theme: { type: String, required: false },
-        showBoundingBoxes: { type: Boolean, default: false },
         filters: { type: Object, default: () => ({}) },
+        showBoundingBoxes: { type: Boolean, default: false },
     },
     data () {
         return {
-            hoverUsecaseIndex: null,
+            hoverUsecaseKey: null,
         }
     },
     computed: {
@@ -27,7 +26,6 @@ export default {
                 return null
             }
 
-            // const ignoreVariations = this.theme ? ['theme'] : []
             const flatUsecases = getFlatUsecases(this.component)
 
             const defaultModelValue = this.component.variations[this.modelName] && this.component.variations[this.modelName][0] || null
@@ -138,50 +136,79 @@ export default {
             return h()
         }
 
-        const mapUsecases = usecases => {
-            return usecases.map((usecase, index) => {
-                return h('div', {
-                    key: Math.round(Math.random() * Number.MAX_SAFE_INTEGER).toString(),
-                    class: 'component',
-                    style: { backgroundColor: this.hoverUsecaseIndex === index ? 'rgba(122, 122, 122, 0.1)' : 'auto' },
-                    on: {
-                        mousemove: (ev) => {
-                            if (ev.movementX !== 0 || ev.movementY !== 0) {
-                                this.hoverUsecaseIndex = index
-                            }
-                        },
-                        mouseleave: (ev) => {
-                            this.hoverUsecaseIndex = null
-                        },
+        const createItem = (slot, key) => {
+            return h('div', {
+                class: 'column-item',
+                style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.1)' } : {},
+                on: {
+                    mousemove: (ev) => {
+                        if (ev.movementX !== 0 || ev.movementY !== 0) {
+                            this.hoverUsecaseKey = key
+                        }
                     },
-                }, [h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(0, 0, 0, 0.05)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.theme || usecase.theme } } })])
-            })
+                    mouseleave: (ev) => {
+                        this.hoverUsecaseKey = null
+                    },
+                },
+            }, slot)
         }
 
-        const groupByProps = (usecases, depth = 0) => {
-            if (depth >= this.groupBy.length) {
+        const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
+            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(0, 0, 0, 0.05)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
+            return createItem([slot], `${prefixIndex}-${index}`)
+        })
 
-                return mapUsecases(usecases)
-            }
-            const splitByProp = this.groupBy[depth]
-            const propData = this.component.props[splitByProp]
-            const MAX = 26, MIN = 10
-            const titleSize = (MAX - MIN) * Math.pow(1.2, -4 * depth) + MIN
-            return Object.values(this.valuesByName[splitByProp]).map(availableValue => {
-                let displayTitle = availableValue
-                if (propData.type === Boolean) {
-                    displayTitle = availableValue ? kebabCase(splitByProp) : null
-                }
-
-                if (!displayTitle) {
-                    return groupByProps(usecases.filter(x => x[splitByProp] === availableValue), depth + 1)
-                }
-
-                return h('div', { class: 'group-container' }, [
-                    h('p', { class: 'group-title', style: { fontSize: `${titleSize}px`, lineHeight: `${titleSize}px` } }, displayTitle.toUpperCase()),
-                    h('div', { class: 'group-content' }, groupByProps(usecases.filter(x => x[splitByProp] === availableValue), depth + 1)),
-                ])
+        let rows = []
+        if (this.rowProp) {
+            rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
+                const columnItems = [
+                    {
+                        title: rowValue.toString().toUpperCase(),
+                        slot: this.flatUsecases.map((usecase, index) => {
+                            return createItem([h('span', { class: 'usecase-name' }, usecase.name)], `${rowIndex}-${index}`)
+                        }),
+                    },
+                    ...this.valuesByName[this.columnProp].map((columnValue, index) => {
+                        return {
+                            title: columnValue.toString().toUpperCase(),
+                            slot: mapUsecases(this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue), rowIndex),
+                        }
+                    }),
+                ]
+                return columnItems
             })
+        } else if (this.columnProp) {
+            rows = [
+                [
+                    {
+                        title: '/',
+                        content: this.flatUsecases.map((usecase, index) => {
+                            return createItem(usecase.name, index)
+                        }),
+                    },
+                    ...this.valuesByName[this.columnProp].map(columnValue => {
+                        return {
+                            title: columnValue.toString().toUpperCase(),
+                            content: mapUsecases(this.usecases),
+                        }
+                    }),
+                ],
+            ]
+        } else {
+            rows = [
+                [
+                    {
+                        title: '/',
+                        content: this.flatUsecases.map((usecase, index) => {
+                            return createItem(usecase.name, index)
+                        }),
+                    },
+                    {
+                        title: '/',
+                        content: mapUsecases(this.usecases),
+                    },
+                ],
+            ]
         }
 
         const themesCss = {
@@ -190,142 +217,55 @@ export default {
             dark: { backgroundColor: '#1f1f2c', color: 'white' },
         }
 
-        /*if (this.theme) {
-            if (this.valuesByName.size) {
-                return h('div', [
-                    h('div', { class: 'themes-wrap' }, this.valuesByName.size.map((value, index) => {
-                        return h('div', { class: 'theme-container', style: themeCss }, [
-                            h('p', { class: 'group-title', style: { fontSize: '22px' } }, value.toUpperCase()),
-                            h('div', { class: 'group-content' }, groupByProps(this.usecases.filter(x => x.size === value), 0, index === 0)),
-                        ])
-                    })),
-                ])
-            } else {
-                return h('div', { class: 'groups-wrap', style: themeCss }, groupByProps(this.usecases))
-            }
-        }*/
-        const rowValues = this.valuesByName[this.rowProp]
-
-        const renderColumns = (usecases) => {
-            return h('div', { class: 'themes-wrap' }, [
-                h('div', { class: 'theme-container' }, [
-                    h('p', { class: 'group-title', style: { fontSize: '22px' } }, 'NAMES'),
-                    h('div', { class: 'group-content' }, this.flatUsecases.map(usecase => {
-                        return h('div', usecase.name)
-                    })),
-                ]),
-                ...this.valuesByName[this.columnProp].map((value, index) => {
-                    let displayTitle = value || ''
-                    if (typeof value === 'boolean') {
-                        displayTitle = value ? kebabCase(this.groupBy[0]) : `NOT ${kebabCase(this.groupBy[0])}`
-                    }
-
-                    const themeCss = themesCss[this.groupBy[0] === 'theme' ? value : this.theme]
-
-                    return h('div', { class: 'theme-container', style: themeCss }, [
-                        h('p', { class: 'group-title', style: { fontSize: '22px' } }, displayTitle.toUpperCase()),
-                        h('div', { class: 'group-content' }, groupByProps(usecases.filter(x => x[this.columnProp] === value), 1)),
-                    ])
-                }),
-            ])
-        }
-
-        if (this.rowProp) {
-            return h('div', { class: 'rows-container' }, this.valuesByName[this.rowProp].map(rowValue => {
-                return h('div', { class: 'row' }, [
-                    h('div', { class: 'column-container' }, [
-                        h('div', { class: 'column-title' }, rowValue.toString().toUpperCase()),
-                        h('div', { class: 'columns-content' }, this.flatUsecases.map(usecase => {
-                            return h('div', usecase.name)
-                        })),
-                    ]),
-                    ...this.valuesByName[this.columnProp].map(columnValue => {
-                        return h('div', { class: 'column-container' }, [
-                            h('div', { class: 'column-title' }, columnValue.toUpperCase()),
-                            h('div', { class: 'columns-content' }, mapUsecases(this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue))),
-                        ])
-                    }),
+        return h('div', { class: 'rows-container' }, rows.map((columns, rowIndex) => {
+            return h('div', { class: 'row' }, columns.map((column, columnIndex) => {
+                const columnCss = this.columnProp === 'theme' ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {})
+                return h('div', { class: 'column-container', style: columnCss }, [
+                    h('div', { class: { 'column-title': true, 'column-title--bold': columnIndex === 0 && rowIndex === 0 } }, column.title),
+                    h('div', { class: 'columns-content' }, column.slot),
                 ])
             }))
-        } else if (this.columnProp) {
-            return renderColumns(this.usecases)
-        }
-
-        if (this.groupBy.length > 0 && this.valuesByName[this.groupBy[0]].length > 0) {
-
-        } else {
-            return h('div', { class: 'groups-wrap', style: themesCss.light }, groupByProps(this.usecases))
-        }
+        }))
     },
 }
 </script>
 
 <style lang="less" scoped>
-.themes-wrap {
-    display: flex;
-    height: 100%;
-}
+@column-padding: 15px;
 
-.theme-container {
-    width: 100%;
-    overflow-y: auto;
-}
-
-.groups-wrap {
-    padding: 20px;
-}
-
-.group-container {
-    flex: 1;
-    margin-top: 20px;
-
-    padding: 15px 10px;
-
-    &:first-child {
-        margin-top: 0;
-    }
-}
-
-.group-content {
-    box-sizing: border-box;
-    border: 1px solid rgba(122, 122, 122, 0.25);
-}
-
-.group-title {
-    margin: 0;
-    margin-bottom: 20px;
-}
-
-.component {
-    position: relative;
-    padding-bottom: 5px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-
-    > div {
-        margin: 0;
-        height: auto;
-    }
-
-    .usecase-name {
-        margin-right: 15px;
-        font-size: 14px;
-        font-weight: bold;
-        min-width: 120px;
-    }
-}
-
-/* NEW LAYOUT */
 .row {
     display: flex;
+    margin-bottom: 50px;
+    background-color: rgba(122, 122, 122, 0.1);
+    border-radius: 5px;
 }
 
 .column-container {
     flex: 1;
+    padding-top: @column-padding;
+}
+
+.column-title {
+    padding: 0 @column-padding;
+    margin-bottom: 10px;
+}
+
+.column-title--bold {
+    font-weight: bold;
+}
+
+.column-item {
+    cursor: pointer;
+    padding: @column-padding;
+    display: flex;
+
+    > div {
+        margin: 0 !important;
+    }
+}
+
+.usecase-name {
+    font-size: 14px;
+    line-height: 14px;
 }
 </style>

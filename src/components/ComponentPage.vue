@@ -20,7 +20,7 @@
         </div>
 
         <div class="component-view">
-            <component-variations :component="component" :theme="showThemeToggle ? theme : null" :show-bounding-boxes="showBoundingBox" :filters="filters" class="variations" />
+            <component-variations :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" class="variations" />
         </div>
 
         <div class="events-view">
@@ -141,52 +141,18 @@ export default {
     height: 100%;
 
     &--light {
-        .header {
-            background-color: #eee;
-            color: black;
-        }
-        .header-left {
-            color: black;
-        }
-
-        .sidebar-item {
-            background-color: #eee;
-            color: #333;
-        }
-        .events-view {
-            background-color: #eee;
-        }
-        .event-item {
-            color: black;
-        }
+        background-color: white;
+        color: black;
     }
 
     &--dark {
-        .header {
-            background-color: #1f1f2c;
-        }
-        .header-left {
-            color: white;
-        }
-
-        .sidebar-item {
-            background-color: #1f1f2c;
-            color: white;
-        }
-        .events-view {
-            background-color: #1f1f2c;
-        }
-
-        .event-item {
-            color: white;
-        }
+        background-color: white;
     }
 }
 
 .sidebar {
     position: fixed;
     top: 51px;
-    border-right: 1px solid rgba(122, 122, 122, 0.3);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -194,23 +160,22 @@ export default {
 }
 
 .sidebar-item {
-    background-color: #eee;
     border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     padding: 1px 20px 0 20px;
     font-size: 15px;
     cursor: pointer;
-    width: 250px;
+    width: 150px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     box-sizing: border-box;
 
     &:last-child {
-        border: none;
+        border-bottom: none;
     }
 
     &:hover {
-        background-color: #ddd;
+        background-color: rgba(122, 122, 122, 0.2);
     }
 }
 
@@ -220,7 +185,6 @@ export default {
     padding: 0 20px;
     width: 100%;
 
-    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     user-select: none;
     height: 50px;
     position: fixed;
@@ -250,13 +214,15 @@ export default {
 
 .component-view {
     position: fixed;
-    left: 250px;
+    left: 150px;
     top: 51px;
     overflow-y: auto;
-    width: calc(~'100% - 500px');
+    width: calc(~'100% - 300px');
     height: 100%;
     display: flex;
     flex-flow: column;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
 .props-info {
@@ -264,26 +230,18 @@ export default {
     max-width: calc(~'100% - 300px');
     overflow-x: hidden;
     margin-left: 50px;
-    // position: fixed;
 }
 
 .prop-info {
     margin: 5px;
 }
 
-.variations {
-    flex: 1;
-    // padding-top: 76px;
-    // height: calc(100% - 76px);
-}
-
 .events-view {
     position: fixed;
     right: 0;
     top: 51px;
-    border-left: 1px solid rgba(122, 122, 122, 0.2);
     height: 100%;
-    width: 250px;
+    width: 150px;
     z-index: 100000;
 }
 
@@ -295,6 +253,10 @@ export default {
     width: 100%;
     box-sizing: border-box;
     padding: 10px 0;
+
+    &:last-child {
+        border-bottom: none;
+    }
 
     &:hover, &--active {
         background-color: rgba(122, 122, 122, 0.2);
