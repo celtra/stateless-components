@@ -12,9 +12,11 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             slot: defaultSlot,
         },
         {
+            name: 'Toggle',
             slot: defaultSlot,
             isToggle: true,
         },

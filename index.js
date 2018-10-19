@@ -37740,8 +37740,10 @@ function defaultSlot(h) {
         disabled: [false, true]
     },
     usecases: [{
+        name: 'Basic',
         slot: defaultSlot
     }, {
+        name: 'Toggle',
         slot: defaultSlot,
         isToggle: true
     }]

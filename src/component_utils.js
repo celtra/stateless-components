@@ -1,4 +1,4 @@
-const getFlatVariations = (variations) => {
+export function getFlatVariations (variations) {
     let flat = [{}]
 
     for (const key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {

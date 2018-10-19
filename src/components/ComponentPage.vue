@@ -3,11 +3,9 @@
         <div class="header">
             <div class="header-left">
                 <icon :style="{ color: showBoundingBox ? 'white' : '#666' }" class="header-icon" name="duplicate-icon" @click="showBoundingBox = !showBoundingBox" />
-                <div class="view-toggle" @click="showThemeToggle = !showThemeToggle">{{ showThemeToggle ? 'One theme' : 'Two themes' }}</div>
-                <checkbox v-if="showThemeToggle" :is-toggle="true" v-model="isThemeLight" :theme="theme" size="condensed" class="theme-toggle">Lights</checkbox>
             </div>
             <div class="props-info">
-                <chip v-for="(values, name) in componentVariations" v-if="!['theme'].includes(name)" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" theme="light" class="prop-info" @click="cycleFilter(name)" />
+                <chip v-for="(values, name) in componentVariations" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" theme="light" class="prop-info" @click="cycleFilter(name)" />
             </div>
         </div>
 
