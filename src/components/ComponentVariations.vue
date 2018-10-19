@@ -30,7 +30,7 @@ export default {
 
             const relevantUsecases = flatUsecases.filter(usecase => {
                 if (this.component.variations[this.modelName]) {
-                    if (!this.filters[this.modelName] && this.component.variations[this.modelName][0] !== defaultModelValue) {
+                    if (!this.filters[this.modelName] && usecase.data[this.modelName] !== this.component.variations[this.modelName][0]) {
                         return false
                     }
                 }
@@ -146,9 +146,9 @@ export default {
         })
 
         const getPropTitle = (name, value) => {
-            let title = value.toString().toUpperCase()
-            if (this.component.props[name].type === Boolean) {
-                title = `${value ? '' : 'not '}${name}`.toUpperCase()
+            let title = kebabCase(value).toString().toUpperCase()
+            if (this.component.props[name].type === Boolean && value) {
+                title = 'NOT ' + title
             }
             return title
         }
