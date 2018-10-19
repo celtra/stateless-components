@@ -1,14 +1,17 @@
 <template>
-    <div class="main">
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-header-left">
-                    <icon :style="{ color: showBoundingBox ? 'white' : '#666' }" name="duplicate-icon" @click="showBoundingBox = !showBoundingBox" />
-                    <div class="view-toggle" @click="showThemeToggle = !showThemeToggle">{{ showThemeToggle ? 'One theme' : 'Two themes' }}</div>
-                </div>
-
+    <div :class="`main--${theme}`" class="main">
+        <div class="header">
+            <div class="header-left">
+                <icon :style="{ color: showBoundingBox ? 'white' : '#666' }" class="header-icon" name="duplicate-icon" @click="showBoundingBox = !showBoundingBox" />
+                <div class="view-toggle" @click="showThemeToggle = !showThemeToggle">{{ showThemeToggle ? 'One theme' : 'Two themes' }}</div>
                 <checkbox v-if="showThemeToggle" :is-toggle="true" v-model="isThemeLight" size="condensed" class="theme-toggle">Lights</checkbox>
             </div>
+            <div class="props-info">
+                <chip v-for="propInfo in propsInfo" :key="propInfo.name" :label="propInfo.name" :metadata="propInfo.type.name" :is-active="true" theme="light" class="prop-info" />
+            </div>
+        </div>
+
+        <div class="sidebar">
             <div
                 v-for="componentName in componentNames"
                 :key="componentName"
@@ -19,10 +22,7 @@
         </div>
 
         <div class="component-view">
-            <div class="props-info">
-                <chip v-for="propInfo in propsInfo" :key="propInfo.name" :label="propInfo.name" :metadata="propInfo.type.name" :is-active="true" theme="light" class="prop-info" />
-            </div>
-            <component-variations :component="component" :theme="showThemeToggle ? isThemeLight ? 'light' : 'dark' : null" :show-bounding-boxes="showBoundingBox" class="variations" />
+            <component-variations :component="component" :theme="showThemeToggle ? theme : null" :show-bounding-boxes="showBoundingBox" class="variations" />
         </div>
 
         <div class="events-view">
@@ -95,6 +95,9 @@ export default {
                 }
             })
         },
+        theme () {
+            return this.showThemeToggle ? this.isThemeLight ? 'light' : 'dark' : 'both'
+        },
     },
     watch: {
         '$route.params.component' (name) {
@@ -134,11 +137,41 @@ export default {
 <style lang="less" scoped>
 .main {
     height: 100%;
+
+    &--
+
+    &--both, &--light {
+        .sidebar-item {
+            background-color: #eee;
+        }
+    }
+
+    &--dark {
+        .sidebar-item {
+            background-color: #1f1f2c;
+            color: white;
+
+            &:hover {
+                background-color: #222;
+            }
+        }
+    }
+
+    &--dark, &--both {
+        .events-view {
+            background-color: #1f1f2c;
+        }
+
+        .event-item {
+            color: white;
+        }
+    }
 }
 
 .sidebar {
     position: fixed;
-    border-right: 1px solid #ddd;
+    top: 51px;
+    border-right: 1px solid rgba(122, 122, 122, 0.3);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -146,12 +179,12 @@ export default {
 
 .sidebar-item {
     background-color: #eee;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     padding: 1px 20px 0 20px;
     color: #333;
     font-size: 15px;
     cursor: pointer;
-    width: 249px;
+    width: 250px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -166,14 +199,19 @@ export default {
     }
 }
 
-.sidebar-header {
-    .sidebar-item();
+.header {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 
     background-color: #1f1f2c;
-    border-bottom: none;
-    min-height: 32px;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     user-select: none;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     &:hover {
         background-color: #1f1f2c;
@@ -181,15 +219,21 @@ export default {
 
     .theme-toggle {
         margin-top: 0;
+        margin-left: 50px;
+    }
+
+    .header-icon {
+        cursor: pointer;
     }
 
     .view-toggle {
         color: white;
         font-size: 14px;
         margin-left: 10px;
+        cursor: pointer;
     }
 
-    .sidebar-header-left {
+    .header-left {
         display: flex;
         align-items: center;
     }
@@ -204,8 +248,9 @@ export default {
 }
 
 .props-info {
-    padding: 10px 20px;
-    background-color: #f8f8f8;
+    display: flex;
+    max-width: calc(~'100% - 300px');
+    overflow-x: hidden;
     // position: fixed;
 }
 
@@ -222,29 +267,28 @@ export default {
 .events-view {
     position: fixed;
     right: 0;
-    top: 0;
-    border-left: 1px solid #ddd;
+    top: 51px;
+    border-left: 1px solid rgba(122, 122, 122, 0.2);
     height: 100%;
-    width: 199px;
+    width: 200px;
 }
 
 .event-item {
-    border-bottom: 1px solid #ddd;
-    background-color: #eee;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     color: #333;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
     padding: 10px 0;
 
     &:hover, &--active {
-        background-color: #ddd;
+        background-color: rgba(122, 122, 122, 0.2);
     }
 }
 
 .event-name {
-    font-size: 18px;
+    font-size: 16px;
     margin: 0;
     padding-left: 20px;
 }
