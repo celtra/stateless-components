@@ -95,13 +95,12 @@ export default {
             const allVariations = this.component.variations
             const allNames = this.component.usecases.map(x => x.name)
             const remainingVariations = {}
-            for (const key of Object.keys(this.component.variations).filter(name => ![this.modelName, this.columnProp, this.rowProp].includes(name))) {
+            for (const key of Object.keys(this.component.variations).filter(name => !Object.keys(this.filters).concat([this.modelName, this.columnProp, this.rowProp]).includes(name))) {
                 remainingVariations[key] = this.component.variations[key]
             }
 
             const flat = []
             for (const name of allNames) {
-
                 for (const variation of getFlatVariations(remainingVariations)) {
                     const variationSuffix = Object.keys(variation).map(key => {
                         const propData = this.component.props[key]
@@ -116,19 +115,6 @@ export default {
                 }
             }
             return flat
-        },
-    },
-    methods: {
-        getQuadrantUsecases (column, row) {
-            return this.usecases.filter(usecase => {
-                if (this.columnProp && usecase[this.columnProp] !== column) {
-                    return false
-                }
-                if (this.rowProp && usecase[this.rowProp] !== row) {
-                    return false
-                }
-                return true
-            })
         },
     },
     render (h) {
@@ -155,23 +141,31 @@ export default {
 
         const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
             const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
-            return createItem([slot], `${prefixIndex}-${index}`)
+            return createItem([slot], prefixIndex ? `${prefixIndex}-${index}` : index)
         })
+
+        const getPropTitle = (name, value) => {
+            let title = value.toString().toUpperCase()
+            if (this.component.props[name].type === Boolean) {
+                title = `${value ? '' : 'not '}${name}`.toUpperCase()
+            }
+            return title
+        }
 
         let rows = []
         if (this.rowProp) {
             rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
                 const columnItems = [
                     {
-                        title: rowValue.toString().toUpperCase(),
-                        slot: this.flatUsecases.map((usecase, index) => {
+                        title: getPropTitle(this.rowProp, rowValue),
+                        content: this.flatUsecases.map((usecase, index) => {
                             return createItem([h('span', { class: 'usecase-name' }, usecase.name)], `${rowIndex}-${index}`)
                         }),
                     },
                     ...this.valuesByName[this.columnProp].map((columnValue, index) => {
                         return {
-                            title: columnValue.toString().toUpperCase(),
-                            slot: mapUsecases(this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue), rowIndex),
+                            title: getPropTitle(this.columnProp, columnValue),
+                            content: mapUsecases(this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue), rowIndex),
                         }
                     }),
                 ]
@@ -181,15 +175,18 @@ export default {
             rows = [
                 [
                     {
-                        title: '/',
                         content: this.flatUsecases.map((usecase, index) => {
                             return createItem(usecase.name, index)
                         }),
                     },
                     ...this.valuesByName[this.columnProp].map(columnValue => {
+                        let title = columnValue.toString().toUpperCase()
+                        if (this.component.props[this.columnProp].type === Boolean) {
+                            title = `${columnValue ? '' : 'not '}${this.columnProp}`
+                        }
                         return {
-                            title: columnValue.toString().toUpperCase(),
-                            content: mapUsecases(this.usecases),
+                            title: title,
+                            content: mapUsecases(this.usecases.filter(x => x[this.columnProp] === columnValue)),
                         }
                     }),
                 ],
@@ -198,13 +195,11 @@ export default {
             rows = [
                 [
                     {
-                        title: '/',
                         content: this.flatUsecases.map((usecase, index) => {
                             return createItem(usecase.name, index)
                         }),
                     },
                     {
-                        title: '/',
                         content: mapUsecases(this.usecases),
                     },
                 ],
@@ -219,10 +214,10 @@ export default {
 
         return h('div', { class: 'rows-container' }, rows.map((columns, rowIndex) => {
             return h('div', { class: 'row' }, columns.map((column, columnIndex) => {
-                const columnCss = this.columnProp === 'theme' ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {})
-                return h('div', { class: 'column-container', style: columnCss }, [
-                    h('div', { class: { 'column-title': true, 'column-title--first': columnIndex === 0 } }, column.title),
-                    h('div', { class: { 'column-content': true, 'column-content--first': columnIndex === 0 } }, column.slot),
+                const columnCss = this.columnProp === 'theme' && column.title ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {})
+                return h('div', { class: { 'column-container': true,  'column-container--first': columnIndex === 0 }, style: columnCss }, [
+                    h('div', { class: 'column-title' }, column.title || ''),
+                    h('div', { class: 'column-content' }, column.content),
                 ])
             }))
         }))
@@ -248,16 +243,21 @@ export default {
 .column-title {
     padding: 0 @column-padding;
     margin-bottom: 10px;
+    min-height: 25px;
 }
 
-.column-title--first {
-    font-weight: bold;
-    text-align: right;
-}
+.column-container--first {
+    width: 200px;
+    flex: initial;
 
-.column-content--first {
+        font-weight: bold;
+    .column-title {
+        text-align: right;
+    }
+
     .column-item {
         justify-content: flex-end;
+        padding: 10px;
     }
 }
 

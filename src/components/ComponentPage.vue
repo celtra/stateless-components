@@ -3,8 +3,9 @@
         <div class="header">
             <checkbox :is-toggle="true" v-model="showBoundingBox" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
             <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
+            <checkbox :is-toggle="true" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Set value</checkbox>
             <div class="props-info">
-                <chip v-for="(values, name) in componentVariations" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" :theme="theme" class="prop-info" @click="cycleFilter(name)" />
+                <chip v-for="(values, name) in componentVariations" v-if="name !== 'value'" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" :theme="theme" class="prop-info" @click="cycleFilter(name)" />
             </div>
         </div>
 
