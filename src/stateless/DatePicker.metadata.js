@@ -13,7 +13,7 @@ export default {
         {
             label: 'Enter date',
             value: new Date(2018, 0, 10),
-            error: 'Something went wrong',
+            error: 'Date is not in a valid format',
         },
     ],
 }

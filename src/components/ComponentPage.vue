@@ -7,7 +7,7 @@
                 <checkbox v-if="showThemeToggle" :is-toggle="true" v-model="isThemeLight" :theme="theme" size="condensed" class="theme-toggle">Lights</checkbox>
             </div>
             <div class="props-info">
-                <chip v-for="propInfo in propsInfo" :key="propInfo.name" :label="propInfo.name" :metadata="propInfo.type.name" :is-active="true" theme="light" class="prop-info" />
+                <chip v-for="(values, name) in componentVariations" v-if="!['theme'].includes(name)" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" theme="light" class="prop-info" @click="cycleFilter(name)" />
             </div>
         </div>
 
@@ -22,7 +22,7 @@
         </div>
 
         <div class="component-view">
-            <component-variations :component="component" :theme="showThemeToggle ? theme : null" :show-bounding-boxes="showBoundingBox" class="variations" />
+            <component-variations :component="component" :theme="showThemeToggle ? theme : null" :show-bounding-boxes="showBoundingBox" :filters="filters" class="variations" />
         </div>
 
         <div class="events-view">
@@ -71,6 +71,7 @@ export default {
             showThemeToggle: true,
             isThemeLight: true,
             showBoundingBox: false,
+            filters: {},
         }
     },
     computed: {
@@ -83,17 +84,8 @@ export default {
             }
             return library[this.name]
         },
-        propsInfo () {
-            if (!this.component) {
-                return null
-            }
-            return Object.keys(this.component.props).map(propName => {
-                const propData = this.component.props[propName]
-                return {
-                    name: propName,
-                    type: propData.type,
-                }
-            })
+        componentVariations () {
+            return this.component && this.component.variations || {}
         },
         theme () {
             return this.showThemeToggle ? this.isThemeLight ? 'light' : 'dark' : 'light'
@@ -129,6 +121,18 @@ export default {
                 this.currentEventIndex ++
             }
             this.events.push({ componentName: componentName, name: eventName, payload: payload })
+        },
+        cycleFilter (name) {
+            const currentValue = this.filters[name]
+            const values = this.componentVariations[name]
+            const currentIndex = values.indexOf(currentValue)
+            const newIndex = (currentIndex + 1) % (values.length + 1)
+            if (newIndex >= values.length) {
+                Vue.delete(this.filters, name)
+                delete this.filters[name]
+            } else {
+                Vue.set(this.filters, name, values[newIndex])
+            }
         },
     },
 }

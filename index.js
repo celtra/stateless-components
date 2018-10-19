@@ -39700,9 +39700,13 @@ function defaultSlot(h) {
         disabled: [false, true],
         selectedValue: ['none', 'something']
     },
+    shareModelValue: true,
     usecases: [{
         slot: defaultSlot,
         value: 'something'
+    }, {
+        slot: defaultSlot,
+        value: 'something else'
     }]
 });
 
@@ -40691,7 +40695,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
     }, {
         label: 'Enter date',
         value: new Date(2018, 0, 10),
-        error: 'Something went wrong'
+        error: 'Date is not in a valid format'
     }]
 });
 

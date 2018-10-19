@@ -11,6 +11,7 @@ export default {
         component: { type: Object, required: true },
         theme: { type: String, required: false },
         showBoundingBoxes: { type: Boolean, default: false },
+        filters: { type: Object, default: () => ({}) },
     },
     computed: {
         modelName () {
@@ -24,10 +25,19 @@ export default {
             const ignoreVariations = this.theme ? ['theme'] : []
             const flatUsecases = getFlatUsecases(this.component, ignoreVariations)
 
+            const relevantUsecases = flatUsecases.filter(usecase => {
+                for (const prop in this.filters) {
+                    if (usecase.data[prop] !== this.filters[prop]) {
+                        return false
+                    }
+                }
+                return true
+            })
+
             // Ignore usecase if it only has a different model prop
             const filteredUsecases = []
             const existingUsecaseIds = {}
-            for (const usecase of flatUsecases) {
+            for (const usecase of relevantUsecases) {
                 if (!existingUsecaseIds[usecase.name]) {
                     existingUsecaseIds[usecase.name] = true
                     filteredUsecases.push(usecase.data)
@@ -36,19 +46,13 @@ export default {
 
             return filteredUsecases
         },
-        themes () {
-            return this.component.variations && this.component.variations.theme || []
-        },
-        sizes () {
-            return this.component.variations && this.component.variations.size || []
-        },
         groupBy () {
-            const props = this.component.variations ? Object.keys(this.component.variations) : []
+            const props = this.valuesByName ? Object.keys(this.valuesByName) : []
             const relevance = {
                 size: 10,
             }
             return props.filter(x => {
-                if (x === 'theme' || this.theme && x === 'size') {
+                if (x in this.filters || x === 'theme' || this.theme && x === 'size') {
                     return false
                 }
                 return true
@@ -57,6 +61,20 @@ export default {
                 const relevanceB = relevance[b] || 0
                 return relevanceB - relevanceA
             })
+        },
+        valuesByName () {
+            const values = {}
+            for (const usecase of this.usecases) {
+                for (const key in usecase) {
+                    if (this.component.variations[key] && (!values[key] || values[key].indexOf(usecase[key]) === -1)) {
+                        if (!values[key]) {
+                            values[key] = []
+                        }
+                        values[key].push(usecase[key])
+                    }
+                }
+            }
+            return values
         },
     },
     render (h) {
@@ -72,7 +90,7 @@ export default {
             const propData = this.component.props[splitByProp]
             const MAX = 26, MIN = 10
             const titleSize = (MAX - MIN) * Math.pow(1.2, -4 * depth) + MIN
-            return this.component.variations[splitByProp].map(availableValue => {
+            return Object.values(this.valuesByName[splitByProp]).map(availableValue => {
                 let displayTitle = availableValue
                 if (propData.type === Boolean) {
                     displayTitle = availableValue ? kebabCase(splitByProp) : null
@@ -96,32 +114,23 @@ export default {
 
         if (this.theme) {
             const themeCss = themesCss[this.theme]
-            if (this.component.variations && this.component.variations.size) {
+            if (this.valuesByName.size) {
                 return h('div', [
-                    h('div', { class: 'themes-wrap' }, [
-                        h('div', { class: 'theme-container', style: themeCss }, [
-                            h('p', { class: 'group-title', style: { fontSize: '22px' } }, 'CONDENSED'),
-                            h('div', { class: 'group-content' }, groupByProps(this.usecases.filter(x => x.size === 'condensed'))),
-                        ]),
-                        h('div', { class: 'theme-container', style: themeCss }, [
-                            h('p', { class: 'group-title', style: { fontSize: '22px' } }, 'NORMAL'),
-                            h('div', { class: 'group-content' }, groupByProps(this.usecases.filter(x => x.size === 'normal'))),
-                        ]),
-                        h('div', { class: 'theme-container', style: themeCss }, [
-                            h('p', { class: 'group-title', style: { fontSize: '22px' } }, 'PHAT'),
-                            h('div', { class: 'group-content' }, groupByProps(this.usecases.filter(x => x.size === 'phat'))),
-                        ]),
-                    ]),
+                    h('div', { class: 'themes-wrap' }, this.valuesByName.size.map(value => {
+                        return h('div', { class: 'theme-container', style: themeCss }, [
+                            h('p', { class: 'group-title', style: { fontSize: '22px' } }, value.toUpperCase()),
+                            h('div', { class: 'group-content' }, groupByProps(this.usecases.filter(x => x.size === value))),
+                        ])
+                    })),
                 ])
             } else {
                 return h('div', { class: 'groups-wrap', style: themeCss }, groupByProps(this.usecases))
             }
-        } if (this.component.variations && this.component.variations.theme) {
+        } if (this.valuesByName.theme) {
             return h('div', [
-                h('div', { class: 'themes-wrap' }, [
-                    h('div', { class: 'theme-container', style: themesCss.light }, groupByProps(this.usecases.filter(x => x.theme === 'light'))),
-                    h('div', { class: 'theme-container', style: themesCss.dark }, groupByProps(this.usecases.filter(x => x.theme === 'dark'))),
-                ]),
+                h('div', { class: 'themes-wrap' }, this.valuesByName.theme.map(value => {
+                    return h('div', { class: 'theme-container', style: themesCss[value] }, groupByProps(this.usecases.filter(x => x.theme === value)))
+                })),
             ])
         } else {
             return h('div', { class: 'groups-wrap', style: themesCss.light }, groupByProps(this.usecases))

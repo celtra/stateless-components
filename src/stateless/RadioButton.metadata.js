@@ -10,10 +10,15 @@ export default {
         disabled: [false, true],
         selectedValue: ['none', 'something'],
     },
+    shareModelValue: true,
     usecases: [
         {
             slot: defaultSlot,
             value: 'something',
+        },
+        {
+            slot: defaultSlot,
+            value: 'something else',
         },
     ],
 }
