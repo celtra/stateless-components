@@ -1,5 +1,5 @@
 export default {
-    name: 'Icon',
+    metaName: 'Icon',
     variations: {
         name: [
             'pencil-edit', 'pencil-edit-line', 'delete-icon', 'duplicate-icon', 'sort-arrow',

@@ -1,7 +1,7 @@
 import { largeItems } from './demo_data'
 
 export default {
-    name: 'ScrollableList',
+    metaName: 'ScrollableList',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

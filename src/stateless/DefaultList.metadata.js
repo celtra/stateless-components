@@ -10,7 +10,7 @@ function multilineSlot (h) {
 }
 
 export default {
-    name: 'DefaultList',
+    metaName: 'DefaultList',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

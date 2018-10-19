@@ -1,5 +1,5 @@
 export default {
-    name: 'DateInput',
+    metaName: 'DateInput',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

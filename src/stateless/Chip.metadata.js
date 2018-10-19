@@ -1,5 +1,5 @@
 export default {
-    name: 'Chip',
+    metaName: 'Chip',
     variations: {
         theme: ['dark', 'light'],
         isActive: [false, true],

@@ -1,5 +1,5 @@
 export default {
-    name: 'Typeahead',
+    metaName: 'Typeahead',
     usecases: [
         {
             label: 'Something',

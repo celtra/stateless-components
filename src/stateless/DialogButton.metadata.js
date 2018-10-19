@@ -3,7 +3,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'DialogButton',
+    metaName: 'DialogButton',
     variations: {
         disabled: [false, true],
         // loading: [false, true], We would have to disable animation to test this

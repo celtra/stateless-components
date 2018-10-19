@@ -3,7 +3,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'RadioButton',
+    metaName: 'RadioButton',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

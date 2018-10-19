@@ -37,7 +37,7 @@
 export default {
     name: 'support-text',
     components: {
-        supportText: this,
+        SupportText: this,
     },
     props: {
         text: { type: String, required: true },

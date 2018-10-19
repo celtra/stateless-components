@@ -1,5 +1,5 @@
 export default {
-    name: 'DropArea',
+    metaName: 'DropArea',
     hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],

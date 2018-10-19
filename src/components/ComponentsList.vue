@@ -103,7 +103,7 @@ const getComponents = () => {
 }
 
 export default {
-    name: 'components-list',
+    metaName: 'components-list',
     data () {
         const vars = {
             componentId: componentNames[0],

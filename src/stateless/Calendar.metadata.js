@@ -1,5 +1,5 @@
 export default {
-    name: 'Calendar',
+    metaName: 'Calendar',
     usecases: [
         {
             value: new Date(2018, 0, 10),

@@ -3,7 +3,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Group',
+    metaName: 'Group',
     variations: {
         theme: ['dark', 'light'],
     },

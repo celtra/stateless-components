@@ -1,5 +1,5 @@
 export default {
-    name: 'ChipWithMultiselect',
+    metaName: 'ChipWithMultiselect',
     variations: {
         size: ['condensed', 'normal', 'phat'],
     },
