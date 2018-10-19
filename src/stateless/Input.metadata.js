@@ -7,9 +7,12 @@ export default {
     },
     usecases: [
         {
+            name: 'Inactive',
             label: 'Something',
         },
         {
+            testOnly: true,
+            name: 'Focused',
             label: 'Something',
             setup (vm) {
                 vm.focused = true
@@ -18,6 +21,7 @@ export default {
             },
         },
         {
+            name: 'Input',
             label: 'Something',
             setup (vm) {
                 vm.text = 'Input text'
@@ -25,12 +29,14 @@ export default {
             },
         },
         {
+            name: 'Password hidden',
             type: 'password',
             setup (vm) {
                 vm.text = 'Hidden text'
             },
         },
         {
+            name: 'Before slot',
             scopedSlots: {
                 before (h) {
                     return h('span', 'px')
@@ -38,6 +44,7 @@ export default {
             },
         },
         {
+            name: 'Left slot',
             scopedSlots: {
                 left (h) {
                     return h('span', 'px')
@@ -45,6 +52,7 @@ export default {
             },
         },
         {
+            name: 'Right slot',
             scopedSlots: {
                 right (h) {
                     return h('span', 'px')

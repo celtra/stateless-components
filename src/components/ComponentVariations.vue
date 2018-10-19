@@ -20,7 +20,9 @@ export default {
             if (this.component === null) {
                 return null
             }
-            const flatUsecases = getFlatUsecases(this.component)
+
+            const ignoreVariations = this.theme ? ['theme'] : []
+            const flatUsecases = getFlatUsecases(this.component, ignoreVariations)
 
             // Ignore usecase if it only has a different model prop
             const filteredUsecases = []
@@ -162,15 +164,20 @@ export default {
 
 .group-title {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .component {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    > div {
+        margin: 0;
+        height: auto;
     }
 }
 </style>

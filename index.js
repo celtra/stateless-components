@@ -39158,8 +39158,11 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         disabled: [false, true]
     },
     usecases: [{
+        name: 'Inactive',
         label: 'Something'
     }, {
+        testOnly: true,
+        name: 'Focused',
         label: 'Something',
         setup: function setup(vm) {
             vm.focused = true;
@@ -39169,6 +39172,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
             });
         }
     }, {
+        name: 'Input',
         label: 'Something',
         setup: function setup(vm) {
             vm.text = 'Input text';
@@ -39177,23 +39181,27 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
             });
         }
     }, {
+        name: 'Password hidden',
         type: 'password',
         setup: function setup(vm) {
             vm.text = 'Hidden text';
         }
     }, {
+        name: 'Before slot',
         scopedSlots: {
             before: function before(h) {
                 return h('span', 'px');
             }
         }
     }, {
+        name: 'Left slot',
         scopedSlots: {
             left: function left(h) {
                 return h('span', 'px');
             }
         }
     }, {
+        name: 'Right slot',
         scopedSlots: {
             right: function right(h) {
                 return h('span', 'px');
