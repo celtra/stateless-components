@@ -1,6 +1,14 @@
 <template>
     <div class="main">
         <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-header-left">
+                    <icon :style="{ color: showBoundingBox ? 'white' : '#666' }" name="duplicate-icon" @click="showBoundingBox = !showBoundingBox" />
+                    <div class="view-toggle" @click="showThemeToggle = !showThemeToggle">{{ showThemeToggle ? 'One theme' : 'Two themes' }}</div>
+                </div>
+
+                <checkbox v-if="showThemeToggle" :is-toggle="true" v-model="isThemeLight" size="condensed" class="theme-toggle">Lights</checkbox>
+            </div>
             <div
                 v-for="componentName in componentNames"
                 :key="componentName"
@@ -14,7 +22,7 @@
             <div class="props-info">
                 <chip v-for="propInfo in propsInfo" :key="propInfo.name" :label="propInfo.name" :metadata="propInfo.type.name" :is-active="true" theme="light" class="prop-info" />
             </div>
-            <component-variations :component="component" class="variations" />
+            <component-variations :component="component" :theme="showThemeToggle ? isThemeLight ? 'light' : 'dark' : null" :show-bounding-boxes="showBoundingBox" class="variations" />
         </div>
 
         <div class="events-view">
@@ -44,11 +52,15 @@ import { kebabCase } from 'lodash'
 import '@/stateless/define_helpers'
 import * as library from '../library.js'
 import Chip from '@/stateless/Chip.vue'
+import Checkbox from '@/stateless/checkbox.vue'
+import Icon from '@/stateless/icon.vue'
 import ComponentVariations from './ComponentVariations.vue'
 
 export default {
     components: {
         Chip,
+        Checkbox,
+        Icon,
         ComponentVariations,
     },
     data () {
@@ -56,6 +68,9 @@ export default {
             name: null,
             events: [],
             currentEventIndex: null,
+            showThemeToggle: true,
+            isThemeLight: true,
+            showBoundingBox: false,
         }
     },
     computed: {
@@ -132,7 +147,7 @@ export default {
 .sidebar-item {
     background-color: #eee;
     border-bottom: 1px solid #ddd;
-    padding: 1px 0 0 20px;
+    padding: 1px 20px 0 20px;
     color: #333;
     font-size: 15px;
     cursor: pointer;
@@ -148,6 +163,35 @@ export default {
 
     &:hover {
         background-color: #ddd;
+    }
+}
+
+.sidebar-header {
+    .sidebar-item();
+    justify-content: space-between;
+
+    background-color: #1f1f2c;
+    border-bottom: none;
+    min-height: 32px;
+    user-select: none;
+
+    &:hover {
+        background-color: #1f1f2c;
+    }
+
+    .theme-toggle {
+        margin-top: 0;
+    }
+
+    .view-toggle {
+        color: white;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    .sidebar-header-left {
+        display: flex;
+        align-items: center;
     }
 }
 
