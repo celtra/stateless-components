@@ -87,10 +87,19 @@ export default {
             return values
         },
         columnProp () {
-            return this.groupBy.length > 0 ? this.groupBy[0] : null
+            for (const name of this.groupBy) {
+                if (this.valuesByName[name].length <= 3) {
+                    return name
+                }
+            }
+            return null
         },
         rowProp () {
-            return this.groupBy.length > 1 ? this.groupBy[1] : null
+            for (const name of this.groupBy) {
+                if (name !== this.columnProp) {
+                    return name
+                }
+            }
         },
         flatUsecases () {
             const allVariations = this.component.variations
@@ -181,12 +190,8 @@ export default {
                         }),
                     },
                     ...this.valuesByName[this.columnProp].map(columnValue => {
-                        let title = columnValue.toString().toUpperCase()
-                        if (this.component.props[this.columnProp].type === Boolean) {
-                            title = `${columnValue ? '' : 'not '}${this.columnProp}`
-                        }
                         return {
-                            title: title,
+                            title: getPropTitle(this.columnProp, columnValue),
                             content: mapUsecases(this.usecases.filter(x => x[this.columnProp] === columnValue)),
                         }
                     }),
