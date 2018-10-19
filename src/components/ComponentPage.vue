@@ -160,7 +160,6 @@ export default {
 }
 
 .sidebar-item {
-    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     padding: 1px 20px 0 20px;
     font-size: 15px;
     cursor: pointer;
@@ -175,7 +174,7 @@ export default {
     }
 
     &:hover {
-        background-color: rgba(122, 122, 122, 0.2);
+        background: linear-gradient(to right, rgba(122, 122, 122, 0.2), rgba(122, 122, 122, 0.1) 70%, rgba(122, 122, 122, 0));
     }
 }
 
@@ -271,7 +270,6 @@ export default {
 
 .event-payload {
     margin-top: 5px;
-    border-top: 1px solid #e7e7e7;
     padding-left: 20px;
     padding-top: 5px;
 

@@ -139,7 +139,7 @@ export default {
         const createItem = (slot, key) => {
             return h('div', {
                 class: 'column-item',
-                style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.1)' } : {},
+                style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
                 on: {
                     mousemove: (ev) => {
                         if (ev.movementX !== 0 || ev.movementY !== 0) {
@@ -154,7 +154,7 @@ export default {
         }
 
         const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
-            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(0, 0, 0, 0.05)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
+            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(122, 122, 122, 0.25)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
             return createItem([slot], `${prefixIndex}-${index}`)
         })
 
