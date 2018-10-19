@@ -154,7 +154,7 @@ export default {
         }
 
         const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
-            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(122, 122, 122, 0.25)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
+            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
             return createItem([slot], `${prefixIndex}-${index}`)
         })
 
@@ -221,8 +221,8 @@ export default {
             return h('div', { class: 'row' }, columns.map((column, columnIndex) => {
                 const columnCss = this.columnProp === 'theme' ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {})
                 return h('div', { class: 'column-container', style: columnCss }, [
-                    h('div', { class: { 'column-title': true, 'column-title--bold': columnIndex === 0 && rowIndex === 0 } }, column.title),
-                    h('div', { class: 'columns-content' }, column.slot),
+                    h('div', { class: { 'column-title': true, 'column-title--first': columnIndex === 0 } }, column.title),
+                    h('div', { class: { 'column-content': true, 'column-content--first': columnIndex === 0 } }, column.slot),
                 ])
             }))
         }))
@@ -250,8 +250,15 @@ export default {
     margin-bottom: 10px;
 }
 
-.column-title--bold {
+.column-title--first {
     font-weight: bold;
+    text-align: right;
+}
+
+.column-content--first {
+    .column-item {
+        justify-content: flex-end;
+    }
 }
 
 .column-item {

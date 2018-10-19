@@ -1,46 +1,46 @@
 <template>
     <div :class="`main--${theme}`" class="main">
         <div class="header">
-            <div class="header-left">
-                <icon :style="{ color: showBoundingBox ? 'white' : '#666' }" class="header-icon" name="duplicate-icon" @click="showBoundingBox = !showBoundingBox" />
-            </div>
+            <checkbox :is-toggle="true" v-model="showBoundingBox" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
+            <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
             <div class="props-info">
-                <chip v-for="(values, name) in componentVariations" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" theme="light" class="prop-info" @click="cycleFilter(name)" />
+                <chip v-for="(values, name) in componentVariations" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" :theme="theme" class="prop-info" @click="cycleFilter(name)" />
             </div>
         </div>
 
-        <div class="sidebar">
-            <div
-                v-for="componentName in componentNames"
-                :key="componentName"
-                class="sidebar-item"
-                @click="$router.push({ name: 'ComponentPage', params: { component: componentName } })">
-                {{ componentName }}
-            </div>
+        <div class="sidebar browse">
+            <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label } })">
+                <div slot-scope="{ item }" class="sidebar-item">
+                    {{ item.label }}
+                </div>
+            </default-list>
         </div>
 
-        <div class="component-view">
+        <div v-if="isEventsListOpen" class="sidebar events">
+            <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
+                <div slot-scope="{ item }" class="sidebar-item" @click="currentEventIndex = item.id">
+                    <p v-if="item.event" class="event-name">{{ item.event.componentName }}/{{ item.event.name }}</p>
+                    <div v-if="currentEventIndex === item.id" class="event-payload">
+                        <template v-if="item.event.payload.length > 0">
+                            <template v-if="typeof item.event.payload[0] === 'object'">
+                                <p v-for="(value, key) in item.event.payload[0]" :key="key"><b>{{ key }}:</b> {{ value }}</p>
+                            </template>
+                            <template v-else>
+                                {{ item.event.payload[0] }}
+                            </template>
+                        </template>
+                        <template v-else>
+                            <p><b>no data</b></p>
+                        </template>
+                    </div>
+                </div>
+            </default-list>
+        </div>
+
+        <div :style="isEventsListOpen ? { left: '360px', width: 'calc(100% - 360px)' } : {}" class="component-view">
             <component-variations :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" class="variations" />
         </div>
 
-        <div class="events-view">
-            <div v-for="(event, index) in events.slice().reverse()" :key="index" :class="{ 'event-item--active': currentEventIndex === index }" class="event-item" @click="currentEventIndex = index">
-                <p class="event-name">{{ event.componentName }}/{{ event.name }}</p>
-                <div v-if="currentEventIndex === index" class="event-payload">
-                    <template v-if="event.payload.length > 0">
-                        <template v-if="typeof event.payload[0] === 'object'">
-                            <p v-for="(value, key) in event.payload[0]" :key="key"><b>{{ key }}:</b> {{ value }}</p>
-                        </template>
-                        <template v-else>
-                            {{ event.payload[0] }}
-                        </template>
-                    </template>
-                    <template v-else>
-                        <p><b>no data</b></p>
-                    </template>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -52,6 +52,7 @@ import * as library from '../library.js'
 import Chip from '@/stateless/Chip.vue'
 import Checkbox from '@/stateless/checkbox.vue'
 import Icon from '@/stateless/icon.vue'
+import DefaultList from '@/stateless/DefaultList.vue'
 import ComponentVariations from './ComponentVariations.vue'
 
 export default {
@@ -59,6 +60,7 @@ export default {
         Chip,
         Checkbox,
         Icon,
+        DefaultList,
         ComponentVariations,
     },
     data () {
@@ -70,6 +72,7 @@ export default {
             isThemeLight: true,
             showBoundingBox: false,
             filters: {},
+            isEventsListOpen: false,
         }
     },
     computed: {
@@ -86,7 +89,7 @@ export default {
             return this.component && this.component.variations || {}
         },
         theme () {
-            return this.showThemeToggle ? this.isThemeLight ? 'light' : 'dark' : 'light'
+            return this.filters.theme === 'dark' ? 'dark' : 'light'
         },
     },
     watch: {
@@ -137,44 +140,27 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@dark-theme: #1f1f2c;
+
 .main {
     height: 100%;
 
     &--light {
         background-color: white;
         color: black;
+
     }
 
     &--dark {
-        background-color: white;
-    }
-}
+        background-color: @dark-theme;
 
-.sidebar {
-    position: fixed;
-    top: 51px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    z-index: 10000;
-}
+        .header {
+            color: black;
+        }
 
-.sidebar-item {
-    padding: 1px 20px 0 20px;
-    font-size: 15px;
-    cursor: pointer;
-    width: 150px;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-
-    &:last-child {
-        border-bottom: none;
-    }
-
-    &:hover {
-        background: linear-gradient(to right, rgba(122, 122, 122, 0.2), rgba(122, 122, 122, 0.1) 70%, rgba(122, 122, 122, 0));
+        .sidebar-item {
+            color: white;
+        }
     }
 }
 
@@ -189,6 +175,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
 
     .theme-toggle {
         margin-top: 0;
@@ -214,58 +201,55 @@ export default {
 .component-view {
     position: fixed;
     left: 150px;
-    top: 51px;
+    top: 70px;
     overflow-y: auto;
-    width: calc(~'100% - 300px');
+    width: calc(~'100% - 150px');
     height: 100%;
     display: flex;
     flex-flow: column;
-    padding: 15px;
+    padding-left: 15px;
     box-sizing: border-box;
 }
 
 .props-info {
     display: flex;
-    max-width: calc(~'100% - 300px');
     overflow-x: hidden;
-    margin-left: 50px;
+    margin-left: 10px;
 }
 
 .prop-info {
     margin: 5px;
 }
 
-.events-view {
+.sidebar {
     position: fixed;
-    right: 0;
-    top: 51px;
+    top: 70px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+}
+
+.browse {
     width: 150px;
-    z-index: 100000;
 }
 
-.event-item {
-    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
-    color: #333;
-    font-size: 14px;
+.events {
+    left: 150px;
+    width: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-width: 1px 1px 0 1px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.sidebar-item {
+    padding: 10px 0px;
+    font-size: 15px;
     cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px 0;
-
-    &:last-child {
-        border-bottom: none;
-    }
-
-    &:hover, &--active {
-        background-color: rgba(122, 122, 122, 0.2);
-    }
-}
-
-.event-name {
-    font-size: 16px;
-    margin: 0;
-    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .event-payload {
