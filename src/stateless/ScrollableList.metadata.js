@@ -1,4 +1,4 @@
-import { largeItems } from './demo_data'
+import { largeItems, defaultSimpleItems } from './demo_data'
 
 export default {
     metaName: 'ScrollableList',
@@ -8,10 +8,21 @@ export default {
     },
     usecases: [
         {
+            name: 'Overlay',
+            items: defaultSimpleItems,
+            numItems: 4,
+            showOverlay: true,
+        },
+        {
+            name: 'Scroll up',
+            items: defaultSimpleItems,
+            numItems: 4,
+            enableScrollTop: true,
+        },
+        {
+            name: 'Large items',
             items: largeItems,
             numItems: 10,
-            label: 'Something',
-            showOverlay: true,
         },
     ],
 }

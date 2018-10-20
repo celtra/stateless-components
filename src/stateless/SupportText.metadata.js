@@ -6,6 +6,7 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             text: 'Lorem Ipsum<br>And a new line',
         },
     ],

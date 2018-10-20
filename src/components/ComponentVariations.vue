@@ -230,8 +230,8 @@ export default {
                         let slot
                         if (typeof itemContent === 'object') {
                             slot = h(ComponentUsecase, {
+                                class: this.$style.component,
                                 key: itemContent.name,
-                                style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.25)', border: '1px solid rgba(191, 0, 32, 0.5)' } : {},
                                 props: {
                                     component: this.component,
                                     usecase: { ...itemContent, theme: this.filters.theme || itemContent.theme || 'light' },
@@ -250,13 +250,15 @@ export default {
                                     },
                                 },
                             })
+                            if (this.showBoundingBoxes) {
+                                slot = h('div', { class: this.$style.columnItemBoundingContainer }, [slot])
+                            }
                         } else if (typeof itemContent === 'string') {
                             slot = h('span', { class: this.$style.flatName, style: this.heightByKey[key] ? { height: `${Math.round(this.heightByKey[key])}px` } : {} }, itemContent)
                         }
 
                         return h('div', {
-                            class: this.$style.columnItem,
-                            style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
+                            class: [this.$style.columnItem, { [this.$style.columnItem_active]: this.hoverUsecaseKey === key  }],
                             on: {
                                 mousemove: (ev) => {
                                     if (ev.movementX !== 0 || ev.movementY !== 0) {
@@ -288,7 +290,6 @@ export default {
 .columnContainer {
     flex: 1;
     padding-top: @column-padding;
-    overflow: hidden;
 }
 
 .columnTitle {
@@ -318,8 +319,22 @@ export default {
     padding: @column-padding;
     display: flex;
 
-    > div {
-        margin: 0 !important;
+    &_active {
+        background-color: rgba(122, 122, 122, 0.15);
+    }
+}
+
+.columnItemBoundingContainer {
+    background-color: rgba(59, 172, 255, 0.25);
+    width: 100%;
+    // border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.component {
+    width: 100%;
+
+    &.component.component {
+        margin: 0;
     }
 }
 

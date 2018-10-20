@@ -45,9 +45,11 @@ export default {
             this.usecase.setup(this.$children[0])
         }
 
+        const styles = window.getComputedStyle(this.$el)
+        const margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom'])
         this.$nextTick(() => {
             setTimeout(() => {
-                this.$emit('height', this.$el.clientHeight)
+                this.$emit('height', this.$el.clientHeight + margin)
             }, 50)
         })
     },

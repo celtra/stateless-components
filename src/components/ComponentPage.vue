@@ -22,7 +22,7 @@
         </div>
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
-            <component-variations :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
+            <component-variations :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
