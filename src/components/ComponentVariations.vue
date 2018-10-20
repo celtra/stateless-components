@@ -18,7 +18,7 @@ export default {
         return {
             hoverUsecaseKey: null,
             syncValue: null,
-            heightsByRow: {},
+            heightByKey: {},
         }
     },
     computed: {
@@ -226,6 +226,7 @@ export default {
                 }, [
                     h('div', { class: this.$style.columnTitle }, column.title || ''),
                     h('div', column.content.map((itemContent, itemIndex) => {
+                        const key = `${rowIndex}-${itemIndex}`
                         let slot
                         if (typeof itemContent === 'object') {
                             slot = h(ComponentUsecase, {
@@ -243,21 +244,16 @@ export default {
                                         }
                                     },
                                     height: (v) => {
-                                        if (!this.heightsByRow[rowIndex]) {
-                                            Vue.set(this.heightsByRow, rowIndex, [])
+                                        if (columnIndex === 1) {
+                                            Vue.set(this.heightByKey, key, v)
                                         }
-                                        this.heightsByRow[rowIndex].push(v)
-                                        Vue.set(this.heightsByRow, rowIndex, this.heightsByRow[rowIndex])
                                     },
                                 },
                             })
                         } else if (typeof itemContent === 'string') {
-                            const heights = this.heightsByRow[rowIndex]
-                            // const height = heights && heights.length > 0 ? heights.reduce((acc, x) => acc + x, 0) / heights.length : null
-                            const height = heights && heights.length > 0 ? Math.min(...heights) : null
-                            slot = h('span', { class: this.$style.flatName, style: height ? { height: `${Math.round(height)}px` } : {} }, itemContent)
+                            slot = h('span', { class: this.$style.flatName, style: this.heightByKey[key] ? { height: `${Math.round(this.heightByKey[key])}px` } : {} }, itemContent)
                         }
-                        const key = `${rowIndex}-${itemIndex}`
+
                         return h('div', {
                             class: this.$style.columnItem,
                             style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
@@ -329,6 +325,9 @@ export default {
 
 .flatName {
     font-size: 14px;
-    line-height: 14px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    transition: height 400ms ease-in;
 }
 </style>

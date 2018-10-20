@@ -40975,13 +40975,16 @@ function multilineSlot(h) {
         size: ['condensed', 'normal', 'phat']
     },
     usecases: [{
+        name: 'Items with groups',
         items: __WEBPACK_IMPORTED_MODULE_0__demo_data__["b" /* defaultNestedItems */]
     }, {
+        name: 'Custom slot, initial offset',
         scopedSlots: { default: multilineSlot },
         items: __WEBPACK_IMPORTED_MODULE_0__demo_data__["c" /* defaultSimpleItems */],
         transitionSorting: true,
         initialOffset: 50
     }, {
+        name: 'Selected item',
         items: __WEBPACK_IMPORTED_MODULE_0__demo_data__["b" /* defaultNestedItems */],
         value: '12'
     }]

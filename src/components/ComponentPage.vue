@@ -227,7 +227,6 @@ export default {
             this.updateUrlFilters()
         },
         updateUrlFilters () {
-            console.log('A')
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
             this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },

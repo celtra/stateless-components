@@ -48,7 +48,7 @@ export default {
         this.$nextTick(() => {
             setTimeout(() => {
                 this.$emit('height', this.$el.clientHeight)
-            }, 200)
+            }, 50)
         })
     },
     methods: {

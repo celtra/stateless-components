@@ -17,15 +17,18 @@ export default {
     },
     usecases: [
         {
+            name: 'Items with groups',
             items: defaultNestedItems,
         },
         {
+            name: 'Custom slot, initial offset',
             scopedSlots: { default: multilineSlot },
             items: defaultSimpleItems,
             transitionSorting: true,
             initialOffset: 50,
         },
         {
+            name: 'Selected item',
             items: defaultNestedItems,
             value: '12',
         },
