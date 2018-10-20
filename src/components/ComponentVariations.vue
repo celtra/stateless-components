@@ -41,7 +41,8 @@ export default {
                 }
 
                 for (const prop in this.filters) {
-                    if (usecase.data[prop] !== this.filters[prop]) {
+                    const targetValue = prop === 'usecaseName' ? usecase.data.name : usecase.data[prop]
+                    if (targetValue !== this.filters[prop]) {
                         return false
                     }
                 }
@@ -78,18 +79,12 @@ export default {
             })
         },
         valuesByName () {
-            const values = {}
-            for (const usecase of this.usecases) {
-                for (const key in usecase) {
-                    if (this.component.variations && this.component.variations[key] && (!values[key] || values[key].indexOf(usecase[key]) === -1)) {
-                        if (!values[key]) {
-                            values[key] = []
-                        }
-                        values[key].push(usecase[key])
-                    }
-                }
+            // copied from ComponentPage.componentVariations
+            const variations = this.component && { ...this.component.variations } || {}
+            if (this.component.usecases[0].name) {
+                variations.usecaseName = this.component.usecases.map(usecase => usecase.name)
             }
-            return values
+            return variations
         },
         columnProp () {
             for (const name of this.groupBy) {
@@ -101,7 +96,7 @@ export default {
         },
         rowProp () {
             for (const name of this.groupBy) {
-                if (name !== this.columnProp) {
+                if (name !== this.columnProp && name !== 'usecaseName') {
                     return name
                 }
             }
@@ -118,7 +113,7 @@ export default {
 
             const flat = []
             for (const name of allNames) {
-                if (!this.filters.name || name === this.filters.name) {
+                if (!this.filters.usecaseName || name === this.filters.usecaseName) {
                     for (const variation of getFlatVariations(remainingVariations)) {
                         const variationSuffix = Object.keys(variation).map(key => {
                             const propData = this.component.props[key]

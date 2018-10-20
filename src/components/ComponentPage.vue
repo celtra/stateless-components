@@ -129,7 +129,7 @@ export default {
         componentVariations () {
             const variations = this.component && { ...this.component.variations } || {}
             if (this.component.usecases[0].name) {
-                variations.name = this.component.usecases.map(usecase => usecase.name)
+                variations.usecaseName = this.component.usecases.map(usecase => usecase.name)
             }
             return variations
         },
@@ -137,13 +137,12 @@ export default {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
         },
     },
-    watch: {
-        '$route.params.component' (name) {
+    beforeRouteUpdate (to, from, next) {
+        this.$nextTick(() => {
             this.setupComponent()
-        },
-        '$route.params.filters' (value) {
             this.setupFilters()
-        },
+        })
+        next()
     },
     created () {
         this.syncValue = localStorage.getItem('syncValue') === 'true' ? true : false
@@ -171,17 +170,19 @@ export default {
             if (!name) {
                 name = this.componentNames[0]
             }
-            const component = library[name]
-            if (!component) {
-                throw `Component ${name} does not exist!`
-            }
-            this.name = name
 
-            for (const name in this.filters) {
-                if (!this.component.variations || !this.component.variations[name]) {
-                    Vue.delete(this.filters, name)
-                    delete this.filters[name]
-                    this.updateUrlFilters()
+            if (name !== this.name) {
+                const component = library[name]
+                if (!component) {
+                    throw `Component ${name} does not exist!`
+                }
+                this.name = name
+                for (const name in this.filters) {
+                    if (!this.component.variations || !this.component.variations[name]) {
+                        Vue.delete(this.filters, name)
+                        delete this.filters[name]
+                        this.updateUrlFilters()
+                    }
                 }
             }
         },
@@ -194,9 +195,9 @@ export default {
                     if (parts.length === 2) {
                         const name = parts[0], value = parts[1]
                         const propData = this.component.props[name]
-                        if (propData) {
+                        if (name === 'usecaseName' || propData) {
                             let newValue = value
-                            if (propData.type === Boolean) {
+                            if (propData && propData.type === Boolean) {
                                 newValue = value === 'true'
                             }
                             newFilters[name] = newValue
@@ -230,6 +231,9 @@ export default {
             this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
         getFilterTitle (name) {
+            if (name === 'usecaseName') {
+                return name in this.filters ? this.filters[name].toUpperCase() : 'NAME'
+            }
             return getPropTitle(name, this.filters[name], true)
         },
         clearFilters () {
