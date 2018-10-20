@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div :style="isEventsListOpen ? { left: '360px', width: 'calc(100% - 360px)' } : {}" class="component-view">
+        <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" class="component-view">
             <component-variations :use-sync-value="syncValue" :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" />
         </div>
 
@@ -162,6 +162,9 @@ export default {
         background-color: white;
         color: black;
 
+        .header {
+            background-color: white;
+        }
     }
 
     &--dark {
@@ -169,6 +172,7 @@ export default {
 
         .header {
             color: black;
+            background-color: @dark-theme;
         }
 
         .sidebar-item {
@@ -180,8 +184,9 @@ export default {
 .header {
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    width: 100%;
+    padding-left: 20px;
+    box-sizing: border-box;
+    width: calc(~'100% - 20px');
 
     user-select: none;
     height: 50px;
@@ -212,17 +217,15 @@ export default {
 }
 
 .component-view {
-    position: fixed;
-    left: 150px;
-    top: 70px;
+    padding-left: 155px;
+    padding-top: 70px;
     overflow-y: auto;
-    width: calc(~'100% - 150px');
+    width: 100%;
     height: 100%;
     display: flex;
     flex-flow: column;
-    margin-left: 5px;
     box-sizing: border-box;
-    transition: left 500ms ease-out, width 500ms ease-out;
+    transition: padding-left 500ms ease-out;
     z-index: 100;
 }
 
@@ -251,12 +254,14 @@ export default {
 
 .events {
     left: 150px;
+    top: 50px;
     width: 200px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-width: 1px 1px 0 1px;
-    border-radius: 5px;
-    margin-left: 5px;
+    border-width: 0 1px;
     animation: fadeIn 500ms linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    animation-delay: 300ms;
 }
 
 @keyframes fadeIn {

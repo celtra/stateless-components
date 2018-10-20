@@ -8,9 +8,11 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             label: 'Label',
         },
         {
+            name: 'With metadata',
             label: 'Label',
             metadata: '3/9',
         },

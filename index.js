@@ -38862,6 +38862,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         disabled: [false, true]
     },
     usecases: [{
+        name: 'Basic',
         file: {},
         uploadUrl: 'https://example.com'
     }]
@@ -40501,12 +40502,15 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = ({
     metaName: 'Calendar',
     usecases: [{
+        name: 'Single day',
         value: new Date(2018, 0, 10),
         isRange: false
     }, {
+        name: 'Date range',
         value: { from: new Date(2018, 0, 10) },
         isRange: true
     }, {
+        name: 'Date range (selected)',
         value: { from: new Date(2018, 0, 10), to: new Date(2018, 1, 10) },
         isRange: true
     }]
@@ -41249,8 +41253,10 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         isDisabled: [false, true]
     },
     usecases: [{
+        name: 'Basic',
         label: 'Label'
     }, {
+        name: 'With metadata',
         label: 'Label',
         metadata: '3/9'
     }]

@@ -6,6 +6,7 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             file: {},
             uploadUrl: 'https://example.com',
         },

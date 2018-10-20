@@ -150,7 +150,7 @@ export default {
         }
 
         let rows
-        if (this.rowProp) {
+        if (this.rowProp && this.columnProp) {
             rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
                 const columnItems = [
                     {
@@ -165,6 +165,21 @@ export default {
                             content: this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue),
                         }
                     }),
+                ]
+                return columnItems
+            })
+        } else if (this.rowProp) {
+            rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
+                const columnItems = [
+                    {
+                        title: getPropTitle(this.rowProp, rowValue),
+                        content: this.flatUsecases.map((usecase, index) => {
+                            return usecase.name
+                        }),
+                    },
+                    {
+                        content: this.usecases.filter(x => x[this.rowProp] === rowValue),
+                    },
                 ]
                 return columnItems
             })
@@ -212,6 +227,7 @@ export default {
                         let slot
                         if (typeof itemContent === 'object') {
                             slot = h(ComponentUsecase, {
+                                key: itemContent.name,
                                 style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {},
                                 props: {
                                     component: this.component,
@@ -265,6 +281,7 @@ export default {
 .column-container {
     flex: 1;
     padding-top: @column-padding;
+    overflow: hidden;
 }
 
 .column-title {
