@@ -6,17 +6,23 @@ export default {
     props: {
         component: { type: Object, required: true },
         usecase: { type: Object, required: true },
+        value: { type: null, required: false },
     },
     data () {
         return {
-            value: null,
+            currentValue: null,
         }
+    },
+    watch: {
+        value (v) {
+            this.currentValue = v
+        },
     },
     created () {
         const component = this.component
         const modelName = getModelName(component)
         if (typeof this.usecase.value !== 'undefined') {
-            this.value = this.usecase.value
+            this.currentValue = this.usecase.value
         } else {
             let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
             if (typeof defaultValue === 'undefined') {
@@ -31,7 +37,7 @@ export default {
                     defaultValue = null
                 }
             }
-            this.value = defaultValue
+            this.currentValue = defaultValue
         }
     },
     mounted () {
@@ -41,13 +47,14 @@ export default {
     },
     methods: {
         updateValue (value) {
-            this.value = value
+            this.currentValue = value
+            this.$emit('input', value)
         },
     },
     render (h) {
         const props = {
             ...this.usecase,
-            [getModelName(this.component)]: this.value,
+            [getModelName(this.component)]: this.currentValue,
         }
 
         let slot = this.usecase.slot ? this.usecase.slot.bind(props)(h) : null

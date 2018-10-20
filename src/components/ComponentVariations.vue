@@ -11,10 +11,12 @@ export default {
         component: { type: Object, required: true },
         filters: { type: Object, default: () => ({}) },
         showBoundingBoxes: { type: Boolean, default: false },
+        useSyncValue: { type: Boolean, default: false },
     },
     data () {
         return {
             hoverUsecaseKey: null,
+            syncValue: null,
         }
     },
     computed: {
@@ -29,7 +31,7 @@ export default {
             const flatUsecases = getFlatUsecases(this.component)
 
             const relevantUsecases = flatUsecases.filter(usecase => {
-                if (this.component.variations[this.modelName]) {
+                if (this.component.variations && this.component.variations[this.modelName]) {
                     if (!this.filters[this.modelName] && usecase.data[this.modelName] !== this.component.variations[this.modelName][0]) {
                         return false
                     }
@@ -76,7 +78,7 @@ export default {
             const values = {}
             for (const usecase of this.usecases) {
                 for (const key in usecase) {
-                    if (this.component.variations[key] && (!values[key] || values[key].indexOf(usecase[key]) === -1)) {
+                    if (this.component.variations && this.component.variations[key] && (!values[key] || values[key].indexOf(usecase[key]) === -1)) {
                         if (!values[key]) {
                             values[key] = []
                         }
@@ -105,8 +107,10 @@ export default {
             const allVariations = this.component.variations
             const allNames = this.component.usecases.map(x => x.name)
             const remainingVariations = {}
-            for (const key of Object.keys(this.component.variations).filter(name => !Object.keys(this.filters).concat([this.modelName, this.columnProp, this.rowProp]).includes(name))) {
-                remainingVariations[key] = this.component.variations[key]
+            if (this.component.variations) {
+                for (const key of Object.keys(this.component.variations).filter(name => !Object.keys(this.filters).concat([this.modelName, this.columnProp, this.rowProp]).includes(name))) {
+                    remainingVariations[key] = this.component.variations[key]
+                }
             }
 
             const flat = []
@@ -207,7 +211,21 @@ export default {
                     h('div', { class: 'column-content' }, column.content.map((itemContent, itemIndex) => {
                         let slot
                         if (typeof itemContent === 'object') {
-                            slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...itemContent, theme: this.filters.theme || itemContent.theme || 'light' } } })
+                            slot = h(ComponentUsecase, {
+                                style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {},
+                                props: {
+                                    component: this.component,
+                                    usecase: { ...itemContent, theme: this.filters.theme || itemContent.theme || 'light' },
+                                    value: this.syncValue,
+                                },
+                                on: {
+                                    input: (v) => {
+                                        if (this.useSyncValue) {
+                                            this.syncValue = v
+                                        }
+                                    },
+                                },
+                            })
                         } else if (typeof itemContent === 'string') {
                             slot = h('span', { class: 'usecase-name' }, itemContent)
                         }

@@ -8,19 +8,19 @@
                 <chip
                     v-for="(values, name) in componentVariations"
                     v-if="name !== 'value'"
-                    :is-removable="true"
+                    :is-removable="name in filters"
                     :key="name" :label="kebabCase(name).toUpperCase()" :metadata="name in filters ? filters[name] + '' : null"
                     :is-active="name in filters"
                     :theme="theme"
                     class="prop-info"
                     @click="cycleFilter(name)"
-                    @remove="setFilter(name, undefined)"
+                    @remove="removeFilter(name)"
                 />
             </div>
         </div>
 
         <div :style="isEventsListOpen ? { left: '360px', width: 'calc(100% - 360px)' } : {}" class="component-view">
-            <component-variations :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" />
+            <component-variations :use-sync-value="syncValue" :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" />
         </div>
 
         <div class="sidebar browse">
@@ -141,13 +141,12 @@ export default {
             const currentValue = this.filters[name]
             const values = this.componentVariations[name]
             const currentIndex = values.indexOf(currentValue)
-            const newIndex = (currentIndex + 1) % (values.length + 1)
-            if (newIndex < values.length) {
-                Vue.set(this.filters, name, values[newIndex])
-            } else {
-                Vue.delete(this.filters, name)
-                delete this.filters[name]
-            }
+            const newIndex = (currentIndex + 1) % values.length
+            Vue.set(this.filters, name, values[newIndex])
+        },
+        removeFilter (name) {
+            Vue.delete(this.filters, name)
+            delete this.filters[name]
         },
     },
 }
