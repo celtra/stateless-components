@@ -1,24 +1,23 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`]]">
         <div :class="$style.header">
-            <div>
-                <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
-                <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
-                <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
-                <div :class="$style.propsInfo">
-                    <chip
-                        v-for="(values, name) in componentVariations"
-                        v-if="name !== 'value'"
-                        :is-removable="name in filters"
-                        :key="name" :label="kebabCase(name).toUpperCase()" :metadata="name in filters ? filters[name] + '' : null"
-                        :is-active="name in filters"
-                        :theme="theme"
-                        :class="$style.propInfo"
-                        @click="cycleFilter(name)"
-                        @remove="removeFilter(name)"
-                    />
-                </div>
-            </div>
+            <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" size="condensed" style="margin-top: 0; height: auto;">Bounds</checkbox>
+            <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
+            <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
+            <icon :class="$style.resetFilters" name="x-bold" @click="clearFilters" />
+
+            <chip
+                v-for="(values, name) in componentVariations"
+                v-if="name !== 'value'"
+                :is-removable="name in filters"
+                :key="name"
+                :label="getFilterTitle(name)"
+                :is-active="name in filters"
+                :theme="theme"
+                :class="$style.propInfo"
+                @click="cycleFilter(name)"
+                @remove="removeFilter(name)"
+            />
         </div>
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
@@ -67,6 +66,7 @@ import Checkbox from '@/stateless/checkbox.vue'
 import Icon from '@/stateless/icon.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import ComponentVariations from './ComponentVariations.vue'
+import { getPropTitle } from './utils'
 
 export default {
     components: {
@@ -150,7 +150,6 @@ export default {
         this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
         this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
 
-        this.kebabCase = kebabCase
         const original = Vue.prototype.$emit
         const logEvent = this.logEvent
         const rootUid = this._uid
@@ -230,6 +229,13 @@ export default {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
             this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
+        getFilterTitle (name) {
+            return getPropTitle(name, this.filters[name], true)
+        },
+        clearFilters () {
+            this.filters = {}
+            this.$router.push({ name: 'ComponentPage', params: { component: this.name } })
+        },
     },
 }
 </script>
@@ -260,6 +266,10 @@ export default {
         .sidebarItem {
             color: white;
         }
+
+        .resetFilters {
+            color: white;
+        }
     }
 }
 
@@ -277,6 +287,7 @@ export default {
     left: 0;
     border-bottom: 1px solid rgba(122, 122, 122, 0.1);
     z-index: 1000;
+    overflow-x: hidden;
 
     > div {
         pointer-events: all;
@@ -299,10 +310,10 @@ export default {
     user-select: none;
 }
 
-.propsInfo {
-    display: flex;
-    overflow-x: hidden;
-    margin-left: 10px;
+.resetFilters {
+    margin-left: 30px;
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 .propInfo {

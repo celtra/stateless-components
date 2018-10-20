@@ -3,6 +3,7 @@ import { getFlatUsecases, getFlatVariations } from '../component_utils'
 import ComponentUsecase from './ComponentUsecase.vue'
 import { kebabCase } from 'lodash'
 import Vue from 'vue'
+import { getPropTitle } from './utils'
 
 export default {
     components: {
@@ -138,14 +139,6 @@ export default {
             return flat
         },
         rows () {
-            const getPropTitle = (name, value) => {
-                let title = value.toString().toUpperCase()
-                if (this.component.props[name].type === Boolean) {
-                    title = (value ? '' : 'NOT ') + kebabCase(name).toUpperCase()
-                }
-                return title
-            }
-
             if (this.rowProp && this.columnProp) {
                 return this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
                     const columnItems = [
