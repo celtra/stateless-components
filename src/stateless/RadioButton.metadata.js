@@ -10,14 +10,16 @@ export default {
         disabled: [false, true],
         selectedValue: ['none', 'something'],
     },
-    shareModelValue: true,
+    forceValueSync: true,
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Value A',
+            slot: () => 'Something',
             value: 'something',
         },
         {
-            slot: defaultSlot,
+            name: 'Value B',
+            slot: () => 'Something else',
             value: 'something else',
         },
     ],

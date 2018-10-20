@@ -14,7 +14,7 @@ export default new Router({
             component: ComponentsList,
         },
         {
-            path: '/:component',
+            path: '/:component/:filters?',
             name: 'ComponentPage',
             component: ComponentPage,
         },

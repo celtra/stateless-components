@@ -1,9 +1,9 @@
 <template>
     <div :class="`main--${theme}`" class="main">
         <div class="header">
-            <checkbox :is-toggle="true" v-model="showBoundingBox" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
+            <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
             <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
-            <checkbox :is-toggle="true" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
+            <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
             <div class="props-info">
                 <chip
                     v-for="(values, name) in componentVariations"
@@ -20,7 +20,7 @@
         </div>
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" class="component-view">
-            <component-variations :use-sync-value="syncValue" :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" />
+            <component-variations :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
         </div>
 
         <div class="sidebar browse">
@@ -81,13 +81,40 @@ export default {
             currentEventIndex: null,
             showThemeToggle: true,
             isThemeLight: true,
-            showBoundingBox: false,
+            boundsVisibleData: false,
             filters: {},
-            isEventsListOpen: false,
-            syncValue: false,
+            isEventsListOpenData: false,
+            syncValueData: false,
         }
     },
     computed: {
+        syncValue: {
+            get () {
+                return this.component && this.component.forceValueSync || this.syncValueData
+            },
+            set (v) {
+                localStorage.setItem('syncValue', v.toString())
+                this.syncValueData = v
+            },
+        },
+        boundsVisible: {
+            get () {
+                return this.boundsVisibleData
+            },
+            set (v) {
+                localStorage.setItem('boundsVisible', v.toString())
+                this.boundsVisibleData = v
+            },
+        },
+        isEventsListOpen: {
+            get () {
+                return this.isEventsListOpenData
+            },
+            set (v) {
+                localStorage.setItem('isEventsListOpen', v.toString())
+                this.isEventsListOpenData = v
+            },
+        },
         componentNames () {
             return Object.values(library).filter(x => x.usecases && !x.hasAbsolutePosition).map(x => x.metaName).sort()
         },
@@ -98,8 +125,11 @@ export default {
             return library[this.name]
         },
         componentVariations () {
-            const variations = this.component && this.component.variations || {}
-            return { ...variations, name: this.component.usecases.map(usecase => usecase.name) }
+            const variations = this.component && { ...this.component.variations } || {}
+            if (this.component.usecases[0].name) {
+                variations.name = this.component.usecases.map(usecase => usecase.name)
+            }
+            return variations
         },
         theme () {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
@@ -109,8 +139,15 @@ export default {
         '$route.params.component' (name) {
             this.setupComponent()
         },
+        '$route.params.filters' (value) {
+            this.setupFilters()
+        },
     },
     created () {
+        this.syncValue = localStorage.getItem('syncValue') === 'true' ? true : false
+        this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
+        this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
+
         this.kebabCase = kebabCase
         const original = Vue.prototype.$emit
         const logEvent = this.logEvent
@@ -121,6 +158,7 @@ export default {
             return res
         }
         this.setupComponent()
+        this.setupFilters()
     },
     methods: {
         setupComponent () {
@@ -130,6 +168,27 @@ export default {
                 throw `Component ${name} does not exist!`
             }
             this.name = name
+        },
+        setupFilters () {
+            if (this.$route.params.filters) {
+                const newFilters = {}
+                const filterValues = this.$route.params.filters.split('&')
+                for (const filterValue of filterValues) {
+                    const parts = filterValue.split('=')
+                    if (parts.length === 2) {
+                        const name = parts[0], value = parts[1]
+                        const propData = this.component.props[name]
+                        if (propData) {
+                            let newValue = value
+                            if (propData.type === Boolean) {
+                                newValue = value === 'true'
+                            }
+                            newFilters[name] = newValue
+                        }
+                    }
+                }
+                this.filters = newFilters
+            }
         },
         logEvent (componentName, eventName, payload) {
             if (this.currentEventIndex !== null) {
@@ -143,10 +202,16 @@ export default {
             const currentIndex = values.indexOf(currentValue)
             const newIndex = (currentIndex + 1) % values.length
             Vue.set(this.filters, name, values[newIndex])
+            this.updateUrlFilters()
         },
         removeFilter (name) {
             Vue.delete(this.filters, name)
             delete this.filters[name]
+            this.updateUrlFilters()
+        },
+        updateUrlFilters () {
+            const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
+            this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
     },
 }
@@ -227,6 +292,7 @@ export default {
     box-sizing: border-box;
     transition: padding-left 500ms ease-out;
     z-index: 100;
+    user-select: none;
 }
 
 .props-info {

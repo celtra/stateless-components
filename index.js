@@ -39703,12 +39703,18 @@ function defaultSlot(h) {
         disabled: [false, true],
         selectedValue: ['none', 'something']
     },
-    shareModelValue: true,
+    forceValueSync: true,
     usecases: [{
-        slot: defaultSlot,
+        name: 'Value A',
+        slot: function slot() {
+            return 'Something';
+        },
         value: 'something'
     }, {
-        slot: defaultSlot,
+        name: 'Value B',
+        slot: function slot() {
+            return 'Something else';
+        },
         value: 'something else'
     }]
 });
