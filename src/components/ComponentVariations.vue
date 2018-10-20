@@ -111,17 +111,22 @@ export default {
 
             const flat = []
             for (const name of allNames) {
-                for (const variation of getFlatVariations(remainingVariations)) {
-                    const variationSuffix = Object.keys(variation).map(key => {
-                        const propData = this.component.props[key]
-                        if (propData.type === Boolean) {
-                            return variation[key] ? key : null
-                        }
-                    }).filter(x => x).join(', ')
-                    flat.push({
-                        name: `${name} ${variationSuffix}`,
-                        variation: variation,
-                    })
+                if (!this.filters.name || name === this.filters.name) {
+                    for (const variation of getFlatVariations(remainingVariations)) {
+                        const variationSuffix = Object.keys(variation).map(key => {
+                            const propData = this.component.props[key]
+                            if (!propData) {
+                                return null
+                            }
+                            if (propData.type === Boolean) {
+                                return variation[key] ? key : null
+                            }
+                        }).filter(x => x).join(', ')
+                        flat.push({
+                            name: `${name} ${variationSuffix}`,
+                            variation: variation,
+                        })
+                    }
                 }
             }
             return flat
@@ -132,50 +137,28 @@ export default {
             return h()
         }
 
-        const createItem = (slot, key) => {
-            return h('div', {
-                class: 'column-item',
-                style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
-                on: {
-                    mousemove: (ev) => {
-                        if (ev.movementX !== 0 || ev.movementY !== 0) {
-                            this.hoverUsecaseKey = key
-                        }
-                    },
-                    mouseleave: (ev) => {
-                        this.hoverUsecaseKey = null
-                    },
-                },
-            }, slot)
-        }
-
-        const mapUsecases = (usecases, prefixIndex) => usecases.map((usecase, index) => {
-            const slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...usecase, theme: this.filters.theme || usecase.theme } } })
-            return createItem([slot], typeof prefixIndex !== 'undefined' ? `${prefixIndex}-${index}` : index)
-        })
-
         const getPropTitle = (name, value) => {
             let title = value.toString().toUpperCase()
             if (this.component.props[name].type === Boolean) {
-                title = (value ? 'NOT ' : '') + kebabCase(name).toUpperCase()
+                title = (value ? '' : 'NOT ') + kebabCase(name).toUpperCase()
             }
             return title
         }
 
-        let rows = []
+        let rows
         if (this.rowProp) {
             rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
                 const columnItems = [
                     {
                         title: getPropTitle(this.rowProp, rowValue),
                         content: this.flatUsecases.map((usecase, index) => {
-                            return createItem([h('span', { class: 'usecase-name' }, usecase.name)], `${rowIndex}-${index}`)
+                            return usecase.name
                         }),
                     },
                     ...this.valuesByName[this.columnProp].map((columnValue, index) => {
                         return {
                             title: getPropTitle(this.columnProp, columnValue),
-                            content: mapUsecases(this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue), rowIndex),
+                            content: this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue),
                         }
                     }),
                 ]
@@ -185,14 +168,12 @@ export default {
             rows = [
                 [
                     {
-                        content: this.flatUsecases.map((usecase, index) => {
-                            return createItem(usecase.name, index)
-                        }),
+                        content: this.flatUsecases.map(usecase => usecase.name),
                     },
                     ...this.valuesByName[this.columnProp].map(columnValue => {
                         return {
                             title: getPropTitle(this.columnProp, columnValue),
-                            content: mapUsecases(this.usecases.filter(x => x[this.columnProp] === columnValue)),
+                            content: this.usecases.filter(x => x[this.columnProp] === columnValue),
                         }
                     }),
                 ],
@@ -201,12 +182,10 @@ export default {
             rows = [
                 [
                     {
-                        content: this.flatUsecases.map((usecase, index) => {
-                            return createItem(usecase.name, index)
-                        }),
+                        content: this.flatUsecases.map(usecase => usecase.name),
                     },
                     {
-                        content: mapUsecases(this.usecases),
+                        content: this.usecases,
                     },
                 ],
             ]
@@ -220,10 +199,34 @@ export default {
 
         return h('div', { class: 'rows-container' }, rows.map((columns, rowIndex) => {
             return h('div', { class: 'row' }, columns.map((column, columnIndex) => {
-                const columnCss = this.columnProp === 'theme' && column.title ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {})
-                return h('div', { class: { 'column-container': true,  'column-container--first': columnIndex === 0 }, style: columnCss }, [
+                return h('div', {
+                    class: { 'column-container': true,  'column-container--first': columnIndex === 0 },
+                    style: this.columnProp === 'theme' && column.title ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {}),
+                }, [
                     h('div', { class: 'column-title' }, column.title || ''),
-                    h('div', { class: 'column-content' }, column.content),
+                    h('div', { class: 'column-content' }, column.content.map((itemContent, itemIndex) => {
+                        let slot
+                        if (typeof itemContent === 'object') {
+                            slot = h(ComponentUsecase, { style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {}, props: { component: this.component, usecase: { ...itemContent, theme: this.filters.theme || itemContent.theme || 'light' } } })
+                        } else if (typeof itemContent === 'string') {
+                            slot = h('span', { class: 'usecase-name' }, itemContent)
+                        }
+                        const key = `${rowIndex}-${itemIndex}`
+                        return h('div', {
+                            class: 'column-item',
+                            style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
+                            on: {
+                                mousemove: (ev) => {
+                                    if (ev.movementX !== 0 || ev.movementY !== 0) {
+                                        this.hoverUsecaseKey = key
+                                    }
+                                },
+                                mouseleave: (ev) => {
+                                    this.hoverUsecaseKey = null
+                                },
+                            },
+                        }, [slot])
+                    })),
                 ])
             }))
         }))
@@ -236,8 +239,8 @@ export default {
 
 .row {
     display: flex;
-    margin-bottom: 50px;
-    background-color: rgba(122, 122, 122, 0.1);
+    margin-bottom: 30px;
+    background-color: #eee;
     border-radius: 5px;
 }
 
@@ -254,6 +257,7 @@ export default {
 
 .column-container--first {
     width: fit-content;
+    min-width: 180px;
     flex: initial;
     font-weight: bold;
 

@@ -3,15 +3,29 @@
         <div class="header">
             <checkbox :is-toggle="true" v-model="showBoundingBox" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
             <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
-            <checkbox :is-toggle="true" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Set value</checkbox>
+            <checkbox :is-toggle="true" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
             <div class="props-info">
-                <chip v-for="(values, name) in componentVariations" v-if="name !== 'value'" :key="name" :label="name" :metadata="name in filters ? filters[name] + '' : null" :is-active="name in filters" :theme="theme" class="prop-info" @click="cycleFilter(name)" />
+                <chip
+                    v-for="(values, name) in componentVariations"
+                    v-if="name !== 'value'"
+                    :is-removable="true"
+                    :key="name" :label="kebabCase(name).toUpperCase()" :metadata="name in filters ? filters[name] + '' : null"
+                    :is-active="name in filters"
+                    :theme="theme"
+                    class="prop-info"
+                    @click="cycleFilter(name)"
+                    @remove="setFilter(name, undefined)"
+                />
             </div>
+        </div>
+
+        <div :style="isEventsListOpen ? { left: '360px', width: 'calc(100% - 360px)' } : {}" class="component-view">
+            <component-variations :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" />
         </div>
 
         <div class="sidebar browse">
             <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label } })">
-                <div slot-scope="{ item }" class="sidebar-item">
+                <div slot-scope="{ item }" :class="{ 'sidebar-item--active': item.id === name }" class="sidebar-item">
                     {{ item.label }}
                 </div>
             </default-list>
@@ -36,10 +50,6 @@
                     </div>
                 </div>
             </default-list>
-        </div>
-
-        <div :style="isEventsListOpen ? { left: '360px', width: 'calc(100% - 360px)' } : {}" class="component-view">
-            <component-variations :component="component" :filters="filters" :show-bounding-boxes="showBoundingBox" class="variations" />
         </div>
 
     </div>
@@ -74,6 +84,7 @@ export default {
             showBoundingBox: false,
             filters: {},
             isEventsListOpen: false,
+            syncValue: false,
         }
     },
     computed: {
@@ -87,7 +98,8 @@ export default {
             return library[this.name]
         },
         componentVariations () {
-            return this.component && this.component.variations || {}
+            const variations = this.component && this.component.variations || {}
+            return { ...variations, name: this.component.usecases.map(usecase => usecase.name) }
         },
         theme () {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
@@ -99,6 +111,7 @@ export default {
         },
     },
     created () {
+        this.kebabCase = kebabCase
         const original = Vue.prototype.$emit
         const logEvent = this.logEvent
         Vue.prototype.$emit = function (...args) {
@@ -129,11 +142,11 @@ export default {
             const values = this.componentVariations[name]
             const currentIndex = values.indexOf(currentValue)
             const newIndex = (currentIndex + 1) % (values.length + 1)
-            if (newIndex >= values.length) {
+            if (newIndex < values.length) {
+                Vue.set(this.filters, name, values[newIndex])
+            } else {
                 Vue.delete(this.filters, name)
                 delete this.filters[name]
-            } else {
-                Vue.set(this.filters, name, values[newIndex])
             }
         },
     },
@@ -208,8 +221,10 @@ export default {
     height: 100%;
     display: flex;
     flex-flow: column;
-    padding-left: 15px;
+    margin-left: 5px;
     box-sizing: border-box;
+    transition: left 500ms ease-out, width 500ms ease-out;
+    z-index: 100;
 }
 
 .props-info {
@@ -228,7 +243,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    z-index: 10000;
+    z-index: 10;
 }
 
 .browse {
@@ -242,6 +257,12 @@ export default {
     border-width: 1px 1px 0 1px;
     border-radius: 5px;
     margin-left: 5px;
+    animation: fadeIn 500ms linear;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .sidebar-item {
@@ -251,6 +272,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &--active {
+        font-weight: bold;
+    }
 }
 
 .event-payload {
