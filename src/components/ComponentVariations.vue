@@ -2,6 +2,7 @@
 import { getFlatUsecases, getFlatVariations } from '../component_utils'
 import ComponentUsecase from './ComponentUsecase.vue'
 import { kebabCase } from 'lodash'
+import Vue from 'vue'
 
 export default {
     components: {
@@ -17,6 +18,7 @@ export default {
         return {
             hoverUsecaseKey: null,
             syncValue: null,
+            heightsByRow: {},
         }
     },
     computed: {
@@ -135,79 +137,79 @@ export default {
             }
             return flat
         },
+        rows () {
+            const getPropTitle = (name, value) => {
+                let title = value.toString().toUpperCase()
+                if (this.component.props[name].type === Boolean) {
+                    title = (value ? '' : 'NOT ') + kebabCase(name).toUpperCase()
+                }
+                return title
+            }
+
+            if (this.rowProp && this.columnProp) {
+                return this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
+                    const columnItems = [
+                        {
+                            title: getPropTitle(this.rowProp, rowValue),
+                            content: this.flatUsecases.map((usecase, index) => {
+                                return usecase.name
+                            }),
+                        },
+                        ...this.valuesByName[this.columnProp].map((columnValue, index) => {
+                            return {
+                                title: getPropTitle(this.columnProp, columnValue),
+                                content: this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue),
+                            }
+                        }),
+                    ]
+                    return columnItems
+                })
+            } else if (this.rowProp) {
+                return this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
+                    const columnItems = [
+                        {
+                            title: getPropTitle(this.rowProp, rowValue),
+                            content: this.flatUsecases.map((usecase, index) => {
+                                return usecase.name
+                            }),
+                        },
+                        {
+                            content: this.usecases.filter(x => x[this.rowProp] === rowValue),
+                        },
+                    ]
+                    return columnItems
+                })
+            } else if (this.columnProp) {
+                return [
+                    [
+                        {
+                            content: this.flatUsecases.map(usecase => usecase.name),
+                        },
+                        ...this.valuesByName[this.columnProp].map(columnValue => {
+                            return {
+                                title: getPropTitle(this.columnProp, columnValue),
+                                content: this.usecases.filter(x => x[this.columnProp] === columnValue),
+                            }
+                        }),
+                    ],
+                ]
+            } else {
+                return [
+                    [
+                        {
+                            content: this.flatUsecases.map(usecase => usecase.name),
+                        },
+                        {
+                            content: this.usecases,
+                        },
+                    ],
+                ]
+            }
+        },
     },
     render (h) {
         if (!this.component) {
             return h()
-        }
-
-        const getPropTitle = (name, value) => {
-            let title = value.toString().toUpperCase()
-            if (this.component.props[name].type === Boolean) {
-                title = (value ? '' : 'NOT ') + kebabCase(name).toUpperCase()
-            }
-            return title
-        }
-
-        let rows
-        if (this.rowProp && this.columnProp) {
-            rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
-                const columnItems = [
-                    {
-                        title: getPropTitle(this.rowProp, rowValue),
-                        content: this.flatUsecases.map((usecase, index) => {
-                            return usecase.name
-                        }),
-                    },
-                    ...this.valuesByName[this.columnProp].map((columnValue, index) => {
-                        return {
-                            title: getPropTitle(this.columnProp, columnValue),
-                            content: this.usecases.filter(x => x[this.rowProp] === rowValue && x[this.columnProp] === columnValue),
-                        }
-                    }),
-                ]
-                return columnItems
-            })
-        } else if (this.rowProp) {
-            rows = this.valuesByName[this.rowProp].map((rowValue, rowIndex) => {
-                const columnItems = [
-                    {
-                        title: getPropTitle(this.rowProp, rowValue),
-                        content: this.flatUsecases.map((usecase, index) => {
-                            return usecase.name
-                        }),
-                    },
-                    {
-                        content: this.usecases.filter(x => x[this.rowProp] === rowValue),
-                    },
-                ]
-                return columnItems
-            })
-        } else if (this.columnProp) {
-            rows = [
-                [
-                    {
-                        content: this.flatUsecases.map(usecase => usecase.name),
-                    },
-                    ...this.valuesByName[this.columnProp].map(columnValue => {
-                        return {
-                            title: getPropTitle(this.columnProp, columnValue),
-                            content: this.usecases.filter(x => x[this.columnProp] === columnValue),
-                        }
-                    }),
-                ],
-            ]
-        } else {
-            rows = [
-                [
-                    {
-                        content: this.flatUsecases.map(usecase => usecase.name),
-                    },
-                    {
-                        content: this.usecases,
-                    },
-                ],
-            ]
         }
 
         const themesCss = {
@@ -216,19 +218,19 @@ export default {
             dark: { backgroundColor: '#1f1f2c', color: 'white' },
         }
 
-        return h('div', { class: 'rows-container' }, rows.map((columns, rowIndex) => {
-            return h('div', { class: 'row' }, columns.map((column, columnIndex) => {
+        return h('div', this.rows.map((columns, rowIndex) => {
+            return h('div', { class: this.$style.row }, columns.map((column, columnIndex) => {
                 return h('div', {
-                    class: { 'column-container': true,  'column-container--first': columnIndex === 0 },
+                    class: { [this.$style.columnContainer]: true,  [this.$style.columnContainer_first]: columnIndex === 0 },
                     style: this.columnProp === 'theme' && column.title ? themesCss[column.title.toLowerCase()] : (this.filters.theme ? themesCss[this.filters.theme] : {}),
                 }, [
-                    h('div', { class: 'column-title' }, column.title || ''),
-                    h('div', { class: 'column-content' }, column.content.map((itemContent, itemIndex) => {
+                    h('div', { class: this.$style.columnTitle }, column.title || ''),
+                    h('div', column.content.map((itemContent, itemIndex) => {
                         let slot
                         if (typeof itemContent === 'object') {
                             slot = h(ComponentUsecase, {
                                 key: itemContent.name,
-                                style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.24)' } : {},
+                                style: this.showBoundingBoxes ? { backgroundColor: 'rgba(59, 172, 255, 0.25)', border: '1px solid rgba(191, 0, 32, 0.5)' } : {},
                                 props: {
                                     component: this.component,
                                     usecase: { ...itemContent, theme: this.filters.theme || itemContent.theme || 'light' },
@@ -240,14 +242,24 @@ export default {
                                             this.syncValue = v
                                         }
                                     },
+                                    height: (v) => {
+                                        if (!this.heightsByRow[rowIndex]) {
+                                            Vue.set(this.heightsByRow, rowIndex, [])
+                                        }
+                                        this.heightsByRow[rowIndex].push(v)
+                                        Vue.set(this.heightsByRow, rowIndex, this.heightsByRow[rowIndex])
+                                    },
                                 },
                             })
                         } else if (typeof itemContent === 'string') {
-                            slot = h('span', { class: 'usecase-name' }, itemContent)
+                            const heights = this.heightsByRow[rowIndex]
+                            // const height = heights && heights.length > 0 ? heights.reduce((acc, x) => acc + x, 0) / heights.length : null
+                            const height = heights && heights.length > 0 ? Math.min(...heights) : null
+                            slot = h('span', { class: this.$style.flatName, style: height ? { height: `${Math.round(height)}px` } : {} }, itemContent)
                         }
                         const key = `${rowIndex}-${itemIndex}`
                         return h('div', {
-                            class: 'column-item',
+                            class: this.$style.columnItem,
                             style: this.hoverUsecaseKey === key ? { backgroundColor: 'rgba(122, 122, 122, 0.15)' } : {},
                             on: {
                                 mousemove: (ev) => {
@@ -268,9 +280,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" module>
 @column-padding: 15px;
-
 .row {
     display: flex;
     margin-bottom: 30px;
@@ -278,35 +289,35 @@ export default {
     border-radius: 5px;
 }
 
-.column-container {
+.columnContainer {
     flex: 1;
     padding-top: @column-padding;
     overflow: hidden;
 }
 
-.column-title {
+.columnTitle {
     padding: 0 @column-padding;
     margin-bottom: 10px;
     min-height: 25px;
 }
 
-.column-container--first {
+.columnContainer_first {
     width: fit-content;
     min-width: 180px;
     flex: initial;
     font-weight: bold;
 
-    .column-title {
+    .columnTitle {
         text-align: right;
     }
 
-    .column-item {
+    .columnItem {
         justify-content: flex-end;
         padding: @column-padding;
     }
 }
 
-.column-item {
+.columnItem {
     cursor: pointer;
     padding: @column-padding;
     display: flex;
@@ -316,7 +327,7 @@ export default {
     }
 }
 
-.usecase-name {
+.flatName {
     font-size: 14px;
     line-height: 14px;
 }

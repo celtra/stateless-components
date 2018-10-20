@@ -1,41 +1,43 @@
 <template>
-    <div :class="`main--${theme}`" class="main">
-        <div class="header">
-            <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
-            <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
-            <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
-            <div class="props-info">
-                <chip
-                    v-for="(values, name) in componentVariations"
-                    v-if="name !== 'value'"
-                    :is-removable="name in filters"
-                    :key="name" :label="kebabCase(name).toUpperCase()" :metadata="name in filters ? filters[name] + '' : null"
-                    :is-active="name in filters"
-                    :theme="theme"
-                    class="prop-info"
-                    @click="cycleFilter(name)"
-                    @remove="removeFilter(name)"
-                />
+    <div :class="[$style.main, $style[`main_${theme}`]]">
+        <div :class="$style.header">
+            <div>
+                <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" style="margin-top: 0; height: auto;">Bounds</checkbox>
+                <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
+                <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
+                <div :class="$style.propsInfo">
+                    <chip
+                        v-for="(values, name) in componentVariations"
+                        v-if="name !== 'value'"
+                        :is-removable="name in filters"
+                        :key="name" :label="kebabCase(name).toUpperCase()" :metadata="name in filters ? filters[name] + '' : null"
+                        :is-active="name in filters"
+                        :theme="theme"
+                        :class="$style.propInfo"
+                        @click="cycleFilter(name)"
+                        @remove="removeFilter(name)"
+                    />
+                </div>
             </div>
         </div>
 
-        <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" class="component-view">
+        <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
             <component-variations :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
         </div>
 
-        <div class="sidebar browse">
-            <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label } })">
-                <div slot-scope="{ item }" :class="{ 'sidebar-item--active': item.id === name }" class="sidebar-item">
+        <div :class="[$style.sidebar, $style.browse]">
+            <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === name }]">
                     {{ item.label }}
                 </div>
             </default-list>
         </div>
 
-        <div v-if="isEventsListOpen" class="sidebar events">
+        <div v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
             <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
-                <div slot-scope="{ item }" class="sidebar-item" @click="currentEventIndex = item.id">
-                    <p v-if="item.event" class="event-name">{{ item.event.componentName }}/{{ item.event.name }}</p>
-                    <div v-if="currentEventIndex === item.id" class="event-payload">
+                <div slot-scope="{ item }" :class="$style.sidebarItem" @click="currentEventIndex = item.id">
+                    <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
+                    <div v-if="currentEventIndex === item.id" :class="$style.eventPayload">
                         <template v-if="item.event.payload.length > 0">
                             <template v-if="typeof item.event.payload[0] === 'object'">
                                 <p v-for="(value, key) in item.event.payload[0]" :key="key"><b>{{ key }}:</b> {{ value }}</p>
@@ -154,7 +156,7 @@ export default {
         const rootUid = this._uid
         Vue.prototype.$emit = function (...args) {
             if (this.$options.parent && this.$options.parent._uid !== rootUid) {
-                const componentName = this.trackName || this.$options.name || this.$options._componentTag || 'Root'
+                const componentName = this.$options.name || this.$options._componentTag || 'Root'
                 logEvent(kebabCase(componentName), args[0], args.slice(1))
             }
 
@@ -166,12 +168,23 @@ export default {
     },
     methods: {
         setupComponent () {
-            const name = this.$route.params.component
+            let name = this.$route.params.component
+            if (!name) {
+                name = this.componentNames[0]
+            }
             const component = library[name]
             if (!component) {
                 throw `Component ${name} does not exist!`
             }
             this.name = name
+
+            for (const name in this.filters) {
+                if (!this.component.variations || !this.component.variations[name]) {
+                    Vue.delete(this.filters, name)
+                    delete this.filters[name]
+                    this.updateUrlFilters()
+                }
+            }
         },
         setupFilters () {
             if (this.$route.params.filters) {
@@ -214,6 +227,7 @@ export default {
             this.updateUrlFilters()
         },
         updateUrlFilters () {
+            console.log('A')
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
             this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
@@ -221,13 +235,13 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" module>
 @dark-theme: #1f1f2c;
 
 .main {
     height: 100%;
 
-    &--light {
+    &_light {
         background-color: white;
         color: black;
 
@@ -236,7 +250,7 @@ export default {
         }
     }
 
-    &--dark {
+    &_dark {
         background-color: @dark-theme;
 
         .header {
@@ -244,48 +258,35 @@ export default {
             background-color: @dark-theme;
         }
 
-        .sidebar-item {
+        .sidebarItem {
             color: white;
         }
     }
 }
 
 .header {
-    display: flex;
-    align-items: center;
     padding-left: 20px;
     box-sizing: border-box;
-    width: calc(~'100% - 20px');
-
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
     user-select: none;
     height: 50px;
     position: fixed;
     top: 0;
     left: 0;
     border-bottom: 1px solid rgba(122, 122, 122, 0.1);
+    z-index: 1000;
 
-    .theme-toggle {
-        margin-top: 0;
-        margin-left: 50px;
-    }
-
-    .header-icon {
-        cursor: pointer;
-    }
-
-    .view-toggle {
-        font-size: 14px;
-        margin-left: 10px;
-        cursor: pointer;
-    }
-
-    .header-left {
+    > div {
+        pointer-events: all;
         display: flex;
         align-items: center;
     }
 }
 
-.component-view {
+.componentView {
     padding-left: 155px;
     padding-top: 70px;
     overflow-y: auto;
@@ -299,13 +300,13 @@ export default {
     user-select: none;
 }
 
-.props-info {
+.propsInfo {
     display: flex;
     overflow-x: hidden;
     margin-left: 10px;
 }
 
-.prop-info {
+.propInfo {
     margin: 5px;
 }
 
@@ -339,7 +340,7 @@ export default {
     to { opacity: 1; }
 }
 
-.sidebar-item {
+.sidebarItem {
     padding: 10px 0px;
     font-size: 15px;
     cursor: pointer;
@@ -347,12 +348,12 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    &--active {
+    &_active {
         font-weight: bold;
     }
 }
 
-.event-payload {
+.eventPayload {
     margin-top: 5px;
     padding-left: 20px;
     padding-top: 5px;

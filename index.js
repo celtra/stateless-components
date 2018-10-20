@@ -38862,8 +38862,31 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
         disabled: [false, true]
     },
     usecases: [{
-        name: 'Basic',
+        name: 'Empty',
         file: {},
+        uploadUrl: 'https://example.com'
+    }, {
+        name: 'Uploading',
+        file: { name: 'File name', type: 'MP3' },
+        uploadUrl: 'https://example.com'
+    }, {
+        name: 'Progress',
+        file: { name: 'File name', type: 'MP3' },
+        uploadUrl: 'https://example.com',
+        setup: function setup(vm) {
+            vm.progress = 50;
+        }
+    }, {
+        name: 'Done',
+        file: { name: 'CeltraLogo.jpg', type: 'image/jpg', thumbnailUrl: 'https://pbs.twimg.com/profile_images/725628111220555776/k9sKB6lx_400x400.jpg' },
+        uploadUrl: 'https://example.com'
+    }, {
+        name: 'Error',
+        error: 'Internet connection lost.',
+        uploadUrl: 'https://example.com'
+    }, {
+        name: 'Drop active',
+        dropActive: true,
         uploadUrl: 'https://example.com'
     }]
 });

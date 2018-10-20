@@ -21,8 +21,8 @@ export default {
     created () {
         const component = this.component
         const modelName = getModelName(component)
-        if (typeof this.usecase.value !== 'undefined') {
-            this.currentValue = this.usecase.value
+        if (typeof this.usecase[modelName] !== 'undefined') {
+            this.currentValue = this.usecase[modelName]
         } else {
             let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
             if (typeof defaultValue === 'undefined') {
@@ -44,6 +44,12 @@ export default {
         if (this.usecase.setup) {
             this.usecase.setup(this.$children[0])
         }
+
+        this.$nextTick(() => {
+            setTimeout(() => {
+                this.$emit('height', this.$el.clientHeight)
+            }, 200)
+        })
     },
     methods: {
         updateValue (value) {
