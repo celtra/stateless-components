@@ -151,10 +151,14 @@ export default {
         this.kebabCase = kebabCase
         const original = Vue.prototype.$emit
         const logEvent = this.logEvent
+        const rootUid = this._uid
         Vue.prototype.$emit = function (...args) {
-            const componentName = this.$options.name || this.$options._componentTag || 'Root'
+            if (this.$options.parent && this.$options.parent._uid !== rootUid) {
+                const componentName = this.trackName || this.$options.name || this.$options._componentTag || 'Root'
+                logEvent(kebabCase(componentName), args[0], args.slice(1))
+            }
+
             const res = original.apply(this, args)
-            logEvent(kebabCase(componentName), args[0], args.slice(1))
             return res
         }
         this.setupComponent()
