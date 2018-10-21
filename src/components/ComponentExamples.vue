@@ -18,7 +18,7 @@
 
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <div :class="$style.table">
-                <div v-if="columns[0].rowTitle" :class="$style.rowTitle">{{ columns[0].rowTitle }}</div>
+                <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss">{{ columns[0].rowTitle }}</div>
                 <examples-table :columns="columns" :style="columns[0].themeCss">
                     <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
                         <component-example
@@ -46,25 +46,6 @@ import { maxBy, pickBy } from 'lodash'
 import { filter } from '../stateless/items_utils'
 import Icon from '@/stateless/icon.vue'
 import Chip from '@/stateless/Chip.vue'
-
-function getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
-    const kebabName = kebabCase(name)
-    let res = ''
-    if (typeof value === 'boolean') {
-        res = (value ? kebabName.toUpperCase() : (hideNot ? '' : `not ${kebabName}`.toUpperCase()))
-    } else if (typeof value === 'undefined') {
-        res = kebabName.toUpperCase()
-    } else {
-        res = value ? (addName ? `${value} ${kebabName}` : value).toUpperCase() : ''
-    }
-
-    res = res.trim(' ')
-
-    if (res.length === 0) {
-        return null
-    }
-    return res
-}
 
 export default {
     components: {
@@ -142,7 +123,7 @@ export default {
                 const variationKeys = Object.keys(variation)
                 const variationNames = variationKeys.map(key => {
                     if (key !== 'usecaseName') {
-                        return getPropTitle(key, variation[key], { hideNot: variationKeys.length > 1 })
+                        return this.getPropTitle(key, variation[key], { hideNot: variationKeys.length > 1 })
                     }
                     const propData = this.component.props[key]
                     if (!propData) {
@@ -186,27 +167,28 @@ export default {
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
+                const rowTitle = this.getPropTitle(this.splitByProp.row, rowValue, { addName: true })
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
-                    rowTitle: getPropTitle(this.splitByProp.row, rowValue),
                     content: this.splitByProp.flat.map(usecase => usecase.name),
                     first: true,
-                    themeCss: themeCss || themesCss.light,
+                    themeCss: themeCss || themesCss.white,
                 } : null
                 const columnItems = [
                     ...(!firstColumn ? [] : [firstColumn]),
                     ...columnValues.map((columnValue, index) => {
                         return {
-                            title: getPropTitle(this.splitByProp.column, columnValue),
+                            title: this.getPropTitle(this.splitByProp.column, columnValue),
                             content: this.splitByProp.flat.map(x => ({
                                 ...x.variation,
                                 ...this.filters,
                                 [this.splitByProp.row]: rowValue,
                                 [this.splitByProp.column]: columnValue,
                             })),
-                            themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.light,
+                            themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.white,
                         }
                     }),
                 ]
+                columnItems[0].rowTitle = rowTitle
                 return columnItems
             })
         },
@@ -224,9 +206,27 @@ export default {
         },
         getFilterTitle (name) {
             if (name === 'usecaseName') {
-                return name in this.filters ? this.filters[name].toUpperCase() : 'NAME'
+                return this.filters.usecaseName ? this.filters.usecaseName.toUpperCase() : 'NAME'
             }
-            return getPropTitle(name, this.filters[name], { addName: true })
+            return this.getPropTitle(name, this.filters[name], { addName: true })
+        },
+        getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
+            const kebabName = kebabCase(name)
+            let res = ''
+            if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
+                res = (value ? kebabName : (hideNot ? '' : `not ${kebabName}`))
+            } else if (typeof value === 'undefined') {
+                res = kebabName
+            } else {
+                res = value ? (addName ? `${value} ${kebabName}` : value) : ''
+            }
+
+            res = res.toUpperCase().trim(' ')
+
+            if (res.length === 0) {
+                return null
+            }
+            return res
         },
     },
 }
@@ -265,7 +265,6 @@ export default {
 
 .table {
     animation: fadeIn 250ms ease-out;
-    position: relative;
     margin-top: 40px;
 }
 
@@ -275,11 +274,10 @@ export default {
 }
 
 .rowTitle {
-    font-size: 20px;
-    background-color: #eee;
+    font-size: 24px;
+    line-height: 24px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
     display: inline-block;
-    padding: 2px 15px;
-    position: absolute;
-    top: -25px;
 }
 </style>

@@ -3,17 +3,19 @@
         <div
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
-            :class="{ [$style.columnContainer]: true, [$style.columnContainer_first]: column.first }"
+            :class="[$style.columnContainer, { [$style.columnContainer_first]: column.first }]"
             :style="column.themeCss">
-            <div v-if="!noTitles" :class="$style.columnTitle">{{ column.title || '' }}</div>
-            <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
-                <div
-                    v-if="item"
-                    :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
-                    @mousemove="hoverIndex = rowIndex"
-                    @mouseleave="hoverIndex = null">
-                    <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
-                    <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
+            <div :class="{ [$style.columnWrap]: hoverIndex === null}">
+                <div v-if="!noTitles" :class="$style.columnTitle">{{ column.title || '' }}</div>
+                <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
+                    <div
+                        v-if="item"
+                        :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
+                        @mousemove="hoverIndex = rowIndex"
+                        @mouseleave="hoverIndex = null">
+                        <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
+                        <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,6 +109,14 @@ export default {
         > div {
             justify-content: flex-end;
         }
+    }
+}
+
+.columnWrap {
+    transition: background-color 250ms ease;
+    transition-delay: 20ms;
+    &:hover {
+        background-color: rgba(122, 122, 122, 0.15);
     }
 }
 

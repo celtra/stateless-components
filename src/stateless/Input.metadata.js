@@ -1,3 +1,5 @@
+import Icon from './icon.vue'
+
 export default {
     metaName: 'Input',
     variations: {
@@ -39,7 +41,7 @@ export default {
             name: 'Before slot',
             scopedSlots: {
                 before (h) {
-                    return h('span', 'px')
+                    return h(Icon, { props: { name: 'bars' } })
                     return h('div', { style: { backgroundColor: 'red', width: '100%', height: '100%', display: 'flex' } }, 'S')
                 },
             },
@@ -48,7 +50,7 @@ export default {
             name: 'Left slot',
             scopedSlots: {
                 left (h) {
-                    return h('span', 'px')
+                    return h(Icon, { props: { name: 'pencil-edit' } })
                 },
             },
         },
@@ -56,7 +58,7 @@ export default {
             name: 'Right slot',
             scopedSlots: {
                 right (h) {
-                    return h('span', 'px')
+                    return h(Icon, { props: { name: 'clear' } })
                 },
             },
         },

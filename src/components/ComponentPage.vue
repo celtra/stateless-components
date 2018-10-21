@@ -247,12 +247,12 @@ export default {
     user-select: none;
 
     &_light {
-        background-color: #f8f8f8;
+        background-color: white;
         color: black;
     }
 
     &_dark {
-        background-color: #0c0c22;
+        background-color: #080808;
 
         .sidebarItem {
             color: white;
@@ -283,11 +283,12 @@ export default {
 
 .sidebar {
     position: fixed;
-    top: 20px;
+    top: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
     z-index: 10;
+    background-color: rgba(122, 122, 122, 0.15);
 }
 
 .sidebarToggle {
@@ -347,5 +348,8 @@ export default {
 
 .toggles {
     margin-bottom: 10px;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.2);
 }
 </style>
