@@ -3,7 +3,7 @@
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
             <component-examples
-                :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false"
+                :key="component.metaName + Object.keys(filters).sort().join(',')" :use-sync-value="syncValue || component.forceValueSync || false"
                 :component="component"
                 :filters="filters" :show-bounding-boxes="boundsVisible"
                 @set-filter="setFilter"
@@ -223,6 +223,9 @@ export default {
 </script>
 
 <style lang="less">
+.bounding-box {
+    display: flex;
+}
 ._15UTCNegfx39jtQolGR6PZ_1 {
     .bounding-box {
         background-color: rgba(33, 150, 234, 0.2);
@@ -235,6 +238,7 @@ export default {
 
 .main {
     height: 100%;
+    user-select: none;
 
     &_light {
         background-color: white;
@@ -242,7 +246,7 @@ export default {
     }
 
     &_dark {
-        background-color: #131313;
+        background-color: #0c0c22;
 
         .sidebarItem {
             color: white;
@@ -255,7 +259,7 @@ export default {
 }
 
 .componentView {
-    padding-left: 155px;
+    padding-left: 170px;
     padding-top: 20px;
     overflow-y: auto;
     width: 100%;
@@ -265,7 +269,6 @@ export default {
     box-sizing: border-box;
     transition: padding-left 500ms ease-out;
     z-index: 100;
-    user-select: none;
 }
 
 .sidebar {

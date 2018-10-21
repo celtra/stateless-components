@@ -17,7 +17,7 @@
         </div>
 
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
-            <examples-table :columns="columns">
+            <examples-table :columns="columns" :class="$style.table">
                 <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
                     <component-example
                         :class="$style.component"
@@ -124,12 +124,14 @@ export default {
                     if (!propData) {
                         return null
                     }
+                    const value = variation[key]
                     if (propData.type === Boolean) {
-                        return variation[key] ? key : null
+                        return value ? key : null
                     }
+                    return value
                 }).filter(x => x).join(', ')
                 flat.push({
-                    name: this.filters.usecaseName ? null :`${usecase.name} ${variationSuffix}`,
+                    name: this.filters.usecaseName ? null :`${usecase.name || ''} ${variationSuffix}`,
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -201,6 +203,7 @@ export default {
 }
 
 .boundingBox {
+    width: 100%;
 }
 
 .filters {
@@ -208,16 +211,24 @@ export default {
     align-items: center;
     margin-bottom: 25px;
     background-color: rgba(122, 122, 122, 0.2);
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 20px;
 }
 
 .resetFilters {
-    color: rgba(122, 122, 122, 0.7);
+    color: rgba(122, 122, 122, 0.8);
     cursor: pointer;
 }
 
 .propInfo {
     margin-left: 10px;
+}
+
+.table {
+    animation: fadeIn 300ms ease-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
 }
 </style>

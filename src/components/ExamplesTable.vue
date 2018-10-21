@@ -45,8 +45,6 @@ export default {
     display: flex;
     margin-bottom: 30px;
     background-color: #eee;
-    border-radius: 5px;
-    overflow: hidden;
 }
 
 .columnContainer {
@@ -89,14 +87,6 @@ export default {
 .columnItemBoundingContainer {
     background-color: rgba(59, 172, 255, 0.25);
     width: 100%;
-}
-
-.component {
-    width: 100%;
-
-    &.component.component {
-        margin: 0;
-    }
 }
 
 .flatName {

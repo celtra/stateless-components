@@ -86,6 +86,7 @@ export default {
         return h(this.component, {
             props: props,
             scopedSlots: scopedSlots,
+            class: this.$style.component,
             on: {
                 [getModelEvent(this.component)]: (value) => {
                     this.updateValue(value)
@@ -95,3 +96,9 @@ export default {
     },
 }
 </script>
+
+<style lang="less" module>
+.component {
+    width: 100%;
+}
+</style>
