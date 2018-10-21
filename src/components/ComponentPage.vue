@@ -235,12 +235,13 @@ export default {
 <style lang="less">
 .bounding-box {
     display: flex;
+    border: 1px solid transparent;
 }
 ._15UTCNegfx39jtQolGR6PZ_1 {
     .bounding-box {
         box-sizing: border-box;
         background-color: rgba(33, 150, 234, 0.2);
-        border: 5px solid black;
+        border: 1px solid rgba(220, 0, 0, 0.8);
     }
 }
 </style>
