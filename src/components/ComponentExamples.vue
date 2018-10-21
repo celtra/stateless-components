@@ -17,19 +17,22 @@
         </div>
 
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
-            <examples-table :columns="columns" :class="$style.table">
-                <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
-                    <component-example
-                        :class="$style.component"
-                        :key="item.name"
-                        :component="component"
-                        v-bind="item"
-                        :theme="filters.theme || item.theme || 'light'"
-                        :value="syncValue"
-                        @input="(v) => useSyncValue && (syncValue = v)">
-                    </component-example>
-                </div>
-            </examples-table>
+            <div :class="$style.table">
+                <div v-if="columns[0].rowTitle" :class="$style.rowTitle">{{ columns[0].rowTitle }}</div>
+                <examples-table :columns="columns" :style="columns[0].themeCss">
+                    <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
+                        <component-example
+                            :class="$style.component"
+                            :key="item.name"
+                            :component="component"
+                            v-bind="item"
+                            :theme="filters.theme || item.theme || 'light'"
+                            :value="syncValue"
+                            @input="(v) => useSyncValue && (syncValue = v)">
+                        </component-example>
+                    </div>
+                </examples-table>
+            </div>
         </div>
     </div>
 </template>
@@ -131,7 +134,7 @@ export default {
                     return value
                 }).filter(x => x).join(', ')
                 flat.push({
-                    name: this.filters.usecaseName ? null :`${usecase.name || ''} ${variationSuffix}`,
+                    name: this.filters.usecaseName ? null :`${usecase.name || ''} ${variationSuffix}`.toUpperCase(),
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -150,12 +153,18 @@ export default {
             }
 
             const rowValues = this.splitByProp.row ? this.valuesByName[this.splitByProp.row] : [null]
-            const columnValues = this.splitByProp.column ? this.valuesByName[this.splitByProp.column] : [null]
+            let columnValues = this.splitByProp.column ? this.valuesByName[this.splitByProp.column] : [null]
+            if (this.splitByProp.column === 'theme') {
+                columnValues = columnValues.slice().sort((a, b) => {
+                    const order = ['white', 'light', 'dark']
+                    return order.indexOf(a) - order.indexOf(b)
+                })
+            }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
                 const columnItems = [
                     {
-                        title: getPropTitle(this.splitByProp.row, rowValue, true),
+                        rowTitle: getPropTitle(this.splitByProp.row, rowValue, true),
                         content: this.splitByProp.flat.map(usecase => usecase.name),
                         themeCss: themeCss || themesCss.light,
                     },
@@ -224,11 +233,20 @@ export default {
 }
 
 .table {
-    animation: fadeIn 300ms ease-out;
+    animation: fadeIn 350ms ease-out;
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
+    0% { opacity: 0; transform: translateY(20px) scale(1.025); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.rowTitle {
+    font-size: 28px;
+    background-color: rgba(255, 255, 255, 1);
+    background-color: #eee;
+    display: inline-block;
+    padding: 2px 15px;
+    margin: 20px 0;
 }
 </style>

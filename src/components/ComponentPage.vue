@@ -5,6 +5,7 @@
             <component-examples
                 :key="component.metaName + Object.keys(filters).sort().join(',')" :use-sync-value="syncValue || component.forceValueSync || false"
                 :component="component"
+                :class="$style.componentExamples"
                 :filters="filters" :show-bounding-boxes="boundsVisible"
                 @set-filter="setFilter"
                 @unset-filter="unsetFilter"
@@ -13,7 +14,7 @@
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
-            <div>
+            <div :class="$style.toggles">
                 <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
                 <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
                 <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" :class="$style.sidebarToggle" size="condensed">Events</checkbox>
@@ -271,6 +272,10 @@ export default {
     z-index: 100;
 }
 
+.componentExamples {
+    width: calc(~'100% - 20px');
+}
+
 .sidebar {
     position: fixed;
     top: 20px;
@@ -333,5 +338,9 @@ export default {
             font-size: 12px;
         }
     }
+}
+
+.toggles {
+    margin-bottom: 10px;
 }
 </style>

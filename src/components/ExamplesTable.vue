@@ -56,22 +56,41 @@ export default {
     padding: 0 @column-padding;
     margin-bottom: 10px;
     min-height: 25px;
+    animation: fadeIn 350ms ease-in;
+    animation-delay: 50ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
 }
 
 .columnContainer_first {
     width: fit-content;
     min-width: 180px;
     flex: initial;
-    font-weight: bold;
+    // font-weight: bold;
 
     .columnTitle {
         text-align: right;
+        animation: fadeIn 2500ms ease-in;
+        animation-delay: 50ms;
+        animation-fill-mode: forwards;
+        opacity: 0;
     }
 
     .columnItem {
         justify-content: flex-end;
         padding: @column-padding;
+        font-size: 12px;
+
+        animation: fadeIn 350ms ease-in;
+        animation-delay: 50ms;
+        animation-fill-mode: forwards;
+        opacity: 0;
     }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .columnItem {
@@ -94,6 +113,5 @@ export default {
     display: flex;
     align-items: center;
     height: 20px;
-    transition: height 400ms ease-in;
 }
 </style>

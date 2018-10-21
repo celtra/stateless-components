@@ -55,7 +55,7 @@ export default {
             this.$nextTick(() => {
                 setTimeout(() => {
                     this.$parent.$emit('height', { rowIndex: this.rowIndex, height: this.$el.clientHeight + margin })
-                }, 50)
+                }, 5)
             })
         }
     },
