@@ -1,10 +1,5 @@
 <template>
-    <div :class="[$style.main, $style[`main_${theme}`]]">
-        <div :class="$style.header">
-            <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" size="condensed" style="margin-top: 0; height: auto;">Bounds</checkbox>
-            <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
-            <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
-        </div>
+    <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
             <component-examples
@@ -18,6 +13,12 @@
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
+            <div>
+                <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
+                <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
+                <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" :class="$style.sidebarToggle" size="condensed">Events</checkbox>
+            </div>
+
             <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
                 <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === name }]">
                     {{ item.label }}
@@ -118,13 +119,6 @@ export default {
                 return null
             }
             return library[this.name]
-        },
-        componentVariations () {
-            const variations = this.component && { ...this.component.variations } || {}
-            if (this.component.usecases[0].name) {
-                variations.usecaseName = this.component.usecases.map(usecase => usecase.name)
-            }
-            return variations
         },
         theme () {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
@@ -228,6 +222,14 @@ export default {
 }
 </script>
 
+<style lang="less">
+._15UTCNegfx39jtQolGR6PZ_1 {
+    .bounding-box {
+        background-color: rgba(33, 150, 234, 0.2);
+    }
+}
+</style>
+
 <style lang="less" module>
 @dark-theme: #1f1f2c;
 
@@ -237,56 +239,24 @@ export default {
     &_light {
         background-color: white;
         color: black;
-
-        .header {
-            background-color: white;
-        }
     }
 
     &_dark {
-        background-color: @dark-theme;
-
-        .header {
-            color: black;
-            background-color: @dark-theme;
-        }
+        background-color: #131313;
 
         .sidebarItem {
             color: white;
         }
-
-        .resetFilters {
-            color: white;
-        }
     }
-}
 
-.header {
-    padding-left: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    height: 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-bottom: 1px solid rgba(122, 122, 122, 0.1);
-    z-index: 1000;
-    overflow-x: hidden;
-
-    > div {
-        pointer-events: all;
-        display: flex;
-        align-items: center;
+    &_bounds {
+        display: block;
     }
 }
 
 .componentView {
     padding-left: 155px;
-    padding-top: 70px;
+    padding-top: 20px;
     overflow-y: auto;
     width: 100%;
     height: 100%;
@@ -300,11 +270,16 @@ export default {
 
 .sidebar {
     position: fixed;
-    top: 70px;
+    top: 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
     z-index: 10;
+}
+
+.sidebarToggle {
+    margin: 0 0 15px 15px;
+    height: auto;
 }
 
 .browse {

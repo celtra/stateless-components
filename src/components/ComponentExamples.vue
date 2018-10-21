@@ -2,7 +2,6 @@
     <div>
         <div :class="$style.filters">
             <icon :class="$style.resetFilters" name="x-bold" @click="$emit('reset-filters')" />
-
             <chip
                 v-for="(values, name) in valuesByName"
                 v-if="name !== 'value'"
@@ -16,9 +15,10 @@
                 @remove="removeFilter(name)"
             />
         </div>
+
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <examples-table :columns="columns">
-                <div slot-scope="item" :class="$style.boundingBox">
+                <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
                     <component-example
                         :class="$style.component"
                         :key="item.name"
@@ -207,15 +207,17 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
+    background-color: rgba(122, 122, 122, 0.2);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .resetFilters {
-    margin-left: 30px;
-    margin-right: 5px;
+    color: rgba(122, 122, 122, 0.7);
     cursor: pointer;
 }
 
 .propInfo {
-    margin: 5px;
+    margin-left: 10px;
 }
 </style>

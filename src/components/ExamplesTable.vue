@@ -46,6 +46,7 @@ export default {
     margin-bottom: 30px;
     background-color: #eee;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .columnContainer {
