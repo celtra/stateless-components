@@ -83,6 +83,7 @@ export default {
             filters: {},
             isEventsListOpenData: false,
             syncValueData: false,
+            eventCount: 0,
         }
     },
     computed: {
@@ -194,8 +195,8 @@ export default {
             if (this.currentEventIndex !== null) {
                 this.currentEventIndex ++
             }
-            this.events.push({ componentName: componentName, name: eventName, payload: eventPayload })
-
+            this.events.push({ componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
+            this.eventCount ++
             if (this.events.length > 50) {
                 this.events = this.events.slice(20)
             }
@@ -313,18 +314,20 @@ export default {
 .events {
     right: 0px;
     top: 0px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-width: 0 1px;
-    animation: fadeIn 450ms ease-out;
-    animation-delay: 100ms;
+    animation: fadeIn 350ms ease-in;
+    animation-delay: 200ms;
     animation-fill-mode: forwards;
     opacity: 0;
     width: 200px;
+
+    .sidebarItem {
+        width: 100%;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; right: -250px; }
-    to { opacity: 1; right: 0; }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .sidebarItem {
@@ -375,5 +378,7 @@ export default {
 
 .eventName {
     margin: 0;
+    width: 100%;
+    text-align: right;
 }
 </style>
