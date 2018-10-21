@@ -99,6 +99,8 @@ export default {
 
 <style lang="less" module>
 .component {
-    width: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+    height: auto !important;
 }
 </style>
