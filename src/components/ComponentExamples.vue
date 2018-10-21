@@ -79,45 +79,41 @@ export default {
             return variations
         },
         splitByProp () {
-            const props = this.valuesByName ? Object.keys(this.valuesByName).filter(key => !(key in this.filters)) : []
+            const props = this.valuesByName ? Object.keys(this.valuesByName).filter(key => !Object.keys(this.filters).concat([this.modelName]).includes(key)) : []
 
             const relevances = {
                 theme: 2,
                 size: 1,
             }
-            const names = props.filter(x => !Object.keys(this.filters).concat([this.modelName]).includes(x))
-            let columnProp = maxBy(names.filter(name => this.valuesByName[name].length <= 3 && name !== 'usecaseName'), x => {
+            let columnProp = maxBy(props.filter(name => this.valuesByName[name].length <= 3 && name !== 'usecaseName'), x => {
                 const relevance = (relevances[x] || 0)
                 const length = this.valuesByName[x].length
                 return relevance * 1000 + length
             })
-            let rowProp = maxBy(names.filter(name => name !== columnProp && name !== 'usecaseName'), x => {
+            let rowProp = maxBy(props.filter(name => name !== columnProp && name !== 'usecaseName'), x => {
                 const relevance = (relevances[x] || 0)
                 const length = this.valuesByName[x].length
                 return relevance * 1000 + length
             })
 
-            let product = 1
-            Object.values(this.valuesByName).forEach(values => product *= values.length)
-
+            let totalCombinations = 1
+            props.forEach(name => totalCombinations *= this.valuesByName[name].length)
             if (columnProp) {
-                if (Math.round(product / this.valuesByName[columnProp].length) < 4) {
+                if (Math.round(totalCombinations / this.valuesByName[columnProp].length) < 4) {
                     columnProp = null
                 } else {
-                    product /= this.valuesByName[columnProp].length
+                    totalCombinations /= this.valuesByName[columnProp].length
                 }
             }
-
             if (rowProp) {
-                if (Math.round(product / this.valuesByName[rowProp].length) < 4) {
+                if (Math.round(totalCombinations / this.valuesByName[rowProp].length) < 4) {
                     rowProp = null
                 }
             }
 
             const remainingValues = _.pickBy(this.valuesByName, (value, name) => {
-                return !Object.keys(this.filters).concat([this.modelName, columnProp, rowProp]).includes(name)
+                return props.includes(name) && ![columnProp, rowProp].includes(name)
             })
-
             const flat = []
             for (const variation of getFlatVariations(remainingValues)) {
                 const variationKeys = Object.keys(variation)

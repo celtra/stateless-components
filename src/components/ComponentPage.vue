@@ -363,8 +363,7 @@ export default {
 }
 
 .toggles {
-    margin-bottom: 10px;
-    margin-top: 20px;
+    margin: 10px 0;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(122, 122, 122, 0.2);
 }
