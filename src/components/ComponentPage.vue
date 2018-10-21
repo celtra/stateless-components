@@ -1,6 +1,6 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
-        <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
+        <div :class="[$style.componentView, { [$style.componentView_eventsOpen]: isEventsListOpen }]">
             <component-examples
                 :key="component.metaName + Object.keys(filters).sort().join(',')" :use-sync-value="syncValue || component.forceValueSync || false"
                 :component="component"
@@ -15,7 +15,7 @@
 
         <div v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
             <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
-                <div slot-scope="{ item }" :class="$style.sidebarItem" @click="currentEventIndex = item.id">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: index === name }]" @click="currentEventIndex = item.id">
                     <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
                     <div v-if="currentEventIndex === item.id" :class="$style.eventPayload">
                         <template v-if="item.event.payload.length > 0">
@@ -247,7 +247,7 @@ export default {
         background-color: white;
         color: black;
 
-        .browse {
+        .sidebar {
             background-color: #eee;
         }
     }
@@ -259,7 +259,7 @@ export default {
             color: white;
         }
 
-        .browse {
+        .sidebar {
             background-color: #111;
         }
     }
@@ -271,6 +271,7 @@ export default {
 
 .componentView {
     padding-left: 170px;
+    padding-right: 0;
     padding-top: 6px;
     overflow-y: auto;
     width: 100%;
@@ -278,8 +279,12 @@ export default {
     display: flex;
     flex-flow: column;
     box-sizing: border-box;
-    transition: padding-left 500ms ease-out;
+    transition: padding-right 500ms ease-out;
     z-index: 100;
+
+    &_eventsOpen {
+        padding-right: 200px;
+    }
 }
 
 .componentExamples {
@@ -293,6 +298,7 @@ export default {
     display: flex;
     flex-direction: column;
     z-index: 10;
+
 }
 
 .sidebarToggle {
@@ -305,22 +311,20 @@ export default {
 }
 
 .events {
-    left: 0px;
+    right: 0px;
     top: 0px;
-    width: 200px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-width: 0 1px;
     animation: fadeIn 450ms ease-out;
     animation-delay: 100ms;
     animation-fill-mode: forwards;
     opacity: 0;
-    padding-left: 10px;
-    background: #222;
+    width: 200px;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; left: 0; }
-    to { opacity: 1; left: 150px; }
+    from { opacity: 0; right: -250px; }
+    to { opacity: 1; right: 0; }
 }
 
 .sidebarItem {
@@ -338,8 +342,8 @@ export default {
 
 .eventPayload {
     margin-top: 5px;
-    padding-left: 20px;
     padding-top: 5px;
+    width: 100%;
 
     > p {
         margin: 0;
@@ -367,5 +371,9 @@ export default {
     > img {
         width: 70px;
     }
+}
+
+.eventName {
+    margin: 0;
 }
 </style>
