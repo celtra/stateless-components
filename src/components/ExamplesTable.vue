@@ -8,11 +8,12 @@
             <div :class="$style.columnTitle">{{ column.title || '' }}</div>
             <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                 <div
-                    :class="[$style.columnItem, { [$style.columnItem_active]: hoverUsecaseIndex === rowIndex }]"
-                    @mousemove="hoverUsecaseIndex = rowIndex"
-                    @mouseleave="hoverUsecaseIndex = null">
+                    v-if="item"
+                    :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
+                    @mousemove="hoverIndex = rowIndex"
+                    @mouseleave="hoverIndex = null">
                     <span v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}">{{ item }}</span>
-                    <slot v-else v-bind="item" :index="rowIndex"></slot>
+                    <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                 </div>
             </div>
         </div>
@@ -26,13 +27,13 @@ export default {
     },
     data () {
         return {
-            hoverUsecaseIndex: null,
+            hoverIndex: null,
             heightByIndex: {},
         }
     },
     created () {
-        this.$on('height', ({ index, value }) => {
-            this.$set(this.heightByIndex, index, value)
+        this.$on('height', ({ rowIndex, height }) => {
+            this.$set(this.heightByIndex, rowIndex, height)
         })
     },
 }

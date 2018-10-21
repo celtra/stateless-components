@@ -4,24 +4,17 @@
             <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" size="condensed" style="margin-top: 0; height: auto;">Bounds</checkbox>
             <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Events</checkbox>
             <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" size="condensed" style="margin-left: 15px; margin-top: 0; height: auto;">Sync model</checkbox>
-            <icon :class="$style.resetFilters" name="x-bold" @click="clearFilters" />
-
-            <chip
-                v-for="(values, name) in componentVariations"
-                v-if="name !== 'value'"
-                :is-removable="name in filters"
-                :key="name"
-                :label="getFilterTitle(name)"
-                :is-active="name in filters"
-                :theme="theme"
-                :class="$style.propInfo"
-                @click="cycleFilter(name)"
-                @remove="removeFilter(name)"
-            />
         </div>
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
-            <component-examples :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
+            <component-examples
+                :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false"
+                :component="component"
+                :filters="filters" :show-bounding-boxes="boundsVisible"
+                @set-filter="setFilter"
+                @unset-filter="unsetFilter"
+                @reset-filters="clearFilters"
+            />
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
@@ -213,15 +206,11 @@ export default {
             }
             this.events.push({ componentName: componentName, name: eventName, payload: payload })
         },
-        cycleFilter (name) {
-            const currentValue = this.filters[name]
-            const values = this.componentVariations[name]
-            const currentIndex = values.indexOf(currentValue)
-            const newIndex = (currentIndex + 1) % values.length
-            Vue.set(this.filters, name, values[newIndex])
+        setFilter (name, value) {
+            Vue.set(this.filters, name, value)
             this.updateUrlFilters()
         },
-        removeFilter (name) {
+        unsetFilter (name) {
             Vue.delete(this.filters, name)
             delete this.filters[name]
             this.updateUrlFilters()
@@ -230,12 +219,7 @@ export default {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
             this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
-        getFilterTitle (name) {
-            if (name === 'usecaseName') {
-                return name in this.filters ? this.filters[name].toUpperCase() : 'NAME'
-            }
-            return getPropTitle(name, this.filters[name], true)
-        },
+
         clearFilters () {
             this.filters = {}
             this.$router.push({ name: 'ComponentPage', params: { component: this.name } })
@@ -312,16 +296,6 @@ export default {
     transition: padding-left 500ms ease-out;
     z-index: 100;
     user-select: none;
-}
-
-.resetFilters {
-    margin-left: 30px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.propInfo {
-    margin: 5px;
 }
 
 .sidebar {

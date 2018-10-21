@@ -8,7 +8,8 @@ export default {
         value: { type: null, required: false },
         setup: { type: Function },
         scopedSlots: { type: Object },
-        index: { type: [Number, String], required: true },
+        columnIndex: { type: Number, required: true },
+        rowIndex: { type: Number, required: true },
     },
     data () {
         return {
@@ -48,13 +49,15 @@ export default {
             this.setup(this.$children[0])
         }
 
-        const styles = window.getComputedStyle(this.$el)
-        const margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom'])
-        this.$nextTick(() => {
-            setTimeout(() => {
-                this.$parent.$emit('height', { index: this.index, value: this.$el.clientHeight + margin })
-            }, 50)
-        })
+        if (this.columnIndex === 1) {
+            const styles = window.getComputedStyle(this.$el)
+            const margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom'])
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.$parent.$emit('height', { rowIndex: this.rowIndex, height: this.$el.clientHeight + margin })
+                }, 50)
+            })
+        }
     },
     methods: {
         updateValue (value) {

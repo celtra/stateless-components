@@ -1,5 +1,21 @@
 <template>
     <div>
+        <div :class="$style.filters">
+            <icon :class="$style.resetFilters" name="x-bold" @click="$emit('reset-filters')" />
+
+            <chip
+                v-for="(values, name) in valuesByName"
+                v-if="name !== 'value'"
+                :is-removable="name in filters"
+                :key="name"
+                :label="getFilterTitle(name)"
+                :is-active="name in filters"
+                :theme="filters.theme || 'light'"
+                :class="$style.propInfo"
+                @click="cycleFilter(name)"
+                @remove="removeFilter(name)"
+            />
+        </div>
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <examples-table :columns="columns">
                 <div slot-scope="item" :class="$style.boundingBox">
@@ -26,11 +42,15 @@ import ComponentExample from './ComponentExample.vue'
 import { maxBy, pickBy } from 'lodash'
 import { getPropTitle } from './utils'
 import { filter } from '../stateless/items_utils'
+import Icon from '@/stateless/icon.vue'
+import Chip from '@/stateless/Chip.vue'
 
 export default {
     components: {
         ExamplesTable,
         ComponentExample,
+        Icon,
+        Chip,
     },
     props: {
         component: { type: Object, required: true },
@@ -53,10 +73,12 @@ export default {
             if (this.component.usecases[0].name) {
                 variations.usecaseName = this.component.usecases.map(usecase => usecase.name)
             }
+
             return variations
         },
         splitByProp () {
-            const props = this.valuesByName ? Object.keys(this.valuesByName) : []
+            const props = this.valuesByName ? Object.keys(this.valuesByName).filter(key => !(key in this.filters)) : []
+
             const relevances = {
                 theme: 2,
                 size: 1,
@@ -107,7 +129,7 @@ export default {
                     }
                 }).filter(x => x).join(', ')
                 flat.push({
-                    name: `${usecase.name} ${variationSuffix}`,
+                    name: this.filters.usecaseName ? null :`${usecase.name} ${variationSuffix}`,
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -128,21 +150,23 @@ export default {
             const rowValues = this.splitByProp.row ? this.valuesByName[this.splitByProp.row] : [null]
             const columnValues = this.splitByProp.column ? this.valuesByName[this.splitByProp.column] : [null]
             return rowValues.map((rowValue, rowIndex) => {
+                const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
                 const columnItems = [
                     {
                         title: getPropTitle(this.splitByProp.row, rowValue, true),
                         content: this.splitByProp.flat.map(usecase => usecase.name),
+                        themeCss: themeCss || themesCss.light,
                     },
                     ...columnValues.map((columnValue, index) => {
                         return {
                             title: getPropTitle(this.splitByProp.column, columnValue),
                             content: this.splitByProp.flat.map(x => ({
                                 ...x.variation,
+                                ...this.filters,
                                 [this.splitByProp.row]: rowValue,
                                 [this.splitByProp.column]: columnValue,
-                                [null]: 1,
                             })),
-                            themeCss: this.splitByProp.column === 'theme' && themesCss[columnValue] || this.splitByProp.row === 'theme' && themesCss[rowValue] || themesCss.light,
+                            themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.light,
                         }
                     }),
                 ]
@@ -151,8 +175,21 @@ export default {
         },
     },
     methods: {
-        getItem () {
-
+        cycleFilter (name) {
+            const currentValue = this.filters[name]
+            const values = this.valuesByName[name]
+            const currentIndex = values.indexOf(currentValue)
+            const newIndex = (currentIndex + 1) % values.length
+            this.$emit('set-filter', name, values[newIndex])
+        },
+        removeFilter (name) {
+            this.$emit('unset-filter', name)
+        },
+        getFilterTitle (name) {
+            if (name === 'usecaseName') {
+                return name in this.filters ? this.filters[name].toUpperCase() : 'NAME'
+            }
+            return getPropTitle(name, this.filters[name], true)
         },
     },
 }
@@ -164,5 +201,21 @@ export default {
 }
 
 .boundingBox {
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.resetFilters {
+    margin-left: 30px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.propInfo {
+    margin: 5px;
 }
 </style>
