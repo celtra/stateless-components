@@ -37741,10 +37741,10 @@ function defaultSlot(h) {
     },
     usecases: [{
         name: 'Basic',
-        slot: defaultSlot
+        scopedSlots: { default: defaultSlot }
     }, {
         name: 'Toggle',
-        slot: defaultSlot,
+        scopedSlots: { default: defaultSlot },
         isToggle: true
     }]
 });

@@ -21,7 +21,7 @@
         </div>
 
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
-            <component-variations :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
+            <component-examples :key="component.metaName" :use-sync-value="syncValue || component.forceValueSync || false" :component="component" :filters="filters" :show-bounding-boxes="boundsVisible" />
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
@@ -65,7 +65,7 @@ import Chip from '@/stateless/Chip.vue'
 import Checkbox from '@/stateless/checkbox.vue'
 import Icon from '@/stateless/icon.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
-import ComponentVariations from './ComponentVariations.vue'
+import ComponentExamples from './ComponentExamples.vue'
 import { getPropTitle } from './utils'
 
 export default {
@@ -74,7 +74,7 @@ export default {
         Checkbox,
         Icon,
         DefaultList,
-        ComponentVariations,
+        ComponentExamples,
     },
     data () {
         return {

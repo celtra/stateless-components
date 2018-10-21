@@ -5,8 +5,9 @@ const getModelEvent = component => component.model && component.model.event || '
 export default {
     props: {
         component: { type: Object, required: true },
-        usecase: { type: Object, required: true },
         value: { type: null, required: false },
+        setup: { type: Function },
+        scopedSlots: { type: Object },
     },
     data () {
         return {
@@ -21,8 +22,8 @@ export default {
     created () {
         const component = this.component
         const modelName = getModelName(component)
-        if (typeof this.usecase[modelName] !== 'undefined') {
-            this.currentValue = this.usecase[modelName]
+        if (typeof this.$attrs[modelName] !== 'undefined') {
+            this.currentValue = this.$attrs[modelName]
         } else {
             let defaultValue = component.props && component.props[modelName] && component.props[modelName].default
             if (typeof defaultValue === 'undefined') {
@@ -41,8 +42,8 @@ export default {
         }
     },
     mounted () {
-        if (this.usecase.setup) {
-            this.usecase.setup(this.$children[0])
+        if (this.setup) {
+            this.setup(this.$children[0])
         }
 
         const styles = window.getComputedStyle(this.$el)
@@ -61,19 +62,19 @@ export default {
     },
     render (h) {
         const props = {
-            ...this.usecase,
+            ...this.$attrs,
             [getModelName(this.component)]: this.currentValue,
         }
 
-        let slot = this.usecase.slot ? this.usecase.slot.bind(props)(h) : null
+        let slot = this.slot ? this.slot.bind(props)(h) : null
         if (typeof slot === 'string') {
             slot = this._v(slot)
         }
 
         const scopedSlots = {}
-        if (this.usecase && this.usecase.scopedSlots) {
-            for (const name in this.usecase.scopedSlots) {
-                scopedSlots[name] = () => this.usecase.scopedSlots[name](h)
+        if (this.scopedSlots) {
+            for (const name in this.scopedSlots) {
+                scopedSlots[name] = () => this.scopedSlots[name](h)
             }
         }
 
