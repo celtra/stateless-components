@@ -14,6 +14,10 @@
         </div>
 
         <div :class="[$style.sidebar, $style.browse]">
+            <div :class="$style.logo">
+                <img src="https://cache-ssl.celtra.com/api/blobs/46fdc1a5ac6ffdb7b8c77ba8237e32c73d5ca3021b2b787cc706fed88807fcce/Celtra_logo.png" />
+            </div>
+
             <div :class="$style.toggles">
                 <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
                 <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
@@ -234,7 +238,9 @@ export default {
 }
 ._15UTCNegfx39jtQolGR6PZ_1 {
     .bounding-box {
+        box-sizing: border-box;
         background-color: rgba(33, 150, 234, 0.2);
+        border: 5px solid black;
     }
 }
 </style>
@@ -351,5 +357,17 @@ export default {
     margin-top: 20px;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(122, 122, 122, 0.2);
+}
+
+.logo {
+    width: 99%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+    padding: 10px 0 2px 20px;
+    box-sizing: border-box;
+
+    > img {
+        width: 46px;
+        height: 20px;
+    }
 }
 </style>
