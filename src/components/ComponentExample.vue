@@ -1,4 +1,7 @@
 <script>
+import Vue from 'vue'
+import { kebabCase } from 'lodash'
+
 const getModelName = component => component.model && component.model.prop || 'value'
 const getModelEvent = component => component.model && component.model.event || 'input'
 
@@ -45,6 +48,21 @@ export default {
         }
     },
     mounted () {
+        const original = Vue.prototype.$emit
+        const self = this
+        const rootUid = this.$children[0]._uid
+        const componentName = this.component.metaName
+        Vue.prototype.$emit = function (...args) {
+            if (args[0] !== 'event' && !args[0].startsWith('hook:') && this.$options.parent && this.$options.parent._uid !== rootUid) {
+                if (rootUid === this._uid) {
+                    self.$emit.bind(self)('event', { componentName: kebabCase(componentName), eventName: args[0], eventPayload: args.slice(1) })
+                }
+            }
+
+            const res = original.apply(this, args)
+            return res
+        }
+
         if (this.setup) {
             this.setup(this.$children[0])
         }

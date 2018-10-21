@@ -28,7 +28,8 @@
                             v-bind="item"
                             :theme="filters.theme || item.theme || 'light'"
                             :value="syncValue"
-                            @input="(v) => useSyncValue && (syncValue = v)">
+                            @input="(v) => useSyncValue && (syncValue = v)"
+                            @event="$emit('event', $event)">
                         </component-example>
                     </div>
                 </examples-table>

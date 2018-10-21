@@ -1,6 +1,5 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
-
         <div :style="isEventsListOpen ? { paddingLeft: '370px' } : {}" :class="$style.componentView">
             <component-examples
                 :key="component.metaName + Object.keys(filters).sort().join(',')" :use-sync-value="syncValue || component.forceValueSync || false"
@@ -10,6 +9,7 @@
                 @set-filter="setFilter"
                 @unset-filter="unsetFilter"
                 @reset-filters="clearFilters"
+                @event="logEvent($event)"
             />
         </div>
 
@@ -51,13 +51,11 @@
                 </div>
             </default-list>
         </div>
-
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import { kebabCase } from 'lodash'
 import '@/stateless/define_helpers'
 import * as library from '../library.js'
 import Chip from '@/stateless/Chip.vue'
@@ -146,18 +144,6 @@ export default {
         this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
         this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
 
-        const original = Vue.prototype.$emit
-        const logEvent = this.logEvent
-        const rootUid = this._uid
-        Vue.prototype.$emit = function (...args) {
-            if (this.$options.parent && this.$options.parent._uid !== rootUid) {
-                const componentName = this.$options.name || this.$options._componentTag || 'Root'
-                logEvent(kebabCase(componentName), args[0], args.slice(1))
-            }
-
-            const res = original.apply(this, args)
-            return res
-        }
         this.setupComponent()
         this.setupFilters()
     },
@@ -204,11 +190,15 @@ export default {
                 this.filters = newFilters
             }
         },
-        logEvent (componentName, eventName, payload) {
+        logEvent ({ componentName, eventName, eventPayload }) {
             if (this.currentEventIndex !== null) {
                 this.currentEventIndex ++
             }
-            this.events.push({ componentName: componentName, name: eventName, payload: payload })
+            this.events.push({ componentName: componentName, name: eventName, payload: eventPayload })
+
+            if (this.events.length > 50) {
+                this.events = this.events.slice(20)
+            }
         },
         setFilter (name, value) {
             Vue.set(this.filters, name, value)
@@ -325,7 +315,7 @@ export default {
     animation-fill-mode: forwards;
     opacity: 0;
     padding-left: 10px;
-    background: linear-gradient(to right, rgba(122, 122, 122, 0.08) 0%, rgba(122, 122, 122, 0.25) 10%);
+    background: #222;
 }
 
 @keyframes fadeIn {
@@ -370,7 +360,7 @@ export default {
 
 .logo {
     width: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(122, 122, 122, 0.25) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(50, 50, 50, 0.25) 100%);
     padding: 12px 0 2px 15px;
     box-sizing: border-box;
 
