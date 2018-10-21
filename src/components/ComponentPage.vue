@@ -15,7 +15,7 @@
 
         <div :class="[$style.sidebar, $style.browse]">
             <div :class="$style.logo">
-                <img src="https://cache-ssl.celtra.com/api/blobs/46fdc1a5ac6ffdb7b8c77ba8237e32c73d5ca3021b2b787cc706fed88807fcce/Celtra_logo.png" />
+                <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
             </div>
 
             <div :class="$style.toggles">
@@ -362,12 +362,11 @@ export default {
 .logo {
     width: 99%;
     background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
-    padding: 10px 0 2px 20px;
+    padding: 12px 0 2px 15px;
     box-sizing: border-box;
 
     > img {
-        width: 46px;
-        height: 20px;
+        width: 70px;
     }
 }
 </style>
