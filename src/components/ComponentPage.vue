@@ -242,7 +242,7 @@ export default {
     user-select: none;
 
     &_light {
-        background-color: white;
+        background-color: #f8f8f8;
         color: black;
     }
 

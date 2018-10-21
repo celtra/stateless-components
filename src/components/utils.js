@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash'
 export function getPropTitle (name, value, addName = false) {
     const kebabName = kebabCase(name)
     if (typeof value === 'boolean') {
-        return (value ? kebabName : `not ${kebabName}`).toUpperCase()
+        return (value ? kebabName.toUpperCase() : (addName ? null : `not ${kebabName}`.toUpperCase()))
     } else if (typeof value === 'undefined') {
         return kebabName.toUpperCase()
     } else {

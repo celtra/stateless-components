@@ -11,16 +11,16 @@ export default {
     usecases: [
         {
             name: 'Success',
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
         },
         {
             name: 'Warning',
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             warning: true,
         },
         {
             name: 'Error',
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             error: true,
         },
     ],

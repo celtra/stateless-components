@@ -9,11 +9,11 @@ export default {
     },
     usecases: [
         {
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             label: 'Modeling',
         },
         {
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             label: 'Modeling',
             description: 'Loooooooong descriptiooooooooon',
         },

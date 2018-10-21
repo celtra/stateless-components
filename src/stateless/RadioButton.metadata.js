@@ -14,12 +14,12 @@ export default {
     usecases: [
         {
             name: 'Value A',
-            slot: () => 'Something',
+            scopedSlots: { default: () => 'Something' },
             value: 'something',
         },
         {
             name: 'Value B',
-            slot: () => 'Something else',
+            scopedSlots: { default: () => 'Something else' },
             value: 'something else',
         },
     ],

@@ -5,14 +5,14 @@
             :key="columnIndex"
             :class="{ [$style.columnContainer]: true, [$style.columnContainer_first]: columnIndex === 0 }"
             :style="column.themeCss">
-            <div :class="$style.columnTitle">{{ column.title || '' }}</div>
+            <div v-if="!noTitles" :class="$style.columnTitle">{{ column.title || '' }}</div>
             <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                 <div
                     v-if="item"
                     :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
                     @mousemove="hoverIndex = rowIndex"
                     @mouseleave="hoverIndex = null">
-                    <span v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}">{{ item }}</span>
+                    <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
                     <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                 </div>
             </div>
@@ -21,7 +21,12 @@
 </template>
 
 <script>
+import TextLine from '../stateless/TextLine.vue'
+
 export default {
+    components: {
+        TextLine,
+    },
     props: {
         columns: { type: Array, required: true },
     },
@@ -30,6 +35,11 @@ export default {
             hoverIndex: null,
             heightByIndex: {},
         }
+    },
+    computed: {
+        noTitles () {
+            return this.columns.every(column => !column.title)
+        },
     },
     created () {
         this.$on('height', ({ rowIndex, height }) => {
@@ -49,22 +59,23 @@ export default {
 
 .columnContainer {
     flex: 1;
-    padding-top: @column-padding;
 }
 
 .columnTitle {
-    padding: 0 @column-padding;
-    margin-bottom: 10px;
-    min-height: 25px;
+    padding: @column-padding;
+    min-height: 16px;
     animation: fadeIn 350ms ease-in;
     animation-delay: 50ms;
     animation-fill-mode: forwards;
     opacity: 0;
+    font-size: 18px;
+    line-height: 16px;
 }
 
 .columnContainer_first {
+    max-width: 300px;
+    min-width: 140px;
     width: fit-content;
-    min-width: 180px;
     flex: initial;
     // font-weight: bold;
 

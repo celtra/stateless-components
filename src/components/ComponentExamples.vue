@@ -121,20 +121,24 @@ export default {
 
             const flat = []
             for (const variation of getFlatVariations(remainingValues)) {
-                const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
-                const variationSuffix = Object.keys(variation).map(key => {
+                const variationNames = Object.keys(variation).map(key => {
+                    if (key !== 'usecaseName') {
+                        return getPropTitle(key, variation[key], true)
+                    }
                     const propData = this.component.props[key]
                     if (!propData) {
                         return null
                     }
                     const value = variation[key]
                     if (propData.type === Boolean) {
-                        return value ? key : null
+                        return value ? kebabCase(key) : null
                     }
                     return value
-                }).filter(x => x).join(', ')
+                }).filter(x => x)
+
+                const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
                 flat.push({
-                    name: this.filters.usecaseName ? null :`${usecase.name || ''} ${variationSuffix}`.toUpperCase(),
+                    name: this.filters.usecaseName ? null : [usecase.name].concat(variationNames).join(', ').toUpperCase(),
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -164,7 +168,7 @@ export default {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
                 const columnItems = [
                     {
-                        rowTitle: getPropTitle(this.splitByProp.row, rowValue, true),
+                        rowTitle: getPropTitle(this.splitByProp.row, rowValue),
                         content: this.splitByProp.flat.map(usecase => usecase.name),
                         themeCss: themeCss || themesCss.light,
                     },
@@ -221,11 +225,16 @@ export default {
     margin-bottom: 25px;
     background-color: rgba(122, 122, 122, 0.2);
     padding: 10px 20px;
+    border-radius: 3px;
 }
 
 .resetFilters {
     color: rgba(122, 122, 122, 0.8);
     cursor: pointer;
+
+    &:hover {
+        color: rgba(122, 122, 122, 1);
+    }
 }
 
 .propInfo {
@@ -233,11 +242,11 @@ export default {
 }
 
 .table {
-    animation: fadeIn 350ms ease-out;
+    animation: fadeIn 250ms ease-out;
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px) scale(1.025); }
+    0% { opacity: 0; transform: translateY(20px) scale(1.05); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
