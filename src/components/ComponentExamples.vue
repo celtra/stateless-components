@@ -43,10 +43,28 @@ import { kebabCase } from 'lodash'
 import ExamplesTable from './ExamplesTable.vue'
 import ComponentExample from './ComponentExample.vue'
 import { maxBy, pickBy } from 'lodash'
-import { getPropTitle } from './utils'
 import { filter } from '../stateless/items_utils'
 import Icon from '@/stateless/icon.vue'
 import Chip from '@/stateless/Chip.vue'
+
+function getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
+    const kebabName = kebabCase(name)
+    let res = ''
+    if (typeof value === 'boolean') {
+        res = (value ? kebabName.toUpperCase() : (hideNot ? '' : `not ${kebabName}`.toUpperCase()))
+    } else if (typeof value === 'undefined') {
+        res = kebabName.toUpperCase()
+    } else {
+        res = value ? (addName ? `${value} ${kebabName}` : value).toUpperCase() : ''
+    }
+
+    res = res.trim(' ')
+
+    if (res.length === 0) {
+        return null
+    }
+    return res
+}
 
 export default {
     components: {
@@ -121,9 +139,10 @@ export default {
 
             const flat = []
             for (const variation of getFlatVariations(remainingValues)) {
-                const variationNames = Object.keys(variation).map(key => {
+                const variationKeys = Object.keys(variation)
+                const variationNames = variationKeys.map(key => {
                     if (key !== 'usecaseName') {
-                        return getPropTitle(key, variation[key], true)
+                        return getPropTitle(key, variation[key], { hideNot: variationKeys.length > 1 })
                     }
                     const propData = this.component.props[key]
                     if (!propData) {
@@ -134,11 +153,12 @@ export default {
                         return value ? kebabCase(key) : null
                     }
                     return value
-                }).filter(x => x)
-
+                })
                 const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
+                const names = [this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
+
                 flat.push({
-                    name: this.filters.usecaseName ? null : [usecase.name].concat(variationNames).join(', ').toUpperCase(),
+                    name: names.length === 0 ? null : names.join(', ').toUpperCase(),
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -166,12 +186,14 @@ export default {
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
+                const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
+                    rowTitle: getPropTitle(this.splitByProp.row, rowValue),
+                    content: this.splitByProp.flat.map(usecase => usecase.name),
+                    first: true,
+                    themeCss: themeCss || themesCss.light,
+                } : null
                 const columnItems = [
-                    {
-                        rowTitle: getPropTitle(this.splitByProp.row, rowValue),
-                        content: this.splitByProp.flat.map(usecase => usecase.name),
-                        themeCss: themeCss || themesCss.light,
-                    },
+                    ...(!firstColumn ? [] : [firstColumn]),
                     ...columnValues.map((columnValue, index) => {
                         return {
                             title: getPropTitle(this.splitByProp.column, columnValue),
@@ -204,7 +226,7 @@ export default {
             if (name === 'usecaseName') {
                 return name in this.filters ? this.filters[name].toUpperCase() : 'NAME'
             }
-            return getPropTitle(name, this.filters[name], true)
+            return getPropTitle(name, this.filters[name], { addName: true })
         },
     },
 }
@@ -243,6 +265,8 @@ export default {
 
 .table {
     animation: fadeIn 250ms ease-out;
+    position: relative;
+    margin-top: 40px;
 }
 
 @keyframes fadeIn {
@@ -251,11 +275,11 @@ export default {
 }
 
 .rowTitle {
-    font-size: 28px;
-    background-color: rgba(255, 255, 255, 1);
+    font-size: 20px;
     background-color: #eee;
     display: inline-block;
     padding: 2px 15px;
-    margin: 20px 0;
+    position: absolute;
+    top: -25px;
 }
 </style>

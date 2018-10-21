@@ -3,7 +3,7 @@
         <div
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
-            :class="{ [$style.columnContainer]: true, [$style.columnContainer_first]: columnIndex === 0 }"
+            :class="{ [$style.columnContainer]: true, [$style.columnContainer_first]: column.first }"
             :style="column.themeCss">
             <div v-if="!noTitles" :class="$style.columnTitle">{{ column.title || '' }}</div>
             <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
@@ -72,30 +72,41 @@ export default {
     line-height: 16px;
 }
 
+.columnTitle {
+    animation: fadeIn 250ms ease-in;
+    animation-delay: 50ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.columnItem {
+    justify-content: flex-end;
+    padding: @column-padding;
+    font-size: 12px;
+
+    animation: fadeIn 350ms ease-in;
+    animation-delay: 50ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
 .columnContainer_first {
-    max-width: 300px;
-    min-width: 140px;
-    width: fit-content;
-    flex: initial;
-    // font-weight: bold;
+    // max-width: 300px;
+    // min-width: 140px;
+    // width: fit-content;
+    // flex: initial;
+    // // font-weight: bold;
 
     .columnTitle {
         text-align: right;
-        animation: fadeIn 2500ms ease-in;
-        animation-delay: 50ms;
-        animation-fill-mode: forwards;
-        opacity: 0;
     }
 
     .columnItem {
         justify-content: flex-end;
-        padding: @column-padding;
-        font-size: 12px;
 
-        animation: fadeIn 350ms ease-in;
-        animation-delay: 50ms;
-        animation-fill-mode: forwards;
-        opacity: 0;
+        > div {
+            justify-content: flex-end;
+        }
     }
 }
 

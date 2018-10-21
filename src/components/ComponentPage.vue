@@ -61,7 +61,6 @@ import Checkbox from '@/stateless/checkbox.vue'
 import Icon from '@/stateless/icon.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import ComponentExamples from './ComponentExamples.vue'
-import { getPropTitle } from './utils'
 
 export default {
     components: {
@@ -113,7 +112,13 @@ export default {
             },
         },
         componentNames () {
-            return Object.values(library).filter(x => x.usecases && !x.hasAbsolutePosition).map(x => x.metaName).sort()
+            const list = ['Checkbox', 'Input', 'FileUpload', 'RadioButton', 'Selectbox', 'Slider', 'Chip', 'DialogButton', 'Icon']
+            for (const name of Object.values(library).filter(x => x.usecases && !x.hasAbsolutePosition).map(x => x.metaName).sort()) {
+                if (!list.includes(name)) {
+                    list.push(name)
+                }
+            }
+            return list
         },
         component () {
             if (this.name === null) {
