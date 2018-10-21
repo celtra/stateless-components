@@ -13,24 +13,6 @@
             />
         </div>
 
-        <div :class="[$style.sidebar, $style.browse]">
-            <div :class="$style.logo">
-                <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
-            </div>
-
-            <div :class="$style.toggles">
-                <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
-                <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
-                <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" :class="$style.sidebarToggle" size="condensed">Events</checkbox>
-            </div>
-
-            <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
-                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === name }]">
-                    {{ item.label }}
-                </div>
-            </default-list>
-        </div>
-
         <div v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
             <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
                 <div slot-scope="{ item }" :class="$style.sidebarItem" @click="currentEventIndex = item.id">
@@ -48,6 +30,24 @@
                             <p><b>no data</b></p>
                         </template>
                     </div>
+                </div>
+            </default-list>
+        </div>
+
+        <div :class="[$style.sidebar, $style.browse]">
+            <div :class="$style.logo">
+                <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
+            </div>
+
+            <div :class="$style.toggles">
+                <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
+                <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
+                <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" :class="$style.sidebarToggle" size="condensed">Events</checkbox>
+            </div>
+
+            <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === name }]">
+                    {{ item.label }}
                 </div>
             </default-list>
         </div>
@@ -256,6 +256,10 @@ export default {
     &_light {
         background-color: white;
         color: black;
+
+        .browse {
+            background-color: #eee;
+        }
     }
 
     &_dark {
@@ -263,6 +267,10 @@ export default {
 
         .sidebarItem {
             color: white;
+        }
+
+        .browse {
+            background-color: #111;
         }
     }
 
@@ -273,7 +281,7 @@ export default {
 
 .componentView {
     padding-left: 170px;
-    padding-top: 20px;
+    padding-top: 6px;
     overflow-y: auto;
     width: 100%;
     height: 100%;
@@ -295,7 +303,6 @@ export default {
     display: flex;
     flex-direction: column;
     z-index: 10;
-    background-color: rgba(122, 122, 122, 0.15);
 }
 
 .sidebarToggle {
@@ -308,20 +315,22 @@ export default {
 }
 
 .events {
-    left: 150px;
-    top: 50px;
+    left: 0px;
+    top: 0px;
     width: 200px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-width: 0 1px;
-    animation: fadeIn 500ms linear;
+    animation: fadeIn 450ms ease-out;
+    animation-delay: 100ms;
     animation-fill-mode: forwards;
     opacity: 0;
-    animation-delay: 300ms;
+    padding-left: 10px;
+    background: linear-gradient(to right, rgba(122, 122, 122, 0.08) 0%, rgba(122, 122, 122, 0.25) 10%);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; left: 0; }
+    to { opacity: 1; left: 150px; }
 }
 
 .sidebarItem {
@@ -361,8 +370,8 @@ export default {
 }
 
 .logo {
-    width: 99%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+    width: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(122, 122, 122, 0.25) 100%);
     padding: 12px 0 2px 15px;
     box-sizing: border-box;
 

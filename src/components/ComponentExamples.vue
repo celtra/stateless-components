@@ -265,7 +265,7 @@ export default {
 
 .table {
     animation: fadeIn 250ms ease-out;
-    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 @keyframes fadeIn {
