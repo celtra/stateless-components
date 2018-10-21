@@ -246,7 +246,7 @@ export default {
     align-items: center;
     margin-bottom: 25px;
     background-color: rgba(122, 122, 122, 0.2);
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 3px;
 }
 

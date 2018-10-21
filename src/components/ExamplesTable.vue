@@ -13,7 +13,7 @@
                         :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
                         @mousemove="hoverIndex = rowIndex"
                         @mouseleave="hoverIndex = null">
-                        <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
+                        <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
                         <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                     </div>
                 </div>
@@ -80,22 +80,12 @@ export default {
     line-height: 16px;
 }
 
-.columnContainer_first {
-    // max-width: 300px;
-    // min-width: 140px;
-    // width: fit-content;
-    // flex: initial;
-    // // font-weight: bold;
-
-    .columnTitle {
-        text-align: right;
-    }
-
-    .columnItem {
-        justify-content: flex-end;
-
-        > div {
-            justify-content: flex-end;
+.columnContainer:not(.columnContainer_first) {
+    .columnWrap {
+        &:hover {
+            .columnItem {
+                background-color: rgba(122, 122, 122, 0.15);
+            }
         }
     }
 }
@@ -103,12 +93,6 @@ export default {
 .columnWrap {
     transition: background-color 250ms ease;
     transition-delay: 20ms;
-    &:hover {
-        .columnItem {
-            background-color: rgba(122, 122, 122, 0.15);
-        }
-        // background-color: rgba(122, 122, 122, 0.15);
-    }
 }
 
 @keyframes fadeIn {
