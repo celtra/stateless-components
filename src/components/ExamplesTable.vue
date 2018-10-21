@@ -5,8 +5,8 @@
             :key="columnIndex"
             :class="[$style.columnContainer, { [$style.columnContainer_first]: column.first }]"
             :style="column.themeCss">
-            <div :class="{ [$style.columnWrap]: hoverIndex === null}">
-                <div v-if="!noTitles" :class="$style.columnTitle">{{ column.title || '' }}</div>
+            <div :class="{ [$style.columnWrap]: true}">
+                <div v-if="!noTitles" :class="[$style.columnItem, $style.columnTitle]">{{ column.title || '' }}</div>
                 <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                     <div
                         v-if="item"
@@ -63,26 +63,7 @@ export default {
     flex: 1;
 }
 
-.columnTitle {
-    padding: @column-padding;
-    min-height: 16px;
-    animation: fadeIn 350ms ease-in;
-    animation-delay: 50ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
-    font-size: 18px;
-    line-height: 16px;
-}
-
-.columnTitle {
-    animation: fadeIn 250ms ease-in;
-    animation-delay: 50ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
 .columnItem {
-    justify-content: flex-end;
     padding: @column-padding;
     font-size: 12px;
 
@@ -90,6 +71,13 @@ export default {
     animation-delay: 50ms;
     animation-fill-mode: forwards;
     opacity: 0;
+}
+
+.columnTitle {
+    padding: @column-padding;
+    min-height: 16px;
+    font-size: 18px;
+    line-height: 16px;
 }
 
 .columnContainer_first {
@@ -116,7 +104,10 @@ export default {
     transition: background-color 250ms ease;
     transition-delay: 20ms;
     &:hover {
-        background-color: rgba(122, 122, 122, 0.15);
+        .columnItem {
+            background-color: rgba(122, 122, 122, 0.15);
+        }
+        // background-color: rgba(122, 122, 122, 0.15);
     }
 }
 
@@ -129,6 +120,8 @@ export default {
     cursor: pointer;
     padding: @column-padding;
     display: flex;
+    transition: background-color 0ms ease;
+    transition-delay: 5ms;
 
     &_active {
         background-color: rgba(122, 122, 122, 0.15);
