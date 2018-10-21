@@ -2,7 +2,7 @@
     <div>
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <examples-table :columns="columns">
-                <div slot-scope="{ item, columnIndex, itemIndex }" :class="$style.boundingBox">
+                <div slot-scope="item" :class="$style.boundingBox">
                     <component-example
                         :class="$style.component"
                         :key="item.name"
@@ -57,22 +57,21 @@ export default {
         },
         splitByProp () {
             const props = this.valuesByName ? Object.keys(this.valuesByName) : []
-            const relevance = {
-                theme: 20,
-                size: 10,
+            const relevances = {
+                theme: 2,
+                size: 1,
             }
-            const groupByNames = props.filter(x => !Object.keys(this.filters).concat([this.modelName]).includes(x)).sort((a, b) => {
-                const relevanceA = relevance[a] || 0
-                const relevanceB = relevance[b] || 0
-                const difference = relevanceB - relevanceA
-                if (difference === 0) {
-                    return this.valuesByName[b].length - this.valuesByName[a].length
-                } else {
-                    return difference
-                }
+            const names = props.filter(x => !Object.keys(this.filters).concat([this.modelName]).includes(x))
+            let columnProp = maxBy(names.filter(name => this.valuesByName[name].length <= 3 && name !== 'usecaseName'), x => {
+                const relevance = (relevances[x] || 0)
+                const length = this.valuesByName[x].length
+                return relevance * 1000 + length
             })
-            let columnProp = maxBy(groupByNames.filter(name => this.valuesByName[name].length <= 3 && name !== 'usecaseName'), x => x.length)
-            let rowProp = maxBy(groupByNames.filter(name => name !== columnProp && name !== 'usecaseName'), x => x.length)
+            let rowProp = maxBy(names.filter(name => name !== columnProp && name !== 'usecaseName'), x => {
+                const relevance = (relevances[x] || 0)
+                const length = this.valuesByName[x].length
+                return relevance * 1000 + length
+            })
 
             let product = 1
             Object.values(this.valuesByName).forEach(values => product *= values.length)
@@ -80,6 +79,8 @@ export default {
             if (columnProp) {
                 if (Math.round(product / this.valuesByName[columnProp].length) < 4) {
                     columnProp = null
+                } else {
+                    product /= this.valuesByName[columnProp].length
                 }
             }
 
@@ -89,22 +90,13 @@ export default {
                 }
             }
 
-            return {
-                column: columnProp,
-                row: rowProp,
-            }
-        },
-        flatUsecases () {
-            const allVariations = this.component.variations
-            const allNames = this.component.usecases.map(x => x.name)
-
             const remainingValues = _.pickBy(this.valuesByName, (value, name) => {
-                return !Object.keys(this.filters).concat([this.modelName, this.splitByProp.column, this.splitByProp.row]).includes(name)
+                return !Object.keys(this.filters).concat([this.modelName, columnProp, rowProp]).includes(name)
             })
 
             const flat = []
             for (const variation of getFlatVariations(remainingValues)) {
-                const usecase = this.component.usecases.find(x => x.name === variation.usecaseName)
+                const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
                 const variationSuffix = Object.keys(variation).map(key => {
                     const propData = this.component.props[key]
                     if (!propData) {
@@ -120,7 +112,11 @@ export default {
                 })
             }
 
-            return flat
+            return {
+                column: columnProp,
+                row: rowProp,
+                flat: flat,
+            }
         },
         rows () {
             const themesCss = {
@@ -129,46 +125,24 @@ export default {
                 dark: { backgroundColor: '#1f1f2c', color: 'white' },
             }
 
-            const relevantUsecases = this.flatUsecases.filter(usecase => {
-                if (this.component.variations && this.component.variations[this.modelName]) {
-                    if (!this.filters[this.modelName] && usecase.variation[this.modelName] !== this.component.variations[this.modelName][0]) {
-                        // return false
-                    }
-                }
-
-                for (const prop in this.filters) {
-                    console.log(usecase.variation, prop)
-                    console.log(usecase.variation[prop])
-                    if (usecase.variation[prop] !== this.filters[prop]) {
-                        //return false
-                    }
-                }
-                return true
-            })
-
-            // Ignore usecase if it only has a different model prop
-            const filteredUsecases = []
-            const existingUsecaseIds = {}
-            for (const usecase of relevantUsecases) {
-                if (!existingUsecaseIds[usecase.name]) {
-                    existingUsecaseIds[usecase.name] = true
-                    filteredUsecases.push(usecase.variation)
-                }
-            }
-
             const rowValues = this.splitByProp.row ? this.valuesByName[this.splitByProp.row] : [null]
             const columnValues = this.splitByProp.column ? this.valuesByName[this.splitByProp.column] : [null]
             return rowValues.map((rowValue, rowIndex) => {
                 const columnItems = [
                     {
-                        title: this.rowProp ? getPropTitle(this.splitByProp.row, rowValue) : null,
-                        content: this.flatUsecases.map(usecase => usecase.name),
+                        title: getPropTitle(this.splitByProp.row, rowValue, true),
+                        content: this.splitByProp.flat.map(usecase => usecase.name),
                     },
                     ...columnValues.map((columnValue, index) => {
                         return {
                             title: getPropTitle(this.splitByProp.column, columnValue),
-                            // content: filteredUsecases.filter(x => (rowValue === null || x[this.splitByProp.row] === rowValue) && (columnValue === null || x[this.splitByProp.column] === columnValue)),
-                            content: filteredUsecases,
+                            content: this.splitByProp.flat.map(x => ({
+                                ...x.variation,
+                                [this.splitByProp.row]: rowValue,
+                                [this.splitByProp.column]: columnValue,
+                                [null]: 1,
+                            })),
+                            themeCss: this.splitByProp.column === 'theme' && themesCss[columnValue] || this.splitByProp.row === 'theme' && themesCss[rowValue] || themesCss.light,
                         }
                     }),
                 ]

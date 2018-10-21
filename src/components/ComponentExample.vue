@@ -8,10 +8,12 @@ export default {
         value: { type: null, required: false },
         setup: { type: Function },
         scopedSlots: { type: Object },
+        index: { type: [Number, String], required: true },
     },
     data () {
         return {
             currentValue: null,
+            height: null,
         }
     },
     watch: {
@@ -50,7 +52,7 @@ export default {
         const margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom'])
         this.$nextTick(() => {
             setTimeout(() => {
-                this.$emit('height', this.$el.clientHeight + margin)
+                this.$parent.$emit('height', { index: this.index, value: this.$el.clientHeight + margin })
             }, 50)
         })
     },

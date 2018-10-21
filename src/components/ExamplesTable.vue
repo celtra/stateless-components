@@ -6,13 +6,13 @@
             :class="{ [$style.columnContainer]: true, [$style.columnContainer_first]: columnIndex === 0 }"
             :style="column.themeCss">
             <div :class="$style.columnTitle">{{ column.title || '' }}</div>
-            <div v-for="(item, itemIndex) in column.content" :key="itemIndex">
+            <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                 <div
-                    :class="[$style.columnItem, { [$style.columnItem_active]: hoverUsecaseIndex === itemIndex }]"
-                    @mousemove="hoverUsecaseIndex = itemIndex"
+                    :class="[$style.columnItem, { [$style.columnItem_active]: hoverUsecaseIndex === rowIndex }]"
+                    @mousemove="hoverUsecaseIndex = rowIndex"
                     @mouseleave="hoverUsecaseIndex = null">
-                    <span v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[itemIndex] ? { height: `${Math.round(heightByIndex[itemIndex])}px` } : {}">{{ item }}</span>
-                    <slot v-else :item="item" @height="(v) => columnIndex === 1 && setHeight(`${columnIndex}-${itemIndex}`, v)"></slot>
+                    <span v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${Math.round(heightByIndex[rowIndex])}px` } : {}">{{ item }}</span>
+                    <slot v-else v-bind="item" :index="rowIndex"></slot>
                 </div>
             </div>
         </div>
@@ -29,6 +29,11 @@ export default {
             hoverUsecaseIndex: null,
             heightByIndex: {},
         }
+    },
+    created () {
+        this.$on('height', ({ index, value }) => {
+            this.$set(this.heightByIndex, index, value)
+        })
     },
 }
 </script>

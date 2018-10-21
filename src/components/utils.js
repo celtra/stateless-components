@@ -7,6 +7,6 @@ export function getPropTitle (name, value, addName = false) {
     } else if (typeof value === 'undefined') {
         return kebabName.toUpperCase()
     } else {
-        return (addName ? `${value} ${kebabName}` : value + '').toUpperCase()
+        return value ? (addName ? `${value} ${kebabName}` : value).toUpperCase() : null
     }
 }
