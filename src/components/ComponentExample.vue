@@ -89,16 +89,20 @@ export default {
             [getModelName(this.component)]: this.currentValue,
         }
 
-        let slot = this.slot ? this.slot.bind(props)(h) : null
-        if (typeof slot === 'string') {
-            slot = this._v(slot)
-        }
-
         const scopedSlots = {}
         if (this.scopedSlots) {
             for (const name in this.scopedSlots) {
                 scopedSlots[name] = () => this.scopedSlots[name](h)
             }
+        }
+
+        let slot = null
+        if (scopedSlots.default) {
+            slot = scopedSlots.default()
+            if (typeof slot === 'string') {
+                slot = this._v(slot)
+            }
+            delete scopedSlots.default
         }
 
         return h(this.component, {
