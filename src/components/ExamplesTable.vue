@@ -8,7 +8,7 @@
             <div :class="{ [$style.columnWrap]: true}">
                 <div
                     v-if="!noTitles"
-                    :class="[$style.columnItem, $style.columnTitle, { [$style.columnItem_active]: columnIndex > 0 && hoverColumnIndex === columnIndex }]"
+                    :class="[$style.columnItem, $style.columnTitle, { [$style.columnItem_active]: isCellActive(0, columnIndex) }]"
                     @mousemove="hoverRowIndex = 0; hoverColumnIndex = columnIndex;"
                     @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
                     {{ column.title || '' }}
@@ -16,7 +16,7 @@
                 <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                     <div
                         v-if="item"
-                        :class="[$style.columnItem, { [$style.columnItem_active]: hoverRowIndex === rowIndex + 1 && (columnIndex === 0 || hoverColumnIndex === 0) || hoverColumnIndex === columnIndex && hoverRowIndex === 0 && hoverColumnIndex > 0 }]"
+                        :class="[$style.columnItem, { [$style.columnItem_active]: isCellActive(rowIndex + 1, columnIndex) }]"
                         :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
                         @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
@@ -55,6 +55,20 @@ export default {
             this.$set(this.heightByIndex, rowIndex, height)
         })
     },
+    methods: {
+        isCellActive (rowIndex, columnIndex) {
+            if (this.hoverRowIndex === null || this.hoverColumnIndex === null) {
+                return false
+            }
+            if (rowIndex === 0 && columnIndex === 0) {
+                return false
+            }
+
+            const isRowActive = this.hoverRowIndex === rowIndex && (this.columns[this.hoverColumnIndex].first || this.columns[columnIndex].first)
+            const isColumnActive = this.hoverColumnIndex === columnIndex && (this.hoverRowIndex === 0 || rowIndex === 0)
+            return isRowActive || isColumnActive
+        },
+    },
 }
 </script>
 
@@ -85,13 +99,6 @@ export default {
 
 .columnContainer:not(.columnContainer_first) {
     flex: 1;
-    /*.columnWrap {
-        &:hover {
-            .columnItem {
-                background-color: rgba(122, 122, 122, 0.15);
-            }
-        }
-    }*/
 }
 
 .columnWrap {
