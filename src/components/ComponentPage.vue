@@ -26,16 +26,16 @@
         <transition name="fade">
             <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
                 <p :class="$style.eventsTitle">Events</p>
-                <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme" @select="openEventIndex = $event.id">
+                <default-list :items="events.slice().reverse()" :theme="theme" @select="openEventIndex = $event.id">
                     <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
-                        <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
+                        <p v-if="item" :class="$style.eventName">{{ item.componentName }}/{{ item.name }}</p>
                         <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
-                            <template v-if="item.event.payload.length > 0">
-                                <template v-if="typeof item.event.payload[0] === 'object'">
-                                    <pre>{{ JSON.stringify(item.event.payload[0], null, 2) }}</pre>
+                            <template v-if="item.payload.length > 0">
+                                <template v-if="typeof item.payload[0] === 'object'">
+                                    <pre>{{ JSON.stringify(item.payload[0], null, 2) }}</pre>
                                 </template>
                                 <template v-else>
-                                    {{ item.event.payload[0] }}
+                                    {{ item.payload[0] }}
                                 </template>
                             </template>
                             <template v-else>
@@ -214,7 +214,7 @@ export default {
                 this.openEventIndex ++
             }
             if (eventPayload.length === 0 || !eventPayload[0] || !eventPayload[0].isTrusted) {
-                this.events.push({ componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
+                this.events.push({ id: this.eventCount, componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
                 this.eventCount ++
 
                 if (this.events.length > 50) {
