@@ -6,14 +6,20 @@
             :class="[$style.columnContainer, { [$style.columnContainer_first]: column.first }]"
             :style="column.themeCss">
             <div :class="{ [$style.columnWrap]: true}">
-                <div v-if="!noTitles" :class="[$style.columnItem, $style.columnTitle]">{{ column.title || '' }}</div>
+                <div
+                    v-if="!noTitles"
+                    :class="[$style.columnItem, $style.columnTitle, { [$style.columnItem_active]: columnIndex > 0 && hoverColumnIndex === columnIndex }]"
+                    @mousemove="hoverRowIndex = 0; hoverColumnIndex = columnIndex;"
+                    @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
+                    {{ column.title || '' }}
+                </div>
                 <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                     <div
                         v-if="item"
-                        :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
+                        :class="[$style.columnItem, { [$style.columnItem_active]: hoverRowIndex === rowIndex + 1 && (columnIndex === 0 || hoverColumnIndex === 0) || hoverColumnIndex === columnIndex && hoverRowIndex === 0 && hoverColumnIndex > 0 }]"
                         :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
-                        @mousemove="hoverIndex = rowIndex"
-                        @mouseleave="hoverIndex = null">
+                        @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
+                        @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
                         <slot :item="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                     </div>
                 </div>
@@ -34,7 +40,8 @@ export default {
     },
     data () {
         return {
-            hoverIndex: null,
+            hoverRowIndex: null,
+            hoverColumnIndex: null,
             heightByIndex: {},
         }
     },
@@ -78,13 +85,13 @@ export default {
 
 .columnContainer:not(.columnContainer_first) {
     flex: 1;
-    .columnWrap {
+    /*.columnWrap {
         &:hover {
             .columnItem {
                 background-color: rgba(122, 122, 122, 0.15);
             }
         }
-    }
+    }*/
 }
 
 .columnWrap {

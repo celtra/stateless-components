@@ -20,21 +20,27 @@
             <div :class="$style.table">
                 <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss">{{ columns[0].rowTitle }}</div>
                 <examples-table :columns="columns" :style="columns[0].themeCss">
-                    <div slot-scope="{ item, rowIndex, columnIndex }" :class="$style.boundingBox" class="bounding-box">
-                        <p v-if="typeof item === 'string'" :class="$style.flatName">{{ item }}</p>
-                        <component-example
-                            v-else-if="typeof item === 'object'"
-                            :class="$style.component"
-                            :key="item.key"
-                            :component="component"
-                            v-bind="item"
-                            :column-index="columnIndex"
-                            :row-index="rowIndex"
-                            :theme="filters.theme || item.theme || 'light'"
-                            :value="syncValue"
-                            @input="(v) => useSyncValue && (syncValue = v)"
-                            @event="$emit('event', $event)">
-                        </component-example>
+                    <div slot-scope=" { item, rowIndex, columnIndex }" :class="$style.slotContainer">
+                        <template v-if="typeof item === 'string'">
+                            <p :class="$style.flatName">{{ item }}</p>
+                        </template>
+                        <template v-else-if="typeof item === 'object'">
+                            <div :class="$style.boundingBox" class="bounding-box">
+                                <component-example
+
+                                    :class="$style.component"
+                                    :key="item.key"
+                                    :component="component"
+                                    v-bind="item"
+                                    :column-index="columnIndex"
+                                    :row-index="rowIndex"
+                                    :theme="filters.theme || item.theme || 'light'"
+                                    :value="syncValue"
+                                    @input="(v) => useSyncValue && (syncValue = v)"
+                                    @event="$emit('event', $event)">
+                                </component-example>
+                            </div>
+                        </template>
                     </div>
                 </examples-table>
             </div>
@@ -290,5 +296,10 @@ export default {
     align-items: center;
     height: 20px;
     margin: 0;
+}
+
+.slotContainer {
+    display: flex;
+    align-items: center;
 }
 </style>
