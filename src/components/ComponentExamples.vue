@@ -104,7 +104,7 @@ export default {
             let totalCombinations = 1
             props.forEach(name => totalCombinations *= this.valuesByName[name].length)
             if (columnProp) {
-                if (Math.round(totalCombinations / this.valuesByName[columnProp].length) < 4) {
+                if (columnProp !== 'theme' && Math.round(totalCombinations / this.valuesByName[columnProp].length) < 4) {
                     columnProp = null
                 } else {
                     totalCombinations /= this.valuesByName[columnProp].length
