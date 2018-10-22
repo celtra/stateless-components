@@ -11,7 +11,7 @@
                     <div
                         v-if="item"
                         :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
-                        :style="heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
+                        :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverIndex = rowIndex"
                         @mouseleave="hoverIndex = null">
                         <slot :item="item" :row-index="rowIndex" :column-index="columnIndex"></slot>

@@ -248,8 +248,9 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    background-color: rgba(122, 122, 122, 0.2);
-    padding: 18px 10px 14px 10px;
+    background-color: rgba(122, 122, 122, 0.3);
+    margin-top: 10px;
+    padding: 6px 10px;
 }
 
 .resetFilters {
