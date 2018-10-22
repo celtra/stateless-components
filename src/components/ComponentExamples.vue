@@ -141,14 +141,17 @@ export default {
                     }
                     return value
                 })
-                const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
+                const usecaseIndex = this.component.usecases.findIndex(x => x.name === (variation.usecaseName || this.filters.usecaseName))
+                const usecase = this.component.usecases[usecaseIndex]
                 const names = [this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
                 const name = names.length === 0 ? null : names.join(', ').toUpperCase()
 
+                const configuration = { ...variation, ...this.filters }
+                const configurationKey = [this.component.metaName, usecaseIndex].concat(Object.keys(configuration).sort().map(x => this.valuesByName[x].indexOf(configuration[x]))).join('-')
+
                 flat.push({
-                    key: `${this.component.metaName}-${name}`,
                     name: name,
-                    variation: { ...variation, ...usecase },
+                    configuration: { ...configuration, ...usecase, key: configurationKey },
                 })
             }
 
@@ -187,10 +190,10 @@ export default {
                         return {
                             title: this.getPropTitle(this.splitByProp.column, columnValue),
                             content: this.splitByProp.flat.map(x => ({
-                                ...x.variation,
-                                ...this.filters,
+                                ...x.configuration,
                                 [this.splitByProp.row]: rowValue,
                                 [this.splitByProp.column]: columnValue,
+                                key: `${x.configuration.key}-${rowValue}-${columnValue}`,
                             })),
                             themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.white,
                         }
