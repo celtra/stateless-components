@@ -27,7 +27,6 @@
                         <template v-else-if="typeof item === 'object'">
                             <div :class="$style.boundingBox" class="bounding-box">
                                 <component-example
-
                                     :class="$style.component"
                                     :key="item.key"
                                     :component="component"
@@ -248,6 +247,9 @@ export default {
 
 .boundingBox {
     width: 100%;
+    display: flex;
+    border: 1px solid transparent;
+    box-sizing: border-box;
 }
 
 .filters {
