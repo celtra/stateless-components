@@ -103,6 +103,9 @@ export default {
     display: flex;
     transition: background-color 0ms ease;
     transition-delay: 5ms;
+    &:hover {
+        z-index: 1000;
+    }
 
     &_active {
         background-color: rgba(122, 122, 122, 0.15);

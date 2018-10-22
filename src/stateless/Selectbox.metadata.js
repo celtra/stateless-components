@@ -16,6 +16,7 @@ export default {
             label: 'Something',
         },
         {
+            testOnly: true,
             name: 'Open',
             options: defaultItems,
             isSearchable: true,

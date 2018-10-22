@@ -11,12 +11,13 @@ export default {
             uploadUrl: 'https://example.com',
         },
         {
-            name: 'Uploading',
+            testOnly: true,
+            name: 'Uploading start',
             file: { name: 'File name', type: 'MP3' },
             uploadUrl: 'https://example.com',
         },
         {
-            name: 'Progress',
+            name: 'Uploading',
             file: { name: 'File name', type: 'MP3' },
             uploadUrl: 'https://example.com',
             setup (vm) {

@@ -14,27 +14,29 @@
             />
         </div>
 
-        <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
-            <p :class="$style.eventsTitle">Events</p>
-            <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme" @select="openEventIndex = $event.id">
-                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
-                    <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
-                    <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
-                        <template v-if="item.event.payload.length > 0">
-                            <template v-if="typeof item.event.payload[0] === 'object'">
-                                <pre>{{ JSON.stringify(item.event.payload[0], null, 2) }}</pre>
+        <transition name="fade">
+            <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
+                <p :class="$style.eventsTitle">Events</p>
+                <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme" @select="openEventIndex = $event.id">
+                    <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
+                        <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
+                        <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
+                            <template v-if="item.event.payload.length > 0">
+                                <template v-if="typeof item.event.payload[0] === 'object'">
+                                    <pre>{{ JSON.stringify(item.event.payload[0], null, 2) }}</pre>
+                                </template>
+                                <template v-else>
+                                    {{ item.event.payload[0] }}
+                                </template>
                             </template>
                             <template v-else>
-                                {{ item.event.payload[0] }}
+                                <p><b>no data</b></p>
                             </template>
-                        </template>
-                        <template v-else>
-                            <p><b>no data</b></p>
-                        </template>
+                        </div>
                     </div>
-                </div>
-            </default-list>
-        </div>
+                </default-list>
+            </div>
+        </transition>
 
         <div :class="[$style.sidebar, $style.browse]">
             <div :class="$style.logo">
@@ -287,19 +289,18 @@ export default {
 
 .componentView {
     padding-left: 170px;
-    padding-right: 0;
     overflow-y: auto;
     width: 100%;
     height: 100%;
     display: flex;
     flex-flow: column;
     box-sizing: border-box;
-    transition: padding-right 500ms ease-out;
+    transition: width 500ms ease-out;
     z-index: 100;
     overflow-x: hidden;
 
     &_eventsOpen {
-        padding-right: 200px;
+        width: calc(~'100% - 200px');
     }
 }
 
@@ -330,11 +331,8 @@ export default {
     padding-top: 20px;
     right: 0px;
     top: 0px;
-    animation: fadeIn 350ms ease-in;
-    animation-delay: 200ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
     width: 200px;
+    background-color: #ddd;
 
     .sidebarItem {
         width: 100%;
@@ -411,5 +409,20 @@ export default {
 .eventName {
     margin: 0;
     width: 100%;
+}
+
+</style>
+
+<style scoped>
+.fade-enter-active {
+    transition: opacity 350ms ease-out;
+    transition-delay: 400ms;
+}
+
+.fade-leave-active {
+    transition: opacity 100ms ease-out;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 </style>

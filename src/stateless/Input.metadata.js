@@ -38,6 +38,7 @@ export default {
             },
         },
         {
+            testOnly: true,
             name: 'Before slot',
             scopedSlots: {
                 before (h) {

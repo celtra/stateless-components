@@ -78,7 +78,7 @@ export default {
             // copied from ComponentPage.componentVariations
             const variations = this.component && { ...this.component.variations } || {}
             if (this.component.usecases[0].name) {
-                variations.usecaseName = this.component.usecases.map(usecase => usecase.name)
+                variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
             }
 
             return variations
@@ -249,7 +249,7 @@ export default {
     align-items: center;
     margin-bottom: 20px;
     background-color: rgba(122, 122, 122, 0.2);
-    padding: 16px 10px;
+    padding: 18px 10px 14px 10px;
 }
 
 .resetFilters {
