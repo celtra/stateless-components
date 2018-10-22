@@ -23,6 +23,7 @@ export default {
             },
         },
         {
+            testOnly: true,
             name: 'Input',
             label: 'Something',
             setup (vm) {
@@ -38,7 +39,6 @@ export default {
             },
         },
         {
-            testOnly: true,
             name: 'Before slot',
             scopedSlots: {
                 before (h) {
