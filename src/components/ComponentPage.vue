@@ -13,14 +13,15 @@
             />
         </div>
 
-        <div v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
+        <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
+            <p :class="$style.eventsTitle">Events</p>
             <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
-                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: index === name }]" @click="currentEventIndex = item.id">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]" @click="openEventIndex = item.id">
                     <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
-                    <div v-if="currentEventIndex === item.id" :class="$style.eventPayload">
+                    <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
                         <template v-if="item.event.payload.length > 0">
                             <template v-if="typeof item.event.payload[0] === 'object'">
-                                <p v-for="(value, key) in item.event.payload[0]" :key="key"><b>{{ key }}:</b> {{ value }}</p>
+                                <pre>{{ JSON.stringify(item.event.payload[0], null, 2) }}</pre>
                             </template>
                             <template v-else>
                                 {{ item.event.payload[0] }}
@@ -76,7 +77,7 @@ export default {
         return {
             name: null,
             events: [],
-            currentEventIndex: null,
+            openEventIndex: null,
             showThemeToggle: true,
             isThemeLight: true,
             boundsVisibleData: false,
@@ -192,13 +193,16 @@ export default {
             }
         },
         logEvent ({ componentName, eventName, eventPayload }) {
-            if (this.currentEventIndex !== null) {
-                this.currentEventIndex ++
+            if (this.openEventIndex !== null) {
+                this.openEventIndex ++
             }
-            this.events.push({ componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
-            this.eventCount ++
-            if (this.events.length > 50) {
-                this.events = this.events.slice(20)
+            if (eventPayload.length === 0 || !eventPayload[0] || !eventPayload[0].isTrusted) {
+                this.events.push({ componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
+                this.eventCount ++
+
+                if (this.events.length > 50) {
+                    this.events = this.events.slice(20)
+                }
             }
         },
         setFilter (name, value) {
@@ -218,6 +222,9 @@ export default {
         clearFilters () {
             this.filters = {}
             this.$router.push({ name: 'ComponentPage', params: { component: this.name } })
+        },
+        closeOpenEvent () {
+            this.openEventIndex = null
         },
     },
 }
@@ -249,6 +256,7 @@ export default {
         color: black;
 
         .sidebar {
+            color: black;
             background-color: #eee;
         }
     }
@@ -261,6 +269,7 @@ export default {
         }
 
         .sidebar {
+            color: white;
             background-color: #111;
         }
     }
@@ -312,6 +321,7 @@ export default {
 }
 
 .events {
+    padding-top: 20px;
     right: 0px;
     top: 0px;
     animation: fadeIn 350ms ease-in;
@@ -321,13 +331,28 @@ export default {
     width: 200px;
 
     .sidebarItem {
-        width: 100%;
+        width: calc(~'100% - 5px');
+
+        pre {
+            overflow: hidden;
+            width: 100%;
+            font-size: 12px;
+            font-weight: normal;
+            margin: 0;
+        }
     }
 }
 
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+.eventsTitle {
+    font-size: 20px;
+    margin: 0;
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
 
 .sidebarItem {
@@ -345,7 +370,7 @@ export default {
 
 .eventPayload {
     margin-top: 5px;
-    padding-top: 5px;
+    margin-bottom: 2px;
     width: 100%;
 
     > p {
@@ -379,6 +404,5 @@ export default {
 .eventName {
     margin: 0;
     width: 100%;
-    text-align: right;
 }
 </style>

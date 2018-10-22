@@ -133,7 +133,7 @@ export default {
                     return value
                 })
                 const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
-                const names = [this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
+                const names = [this.component.metaName, this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
 
                 flat.push({
                     name: names.length === 0 ? null : names.join(', ').toUpperCase(),
