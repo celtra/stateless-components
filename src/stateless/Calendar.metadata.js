@@ -1,5 +1,6 @@
 export default {
     metaName: 'Calendar',
+    width: 46 * 7,
     usecases: [
         {
             name: 'Single day',

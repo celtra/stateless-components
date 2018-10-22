@@ -26,7 +26,7 @@
         </div>
 
         <div :class="$style.filters">
-            <icon :class="$style.clearFilters" name="x-bold" @click="clearFilters" />
+            <icon :class="$style.clearFilters" name="delete-icon" @click="clearFilters" />
             <chip
                 v-for="(values, name) in valuesByName"
                 v-if="name !== modelName"

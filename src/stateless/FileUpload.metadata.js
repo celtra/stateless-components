@@ -1,5 +1,6 @@
 export default {
     metaName: 'FileUpload',
+    width: 280,
     variations: {
         theme: ['dark', 'light'],
         disabled: [false, true],

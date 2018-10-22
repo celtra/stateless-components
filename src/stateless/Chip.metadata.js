@@ -1,5 +1,6 @@
 export default {
     metaName: 'Chip',
+    width: 120,
     variations: {
         theme: ['dark', 'light'],
         isActive: [false, true],

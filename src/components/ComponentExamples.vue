@@ -12,6 +12,7 @@
                             <div :class="$style.boundingBox" class="bounding-box">
                                 <component-example
                                     :class="$style.component"
+                                    :style="component.width ? { maxWidth: `${component.width}px` } : {}"
                                     :key="item.key"
                                     :component="component"
                                     v-bind="item"

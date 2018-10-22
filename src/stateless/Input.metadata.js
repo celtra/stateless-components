@@ -34,21 +34,23 @@ export default {
         {
             name: 'Password hidden',
             type: 'password',
+            label: 'Something',
             setup (vm) {
                 vm.text = 'Hidden text'
             },
         },
         {
-            name: 'Before slot',
+            name: 'Right slot',
+            label: 'Something',
             scopedSlots: {
-                before (h) {
-                    return h(Icon, { props: { name: 'bars' } })
-                    return h('div', { style: { backgroundColor: 'red', width: '100%', height: '100%', display: 'flex' } }, 'S')
+                right (h) {
+                    return h(Icon, { props: { name: 'clear' } })
                 },
             },
         },
         {
             name: 'Left slot',
+            label: 'Something',
             scopedSlots: {
                 left (h) {
                     return h(Icon, { props: { name: 'pencil-edit' } })
@@ -56,10 +58,11 @@ export default {
             },
         },
         {
-            name: 'Right slot',
+            name: 'Before slot',
+            label: 'Something',
             scopedSlots: {
-                right (h) {
-                    return h(Icon, { props: { name: 'clear' } })
+                before (h) {
+                    return h(Icon, { props: { name: 'bars' } })
                 },
             },
         },
