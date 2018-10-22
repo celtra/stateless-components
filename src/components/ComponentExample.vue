@@ -8,7 +8,7 @@ const getModelEvent = component => component.model && component.model.event || '
 export default {
     props: {
         component: { type: Object, required: true },
-        value: { type: null, required: false },
+        syncValue: { type: null, required: false },
         setup: { type: Function },
         scopedSlots: { type: Object },
         columnIndex: { type: Number, required: true },
@@ -21,7 +21,7 @@ export default {
         }
     },
     watch: {
-        value (v) {
+        syncValue (v) {
             this.currentValue = v
         },
     },

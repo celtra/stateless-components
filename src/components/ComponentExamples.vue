@@ -4,7 +4,7 @@
             <icon :class="$style.resetFilters" name="x-bold" @click="$emit('reset-filters')" />
             <chip
                 v-for="(values, name) in valuesByName"
-                v-if="name !== 'value'"
+                v-if="name !== modelName"
                 :is-removable="name in filters"
                 :key="name"
                 :label="getFilterTitle(name)"
@@ -34,7 +34,7 @@
                                     :column-index="columnIndex"
                                     :row-index="rowIndex"
                                     :theme="filters.theme || item.theme || 'light'"
-                                    :value="syncValue"
+                                    :sync-value="syncValue"
                                     @input="(v) => useSyncValue && (syncValue = v)"
                                     @event="$emit('event', $event)">
                                 </component-example>
