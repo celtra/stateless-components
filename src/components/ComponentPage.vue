@@ -1,17 +1,25 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
-        <div :class="[$style.componentView, { [$style.componentView_eventsOpen]: isEventsListOpen }]">
-            <component-examples
-                :key="component.metaName + Object.keys(filters).sort().join(',')"
-                :use-sync-value="syncValue || component.forceValueSync || false"
-                :component="component"
-                :class="$style.componentExamples"
-                :filters="filters" :show-bounding-boxes="boundsVisible"
-                @set-filter="setFilter"
-                @unset-filter="unsetFilter"
-                @reset-filters="clearFilters"
-                @event="logEvent($event)"
-            />
+
+        <div :class="[$style.componentWrap, { [$style.componentWrap_eventsOpen]: isEventsListOpen }]">
+            <div ref="scrollable" :class="$style.componentView">
+                <component-examples
+                    :key="component.metaName + Object.keys(filters).sort().join(',')"
+                    :use-sync-value="syncValue || component.forceValueSync || false"
+                    :component="component"
+                    :class="$style.componentExamples"
+                    :filters="filters" :show-bounding-boxes="boundsVisible"
+                    @set-filter="setFilter"
+                    @unset-filter="unsetFilter"
+                    @reset-filters="clearFilters"
+                    @event="logEvent($event)"
+                />
+            </div>
+
+            <scrollbar
+                :theme="'light'"
+                :container="$refs.scrollable">
+            </scrollbar>
         </div>
 
         <transition name="fade">
@@ -67,6 +75,7 @@ import Checkbox from '@/stateless/checkbox.vue'
 import Icon from '@/stateless/icon.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import ComponentExamples from './ComponentExamples.vue'
+import Scrollbar from './Scrollbar.vue'
 
 export default {
     components: {
@@ -75,6 +84,7 @@ export default {
         Icon,
         DefaultList,
         ComponentExamples,
+        Scrollbar,
     },
     data () {
         return {
@@ -151,6 +161,9 @@ export default {
 
         this.setupComponent()
         this.setupFilters()
+    },
+    mounted () {
+        this.$forceUpdate()
     },
     methods: {
         setupComponent () {
@@ -287,25 +300,32 @@ export default {
     }
 }
 
+.componentWrap {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    transition: width 500ms ease-out;
+
+    &_eventsOpen {
+        width: calc(~'100% - 210px');
+    }
+}
+
 .componentView {
     padding-left: 170px;
-    overflow-y: auto;
-    width: 100%;
+    overflow-y: hidden;
     height: 100%;
     display: flex;
     flex-flow: column;
     box-sizing: border-box;
-    transition: width 500ms ease-out;
+
     z-index: 100;
     overflow-x: hidden;
-
-    &_eventsOpen {
-        width: calc(~'100% - 200px');
-    }
 }
 
 .componentExamples {
-    width: calc(~'100% - 20px');
+    width: calc(~'100% - 15px');
 }
 
 .sidebar {
