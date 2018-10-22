@@ -301,5 +301,6 @@ export default {
 .slotContainer {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 </style>
