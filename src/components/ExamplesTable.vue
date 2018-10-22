@@ -8,18 +8,20 @@
             <div :class="{ [$style.columnWrap]: true}">
                 <div
                     v-if="!noTitles"
-                    :class="[$style.columnItem, $style.columnTitle, { [$style.columnItem_active]: isCellActive(0, columnIndex) }]"
+                    :class="[$style.columnItem, $style.columnItem_firstRow, { [$style.columnItem_active]: isCellActive(0, columnIndex), [$style.columnItem_title]: hoverRowIndex !== 0 }]"
                     @mousemove="hoverRowIndex = 0; hoverColumnIndex = columnIndex;"
-                    @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
+                    @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
+                    @click="$emit('click', { rowIndex: 0, columnIndex })">
                     {{ column.title || '' }}
                 </div>
                 <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
                     <div
                         v-if="item"
-                        :class="[$style.columnItem, { [$style.columnItem_active]: isCellActive(rowIndex + 1, columnIndex) }]"
+                        :class="[$style.columnItem, { [$style.columnItem_active]: isCellActive(rowIndex + 1, columnIndex), [$style.columnItem_title]: columnIndex === 0 && hoverColumnIndex !== 0 }]"
                         :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
-                        @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;">
+                        @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
+                        @click="$emit('click', { rowIndex: rowIndex + 1, columnIndex })">
                         <slot :item="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                     </div>
                 </div>
@@ -60,7 +62,7 @@ export default {
             if (this.hoverRowIndex === null || this.hoverColumnIndex === null) {
                 return false
             }
-            if (rowIndex === 0 && columnIndex === 0) {
+            if (rowIndex === 0 && columnIndex === 0 || this.hoverRowIndex === 0 && this.hoverColumnIndex === 0) {
                 return false
             }
 
@@ -90,13 +92,6 @@ export default {
     opacity: 0;
 }
 
-.columnTitle {
-    padding: @column-padding;
-    min-height: 16px;
-    font-size: 18px;
-    line-height: 16px;
-}
-
 .columnContainer:not(.columnContainer_first) {
     flex: 1;
 }
@@ -112,22 +107,31 @@ export default {
 }
 
 .columnItem {
-    cursor: pointer;
     padding: @column-padding;
     display: flex;
     transition: background-color 0ms ease;
     transition-delay: 5ms;
-    &:hover {
-        z-index: 1000;
-    }
 
     &_active {
         background-color: rgba(122, 122, 122, 0.15);
-    }
-}
 
-.columnItemBoundingContainer {
-    background-color: rgba(59, 172, 255, 0.25);
-    width: 100%;
+    }
+
+    &_firstRow {
+        padding: @column-padding;
+        min-height: 16px;
+        font-size: 18px;
+        line-height: 16px;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &_active&_title {
+        background-color: rgba(200, 100, 100, 0.3);
+        text-decoration: underline;
+    }
 }
 </style>

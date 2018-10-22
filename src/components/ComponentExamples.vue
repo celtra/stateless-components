@@ -2,8 +2,8 @@
     <div>
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <div :class="$style.table">
-                <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss">{{ columns[0].rowTitle }}</div>
-                <examples-table :columns="columns" :style="columns[0].themeCss">
+                <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss" @click="onRowClick(rowIndex)">{{ columns[0].rowTitle }}</div>
+                <examples-table :columns="columns" :style="columns[0].themeCss" @click="onTableClick">
                     <div slot-scope=" { item, rowIndex, columnIndex }" :class="$style.slotContainer">
                         <template v-if="typeof item === 'string'">
                             <p :class="$style.flatName">{{ item }}</p>
@@ -111,6 +111,9 @@ export default {
             for (const variation of getFlatVariations(remainingValues)) {
                 const variationKeys = Object.keys(variation)
                 const variationNames = variationKeys.map(key => {
+                    if (this.valuesByName[key].length === 1) {
+                        return null
+                    }
                     if (key !== 'usecaseName') {
                         return this.getPropTitle(key, variation[key], { hideNot: variationKeys.length > 1 })
                     }
@@ -165,7 +168,7 @@ export default {
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
                     content: this.splitByProp.flat.map(usecase => usecase.name),
                     first: true,
-                    themeCss: themeCss || themesCss.white,
+                    themeCss: themeCss || themesCss.light,
                 } : null
                 const columnItems = [
                     ...(!firstColumn ? [] : [firstColumn]),
@@ -178,7 +181,7 @@ export default {
                                 [this.splitByProp.column]: columnValue,
                                 key: `${x.configuration.key}-${rowValue}-${columnValue}`,
                             })),
-                            themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.white,
+                            themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.light,
                         }
                     }),
                 ]
@@ -205,6 +208,14 @@ export default {
                 return null
             }
             return res
+        },
+        onRowClick (rowIndex) {
+            this.$emit('filter', { [this.splitByProp.row]: this.valuesByName[this.splitByProp.row][rowIndex] } )
+        },
+        onTableClick ({ rowIndex, columnIndex }) {
+            if (rowIndex === 0 && columnIndex > 0) {
+                this.$emit('filter', { [this.splitByProp.column] : this.valuesByName[this.splitByProp.column][columnIndex - 1] })
+            }
         },
     },
 }
@@ -238,6 +249,11 @@ export default {
     padding: 10px 15px;
     margin-bottom: 10px;
     display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .flatName {

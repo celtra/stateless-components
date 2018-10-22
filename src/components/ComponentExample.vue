@@ -55,7 +55,7 @@ export default {
         Vue.prototype.$emit = function (...args) {
             if (args[0] !== 'event' && !args[0].startsWith('hook:') && this.$options.parent && this.$options.parent._uid !== rootUid) {
                 if (rootUid === this._uid) {
-                    self.$emit.bind(self)('event', { componentName: kebabCase(componentName), eventName: args[0], eventPayload: args.slice(1) })
+                    self.$emit.bind(self)('event', { componentName: componentName, eventName: args[0], eventPayload: args.slice(1) })
                 }
             }
 

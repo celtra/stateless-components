@@ -10,6 +10,7 @@
                     :class="$style.componentExamples"
                     :filters="filters" :show-bounding-boxes="boundsVisible"
                     @event="logEvent($event)"
+                    @filter="applyFilter"
                 />
             </div>
 
@@ -25,7 +26,7 @@
         </div>
 
         <div :class="$style.filters">
-            <icon :class="$style.resetFilters" name="x-bold" @click="clearFilters" />
+            <icon :class="$style.clearFilters" name="x-bold" @click="clearFilters" />
             <chip
                 v-for="(values, name) in valuesByName"
                 v-if="name !== modelName"
@@ -58,7 +59,7 @@
             <!-- <p :class="$style.eventsTitle">Events</p> -->
             <default-list :items="events.slice().reverse()" :theme="theme" @select="openEventIndex = $event.id">
                 <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
-                    <p v-if="item" :class="$style.eventName">{{ item.componentName }}/{{ item.name }}</p>
+                    <p v-if="item" :class="$style.eventName">{{ item.componentName }}: {{ item.name }}</p>
                     <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
                         <template v-if="item.payload.length > 0">
                             <template v-if="typeof item.payload[0] === 'object'">
@@ -237,7 +238,7 @@ export default {
                 this.openEventIndex ++
             }
             if (eventPayload.length === 0 || !eventPayload[0] || !eventPayload[0].isTrusted) {
-                this.events.push({ id: this.eventCount, componentName: `#${this.eventCount} ${componentName}`, name: eventName, payload: eventPayload })
+                this.events.push({ id: this.eventCount, componentName: componentName, name: `${eventName} #${this.eventCount}`, payload: eventPayload })
                 this.eventCount ++
 
                 if (this.events.length > 50) {
@@ -250,7 +251,7 @@ export default {
         },
         updateUrlFilters () {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
-            this.$router.replace({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
+            this.$router.push({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
 
         clearFilters () {
@@ -277,6 +278,12 @@ export default {
         removeFilter (name) {
             Vue.delete(this.filters, name)
             delete this.filters[name]
+            this.updateUrlFilters()
+        },
+        applyFilter (data) {
+            for (const key in data) {
+                Vue.set(this.filters, key, data[key])
+            }
             this.updateUrlFilters()
         },
         // TODO: Copied from ComponentExamples
@@ -336,7 +343,7 @@ export default {
         background-color: @a-median;
     }
 
-    .resetFilters {
+    .clearFilters {
         color: @b-extreme;
         &:hover {
             color: @b-median;
@@ -366,7 +373,6 @@ export default {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    transition: width 500ms ease-out;
     position: fixed;
     top: @sidebar-start;
     left: 170px;
@@ -393,7 +399,7 @@ export default {
 }
 
 .componentExamples {
-    width: calc(~'100% - 5px');
+    width: 100%;
 }
 
 .sidebar {
@@ -418,7 +424,7 @@ export default {
 .events {
     padding-top: 6px;
     right: 0px;
-    width: 193px;
+    width: 189px;
     background-color: #ddd;
     border-radius: @border-radius 0 0 @border-radius;
 
@@ -448,7 +454,7 @@ export default {
     transition: transform 80ms ease-out;
 
     &_activeTitle {
-        transform: translateX(-4px);
+        transform: translateX(-2px);
         font-weight: bold;
     }
 }
@@ -509,7 +515,7 @@ export default {
     left: 170px;
 }
 
-.resetFilters {
+.clearFilters {
     cursor: pointer;
     margin: 0 8px;
 }
