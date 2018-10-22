@@ -109,14 +109,14 @@ export default {
             let totalCombinations = 1
             props.forEach(name => totalCombinations *= this.valuesByName[name].length)
             if (columnProp) {
-                if (columnProp !== 'theme' && Math.round(totalCombinations / this.valuesByName[columnProp].length) < 4) {
+                if (columnProp !== 'theme' && Math.round(totalCombinations / this.valuesByName[columnProp].length) <= 1) {
                     columnProp = null
                 } else {
                     totalCombinations /= this.valuesByName[columnProp].length
                 }
             }
             if (rowProp) {
-                if (Math.round(totalCombinations / this.valuesByName[rowProp].length) < 4) {
+                if (Math.round(totalCombinations / this.valuesByName[rowProp].length) <= 2) {
                     rowProp = null
                 }
             }
