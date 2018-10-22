@@ -1,6 +1,5 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
-
         <div :class="[$style.componentWrap, { [$style.componentWrap_eventsOpen]: isEventsListOpen }]">
             <div ref="scrollable" :class="$style.componentView">
                 <component-examples
@@ -39,7 +38,7 @@
                                 </template>
                             </template>
                             <template v-else>
-                                <p><b>no data</b></p>
+                                No data
                             </template>
                         </div>
                     </div>
@@ -379,7 +378,7 @@ export default {
     transition: transform 80ms ease-out;
 
     &_activeTitle {
-        transform: translateX(4px);
+        transform: translateX(-4px);
         font-weight: bold;
     }
 }
@@ -389,15 +388,13 @@ export default {
     margin-bottom: 2px;
     width: 100%;
     font-weight: normal;
+    background-color: rgba(122, 122, 122, 0.2);
+    padding: 6px 10px;
+    box-sizing: border-box;
 
     > p {
         margin: 0;
         font-size: 15px;
-
-        > b {
-            text-transform: uppercase;
-            font-size: 12px;
-        }
     }
 
     pre {
