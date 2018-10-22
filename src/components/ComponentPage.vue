@@ -296,6 +296,7 @@ export default {
     box-sizing: border-box;
     transition: padding-right 500ms ease-out;
     z-index: 100;
+    overflow-x: hidden;
 
     &_eventsOpen {
         padding-right: 200px;
