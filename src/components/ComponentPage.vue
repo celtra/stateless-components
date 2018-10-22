@@ -309,7 +309,7 @@ export default {
     transition: width 500ms ease-out;
 
     &_eventsOpen {
-        width: calc(~'100% - 215px');
+        width: calc(~'100% - 200px');
     }
 }
 
@@ -330,7 +330,7 @@ export default {
 }
 
 .componentExamples {
-    width: calc(~'100% - 10px');
+    width: calc(~'100% - 20px');
 }
 
 .sidebar {
