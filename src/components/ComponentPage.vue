@@ -2,7 +2,8 @@
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
         <div :class="[$style.componentView, { [$style.componentView_eventsOpen]: isEventsListOpen }]">
             <component-examples
-                :key="component.metaName + Object.keys(filters).sort().join(',')" :use-sync-value="syncValue || component.forceValueSync || false"
+                :key="component.metaName + Object.keys(filters).sort().join(',')"
+                :use-sync-value="syncValue || component.forceValueSync || false"
                 :component="component"
                 :class="$style.componentExamples"
                 :filters="filters" :show-bounding-boxes="boundsVisible"
@@ -282,7 +283,6 @@ export default {
 .componentView {
     padding-left: 170px;
     padding-right: 0;
-    padding-top: 6px;
     overflow-y: auto;
     width: 100%;
     height: 100%;
@@ -331,15 +331,7 @@ export default {
     width: 200px;
 
     .sidebarItem {
-        width: calc(~'100% - 5px');
-
-        pre {
-            overflow: hidden;
-            width: 100%;
-            font-size: 12px;
-            font-weight: normal;
-            margin: 0;
-        }
+        width: 100%;
     }
 }
 
@@ -372,6 +364,7 @@ export default {
     margin-top: 5px;
     margin-bottom: 2px;
     width: 100%;
+    font-weight: normal;
 
     > p {
         margin: 0;
@@ -381,6 +374,13 @@ export default {
             text-transform: uppercase;
             font-size: 12px;
         }
+    }
+
+    pre {
+        overflow: hidden;
+        width: 100%;
+        font-size: 12px;
+        margin: 0;
     }
 }
 

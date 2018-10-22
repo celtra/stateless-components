@@ -20,12 +20,16 @@
             <div :class="$style.table">
                 <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss">{{ columns[0].rowTitle }}</div>
                 <examples-table :columns="columns" :style="columns[0].themeCss">
-                    <div slot-scope="item" :class="$style.boundingBox" class="bounding-box">
+                    <div slot-scope="{ item, rowIndex, columnIndex }" :class="$style.boundingBox" class="bounding-box">
+                        <p v-if="typeof item === 'string'" :class="$style.flatName">{{ item }}</p>
                         <component-example
+                            v-else-if="typeof item === 'object'"
                             :class="$style.component"
-                            :key="item.name"
+                            :key="item.key"
                             :component="component"
                             v-bind="item"
+                            :column-index="columnIndex"
+                            :row-index="rowIndex"
                             :theme="filters.theme || item.theme || 'light'"
                             :value="syncValue"
                             @input="(v) => useSyncValue && (syncValue = v)"
@@ -133,10 +137,12 @@ export default {
                     return value
                 })
                 const usecase = this.component.usecases.find(x => x.name === (variation.usecaseName || this.filters.usecaseName))
-                const names = [this.component.metaName, this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
+                const names = [this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
+                const name = names.length === 0 ? null : names.join(', ').toUpperCase()
 
                 flat.push({
-                    name: names.length === 0 ? null : names.join(', ').toUpperCase(),
+                    key: `${this.component.metaName}-${name}`,
+                    name: name,
                     variation: { ...variation, ...usecase },
                 })
             }
@@ -211,7 +217,7 @@ export default {
             const kebabName = kebabCase(name)
             let res = ''
             if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
-                res = (value ? kebabName : (hideNot ? '' : `not ${kebabName}`))
+                res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
             } else if (typeof value === 'undefined') {
                 res = kebabName
             } else {
@@ -241,10 +247,9 @@ export default {
 .filters {
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     background-color: rgba(122, 122, 122, 0.2);
-    padding: 10px;
-    border-radius: 3px;
+    padding: 16px 10px;
 }
 
 .resetFilters {
@@ -276,5 +281,13 @@ export default {
     padding: 10px 15px;
     margin-bottom: 10px;
     display: inline-block;
+}
+
+.flatName {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    margin: 0;
 }
 </style>

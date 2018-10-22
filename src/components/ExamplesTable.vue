@@ -13,8 +13,7 @@
                         :class="[$style.columnItem, { [$style.columnItem_active]: hoverIndex === rowIndex }]"
                         @mousemove="hoverIndex = rowIndex"
                         @mouseleave="hoverIndex = null">
-                        <text-line v-if="typeof item === 'string'" :class="$style.flatName" :style="heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}" :text="item" theme="light" />
-                        <slot v-else v-bind="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
+                        <slot :item="item" :row-index="rowIndex" :column-index="columnIndex" :style="heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"></slot>
                     </div>
                 </div>
             </div>
@@ -59,10 +58,6 @@ export default {
     background-color: #eee;
 }
 
-.columnContainer {
-    flex: 1;
-}
-
 .columnItem {
     padding: @column-padding;
     font-size: 12px;
@@ -81,6 +76,7 @@ export default {
 }
 
 .columnContainer:not(.columnContainer_first) {
+    flex: 1;
     .columnWrap {
         &:hover {
             .columnItem {
@@ -115,12 +111,5 @@ export default {
 .columnItemBoundingContainer {
     background-color: rgba(59, 172, 255, 0.25);
     width: 100%;
-}
-
-.flatName {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    height: 20px;
 }
 </style>
