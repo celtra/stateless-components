@@ -17,6 +17,7 @@
             </div>
 
             <scrollbar
+                :class="$style.scrollbar"
                 :theme="theme"
                 :container="$refs.scrollable">
             </scrollbar>
@@ -308,8 +309,12 @@ export default {
     transition: width 500ms ease-out;
 
     &_eventsOpen {
-        width: calc(~'100% - 210px');
+        width: calc(~'100% - 215px');
     }
+}
+
+.scrollbar {
+    right: 0 !important;
 }
 
 .componentView {
@@ -325,7 +330,7 @@ export default {
 }
 
 .componentExamples {
-    width: calc(~'100% - 15px');
+    width: calc(~'100% - 10px');
 }
 
 .sidebar {
