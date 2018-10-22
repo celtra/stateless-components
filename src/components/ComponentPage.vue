@@ -1,5 +1,6 @@
 <template>
     <div :class="[$style.main, $style[`main_${theme}`], { [$style.main_bounds]: boundsVisible }]">
+
         <div :class="[$style.componentWrap, { [$style.componentWrap_eventsOpen]: isEventsListOpen }]">
             <div ref="scrollable" :class="$style.componentView">
                 <component-examples
@@ -8,9 +9,6 @@
                     :component="component"
                     :class="$style.componentExamples"
                     :filters="filters" :show-bounding-boxes="boundsVisible"
-                    @set-filter="setFilter"
-                    @unset-filter="unsetFilter"
-                    @reset-filters="clearFilters"
                     @event="logEvent($event)"
                 />
             </div>
@@ -22,35 +20,27 @@
             </scrollbar>
         </div>
 
-        <transition name="fade">
-            <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
-                <p :class="$style.eventsTitle">Events</p>
-                <default-list :items="events.slice().reverse()" :theme="theme" @select="openEventIndex = $event.id">
-                    <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
-                        <p v-if="item" :class="$style.eventName">{{ item.componentName }}/{{ item.name }}</p>
-                        <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
-                            <template v-if="item.payload.length > 0">
-                                <template v-if="typeof item.payload[0] === 'object'">
-                                    <pre>{{ JSON.stringify(item.payload[0], null, 2) }}</pre>
-                                </template>
-                                <template v-else>
-                                    {{ item.payload[0] }}
-                                </template>
-                            </template>
-                            <template v-else>
-                                No data
-                            </template>
-                        </div>
-                    </div>
-                </default-list>
-            </div>
-        </transition>
+        <div :class="$style.logo">
+            <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
+        </div>
+
+        <div :class="$style.filters">
+            <icon :class="$style.resetFilters" name="x-bold" @click="clearFilters" />
+            <chip
+                v-for="(values, name) in valuesByName"
+                v-if="name !== modelName"
+                :is-removable="name in filters"
+                :key="name"
+                :label="getFilterTitle(name)"
+                :is-active="name in filters"
+                :theme="filters.theme || 'light'"
+                :class="$style.propInfo"
+                @click="cycleFilter(name)"
+                @remove="removeFilter(name)"
+            />
+        </div>
 
         <div :class="[$style.sidebar, $style.browse]">
-            <div :class="$style.logo">
-                <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
-            </div>
-
             <div :class="$style.toggles">
                 <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
                 <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
@@ -63,10 +53,33 @@
                 </div>
             </default-list>
         </div>
+
+        <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen && events.length > 0" :class="[$style.sidebar, $style.events]">
+            <!-- <p :class="$style.eventsTitle">Events</p> -->
+            <default-list :items="events.slice().reverse()" :theme="theme" @select="openEventIndex = $event.id">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
+                    <p v-if="item" :class="$style.eventName">{{ item.componentName }}/{{ item.name }}</p>
+                    <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
+                        <template v-if="item.payload.length > 0">
+                            <template v-if="typeof item.payload[0] === 'object'">
+                                <pre>{{ JSON.stringify(item.payload[0], null, 2) }}</pre>
+                            </template>
+                            <template v-else>
+                                {{ item.payload[0] }}
+                            </template>
+                        </template>
+                        <template v-else>
+                            No data
+                        </template>
+                    </div>
+                </div>
+            </default-list>
+        </div>
     </div>
 </template>
 
 <script>
+import { kebabCase } from 'lodash'
 import Vue from 'vue'
 import '@/stateless/define_helpers'
 import * as library from '../library.js'
@@ -101,6 +114,9 @@ export default {
         }
     },
     computed: {
+        modelName () {
+            return this.component.model && this.component.model.prop || 'value'
+        },
         syncValue: {
             get () {
                 return this.component && this.component.forceValueSync || this.syncValueData
@@ -145,6 +161,14 @@ export default {
         },
         theme () {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
+        },
+        valuesByName () {
+            const variations = this.component && { ...this.component.variations } || {}
+            if (this.component.usecases[0].name) {
+                variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
+            }
+
+            return variations
         },
     },
     beforeRouteUpdate (to, from, next) {
@@ -222,13 +246,7 @@ export default {
             }
         },
         setFilter (name, value) {
-            Vue.set(this.filters, name, value)
-            this.updateUrlFilters()
-        },
-        unsetFilter (name) {
-            Vue.delete(this.filters, name)
-            delete this.filters[name]
-            this.updateUrlFilters()
+
         },
         updateUrlFilters () {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
@@ -241,6 +259,44 @@ export default {
         },
         closeOpenEvent () {
             this.openEventIndex = null
+        },
+        getFilterTitle (name) {
+            if (name === 'usecaseName') {
+                return this.filters.usecaseName ? this.filters.usecaseName.toUpperCase() : 'NAME'
+            }
+            return this.getPropTitle(name, this.filters[name], { addName: true })
+        },
+        cycleFilter (name) {
+            const currentValue = this.filters[name]
+            const values = this.valuesByName[name]
+            const currentIndex = values.indexOf(currentValue)
+            const newIndex = (currentIndex + 1) % values.length
+            Vue.set(this.filters, name, values[newIndex])
+            this.updateUrlFilters()
+        },
+        removeFilter (name) {
+            Vue.delete(this.filters, name)
+            delete this.filters[name]
+            this.updateUrlFilters()
+        },
+        // TODO: Copied from ComponentExamples
+        getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
+            const kebabName = kebabCase(name)
+            let res = ''
+            if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
+                res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
+            } else if (typeof value === 'undefined') {
+                res = kebabName
+            } else {
+                res = value ? (addName ? `${value} ${kebabName}` : value) : ''
+            }
+
+            res = res.toUpperCase().trim(' ')
+
+            if (res.length === 0) {
+                return null
+            }
+            return res
         },
     },
 }
@@ -260,34 +316,45 @@ export default {
 </style>
 
 <style lang="less" module>
-@dark-theme: #1f1f2c;
+@border-radius: 4px;
+@sidebar-start: 65px;
+
+.theme(@a-extreme, @a-median, @b-median, @b-extreme) {
+    background-color: @a-extreme;
+    color: @b-extreme;
+
+    .sidebar {
+        background-color: @a-median;
+        color: @b-extreme;
+    }
+
+    .sidebarItem {
+        color: @b-extreme;
+    }
+
+    .filters {
+        background-color: @a-median;
+    }
+
+    .resetFilters {
+        color: @b-extreme;
+        &:hover {
+            color: @b-median;
+        }
+    }
+}
+.main {
+    &_light {
+        .theme(white, #f2f2f3, #333, black);
+    }
+    &_dark {
+        .theme(black, #1f1f2c, #ccc, white);
+    }
+}
 
 .main {
     height: 100%;
     user-select: none;
-
-    &_light {
-        background-color: white;
-        color: black;
-
-        .sidebar {
-            color: black;
-            background-color: #eee;
-        }
-    }
-
-    &_dark {
-        background-color: #080808;
-
-        .sidebarItem {
-            color: white;
-        }
-
-        .sidebar {
-            color: white;
-            background-color: #111;
-        }
-    }
 
     &_bounds {
         display: block;
@@ -300,9 +367,13 @@ export default {
     width: 100%;
     height: 100%;
     transition: width 500ms ease-out;
+    position: fixed;
+    top: @sidebar-start;
+    left: 170px;
+    width: calc(~'100% - 170px');
 
     &_eventsOpen {
-        width: calc(~'100% - 200px');
+        width: calc(~'100% - 370px');
     }
 }
 
@@ -311,7 +382,6 @@ export default {
 }
 
 .componentView {
-    padding-left: 170px;
     overflow-y: hidden;
     height: 100%;
     display: flex;
@@ -323,34 +393,34 @@ export default {
 }
 
 .componentExamples {
-    width: calc(~'100% - 20px');
+    width: calc(~'100% - 5px');
 }
 
 .sidebar {
     position: fixed;
-    top: 0;
-    height: 100%;
+    top: @sidebar-start;
     display: flex;
     flex-direction: column;
     z-index: 10;
-
+    padding-bottom: 6px;
 }
 
 .sidebarToggle {
-    margin: 0 0 15px 15px;
+    margin: 0 0 10px 11px;
     height: auto;
 }
 
 .browse {
-    width: 150px;
+    width: 158px;
+    border-radius: 0 @border-radius @border-radius 0;
 }
 
 .events {
-    padding-top: 20px;
+    padding-top: 6px;
     right: 0px;
-    top: 0px;
-    width: 200px;
+    width: 193px;
     background-color: #ddd;
+    border-radius: @border-radius 0 0 @border-radius;
 
     .sidebarItem {
         width: 100%;
@@ -406,19 +476,19 @@ export default {
 }
 
 .toggles {
-    margin: 10px 0;
-    padding-bottom: 5px;
+    margin: 0px 0;
+    padding-bottom: 0px;
     border-bottom: 1px solid rgba(122, 122, 122, 0.2);
 }
 
 .logo {
-    width: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(50, 50, 50, 0.25) 100%);
-    padding: 12px 0 2px 15px;
-    box-sizing: border-box;
+    width: 80px;
+    position: fixed;
+    top: 18px;
+    left: 12px;
 
     > img {
-        width: 70px;
+        width: 100%;
     }
 }
 
@@ -427,18 +497,24 @@ export default {
     width: 100%;
 }
 
-</style>
-
-<style scoped>
-.fade-enter-active {
-    transition: opacity 350ms ease-out;
-    transition-delay: 400ms;
+.filters {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: @border-radius 0 0 @border-radius;
+    width: calc(~'100% - 171px');
+    position: fixed;
+    top: 12px;
+    left: 170px;
 }
 
-.fade-leave-active {
-    transition: opacity 100ms ease-out;
+.resetFilters {
+    cursor: pointer;
+    margin: 0 8px;
 }
-.fade-enter, .fade-leave-to {
-    opacity: 0;
+
+.propInfo {
+    margin-left: 10px;
 }
 </style>

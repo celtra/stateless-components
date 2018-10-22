@@ -1,21 +1,5 @@
 <template>
     <div>
-        <div :class="$style.filters">
-            <icon :class="$style.resetFilters" name="x-bold" @click="$emit('reset-filters')" />
-            <chip
-                v-for="(values, name) in valuesByName"
-                v-if="name !== modelName"
-                :is-removable="name in filters"
-                :key="name"
-                :label="getFilterTitle(name)"
-                :is-active="name in filters"
-                :theme="filters.theme || 'light'"
-                :class="$style.propInfo"
-                @click="cycleFilter(name)"
-                @remove="removeFilter(name)"
-            />
-        </div>
-
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <div :class="$style.table">
                 <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss">{{ columns[0].rowTitle }}</div>
@@ -80,7 +64,6 @@ export default {
             return this.component.model && this.component.model.prop || 'value'
         },
         valuesByName () {
-            // copied from ComponentPage.componentVariations
             const variations = this.component && { ...this.component.variations } || {}
             if (this.component.usecases[0].name) {
                 variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
@@ -205,22 +188,6 @@ export default {
         },
     },
     methods: {
-        cycleFilter (name) {
-            const currentValue = this.filters[name]
-            const values = this.valuesByName[name]
-            const currentIndex = values.indexOf(currentValue)
-            const newIndex = (currentIndex + 1) % values.length
-            this.$emit('set-filter', name, values[newIndex])
-        },
-        removeFilter (name) {
-            this.$emit('unset-filter', name)
-        },
-        getFilterTitle (name) {
-            if (name === 'usecaseName') {
-                return this.filters.usecaseName ? this.filters.usecaseName.toUpperCase() : 'NAME'
-            }
-            return this.getPropTitle(name, this.filters[name], { addName: true })
-        },
         getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
             const kebabName = kebabCase(name)
             let res = ''
@@ -253,28 +220,6 @@ export default {
     display: flex;
     border: 1px solid transparent;
     box-sizing: border-box;
-}
-
-.filters {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    background-color: rgba(122, 122, 122, 0.3);
-    margin-top: 15px;
-    padding: 8px 10px;
-}
-
-.resetFilters {
-    color: rgba(122, 122, 122, 0.8);
-    cursor: pointer;
-
-    &:hover {
-        color: rgba(122, 122, 122, 1);
-    }
-}
-
-.propInfo {
-    margin-left: 10px;
 }
 
 .table {
