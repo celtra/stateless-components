@@ -16,8 +16,8 @@
 
         <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen" :class="[$style.sidebar, $style.events]">
             <p :class="$style.eventsTitle">Events</p>
-            <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme">
-                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]" @click="openEventIndex = item.id">
+            <default-list :items="events.slice().reverse().map((event, index) => ({ id: index, event: event }))" :theme="theme" @select="openEventIndex = $event.id">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
                     <p v-if="item.event" :class="$style.eventName">{{ item.event.componentName }}/{{ item.event.name }}</p>
                     <div v-if="item.id === openEventIndex" :class="$style.eventPayload">
                         <template v-if="item.event.payload.length > 0">
@@ -48,7 +48,7 @@
             </div>
 
             <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
-                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === name }]">
+                <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_activeTitle]: item.id === name }]">
                     {{ item.label }}
                 </div>
             </default-list>
@@ -236,6 +236,11 @@ export default {
     display: flex;
     border: 1px solid transparent;
 }
+
+.default-list__item {
+    cursor: pointer;
+}
+
 ._15UTCNegfx39jtQolGR6PZ_1 {
     .bounding-box {
         box-sizing: border-box;
@@ -350,12 +355,13 @@ export default {
 .sidebarItem {
     padding: 10px 0px;
     font-size: 15px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 80ms ease-out;
 
-    &_active {
+    &_activeTitle {
+        transform: translateX(4px);
         font-weight: bold;
     }
 }
