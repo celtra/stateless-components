@@ -11,6 +11,8 @@ export default {
 </script>
 
 <style>
+@import './stateless/typography.less';
+
 html {
     height: 100%;
 }
