@@ -260,8 +260,8 @@ export default {
     align-items: center;
     margin-bottom: 20px;
     background-color: rgba(122, 122, 122, 0.3);
-    margin-top: 10px;
-    padding: 6px 10px;
+    margin-top: 15px;
+    padding: 8px 10px;
 }
 
 .resetFilters {
