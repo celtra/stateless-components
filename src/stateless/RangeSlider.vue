@@ -378,7 +378,7 @@ export default {
     .slider-bar {
         flex-grow: 1;
         max-width: 370px;
-        min-width: 190px;
+        min-width: 170px;
         height: 47px;
         outline: none;
         cursor: pointer;
