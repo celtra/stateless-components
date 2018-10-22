@@ -41,7 +41,7 @@ export default {
             }
         },
         showSuggestions () {
-            return this.isOpen && (this.isValueValid || this.suggestions.length > 0) && !(this.value === null || typeof this.value === 'string' && this.value.length <= 2)
+            return this.isOpen && (this.isValueValid || this.suggestions.length > 0) && !(this.value === null || typeof this.value === 'string' && this.value.length < 0)
         },
         suggestions () {
             return this.getSuggestions(this.value)
@@ -160,6 +160,7 @@ export default {
         box-sizing: border-box;
         background: white;
         font-size: 16px;
+        z-index: @z-heaven;
     }
 }
 </style>

@@ -134,5 +134,5 @@ export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent
 import TextLineComponent from '@/stateless/TextLine.vue'
 export const TextLine = TextLineComponent
 
-import RangeSliderComponent from '@/stateless/RangeSLider.vue'
+import RangeSliderComponent from '@/stateless/RangeSlider.vue'
 export const RangeSlider = RangeSliderComponent
