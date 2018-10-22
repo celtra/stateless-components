@@ -17,7 +17,7 @@
             </div>
 
             <scrollbar
-                :theme="'light'"
+                :theme="theme"
                 :container="$refs.scrollable">
             </scrollbar>
         </div>
