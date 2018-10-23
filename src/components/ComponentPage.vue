@@ -174,8 +174,8 @@ export default {
     },
     beforeRouteUpdate (to, from, next) {
         this.$nextTick(() => {
-            this.setupComponent()
-            this.setupFilters()
+            this.setupComponent(to.params.component)
+            this.setupFilters(to.params.filters)
         })
         next()
     },
@@ -184,15 +184,14 @@ export default {
         this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
         this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
 
-        this.setupComponent()
-        this.setupFilters()
+        this.setupComponent(this.$route.params.component)
+        this.setupFilters(this.$route.params.filters)
     },
     mounted () {
         this.$forceUpdate()
     },
     methods: {
-        setupComponent () {
-            let name = this.$route.params.component
+        setupComponent (name) {
             if (!name) {
                 name = this.componentNames[0]
             }
@@ -212,10 +211,10 @@ export default {
                 }
             }
         },
-        setupFilters () {
-            if (this.$route.params.filters) {
-                const newFilters = {}
-                const filterValues = this.$route.params.filters.split('&')
+        setupFilters (filters) {
+            const newFilters = {}
+            if (filters) {
+                const filterValues = filters.split('&')
                 for (const filterValue of filterValues) {
                     const parts = filterValue.split('=')
                     if (parts.length === 2) {
@@ -230,8 +229,8 @@ export default {
                         }
                     }
                 }
-                this.filters = newFilters
             }
+            this.filters = newFilters
         },
         logEvent ({ componentName, eventName, eventPayload }) {
             if (this.openEventIndex !== null) {
