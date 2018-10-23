@@ -155,14 +155,6 @@ export default {
             throw new Error('Value is not a valid step.')
         }
 
-        if (this.min < 0 || this.min > 998) {
-            throw new Error('Min must be between 0 and 998.')
-        }
-
-        if (this.max > 999 || this.max <= this.min) {
-            throw new Error('Max must be between min+1 and 999.')
-        }
-
         if (this.value < this.min || this.value > this.max) {
             throw new Error('Value must be between min and max.')
         }
