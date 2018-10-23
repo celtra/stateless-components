@@ -182,6 +182,7 @@ export default {
                                 [this.splitByProp.column]: columnValue,
                                 key: `${x.configuration.key}-${rowValue}-${columnValue}`,
                             })),
+                            value: columnValue,
                             themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.light,
                         }
                     }),
@@ -213,9 +214,9 @@ export default {
         onRowClick (rowIndex) {
             this.$emit('filter', { [this.splitByProp.row]: this.valuesByName[this.splitByProp.row][rowIndex] } )
         },
-        onTableClick ({ rowIndex, columnIndex }) {
+        onTableClick ({ rowIndex, columnIndex, value }) {
             if (rowIndex === 0 && columnIndex > 0) {
-                this.$emit('filter', { [this.splitByProp.column] : this.valuesByName[this.splitByProp.column][columnIndex - 1] })
+                this.$emit('filter', { [this.splitByProp.column] : value })
             }
         },
     },

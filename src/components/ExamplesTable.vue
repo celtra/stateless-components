@@ -11,7 +11,7 @@
                     :class="[$style.columnItem, $style.columnItem_firstRow, { [$style.columnItem_active]: isCellActive(0, columnIndex), [$style.columnItem_title]: hoverRowIndex !== 0 }]"
                     @mousemove="hoverRowIndex = 0; hoverColumnIndex = columnIndex;"
                     @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
-                    @click="$emit('click', { rowIndex: 0, columnIndex })">
+                    @click="$emit('click', { rowIndex: 0, columnIndex, value: column.value })">
                     {{ column.title || '' }}
                 </div>
                 <div v-for="(item, rowIndex) in column.content" :key="rowIndex">
@@ -21,7 +21,7 @@
                         :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
                         @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
-                        @click="$emit('click', { rowIndex: rowIndex + 1, columnIndex })">
+                        @click="$emit('click', { rowIndex: rowIndex + 1, columnIndex, value: null })">
                         <slot :item="item" :row-index="rowIndex" :column-index="columnIndex"></slot>
                     </div>
                 </div>
