@@ -10,11 +10,11 @@ export default {
     usecases: [
         {
             name: 'Basic',
-            label: 'Label',
+            label: 'Add filter',
         },
         {
             name: 'With metadata',
-            label: 'Label',
+            label: 'Creatives',
             metadata: '3/9',
         },
     ],

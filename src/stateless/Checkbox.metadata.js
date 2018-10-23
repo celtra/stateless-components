@@ -5,7 +5,7 @@ function defaultSlot (h) {
 export default {
     metaName: 'Checkbox',
     variations: {
-        theme: ['dark', 'light', 'white'],
+        theme: ['dark', 'white'], // TODO: Removed light for demo
         size: ['condensed', 'normal', 'phat'],
         value: [true, false, null],
         disabled: [false, true],
