@@ -1,6 +1,6 @@
 <template>
     <div v-click-outside="close" class="typeahead">
-        <input-element ref="input" v-bind="inputData" :error="inputError" :label="label" :track-name="trackName" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
+        <input-element ref="input" :theme="theme" v-bind="inputData" :error="inputError" :label="label" :track-name="trackName" class="typeahead__input" @keyup.enter="selectFirstItem()" @keyup.down="onDown" @focus="onInputFocus" @input="onInput" @blur="onBlur"></input-element>
 
         <template v-if="showSuggestions">
             <scrollable-list v-if="suggestions.length > 0" ref="list" :items="suggestions" :num-items="10" :highlight-query="value" class="typeahead__suggestions" theme="light" @select="onSelect" @blur="onBlur"/>
@@ -26,6 +26,7 @@ export default {
         noItemsText: { type: String, default: 'No items' },
         isValid: { type: Function, required: false },
         trackName: { type: String, default: 'typeahead' },
+        theme: { type: String, default: 'dark' },
     },
     data () {
         return {
