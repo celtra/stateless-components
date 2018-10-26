@@ -90,6 +90,7 @@ import Icon from '@/stateless/icon.vue'
 import DefaultList from '@/stateless/DefaultList.vue'
 import ComponentExamples from './ComponentExamples.vue'
 import Scrollbar from './Scrollbar.vue'
+import ComponentConfigurations from '../component_utils.js'
 
 export default {
     components: {
@@ -164,12 +165,11 @@ export default {
             return this.filters.theme === 'dark' ? 'dark' : 'light'
         },
         valuesByName () {
-            const variations = this.component && { ...this.component.variations } || {}
-            if (this.component.usecases[0].name) {
-                variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
+            if (!this.component) {
+                return {}
             }
-
-            return variations
+            const configurations = new ComponentConfigurations(this.component)
+            return configurations.valuesByName
         },
     },
     beforeRouteUpdate (to, from, next) {
@@ -180,6 +180,7 @@ export default {
         next()
     },
     created () {
+
         this.syncValue = localStorage.getItem('syncValue') === 'true' ? true : false
         this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
         this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
@@ -252,7 +253,6 @@ export default {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
             this.$router.push({ name: 'ComponentPage', params: { component: this.name, filters: value || null } })
         },
-
         clearFilters () {
             this.filters = {}
             this.$router.push({ name: 'ComponentPage', params: { component: this.name } })
@@ -264,7 +264,8 @@ export default {
             if (name === 'usecaseName') {
                 return this.filters.usecaseName ? this.filters.usecaseName.toUpperCase() : 'NAME'
             }
-            return this.getPropTitle(name, this.filters[name], { addName: true })
+            const configurations = new ComponentConfigurations(this.component)
+            return configurations.getConfigurationName({ [name]: this.filters[name] }, { addName: true })
         },
         cycleFilter (name) {
             const currentValue = this.filters[name]
@@ -284,25 +285,6 @@ export default {
                 Vue.set(this.filters, key, data[key])
             }
             this.updateUrlFilters()
-        },
-        // TODO: Copied from ComponentExamples
-        getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
-            const kebabName = kebabCase(name)
-            let res = ''
-            if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
-                res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
-            } else if (typeof value === 'undefined') {
-                res = kebabName
-            } else {
-                res = value ? (addName ? `${value} ${kebabName}` : value) : ''
-            }
-
-            res = res.toUpperCase().trim(' ')
-
-            if (res.length === 0) {
-                return null
-            }
-            return res
         },
     },
 }
@@ -507,8 +489,8 @@ export default {
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-    border-radius: @border-radius 0 0 @border-radius;
-    width: calc(~'100% - 171px');
+    border-radius: @border-radius;
+    width: calc(~'100% - 190px');
     position: fixed;
     top: 12px;
     left: 170px;

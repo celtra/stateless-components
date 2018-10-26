@@ -1,59 +1,81 @@
-export function getFlatVariations (variations) {
-    let flat = [{}]
+import { kebabCase } from 'lodash'
 
-    for (const key of Object.keys(variations).sort((a, b) => a.localeCompare(b))) {
-        let newFlat = []
-        for (const value of variations[key]) {
-            newFlat = newFlat.concat(flat.map(item => {
-                return { ...item, [key]: value }
-            }))
-        }
-        flat = newFlat
+export default class ComponentConfigurations {
+    constructor (component) {
+        this.component = component
+        this.valuesByName = this.getValuesByName()
     }
 
-    return flat
-}
-
-const getUsecaseName = (variation, usecaseIndex) => {
-    const variationKeys = Object.keys(variation).sort((a, b) => a.localeCompare(b))
-    const variationNames = variationKeys.map(key => `${key}-${variation[key]}`)
-    return `usecase-${usecaseIndex}__${variationNames.join('_')}`
-}
-
-const getHash = (s) => {
-    var a = 1, c = 0, h, o
-    if (s) {
-        a = 0
-        for (h = s.length - 1; h >= 0; h--) {
-            o = s.charCodeAt(h)
-            a = (a<<6&268435455) + o + (o<<14)
-            c = a & 266338304
-            a = c!==0?a^c>>21:a
+    getValuesByName () {
+        const variations = this.component && { ...this.component.variations } || {}
+        if (this.component.usecases[0].name) {
+            variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
         }
-    }
-    return String(a)
-}
 
-export function getFlatUsecases (component, ignoreVariations = []) {
-    const usecases = []
-    if (component.usecases) {
-        const variations = component.variations && component.variations || {}
-        const filterVariations = {}
-        for (const k in variations) {
-            if (!ignoreVariations.includes(k)) {
-                filterVariations[k] = variations[k]
+        return variations
+    }
+
+    getCombinations (ignoreNames = []) {
+        let flat = [{}]
+
+        for (const key of Object.keys(this.valuesByName).sort()) {
+            if (!ignoreNames.includes(key)) {
+                let newFlat = []
+                for (const value of this.valuesByName[key]) {
+                    newFlat = newFlat.concat(flat.map(item => {
+                        return { ...item, [key]: value }
+                    }))
+                }
+                flat = newFlat
             }
         }
 
-        const flatVariations = getFlatVariations(filterVariations)
-        for (var i = 0; i < component.usecases.length; i++) {
-            for (const variation of flatVariations) {
-                const usecase = component.usecases[i]
-                const usecaseData = { ...variation, ...usecase }
-                const name = getUsecaseName(variation, i)
-                usecases.push({ data: usecaseData, usecaseIndex: i, name: name })
-            }
-        }
+        return flat.map(data => {
+            const configurationKey = [this.component.metaName].concat(Object.keys(data).sort().map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
+            return { data: data, name: this.getConfigurationName(data), key: configurationKey }
+        })
     }
-    return usecases
+
+    getConfigurationName (data, opts) {
+        const keys = Object.keys(data)
+        const names = keys.map(key => {
+            const value = data[key]
+            if (this.valuesByName[key].length === 1) {
+                return null
+            }
+            if (key !== 'usecaseName') {
+                return this._getPropTitle(key, value, { ...opts, hideNot: keys.length > 1 })
+            }
+            const propData = this.component.props[key]
+            if (!propData) {
+                return null
+            }
+
+            if (propData.type === Boolean) {
+                return value ? kebabCase(key) : null
+            }
+            return value
+        })
+
+        return names.filter(x => x).join(', ') || ' '
+    }
+
+    _getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
+        const kebabName = kebabCase(name)
+        let res = ''
+        if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
+            res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
+        } else if (typeof value === 'undefined') {
+            res = kebabName
+        } else {
+            res = value ? (addName ? `${value} ${kebabName}` : value) : ''
+        }
+
+        res = res.toUpperCase().trim(' ')
+
+        if (res.length === 0) {
+            return null
+        }
+        return res
+    }
 }

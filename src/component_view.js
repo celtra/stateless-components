@@ -10,7 +10,7 @@ const vm = new Vue({
         return {
             componentName: null,
             props: {},
-            usecaseIndex: 0,
+            usecaseName: 0,
         }
     },
     computed: {
@@ -25,7 +25,7 @@ const vm = new Vue({
             if (!this.component || !this.component.usecases) {
                 return null
             }
-            return this.component.usecases[this.usecaseIndex]
+            return this.component.usecases.find(u => u.name === this.usecaseName)
         },
     },
     methods: {
@@ -60,10 +60,10 @@ const vm = new Vue({
     },
 })
 
-window.setComponent = (componentName, props, usecaseIndex) => {
+window.setComponent = (componentName, props, usecaseName) => {
     vm.componentName = componentName
     vm.props = props
-    vm.usecaseIndex = usecaseIndex
+    vm.usecaseName = usecaseName
 
     const bgColor = props.theme === 'dark' ? '#1f1f2c' : '#f2f2f3'
     document.body.style.backgroundColor = bgColor

@@ -18,7 +18,7 @@
                     <div
                         v-if="item"
                         :class="[$style.columnItem, { [$style.columnItem_active]: isCellActive(rowIndex + 1, columnIndex), [$style.columnItem_title]: columnIndex === 0 && hoverColumnIndex !== 0 }]"
-                        :style="column.first && heightByIndex[rowIndex] ? { height: `${32 + Math.round(heightByIndex[rowIndex])}px` } : {}"
+                        :style="column.first && heightByIndex[rowIndex] ? { height: `${22 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
                         @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
                         @click="$emit('click', { rowIndex: rowIndex + 1, columnIndex, value: null })">

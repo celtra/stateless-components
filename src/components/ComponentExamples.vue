@@ -3,13 +3,13 @@
         <div v-for="(columns, rowIndex) in rows" :key="rowIndex">
             <div :class="$style.table">
                 <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss" @click="onRowClick(rowIndex)">{{ columns[0].rowTitle }}</div>
-                <examples-table :columns="columns" :style="columns[0].themeCss" @click="onTableClick">
+                <examples-table :columns="columns" :style="columns[0].themeCss" :class="$style.row" @click="onTableClick">
                     <div slot-scope=" { item, rowIndex, columnIndex }" :class="$style.slotContainer">
                         <template v-if="typeof item === 'string'">
                             <p :class="$style.flatName">{{ item }}</p>
                         </template>
                         <template v-else-if="typeof item === 'object'">
-                            <div :class="$style.copyButton" @click="copyCode(item)"></div>
+                            <img :src="`/static/regressions/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-snap.png`" />
                             <div :class="$style.boundingBox" class="bounding-box">
                                 <component-example
                                     :class="$style.component"
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getFlatUsecases, getFlatVariations } from '../component_utils'
+import ComponentConfigurations from '../component_utils'
 import { kebabCase } from 'lodash'
 import ExamplesTable from './ExamplesTable.vue'
 import ComponentExample from './ComponentExample.vue'
@@ -62,37 +62,27 @@ export default {
         }
     },
     computed: {
+        valuesByName () {
+            return this.configurations.getValuesByName()
+        },
         modelName () {
             return this.component.model && this.component.model.prop || 'value'
         },
-        valuesByName () {
-            const variations = this.component && { ...this.component.variations } || {}
-            if (this.component.usecases[0].name) {
-                variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
-            }
-
-            return variations
-        },
         splitByProp () {
             const props = this.valuesByName ? Object.keys(this.valuesByName).filter(key => !Object.keys(this.filters).concat([this.modelName]).includes(key)) : []
+            let totalCombinations = 1
+            props.forEach(name => totalCombinations *= this.valuesByName[name].length)
 
             const relevances = {
                 theme: 2,
                 size: 1,
             }
+
             let columnProp = maxBy(props.filter(name => this.valuesByName[name].length <= 3 && name !== 'usecaseName'), x => {
                 const relevance = (relevances[x] || 0)
                 const length = this.valuesByName[x].length
                 return relevance * 1000 + length
             })
-            let rowProp = maxBy(props.filter(name => name !== columnProp && name !== 'usecaseName'), x => {
-                const relevance = (relevances[x] || 0)
-                const length = this.valuesByName[x].length
-                return relevance * 1000 + length
-            })
-
-            let totalCombinations = 1
-            props.forEach(name => totalCombinations *= this.valuesByName[name].length)
             if (columnProp) {
                 if (columnProp !== 'theme' && Math.round(totalCombinations / this.valuesByName[columnProp].length) <= 1) {
                     columnProp = null
@@ -100,73 +90,48 @@ export default {
                     totalCombinations /= this.valuesByName[columnProp].length
                 }
             }
+
+            let rowProp = maxBy(props.filter(name => name !== columnProp && name !== 'usecaseName'), x => {
+                const relevance = (relevances[x] || 0)
+                const length = this.valuesByName[x].length
+                return relevance * 1000 + length
+            })
             if (rowProp) {
                 if (Math.round(totalCombinations / this.valuesByName[rowProp].length) <= 2) {
                     rowProp = null
                 }
             }
 
-            const remainingValues = _.pickBy(this.valuesByName, (value, name) => {
-                return props.includes(name) && ![columnProp, rowProp].includes(name)
-            })
-            const flat = []
-            for (const variation of getFlatVariations(remainingValues)) {
-                const variationKeys = Object.keys(variation)
-                const variationNames = variationKeys.map(key => {
-                    if (this.valuesByName[key].length === 1) {
-                        return null
-                    }
-                    if (key !== 'usecaseName') {
-                        return this.getPropTitle(key, variation[key], { hideNot: variationKeys.length > 1 })
-                    }
-                    const propData = this.component.props[key]
-                    if (!propData) {
-                        return null
-                    }
-                    const value = variation[key]
-                    if (propData.type === Boolean) {
-                        return value ? kebabCase(key) : null
-                    }
-                    return value
-                })
-                const usecaseIndex = this.component.usecases.findIndex(x => x.name === (variation.usecaseName || this.filters.usecaseName))
-                const usecase = this.component.usecases[usecaseIndex]
-                const names = [this.filters.usecaseName ? null : usecase.name].concat(variationNames).filter(x => x)
-                const name = names.length === 0 ? null : names.join(', ').toUpperCase()
-
-                const configuration = { ...variation, ...this.filters }
-                const configurationKey = [this.component.metaName, usecaseIndex].concat(Object.keys(configuration).sort().map(x => this.valuesByName[x].indexOf(configuration[x]))).join('-')
-
-                flat.push({
-                    name: name,
-                    configuration: { ...configuration, ...usecase, key: configurationKey },
-                })
-            }
-
             return {
                 column: columnProp,
                 row: rowProp,
-                flat: flat,
+                flat: this.configurations.getCombinations(Object.keys(this.filters).concat([this.modelName, columnProp, rowProp])).map(configuration => {
+                    const usecase = this.component.usecases.find(u => u.name === configuration.data.usecaseName)
+                    return {
+                        name: configuration.name,
+                        usecase: usecase,
+                        configuration: configuration,
+                    }
+                }),
             }
         },
         rows () {
             const themesCss = {
-                white: { backgroundColor: 'white', color: 'black' },
-                light: { backgroundColor: '#f2f2f3', color: 'black' },
-                dark: { backgroundColor: '#1f1f2c', color: 'white' },
+                white: { priority: 2, backgroundColor: 'white', color: 'black' },
+                light: { priority: 1, backgroundColor: '#f2f2f3', color: 'black' },
+                dark: { priority: 0, backgroundColor: '#1f1f2c', color: 'white' },
             }
 
             const rowValues = this.splitByProp.row ? this.valuesByName[this.splitByProp.row] : [null]
             let columnValues = this.splitByProp.column ? this.valuesByName[this.splitByProp.column] : [null]
             if (this.splitByProp.column === 'theme') {
                 columnValues = columnValues.slice().sort((a, b) => {
-                    const order = ['white', 'light', 'dark']
-                    return order.indexOf(a) - order.indexOf(b)
+                    return themesCss[b].priority - themesCss[a].priority
                 })
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
-                const rowTitle = this.getPropTitle(this.splitByProp.row, rowValue, { addName: true })
+                const rowTitle = this.splitByProp.row ? this.configurations.getConfigurationName({ [this.splitByProp.row]: rowValue }, { addName: true }) : ' '
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
                     content: this.splitByProp.flat.map(usecase => usecase.name),
                     first: true,
@@ -176,13 +141,24 @@ export default {
                     ...(!firstColumn ? [] : [firstColumn]),
                     ...columnValues.map((columnValue, index) => {
                         return {
-                            title: this.getPropTitle(this.splitByProp.column, columnValue),
-                            content: this.splitByProp.flat.map(x => ({
-                                ...x.configuration,
-                                [this.splitByProp.row]: rowValue,
-                                [this.splitByProp.column]: columnValue,
-                                key: `${x.configuration.key}-${rowValue}-${columnValue}`,
-                            })),
+                            title: this.splitByProp.column ? this.configurations.getConfigurationName({ [this.splitByProp.column]: columnValue }) : ' ',
+                            content: this.splitByProp.flat.map(x => {
+                                const configuration =
+                                {
+                                    ...x.configuration.data,
+                                }
+                                if (this.splitByProp.row) {
+                                    configuration[this.splitByProp.row] = rowValue
+                                }
+                                if (this.splitByProp.column) {
+                                    configuration[this.splitByProp.column] = columnValue
+                                }
+                                return {
+                                    ...configuration,
+                                    key: `${x.configuration.key}-${rowValue}-${columnValue}`,
+                                    name: this.configurations.getConfigurationName(configuration),
+                                }
+                            }),
                             value: columnValue,
                             themeCss: themeCss || this.splitByProp.column === 'theme' && themesCss[columnValue] || themesCss.light,
                         }
@@ -193,25 +169,10 @@ export default {
             })
         },
     },
+    created () {
+        this.configurations = new ComponentConfigurations(this.component)
+    },
     methods: {
-        getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
-            const kebabName = kebabCase(name)
-            let res = ''
-            if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
-                res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
-            } else if (typeof value === 'undefined') {
-                res = kebabName
-            } else {
-                res = value ? (addName ? `${value} ${kebabName}` : value) : ''
-            }
-
-            res = res.toUpperCase().trim(' ')
-
-            if (res.length === 0) {
-                return null
-            }
-            return res
-        },
         onRowClick (rowIndex) {
             this.$emit('filter', { [this.splitByProp.row]: this.valuesByName[this.splitByProp.row][rowIndex] } )
         },
@@ -244,6 +205,8 @@ export default {
 </script>
 
 <style lang="less" module>
+@border-radius: 4px;
+
 .component {
 
 }
@@ -253,7 +216,7 @@ export default {
     display: flex;
     border: 1px solid transparent;
     box-sizing: border-box;
-    margin: 10px;
+
 }
 
 .table {
@@ -279,6 +242,11 @@ export default {
     }
 }
 
+.row {
+    border-radius: @border-radius;
+    overflow: hidden;
+}
+
 .flatName {
     font-size: 12px;
     display: flex;
@@ -292,6 +260,9 @@ export default {
     width: 100%;
     flex-direction: column;
     justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+
     &:hover {
         .copyButton {
             background-color: rgba(200, 122, 122, 0.5);
