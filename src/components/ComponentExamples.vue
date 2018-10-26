@@ -9,6 +9,7 @@
                             <p :class="$style.flatName">{{ item }}</p>
                         </template>
                         <template v-else-if="typeof item === 'object'">
+                            <div :class="$style.copyButton" @click="copyCode(item)"></div>
                             <div :class="$style.boundingBox" class="bounding-box">
                                 <component-example
                                     :class="$style.component"
@@ -219,6 +220,25 @@ export default {
                 this.$emit('filter', { [this.splitByProp.column] : value })
             }
         },
+        copyCode (item) {
+            const props = {}
+            for (const key in item) {
+                if (!['scopedSlots', 'key', 'null', 'usecaseName'].includes(key)) {
+                    props[key] = item[key]
+                }
+            }
+
+            const componentName = this.component.metaName
+
+            const code = `<${kebabCase(componentName)} ${Object.keys(props).map(propName => `:${propName}="${props[propName]}"`).join(' ')}></${kebabCase(componentName)}>`
+
+            const input = document.createElement('input')
+            input.setAttribute('value', code)
+            document.body.appendChild(input)
+            input.select()
+            const result = document.execCommand('copy')
+            document.body.removeChild(input)
+        },
     },
 }
 </script>
@@ -229,10 +249,11 @@ export default {
 }
 
 .boundingBox {
-    width: 100%;
+    width: calc(~'100% - 30px');
     display: flex;
     border: 1px solid transparent;
     box-sizing: border-box;
+    margin: 10px;
 }
 
 .table {
@@ -268,7 +289,25 @@ export default {
 
 .slotContainer {
     display: flex;
-    align-items: center;
     width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    &:hover {
+        .copyButton {
+            background-color: rgba(200, 122, 122, 0.5);
+        }
+    }
+}
+
+.copyButton {
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 10px;
+    transition: background-color 150ms ease-out, opacity 400ms ease-out;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }
 </style>

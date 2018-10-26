@@ -4,7 +4,7 @@
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
             :class="[$style.columnContainer, { [$style.columnContainer_first]: column.first }]"
-            :style="column.themeCss">
+            :style="getColumnCss(column)">
             <div :class="{ [$style.columnWrap]: true}">
                 <div
                     v-if="!noTitles"
@@ -18,7 +18,7 @@
                     <div
                         v-if="item"
                         :class="[$style.columnItem, { [$style.columnItem_active]: isCellActive(rowIndex + 1, columnIndex), [$style.columnItem_title]: columnIndex === 0 && hoverColumnIndex !== 0 }]"
-                        :style="column.first && heightByIndex[rowIndex] ? { height: `${2 + Math.round(heightByIndex[rowIndex])}px` } : {}"
+                        :style="column.first && heightByIndex[rowIndex] ? { height: `${32 + Math.round(heightByIndex[rowIndex])}px` } : {}"
                         @mousemove="hoverRowIndex = rowIndex + 1; hoverColumnIndex = columnIndex;"
                         @mouseleave="hoverRowIndex = null; hoverColumnIndex = null;"
                         @click="$emit('click', { rowIndex: rowIndex + 1, columnIndex, value: null })">
@@ -70,6 +70,13 @@ export default {
             const isColumnActive = this.hoverColumnIndex === columnIndex && (this.hoverRowIndex === 0 || rowIndex === 0)
             return isRowActive || isColumnActive
         },
+        getColumnCss (column) {
+            let width = '150px'
+            if (!column.first) {
+                width = `calc(${100 / (this.columns.length - 1)}% - ${150 / (this.columns.length - 1)}px)`
+            }
+            return { ...column.themeCss, width: width, overflow: 'hidden' }
+        },
     },
 }
 </script>
@@ -80,16 +87,6 @@ export default {
     display: flex;
     margin-bottom: 30px;
     background-color: #eee;
-}
-
-.columnItem {
-    padding: @column-padding;
-    font-size: 12px;
-
-    animation: fadeIn 350ms ease-in;
-    animation-delay: 50ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
 }
 
 .columnContainer:not(.columnContainer_first) {
@@ -107,7 +104,11 @@ export default {
 }
 
 .columnItem {
-    padding: @column-padding;
+    font-size: 12px;
+    animation: fadeIn 350ms ease-in;
+    animation-delay: 50ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
     display: flex;
     transition: background-color 0ms ease;
     transition-delay: 5ms;
