@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ScrollableList computed usecase-0__ itemHeight 1`] = `0`;
-
-exports[`ScrollableList computed usecase-0__ maxHeight 1`] = `20`;
-
-exports[`ScrollableList computed usecase-0__ overlayHeight 1`] = `10`;

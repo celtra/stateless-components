@@ -1,30 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Slider computed usecase-0__ decimalPlacesCount 1`] = `0`;
-
-exports[`Slider computed usecase-0__ isWholeNumber 1`] = `true`;
-
-exports[`Slider computed usecase-0__ labelsActiveClass 1`] = `
+exports[`Slider computed   labelsActiveClass 1`] = `
 Object {
   "max": Object {
     "active": false,
   },
   "min": Object {
-    "active": true,
+    "active": false,
   },
 }
 `;
 
-exports[`Slider computed usecase-0__ lastActiveIndex 1`] = `4`;
+exports[`Slider computed   labelsActiveClass 2`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
 
-exports[`Slider computed usecase-0__ limitValue 1`] = `20`;
+exports[`Slider computed   lastActiveIndex 1`] = `NaN`;
 
-exports[`Slider computed usecase-0__ maxLabelValue 1`] = `"20"`;
+exports[`Slider computed   lastActiveIndex 2`] = `NaN`;
 
-exports[`Slider computed usecase-0__ minLabelValue 1`] = `"1"`;
+exports[`Slider computed   limitValue 1`] = `undefined`;
 
-exports[`Slider computed usecase-0__ position 1`] = `0`;
+exports[`Slider computed   limitValue 2`] = `undefined`;
 
-exports[`Slider computed usecase-0__ sliderWidth 1`] = `0`;
+exports[`Slider computed   position 1`] = `NaN`;
 
-exports[`Slider computed usecase-0__ stepsCount 1`] = `19`;
+exports[`Slider computed   position 2`] = `NaN`;
+
+exports[`Slider computed   sliderWidth 1`] = `0`;
+
+exports[`Slider computed   sliderWidth 2`] = `0`;
+
+exports[`Slider computed   stepsCount 1`] = `NaN`;
+
+exports[`Slider computed   stepsCount 2`] = `NaN`;
+
+exports[`Slider computed DISABLED labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
+
+exports[`Slider computed DISABLED labelsActiveClass 2`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
+
+exports[`Slider computed DISABLED lastActiveIndex 1`] = `NaN`;
+
+exports[`Slider computed DISABLED lastActiveIndex 2`] = `NaN`;
+
+exports[`Slider computed DISABLED limitValue 1`] = `undefined`;
+
+exports[`Slider computed DISABLED limitValue 2`] = `undefined`;
+
+exports[`Slider computed DISABLED position 1`] = `NaN`;
+
+exports[`Slider computed DISABLED position 2`] = `NaN`;
+
+exports[`Slider computed DISABLED sliderWidth 1`] = `0`;
+
+exports[`Slider computed DISABLED sliderWidth 2`] = `0`;
+
+exports[`Slider computed DISABLED stepsCount 1`] = `NaN`;
+
+exports[`Slider computed DISABLED stepsCount 2`] = `NaN`;

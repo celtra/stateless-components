@@ -4,13 +4,15 @@
             <div :class="$style.table">
                 <div v-if="columns[0].rowTitle" :class="$style.rowTitle" :style="columns[0].themeCss" @click="onRowClick(rowIndex)">{{ columns[0].rowTitle }}</div>
                 <examples-table :columns="columns" :style="columns[0].themeCss" :class="$style.row" @click="onTableClick">
-                    <div slot-scope=" { item, rowIndex, columnIndex }" :class="$style.slotContainer">
+                    <div slot-scope=" { item, rowIndex, columnIndex }" :class="[$style.slotContainer, { [$style.slotContainer_showSnapshot]: showSnapshot }]">
                         <template v-if="typeof item === 'string'">
                             <p :class="$style.flatName">{{ item }}</p>
                         </template>
                         <template v-else-if="typeof item === 'object'">
-                            <!-- <img :src="`/static/snapshots/image-diffs/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-diff.png`" /> -->
                             <div :class="$style.boundingBox" class="bounding-box">
+                                <div v-if="showSnapshot" :class="$style.snapshotImage">
+                                    <img :src="`/static/snapshots/images/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-snap.png`" />
+                                </div>
                                 <component-example
                                     :class="$style.component"
                                     :style="component.width ? { maxWidth: `${component.width}px` } : {}"
@@ -55,6 +57,7 @@ export default {
         filters: { type: Object, default: () => ({}) },
         showBoundingBoxes: { type: Boolean, default: false },
         useSyncValue: { type: Boolean, default: false },
+        showSnapshot: { type: Boolean, default: false },
     },
     data () {
         return {
@@ -131,7 +134,7 @@ export default {
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
-                const rowTitle = this.splitByProp.row ? this.configurations.extractFromConfiguration({ [this.splitByProp.row]: rowValue }, { addName: true }).name : ' '
+                const rowTitle = this.splitByProp.row ? this.configurations.extractFromConfiguration({ [this.splitByProp.row]: rowValue }, { addName: true }).name : ''
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
                     content: this.splitByProp.flat.map(usecase => usecase.name),
                     first: true,
@@ -266,6 +269,25 @@ export default {
     &:hover {
         .copyButton {
             background-color: rgba(200, 122, 122, 0.5);
+        }
+
+    }
+
+    &_showSnapshot {
+        .snapshotImage {
+            display: none;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        &:hover {
+            .snapshotImage {
+                display: block;
+            }
+
+            .component {
+                display: none;
+            }
         }
     }
 }

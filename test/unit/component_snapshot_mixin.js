@@ -84,7 +84,7 @@ export default function testSnapshots (component) {
     })
 
     describe('computed', () => {
-        const usecases = component.getCombinations(['theme', 'size'])
+        const usecases = configurations.getCombinations(['theme', 'size'])
         for (const usecase of usecases) {
             const Constructor = Vue.extend(component)
             const vm = new Constructor({

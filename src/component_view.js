@@ -58,8 +58,8 @@ const vm = new Vue({
             delete scopedSlots.default
         }
 
-        return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
-            h(this.component, { props: props, scopedSlots: scopedSlots }, slot ? [slot] : []),
+        return h('div', { style: { width: '640px', position: 'relative' }, attrs: { id: 'container' } }, [
+            h(this.component, { props: props, scopedSlots: scopedSlots, style: { margin: '0', width: '100%' } }, slot ? [slot] : []),
         ])
     },
 })
@@ -70,6 +70,7 @@ window.setComponent = (componentName, props, usecaseName) => {
     vm.usecaseName = usecaseName
 
     const bgColor = props.theme === 'dark' ? '#1f1f2c' : '#f2f2f3'
+    document.body.style.margin = '0'
     document.body.style.backgroundColor = bgColor
 
     const readyDomElement = document.createElement('div')

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`DateInput computed usecase-0__ errorText 1`] = `null`;
-
-exports[`DateInput computed usecase-0__ formattedValue 1`] = `"2018-01-10T00:00:00+00:00"`;
-
-exports[`DateInput computed usecase-0__ momentDate 1`] = `null`;

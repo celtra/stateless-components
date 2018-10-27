@@ -6,6 +6,7 @@
                 <component-examples
                     :key="component.metaName + Object.keys(filters).sort().join(',')"
                     :use-sync-value="syncValue || component.forceValueSync || false"
+                    :show-snapshot="showSnapshotImages"
                     :component="component"
                     :class="$style.componentExamples"
                     :filters="filters" :show-bounding-boxes="boundsVisible"
@@ -46,6 +47,7 @@
                 <checkbox :is-toggle="true" :disabled="component.forceValueSync" v-model="syncValue" :theme="theme" :class="$style.sidebarToggle" size="condensed">Sync model</checkbox>
                 <checkbox :is-toggle="true" v-model="boundsVisible" :theme="theme" :class="$style.sidebarToggle" size="condensed">Bounds</checkbox>
                 <checkbox :is-toggle="true" v-model="isEventsListOpen" :theme="theme" :class="$style.sidebarToggle" size="condensed">Events</checkbox>
+                <checkbox :is-toggle="true" v-model="showSnapshotImages" :theme="theme" :class="$style.sidebarToggle" size="condensed">Visual snapshots</checkbox>
             </div>
 
             <default-list :items="componentNames.map(name => ({ id: name, label: name }))" :theme="theme" @select="$router.push({ name: 'ComponentPage', params: { component: $event.label, filters: $route.params.filters } })">
@@ -107,6 +109,7 @@ export default {
             events: [],
             openEventIndex: null,
             showThemeToggle: true,
+            showSnapshotImagesData: false,
             isThemeLight: true,
             boundsVisibleData: false,
             filters: {},
@@ -135,6 +138,15 @@ export default {
             set (v) {
                 localStorage.setItem('boundsVisible', v.toString())
                 this.boundsVisibleData = v
+            },
+        },
+        showSnapshotImages: {
+            get () {
+                return this.showSnapshotImagesData
+            },
+            set (v) {
+                localStorage.setItem('showSnapshotImages', v.toString())
+                this.showSnapshotImagesData = v
             },
         },
         isEventsListOpen: {
@@ -180,10 +192,10 @@ export default {
         next()
     },
     created () {
-
         this.syncValue = localStorage.getItem('syncValue') === 'true' ? true : false
         this.isEventsListOpen = localStorage.getItem('isEventsListOpen') === 'true' ? true : false
         this.boundsVisible = localStorage.getItem('boundsVisible') === 'true' ? true : false
+        this.showSnapshotImages = localStorage.getItem('showSnapshotImages') === 'true' ? true : false
 
         this.setupComponent(this.$route.params.component)
         this.setupFilters(this.$route.params.filters)

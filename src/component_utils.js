@@ -31,51 +31,39 @@ export default class ComponentConfigurations {
         })
     }
 
-    extractFromConfiguration (data, opts) {
-        const keys = Object.keys(data)
-        const names = keys.map(key => {
-            const value = data[key]
-            if (this.valuesByName[key].length === 1) {
-                return null
-            }
-            if (key !== 'usecaseName') {
-                return this._getPropTitle(key, value, { ...opts, hideNot: keys.length > 1 })
-            }
-            const propData = this.component.props[key]
-            if (!propData) {
+    extractFromConfiguration (data, opts = {}) {
+        const names = Object.keys(data)
+        const nameParts = names.map(name => {
+            const value = data[name]
+            if (this.valuesByName[name].length === 1) {
                 return null
             }
 
-            if (propData.type === Boolean) {
-                return value ? kebabCase(key) : null
+            const hideNot = names.length > 1
+
+            const kebabName = kebabCase(name)
+            let res = ''
+            if (value === null || typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
+                res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
+            } else if (typeof value === 'undefined') {
+                res = kebabName
+            } else {
+                res = value ? (opts.addName ? `${value} ${kebabName}` : value) : ''
             }
-            return value
+
+            res = res.toUpperCase().trim(' ')
+
+            if (res.length === 0) {
+                return null
+            }
+            return res
         })
 
         const configurationKey = [this.component.metaName].concat(Object.keys(data).sort().map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
 
         return {
-            name: names.filter(x => x).join(', ') || ' ',
+            name: nameParts.filter(x => x).join(', ') || ' ',
             key: configurationKey,
         }
-    }
-
-    _getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {
-        const kebabName = kebabCase(name)
-        let res = ''
-        if (typeof value === 'boolean' || this.component.props[name] && this.component.props[name].type === Boolean) {
-            res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
-        } else if (typeof value === 'undefined') {
-            res = kebabName
-        } else {
-            res = value ? (addName ? `${value} ${kebabName}` : value) : ''
-        }
-
-        res = res.toUpperCase().trim(' ')
-
-        if (res.length === 0) {
-            return null
-        }
-        return res
     }
 }
