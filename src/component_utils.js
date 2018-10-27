@@ -3,16 +3,12 @@ import { kebabCase } from 'lodash'
 export default class ComponentConfigurations {
     constructor (component) {
         this.component = component
-        this.valuesByName = this.getValuesByName()
-    }
 
-    getValuesByName () {
-        const variations = this.component && { ...this.component.variations } || {}
+        const valuesByName = this.component && { ...this.component.variations } || {}
         if (this.component.usecases[0].name) {
-            variations.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
+            valuesByName.usecaseName = this.component.usecases.filter(usecase => !usecase.testOnly).map(usecase => usecase.name)
         }
-
-        return variations
+        this.valuesByName = valuesByName
     }
 
     getCombinations (ignoreNames = []) {
@@ -31,12 +27,11 @@ export default class ComponentConfigurations {
         }
 
         return flat.map(data => {
-            const configurationKey = [this.component.metaName].concat(Object.keys(data).sort().map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
-            return { data: data, name: this.getConfigurationName(data), key: configurationKey }
+            return { data: data, ...this.extractFromConfiguration(data) }
         })
     }
 
-    getConfigurationName (data, opts) {
+    extractFromConfiguration (data, opts) {
         const keys = Object.keys(data)
         const names = keys.map(key => {
             const value = data[key]
@@ -57,7 +52,12 @@ export default class ComponentConfigurations {
             return value
         })
 
-        return names.filter(x => x).join(', ') || ' '
+        const configurationKey = [this.component.metaName].concat(Object.keys(data).sort().map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
+
+        return {
+            name: names.filter(x => x).join(', ') || ' ',
+            key: configurationKey,
+        }
     }
 
     _getPropTitle (name, value, { addName: addName = false, hideNot: hideNot = false } = {}) {

@@ -9,7 +9,7 @@
                             <p :class="$style.flatName">{{ item }}</p>
                         </template>
                         <template v-else-if="typeof item === 'object'">
-                            <img :src="`/static/regressions/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-snap.png`" />
+                            <!-- <img :src="`/static/snapshots/image-diffs/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-diff.png`" /> -->
                             <div :class="$style.boundingBox" class="bounding-box">
                                 <component-example
                                     :class="$style.component"
@@ -63,7 +63,7 @@ export default {
     },
     computed: {
         valuesByName () {
-            return this.configurations.getValuesByName()
+            return this.configurations.valuesByName
         },
         modelName () {
             return this.component.model && this.component.model.prop || 'value'
@@ -131,7 +131,7 @@ export default {
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
-                const rowTitle = this.splitByProp.row ? this.configurations.getConfigurationName({ [this.splitByProp.row]: rowValue }, { addName: true }) : ' '
+                const rowTitle = this.splitByProp.row ? this.configurations.extractFromConfiguration({ [this.splitByProp.row]: rowValue }, { addName: true }).name : ' '
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
                     content: this.splitByProp.flat.map(usecase => usecase.name),
                     first: true,
@@ -141,7 +141,7 @@ export default {
                     ...(!firstColumn ? [] : [firstColumn]),
                     ...columnValues.map((columnValue, index) => {
                         return {
-                            title: this.splitByProp.column ? this.configurations.getConfigurationName({ [this.splitByProp.column]: columnValue }) : ' ',
+                            title: this.splitByProp.column ? this.configurations.extractFromConfiguration({ [this.splitByProp.column]: columnValue }).name : ' ',
                             content: this.splitByProp.flat.map(x => {
                                 const configuration =
                                 {
@@ -156,7 +156,7 @@ export default {
                                 return {
                                     ...configuration,
                                     key: `${x.configuration.key}-${rowValue}-${columnValue}`,
-                                    name: this.configurations.getConfigurationName(configuration),
+                                    name: this.configurations.extractFromConfiguration(configuration).name,
                                 }
                             }),
                             value: columnValue,

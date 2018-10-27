@@ -265,7 +265,7 @@ export default {
                 return this.filters.usecaseName ? this.filters.usecaseName.toUpperCase() : 'NAME'
             }
             const configurations = new ComponentConfigurations(this.component)
-            return configurations.getConfigurationName({ [name]: this.filters[name] }, { addName: true })
+            return configurations.extractFromConfiguration({ [name]: this.filters[name] }, { addName: true }).name
         },
         cycleFilter (name) {
             const currentValue = this.filters[name]
