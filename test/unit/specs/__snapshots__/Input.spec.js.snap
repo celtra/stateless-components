@@ -1,0 +1,611 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input computed Before slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Before slot currentLength 1`] = `0`;
+
+exports[`Input computed Before slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed Before slot inputType 1`] = `"text"`;
+
+exports[`Input computed Before slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed Before slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed Before slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed Before slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed Before slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed Before slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed Before slot states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Before slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed Inactive cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Inactive currentLength 1`] = `0`;
+
+exports[`Input computed Inactive decimalSeperator 1`] = `"."`;
+
+exports[`Input computed Inactive inputType 1`] = `"text"`;
+
+exports[`Input computed Inactive mappedDisabledText 1`] = `""`;
+
+exports[`Input computed Inactive mappedHelperText 1`] = `""`;
+
+exports[`Input computed Inactive mappedLabelText 1`] = `""`;
+
+exports[`Input computed Inactive mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed Inactive maxLengthCap 1`] = `null`;
+
+exports[`Input computed Inactive maxLengthNumber 1`] = `null`;
+
+exports[`Input computed Inactive states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Inactive textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed Left slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Left slot currentLength 1`] = `0`;
+
+exports[`Input computed Left slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed Left slot inputType 1`] = `"text"`;
+
+exports[`Input computed Left slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed Left slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed Left slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed Left slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed Left slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed Left slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed Left slot states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Left slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed Password hidden cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Password hidden currentLength 1`] = `0`;
+
+exports[`Input computed Password hidden decimalSeperator 1`] = `"."`;
+
+exports[`Input computed Password hidden inputType 1`] = `"text"`;
+
+exports[`Input computed Password hidden mappedDisabledText 1`] = `""`;
+
+exports[`Input computed Password hidden mappedHelperText 1`] = `""`;
+
+exports[`Input computed Password hidden mappedLabelText 1`] = `""`;
+
+exports[`Input computed Password hidden mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed Password hidden maxLengthCap 1`] = `null`;
+
+exports[`Input computed Password hidden maxLengthNumber 1`] = `null`;
+
+exports[`Input computed Password hidden states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Password hidden textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed Right slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Right slot currentLength 1`] = `0`;
+
+exports[`Input computed Right slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed Right slot inputType 1`] = `"text"`;
+
+exports[`Input computed Right slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed Right slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed Right slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed Right slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed Right slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed Right slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed Right slot states 1`] = `
+Object {
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed Right slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": false,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed disabled, Before slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Before slot currentLength 1`] = `0`;
+
+exports[`Input computed disabled, Before slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed disabled, Before slot inputType 1`] = `"text"`;
+
+exports[`Input computed disabled, Before slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed disabled, Before slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed disabled, Before slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed disabled, Before slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed disabled, Before slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed disabled, Before slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed disabled, Before slot states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Before slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed disabled, Inactive cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Inactive currentLength 1`] = `0`;
+
+exports[`Input computed disabled, Inactive decimalSeperator 1`] = `"."`;
+
+exports[`Input computed disabled, Inactive inputType 1`] = `"text"`;
+
+exports[`Input computed disabled, Inactive mappedDisabledText 1`] = `""`;
+
+exports[`Input computed disabled, Inactive mappedHelperText 1`] = `""`;
+
+exports[`Input computed disabled, Inactive mappedLabelText 1`] = `""`;
+
+exports[`Input computed disabled, Inactive mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed disabled, Inactive maxLengthCap 1`] = `null`;
+
+exports[`Input computed disabled, Inactive maxLengthNumber 1`] = `null`;
+
+exports[`Input computed disabled, Inactive states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Inactive textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed disabled, Left slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Left slot currentLength 1`] = `0`;
+
+exports[`Input computed disabled, Left slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed disabled, Left slot inputType 1`] = `"text"`;
+
+exports[`Input computed disabled, Left slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed disabled, Left slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed disabled, Left slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed disabled, Left slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed disabled, Left slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed disabled, Left slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed disabled, Left slot states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Left slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed disabled, Password hidden cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Password hidden currentLength 1`] = `0`;
+
+exports[`Input computed disabled, Password hidden decimalSeperator 1`] = `"."`;
+
+exports[`Input computed disabled, Password hidden inputType 1`] = `"text"`;
+
+exports[`Input computed disabled, Password hidden mappedDisabledText 1`] = `""`;
+
+exports[`Input computed disabled, Password hidden mappedHelperText 1`] = `""`;
+
+exports[`Input computed disabled, Password hidden mappedLabelText 1`] = `""`;
+
+exports[`Input computed disabled, Password hidden mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed disabled, Password hidden maxLengthCap 1`] = `null`;
+
+exports[`Input computed disabled, Password hidden maxLengthNumber 1`] = `null`;
+
+exports[`Input computed disabled, Password hidden states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Password hidden textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;
+
+exports[`Input computed disabled, Right slot cssStates 1`] = `
+Object {
+  "autogrow": false,
+  "dark": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "overlay-close": false,
+  "overlay-open": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Right slot currentLength 1`] = `0`;
+
+exports[`Input computed disabled, Right slot decimalSeperator 1`] = `"."`;
+
+exports[`Input computed disabled, Right slot inputType 1`] = `"text"`;
+
+exports[`Input computed disabled, Right slot mappedDisabledText 1`] = `""`;
+
+exports[`Input computed disabled, Right slot mappedHelperText 1`] = `""`;
+
+exports[`Input computed disabled, Right slot mappedLabelText 1`] = `""`;
+
+exports[`Input computed disabled, Right slot mappedPlaceholderText 1`] = `""`;
+
+exports[`Input computed disabled, Right slot maxLengthCap 1`] = `null`;
+
+exports[`Input computed disabled, Right slot maxLengthNumber 1`] = `null`;
+
+exports[`Input computed disabled, Right slot states 1`] = `
+Object {
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "valid": false,
+  "warning": false,
+}
+`;
+
+exports[`Input computed disabled, Right slot textareaClasses 1`] = `
+Array [
+  Object {
+    "input-row__placeholder-text--autogrow": false,
+    "input-row__placeholder-text--dark": true,
+    "input-row__placeholder-text--disabled": true,
+    "input-row__placeholder-text--error": false,
+    "input-row__placeholder-text--focused": false,
+    "input-row__placeholder-text--overlay-close": false,
+    "input-row__placeholder-text--overlay-open": false,
+    "input-row__placeholder-text--valid": false,
+    "input-row__placeholder-text--warning": false,
+  },
+  Object {
+    "input-row__textarea--overflow": false,
+  },
+]
+`;

@@ -5,6 +5,7 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             options: [
                 { id: '1', label: 'This is really long creative name that needs to work well', metadata: '100000' },
                 { id: '2', label: '2', metadata: 'zan.kusterle@gmail.com' },

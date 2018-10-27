@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultList computed Custom slot, initial offset assumedGroupHeight 1`] = `30`;
+
+exports[`DefaultList computed Custom slot, initial offset assumedItemHeight 1`] = `30`;
+
+exports[`DefaultList computed Items with groups assumedGroupHeight 1`] = `30`;
+
+exports[`DefaultList computed Items with groups assumedItemHeight 1`] = `30`;
+
+exports[`DefaultList computed Selected item assumedGroupHeight 1`] = `30`;
+
+exports[`DefaultList computed Selected item assumedItemHeight 1`] = `30`;

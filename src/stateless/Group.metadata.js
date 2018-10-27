@@ -9,10 +9,12 @@ export default {
     },
     usecases: [
         {
+            name: 'Label only',
             scopedSlots: { default: defaultSlot },
             label: 'Modeling',
         },
         {
+            name: 'Full text',
             scopedSlots: { default: defaultSlot },
             label: 'Modeling',
             description: 'Loooooooong descriptiooooooooon',

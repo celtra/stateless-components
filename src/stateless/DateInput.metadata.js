@@ -6,6 +6,7 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             label: 'Enter date',
             value: new Date(2018, 0, 10),
         },

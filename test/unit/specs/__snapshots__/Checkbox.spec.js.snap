@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox computed Basic actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed Basic actualTitleText 2`] = `""`;
+
+exports[`Checkbox computed Basic infoText 1`] = `""`;
+
+exports[`Checkbox computed Basic infoText 2`] = `""`;
+
+exports[`Checkbox computed Basic states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed Basic states 2`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": true,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed Basic, value actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed Basic, value infoText 1`] = `""`;
+
+exports[`Checkbox computed Basic, value states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed Toggle actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed Toggle actualTitleText 2`] = `""`;
+
+exports[`Checkbox computed Toggle infoText 1`] = `""`;
+
+exports[`Checkbox computed Toggle infoText 2`] = `""`;
+
+exports[`Checkbox computed Toggle states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed Toggle states 2`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": true,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed Toggle, value actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed Toggle, value infoText 1`] = `""`;
+
+exports[`Checkbox computed Toggle, value states 1`] = `
+Object {
+  "checked": true,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Basic actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Basic actualTitleText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Basic infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Basic infoText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Basic states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Basic states 2`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": true,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Basic, value actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Basic, value infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Basic, value states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle actualTitleText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle infoText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle states 2`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": true,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle, value actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle, value infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle, value states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;

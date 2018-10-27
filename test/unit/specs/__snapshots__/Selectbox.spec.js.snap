@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`Selectbox computed DISABLED cssStates 1`] = `
+exports[`Selectbox computed disabled cssStates 1`] = `
 Object {
   "disabled": true,
   "error": false,
@@ -48,21 +48,21 @@ Object {
 }
 `;
 
-exports[`Selectbox computed DISABLED mappedDisabledText 1`] = `""`;
+exports[`Selectbox computed disabled mappedDisabledText 1`] = `""`;
 
-exports[`Selectbox computed DISABLED mappedHelperText 1`] = `""`;
+exports[`Selectbox computed disabled mappedHelperText 1`] = `""`;
 
-exports[`Selectbox computed DISABLED mappedLabelText 1`] = `""`;
+exports[`Selectbox computed disabled mappedLabelText 1`] = `""`;
 
-exports[`Selectbox computed DISABLED searchText 1`] = `""`;
+exports[`Selectbox computed disabled searchText 1`] = `""`;
 
-exports[`Selectbox computed DISABLED selected 1`] = `""`;
+exports[`Selectbox computed disabled selected 1`] = `""`;
 
-exports[`Selectbox computed DISABLED selectedLabelText 1`] = `"Please select"`;
+exports[`Selectbox computed disabled selectedLabelText 1`] = `"Please select"`;
 
-exports[`Selectbox computed DISABLED selectedMetadataText 1`] = `""`;
+exports[`Selectbox computed disabled selectedMetadataText 1`] = `""`;
 
-exports[`Selectbox computed DISABLED states 1`] = `
+exports[`Selectbox computed disabled states 1`] = `
 Object {
   "disabled": true,
   "error": false,

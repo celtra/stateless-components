@@ -32,11 +32,13 @@ export default {
         },
         {
             name: 'Error',
+            file: {},
             error: 'Internet connection lost.',
             uploadUrl: 'https://example.com',
         },
         {
             name: 'Drop active',
+            file: {},
             dropActive: true,
             uploadUrl: 'https://example.com',
         },

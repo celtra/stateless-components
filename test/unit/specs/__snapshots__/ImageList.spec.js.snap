@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageList computed   animationRatio 1`] = `0`;
+
+exports[`ImageList computed   buttonsData 1`] = `
+Array [
+  Object {},
+]
+`;
+
+exports[`ImageList computed   fullHeight 1`] = `67`;
+
+exports[`ImageList computed   hasArrows 1`] = `
+Object {
+  "left": false,
+  "right": false,
+}
+`;
+
+exports[`ImageList computed   hoverIndex 1`] = `null`;
+
+exports[`ImageList computed   maxVisible 1`] = `7`;
+
+exports[`ImageList computed   movingDirection 1`] = `null`;
+
+exports[`ImageList computed   numVisible 1`] = `0`;
+
+exports[`ImageList computed   targetWidth 1`] = `NaN`;
+
+exports[`ImageList computed   targetXOffset 1`] = `0`;
+
+exports[`ImageList computed   visibleWidths 1`] = `
+Array [
+  NaN,
+]
+`;

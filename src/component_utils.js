@@ -32,7 +32,8 @@ export default class ComponentConfigurations {
     }
 
     extractFromConfiguration (data, opts = {}) {
-        const names = Object.keys(data)
+        const names = Object.keys(data).sort()
+
         const nameParts = names.map(name => {
             const value = data[name]
             if (this.valuesByName[name].length === 1) {
@@ -51,7 +52,7 @@ export default class ComponentConfigurations {
                 res = value ? (opts.addName ? `${value} ${kebabName}` : value) : ''
             }
 
-            res = res.toUpperCase().trim(' ')
+            res = res.trim(' ')
 
             if (res.length === 0) {
                 return null
@@ -59,7 +60,7 @@ export default class ComponentConfigurations {
             return res
         })
 
-        const configurationKey = [this.component.metaName].concat(Object.keys(data).sort().map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
+        const configurationKey = [this.component.metaName].concat(names.map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
 
         return {
             name: nameParts.filter(x => x).join(', ') || ' ',

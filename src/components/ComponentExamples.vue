@@ -134,9 +134,9 @@ export default {
             }
             return rowValues.map((rowValue, rowIndex) => {
                 const themeCss = this.filters.theme && themesCss[this.filters.theme] || this.splitByProp.row === 'theme' && themesCss[rowValue]
-                const rowTitle = this.splitByProp.row ? this.configurations.extractFromConfiguration({ [this.splitByProp.row]: rowValue }, { addName: true }).name : ''
+                const rowTitle = this.splitByProp.row ? this.configurations.extractFromConfiguration({ [this.splitByProp.row]: rowValue }, { addName: true }).name.toUpperCase() : ''
                 const firstColumn = this.splitByProp.flat.some(x => x.name) ? {
-                    content: this.splitByProp.flat.map(usecase => usecase.name),
+                    content: this.splitByProp.flat.map(usecase => usecase.name.toUpperCase()),
                     first: true,
                     themeCss: themeCss || themesCss.light,
                 } : null
@@ -149,6 +149,7 @@ export default {
                                 const configuration =
                                 {
                                     ...x.configuration.data,
+                                    ...this.filters,
                                 }
                                 if (this.splitByProp.row) {
                                     configuration[this.splitByProp.row] = rowValue
@@ -158,6 +159,7 @@ export default {
                                 }
                                 return {
                                     ...configuration,
+                                    ...x.usecase,
                                     key: `${x.configuration.key}-${rowValue}-${columnValue}`,
                                     name: this.configurations.extractFromConfiguration(configuration).name,
                                 }

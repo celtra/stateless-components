@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker computed Basic caretSize 1`] = `"12px"`;
+
+exports[`DatePicker computed Basic formattedDate 1`] = `"Set date"`;
+
+exports[`DatePicker computed Basic isEmpty 1`] = `true`;
+
+exports[`DatePicker computed Basic states 1`] = `
+Object {
+  "disabled": false,
+  "error": undefined,
+  "valid": undefined,
+}
+`;
+
+exports[`DatePicker computed Error caretSize 1`] = `"12px"`;
+
+exports[`DatePicker computed Error formattedDate 1`] = `"Set date"`;
+
+exports[`DatePicker computed Error isEmpty 1`] = `true`;
+
+exports[`DatePicker computed Error states 1`] = `
+Object {
+  "disabled": false,
+  "error": undefined,
+  "valid": undefined,
+}
+`;
+
+exports[`DatePicker computed disabled, Basic caretSize 1`] = `"12px"`;
+
+exports[`DatePicker computed disabled, Basic formattedDate 1`] = `"Set date"`;
+
+exports[`DatePicker computed disabled, Basic isEmpty 1`] = `true`;
+
+exports[`DatePicker computed disabled, Basic states 1`] = `
+Object {
+  "disabled": true,
+  "error": undefined,
+  "valid": undefined,
+}
+`;
+
+exports[`DatePicker computed disabled, Error caretSize 1`] = `"12px"`;
+
+exports[`DatePicker computed disabled, Error formattedDate 1`] = `"Set date"`;
+
+exports[`DatePicker computed disabled, Error isEmpty 1`] = `true`;
+
+exports[`DatePicker computed disabled, Error states 1`] = `
+Object {
+  "disabled": true,
+  "error": undefined,
+  "valid": undefined,
+}
+`;
