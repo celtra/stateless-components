@@ -53,7 +53,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import './typography';
+
 .middle-ellipsis {
+    font-family: @regular-text-font;
     width: 100%;
 
     &__measurement {

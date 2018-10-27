@@ -1,5 +1,6 @@
-import Checkbox from '@/stateless/checkbox.vue'
+import { Checkbox } from '@/library.js'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Checkbox)
 let vm
@@ -14,97 +15,9 @@ describe('Checkbox', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Checkbox)
 
     describe('computed', () => {
-        describe('states', () => {
-            it('default state', function () {
-                expect(vm.states).toEqual({
-                    error: false,
-                    warning: false,
-                    checked: false,
-                    some: false,
-                    disabled: false,
-                    focused: false,
-                })
-            })
-
-            it('error state', function () {
-                vm.errorText = 'error'
-
-                expect(vm.states).toEqual({
-                    error: true,
-                    warning: false,
-                    checked: false,
-                    some: false,
-                    disabled: false,
-                    focused: false,
-                })
-            })
-
-            it('warning state', function () {
-                vm.warningText = 'warning'
-
-                expect(vm.states).toEqual({
-                    error: false,
-                    warning: true,
-                    checked: false,
-                    some: false,
-                    disabled: false,
-                    focused: false,
-                })
-            })
-
-            it('disabled state', function () {
-                vm.disabled = true
-
-                expect(vm.states).toEqual({
-                    error: false,
-                    warning: false,
-                    checked: false,
-                    some: false,
-                    disabled: true,
-                    focused: false,
-                })
-            })
-
-            it('checked state', function () {
-                vm.value = true
-
-                expect(vm.states).toEqual({
-                    error: false,
-                    warning: false,
-                    checked: true,
-                    some: false,
-                    disabled: false,
-                    focused: false,
-                })
-            })
-        })
-
-        describe('infoText', () => {
-            it('should be error if error', function () {
-                vm.errorText = 'error'
-                expect(vm.infoText).toBe("error")
-            })
-
-            it('should be error if warning', function () {
-                vm.warningText = 'warning'
-                expect(vm.infoText).toBe("warning")
-            })
-
-            it('should be helper otherwise', function () {
-                expect(vm.infoText).toBe("help")
-            })
-
-            it('should be empty if no helper', function () {
-                vm.helperText = null
-                expect(vm.infoText).toBe("")
-            })
-        })
-
         /*describe('labelText', () => {
             it('should be slot value', function () {
                 vm.$slots.default = [{ text: 'Something' }]

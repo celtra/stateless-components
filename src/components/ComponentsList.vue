@@ -59,27 +59,34 @@
 
 <script>
 import '@/stateless/define_helpers'
-import components from '../components.js'
+import * as library from '../library.js'
+import { getFlatUsecases } from '../component_utils'
 
-let getComponents = () => {
-    return Object.keys(components).map(componentId => {
-        let componentData = components[componentId]
+const componentNames = Object.keys(library).filter(name => typeof library[name].render === 'function')
 
-        let modelName = componentData.component.model ? componentData.component.value : 'value'
-        let modelEvent = componentData.component.model ? componentData.component.event : 'input'
+const getComponents = () => {
+    return componentNames.map(componentId => {
+        const component = library[componentId]
 
-        let componentProps = componentData.component.props
-        let defaultProps = componentData.defaultProps || {}
+        const modelName = component.model ? component.value : 'value'
+        const modelEvent = component.model ? component.event : 'input'
 
+        const componentProps = component.props
+        const usecases = getFlatUsecases(component)
+        const defaultProps = usecases.length > 0 ? usecases[0].data : {}
+
+        // Transparent wrapper components might use props even if they are not explicitly defined
         let allProps = {}
-        for (let key in componentProps)
+        for (const key in componentProps) {
             allProps[key] = true
-        for (let key in defaultProps)
+        }
+        for (const key in defaultProps) {
             allProps[key] = true
+        }
         allProps = Object.keys(allProps)
 
         return {
-            ...componentData,
+            component: component,
             id: componentId,
             modelName: modelName,
             modelEvent: modelEvent,
@@ -88,7 +95,7 @@ let getComponents = () => {
                     name: propName,
                     type: componentProps.hasOwnProperty(propName) ? componentProps[propName].type : typeof defaultProps[propName],
                     default: defaultProps.hasOwnProperty(propName) ? defaultProps[propName] : componentProps[propName].default,
-                    availableValues: componentData.availableProps && componentData.availableProps[propName] || null,
+                    availableValues: null,
                 }
             }),
         }
@@ -98,14 +105,14 @@ let getComponents = () => {
 export default {
     name: 'components-list',
     data () {
-        let vars = {
-            componentId: Object.keys(components)[0],
+        const vars = {
+            componentId: componentNames[0],
             theme: 'light',
             size: 'normal',
         }
-        for (let component of getComponents()) {
-            let componentData = {}
-            for (let prop of component.props) {
+        for (const component of getComponents()) {
+            const componentData = {}
+            for (const prop of component.props) {
                 componentData[prop.name] = prop.name === 'theme' ? vars.theme : prop.name === 'size' ?  vars.size : prop.default
             }
             vars[component.id] = componentData
@@ -114,7 +121,7 @@ export default {
     },
     computed: {
         components () {
-            let updateProp = this.updateProp
+            const updateProp = this.updateProp
 
             return getComponents().map(componentData => {
                 return {
@@ -197,6 +204,7 @@ export default {
         text-align: right;
         font-size: 12px;
     }
+
     .prop-value {
         padding-left: 10px;
     }

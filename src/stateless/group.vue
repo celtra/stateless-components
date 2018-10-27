@@ -34,6 +34,7 @@ export default {
     padding: 40px 30px 30px 30px;
     margin-top: 10px;
     border: 1px solid @gunpowder;
+    font-family: @regular-text-font;
 
     &__header {
         display: flex;

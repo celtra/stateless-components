@@ -10,10 +10,13 @@
             :date-format-focus="dateFormatFocus"
             :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
+            :track-name="trackName"
             label="Start date"
             @input="onFromInput"
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
+
+            <icon slot="before" name="calendar" />
         </date-input>
 
         <div :class="{'date-range-input__separator--with-margin': !!separator}" class="date-range-input__separator">{{ separator }}</div>
@@ -28,20 +31,25 @@
             :date-format-focus="dateFormatFocus"
             :date-before-min-date-error-message="dateBeforeMinDateErrorMessage"
             :date-after-max-date-error-message="dateAfterMaxDateErrorMessage"
+            :track-name="trackName"
             label="End date"
             @input="onToInput"
             @keyup="$emit('keyup', $event)"
             @blur="$emit('blur', $event)">
+
+            <icon slot="before" name="calendar" />
         </date-input>
     </div>
 </template>
 
 <script>
 import DateInput from './DateInput.vue'
+import Icon from './icon.vue'
 
 export default {
     components: {
         DateInput,
+        Icon,
     },
     props: {
         theme: { type: String, default: 'dark' },
@@ -54,13 +62,16 @@ export default {
         separator: { type: String },
         dateBeforeMinDateErrorMessage: { type: String, required: false },
         dateAfterMaxDateErrorMessage: { type: String, required: false },
+        trackName: { type: String, default: 'dateRangeInput' },
     },
     methods: {
         onFromInput (value) {
             this.$emit('input', { from: value, to: this.value && this.value.to })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input-from' })
         },
         onToInput (value) {
             this.$emit('input', { from: this.value && this.value.from, to: value })
+            this.$root.$emit('tracking-event', { type: 'input', label: this.trackName, trigger: 'input-to' })
         },
     },
 }
@@ -72,10 +83,10 @@ export default {
     min-width: 475px;
 
     &__separator {
-        margin: 17px 7.5px 0px 7.5px;
+        margin: 17px 7.5px 0 7.5px;
 
         &--with-margin {
-            margin: 17px 20px 0px 20px;
+            margin: 17px 20px 0 20px;
         }
     }
 }

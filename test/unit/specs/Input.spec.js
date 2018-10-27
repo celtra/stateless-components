@@ -1,6 +1,6 @@
-import Input from '@/stateless/input.vue'
+import { Input } from '@/library.js'
 import Vue from 'vue'
-import components from '@/components'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Input)
 let vm = null
@@ -16,9 +16,7 @@ describe('Input', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Input)
 
     describe('computed', () => {
         describe('states', () => {
@@ -194,14 +192,14 @@ describe('Input', () => {
 
     describe('methods', () => {
         describe('runValidations', () => {
-            let alwaysInvalid = (v) => 'no'
-            let alwaysValid = (v) => true
+            const alwaysInvalid = (v) => 'no'
+            const alwaysValid = (v) => true
 
             it('should save error', function () {
                 vm.isValid = alwaysInvalid
                 vm.hasWarning = alwaysInvalid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe('no')
                 expect(vm.warningMessage).toBe(null)
                 expect(isValid).toBe(false)
@@ -211,7 +209,7 @@ describe('Input', () => {
                 vm.isValid = alwaysValid
                 vm.hasWarning = alwaysInvalid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe(true)
                 expect(vm.warningMessage).toBe('no')
                 expect(isValid).toBe(false)
@@ -221,7 +219,7 @@ describe('Input', () => {
                 vm.isValid = alwaysValid
                 vm.hasWarning = alwaysValid
 
-                let isValid = vm.runValidations('')
+                const isValid = vm.runValidations('')
                 expect(vm.errorMessage).toBe(true)
                 expect(vm.warningMessage).toBe(true)
                 expect(isValid).toBe(true)
@@ -229,7 +227,7 @@ describe('Input', () => {
         })
 
         describe('togglePasswordVisibility', () => {
-            it('should toggle', function (){
+            it('should toggle', function () {
                 vm.type = 'password'
 
                 expect(vm.passwordVisible).toBe(false)

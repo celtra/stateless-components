@@ -1,532 +1,1077 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Multiselect should match the snapshot 1`] = `
-<div
-  class="multiselect multiselect--dark"
->
-  <div
-    class="multiselect__search-with-icon"
-  >
-    <div
-      class="input search-input input--normal input--dark search-input--dark"
-      id="search"
-    >
-      <div
-        class="input__icon-prepend"
-      >
-        <div
-          class="icon-wrapper"
-        >
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <svg
-            viewBox="0 0 16 17"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              class="path"
-              d="M12.7 11.3c.9-1.2 1.4-2.6 1.4-4.2 0-3.9-3.1-7.1-7-7.1S0 3.2 0 7.1c0 3.9 3.2 7.1 7.1 7.1 1.6 0 3.1-.5 4.2-1.4l3 3c.2.2.5.3.7.3.2 0 .5-.1.7-.3.4-.4.4-1 0-1.4l-3-3.1zm-5.6.8c-2.8 0-5.1-2.2-5.1-5S4.3 2 7.1 2s5.1 2.3 5.1 5.1-2.3 5-5.1 5z"
-              fill-rule="nonzero"
-            />
-          </svg>
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-        </div>
-      </div>
-       
-      <div
-        class="input-field input-field--with-icon"
-        title=""
-      >
-        <div
-          class="input-field__overlay input-field__overlay--dark"
-        >
-          
-                Search
-            
-        </div>
-         
-        <div
-          class="input-field__label-text input-field__label-text--dark"
-        >
-          
-                
-            
-        </div>
-         
-        <div
-          class="input-row input-row--dark"
-        >
-          <!---->
-           
-          <div
-            class="input-row__input-flex"
-          >
-            <!---->
-             
-            <!---->
-             
-            <input
-              class="input-row__placeholder-text input-row__placeholder-text--dark"
-              placeholder="Search"
-              style="text-align: left;"
-              type="text"
-            />
-          </div>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="input-field__border-overlay input-field__border-overlay--dark"
-        />
-         
-        <div
-          class="input-field__message-wrap"
-        >
-          <div
-            class="input-field__helper-text input-field__helper-text--dark"
-          >
-            
-                    
-                
-          </div>
-           
-          <!---->
-        </div>
-      </div>
-    </div>
-  </div>
-   
-  <div
-    class="multiselect__options"
-  >
-    <div
-      class="scrollable-list multiselect__default-list scrollable-list--dark"
-    >
-      <div
-        class="scrollable-list__list-wrap"
-      >
-        <!---->
-         
-        <div
-          class="scrollable-list__list scrollable-list__list--with-overlay"
-          style="max-height: 330px;"
-        >
-          <div
-            class="default-list scrollable-list__default-list default-list--dark default-list--normal scrollable-list__default-list--with-overlay"
-            tabindex="0"
-          >
-             
-            <div
-              duration="250"
-              name="default-list__item"
-              tag="div"
-            >
-              <div
-                class="default-list__item default-list__item--leaf"
-                data-item-id="1"
-                style="height: 30px;"
-              >
-                <div
-                  class="default-list__item-content default-list__item-content--leaf"
-                >
-                  <div
-                    style="width: 100%;"
-                  >
-                    <div
-                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-                      data-id="option-1"
-                      tabindex="-1"
-                      title="option 1"
-                    >
-                      <div
-                        class="checkbox-element__check-row"
-                      >
-                        <svg
-                          class="checkbox-element__check-wrapper"
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            class="checkbox-element__square"
-                            fill="none"
-                            height="18"
-                            rx="2"
-                            ry="2"
-                            stroke-width="1"
-                            width="18"
-                            x="7"
-                            y="7"
-                          />
-                           
-                          <path
-                            class="checkbox-element__check"
-                            d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"
-                          />
-                           
-                          <rect
-                            class="checkbox-element__check-some"
-                            height="3"
-                            width="11"
-                            x="10.5"
-                            y="14.5"
-                          />
-                        </svg>
-                         
-                        <div
-                          class="checkbox-element__label-text"
-                        >
-                          <div
-                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
-                          >
-                            <p
-                              class="default-list-item__label"
-                            >
-                              
-            option 1
-        
-                            </p>
-                             
-                            <!---->
-                             
-                            <!---->
-                          </div>
-                        </div>
-                      </div>
-                       
-                      <!---->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="default-list__item default-list__item--leaf"
-                data-item-id="2"
-                style="height: 30px;"
-              >
-                <div
-                  class="default-list__item-content default-list__item-content--leaf"
-                >
-                  <div
-                    style="width: 100%;"
-                  >
-                    <div
-                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-                      data-id="option-2"
-                      tabindex="-1"
-                      title="option 2"
-                    >
-                      <div
-                        class="checkbox-element__check-row"
-                      >
-                        <svg
-                          class="checkbox-element__check-wrapper"
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            class="checkbox-element__square"
-                            fill="none"
-                            height="18"
-                            rx="2"
-                            ry="2"
-                            stroke-width="1"
-                            width="18"
-                            x="7"
-                            y="7"
-                          />
-                           
-                          <path
-                            class="checkbox-element__check"
-                            d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"
-                          />
-                           
-                          <rect
-                            class="checkbox-element__check-some"
-                            height="3"
-                            width="11"
-                            x="10.5"
-                            y="14.5"
-                          />
-                        </svg>
-                         
-                        <div
-                          class="checkbox-element__label-text"
-                        >
-                          <div
-                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
-                          >
-                            <p
-                              class="default-list-item__label"
-                            >
-                              
-            option 2
-        
-                            </p>
-                             
-                            <!---->
-                             
-                            <!---->
-                          </div>
-                        </div>
-                      </div>
-                       
-                      <!---->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="default-list__item default-list__item--leaf"
-                data-item-id="3"
-                style="height: 30px;"
-              >
-                <div
-                  class="default-list__item-content default-list__item-content--leaf"
-                >
-                  <div
-                    style="width: 100%;"
-                  >
-                    <div
-                      class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-                      data-id="option-3"
-                      tabindex="-1"
-                      title="option 3"
-                    >
-                      <div
-                        class="checkbox-element__check-row"
-                      >
-                        <svg
-                          class="checkbox-element__check-wrapper"
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            class="checkbox-element__square"
-                            fill="none"
-                            height="18"
-                            rx="2"
-                            ry="2"
-                            stroke-width="1"
-                            width="18"
-                            x="7"
-                            y="7"
-                          />
-                           
-                          <path
-                            class="checkbox-element__check"
-                            d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"
-                          />
-                           
-                          <rect
-                            class="checkbox-element__check-some"
-                            height="3"
-                            width="11"
-                            x="10.5"
-                            y="14.5"
-                          />
-                        </svg>
-                         
-                        <div
-                          class="checkbox-element__label-text"
-                        >
-                          <div
-                            class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal"
-                          >
-                            <p
-                              class="default-list-item__label"
-                            >
-                              
-            option 3
-        
-                            </p>
-                             
-                            <!---->
-                             
-                            <!---->
-                          </div>
-                        </div>
-                      </div>
-                       
-                      <!---->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-              
-            <div
-              class="default-list__hidden-slots"
-            >
-              <div>
-                <div
-                  style="width: 100%;"
-                >
-                  <div
-                    class="checkbox-element multiselect__checkbox checkbox-element--normal checkbox-element--dark"
-                    data-id="a"
-                    tabindex="-1"
-                    title="A"
-                  >
-                    <div
-                      class="checkbox-element__check-row"
-                    >
-                      <svg
-                        class="checkbox-element__check-wrapper"
-                        viewBox="0 0 32 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          class="checkbox-element__square"
-                          fill="none"
-                          height="18"
-                          rx="2"
-                          ry="2"
-                          stroke-width="1"
-                          width="18"
-                          x="7"
-                          y="7"
-                        />
-                         
-                        <path
-                          class="checkbox-element__check"
-                          d="M 22.905 7 L 13.5 16.741 L 9.095 12.521 L 6 15.651 L 13.5 23 L 26 10.128 Z"
-                        />
-                         
-                        <rect
-                          class="checkbox-element__check-some"
-                          height="3"
-                          width="11"
-                          x="10.5"
-                          y="14.5"
-                        />
-                      </svg>
-                       
-                      <div
-                        class="checkbox-element__label-text"
-                      >
-                        <div
-                          class="default-list-item multiselect__default-list-item default-list-item--dark default-list-item--normal default-list-item--with-metadata"
-                        >
-                          <p
-                            class="default-list-item__label default-list-item__label--with-metadata"
-                            style="width: -3px;"
-                          >
-                            
-            A
-        
-                          </p>
-                           
-                          <p
-                            class="default-list-item__metadata default-list-item__metadata--with-metadata"
-                            style="width: -2px;"
-                          >
-                            
-            ...A
-         
-                            <!---->
-                          </p>
-                           
-                          <p
-                            class="default-list-item__hidden-width default-list-item__label"
-                          >
-                            A
-                          </p>
-                           
-                          <p
-                            class="default-list-item__hidden-width default-list-item__metadata"
-                          >
-                            
-            A
-            
-                            <!---->
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                     
-                    <!---->
-                  </div>
-                </div>
-              </div>
-               
-              <div>
-                <div
-                  class="default-list__group"
-                >
-                  A
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
 `;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false enabledValueLength 1`] = `0`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-false searchQuery 1`] = `""`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true enabledValueLength 1`] = `0`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-false_isSearchable-true searchQuery 1`] = `""`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false enabledValueLength 1`] = `0`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-false searchQuery 1`] = `""`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true allOptions 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true allPossibleIds 1`] = `
+Array [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true disabledValueIds 1`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true enabledValueLength 1`] = `0`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true flatOptions 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "isLeaf": true,
+    "items": null,
+    "key": "1",
+    "label": "Something",
+    "leafItems": Array [
+      "1",
+    ],
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "2",
+    "isLeaf": true,
+    "items": null,
+    "key": "2",
+    "label": "Lorem",
+    "leafItems": Array [
+      "2",
+    ],
+  },
+  Object {
+    "depth": 0,
+    "disabled": true,
+    "id": "3",
+    "isLeaf": true,
+    "items": null,
+    "key": "3",
+    "label": "Ipsum",
+    "leafItems": Array [
+      "3",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "4",
+    "isLeaf": true,
+    "items": null,
+    "key": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "leafItems": Array [
+      "4",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "5",
+    "isLeaf": true,
+    "items": null,
+    "key": "5",
+    "label": "B",
+    "leafItems": Array [
+      "5",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "6",
+    "isLeaf": true,
+    "items": null,
+    "key": "6",
+    "label": "C",
+    "leafItems": Array [
+      "6",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "7",
+    "isLeaf": true,
+    "items": null,
+    "key": "7",
+    "label": "D",
+    "leafItems": Array [
+      "7",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "8",
+    "isLeaf": true,
+    "items": null,
+    "key": "8",
+    "label": "E",
+    "leafItems": Array [
+      "8",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "9",
+    "isLeaf": true,
+    "items": null,
+    "key": "9",
+    "label": "F",
+    "leafItems": Array [
+      "9",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "depth": 0,
+    "id": "10",
+    "isLeaf": true,
+    "items": null,
+    "key": "10",
+    "label": "G",
+    "leafItems": Array [
+      "10",
+    ],
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true listItems 1`] = `
+Array [
+  Object {
+    "disabled": true,
+    "icon": "plus",
+    "id": "1",
+    "key": "S_1",
+    "label": "Something",
+    "metadata": "zan.kusterle@gmail.com",
+  },
+  Object {
+    "disabled": true,
+    "id": "2",
+    "key": "S_2",
+    "label": "Lorem",
+  },
+  Object {
+    "disabled": true,
+    "id": "3",
+    "label": "Ipsum",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "4",
+    "label": "Really loooooooooooooooooooooooooooooooong label",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "5",
+    "label": "B",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "6",
+    "label": "C",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "7",
+    "label": "D",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "8",
+    "label": "E",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "9",
+    "label": "F",
+    "metadata": "someone@lorem.ipsum",
+  },
+  Object {
+    "id": "10",
+    "label": "G",
+    "metadata": "someone@lorem.ipsum",
+  },
+]
+`;
+
+exports[`Multiselect computed usecase-0__canSelectAndClearAll-true_isSearchable-true searchQuery 1`] = `""`;

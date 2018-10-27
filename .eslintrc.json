@@ -3,7 +3,7 @@
       "plugin:vue/recommended"
   ],
   "parserOptions": {
-      "ecmaVersion": 6,
+      "ecmaVersion": 8,
       "sourceType": "module",
       "ecmaFeatures": {
           "jsx": true,
@@ -21,6 +21,10 @@
       "keyword-spacing": "error",
       "max-len": 0,
       "comma-dangle": ["error", "always-multiline"],
+      "curly": "error",
+      "space-before-blocks": "error",
+      "prefer-const": "error",
+      "brace-style": "error",
       "vue/html-indent": [
           "error", 4,
           {

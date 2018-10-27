@@ -5,7 +5,7 @@
                 <slot></slot>
             </dialog-button>
         </a>
-        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error } | prefix('dialog-button__container--')" :tabindex="disabled ? -1 : 0" class="dialog-button__container" @click="click" @keyup.enter.prevent.stop="click">
+        <div v-else :class="{ 'disabled': disabled, 'loading': loading, 'error': error, 'warning': warning } | prefix('dialog-button__container--')" :tabindex="disabled ? -1 : 0" class="dialog-button__container" @click="click" @keyup.enter.prevent.stop="click">
             <svg v-if="loading" viewBox="0 0 30 30">
                 <path d="M15,30C6.7,30,0,23.3,0,15c0-4.7,2.3-9.2,6-12l2.4,3.2C5.6,8.2,4,11.5,4,15C4,21,8.9,26,15,26c6.1,0,11-4.9,11-11c0-5.7-4.4-10.5-10-11l0.3-4C24,0.7,30,7.2,30,15C30,23.3,23.3,30,15,30z"/>
             </svg>
@@ -20,12 +20,13 @@
 import DialogButton from './dialog_button.vue'
 
 export default {
-    name: 'dialog-button',
-    components: { dialogButton: DialogButton },
+    name: 'DialogButton', // eslint-disable-line vue/name-property-casing
+    components: { DialogButton: DialogButton },
     props: {
         disabled: { type: Boolean, default: false },
         loading: { type: Boolean, default: false },
         error: { type: Boolean, default: false },
+        warning: { type: Boolean, default: false },
         href: { type: String },
         target: { type: String, default: '_self' },
         trackName: { type: String, required: false },
@@ -66,7 +67,8 @@ export default {
     text-align: center;
     box-sizing: border-box;
 
-    &:hover, &:focus { background-color : @light-green; }
+    &:hover,
+    &:focus { background-color: @light-green; }
 
     &:focus { outline: none; }
 }
@@ -90,8 +92,23 @@ export default {
     background-color: @pink-red;
     opacity: 0.8;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         background-color: @pink-red;
+        opacity: 1;
+    }
+
+    &:focus { outline: none; }
+}
+
+.dialog-button__container--warning {
+    color: white;
+    background-color: @gray-blue;
+    opacity: 0.8;
+
+    &:hover,
+    &:focus {
+        background-color: @gray-blue;
         opacity: 1;
     }
 
@@ -105,7 +122,8 @@ export default {
     min-width: 36px;
     pointer-events: none;
 
-    &:hover, &:focus { background-color : @extremly-light-green; }
+    &:hover,
+    &:focus { background-color: @extremly-light-green; }
 
     &:focus { outline: none; }
 
@@ -127,7 +145,7 @@ export default {
 }
 
 @keyframes BUTTON_LOADER {
-    0%   { transform: rotate(0); }
+    0% { transform: rotate(0); }
     100% { transform: rotate(720deg); }
 }
 </style>

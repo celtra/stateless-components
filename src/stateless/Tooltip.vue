@@ -1,6 +1,6 @@
 <template>
-    <div ref="tooltip" :style="transform ? { transform: transform } : {}" :class="{ visible: show, hoverable: isRelative } | prefix('hover-tooltip--')" class="hover-tooltip" @animationstart="onAnimationStart">
-        <p v-if="title" class="hover-tooltip__title">{{ title }}</p>
+    <div ref="tooltip" :style="transform ? { transform: transform } : {}" :class="[theme, { visible: show, hoverable: isRelative }] | prefix('hover-tooltip--')" class="hover-tooltip" @animationstart="onAnimationStart">
+        <p v-if="title" :class="{ 'hover-tooltip__title--with-slot': $slots.default.length > 0 && $slots.default[0].text.length > 0 }" class="hover-tooltip__title">{{ title }}</p>
         <slot></slot>
     </div>
 </template>
@@ -54,7 +54,7 @@ export default {
     visibility: hidden;
     opacity: 0;
     top: 100%;
-    left: 0px;
+    left: 0;
     color: @white;
     background-color: @gunpowder;
     border-radius: 3px;
@@ -65,18 +65,26 @@ export default {
     max-width: 460px;
     word-wrap: break-word;
     font-family: @regular-text-font;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     transition: transform 200ms ease;
 
     &__title {
         font-weight: bold;
         margin: 0;
-        margin-bottom: 5px;
+
+        &--with-slot {
+            margin-bottom: 5px;
+        }
+    }
+
+    &--dark {
+        color: @gunpowder;
+        background-color: white;
     }
 }
 
-.hover-tooltip:hover, :hover > .hover-tooltip--hoverable, .hover-tooltip--visible {
+.hover-tooltip:hover,
+:hover > .hover-tooltip--hoverable,
+.hover-tooltip--visible {
     animation: 0.2s fadeIn;
     animation-delay: 0.8s;
     animation-fill-mode: forwards;
@@ -87,6 +95,7 @@ export default {
         visibility: hidden;
         opacity: 0;
     }
+
     100% {
         visibility: visible;
         opacity: 1;

@@ -1,6 +1,5 @@
 import DialogHeader from '@/stateless/dialog_header.vue'
 import Vue from 'vue'
-import components from '@/components'
 
 const Constructor = Vue.extend(DialogHeader)
 let vm = null
@@ -72,7 +71,7 @@ describe.only('DialogHeader', () => {
 
     describe('watch', ()=>{
         describe('stepIndex', ()=>{
-            it('should transition header on stepIndex change', function (done){
+            it('should transition header on stepIndex change', function (done) {
                 spyOn(vm, 'transitionHeader')
 
                 vm.currentStepId = 'finalize'

@@ -1,5 +1,6 @@
-import Selectbox from '@/stateless/selectbox.vue'
+import { Selectbox } from '@/library.js'
 import Vue from 'vue'
+import snapshotMixin from '../component_snapshot_mixin'
 
 const Constructor = Vue.extend(Selectbox)
 let vm = null
@@ -18,9 +19,7 @@ describe('Selectbox', () => {
         }).$mount()
     })
 
-    it('should match the snapshot', () => {
-        expect(vm.$el).toMatchSnapshot()
-    })
+    snapshotMixin(Selectbox)
 
     describe('computed', function () {
         describe('states', function () {
@@ -116,7 +115,7 @@ describe('Selectbox', () => {
 
         describe('listItems', function () {
             it('should not filter if empty search query', function () {
-                let options = [
+                const options = [
                     { label : "GROUP A", items : [{ id : 1, label : "Option A" }, { id : 2, label : "Option B" }] },
                     { label : "GROUP B", items : [{ id : 3, label : "Option C" }, { id : 4, label : "Option E" }] },
                     { label : "GROUP C", items : [{ id : 5, label : "Option D" }] },

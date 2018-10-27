@@ -27,6 +27,7 @@ export default {
     letter-spacing: 0.5px;
     position: absolute;
     z-index: @z-heaven;
+    font-family: @regular-text-font;
 
     .file-upload-requirements__requirement-value {
         font-family: @medium-text-font;
