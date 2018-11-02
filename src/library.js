@@ -73,16 +73,19 @@ import GroupMetadata from '@/stateless/Group.metadata.js'
 export const Group = { ...GroupComponent, ...GroupMetadata }
 
 import CalendarComponent from '@/stateless/Calendar.vue'
-export const Calendar = CalendarComponent
+import CalendarMetadata from '@/stateless/Calendar.metadata.js'
+export const Calendar = { ...CalendarComponent, ...CalendarMetadata }
 
 import DateInputComponent from '@/stateless/DateInput.vue'
-export const DateInput = DateInputComponent
+import DateInputMetadata from '@/stateless/DateInput.metadata.js'
+export const DateInput = { ...DateInputComponent, ...DateInputMetadata }
 
 import DateRangeInputComponent from '@/stateless/DateRangeInput.vue'
 export const DateRangeInput = DateRangeInputComponent
 
 import DatePickerComponent from '@/stateless/DatePicker.vue'
-export const DatePicker = DatePickerComponent
+import DatePickerMetadata from '@/stateless/DatePicker.metadata.js'
+export const DatePicker = { ...DatePickerComponent, ...DatePickerMetadata }
 
 import ToastComponent from '@/stateless/Toast.vue'
 import ToastMetadata from '@/stateless/Toast.metadata.js'

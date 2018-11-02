@@ -8,7 +8,7 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Tooltip',
+    metaName: 'Tooltip',
     hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],

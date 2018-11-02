@@ -1,5 +1,5 @@
 export default {
-    name: 'SupportText',
+    metaName: 'SupportText',
     variations: {
         theme: ['dark', 'light'],
         isRight: [false, true],

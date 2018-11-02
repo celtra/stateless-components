@@ -41,7 +41,7 @@ export default function testSnapshots (component) {
                         <body>
                             <div id="app"></div>
                             <script>${compiledScript}</script>
-                            <script>setComponent('${component.name}', ${JSON.stringify(usecase.data)}, ${usecase.usecaseIndex})</script>
+                            <script>setComponent('${component.metaName}', ${JSON.stringify(usecase.data)}, ${usecase.usecaseIndex})</script>
                         </body>
                         </html>
                     `)
@@ -62,7 +62,7 @@ export default function testSnapshots (component) {
                     }
 
                     try {
-                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.name}__${usecase.name}` })
+                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.metaName}__${usecase.name}` })
                     } catch (error) {
                         const formattedUsecase = Object.keys(usecase.data)
                             .sort((a, b) => a.localeCompare(b))

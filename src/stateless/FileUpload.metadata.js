@@ -1,5 +1,5 @@
 export default {
-    name: 'FileUpload',
+    metaName: 'FileUpload',
     variations: {
         theme: ['dark', 'light'],
         disabled: [false, true],

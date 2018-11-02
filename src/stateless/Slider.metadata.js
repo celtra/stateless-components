@@ -1,5 +1,5 @@
 export default {
-    name: 'Slider',
+    metaName: 'Slider',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

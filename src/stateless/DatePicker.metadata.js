@@ -1,5 +1,5 @@
 export default {
-    name: 'DatePicker',
+    metaName: 'DatePicker',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],

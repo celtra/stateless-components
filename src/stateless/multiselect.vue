@@ -207,6 +207,8 @@ export default {
                         return 2
                     } else if (isChecked === null) {
                         return 1
+                    } else if (item.disabled) {
+                        return -1
                     }
                     return 0
                 })
