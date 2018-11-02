@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Multiselect computed Basic searchQuery 1`] = `""`;
+
+exports[`Multiselect computed Can clear all searchQuery 1`] = `""`;
+
+exports[`Multiselect computed Can clear and select all searchQuery 1`] = `""`;
+
+exports[`Multiselect computed Searchable searchQuery 1`] = `""`;
