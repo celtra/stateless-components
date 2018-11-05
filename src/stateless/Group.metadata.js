@@ -3,17 +3,19 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Group',
+    metaName: 'Group',
     variations: {
         theme: ['dark', 'light'],
     },
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Label only',
+            scopedSlots: { default: defaultSlot },
             label: 'Modeling',
         },
         {
-            slot: defaultSlot,
+            name: 'Full text',
+            scopedSlots: { default: defaultSlot },
             label: 'Modeling',
             description: 'Loooooooong descriptiooooooooon',
         },

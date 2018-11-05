@@ -8,15 +8,16 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Tooltip',
+    metaName: 'Tooltip',
     hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],
     },
     usecases: [
         {
+            name: 'Basic',
             setup: setup,
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             title: 'Some',
             show: true,
         },

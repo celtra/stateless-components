@@ -1,10 +1,12 @@
 export default {
-    name: 'SearchInput',
+    metaName: 'SearchInput',
     usecases: [
         {
+            name: 'Basic',
             label: 'Something',
         },
         {
+            name: 'With value',
             label: 'Something',
             value: 'Value',
         },

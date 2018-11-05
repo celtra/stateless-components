@@ -3,19 +3,21 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'Checkbox',
+    metaName: 'Checkbox',
     variations: {
         theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],
-        value: [true, false],
+        value: [true, false, null],
         disabled: [false, true],
     },
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Basic',
+            scopedSlots: { default: defaultSlot },
         },
         {
-            slot: defaultSlot,
+            name: 'Toggle',
+            scopedSlots: { default: defaultSlot },
             isToggle: true,
         },
     ],

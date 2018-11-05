@@ -20,7 +20,7 @@
 import DialogButton from './dialog_button.vue'
 
 export default {
-    name: 'DialogButton', // eslint-disable-line vue/name-property-casing
+    name: 'dialog-button',
     components: { DialogButton: DialogButton },
     props: {
         disabled: { type: Boolean, default: false },

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateInput computed   errorText 1`] = `null`;
+
+exports[`DateInput computed   formattedValue 1`] = `null`;
+
+exports[`DateInput computed   momentDate 1`] = `null`;

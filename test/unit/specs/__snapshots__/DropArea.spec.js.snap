@@ -3,7 +3,7 @@
 exports[`DropArea should match the snapshot 1`] = `
 <div>
   <div
-    class="drop-area__overlay drop-area__overlay--dark drop-area__overlay--condensed"
+    class="drop-area__overlay drop-area__overlay--dark drop-area__overlay--full"
   >
     <svg
       preserveAspectRatio="none"

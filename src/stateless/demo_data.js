@@ -11,16 +11,20 @@ export const defaultItems = [
     { id: '8', label: "E", metadata: 'someone@lorem.ipsum' },
     { id: '9', label: "F", metadata: 'someone@lorem.ipsum' },
     { id: '10', label: "G", metadata: 'someone@lorem.ipsum' },
+    { id: '11', label: "H", metadata: 'someone@lorem.ipsum' },
+    { id: '12', label: "I", metadata: 'someone@lorem.ipsum' },
+    { id: '13', label: "J", metadata: 'someone@lorem.ipsum' },
+    { id: '14', label: "K", metadata: 'someone@lorem.ipsum' },
 ]
 
 export const defaultNestedItems = [
-    { id: 'a', label: 'G1', items: defaultItems },
-    { id: 'b', label: 'G2', items: [
-        { id: '11', key: 'G2/1', label: "Something", metadata: 'someone@lorem.ipsum', tooltip: 'Test tooltip' },
-        { id: '12', label: "D", metadata: 'someone@lorem.ipsum' },
-        { id: '13', label: "E", metadata: 'someone@lorem.ipsum' },
-        { id: '14', label: "F", metadata: 'someone@lorem.ipsum' },
-        { id: '15', label: "G", metadata: 'someone@lorem.ipsum', tooltip: 'Something else' },
+    { id: '100', label: 'G1', items: defaultItems },
+    { id: '101', label: 'G2', items: [
+        { id: '102', key: 'G2/1', label: "Something", metadata: 'someone@lorem.ipsum', tooltip: 'Test tooltip' },
+        { id: '103', label: "D", metadata: 'someone@lorem.ipsum' },
+        { id: '104', label: "E", metadata: 'someone@lorem.ipsum' },
+        { id: '105', label: "F", metadata: 'someone@lorem.ipsum' },
+        { id: '106', label: "G", metadata: 'someone@lorem.ipsum', tooltip: 'Something else' },
     ] },
 ]
 
@@ -31,4 +35,6 @@ export const defaultSimpleItems = [
     { id: 'd', label: 'D' },
     { id: 'e', label: 'E' },
     { id: 'f', label: 'F' },
+    { id: 'g', label: 'G' },
+    { id: 'h', label: 'H' },
 ]

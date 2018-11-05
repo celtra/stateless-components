@@ -1,5 +1,6 @@
 export default {
-    name: 'Chip',
+    metaName: 'Chip',
+    width: 120,
     variations: {
         theme: ['dark', 'light'],
         isActive: [false, true],
@@ -8,10 +9,12 @@ export default {
     },
     usecases: [
         {
-            label: 'Label',
+            name: 'Basic',
+            label: 'Add filter',
         },
         {
-            label: 'Label',
+            name: 'With metadata',
+            label: 'Creatives',
             metadata: '3/9',
         },
     ],

@@ -1,11 +1,13 @@
 export default {
-    name: 'DropArea',
+    metaName: 'DropArea',
+    hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
     },
     usecases: [
         {
+            name: 'Basic',
             dragActive: true,
         },
     ],

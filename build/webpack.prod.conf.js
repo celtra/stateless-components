@@ -7,9 +7,9 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
     ? require('../config/test.env')
@@ -26,8 +26,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     devtool: config.build.productionSourceMap ? config.build.devtool : false,
     output: {
         path: config.build.assetsRoot,
-        filename: utils.assetsPath('js/[name].[chunkhash].js'),
-        chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
+        publicPath: config.build.assetsPublicPath,
+        filename: 'js/[name].[chunkhash].js',
+        chunkFilename: 'js/[id].[chunkhash].js',
     },
     plugins: [
         // http://vuejs.github.io/vue-loader/en/workflow/production.html

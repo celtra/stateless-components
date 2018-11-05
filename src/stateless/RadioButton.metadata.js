@@ -3,17 +3,24 @@ function defaultSlot (h) {
 }
 
 export default {
-    name: 'RadioButton',
+    metaName: 'RadioButton',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
         disabled: [false, true],
         selectedValue: ['none', 'something'],
     },
+    forceValueSync: true,
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Value A',
+            scopedSlots: { default: () => 'Something' },
             value: 'something',
+        },
+        {
+            name: 'Value B',
+            scopedSlots: { default: () => 'Something else' },
+            value: 'something else',
         },
     ],
 }

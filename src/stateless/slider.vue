@@ -126,6 +126,7 @@ export default {
     },
     beforeCreate () {
         this.ticksCount = 20
+        this.decimalPrecision = 1
     },
     created () {
         if (this.decimalPlacesCount > 1) {
@@ -153,8 +154,6 @@ export default {
         if (this.value < this.min || this.value > this.max) {
             throw new Error('Value must be between min and max.')
         }
-
-        this.decimalPrecision = 1
     },
     mounted () {
         this.isDomReady = true

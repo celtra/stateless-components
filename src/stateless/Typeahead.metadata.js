@@ -1,7 +1,8 @@
 export default {
-    name: 'Typeahead',
+    metaName: 'Typeahead',
     usecases: [
         {
+            name: 'Basic',
             label: 'Something',
             value: 'Lorem',
             getSuggestions: () => [

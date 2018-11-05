@@ -14,17 +14,19 @@ function actionSlot (h) {
 }
 
 export default {
-    name: 'Toast',
+    metaName: 'Toast',
     hasAbsolutePosition: true,
     variations: {
         theme: ['dark', 'light'],
     },
     usecases: [
         {
+            name: 'Basic',
             setup: setup,
             slot: slot,
         },
         {
+            name: 'With action',
             setup: setup,
             slot: slot,
             scopedSlots: {

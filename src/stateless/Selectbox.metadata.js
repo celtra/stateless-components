@@ -1,7 +1,7 @@
 import { defaultItems } from './demo_data'
 
 export default {
-    name: 'Selectbox',
+    metaName: 'Selectbox',
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
@@ -9,10 +9,23 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             options: defaultItems,
             isSearchable: true,
             isUnselectable: true,
             label: 'Something',
+        },
+        {
+            testOnly: true,
+            name: 'Open',
+            options: defaultItems,
+            isSearchable: true,
+            isUnselectable: true,
+            label: 'Something',
+            setup (vm) {
+                vm.openSelectList()
+            },
+            disabled: false,
         },
     ],
 }

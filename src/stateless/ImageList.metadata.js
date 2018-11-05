@@ -1,7 +1,8 @@
 export default {
-    name: 'ImageList',
+    metaName: 'ImageList',
     usecases: [
         {
+            name: 'Basic',
             images: [
                 {},
                 {},

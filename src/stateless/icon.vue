@@ -189,6 +189,10 @@
         <svg v-if="name === 'minus'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 8">
             <rect class="path" x="0" y="0" width="24" height="8"/>
         </svg>
+
+        <svg v-if="name === 'update'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 16">
+            <path class="path" d="M7.5 3c1.2 0 2.2.4 3.2 1H8v2h6V0h-2v2.5C10.7 1.5 9.2 1 7.5 1 3.6 1 .3 4 0 7.9l2 .2C2.2 5.2 4.6 3 7.5 3zM6.5 13c-1.2 0-2.2-.4-3.2-1H6v-2H0v6h2v-2.5c1.3 1 2.8 1.5 4.5 1.5 3.9 0 7.2-3 7.5-6.9l-2-.2c-.2 2.9-2.6 5.1-5.5 5.1z"/>
+        </svg>
     </div>
 </template>
 
