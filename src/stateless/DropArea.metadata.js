@@ -7,6 +7,7 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             dragActive: true,
         },
     ],

@@ -1,30 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Slider computed usecase-0__ decimalPlacesCount 1`] = `0`;
-
-exports[`Slider computed usecase-0__ isWholeNumber 1`] = `true`;
-
-exports[`Slider computed usecase-0__ labelsActiveClass 1`] = `
+exports[`Slider computed left labelsActiveClass 1`] = `
 Object {
   "max": Object {
     "active": false,
   },
   "min": Object {
-    "active": true,
+    "active": false,
   },
 }
 `;
 
-exports[`Slider computed usecase-0__ lastActiveIndex 1`] = `4`;
+exports[`Slider computed left lastActiveIndex 1`] = `NaN`;
 
-exports[`Slider computed usecase-0__ limitValue 1`] = `20`;
+exports[`Slider computed left limitValue 1`] = `undefined`;
 
-exports[`Slider computed usecase-0__ maxLabelValue 1`] = `"20"`;
+exports[`Slider computed left position 1`] = `NaN`;
 
-exports[`Slider computed usecase-0__ minLabelValue 1`] = `"1"`;
+exports[`Slider computed left sliderWidth 1`] = `0`;
 
-exports[`Slider computed usecase-0__ position 1`] = `0`;
+exports[`Slider computed left stepsCount 1`] = `NaN`;
 
-exports[`Slider computed usecase-0__ sliderWidth 1`] = `0`;
+exports[`Slider computed left, disabled labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
 
-exports[`Slider computed usecase-0__ stepsCount 1`] = `19`;
+exports[`Slider computed left, disabled lastActiveIndex 1`] = `NaN`;
+
+exports[`Slider computed left, disabled limitValue 1`] = `undefined`;
+
+exports[`Slider computed left, disabled position 1`] = `NaN`;
+
+exports[`Slider computed left, disabled sliderWidth 1`] = `0`;
+
+exports[`Slider computed left, disabled stepsCount 1`] = `NaN`;
+
+exports[`Slider computed right labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
+
+exports[`Slider computed right lastActiveIndex 1`] = `NaN`;
+
+exports[`Slider computed right limitValue 1`] = `undefined`;
+
+exports[`Slider computed right position 1`] = `NaN`;
+
+exports[`Slider computed right sliderWidth 1`] = `0`;
+
+exports[`Slider computed right stepsCount 1`] = `NaN`;
+
+exports[`Slider computed right, disabled labelsActiveClass 1`] = `
+Object {
+  "max": Object {
+    "active": false,
+  },
+  "min": Object {
+    "active": false,
+  },
+}
+`;
+
+exports[`Slider computed right, disabled lastActiveIndex 1`] = `NaN`;
+
+exports[`Slider computed right, disabled limitValue 1`] = `undefined`;
+
+exports[`Slider computed right, disabled position 1`] = `NaN`;
+
+exports[`Slider computed right, disabled sliderWidth 1`] = `0`;
+
+exports[`Slider computed right, disabled stepsCount 1`] = `NaN`;

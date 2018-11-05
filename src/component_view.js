@@ -10,7 +10,7 @@ const vm = new Vue({
         return {
             componentName: null,
             props: {},
-            usecaseIndex: 0,
+            usecaseName: 0,
         }
     },
     computed: {
@@ -25,7 +25,7 @@ const vm = new Vue({
             if (!this.component || !this.component.usecases) {
                 return null
             }
-            return this.component.usecases[this.usecaseIndex]
+            return this.component.usecases.find(u => u.name === this.usecaseName)
         },
     },
     methods: {
@@ -42,30 +42,35 @@ const vm = new Vue({
 
         const props = { ...this.props, ...this.usecase }
 
-        let slot = this.usecase && this.usecase.slot ? this.usecase.slot.bind(props)(h) : null
-        if (typeof slot === 'string') {
-            slot = this._v(slot)
-        }
-
         const scopedSlots = {}
         if (this.usecase && this.usecase.scopedSlots) {
             for (const name in this.usecase.scopedSlots) {
-                scopedSlots[name] = this.usecase.scopedSlots[name].bind(props)(h)
+                scopedSlots[name] = () => this.usecase.scopedSlots[name].bind(props)(h)
             }
         }
 
-        return h('div', { style: { width: '640px', padding: '20px', boxSizing: 'border-box', position: 'relative' }, attrs: { id: 'container' } }, [
-            h(this.component, { props: props, scopedSlots: scopedSlots }, slot ? [slot] : []),
+        let slot = null
+        if (scopedSlots.default) {
+            slot = scopedSlots.default()
+            if (typeof slot === 'string') {
+                slot = this._v(slot)
+            }
+            delete scopedSlots.default
+        }
+
+        return h('div', { style: { width: '640px', position: 'relative' }, attrs: { id: 'container' } }, [
+            h(this.component, { props: props, scopedSlots: scopedSlots, style: { margin: '0', width: '100%' } }, slot ? [slot] : []),
         ])
     },
 })
 
-window.setComponent = (componentName, props, usecaseIndex) => {
+window.setComponent = (componentName, props, usecaseName) => {
     vm.componentName = componentName
     vm.props = props
-    vm.usecaseIndex = usecaseIndex
+    vm.usecaseName = usecaseName
 
     const bgColor = props.theme === 'dark' ? '#1f1f2c' : '#f2f2f3'
+    document.body.style.margin = '0'
     document.body.style.backgroundColor = bgColor
 
     const readyDomElement = document.createElement('div')

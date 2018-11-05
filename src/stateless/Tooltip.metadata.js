@@ -15,8 +15,9 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             setup: setup,
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             title: 'Some',
             show: true,
         },

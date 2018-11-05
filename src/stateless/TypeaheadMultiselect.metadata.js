@@ -1,6 +1,7 @@
 export default {
     usecases: [
         {
+            name: 'Basic',
             label: 'Something',
             value: [],
             getSuggestions: (text) => {

@@ -12,10 +12,12 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             setup: setup,
             label: 'Label',
         },
         {
+            name: 'With action',
             setup: setup,
             label: 'Label',
             actionLabel: 'Action',

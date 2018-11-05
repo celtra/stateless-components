@@ -103,6 +103,8 @@ exports[`DialogHeader should match the snapshot 1`] = `
         <!---->
          
         <!---->
+         
+        <!---->
       </div>
     </div>
      
@@ -187,6 +189,8 @@ exports[`DialogHeader should match the snapshot 1`] = `
             fill-rule="nonzero"
           />
         </svg>
+         
+        <!---->
          
         <!---->
          

@@ -3,9 +3,12 @@ export default {
     variations: {
         theme: ['dark', 'light'],
         size: ['condensed', 'normal', 'phat'],
+        disabled: [false, true],
+        alignment: ['left', 'right'],
     },
     usecases: [
         {
+            name: 'Basic',
             min: 1,
             max: 100,
             limit: 20,
@@ -13,7 +16,6 @@ export default {
             label: 'Basic slider',
             value: 5,
             unit: '%',
-            alignment: 'right',
         },
     ],
 }

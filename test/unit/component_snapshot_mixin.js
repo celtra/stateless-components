@@ -1,10 +1,12 @@
 import { toMatchImageSnapshot } from 'jest-image-snapshot'
 expect.extend({ toMatchImageSnapshot })
-import { getFlatUsecases } from '../../src/component_utils'
+import ComponentConfigurations from '../../src/component_utils'
 import Vue from 'vue'
 import puppeteer from 'puppeteer-core'
 
 export default function testSnapshots (component) {
+    const configurations = new ComponentConfigurations(component)
+
     describe('rendered image', () => {
         const fs = require('fs')
         const path = require('path')
@@ -18,7 +20,7 @@ export default function testSnapshots (component) {
             })
         })
 
-        const usecases = getFlatUsecases(component)
+        const usecases = configurations.getCombinations()
 
         jest.setTimeout(usecases.length * 20 * 1000)
 
@@ -28,8 +30,8 @@ export default function testSnapshots (component) {
                     const page = await browser.newPage()
 
                     const errors = []
-                    page.on('error', e => errors.push(e))
-                    page.on('pageerror', e => errors.push(e))
+                    page.on('error', e => console.log(e))
+                    page.on('pageerror', e => console.log(e))
 
                     page.setContent(`
                         <!DOCTYPE html>
@@ -41,7 +43,7 @@ export default function testSnapshots (component) {
                         <body>
                             <div id="app"></div>
                             <script>${compiledScript}</script>
-                            <script>setComponent('${component.metaName}', ${JSON.stringify(usecase.data)}, ${usecase.usecaseIndex})</script>
+                            <script>setComponent('${component.metaName}', ${JSON.stringify(usecase.data)}, '${usecase.data.usecaseName}')</script>
                         </body>
                         </html>
                     `)
@@ -62,7 +64,7 @@ export default function testSnapshots (component) {
                     }
 
                     try {
-                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.metaName}__${usecase.name}` })
+                        expect(image).toMatchImageSnapshot({ customSnapshotIdentifier: `${component.metaName}__${usecase.name.replace(/,?\s/g, '-').toLowerCase()}` })
                     } catch (error) {
                         const formattedUsecase = Object.keys(usecase.data)
                             .sort((a, b) => a.localeCompare(b))
@@ -82,7 +84,7 @@ export default function testSnapshots (component) {
     })
 
     describe('computed', () => {
-        const usecases = getFlatUsecases(component, ['theme', 'size'])
+        const usecases = configurations.getCombinations(['theme', 'size'])
         for (const usecase of usecases) {
             const Constructor = Vue.extend(component)
             const vm = new Constructor({

@@ -20,8 +20,9 @@ export default {
     },
     usecases: [
         {
+            name: 'Basic',
             setup: setup,
-            slot: defaultSlot,
+            scopedSlots: { default: defaultSlot },
             steps: [
                 { id: 'a', passiveLabel: 'A', activeLabel: 'A' },
                 { id: 'b', passiveLabel: 'B', activeLabel: 'B' },

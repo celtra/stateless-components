@@ -4,20 +4,24 @@ function defaultSlot (h) {
 
 export default {
     metaName: 'DialogButton',
+    width: 300,
     variations: {
         disabled: [false, true],
         // loading: [false, true], We would have to disable animation to test this
     },
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Success',
+            scopedSlots: { default: defaultSlot },
         },
         {
-            slot: defaultSlot,
+            name: 'Warning',
+            scopedSlots: { default: defaultSlot },
             warning: true,
         },
         {
-            slot: defaultSlot,
+            name: 'Error',
+            scopedSlots: { default: defaultSlot },
             error: true,
         },
     ],

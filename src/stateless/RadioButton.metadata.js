@@ -10,10 +10,17 @@ export default {
         disabled: [false, true],
         selectedValue: ['none', 'something'],
     },
+    forceValueSync: true,
     usecases: [
         {
-            slot: defaultSlot,
+            name: 'Value A',
+            scopedSlots: { default: () => 'Something' },
             value: 'something',
+        },
+        {
+            name: 'Value B',
+            scopedSlots: { default: () => 'Something else' },
+            value: 'something else',
         },
     ],
 }

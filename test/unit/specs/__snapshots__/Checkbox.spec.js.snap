@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Checkbox computed usecase-0__disabled-false_value-false actualTitleText 1`] = `""`;
+exports[`Checkbox computed Basic actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-false infoText 1`] = `""`;
+exports[`Checkbox computed Basic actualTitleText 2`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-false states 1`] = `
+exports[`Checkbox computed Basic infoText 1`] = `""`;
+
+exports[`Checkbox computed Basic infoText 2`] = `""`;
+
+exports[`Checkbox computed Basic states 1`] = `
 Object {
   "checked": false,
   "disabled": false,
@@ -15,11 +19,7 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-null actualTitleText 1`] = `""`;
-
-exports[`Checkbox computed usecase-0__disabled-false_value-null infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-0__disabled-false_value-null states 1`] = `
+exports[`Checkbox computed Basic states 2`] = `
 Object {
   "checked": false,
   "disabled": false,
@@ -30,11 +30,11 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-true actualTitleText 1`] = `""`;
+exports[`Checkbox computed Basic, value actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-true infoText 1`] = `""`;
+exports[`Checkbox computed Basic, value infoText 1`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-false_value-true states 1`] = `
+exports[`Checkbox computed Basic, value states 1`] = `
 Object {
   "checked": true,
   "disabled": false,
@@ -45,56 +45,15 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-0__disabled-true_value-false actualTitleText 1`] = `""`;
+exports[`Checkbox computed Toggle actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-true_value-false infoText 1`] = `""`;
+exports[`Checkbox computed Toggle actualTitleText 2`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-true_value-false states 1`] = `
-Object {
-  "checked": false,
-  "disabled": true,
-  "error": false,
-  "focused": false,
-  "some": false,
-  "warning": false,
-}
-`;
+exports[`Checkbox computed Toggle infoText 1`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-true_value-null actualTitleText 1`] = `""`;
+exports[`Checkbox computed Toggle infoText 2`] = `""`;
 
-exports[`Checkbox computed usecase-0__disabled-true_value-null infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-0__disabled-true_value-null states 1`] = `
-Object {
-  "checked": false,
-  "disabled": true,
-  "error": false,
-  "focused": false,
-  "some": true,
-  "warning": false,
-}
-`;
-
-exports[`Checkbox computed usecase-0__disabled-true_value-true actualTitleText 1`] = `""`;
-
-exports[`Checkbox computed usecase-0__disabled-true_value-true infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-0__disabled-true_value-true states 1`] = `
-Object {
-  "checked": true,
-  "disabled": true,
-  "error": false,
-  "focused": false,
-  "some": false,
-  "warning": false,
-}
-`;
-
-exports[`Checkbox computed usecase-1__disabled-false_value-false actualTitleText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-false_value-false infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-false_value-false states 1`] = `
+exports[`Checkbox computed Toggle states 1`] = `
 Object {
   "checked": false,
   "disabled": false,
@@ -105,11 +64,7 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-1__disabled-false_value-null actualTitleText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-false_value-null infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-false_value-null states 1`] = `
+exports[`Checkbox computed Toggle states 2`] = `
 Object {
   "checked": false,
   "disabled": false,
@@ -120,11 +75,11 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-1__disabled-false_value-true actualTitleText 1`] = `""`;
+exports[`Checkbox computed Toggle, value actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-false_value-true infoText 1`] = `""`;
+exports[`Checkbox computed Toggle, value infoText 1`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-false_value-true states 1`] = `
+exports[`Checkbox computed Toggle, value states 1`] = `
 Object {
   "checked": true,
   "disabled": false,
@@ -135,11 +90,15 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-false actualTitleText 1`] = `""`;
+exports[`Checkbox computed disabled, Basic actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-false infoText 1`] = `""`;
+exports[`Checkbox computed disabled, Basic actualTitleText 2`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-false states 1`] = `
+exports[`Checkbox computed disabled, Basic infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Basic infoText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Basic states 1`] = `
 Object {
   "checked": false,
   "disabled": true,
@@ -150,11 +109,7 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-null actualTitleText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-true_value-null infoText 1`] = `""`;
-
-exports[`Checkbox computed usecase-1__disabled-true_value-null states 1`] = `
+exports[`Checkbox computed disabled, Basic states 2`] = `
 Object {
   "checked": false,
   "disabled": true,
@@ -165,11 +120,56 @@ Object {
 }
 `;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-true actualTitleText 1`] = `""`;
+exports[`Checkbox computed disabled, Basic, value actualTitleText 1`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-true infoText 1`] = `""`;
+exports[`Checkbox computed disabled, Basic, value infoText 1`] = `""`;
 
-exports[`Checkbox computed usecase-1__disabled-true_value-true states 1`] = `
+exports[`Checkbox computed disabled, Basic, value states 1`] = `
+Object {
+  "checked": true,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle actualTitleText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle infoText 2`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": false,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle states 2`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "some": true,
+  "warning": false,
+}
+`;
+
+exports[`Checkbox computed disabled, Toggle, value actualTitleText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle, value infoText 1`] = `""`;
+
+exports[`Checkbox computed disabled, Toggle, value states 1`] = `
 Object {
   "checked": true,
   "disabled": true,

@@ -1,38 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none infoText 1`] = `""`;
+exports[`RadioButton computed disabled, none, Value A infoText 1`] = `""`;
 
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none labelText 1`] = `""`;
+exports[`RadioButton computed disabled, none, Value A labelText 1`] = `""`;
 
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-none states 1`] = `
-Object {
-  "checked": false,
-  "disabled": false,
-  "error": false,
-  "focused": false,
-  "warning": false,
-}
-`;
-
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something infoText 1`] = `""`;
-
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something labelText 1`] = `""`;
-
-exports[`RadioButton computed usecase-0__disabled-false_selectedValue-something states 1`] = `
-Object {
-  "checked": true,
-  "disabled": false,
-  "error": false,
-  "focused": false,
-  "warning": false,
-}
-`;
-
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none infoText 1`] = `""`;
-
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none labelText 1`] = `""`;
-
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-none states 1`] = `
+exports[`RadioButton computed disabled, none, Value A states 1`] = `
 Object {
   "checked": false,
   "disabled": true,
@@ -42,14 +14,98 @@ Object {
 }
 `;
 
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something infoText 1`] = `""`;
+exports[`RadioButton computed disabled, none, Value B infoText 1`] = `""`;
 
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something labelText 1`] = `""`;
+exports[`RadioButton computed disabled, none, Value B labelText 1`] = `""`;
 
-exports[`RadioButton computed usecase-0__disabled-true_selectedValue-something states 1`] = `
+exports[`RadioButton computed disabled, none, Value B states 1`] = `
 Object {
-  "checked": true,
+  "checked": false,
   "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed disabled, something, Value A infoText 1`] = `""`;
+
+exports[`RadioButton computed disabled, something, Value A labelText 1`] = `""`;
+
+exports[`RadioButton computed disabled, something, Value A states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed disabled, something, Value B infoText 1`] = `""`;
+
+exports[`RadioButton computed disabled, something, Value B labelText 1`] = `""`;
+
+exports[`RadioButton computed disabled, something, Value B states 1`] = `
+Object {
+  "checked": false,
+  "disabled": true,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed none, Value A infoText 1`] = `""`;
+
+exports[`RadioButton computed none, Value A labelText 1`] = `""`;
+
+exports[`RadioButton computed none, Value A states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed none, Value B infoText 1`] = `""`;
+
+exports[`RadioButton computed none, Value B labelText 1`] = `""`;
+
+exports[`RadioButton computed none, Value B states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed something, Value A infoText 1`] = `""`;
+
+exports[`RadioButton computed something, Value A labelText 1`] = `""`;
+
+exports[`RadioButton computed something, Value A states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
+  "error": false,
+  "focused": false,
+  "warning": false,
+}
+`;
+
+exports[`RadioButton computed something, Value B infoText 1`] = `""`;
+
+exports[`RadioButton computed something, Value B labelText 1`] = `""`;
+
+exports[`RadioButton computed something, Value B states 1`] = `
+Object {
+  "checked": false,
+  "disabled": false,
   "error": false,
   "focused": false,
   "warning": false,
