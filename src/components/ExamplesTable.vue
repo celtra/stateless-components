@@ -115,7 +115,6 @@ export default {
 
     &_active {
         background-color: rgba(122, 122, 122, 0.15);
-
     }
 
     &_firstRow {

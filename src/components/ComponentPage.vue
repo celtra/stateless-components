@@ -58,7 +58,6 @@
         </div>
 
         <div v-click-outside="closeOpenEvent" v-if="isEventsListOpen && events.length > 0" :class="[$style.sidebar, $style.events]">
-            <!-- <p :class="$style.eventsTitle">Events</p> -->
             <default-list :items="events.slice().reverse()" :theme="theme" @select="openEventIndex = $event.id">
                 <div slot-scope="{ item }" :class="[$style.sidebarItem, { [$style.sidebarItem_active]: item.id === openEventIndex }]">
                     <p v-if="item" :class="$style.eventName">{{ item.componentName }}: {{ item.name }}</p>
@@ -108,9 +107,7 @@ export default {
             name: null,
             events: [],
             openEventIndex: null,
-            showThemeToggle: true,
             showSnapshotImagesData: false,
-            isThemeLight: true,
             boundsVisibleData: false,
             filters: {},
             isEventsListOpenData: false,
@@ -240,6 +237,8 @@ export default {
                             }
                             newFilters[name] = newValue
                         }
+                    } else {
+                        throw `Filter with value '${filterValue}' is not valid!`
                     }
                 }
             }
@@ -257,9 +256,6 @@ export default {
                     this.events = this.events.slice(20)
                 }
             }
-        },
-        setFilter (name, value) {
-
         },
         updateUrlFilters () {
             const value = Object.keys(this.filters).sort().map(name => `${name}=${this.filters[name]}`).join('&')
@@ -343,6 +339,7 @@ export default {
         }
     }
 }
+
 .main {
     &_light {
         .theme(white, #f2f2f3, #333, black);

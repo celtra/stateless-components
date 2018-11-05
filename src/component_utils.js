@@ -58,12 +58,12 @@ export default class ComponentConfigurations {
                 return null
             }
             return res
-        })
+        }).filter(x => x)
 
         const configurationKey = [this.component.metaName].concat(names.map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
 
         return {
-            name: nameParts.filter(x => x).join(', ') || ' ',
+            name: nameParts.join(', ') || ' ',
             key: configurationKey,
         }
     }

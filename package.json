@@ -16,6 +16,10 @@
     "heroku-postbuild": "node build/build.js",
     "start": "node server.js"
   },
+  "pre-commit": [
+    "build",
+    "git-add"
+  ],
   "dependencies": {
     "express": "4.16.3",
     "lodash.debounce": "4.0.8",

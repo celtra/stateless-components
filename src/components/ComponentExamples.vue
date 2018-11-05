@@ -9,7 +9,7 @@
                             <p :class="$style.flatName">{{ item }}</p>
                         </template>
                         <template v-else-if="typeof item === 'object'">
-                            <div :class="$style.boundingBox" class="bounding-box">
+                            <div :class="$style.boundingBox" class="bounding-box" @click="copyCode">
                                 <div v-if="showSnapshot" :class="$style.snapshotImage">
                                     <img :src="`/static/snapshots/images/${component.metaName}__${item.name.replace(/,?\s/g, '-').toLowerCase()}-snap.png`" />
                                 </div>
@@ -141,7 +141,7 @@ export default {
                     themeCss: themeCss || themesCss.light,
                 } : null
                 const columnItems = [
-                    ...(!firstColumn ? [] : [firstColumn]),
+                    ...(firstColumn ? [firstColumn] : []),
                     ...columnValues.map((columnValue, index) => {
                         return {
                             title: this.splitByProp.column ? this.configurations.extractFromConfiguration({ [this.splitByProp.column]: columnValue }).name : ' ',
@@ -212,16 +212,11 @@ export default {
 <style lang="less" module>
 @border-radius: 4px;
 
-.component {
-
-}
-
 .boundingBox {
     width: calc(~'100% - 30px');
     display: flex;
     border: 1px solid transparent;
     box-sizing: border-box;
-
 }
 
 .table {

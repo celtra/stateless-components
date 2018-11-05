@@ -48,7 +48,7 @@ export default {
         }
     },
     mounted () {
-        const original = Vue.prototype.$emit
+        const originalEmitFn = Vue.prototype.$emit
         const self = this
         const rootUid = this.$children[0]._uid
         const componentName = this.component.metaName
@@ -59,7 +59,7 @@ export default {
                 }
             }
 
-            const res = original.apply(this, args)
+            const res = originalEmitFn.apply(this, args)
             return res
         }
 
