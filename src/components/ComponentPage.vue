@@ -253,7 +253,7 @@ export default {
                 this.eventCount ++
 
                 if (this.events.length > 50) {
-                    this.events = this.events.slice(20)
+                    this.events = this.events.slice(50)
                 }
             }
         },
