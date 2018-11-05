@@ -303,6 +303,7 @@ export default {
     cursor: pointer;
 }
 
+// This is main_bounds css-module class. Here we use basic CSS (because .bounding-box is not a css-module class) so we need to have the hash here.
 ._15UTCNegfx39jtQolGR6PZ_1 {
     .bounding-box {
         background-color: rgba(33, 150, 234, 0.2);
