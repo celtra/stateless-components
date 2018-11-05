@@ -48,8 +48,10 @@ export default class ComponentConfigurations {
                 res = (typeof value === 'undefined' || value === true ? kebabName : (hideNot ? '' : `not ${kebabName}`))
             } else if (typeof value === 'undefined') {
                 res = kebabName
+            } else if (value) {
+                res = opts.addName ? `${value} ${kebabName}` : value
             } else {
-                res = value ? (opts.addName ? `${value} ${kebabName}` : value) : ''
+                res = ''
             }
 
             res = res.trim(' ')
@@ -60,11 +62,9 @@ export default class ComponentConfigurations {
             return res
         }).filter(x => x)
 
-        const configurationKey = [this.component.metaName].concat(names.map(x => this.valuesByName[x].indexOf(data[x]))).join('-')
-
         return {
             name: nameParts.join(', ') || ' ',
-            key: configurationKey,
+            key: [this.component.metaName].concat(names.map(x => this.valuesByName[x].indexOf(data[x]))).join('-'),
         }
     }
 }

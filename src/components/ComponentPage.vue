@@ -23,7 +23,7 @@
         </div>
 
         <div :class="$style.logo">
-            <img src="https://nbcqbz4aqm-flywheel.netdna-ssl.com/wp-content/themes/celtra/images/celtra-logo.svg" />
+            <img src="/static/celtra-logo.svg" />
         </div>
 
         <div :class="$style.filters">

@@ -5101,7 +5101,7 @@ $exports.store = store;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__ = __webpack_require__(84);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_563f6cf4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4ea9e1da_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(303);
 function injectStyle (ssrContext) {
   __webpack_require__(301)
 }
@@ -5116,12 +5116,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-563f6cf4"
+var __vue_scopeId__ = "data-v-4ea9e1da"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_563f6cf4_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4ea9e1da_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -37690,7 +37690,7 @@ var content = __webpack_require__(302);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("67721f65", content, true, {});
+var update = __webpack_require__(2)("8e18813c", content, true, {});
 
 /***/ }),
 /* 302 */
@@ -37701,7 +37701,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.icon-wrapper[data-v-563f6cf4] {\n  font-size: 0;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-563f6cf4] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-563f6cf4] {\n  fill: currentColor;\n}\n.stroke-path[data-v-563f6cf4] {\n  stroke: currentColor;\n}\n.spin[data-v-563f6cf4] {\n  -webkit-animation: SPIN-data-v-563f6cf4 1s ease-out infinite;\n          animation: SPIN-data-v-563f6cf4 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-563f6cf4 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-563f6cf4 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/icon.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;CACtB;AACD;EACE,6DAA6D;UACrD,qDAAqD;CAC9D;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA","file":"icon.vue","sourcesContent":["\n.icon-wrapper[data-v-563f6cf4] {\n  font-size: 0;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-563f6cf4] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-563f6cf4] {\n  fill: currentColor;\n}\n.stroke-path[data-v-563f6cf4] {\n  stroke: currentColor;\n}\n.spin[data-v-563f6cf4] {\n  -webkit-animation: SPIN-data-v-563f6cf4 1s ease-out infinite;\n          animation: SPIN-data-v-563f6cf4 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-563f6cf4 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-563f6cf4 {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.icon-wrapper[data-v-4ea9e1da] {\n  font-size: 0;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-4ea9e1da] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-4ea9e1da] {\n  fill: currentColor;\n}\n.stroke-path[data-v-4ea9e1da] {\n  stroke: currentColor;\n}\n.spin[data-v-4ea9e1da] {\n  -webkit-animation: SPIN-data-v-4ea9e1da 1s ease-out infinite;\n          animation: SPIN-data-v-4ea9e1da 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-4ea9e1da {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-4ea9e1da {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n", "", {"version":3,"sources":["/Users/zan/Documents/Celtra/stateless-components/src/stateless/icon.vue"],"names":[],"mappings":";AACA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;AACD;EACE,YAAY;EACZ,aAAa;CACd;AACD;EACE,mBAAmB;CACpB;AACD;EACE,qBAAqB;CACtB;AACD;EACE,6DAA6D;UACrD,qDAAqD;CAC9D;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA;AACD;AACA;IACI,6BAA6B;YACrB,qBAAqB;CAChC;AACD;IACI,kCAAkC;YAC1B,0BAA0B;CACrC;CACA","file":"icon.vue","sourcesContent":["\n.icon-wrapper[data-v-4ea9e1da] {\n  font-size: 0;\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.icon-wrapper > svg[data-v-4ea9e1da] {\n  width: 100%;\n  height: 100%;\n}\n.path[data-v-4ea9e1da] {\n  fill: currentColor;\n}\n.stroke-path[data-v-4ea9e1da] {\n  stroke: currentColor;\n}\n.spin[data-v-4ea9e1da] {\n  -webkit-animation: SPIN-data-v-4ea9e1da 1s ease-out infinite;\n          animation: SPIN-data-v-4ea9e1da 1s ease-out infinite;\n}\n@-webkit-keyframes SPIN-data-v-4ea9e1da {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n@keyframes SPIN-data-v-4ea9e1da {\n0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n}\n100% {\n    -webkit-transform: rotate(720deg);\n            transform: rotate(720deg);\n}\n}\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -37738,7 +37738,7 @@ function defaultSlot(h) {
 /* harmony default export */ __webpack_exports__["a"] = ({
     metaName: 'Checkbox',
     variations: {
-        theme: ['dark', 'white'], // TODO: Removed light for demo
+        theme: ['dark', 'light', 'white'],
         size: ['condensed', 'normal', 'phat'],
         value: [true, false, null],
         disabled: [false, true]
@@ -40038,8 +40038,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = ({
     metaName: 'Icon',
     variations: {
-        // TODO: Add 'back' value, removed because it doesn't preserve aspect ratio
-        name: ['pencil-edit', 'pencil-edit-line', 'delete-icon', 'duplicate-icon', 'sort-arrow', 'calendar', 'backward', 'save', 'arrow-down-strong', 'loading', 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow', 'search', 'clear', 'close', 'mail', 'screen-download', 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold', 'alpha', 'beta', 'caret', 'list-search', 'bars', 'check']
+        name: ['pencil-edit', 'pencil-edit-line', 'delete-icon', 'duplicate-icon', 'sort-arrow', 'calendar', 'backward', 'save', 'arrow-down-strong', 'loading', 'funnel', 'remove', 'plus', 'left-arrow', 'right-arrow', 'search', 'clear', 'close', 'mail', 'screen-download', 'card-edit', 'chain-link', 'clock', 'sort', 'x-bold', 'alpha', 'beta', 'caret', 'list-search', 'bars', 'check', 'back']
     },
     usecases: [{
         name: 'Basic'
