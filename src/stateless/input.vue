@@ -1,10 +1,10 @@
 <template>
     <div :class="['input--' + size, 'input--' + theme]" :id="label | slugify" class="input">
-        <div v-if="$scopedSlots.before" class="input__icon-prepend">
+        <div v-if="$slots.before || $scopedSlots.before" class="input__icon-prepend">
             <slot name="before"></slot>
         </div>
 
-        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!$scopedSlots.before }" :title="mappedDisabledText" class="input-field">
+        <div ref="inputWrap" :class="{ 'input-field--with-icon': !!($slots.before || $scopedSlots.before) }" :title="mappedDisabledText" class="input-field">
             <template v-if="label !== undefined">
                 <div v-if="!disabled" ref="labelOverlay" :class="cssStates | prefix('input-field__overlay--')" class="input-field__overlay">
                     {{ label }}
@@ -15,7 +15,7 @@
             </template>
 
             <div :class="cssStates | prefix('input-row--')" class="input-row">
-                <div v-if="$scopedSlots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
+                <div v-if="$slots.left || $scopedSlots.left" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--left">
                     <slot name="left"></slot>
                 </div>
 
@@ -43,7 +43,7 @@
                            @keyup="$emit('keyup', $event)" @keyup.esc.stop="blur" @paste="$emit('paste', $event)" @input="onInput" @focus="setFocus" @blur="removeFocus"/>
                 </div>
 
-                <div v-if="$scopedSlots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
+                <div v-if="$slots.right || $scopedSlots.right" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right">
                     <slot name="right"></slot>
                 </div>
                 <div v-else-if="type==='password'" :class="cssStates | prefix('input-row__unit--')" class="input-row__unit input-row__unit--right" @click="togglePasswordVisibility">
