@@ -14,7 +14,8 @@
     "build": "node build/build-library.js",
     "build-component-view": "node build/build-component-view.js",
     "heroku-postbuild": "node build/build.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "git-add": "git add index.js index.js.map"
   },
   "pre-commit": [
     "build",
