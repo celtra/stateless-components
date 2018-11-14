@@ -14,7 +14,8 @@
     "build": "node build/build-library.js",
     "build-component-view": "node build/build-component-view.js",
     "heroku-postbuild": "node build/build.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "git-add": "git add index.js index.js.map"
   },
   "pre-commit": [
     "build",
@@ -67,6 +68,7 @@
     "postcss-import": "11.1.0",
     "postcss-loader": "2.1.5",
     "postcss-url": "7.3.2",
+    "pre-commit": "1.2.2",
     "puppeteer-core": "^1.8.0",
     "rimraf": "2.6.2",
     "selenium-server": "3.12.0",
