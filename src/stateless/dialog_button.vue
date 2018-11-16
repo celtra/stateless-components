@@ -74,6 +74,7 @@ export default {
 }
 
 .dialog-button__link {
+    color: black;
     text-decoration: none;
 }
 
