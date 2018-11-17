@@ -1,7 +1,16 @@
 function setup () {
+    this.show()
     return new Promise((resolve, reject) => {
         setTimeout(resolve, 1000)
     })
+}
+
+function slot (h) {
+    return h('div', 'Label')
+}
+
+function actionSlot (h) {
+    return () => h('div', 'Action')
 }
 
 export default {
@@ -14,13 +23,15 @@ export default {
         {
             name: 'Basic',
             setup: setup,
-            label: 'Label',
+            slot: slot,
         },
         {
             name: 'With action',
             setup: setup,
-            label: 'Label',
-            actionLabel: 'Action',
+            slot: slot,
+            scopedSlots: {
+                action: actionSlot,
+            },
         },
     ],
 }

@@ -1,12 +1,13 @@
 <template>
     <div :class="[theme] | prefix('scrollable-list--')" class="scrollable-list" @keydown.up.prevent @keydown.down.prevent @click="$emit('click', $event)">
-        <div class="scrollable-list__list-wrap">
-            <div class="scrollable-list__sticky">
-                <div :style="{ marginLeft: `${initialOffset}px` }" class="scrollable-list__sticky-slot">
-                    <slot name="sticky"></slot>
-                </div>
-                <div v-if="enableScrollTop && items.length > 0 && canScrollTop" class="scrollable-list__scroll-top" tabindex="0" @click="scrollTop" @keyup.enter.stop="scrollTop" @keyup.space.prevent.stop="scrollTop">SCROLL UP</div>
+        <div class="scrollable-list__sticky">
+            <div :style="{ marginLeft: `${initialOffset}px` }" class="scrollable-list__sticky-slot">
+                <slot name="sticky"></slot>
             </div>
+            <div v-if="enableScrollTop && items.length > 0 && scrollTop > 0" class="scrollable-list__scroll-top" tabindex="0" @click="scrollToTop" @keyup.enter.stop="scrollToTop" @keyup.space.prevent.stop="scrollToTop">SCROLL UP</div>
+        </div>
+
+        <div class="scrollable-list__list-wrap">
             <div ref="scrollable" :style="{ maxHeight: `${maxHeight}px` }" :class="{ 'with-overlay': showOverlay, 'with-bottom-slot': !!$slots['sticky-bottom'] } | prefix('scrollable-list__list--')" class="scrollable-list__list" @scroll="onScroll" @keydown.space.prevent>
                 <default-list
                     v-show="items.length > 0"
@@ -35,9 +36,14 @@
                 </default-list>
             </div>
 
-            <div class="scrollable-list__sticky-bottom">
-                <slot name="sticky-bottom"></slot>
-            </div>
+            <scrollbar
+                :theme="theme"
+                :container="$refs.scrollable">
+            </scrollbar>
+        </div>
+
+        <div class="scrollable-list__sticky-bottom">
+            <slot name="sticky-bottom"></slot>
         </div>
     </div>
 </template>
@@ -45,10 +51,12 @@
 <script>
 import { find } from './items_utils'
 import DefaultList from './DefaultList.vue'
+import Scrollbar from './Scrollbar.vue'
 
 export default {
     components: {
         DefaultList,
+        Scrollbar,
     },
     props: {
         size: { type: String, default: 'normal' },
@@ -67,7 +75,7 @@ export default {
     data () {
         return {
             isListReady: false,
-            canScrollTop: false,
+            scrollTop: 0,
         }
     },
     computed: {
@@ -93,16 +101,14 @@ export default {
     },
     methods: {
         onScroll (e) {
-            const canScrollTop = e.target.scrollTop > 0
-            if (this.canScrollTop !== canScrollTop) {
-                this.canScrollTop = canScrollTop
-            }
-            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+            const scrollable = this.$refs.scrollable
+            this.scrollTop = scrollable.scrollTop
+            if (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight) {
                 this.$emit('load-more')
             }
         },
-        scrollTop () {
-            this.canScrollTop = false
+        scrollToTop () {
+            this.scrollTop = 0
             this.$refs.scrollable.scrollTop = 0
         },
         positionSelectList () {
@@ -190,9 +196,9 @@ export default {
     }
 
     &__list {
-        overflow-y: auto;
-        overflow-x: hidden;
-        overscroll-behavior: contain;
+        overflow: hidden;
+        box-sizing: content-box;
+        width: 100%;
 
         &--with-overlay {
             mask-image: linear-gradient(transparent 0%, black @overlay-height, black calc(100% - @overlay-height), transparent 100%);
@@ -224,27 +230,5 @@ export default {
             color: black;
         }
     }
-}
-
-::-webkit-scrollbar {
-    width: @scrollbar-width;
-}
-
-::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.scrollable-list--light .scrollable-list__list::-webkit-scrollbar-thumb {
-    background-color: @very-light-gray;
-    border-radius: 5px;
-}
-
-.scrollable-list--dark .scrollable-list__list::-webkit-scrollbar-thumb {
-    background-color: @gunpowder;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-corner {
-    background-color: transparent;
 }
 </style>

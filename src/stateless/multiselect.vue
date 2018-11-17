@@ -390,6 +390,11 @@ export default {
         padding: 0;
     }
 
+    .multiselect__select-all.multiselect__select-all {
+        margin-top: 0;
+        height: auto;
+    }
+
     .multiselect__checkbox.multiselect__checkbox {
         margin-top: 0;
         height: auto;

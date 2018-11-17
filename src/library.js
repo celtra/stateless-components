@@ -136,3 +136,6 @@ export const MiddleEllipsisListItem = MiddleEllipsisListItemComponent
 
 import TextLineComponent from '@/stateless/TextLine.vue'
 export const TextLine = TextLineComponent
+
+import WindowEventsComponent from '@/stateless/WindowEvents.vue'
+export const WindowEvents = WindowEventsComponent

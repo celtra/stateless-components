@@ -1,10 +1,10 @@
 <template>
-    <div :class="{'toast-element--leave' : leaving, 'toast-element--dark': theme === 'dark'}" class="toast-element" @animationend="close">
+    <div :class="{'toast-element--hidden' : !isShown, 'toast-element--dark': theme === 'dark'}" class="toast-element">
         <div class="toast-element__label">
-            <slot name="label">{{ label }}</slot>
+            <slot></slot>
         </div>
-        <div class="toast-element__action-label" @click="action">
-            <slot name="action-label">{{ actionLabel }}</slot>
+        <div class="toast-element__action-label" @click="$emit('action')">
+            <slot name="action"></slot>
         </div>
     </div>
 </template>
@@ -13,18 +13,12 @@
 
 export default {
     props: {
-        label: { type: String },
-        actionLabel: { type: String },
         theme: { type: String, default: 'dark' },
-        timeout: { type: Number, default: 5000 },
     },
     data () {
         return {
-            leaving: false,
+            isShown: false,
         }
-    },
-    mounted () {
-        this.timeoutId = setTimeout(this.leave, this.timeout)
     },
     beforeDestroy () {
         if (this.timeoutId) {
@@ -32,20 +26,15 @@ export default {
         }
     },
     methods: {
-        leave () {
+        show (timeout = 5000) {
+            this.isShown = true
             if (this.timeoutId) {
                 clearTimeout(this.timeoutId)
             }
-            this.leaving = true
+            this.timeoutId = setTimeout(this.hide, timeout)
         },
-        close () {
-            if (this.leaving) {
-                this.$emit('close')
-            }
-        },
-        action () {
-            this.$emit('action')
-            this.leave()
+        hide () {
+            this.isShown = false
         },
     },
 }
@@ -69,11 +58,12 @@ export default {
     padding: 0 30px;
     bottom: 70px;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.05);
-    animation: slide-in @slide-in-out-animation-time ease-out;
     z-index: @z-lowest;
+    transition: transform @slide-in-out-animation-time ease;
+    transform: translateY(0);
 
-    &--leave {
-        animation: slide-out @slide-in-out-animation-time ease-in forwards;
+    &--hidden {
+        transform: translateY(135px);
     }
 
     &__label {
@@ -103,18 +93,6 @@ export default {
         .toast-element__action-label {
             color: @very-light-gray;
         }
-    }
-}
-
-@keyframes slide-in {
-    from {
-        transform: translateY(120px);
-    }
-}
-
-@keyframes slide-out {
-    to {
-        transform: translateY(120px);
     }
 }
 </style>

@@ -97,11 +97,16 @@ export default {
             const activeId = this.isUsingKeyboard || (this.setActiveOnHover && (this.isHovered || this.isFocused)) ? this.activeId : null
 
             return this.flatItems.map(item => {
+                const isLeaf = item.isLeaf || this.noGroupRendering
                 return {
                     ...item,
                     offset: this.initialOffset + this.getOffset(item),
-                    height: this.transitionSorting ? (item.isLeaf || this.noGroupRendering ? this.assumedItemHeight : this.assumedGroupHeight) : null,
-                    modifiers: { leaf: item.isLeaf || this.noGroupRendering, active: (item.key || item.id) === activeId, 'with-tooltip': !!item.tooltip },
+                    height: this.transitionSorting ? (isLeaf ? this.assumedItemHeight : this.assumedGroupHeight) : null,
+                    modifiers: {
+                        leaf: isLeaf,
+                        active: (item.key || item.id) === activeId,
+                        'with-tooltip': !!item.tooltip,
+                    },
                 }
             })
         },
@@ -291,13 +296,12 @@ export default {
         width: 100%;
         display: flex;
         align-items: center;
-        transition: background-color 100ms ease;
 
         &-enter-active,
         &-leave-active,
         &-move {
             pointer-events: none;
-            transition: background-color 100ms ease, height 250ms ease-in, opacity 250ms ease-in;
+            transition: height 250ms ease-in, opacity 250ms ease-in;
         }
 
         &-enter,

@@ -22,23 +22,18 @@ export default {
     computed: {
         transform () {
             if (this.translateX || this.translateY) {
-                return `translate(${this.translateX || 0}px, ${this.translateY || 0}px)`
+                return `translate(${Math.round(this.translateX || 0)}px, ${Math.round(this.translateY || 0)}px)`
             }
         },
     },
     methods: {
         onAnimationStart () {
             if (this.isRelative) {
-                this.translateX = null
-                this.translateY = null
-                this.$nextTick(() => {
-                    if (this.$refs.tooltip) {
-                        const tooltip = this.$refs.tooltip.getBoundingClientRect()
-                        if (tooltip.x + tooltip.width > window.innerWidth) {
-                            this.translateX = window.innerWidth - tooltip.x - tooltip.width - 10
-                        }
-                    }
-                })
+                if (this.$refs.tooltip) {
+                    const tooltipBox = this.$refs.tooltip.getBoundingClientRect()
+                    const delta = window.innerWidth - (tooltipBox.x - this.translateX + tooltipBox.width + 10)
+                    this.translateX = delta < 0 ? delta : null
+                }
             }
         },
     },
